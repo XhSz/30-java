@@ -1,0 +1,11 @@
+File file=new File("temp01"+File.separator+"temp02", "hello.txt")
+file.getParentFile().mkdirs();
+file.createNewFile();
+
+        //new File("c:/temp/user/hehe").mkdirs()会建立三级目录，直到hehe。
+        //new File("c:/temp/user/hehe").mkdir()只会建立一级目录，hehe，如果前面两级目录不存在，则返回false！
+
+File file=new File("c:/mysql");
+file.isDirectory();
+file.list();
+File f=new File(dirname+"/"+strings[i]);

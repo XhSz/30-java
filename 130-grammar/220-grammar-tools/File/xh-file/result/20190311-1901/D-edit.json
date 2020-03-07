@@ -1,0 +1,631 @@
+{
+	"351.13G------":{
+		"107.33G------VMware":{
+			"21.79G------IP_only_158_tez":{
+				"3.78G------CentOS_64_6_zkpk-cl9-s004.vmdk":"",
+				"3.67G------CentOS_64_6_zkpk-cl9-s003.vmdk":"",
+				"3.32G------CentOS_64_6_zkpk-cl9-s002.vmdk":"",
+				"3.00G------IP_only_158_tez-32214056.vmem":"",
+				"2.19G------CentOS_64_6_zkpk-cl9-s005.vmdk":"",
+				"2.19G------CentOS_64_6_zkpk-cl9-s001.vmdk":"",
+				"1.94G------CentOS_64_6_zkpk-cl9-s008.vmdk":"",
+				"1.22G------CentOS_64_6_zkpk-cl9-s006.vmdk":""
+
+			},
+			"18.05G------IP_only_159_spark":{
+				"3.69G------CentOS_64_6_zkpk-cl10-s003.vmdk":"",
+				"3.37G------CentOS_64_6_zkpk-cl10-s002.vmdk":"",
+				"3.00G------564db1e8-80a1-da5c-12d8-a010dddc8d4b.vmem":"",
+				"2.23G------CentOS_64_6_zkpk-cl10-s004.vmdk":"",
+				"2.17G------CentOS_64_6_zkpk-cl10-s001.vmdk":"",
+				"1.89G------CentOS_64_6_zkpk-cl10-s008.vmdk":"",
+				"1.12G------CentOS_64_6_zkpk-cl10-s006.vmdk":""
+
+			},
+			"11.27G------IP_only_157_prseto":{
+				"3.31G------CentOS_64_6_zkpk-cl8-s002.vmdk":"",
+				"2.00G------CentOS_64_6_zkpk-cl8-s001.vmdk":"",
+				"1.94G------CentOS_64_6_zkpk-cl8-s008.vmdk":"",
+				"1.72G------CentOS_64_6_zkpk-cl8-s003.vmdk":"",
+				"1.12G------CentOS_64_6_zkpk-cl8-s006.vmdk":"",
+				"0.69G------CentOS_64_6_zkpk-cl8-s004.vmdk":""
+
+			},
+			"10.36G------jvm_Redis_MyCat_IP_only_156":{
+				"2.71G------CentOS_64_6_zkpk-cl9-s002.vmdk":"",
+				"1.88G------CentOS_64_6_zkpk-cl9-s008.vmdk":"",
+				"1.70G------CentOS_64_6_zkpk-cl9-s001.vmdk":"",
+				"1.24G------CentOS_64_6_zkpk-cl9-s006.vmdk":"",
+				"1.00G------564d5012-39d2-b7ed-ab87-5988a12f48dc.vmem":"",
+				"0.69G------CentOS_64_6_zkpk-cl9-s004.vmdk":"",
+				"0.67G------CentOS_64_6_zkpk-cl9-s007.vmdk":""
+
+			},
+			"10.02G------IP_only_156":{
+				"2.33G------CentOS_64_6_zkpk-cl7-s002.vmdk":"",
+				"1.94G------CentOS_64_6_zkpk-cl7-s008.vmdk":"",
+				"1.69G------CentOS_64_6_zkpk-cl7-s001.vmdk":"",
+				"1.24G------CentOS_64_6_zkpk-cl7-s006.vmdk":"",
+				"1.00G------IP_only_156-c0441b62.vmem":"",
+				"0.69G------CentOS_64_6_zkpk-cl7-s004.vmdk":"",
+				"0.67G------CentOS_64_6_zkpk-cl7-s007.vmdk":""
+
+			},
+			"9.11G------jvm_IP_only_156":{
+				"2.48G------CentOS_64_6_zkpk-cl8-s002.vmdk":"",
+				"1.87G------CentOS_64_6_zkpk-cl8-s008.vmdk":"",
+				"1.70G------CentOS_64_6_zkpk-cl8-s001.vmdk":"",
+				"1.24G------CentOS_64_6_zkpk-cl8-s006.vmdk":"",
+				"0.69G------CentOS_64_6_zkpk-cl8-s004.vmdk":"",
+				"0.67G------CentOS_64_6_zkpk-cl8-s007.vmdk":""
+
+			},
+			"8.96G------shell_IP_only_156":{
+				"2.34G------CentOS_64_6_zkpk-cl8-s002.vmdk":"",
+				"1.87G------CentOS_64_6_zkpk-cl8-s008.vmdk":"",
+				"1.69G------CentOS_64_6_zkpk-cl8-s001.vmdk":"",
+				"1.24G------CentOS_64_6_zkpk-cl8-s006.vmdk":"",
+				"0.69G------CentOS_64_6_zkpk-cl8-s004.vmdk":"",
+				"0.67G------CentOS_64_6_zkpk-cl8-s007.vmdk":""
+
+			},
+			"7.49G------LinuxCentOS7v20180505":{
+				"1.76G------CentOS 64 位-s007.vmdk":"",
+				"1.63G------CentOS 64 位-s001.vmdk":"",
+				"1.30G------CentOS 64 位-s006.vmdk":"",
+				"1.00G------CentOS 64 位-81362a8b.vmem":"",
+				"0.87G------CentOS 64 位-s009.vmdk":"",
+				"0.65G------CentOS 64 位-s004.vmdk":""
+
+			},
+			"6.55G------IP_master_153_yarn":{
+				"1.68G------CentOS_64_6_zkpk-cl6-s001.vmdk":"",
+				"1.33G------CentOS_64_6_zkpk-cl6-s002.vmdk":"",
+				"1.12G------CentOS_64_6_zkpk-cl6-s008.vmdk":"",
+				"1.07G------CentOS_64_6_zkpk-cl6-s006.vmdk":""
+
+			},
+			"3.69G------LinuxCentOS6v20180609":{
+				"0.78G------CentOS_64_6_zkpk-s006.vmdk":"",
+				"0.73G------CentOS_64_6_zkpk-s001.vmdk":""
+
+			}
+
+		},
+		"85.52G------xh-java":{
+			"54.91G------540-GreateData":{
+				"51.93G------07-resource":{
+					"51.66G------GHdsj201814":{
+						"7.01G------BDP第14期":{
+							"2.64G------环境安装":{
+								"2.64G------视频":{
+									"0.53G------10-presto搭建.mov":"",
+									"0.60G------11-spark.mov":""
+
+								}
+
+							},
+							"0.64G------环境搭建直播视频":{},
+							"3.39G------项目答辩":{
+								"2.31G------SZ_BDP14_3":{
+									"2.31G------08_sql":{
+										"2.14G------user_pay.txt":""
+
+									}
+
+								},
+								"0.66G------信贷需求预测":{}
+
+							}
+
+						},
+						"44.34G------安装软件和手册":{
+							"0.51G------Hadoop":{},
+							"21.59G------Hadoop虚拟机":{
+								"21.59G------master":{
+									"1.00G------564d1e90-b4d4-0b05-fdb5-14adb8a571a4.vmem":"",
+									"2.00G------564d2e57-0cf7-e0eb-d62e-2e1e168c2c5a.vmem":"",
+									"1.00G------564df6d1-c78e-b1a9-40a9-5cc5d5ea6135.vmem":"",
+									"1.60G------HadoopMaster-s001.vmdk":"",
+									"1.90G------HadoopMaster-s002.vmdk":"",
+									"1.91G------HadoopMaster-s003.vmdk":"",
+									"1.89G------HadoopMaster-s004.vmdk":"",
+									"1.89G------HadoopMaster-s005.vmdk":"",
+									"1.89G------HadoopMaster-s006.vmdk":"",
+									"1.89G------HadoopMaster-s007.vmdk":"",
+									"1.86G------HadoopMaster-s008.vmdk":"",
+									"0.81G------HadoopMaster-s009.vmdk":"",
+									"1.93G------HadoopMaster-s010.vmdk":""
+
+								}
+
+							},
+							"1.37G------Intellij IDEA":{
+								"0.57G------ideaIU-2017.1.1.tar.gz":""
+
+							},
+							"5.16G------Linux操作系统":{
+								"4.16G------CentOS-6.5-x86_64-bin-DVD1.iso":"",
+								"1.00G------其他版本":{
+									"1.00G------ubuntu-14.04.4-desktop-amd64.iso":""
+
+								}
+
+							},
+							"0.60G------mysql":{
+								"0.60G------mysql-5.7.20-linux-glibc2.12-x86_64.tar.gz":""
+
+							},
+							"0.58G------presto":{
+								"0.57G------presto-server-0.166.tar.gz":""
+
+							},
+							"0.69G------Zeppelin":{
+								"0.69G------zeppelin-0.7.1-bin-all.tgz":""
+
+							},
+							"10.81G------其他软件":{
+								"3.98G------Kylin-4.0.2-desktop-sp1-Community-20170412-x86_64.iso":"",
+								"3.68G------Kylin-4.0.2-server-sp1-Community-20170412-x86_64.iso":"",
+								"1.08G------ubuntukylin-14.04.1-desktop-amd64.iso":"",
+								"2.07G------ubuntukylin-17.04-enhanced-amd64.iso":""
+
+							},
+							"1.48G------虚拟机":{}
+
+						}
+
+					}
+
+				},
+				"0.72G------14-tec-spark":{
+					"0.72G------600-code":{}
+
+				},
+				"0.56G------13-tec-scala":{
+					"0.55G------100-version":{}
+
+				},
+				"0.52G------16-tec-kafka":{
+					"0.52G------600-code":{}
+
+				}
+
+			},
+			"11.09G------132-des-webshpere":{
+				"11.08G------100-version":{
+					"10.92G------WAS8.5":{
+						"2.82G------IHS8":{
+							"0.91G------WAS_V8.5.5_SUPPL_1_OF_3.zip":"",
+							"0.98G------WAS_V8.5.5_SUPPL_2_OF_3.zip":"",
+							"0.93G------WAS_V8.5.5_SUPPL_3_OF_3.zip":""
+
+						},
+						"2.77G------WAS-8.5.5Package":{
+							"0.98G------WAS_ND_V8.5.5_1_OF_3.zip":"",
+							"0.95G------WAS_ND_V8.5.5_2_OF_3.zip":"",
+							"0.84G------WAS_ND_V8.5.5_3_OF_3.zip":""
+
+						},
+						"5.16G------升级包+JDK8":{
+							"0.94G------8.0.5.6-WS-IBMWASJAVA-Linux.zip":"",
+							"0.85G------8.5.5-WS-WAS-FP013-part1.zip":"",
+							"1.65G------8.5.5-WS-WAS-FP013-part2.zip":"",
+							"1.73G------8.5.5-WS-WAS-FP013-part3.zip":""
+
+						}
+
+					}
+
+				}
+
+			},
+			"6.76G------130-des-eclipse":{
+				"6.73G------100-version":{
+					"0.87G------02-git-01":{},
+					"0.75G------jee-oxygen-32bit":{},
+					"1.98G------jee-oxygen-32bit-with-Maven":{
+						"0.79G------eclipse-Win7Pro32v01":{}
+
+					},
+					"1.09G------jee-oxygen-64bit":{}
+
+				}
+
+			},
+			"4.04G------410-plugin-project":{
+				"1.78G------002-spring":{
+					"1.78G------010-book":{
+						"0.82G------Spring+MyBatis企业应用实战":{}
+
+					}
+
+				},
+				"0.85G------932-csii-hh-admin":{
+					"0.65G------sercher":{}
+
+				}
+
+			},
+			"3.41G------510-project-csii":{
+				"1.80G------220-hyb-2017new":{}
+
+			},
+			"2.71G------120-jdk":{
+				"2.34G------100-version":{
+					"0.97G------jdk-8u141":{},
+					"0.62G------jdk-8u151":{}
+
+				}
+
+			},
+			"0.66G------.svn":{
+				"0.65G------pristine":{}
+
+			}
+
+		},
+		"36.88G------oracle":{
+			"33.98G------oradata":{
+				"33.98G------hyb":{
+					"30.00G------HYBADMIN_DATA.DBF":"",
+					"1.00G------HYBCORE_DATA.DBF":"",
+					"2.00G------HYBCORE_DATA2.DBF":""
+
+				}
+
+			},
+			"2.91G------product":{
+				"2.91G------11.2.0":{
+					"2.91G------dbhome_1":{}
+
+				}
+
+			}
+
+		},
+		"34.12G------Program Files (x86)":{
+			"30.60G------tlxsoft":{
+				"30.60G------屏幕录像专家 共享版 V2018":{
+					"30.58G------LS":{
+						"22.37G------03-大数据-课前预习-14-1":{
+							"1.77G------录像164.lxe":"",
+							"1.80G------录像165.lxe":"",
+							"0.78G------录像166.lxe":"",
+							"1.75G------录像167.lxe":"",
+							"1.77G------录像168.lxe":"",
+							"1.77G------录像170.lxe":"",
+							"1.78G------录像172.lxe":"",
+							"1.72G------录像173.lxe":"",
+							"1.64G------录像176.exw":"",
+							"0.89G------录像177.lxe":"",
+							"1.73G------录像180.exw":"",
+							"0.57G------录像181.lxe":"",
+							"1.23G------录像182.lxe":"",
+							"1.65G------录像185.exw":"",
+							"0.75G------录像186.lxe":""
+
+						},
+						"0.66G------14-Java-CSDN学院":{
+							"0.66G------第一章-Spring Boot入门.lxe":""
+
+						},
+						"5.82G------20-光环国际":{
+							"5.82G------20-BDP14":{
+								"5.82G------14-第十四章-Spark Streaming基础":{
+									"1.42G------录像153.lxe":"",
+									"1.68G------录像157.exw":"",
+									"1.70G------录像158.exw":"",
+									"0.70G------录像159.lxe":""
+
+								}
+
+							}
+
+						},
+						"1.73G------31-粤语":{
+							"1.66G------录像212.lxe":""
+
+						}
+
+					}
+
+				}
+
+			},
+			"0.66G------Tencent":{},
+			"0.61G------VMware":{
+				"0.61G------VMware Workstation":{}
+
+			},
+			"0.58G------Thunder Network":{}
+
+		},
+		"27.84G------xh-pc-e":{
+			"27.56G------301-video":{
+				"14.36G------2":{
+					"14.36G------今日最新2":{
+						"14.28G------隔壁老李":{
+							"0.67G------4089.mp4.baiduyun.p.downloading":"",
+							"1.42G------Barely Lethal 2015 720P 中英双字.mp4.baiduyun.p.downloading":"",
+							"1.57G------lapbb_HD_720P.mp4.baiduyun.p.downloading":"",
+							"1.29G------Par.ke.2013.rmvb.baiduyun.p.downloading":"",
+							"2.19G------The Transporter.3.2008.mp4.baiduyun.p.downloading":"",
+							"1.61G------Xhrdym.mp4.baiduyun.p.downloading":"",
+							"0.59G------[clips4sale.com]212feel-1.mpg.baiduyun.p.downloading":"",
+							"0.64G------内衣秀 (19).mp4.baiduyun.p.downloading":"",
+							"1.58G------内衣秀 (21).mp4.baiduyun.p.downloading":"",
+							"0.60G------内衣秀 (53).wmv.baiduyun.p.downloading":"",
+							"1.57G------内衣秀 (6).mp4.baiduyun.p.downloading":""
+
+						}
+
+					}
+
+				},
+				"10.96G------3":{
+					"10.96G------今日最新3":{
+						"4.09G------丰满":{
+							"0.92G------37.mkv.baiduyun.p.downloading":"",
+							"1.10G------47.mkv.baiduyun.p.downloading":"",
+							"0.75G------HELLSING Ⅳ (BD 1920x1080 x264 AAC).mp4.baiduyun.p.downloading":"",
+							"0.55G------Hormones Season2  ep08.mp4.baiduyun.p.downloading":""
+
+						},
+						"0.85G------动漫合集":{
+							"0.66G------铁道游击队无删减03.avi.baiduyun.p.downloading":""
+
+						},
+						"2.50G------少妇":{
+							"1.46G------Who.Are.You.School.2015.E06.720p.HDTV.x264-FLQ.mkv.baiduyun.p.downloading":""
+
+						},
+						"3.38G------自拍":{
+							"1.42G------mg2.mp4.baiduyun.p.downloading":"",
+							"1.96G------Pride.And.Prejudice.2005.mkv.baiduyun.p.downloading":""
+
+						}
+
+					}
+
+				},
+				"2.23G------3分-老熊-男女-187.mp4":""
+
+			}
+
+		},
+		"20.58G------xh-videos":{
+			"18.13G------24-XDISK-chang":{
+				"17.45G------33-Java":{
+					"14.81G------13-Java-网易":{
+						"2.95G------13-Java-网易-20190113-Tomcat原理":{
+							"1.79G------录像48.lxe":"",
+							"1.05G------录像49.lxe":""
+
+						},
+						"2.91G------13-Java-网易-20190112-分布式-锁-Redis":{
+							"1.80G------录像46.lxe":"",
+							"1.01G------录像47.lxe":""
+
+						},
+						"2.87G------13-Java-网易-20190117-分布式-事务-MQ":{
+							"1.79G------录像59.lxe":"",
+							"0.98G------录像60.lxe":""
+
+						},
+						"2.31G------13-Java-网易-20190114-分布式-订单号生成":{
+							"1.76G------录像50.lxe":""
+
+						},
+						"1.99G------13-Java-网易-20181228-分布式-事务-mycat":{
+							"1.77G------录像33.lxe":""
+
+						},
+						"1.78G------13-Java-网易-20190119-redis-20m":{
+							"1.75G------录像214.lxe":""
+
+						}
+
+					},
+					"2.63G------23-Java-龙果学院":{
+						"1.26G------10-19.7z":"",
+						"1.18G------02-09.7z":""
+
+					}
+
+				},
+				"0.69G------32-Bigdata":{
+					"0.69G------01-光环国际":{
+						"0.69G------BDP-14":{
+							"0.55G------03-第三章：分布式消息队列：Kafka":{
+								"0.55G------Kafka":{}
+
+							}
+
+						}
+
+					}
+
+				}
+
+			},
+			"2.45G------CNTV":{
+				"2.45G------Download":{
+					"2.45G------新闻联播":{}
+
+				}
+
+			}
+
+		},
+		"10.91G------xh-industry":{
+			"10.39G------15-csii":{
+				"9.38G------43-project-hh":{
+					"6.96G------0604":{
+						"3.59G------10-tools":{
+							"0.67G------10-jdk":{},
+							"1.23G------11-eclipse":{},
+							"0.77G------11-eclipse.zip":""
+
+						},
+						"1.63G------10-tools.zip":""
+
+					},
+					"1.76G------svn":{
+						"1.45G------version20180305":{
+							"0.60G------.svn":{
+								"0.58G------pristine":{}
+
+							},
+							"0.79G------admin":{}
+
+						}
+
+					}
+
+				},
+				"0.53G------50-学习":{
+					"0.51G------02-Java编程大赛":{}
+
+				}
+
+			}
+
+		},
+		"7.14G------xh-log":{
+			"5.00G------Chat-wx":{
+				"5.00G------iphone_49cb130fbc2c99d993414d2360971bff":{
+					"2.00G------BAK_0_MEDIA":"",
+					"2.00G------BAK_1_MEDIA":"",
+					"0.81G------BAK_2_MEDIA":""
+
+				}
+
+			},
+			"2.14G------Chat-QQ":{
+				"2.05G------SE":{
+					"2.05G------20181124":{
+						"2.05G------Documents":{
+							"0.72G------597067919":{},
+							"0.53G------contents":{}
+
+						}
+
+					}
+
+				}
+
+			}
+
+		},
+		"2.85G------xh-images":{
+			"2.84G------se-20190219":{}
+
+		},
+		"2.46G------Drivers":{
+			"1.29G------VGA":{
+				"0.76G------VGA_Nvidia":{},
+				"0.53G------VGA_Intel":{
+					"0.52G------Graphics":{}
+
+				}
+
+			},
+			"0.50G------Audio":{}
+
+		},
+		"2.05G------Program Files":{
+			"0.92G------JetBrains":{
+				"0.92G------IntelliJ IDEA Community Edition 2018.1.2":{}
+
+			}
+
+		},
+		"1.97G------xh-js":{
+			"1.03G------510-tools":{
+				"0.75G------14-HBuilder":{}
+
+			}
+
+		},
+		"1.79G------xh-install":{
+			"1.04G------52-it-team":{
+				"1.04G------git":{
+					"1.04G------100-version":{
+						"1.04G------win-2.1.7-64bit":{
+							"1.00G------installed":{
+								"0.51G------BigData":{
+									"0.51G------01-4-基础知识-环境准备与Hadoop搭建":{}
+
+								}
+
+							}
+
+						}
+
+					}
+
+				}
+
+			},
+			"0.63G------23-file-pdf":{}
+
+		},
+		"1.48G------svnFile":{
+			"1.48G------Repositories":{
+				"0.87G------xh-java":{
+					"0.87G------db":{
+						"0.87G------revs":{
+							"0.87G------0":{
+								"0.52G------3":""
+
+							}
+
+						}
+
+					}
+
+				}
+
+			}
+
+		},
+		"1.15G------tmp":{
+			"0.57G------20170102":"",
+			"0.56G------zookeeper":{
+				"0.56G------version-2":{}
+
+			}
+
+		},
+		"1.08G------xh-sql":{
+			"0.65G------200-use":{}
+
+		},
+		"0.83G------path":{
+			"0.83G------to":{
+				"0.83G------local":{
+					"0.83G------repo":{}
+
+				}
+
+			}
+
+		},
+		"0.55G------xh-win":{
+			"0.55G------200-use":{
+				"0.55G------400-net":{
+					"0.55G------420-net-internet":{
+						"0.55G------423-cross":{}
+
+					}
+
+				}
+
+			}
+
+		},
+		"0.51G------xh-maven":{}
+
+	}
+}
