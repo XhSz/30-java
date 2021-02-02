@@ -8,8 +8,8 @@ import java.util.Date;
 
 public class J1_MainExecute {
     static String TARGET_PATH =
-//    		"D:\\"
-    		"E:\\backup\\05-lenovo-pro-2\\20191020-2228\\D\\sunline"
+    		"C:\\"
+//    		"E:\\backup\\05-lenovo-pro-2\\20191020-2228\\D\\sunline"
 //            "C:"
             ;
     static long THRESHOLD =

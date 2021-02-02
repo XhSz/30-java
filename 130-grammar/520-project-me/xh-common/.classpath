@@ -2,5 +2,27 @@
 <classpath>
 	<classpathentry kind="src" path="src"/>
 	<classpathentry kind="con" path="org.eclipse.jdt.launching.JRE_CONTAINER"/>
+	<classpathentry kind="lib" path="D:/sunline/MavenRepo/cn/sunline/ltts/frw/plugin/ltts-core-plugin/2.6.16-RELEASE/ltts-core-plugin-2.6.16-RELEASE.jar">
+		<attributes>
+			<attribute name="maven.pomderived" value="true"/>
+			<attribute name="ltts-module" value="true"/>
+			<attribute name="maven.groupId" value="cn.sunline.ltts.frw.plugin"/>
+			<attribute name="maven.artifactId" value="ltts-core-plugin"/>
+			<attribute name="maven.version" value="2.6.16-RELEASE"/>
+			<attribute name="maven.scope" value="compile"/>
+		</attributes>
+	</classpathentry>
+	<classpathentry kind="lib" path="D:/sunline/MavenRepo/org/apache/commons/commons-lang3/3.5/commons-lang3-3.5.jar"/>
+	<classpathentry kind="lib" path="D:/sunline/MavenRepo/cn/sunline/ltts/frw/core/ltts-base/2.6.16.3-RELEASE/ltts-base-2.6.16.3-RELEASE.jar"/>
+	<classpathentry kind="lib" path="D:/sunline/MavenRepo/cn/sunline/ltts/frw/core/ltts-api/2.6.16.3-RELEASE/ltts-api-2.6.16.3-RELEASE.jar"/>
+	<classpathentry kind="lib" path="D:/sunline/MavenRepo/com/alibaba/fastjson/1.2.73/fastjson-1.2.73.jar"/>
+	<classpathentry kind="lib" path="D:/sunline/MavenRepo/org/apache/httpcomponents/httpcore/4.4.12/httpcore-4.4.12.jar"/>
+	<classpathentry kind="lib" path="D:/sunline/MavenRepo/org/apache/httpcomponents/httpclient/4.5.10/httpclient-4.5.10.jar"/>
+	<classpathentry kind="lib" path="D:/sunline/MavenRepo/com/fasterxml/jackson/core/jackson-databind/2.10.2/jackson-databind-2.10.2.jar"/>
+	<classpathentry kind="lib" path="D:/sunline/MavenRepo/junit/junit/4.12/junit-4.12.jar"/>
+	<classpathentry kind="lib" path="D:/sunline/MavenRepo/commons-logging/commons-logging/1.2/commons-logging-1.2.jar"/>
+	<classpathentry kind="lib" path="D:/sunline/MavenRepo/javax/mail/mail/1.5.0-b01/mail-1.5.0-b01.jar"/>
+	<classpathentry kind="lib" path="D:/sunline/MavenPer/org/openjdk/jol/jol-cli/0.9/jol-cli-0.9-full.jar"/>
+	<classpathentry kind="lib" path="D:/sunline/MavenRepo/mysql/mysql-connector-java/5.1.47/mysql-connector-java-5.1.47.jar"/>
 	<classpathentry kind="output" path="bin"/>
 </classpath>

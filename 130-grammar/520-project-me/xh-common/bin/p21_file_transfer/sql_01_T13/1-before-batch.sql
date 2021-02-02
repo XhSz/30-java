@@ -1,0 +1,2 @@
+INSERT INTO `dpb_adjustment_temp`(`acct_no`, `prod_id`, `payment_amt`, `handle_status`, `error_desc`, `sub_acct_no`, `new_prod_id`, `adjust_type`) VALUES ('1000000109','GS01', 0.00, '0', 'WAIT', '1000000110','GS02', '4');
+commit;

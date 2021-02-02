@@ -11,7 +11,7 @@ public class CommonString {
 //		java.lang.String header_str = "9043674119287      1928700400     0000      000000000000000000CIMBPH11      001";
 //		System.out.println(header_str.substring(2,8));
 //		System.out.println(header_str.substring(8,13));
-		split();
+//		split();
 
 
 	}

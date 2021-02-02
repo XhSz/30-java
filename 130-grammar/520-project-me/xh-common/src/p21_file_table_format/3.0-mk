@@ -1,0 +1,21 @@
+mkf_coupon,coupon product define,卡券产品定义
+mks_coupon_detail,coupon detail,卡券明细
+,,
+mkf_cash,cash red packets define,现金红包定义
+mks_cash_detail,cash red packets detail,现金红包明细
+,,
+mkp_account,integral account define,积分账户定义
+mkf_integral,integral product define,积分产品定义
+mkp_ig_exchange,integral exchange setup,积分兑换设置
+mka_ig_account,integral account,积分账户
+mkb_ig_mature ,integral mature,积分到期簿
+mks_ig_detail,integral reward detail,积分奖励明细
+mks_ig_bill,integral bill,积分账单
+,,
+mkp_activity_base,marketing activity base info,营销活动基本信息
+mkp_activity_game,marketing activity game,游戏类活动定义
+mkp_activity_reward,marketing activity reward,营销活动奖励信息
+,,
+mkb_valid_execution,valid marketing activity execution,有效营销活动执行记录
+mkb_invalid_execution,invalid marketing activity execution,无效营销活动执行记录
+mkb_funds_detail,reward funds detail,奖励资金流水
