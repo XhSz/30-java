@@ -1,4 +1,4 @@
-package p50_project_v1_3_2;
+package p50_project_v1_3_3;
 
 public class J1_BeanCallRelate {
 	public String call_name_parent;

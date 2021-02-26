@@ -1,4 +1,4 @@
-package p50_project_v1_3_2;
+package p50_project_v1_3_4;
 
 public class J1_BeanCall {
 	public String call_name;

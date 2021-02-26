@@ -1,4 +1,4 @@
-package p50_project_v1_3_2;
+package p50_project_v1_3_3;
 
 import java.io.File;
 import java.util.ArrayList;
@@ -51,9 +51,10 @@ public class J72_Tran_Util {
     	callTest(args);
 	}
     public static void callTest(String[] args) {
-		J5_Sql.doMain(443, null);
+//		J5_Sql.doMain(443, null);
     	String path = 
-				"D:\\03-sl-107-code\\26-gs\\99-3.0.4-stable\\dp-busi\\dp-serv\\src\\main\\java\\cn\\sunline\\icore\\dp\\serv\\account\\open\\DpOpenAccount.java"
+//				"D:\\03-sl-107-code\\26-gs\\99-3.0.4-stable\\dp-busi\\dp-serv\\src\\main\\java\\cn\\sunline\\icore\\dp\\serv\\account\\open\\DpOpenAccount.java"
+    			"D:\\03-sl-107-code\\26-gs\\99-3.0.4-stable\\cf-busi\\cf-serv\\src\\main\\java\\cn\\sunline\\icore\\cf\\serv\\base\\CfAgreeApplyListQuery.java"
 //    			"D:\\03-sl-107-code\\26-gs\\99-3.0.4-stable\\cf-busi\\cf-batch\\src\\main\\java\\cn\\sunline\\icore\\cf\\batch\\cf02DataProcessor.java"
 //    			"D:\\03-sl-107-code\\26-gs\\99-3.0.4-stable\\cf-busi\\cf-serv\\src\\main\\java\\cn\\sunline\\icore\\cf\\serv\\agent\\CfCustAgentInfoDeal.java"
 //    			"D:\\03-sl-107-code\\26-gs\\99-3.0.4-stable\\us-busi\\us-tran\\src\\main\\java\\cn\\sunline\\icore\\us\\tran\\base\\us3080.java"
@@ -63,7 +64,7 @@ public class J72_Tran_Util {
 //    			"D:\\03-sl-107-code\\26-gs\\99-3.0.4-stable\\us-busi\\us-serv\\src\\main\\java\\cn\\sunline\\icore\\us\\serv\\base\\UsBatchAccounOpen.java"
     			;
         J2_Main.LS = true;
-        J72_Tran_Main.isRealTime = true;
+        J72_Tran_Main.isRealTime = false;
         J3_Util.parseJava(path,new HashSet<String>(),null,new HashSet<J1_BeanCall>());
 	}
     public static void callRelateTest(String[] args) {

@@ -1,4 +1,4 @@
-package p50_project_v1_3_2;
+package p50_project_v1_3_3;
 
 import java.io.File;
 import java.io.FileInputStream;
@@ -125,11 +125,12 @@ public class J3_Util {
 		char ch = 
 //				'{'	//123
 //				'}'	//125
-//				' '	//32
+//				'/n'//13
+				' '	//32
 //				'('	//40
-				'/'	//
 //				'*'	//42
 //				'.'	//46
+//				'/'	//47
 //				'0'	//48
 //				'1'	//49
 //				'9'	//57
@@ -170,9 +171,11 @@ public class J3_Util {
         StringBuffer lineSb = new StringBuffer();
         boolean wordMatch = false;	//是否单词匹配
         boolean lineMatch = false;	//是否单行匹配
-        boolean noteMatch = false;	//是否注释匹配-功能说明
+        boolean noteMatch = false;	//是否可能注释匹配
+        boolean noteEndMatch = false;	//注释匹配-正式开启，后面开始记录注释
+        boolean noteKeyMatch = false;	//是否关键字注释匹配-功能说明
         boolean noteMulMatch = false;	//是否多行注释匹配-/**
-        boolean sinMulMatch = false;	//是否单行注释匹配-//
+        boolean noteSinMatch = false;	//是否单行注释匹配-//
     	//获得文件名
         boolean isSev = false;
         String[] pathArry = path.split("\\\\");
@@ -197,22 +200,44 @@ public class J3_Util {
             while ((ch = reader.read()) != -1) {
             	isCallRelate = false;
             	String wordStr = "";
+            	if(isNoteBegin(ch)) {
+            		//1.0 /-》开始匹配注释
+            		noteMatch = true;
+            	}
+    			if(isNotNote(ch)) {
+            		//1.0 /或者*-》非注释字符
+    				noteMatch =false;
+            		noteSinMatch =false;
+    			}
+            	if(isKeyNoteEnd(ch)){
+            		//1.0 <或者*-》关键词匹配关闭
+            		noteKeyMatch =false;
+            	}
+    			if(noteMulMatch&&isNoteBegin(ch)) {
+    				//1.0 多行匹配开启时，且/-》多行匹配关闭
+            		noteMulMatch =false;
+    			}
                //是否多行注释匹配-/**
-            	if(noteMulMatch)
+            	if(noteMatch) {
             		noteMulSb.append((char) ch);
-            	else {
+            	}else {
             		if(noteMulSb.length()!=0) {
             			String noteMulStr = noteMulSb.toString();
             			if("/**".equals(noteMulStr)) {
                     		if(1==layer) {
-                    			if(isNotNote(ch));
+                    			if(isNotNote(ch)) {
+                    				noteMulMatch = true;
+                    			}
                     		}
             			}
             		}
             		noteMulSb = new StringBuffer();
             	}
+            	if(noteMulMatch)
+    				noteMatch =true;
             	//是否单行注释匹配-//
-             	if(sinMulMatch)
+            	/*
+             	if(noteMatch)
              		noteSinSb.append((char) ch);
              	else {
              		if(noteSinSb.length()!=0) {
@@ -221,7 +246,25 @@ public class J3_Util {
              			}
              		}
              		noteSinSb = new StringBuffer();
-             	}
+             	}*/
+            	noteEndMatch = false;
+            	if(noteMulMatch&&isNoteEnd(ch)){
+            		noteEndMatch = true;
+            	}
+            	//是否注释匹配开启
+            	if(noteMatch&&(noteEndMatch||noteKeyMatch)) {
+            		noteSb.append((char) ch);
+            	}else {
+            		if(!noteKeyMatch) {
+                		if(noteSb.length()!=0) {
+                			noteStr = noteSb.toString();
+//                			System.out.println(noteStr);
+                        	noteMatch = false;
+                        	noteMulMatch = false;
+                		}
+                		noteSb = new StringBuffer();
+            		}
+            	}
             	//判断是否单词解析
             	wordMatch = isLetter(ch);
             	if(wordMatch)
@@ -234,7 +277,7 @@ public class J3_Util {
             		}
             		wordSb = new StringBuffer();
             	}
-            	if(noteMatch) {
+            	if(noteKeyMatch) {
             		noteSb.append((char) ch);
             	}else {
             		if(noteSb.length()!=0) {
@@ -243,7 +286,10 @@ public class J3_Util {
             		noteSb = new StringBuffer();
             	}
             	if("功能说明".equals(wordStr)) {
-            		noteMatch =true;
+            		noteKeyMatch =true;
+//            		noteMatch = false;
+            		noteMulMatch = false;
+            		noteSinMatch = false;
             	}
             	//判断是否单行解析
             	if(lineMatch)
@@ -272,8 +318,8 @@ public class J3_Util {
                 			callNameParent = fileKey+"."+methodKey;
                         	J1_BeanCall bean = new J1_BeanCall();
                         	bean.setCall_name(callNameParent);
-                        	if(noteStr.length()>1)
-                        		noteStr = noteStr.substring(0,noteStr.length()-1);
+//                        	if(noteStr.length()>1)
+//                        		noteStr = noteStr.substring(0,noteStr.length()-1);
                 			bean.setCall_des(noteStr);
                         	if(isSev)
                         		bean.setTran_type("S");
@@ -286,11 +332,11 @@ public class J3_Util {
                                 	}else{
                                 		callKeySet.add(callNameParent);
                                 		callSet.add(bean);
-                                		noteStr = "";
                                 	}
                         		}
                         	}
                         	if(J2_Main.LS)System.err.println(callNameParent+","+noteStr);
+                    		noteStr = "";
                 		}
             		}
             		lineSb = new StringBuffer();
@@ -308,9 +354,6 @@ public class J3_Util {
             	}else if(46==ch) {	//.
             	}else if(32==ch) {	//空格
             	}else if(60==ch) {	//<
-            	}
-            	if(isNoteEnd(ch)){
-            		noteMatch =false;
             	}
 //            	System.err.print((char)ch);
 //            	if("registerCustInfo".equals(wordStr))
@@ -380,6 +423,21 @@ public class J3_Util {
     		return false;
     }
     public static boolean isNotNote(int i) {
+//		'/'	//47
+//		'*'	//42
+    	if(i==47||i==42)
+    		return false;
+    	else
+    		return true;
+    }
+    public static boolean isNoteBegin(int i) {
+//		'/'	//47
+    	if(i==47)
+    		return true;
+    	else
+    		return false;
+    }
+    public static boolean isKeyNoteEnd(int i) {
 //    	'<'	//60
 //		'*'	//42
     	if(i==60||i==42)
@@ -390,10 +448,13 @@ public class J3_Util {
     public static boolean isNoteEnd(int i) {
 //    	'<'	//60
 //		'*'	//42
-    	if(i==60||i==42)
-    		return true;
-    	else
+//		'/n'//10
+//		'/n'//13
+//		' '	//32
+    	if(i==60||i==42||i==13||i==32||i==10)
     		return false;
+    	else
+    		return true;
     }
     public static boolean isMatch(int i) {
 //		'('	//40

@@ -1,4 +1,4 @@
-package p50_project_v1_3_2;
+package p50_project_v1_3_3;
 
 import java.util.ArrayList;
 import java.util.HashSet;
@@ -12,7 +12,9 @@ import java.util.Set;
  * 		scan tran
  * 后续计划:
  * 1.3.2 J72
- * 		scan java
+ * 		scan java , add note "功能说明"
+ * 1.3.3 J72
+ * 		scan java , add note /**
  */
 public class J72_Tran_Main {
 	public static boolean isRealTime = false;
