@@ -1,4 +1,4 @@
-package p50_project_v1_3_4;
+package p50_project_v1_3_5;
 
 import java.util.HashMap;
 import java.util.Map;
@@ -47,12 +47,12 @@ public class J2_Config {
 		String localId = "06";//06 local
 		Map local = new HashMap<String,String>();
 		local.put(JSON_PATH, "D:\\03-sl\\326-gs\\gs.json");
-		local.put(DB_URL, "jdbc:mysql://localhost:3306/a?useSSL=false&allowPublicKeyRetrieval=true&serverTimezone=UTC");
+		local.put(DB_URL, "jdbc:mysql://localhost:3306/sump?useSSL=false&allowPublicKeyRetrieval=true&serverTimezone=UTC");
 		local.put(DB_USER, "root");
 		local.put(DB_PW, "hao6990807");
 		local.put(VUE_PATH, "D:\\03-sl-107-code\\26-gs\\201127-vue\\sump-vue\\src");
 		local.put(VUE_OUT_PATH, "D:\\03-sl\\326-gs\\gs-vue.json");
 		local.put(ICORE_CODE_PATH, "D:\\03-sl-107-code\\26-gs\\99-3.0.4-stable");
-		CONFIG.put(gsId, gs);
+		CONFIG.put(localId, local);
 	}
 }
