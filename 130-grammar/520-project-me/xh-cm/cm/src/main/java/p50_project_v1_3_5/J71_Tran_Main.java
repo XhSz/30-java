@@ -4,6 +4,9 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 
+import p50_project_v1_3.J1_BeanTran;
+import p50_project_v1_3.J1_BeanTranRelate;
+
 /* 1.1 vue->json
  * 1.2 add config,
  * 1.3.1 J71 

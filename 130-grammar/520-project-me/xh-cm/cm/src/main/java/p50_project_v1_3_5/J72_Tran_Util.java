@@ -12,6 +12,11 @@ import org.w3c.dom.Element;
 import org.w3c.dom.NamedNodeMap;
 import org.w3c.dom.Node;
 import org.w3c.dom.NodeList;
+import p50_project_v1_3.J1_BeanCall;
+import p50_project_v1_3.J1_BeanCallRelate;
+import p50_project_v1_3.J1_BeanDb;
+import p50_project_v1_3.J1_BeanTran;
+import p50_project_v1_3.J1_BeanTranRelate;
 
 public class J72_Tran_Util {
 	/**
@@ -43,7 +48,7 @@ public class J72_Tran_Util {
                     	}
                     }else{
                     	if(file2.getAbsolutePath().endsWith(".java")) {
-                            System.out.println(file2.getAbsolutePath());
+                            if(J3_Util.DE)System.out.println(file2.getAbsolutePath());
                             J3_Util.parseJava(file2.getAbsolutePath(),callKeySet,dbMap,callSet,callRelateList);
                     	}
                     }

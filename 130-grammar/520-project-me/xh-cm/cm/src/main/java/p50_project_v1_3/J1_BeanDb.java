@@ -1,7 +1,9 @@
-package p50_project_v1_3_5;
+package p50_project_v1_3;
 
 public class J1_BeanDb {
 	public String table_name;
+	public String table_type;
+	public String table_oper;
 	public String table_dao;
 	public String table_des;
 	public String getTable_name() {
@@ -21,6 +23,18 @@ public class J1_BeanDb {
 	}
 	public void setTable_des(String table_des) {
 		this.table_des = table_des;
+	}
+	public String getTable_type() {
+		return table_type;
+	}
+	public void setTable_type(String table_type) {
+		this.table_type = table_type;
+	}
+	public String getTable_oper() {
+		return table_oper;
+	}
+	public void setTable_oper(String table_oper) {
+		this.table_oper = table_oper;
 	}
 
 }

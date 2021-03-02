@@ -11,6 +11,12 @@ import java.util.List;
 import java.util.Map;
 import java.util.Set;
 
+import p50_project_v1_3.J1_BeanCall;
+import p50_project_v1_3.J1_BeanCallRelate;
+import p50_project_v1_3.J1_BeanDb;
+import p50_project_v1_3.J1_BeanTran;
+import p50_project_v1_3.J1_BeanTranRelate;
+
 
 public class J5_Sql {
 
@@ -44,6 +50,49 @@ public class J5_Sql {
             // 34 全量查询
             // 43 条件删除
             // 44 清库删除
+        	String tableName = "";
+        	int ti = oper%10;
+        	if(1==ti)
+        		tableName = "tree_tran";
+        	else if(2==ti)
+        		tableName = "tree_tran_relate";
+        	else if(3==ti)
+        		tableName = "tree_call";
+        	else if(4==ti)
+        		tableName = "tree_call_relate";
+        	else if(5==ti)
+        		tableName = "tree_db_bean";
+            if(oper>130&&oper<140) {
+				J3_Util.logB();
+				if(131==oper) {
+		        	//131,批量插入,trans
+		        	List<J1_BeanTran> list = (List<J1_BeanTran>)input;
+					String sql = " insert into tree_tran (tran_name) values (?) ";
+		    		ps = conn.prepareStatement(sql);
+		        	count = insertTran(ps,list);
+		        }else if(133==oper) {
+		        	//133,批量插入,call
+		        	Set<J1_BeanCall> set = (Set<J1_BeanCall>)input;
+					String sql = " insert into tree_call (call_name,call_des,tran_type) values (?,?,?) ";
+		    		ps = conn.prepareStatement(sql);
+		        	count = insertCall(ps,set);
+		        }else if(134==oper) {
+		        	//134,批量插入,tree_call_relate
+		        	List<J1_BeanCallRelate> set = (List<J1_BeanCallRelate>)input;
+					String sql = " insert into tree_call_relate (call_name_parent,seq_no,call_type,call_name_child,table_name,table_oper,call_des,is_simple,is_return) "
+							+ "values (?,?,?,?,?,?,?,?,?) ";
+		    		ps = conn.prepareStatement(sql);
+		        	count = insertCallRelate(ps,set);
+		        }else if(135==oper) {
+		        	//135,批量插入,call
+		        	Set<J1_BeanDb> set = (Set<J1_BeanDb>)input;
+					String sql = " insert into tree_db_bean (table_name,table_type,table_oper,table_dao,table_des) "
+							+ "values (?,?,?,?,?) ";
+		    		ps = conn.prepareStatement(sql);
+		        	count = insertDb(ps,set);
+		        }
+				J3_Util.logE(oper+"-insert "+tableName+"-"+count);
+            }
             if(111==oper) {
 	        	//111,单一插入,trans
             	J1_BeanTran bean = (J1_BeanTran)input;
@@ -68,31 +117,6 @@ public class J5_Sql {
 				String sql = " insert into tree_call_relate (call_name_parent,call_name_child) values (?,?) ";
 	    		ps = conn.prepareStatement(sql);
 	        	count = insertCallRelate(ps,bean);
-	        }else if(131==oper) {
-	        	//131,批量插入,trans
-	        	List<J1_BeanTran> list = (List<J1_BeanTran>)input;
-				String sql = " insert into tree_tran (tran_name) values (?) ";
-	    		ps = conn.prepareStatement(sql);
-	        	count = insertTran(ps,list);
-	        }else if(133==oper) {
-	        	//133,批量插入,call
-	        	Set<J1_BeanCall> set = (Set<J1_BeanCall>)input;
-				String sql = " insert into tree_call (call_name,call_des,tran_type) values (?,?,?) ";
-	    		ps = conn.prepareStatement(sql);
-	        	count = insertCall(ps,set);
-	        }else if(134==oper) {
-	        	//134,批量插入,tree_call_relate
-	        	List<J1_BeanCallRelate> set = (List<J1_BeanCallRelate>)input;
-				String sql = " insert into tree_call_relate (call_name_parent,seq_no,call_type,call_name_child,table_name,table_oper,call_des,is_simple,is_return) "
-						+ "values (?,?,?,?,?,?,?,?,?) ";
-	    		ps = conn.prepareStatement(sql);
-	        	count = insertCallRelate(ps,set);
-	        }else if(135==oper) {
-	        	//135,批量插入,call
-	        	Set<J1_BeanDb> set = (Set<J1_BeanDb>)input;
-				String sql = " insert into tree_db_bean (table_name,table_dao,table_des) values (?,?,?) ";
-	    		ps = conn.prepareStatement(sql);
-	        	count = insertDb(ps,set);
 	        }else if(221==oper) {
 	        	//131,插入,trans
 	        	List<J1_BeanTran> list = (List<J1_BeanTran>)input;
@@ -112,25 +136,11 @@ public class J5_Sql {
             	System.out.println();
             }
             if(oper>430&&oper<440) {
-            	String tableName = "";
-            	if(432==oper)
-            		tableName = "tree_tran_relate";
 				String sql = " delete from "+tableName+" where "+input;
 	    		ps = conn.prepareStatement(sql);
 	    		count += ps.executeUpdate();
             }
             if(oper>440&&oper<450) {
-            	String tableName = "";
-            	if(441==oper)
-            		tableName = "tree_tran";
-            	else if(442==oper)
-            		tableName = "tree_tran_relate";
-            	else if(443==oper)
-            		tableName = "tree_call";
-            	else if(444==oper)
-            		tableName = "tree_call_relate";
-            	else if(445==oper)
-            		tableName = "tree_db_bean";
 				String sql = " delete from "+tableName+" ";
 	    		ps = conn.prepareStatement(sql);
 	    		count += ps.executeUpdate();
@@ -212,7 +222,7 @@ public class J5_Sql {
     	int count = 0;
 		ps.setString(1, bean.getTran_name());
 		count += ps.executeUpdate();
-		System.out.println("insert:"+bean.getTran_name());
+		if(J3_Util.DE)System.out.println("insert:"+bean.getTran_name());
     	return count;
     }
     public static int insertCall(PreparedStatement ps,J1_BeanCall bean) throws SQLException{
@@ -223,7 +233,7 @@ public class J5_Sql {
     	try {
     		count += ps.executeUpdate();
     	}catch(Exception e){
-    		System.err.println();
+    		System.err.println(e);
     	}
 //		System.out.println("insert:"+bean.getCall_name());
 //		System.out.println(bean.getCall_name());
@@ -232,8 +242,10 @@ public class J5_Sql {
     public static int insertDb(PreparedStatement ps,J1_BeanDb bean) throws SQLException{
     	int count = 0;
 		ps.setString(1, bean.getTable_name());
-		ps.setString(2, bean.getTable_dao());
-		ps.setString(3, bean.getTable_des());
+		ps.setString(2, bean.getTable_type());
+		ps.setString(3, bean.getTable_oper());
+		ps.setString(4, bean.getTable_dao());
+		ps.setString(5, bean.getTable_des());
     	try {
     		count += ps.executeUpdate();
     	}catch(Exception e){
@@ -255,7 +267,7 @@ public class J5_Sql {
 		ps.setString(5, bean.getTran_type());
 		ps.setString(6, bean.isIs_simple()?"Y":"N");
 		count += ps.executeUpdate();
-		System.out.println("insert:"+bean.getTran_name()+","+bean.getCall_name());
+		if(J3_Util.DE)System.out.println("insert:"+bean.getTran_name()+","+bean.getCall_name());
     	return count;
     }
     public static int insertCallRelate(PreparedStatement ps,J1_BeanCallRelate bean) throws SQLException{
@@ -279,7 +291,7 @@ public class J5_Sql {
 		}catch(Exception e){
 			System.err.println(e);
 		}
-		System.out.println(bean.getCall_name_parent()+","+bean.getSeq_no()+","+bean.getCall_type()+","
+		if(J3_Util.DE)System.out.println(bean.getCall_name_parent()+","+bean.getSeq_no()+","+bean.getCall_type()+","
 					+bean.getCall_name_child()+","+bean.getTable_name()+","+bean.getTable_oper());
     	return count;
     }

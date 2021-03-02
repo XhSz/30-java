@@ -10,6 +10,10 @@ import java.io.IOException;
 import java.io.InputStreamReader;
 import java.io.PrintStream;
 import java.io.Reader;
+import java.util.ArrayList;
+import java.util.Collection;
+import java.util.HashMap;
+import java.util.HashSet;
 import java.util.List;
 import java.util.Map;
 import java.util.Set;
@@ -23,14 +27,23 @@ import org.w3c.dom.NamedNodeMap;
 import org.w3c.dom.Node;
 import org.w3c.dom.NodeList;
 
-import com.alibaba.fastjson.JSONObject;
+import p50_project_v1_3.J1_BeanCall;
+import p50_project_v1_3.J1_BeanCallRelate;
+import p50_project_v1_3.J1_BeanDb;
+import p50_project_v1_3.J1_BeanMenu;
 
 
 public class J3_Util {
+	public static boolean DE = false;
 	public static String DAO = "Dao";
 	public static String ID = "id";
 	public static String NAME = "name";
+	public static String METHOD = "method";
 	public static String LONG_NAME = "longname";
+	public static String BREAK = "break";
+	public static long TIMESTAMP_BEGIN = System.currentTimeMillis();
+	public static long TIMESTAMP_END = System.currentTimeMillis();
+	
     public static StringBuilder space(int n){
         StringBuilder s = new StringBuilder();
         for(int i=0;i<n;i++){
@@ -136,44 +149,40 @@ public class J3_Util {
         }
     }
     public static void main(String[] args) {
-		char ch = 
-//				'{'	//123
-//				'}'	//125
-//				'/n'//13
-				' '	//32
-//				'('	//40
-//				'*'	//42
-//				'.'	//46
-//				'/'	//47
-//				'0'	//48
-//				'1'	//49
-//				'9'	//57
-//				':'	//58
-//				';'	//59
-//				'<'	//60
-//				'@'	//64
-//				'A'	//65
-//				'Z'	//90
-//				'['	//91 
-//				'`'	//96 
-//				'a'	//97
-//				'z'	//122
-//				'p'	//112
-//				'c'	//99
-//				'功'	//21151
-//				'能'	//33021
-//				'说'	//35828
-//				'明'	//26126
-				;
-		System.out.println((int)ch);
-		int i = 9;
-//		System.out.println((char)i);
-	}
+    	DE = true;
+    	int M = 1343;
+		Set<String> callKeySet = new HashSet<String>();
+		Set<J1_BeanCall> callSet = new HashSet<J1_BeanCall>();
+		Set<String> dbKeySet = new HashSet<String>();
+		Set<J1_BeanDb> dbSet = new HashSet<J1_BeanDb>();
+		Map<String,String> dbMap = new HashMap();
+		List<J1_BeanCallRelate> callRelateList = new ArrayList<J1_BeanCallRelate>();
+    	if(M==1353) {
+    		parseNSQL("", new HashSet<String>(), new HashSet<J1_BeanDb>());
+    	}else if(M==1343) {
+			J5_Sql.doMain(343, callKeySet);//343,select all,call_name
+			J5_Sql.doMain(345, dbMap);//345,select all,tree_call_db
+    		parseJava("",callKeySet,dbMap,null,callRelateList);
+    		print(callRelateList);
+    	}
+    }
     /**
      * 解析java,行读取法
      * @param list
      */
     public static String parseJava(String path,Set<String> callKeySet,Map<String,String> dbMap,Set<J1_BeanCall> callSet,List<J1_BeanCallRelate> callRelateList) {
+    	if(DE) {
+    		path = 
+//        			"D:\\03-sl-107-code\\26-gs\\99-3.0.4-stable\\dp-base\\dp-base\\src\\main\\java\\cn\\sunline\\icore\\dp\\base\\interest\\afresh\\DpSlipAfreshAdvance.java"
+//        			"D:\\03-sl-107-code\\26-gs\\99-3.0.4-stable\\us-busi\\us-serv\\src\\main\\java\\cn\\sunline\\icore\\us\\serv\\verify\\UsVerify.java"
+//    				"D:\\03-sl-107-code\\26-gs\\99-3.0.4-stable\\us-busi\\us-serv\\src\\main\\java\\cn\\sunline\\icore\\us\\serv\\base\\UsLakuPandaiQuery.java"
+//    				"D:\\03-sl-107-code\\26-gs\\99-3.0.4-stable\\dp-busi\\dp-serv\\src\\main\\java\\cn\\sunline\\icore\\dp\\serv\\settle\\DpSettleVoucherMaintain.java"
+//    				"D:\\03-sl-107-code\\26-gs\\99-3.0.4-stable\\dp-busi\\dp-serv\\src\\main\\java\\cn\\sunline\\icore\\dp\\serv\\maintain\\DpCardAccountRelate.java"
+//    				"D:\\03-sl-107-code\\26-gs\\99-3.0.4-stable\\dp-base\\dp-base\\src\\main\\java\\cn\\sunline\\icore\\dp\\base\\interest\\account\\DpHistInterestRate.java"
+    				"D:\\03-sl-107-code\\26-gs\\99-3.0.4-stable\\dp-busi\\dp-batch\\src\\main\\java\\cn\\sunline\\icore\\dp\\batch\\dayend\\dp32DataProcessor.java"
+    				;
+        	System.out.println(path);
+    	}
     	//解析用参数
     	int layer = 0; //当前大括号所属层级, 0为Java外层层级,1为java内层级, 2为method层级, >2为方法内部层级
     	String noteStr = "";
@@ -189,6 +198,7 @@ public class J3_Util {
     		isSev=true;
     	}
         String methodKey = "";
+        String servBean = "";
 		String callNameParent = "";
 //    	System.out.println(fileKey);
 		//方法内解析用参数
@@ -250,7 +260,7 @@ public class J3_Util {
                         		}
                         	}
                 			seq_no=0;
-                        	if(J2_Main.LS)System.err.println(callNameParent+","+noteStr);
+                        	if(DE)System.err.println(callNameParent+","+noteStr);
                     		noteStr = "";
                 		}
 					}
@@ -299,77 +309,47 @@ public class J3_Util {
 					String strCache = str.trim();
 					noteStr = strCache.substring(2, strCache.length());
 				}
-				//是否table操作
 				if(null!=callRelateList) {
-					if(str.contains("Dao")) {
-						String[] strArray = str.split("\\.");
-						int dao = 0;
-						for(int i=0;i<strArray.length;i++) {
-							if(strArray[i].endsWith("Dao")) {
-								dao = i;
-								break;
+					try {
+						if(str.contains(".")) {
+							seq_no = isMethod(callNameParent,seq_no,str,callKeySet,callRelateList);
+						}
+						if(str.contains("getRemoteInstance")) {
+//							ComIoUsUser.qryPushDemandInfoOut qryPushDemandInfoOut = SysUtil.getRemoteInstance(SrvIoUsUser.class).qryPushDemandInfo(qryPushDemandInfoIn);
+
+							String[] strArray = str.split("getRemoteInstance")[1].split(".class");
+							String serName = strArray[0].substring(1);
+							String serMethod = ""; 
+							if(strArray[1].startsWith(");")){
+								//分步处理
+								servBean = "";
+							}else if(strArray[1].startsWith(").")){
+								//一步处理
+								serMethod = strArray[1].split("\\(")[0].substring(2);
+							}
+							String ser = serName+"."+serMethod;
+							if(callKeySet.contains(ser)) {
+								seq_no++;
+								J1_BeanCallRelate bean = new J1_BeanCallRelate();
+								bean.setCall_name_parent(callNameParent);
+								bean.setCall_name_child(ser);
+								bean.setCall_type("R");
+								bean.setSeq_no(seq_no);
+								callRelateList.add(bean);
+							}else{
+								System.err.println("无法匹配的服务："+ser);
 							}
 						}
-						String daoStr = clear(strArray[dao]);
-						String[] daoStrSpace = daoStr.split(" ");
-						daoStr = daoStrSpace[daoStrSpace.length-1];
-						String[] daoStrEqual = daoStr.split("=");
-						daoStr = daoStrEqual[daoStrEqual.length-1];
-						String[] daoStrBrackets = daoStr.split("\\(");
-						daoStr = daoStrBrackets[daoStrBrackets.length-1];
-						J1_BeanCallRelate bean = new J1_BeanCallRelate();
-						bean.setCall_name_child("");
-						bean.setCall_des("");
-						bean.setIs_return(false);
-						bean.setIs_simple(false);
-						//判断操作类型
-						String operKey = strArray[dao+1].split("\\(")[0];
-						boolean isOper = false;
-						if(operKey.startsWith("insert")) {
-							bean.setTable_oper("I");
-							isOper = true;
-						}else if(operKey.startsWith("update")) {
-							bean.setTable_oper("U");
-							isOper = true;
-						}else if(operKey.startsWith("select")) {
-							bean.setTable_oper("S");
-							isOper = true;
-						}else if(operKey.startsWith("delete")) {
-							bean.setTable_oper("D");
-							isOper = true;
-						}else if(operKey.startsWith("namedsql_")) {
-							seq_no++;
-							bean.setCall_name_parent(callNameParent);
-							operKey = operKey.split(",")[0];
-							bean.setTable_name(daoStr.substring(0,daoStr.length()-3)+"."+operKey.substring(9));
-							bean.setCall_type("N");
-							bean.setSeq_no(seq_no);
-							callRelateList.add(bean);
+						if(str.contains(DAO)) {
+							//判断是否数据库操作
+							seq_no = isDao(path,callNameParent,seq_no,str,dbMap,callRelateList);
+						}
+					}catch(Exception e){
+						if(BREAK.equals(e.getMessage())){
+							continue;
 						}else{
-							if(str.contains("import ")) {
-								
-							}else{
-								System.err.println("无法匹配Dao的行:"+str);
-							}
+							throw e;
 						}
-						if(isOper) {
-							seq_no++;
-							bean.setCall_name_parent(callNameParent);
-							bean.setCall_type("T");
-							bean.setSeq_no(seq_no);
-							if(dbMap.containsKey(daoStr)) {
-								bean.setTable_name(dbMap.get(daoStr));
-							}else{
-								if(!(daoStr.startsWith("import")||daoStr.equals("cn"))) {
-									bean.setTable_name(daoStr);
-//									System.err.println("不存在的Dao:"+daoStr);
-								}
-							}
-							callRelateList.add(bean);
-//							System.out.println(dbMap.get(daoStr));
-						}
-					}
-					if(str.contains("DaoUtil.insertBatch")) {
 					}
 				}
 			}
@@ -380,6 +360,144 @@ public class J3_Util {
         	e.printStackTrace();
             return null;
         }
+    }
+    //判断是否注释信息
+    public static String isNote() throws Exception {
+    	return "";
+    }
+    //判断是否调用其他方法
+    public static int isMethod(String callNameParent,int seq_no,String str
+    		,Set<String> callKeySet,List<J1_BeanCallRelate> callRelateList){
+		List<String> callNameChildList = new ArrayList<String>();
+		String callKey = "";
+		//fileKey
+		List<String> inList = split(str);
+		for(int i=1;i<inList.size();i++) {
+			callKey = inList.get(i-1)+"."+inList.get(i);
+			if(callKeySet.contains(callKey)) {
+				callNameChildList.add(callKey);
+			}
+		}
+		if(callNameChildList.size()>0) {
+//			if(DE)print(callNameChildList);
+			for(String callNameChild:callNameChildList) {
+				seq_no++;
+				J1_BeanCallRelate bean = new J1_BeanCallRelate();
+				bean.setCall_name_parent(callNameParent);
+				bean.setCall_name_child(callNameChild);
+				bean.setCall_type("M");
+				bean.setSeq_no(seq_no);
+				callRelateList.add(bean);
+			}
+		}
+		return seq_no;
+    }
+    //判断是否数据库操作
+    public static int isDao(String path,String callNameParent,int seq_no,String str
+    		,Map<String,String> dbMap,List<J1_BeanCallRelate> callRelateList) throws Exception {
+		String[] strArray = str.split("\\.");
+		int dao = 0;
+		for(int i=0;i<strArray.length;i++) {
+			if(strArray[i].endsWith("Dao")||strArray[i].endsWith("DaoUtil")) {
+				dao = i;
+				break;
+			}
+		}
+		String daoStr = clear(strArray[dao]);
+		String[] daoStrSpace = daoStr.split(" ");
+		daoStr = daoStrSpace[daoStrSpace.length-1];
+		String[] daoStrEqual = daoStr.split("=");
+		daoStr = daoStrEqual[daoStrEqual.length-1];
+		String[] daoStrBrackets = daoStr.split("\\(");
+		daoStr = daoStrBrackets[daoStrBrackets.length-1];
+		String[] daoStrComma = daoStr.split(",");
+		daoStr = daoStrComma[daoStrComma.length-1];
+		J1_BeanCallRelate bean = new J1_BeanCallRelate();
+		bean.setCall_name_child("");
+		bean.setCall_des("");
+		bean.setIs_return(false);
+		bean.setIs_simple(false);
+		//判断操作类型
+		String operKey = "";
+		try{
+			if(strArray.length>1)
+				operKey = strArray[dao+1].split("\\(")[0];
+			else
+				throw new Exception(BREAK);
+		}catch(Exception e){
+			System.err.println(e);
+			System.err.println("出错文件："+path);
+			System.err.println("出错行："+str);
+			throw new Exception(BREAK);
+		}
+		boolean isOper = false;
+		boolean isNsql = false;
+		if(operKey.startsWith("insertBatch")) {
+			bean.setTable_oper("B");
+			isOper = true;
+			String[] classStr = str.split(".class")[0].split("\\(");
+			daoStr = classStr[classStr.length-1]+DAO;
+		}else if(operKey.startsWith("insert")) {
+			bean.setTable_oper("I");
+			isOper = true;
+		}else if(operKey.startsWith("update")) {
+			bean.setTable_oper("U");
+			isOper = true;
+		}else if(operKey.startsWith("select")) {
+			bean.setTable_oper("S");
+			isOper = true;
+		}else if(operKey.startsWith("delete")) {
+			bean.setTable_oper("D");
+			isOper = true;
+		}else if(operKey.startsWith("namedsql_")) {
+			daoStr = daoStr.substring(0,daoStr.length()-3)+"."+operKey.substring(9);
+		}else{
+			if(str.contains("import ")) {
+				
+			}else{
+				String nsqlMethod = strArray[dao+1];
+				nsqlMethod = nsqlMethod.split("\\(")[0];
+				if("DaoUtil".equals(daoStr)) {
+					if(!"insertBatch".equals(nsqlMethod)) {
+						throw new Exception(BREAK);
+					}
+				}else{
+					daoStr = daoStr.substring(0,daoStr.length()-3)+"."+nsqlMethod;
+					if(dbMap.containsKey(daoStr)) {
+						isNsql = true;
+					}else{
+						System.err.println("无法匹配Dao的行:"+str);
+						throw new Exception(BREAK);
+					}
+				}
+			}
+		}
+		if(isNsql) {
+			seq_no++;
+			bean.setCall_name_parent(callNameParent);
+			operKey = operKey.split(",")[0];
+			bean.setTable_name(daoStr);
+			bean.setCall_type("N");
+			bean.setSeq_no(seq_no);
+			callRelateList.add(bean);
+		}
+		if(isOper) {
+			seq_no++;
+			bean.setCall_name_parent(callNameParent);
+			bean.setCall_type("T");
+			bean.setSeq_no(seq_no);
+			if(dbMap.containsKey(daoStr)) {
+				bean.setTable_name(dbMap.get(daoStr));
+			}else{
+				if(!(daoStr.startsWith("import")||daoStr.equals("cn"))) {
+					bean.setTable_name(daoStr);
+//					System.err.println("不存在的Dao:"+daoStr);
+				}
+			}
+			callRelateList.add(bean);
+//			System.out.println(dbMap.get(daoStr));
+		}
+		return seq_no;
     }
     public static boolean isNote(String s) {
     	if(s.length()>0&&!s.contains("20"))
@@ -404,12 +522,52 @@ public class J3_Util {
     	s = s.trim();
     	return s;
     }
+    public static String splitClear(String s) {
+		String daoStr = clear(s);
+		String[] daoStrSpace = daoStr.split(" ");
+		daoStr = daoStrSpace[daoStrSpace.length-1];
+		String[] daoStrEqual = daoStr.split("=");
+		daoStr = daoStrEqual[daoStrEqual.length-1];
+		String[] daoStrBrackets = daoStr.split("\\(");
+		daoStr = daoStrBrackets[daoStrBrackets.length-1];
+		String[] daoStrComma = daoStr.split(",");
+		daoStr = daoStrComma[daoStrComma.length-1];
+		return daoStr;
+    }
+    public static List<String> split(String s) {
+    	List<String> i = new ArrayList<String>();
+    	i.add(quotClear(s));
+    	List<String> r = split(i,"\\.");
+    	r = split(r," ");
+    	r = split(r,"=");
+    	r = split(r,"\\(");
+    	r = split(r,"\\)");
+    	return r;
+    }
+    public static List<String> split(List<String> s,String regex) {
+    	List<String> r = new ArrayList<String>();
+    	for(String str:s) {
+	    	for(String childStr:str.split(regex)) {
+	    		r.add(childStr);
+	    	}
+    	}
+    	return r;
+    }
+    public static String quotClear(String s) {
+    	while(s.contains("\"")){
+    		int b = s.indexOf("\"");
+    		String cacheStr = s.substring(b+1);
+    		int e = cacheStr.indexOf("\"");
+    		s = s.substring(0, b)+s.substring(e+b+2, s.length());
+    	}
+    	return s;
+    }
     /**
      * 解析tables,xml解析
      */
     public static void parseTables(String path,Set<String> keySet,Set<J1_BeanDb> dbSet) {
 //    	path = "D:\\03-sl-107-code\\26-gs\\99-3.0.4-stable\\dp-base\\dp-base\\src\\main\\resources\\tables\\TabDpAccountBase.tables.xml";
-	    DocumentBuilderFactory factory = DocumentBuilderFactory.newInstance();
+    	DocumentBuilderFactory factory = DocumentBuilderFactory.newInstance();
 	    try {
 	        DocumentBuilder builder = factory.newDocumentBuilder();
 	        Document d = builder.parse(path);
@@ -427,12 +585,91 @@ public class J3_Util {
             		nameStr = attributes.getNamedItem(NAME).getNodeValue();
             		dbBean.setTable_name(nameStr);
             		dbBean.setTable_des(attributes.getNamedItem(LONG_NAME).getNodeValue());
+            		dbBean.setTable_type("T");
             		dbSet.add(dbBean);
-                	System.out.println(nameStr);
+            		if(J3_Util.DE)System.out.println(nameStr);
             	}
 	        }
 	    } catch (Exception e) {
 	        e.printStackTrace();
 	    }
+    }
+    /**
+     * 解析nsql,xml解析
+     */
+    public static void parseNSQL(String path,Set<String> keySet,Set<J1_BeanDb> dbSet) {
+    	if(DE) {
+    		path = 
+//    		    	"D:\\03-sl-107-code\\26-gs\\99-3.0.4-stable\\cf-busi\\cf-serv\\src\\main\\resources\\namedsql\\CfCustomerQuerySing.nsql.xml"
+//    		    	"D:\\03-sl-107-code\\26-gs\\99-3.0.4-stable\\dp-busi\\dp-serv\\src\\main\\resources\\namedsql\\batch\\SqlDpDayEnd.nsql.xml"
+//    				"D:\\03-sl-107-code\\26-gs\\99-3.0.4-stable\\cf-busi\\cf-serv\\src\\main\\resources\\namedsql\\CfCustomerBatch.nsql.xml"
+    		"D:\\03-sl-107-code\\26-gs\\99-3.0.4-stable\\us-busi\\us-serv\\src\\main\\resources\\namedsql\\UsUserBase.nsql.xml"
+    				;
+    		System.out.println(path);
+    	}
+    	//获得文件名
+        String[] pathArry = path.split("\\\\");
+        String fileName = pathArry[pathArry.length-1];
+    	String fileKey = fileName.substring(0,fileName.length()-9);
+		//解析文件
+		DocumentBuilderFactory factory = DocumentBuilderFactory.newInstance();
+	    try {
+	        DocumentBuilder builder = factory.newDocumentBuilder();
+	        Document d = builder.parse(path);
+	        addDB(fileKey,d.getElementsByTagName("dynamicSelect"),"S",keySet,dbSet);
+	        addDB(fileKey,d.getElementsByTagName("select"),"S",keySet,dbSet);
+	        addDB(fileKey,d.getElementsByTagName("update"),"U",keySet,dbSet);
+	        addDB(fileKey,d.getElementsByTagName("delete"),"D",keySet,dbSet);
+//	        System.err.println("dynamicSelect:"+d.getElementsByTagName("dynamicSelect").getLength());
+//	        System.err.println("select:"+d.getElementsByTagName("select").getLength());
+//	        System.err.println("update:"+d.getElementsByTagName("update").getLength());
+	    } catch (Exception e) {
+	        e.printStackTrace();
+	    }
+    }
+    public static void addDB(String fileKey,NodeList list,String oper,Set<String> keySet,Set<J1_BeanDb> dbSet) {
+        String idStr = "";
+        for (int i = 0; i <list.getLength() ; i++) {
+            Element dbNode = (Element) list.item(i);
+            NamedNodeMap attributes = dbNode.getAttributes();
+            idStr = attributes.getNamedItem(ID).getNodeValue();
+            idStr = fileKey+"."+idStr;
+        	if(!keySet.contains(idStr)) {
+        		keySet.add(idStr);
+        		J1_BeanDb dbBean = new J1_BeanDb();
+        		dbBean.setTable_name(idStr);
+        		dbBean.setTable_dao(idStr);
+        		dbBean.setTable_type("N");
+        		dbBean.setTable_oper(oper);
+        		Node longName = attributes.getNamedItem(LONG_NAME);
+        		if(null!=longName)
+        			dbBean.setTable_des(longName.getNodeValue());
+        		dbSet.add(dbBean);
+            	if(DE)System.out.println(idStr);
+        	}
+        }
+    }
+    public static void logB() {
+        TIMESTAMP_BEGIN=System.currentTimeMillis();
+    }
+    public static void logE(String key) {
+        TIMESTAMP_END=System.currentTimeMillis();
+        if(J2_Main.LS)System.out.println(key+"..耗时:"+J3_Util.longToTime(TIMESTAMP_END-TIMESTAMP_BEGIN));
+        TIMESTAMP_BEGIN=TIMESTAMP_END;
+    }
+    @SuppressWarnings("rawtypes")
+	public static void print(Collection co) {
+    	if(!DE)return;
+    	for(Object obj:co) {
+        	if(obj instanceof J1_BeanCallRelate) {
+        		J1_BeanCallRelate b = (J1_BeanCallRelate)obj;
+        		System.out.println(
+        			b.getCall_name_parent()+","+b.getSeq_no()+","+b.getCall_type()+","+b.getCall_name_child()
+        			+","+b.getTable_name()+","+b.getTable_oper()
+        		);
+        	}else if(obj instanceof String) {
+        		System.out.println(obj);
+        	}
+    	}
     }
 }

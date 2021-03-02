@@ -13,6 +13,11 @@ import org.w3c.dom.Element;
 import org.w3c.dom.NamedNodeMap;
 import org.w3c.dom.Node;
 import org.w3c.dom.NodeList;
+import p50_project_v1_3.J1_BeanCall;
+import p50_project_v1_3.J1_BeanCallRelate;
+import p50_project_v1_3.J1_BeanDb;
+import p50_project_v1_3.J1_BeanTran;
+import p50_project_v1_3.J1_BeanTranRelate;
 
 public class J71_Tran_Util {
 	/**
