@@ -31,7 +31,7 @@ import p50_project_v1_3.J1_BeanDb;
  */
 public class J72_Tran_Main {
 	public static boolean isRealTime = false;
-	public static int M = 1307;
+	public static int M = 1340;
 	public static String CP = ((Map)J2_Config.CONFIG.get(J2_Main.PROJECT_ID)).get(J2_Config.ICORE_CODE_PATH).toString();
 	public static void main(String[] args) {
 		Set<String> callKeySet = new HashSet<String>();

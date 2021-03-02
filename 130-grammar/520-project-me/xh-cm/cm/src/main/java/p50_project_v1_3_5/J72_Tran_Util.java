@@ -48,7 +48,8 @@ public class J72_Tran_Util {
                     	}
                     }else{
                     	if(file2.getAbsolutePath().endsWith(".java")) {
-                            if(J3_Util.DE)System.out.println(file2.getAbsolutePath());
+//                            if(J3_Util.DE)
+                            	System.out.println(file2.getAbsolutePath());
                             J3_Util.parseJava(file2.getAbsolutePath(),callKeySet,dbMap,callSet,callRelateList);
                     	}
                     }

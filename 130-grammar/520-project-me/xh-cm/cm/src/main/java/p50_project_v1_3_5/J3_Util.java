@@ -43,6 +43,8 @@ public class J3_Util {
 	public static String BREAK = "break";
 	public static long TIMESTAMP_BEGIN = System.currentTimeMillis();
 	public static long TIMESTAMP_END = System.currentTimeMillis();
+	public static boolean LAST_ERROR = false;
+	public static String LAST_LINE = "";
 	
     public static StringBuilder space(int n){
         StringBuilder s = new StringBuilder();
@@ -157,11 +159,14 @@ public class J3_Util {
 		Set<J1_BeanDb> dbSet = new HashSet<J1_BeanDb>();
 		Map<String,String> dbMap = new HashMap();
 		List<J1_BeanCallRelate> callRelateList = new ArrayList<J1_BeanCallRelate>();
-    	if(M==1353) {
-    		parseNSQL("", new HashSet<String>(), new HashSet<J1_BeanDb>());
+    	if(M==1352) {
+    		parseTables("", new HashSet<String>(), new HashSet<J1_BeanDb>());
+    	}if(M==1353) {
+    		parseNSQL("", new HashSet<String>(), new HashSet<J1_BeanDb>()); 
     	}else if(M==1343) {
 			J5_Sql.doMain(343, callKeySet);//343,select all,call_name
 			J5_Sql.doMain(345, dbMap);//345,select all,tree_call_db
+			System.out.println(dbMap.containsKey("Cfb_cust_signatureDao")); ;
     		parseJava("",callKeySet,dbMap,null,callRelateList);
     		print(callRelateList);
     	}
@@ -179,7 +184,12 @@ public class J3_Util {
 //    				"D:\\03-sl-107-code\\26-gs\\99-3.0.4-stable\\dp-busi\\dp-serv\\src\\main\\java\\cn\\sunline\\icore\\dp\\serv\\settle\\DpSettleVoucherMaintain.java"
 //    				"D:\\03-sl-107-code\\26-gs\\99-3.0.4-stable\\dp-busi\\dp-serv\\src\\main\\java\\cn\\sunline\\icore\\dp\\serv\\maintain\\DpCardAccountRelate.java"
 //    				"D:\\03-sl-107-code\\26-gs\\99-3.0.4-stable\\dp-base\\dp-base\\src\\main\\java\\cn\\sunline\\icore\\dp\\base\\interest\\account\\DpHistInterestRate.java"
-    				"D:\\03-sl-107-code\\26-gs\\99-3.0.4-stable\\dp-busi\\dp-batch\\src\\main\\java\\cn\\sunline\\icore\\dp\\batch\\dayend\\dp32DataProcessor.java"
+//    				"D:\\03-sl-107-code\\26-gs\\99-3.0.4-stable\\dp-busi\\dp-batch\\src\\main\\java\\cn\\sunline\\icore\\dp\\batch\\dayend\\dp32DataProcessor.java"
+//    				"D:\\03-sl-107-code\\26-gs\\99-3.0.4-stable\\us-busi\\us-serv\\src\\main\\java\\cn\\sunline\\icore\\us\\serv\\base\\UsBatchAccounOpen.java"
+//    				"D:\\03-sl-107-code\\26-gs\\99-3.0.4-stable\\cf-busi\\cf-serv\\src\\main\\java\\cn\\sunline\\icore\\cf\\serv\\base\\CfCustInfoQuery.java"
+//    				"D:\\03-sl-107-code\\26-gs\\99-3.0.4-stable\\cf-busi\\cf-serv\\src\\main\\java\\cn\\sunline\\icore\\cf\\serv\\base\\CfAgreeSignMnt.java"
+//    				"D:\\03-sl-107-code\\26-gs\\99-3.0.4-stable\\us-busi\\us-serv\\src\\main\\java\\cn\\sunline\\icore\\us\\serv\\util\\UsUtils.java"
+    				"D:\\03-sl-107-code\\26-gs\\99-3.0.4-stable\\us-busi\\us-tran\\src\\main\\java\\cn\\sunline\\icore\\us\\tran\\base\\us3080.java"
     				;
         	System.out.println(path);
     	}
@@ -198,161 +208,220 @@ public class J3_Util {
     		isSev=true;
     	}
         String methodKey = "";
-        String servBean = "";
 		String callNameParent = "";
 //    	System.out.println(fileKey);
 		//方法内解析用参数
 		int seq_no = 0;
+		List<J1_BeanCallRelate> serRelateList = new ArrayList<J1_BeanCallRelate>();
         try {
             File file = new File(path);
             FileReader fileReader = new FileReader(file);
             BufferedReader bf = new BufferedReader(fileReader);
             String str;
 			while ((str = bf.readLine()) != null) {
-				//类,方法,层级解析
-				if(!noteMulMatch&&(str.contains("public")||str.contains("private"))) {
-					if(str.contains("(")&&!str.contains(";")) {
-            			//当前大括号所属层级, 0为Java外层层级,1为java内层级, 2为method层级, >2为方法内部层级
-						layer = 2;
-                		if(2==layer) {
-//                			if(J2_Main.LS)System.out.println(lineSb);
-                			String lineStr = str;
-                			lineStr = lineStr.replace("    ", " ");
-                			lineStr = lineStr.replace("   ", " ");
-                			lineStr = lineStr.replace("  ", " ");
-                			String[] lineArry = lineStr.split(" ");
-                			int judgeKey = 0;
-                			for(String js:lineArry) {
-                				js = clear(js);
-                    			if(	"".equals(js)
-                    					||"static".equals(js)
-                    					||"public".equals(js)
-                    					||"private".equals(js)
-                    					||"final".equals(js)) {
-                    				judgeKey++;
-                    			}else{
-                    				break;
-                    			}
-                			}
-                			judgeKey+=1;
-                			methodKey = lineArry[judgeKey];
-                			if(methodKey.contains("("))
-                				methodKey = methodKey.split("\\(")[0];
-                			callNameParent = fileKey+"."+methodKey;
-                        	J1_BeanCall bean = new J1_BeanCall();
-                        	bean.setCall_name(callNameParent);
-//                        	if(noteStr.length()>1)
-//                        		noteStr = noteStr.substring(0,noteStr.length()-1);
-                        	noteStr = noteStr.trim();
-                			bean.setCall_des(noteStr);
-                        	if(isSev)
-                        		bean.setTran_type("S");
-                        	else
-                        		bean.setTran_type("M");
-                        	if(!callKeySet.contains(callNameParent)) {
-                        		if(null==callRelateList) {
-                                	if(J72_Tran_Main.isRealTime) {
-                            			J5_Sql.doMain(113, bean);
-                                	}else{
-                                		callKeySet.add(callNameParent);
-                                		callSet.add(bean);
-                                	}
-                        		}
-                        	}
-                			seq_no=0;
-                        	if(DE)System.err.println(callNameParent+","+noteStr);
-                    		noteStr = "";
-                		}
+		        try {
+		    		if(LAST_ERROR) {
+		    			str = LAST_LINE.trim()+str.trim();
+		    			LAST_ERROR = false;
+		    		}
+					//类,方法,层级解析
+					if(!noteMulMatch&&(str.contains("public ")||str.contains("private "))) {
+						if(str.contains("(")&&!str.contains(";")) {
+	            			//当前大括号所属层级, 0为Java外层层级,1为java内层级, 2为method层级, >2为方法内部层级
+							layer = 2;
+	                		if(2==layer) {
+	//                			if(J2_Main.LS)System.out.println(lineSb);
+	                			String lineStr = str;
+	                			lineStr = lineStr.replace("    ", " ");
+	                			lineStr = lineStr.replace("   ", " ");
+	                			lineStr = lineStr.replace("  ", " ");
+	                			String[] lineArry = lineStr.split(" ");
+	                			int judgeKey = 0;
+	                			for(String js:lineArry) {
+	                				js = clear(js);
+	                    			if(	"".equals(js)
+	                    					||"static".equals(js)
+	                    					||"public".equals(js)
+	                    					||"private".equals(js)
+	                    					||"final".equals(js)) {
+	                    				judgeKey++;
+	                    			}else{
+	                    				break;
+	                    			}
+	                			}
+	                			judgeKey+=1;
+	                			methodKey = lineArry[judgeKey];
+	                			if(methodKey.contains("("))
+	                				methodKey = methodKey.split("\\(")[0];
+	                			callNameParent = fileKey+"."+methodKey;
+	                        	J1_BeanCall bean = new J1_BeanCall();
+	                        	bean.setCall_name(callNameParent);
+	//                        	if(noteStr.length()>1)
+	//                        		noteStr = noteStr.substring(0,noteStr.length()-1);
+	                        	noteStr = noteStr.trim();
+	                			bean.setCall_des(noteStr);
+	                        	if(isSev)
+	                        		bean.setTran_type("S");
+	                        	else
+	                        		bean.setTran_type("M");
+	                        	if(!callKeySet.contains(callNameParent)) {
+	                        		if(null==callRelateList) {
+	                                	if(J72_Tran_Main.isRealTime) {
+	                            			J5_Sql.doMain(113, bean);
+	                                	}else{
+	                                		callKeySet.add(callNameParent);
+	                                		callSet.add(bean);
+	                                	}
+	                        		}
+	                        	}
+	                			seq_no=0;
+	                        	if(DE)System.err.println(callNameParent+","+noteStr);
+	                    		noteStr = "";
+	                    		serRelateList = new ArrayList<J1_BeanCallRelate>();
+	                		}
+						}
+						if(str.contains("class")) {
+							layer = 1;
+	                		noteStr = "";
+						}
 					}
-					if(str.contains("class")) {
-						layer = 1;
-                		noteStr = "";
+					//是否非规范多行注释开启
+					if(str.contains("/**")||str.contains("/*")) {
+				        noteMulMatch = true;	//是否多行注释匹配-/**
 					}
-				}
-				//是否非规范多行注释开启
-				if(str.contains("/**")||str.contains("/*")) {
-			        noteMulMatch = true;	//是否多行注释匹配-/**
-				}
-				if(str.contains("*/")) {
-			        noteKeyMatch = false;	//是否关键字注释匹配-功能说明
-			        noteMulMatch = false;	//是否多行注释匹配-/**
-				}
-				if(str.contains("}")) {
-            		noteStr = "";
-				}
-				if(noteMulMatch) {
-					//keyNote解析
-					if(str.contains("功能说明")) {
-				        noteKeyMatch = true;	//是否关键字注释匹配-功能说明
-//						 *         <li>功能说明负债开户</li>
-						 String[] strArry = null;
-						 if(str.contains(":"))
-							 strArry = str.split(":");
-						 if(str.contains("："))
-							 strArry = str.split("：");
-						 noteStr = strArry[strArry.length-1].split("<")[0];
+					if(str.contains("*/")) {
+				        noteKeyMatch = false;	//是否关键字注释匹配-功能说明
+				        noteMulMatch = false;	//是否多行注释匹配-/**
 					}
-					if(!noteKeyMatch) {
-						String strCache = clear(str);
-						if(!strCache.equals("*")) {
-							if(!strCache.contains("@")||strCache.contains("@description")) {
-								if(isNote(strCache)) {
-									//包含方法注释的那一行
-									noteStr = strCache;//.substring(1, strCache.length());
+					if(str.contains("}")) {
+	            		noteStr = "";
+					}
+					if(noteMulMatch) {
+						//keyNote解析
+						if(str.contains("功能说明")) {
+					        noteKeyMatch = true;	//是否关键字注释匹配-功能说明
+	//						 *         <li>功能说明负债开户</li>
+							 String[] strArry = null;
+							 if(str.contains(":"))
+								 strArry = str.split(":");
+							 if(str.contains("："))
+								 strArry = str.split("：");
+							 noteStr = strArry[strArry.length-1].split("<")[0];
+						}
+						if(!noteKeyMatch) {
+							String strCache = clear(str);
+							if(!strCache.equals("*")) {
+								if(!strCache.contains("@")||strCache.contains("@description")) {
+									if(isNote(strCache)) {
+										//包含方法注释的那一行
+										noteStr = strCache.replace("@description", "");//.substring(1, strCache.length());
+									}
 								}
 							}
 						}
 					}
-				}
-				//是否单行注释开启
-				if(str.contains("//")) {
-					String strCache = str.trim();
-					noteStr = strCache.substring(2, strCache.length());
-				}
-				if(null!=callRelateList) {
-					try {
+					//是否单行注释开启
+					if(str.contains("//")) {
+						String strCache = str.trim();
+						noteStr = strCache.substring(2, strCache.length());
+					}
+					if(null!=callRelateList) {
 						if(str.contains(".")) {
-							seq_no = isMethod(callNameParent,seq_no,str,callKeySet,callRelateList);
+							seq_no = isMethod(fileKey,callNameParent,seq_no,str,callKeySet,callRelateList);
 						}
-						if(str.contains("getRemoteInstance")) {
-//							ComIoUsUser.qryPushDemandInfoOut qryPushDemandInfoOut = SysUtil.getRemoteInstance(SrvIoUsUser.class).qryPushDemandInfo(qryPushDemandInfoIn);
-
-							String[] strArray = str.split("getRemoteInstance")[1].split(".class");
-							String serName = strArray[0].substring(1);
-							String serMethod = ""; 
-							if(strArray[1].startsWith(");")){
-								//分步处理
-								servBean = "";
-							}else if(strArray[1].startsWith(").")){
-								//一步处理
-								serMethod = strArray[1].split("\\(")[0].substring(2);
+						if(serRelateList.size()>0) {
+							for(J1_BeanCallRelate bean:serRelateList) {
+								if(str.contains(bean.getTable_name()+".")) {
+									String ser = bean.getCall_name_child()+"."+str.split(bean.getTable_name()+".")[1].split("\\(")[0];
+									if(callKeySet.contains(ser)) {
+										seq_no++;
+										bean.setCall_name_child(ser);
+										bean.setSeq_no(seq_no);
+										bean.setTable_name(null);
+										callRelateList.add(bean);
+									}else{
+										if("R".equals(bean.getCall_type())) {
+											seq_no++;
+											bean.setCall_type("E");
+											bean.setCall_name_child(ser);
+											bean.setSeq_no(seq_no);
+											bean.setTable_name(null);
+											callRelateList.add(bean);
+											System.err.println("无法匹配的多行R服务："+ser);
+										}
+									}
+								}
 							}
-							String ser = serName+"."+serMethod;
-							if(callKeySet.contains(ser)) {
-								seq_no++;
-								J1_BeanCallRelate bean = new J1_BeanCallRelate();
-								bean.setCall_name_parent(callNameParent);
-								bean.setCall_name_child(ser);
+						}
+						if(str.contains("getRemoteInstance")||str.contains("getInstance")) {
+							String[] insArray = null;
+							J1_BeanCallRelate bean = new J1_BeanCallRelate();
+							bean.setCall_name_parent(callNameParent);
+							if(str.contains("getRemoteInstance")) {
 								bean.setCall_type("R");
-								bean.setSeq_no(seq_no);
-								callRelateList.add(bean);
-							}else{
-								System.err.println("无法匹配的服务："+ser);
+								insArray = str.split("getRemoteInstance");
+							}else if(str.contains("getInstance")) {
+								bean.setCall_type("S");
+								insArray = str.split("getInstance");
+							}
+//							ComIoUsUser.qryPushDemandInfoOut qryPushDemandInfoOut = SysUtil.getRemoteInstance(SrvIoUsUser.class).qryPushDemandInfo(qryPushDemandInfoIn);
+							String[] classArray = insArray[1].split(".class");
+							String servName = classArray[0].substring(1);
+							String serMethod = ""; 
+							boolean isOne = false;
+							if(classArray.length>1) {
+								if(classArray[1].startsWith(");")){
+	//SrvIoCfCustomerInfo customerInfo = SysUtil.getRemoteInstance(SrvIoCfCustomerInfo.class);
+									//分步处理
+									String[] equalArry = insArray[0].split("=")[0].split(" ");
+									for(int i=equalArry.length-1;i>0;i--) {
+										if(equalArry[i].length()>0) {
+											bean.setCall_name_child(servName);
+											bean.setTable_name(equalArry[i]);
+											serRelateList.add(bean);
+											break;
+										}
+									}
+								}else if(classArray[1].startsWith(").")){
+									//一步处理
+									serMethod = classArray[1].split("\\(")[0].substring(2);
+									isOne = true;
+								}
+								if(isOne) {
+									String ser = classArray[0].substring(1)+"."+serMethod;
+									if(callKeySet.contains(ser)) {
+										seq_no++;
+										bean.setCall_name_child(ser);
+										bean.setSeq_no(seq_no);
+										callRelateList.add(bean);
+									}else{
+										System.err.println("无法匹配的单行服务："+ser);
+										if(0==serMethod.length()) {
+											LAST_LINE = str;
+											LAST_ERROR = true;
+										}else{
+											seq_no++;
+											bean.setCall_type("E");
+											bean.setCall_name_child(ser);
+											bean.setSeq_no(seq_no);
+											bean.setTable_name(null);
+											callRelateList.add(bean);
+										}
+									}
+								}
 							}
 						}
 						if(str.contains(DAO)) {
 							//判断是否数据库操作
 							seq_no = isDao(path,callNameParent,seq_no,str,dbMap,callRelateList);
 						}
-					}catch(Exception e){
-						if(BREAK.equals(e.getMessage())){
-							continue;
-						}else{
-							throw e;
-						}
 					}
+				} catch (Exception e) {
+					if(!BREAK.equals(e.getMessage()))
+						e.printStackTrace();
+					continue;
 				}
-			}
+	        }
 			bf.close();
             fileReader.close();
             return "";
@@ -366,15 +435,19 @@ public class J3_Util {
     	return "";
     }
     //判断是否调用其他方法
-    public static int isMethod(String callNameParent,int seq_no,String str
+    public static int isMethod(String fileKey,String callNameParent,int seq_no,String str
     		,Set<String> callKeySet,List<J1_BeanCallRelate> callRelateList){
 		List<String> callNameChildList = new ArrayList<String>();
 		String callKey = "";
-		//fileKey
+		//
 		List<String> inList = split(str);
 		for(int i=1;i<inList.size();i++) {
 			callKey = inList.get(i-1)+"."+inList.get(i);
 			if(callKeySet.contains(callKey)) {
+				callNameChildList.add(callKey);
+			}
+			callKey = fileKey+"."+inList.get(i);
+			if(callKeySet.contains(callKey)&&str.contains(inList.get(i)+"(")) {
 				callNameChildList.add(callKey);
 			}
 		}
@@ -395,15 +468,19 @@ public class J3_Util {
     //判断是否数据库操作
     public static int isDao(String path,String callNameParent,int seq_no,String str
     		,Map<String,String> dbMap,List<J1_BeanCallRelate> callRelateList) throws Exception {
-		String[] strArray = str.split("\\.");
-		int dao = 0;
+    	String[] strArray = str.split("\\.");
+		int dao = -1;
 		for(int i=0;i<strArray.length;i++) {
 			if(strArray[i].endsWith("Dao")||strArray[i].endsWith("DaoUtil")) {
 				dao = i;
 				break;
 			}
 		}
+		if(-1==dao)
+			throw new Exception(BREAK);
 		String daoStr = clear(strArray[dao]);
+		String[] daoStrTab = daoStr.split("	");//tab
+		daoStr = daoStrTab[daoStrTab.length-1];
 		String[] daoStrSpace = daoStr.split(" ");
 		daoStr = daoStrSpace[daoStrSpace.length-1];
 		String[] daoStrEqual = daoStr.split("=");
@@ -428,6 +505,8 @@ public class J3_Util {
 			System.err.println(e);
 			System.err.println("出错文件："+path);
 			System.err.println("出错行："+str);
+			LAST_ERROR = true;
+			LAST_LINE = str;
 			throw new Exception(BREAK);
 		}
 		boolean isOper = false;
@@ -566,7 +645,13 @@ public class J3_Util {
      * 解析tables,xml解析
      */
     public static void parseTables(String path,Set<String> keySet,Set<J1_BeanDb> dbSet) {
-//    	path = "D:\\03-sl-107-code\\26-gs\\99-3.0.4-stable\\dp-base\\dp-base\\src\\main\\resources\\tables\\TabDpAccountBase.tables.xml";
+    	if(DE) {
+    		path = 
+//    				"D:\\03-sl-107-code\\26-gs\\99-3.0.4-stable\\dp-base\\dp-base\\src\\main\\resources\\tables\\TabDpAccountBase.tables.xml"
+    				"D:\\03-sl-107-code\\26-gs\\99-3.0.4-stable\\cf-busi\\cf-serv\\src\\main\\resources\\tables\\TabCfCustOther.tables.xml"
+    				;
+    		System.out.println(path);
+    	}
     	DocumentBuilderFactory factory = DocumentBuilderFactory.newInstance();
 	    try {
 	        DocumentBuilder builder = factory.newDocumentBuilder();
@@ -581,13 +666,16 @@ public class J3_Util {
             	if(!keySet.contains(idStr)) {
             		keySet.add(idStr);
             		J1_BeanDb dbBean = new J1_BeanDb();
-            		dbBean.setTable_dao(idStr+DAO);
+            		if(idStr.contains("_"))
+            			idStr = idStr.substring(0, 1).toUpperCase()+idStr.substring(1);
+            		idStr = idStr+DAO;
+            		dbBean.setTable_dao(idStr);
             		nameStr = attributes.getNamedItem(NAME).getNodeValue();
             		dbBean.setTable_name(nameStr);
             		dbBean.setTable_des(attributes.getNamedItem(LONG_NAME).getNodeValue());
             		dbBean.setTable_type("T");
             		dbSet.add(dbBean);
-            		if(J3_Util.DE)System.out.println(nameStr);
+            		if(J3_Util.DE)System.out.println(nameStr+","+idStr);
             	}
 	        }
 	    } catch (Exception e) {
