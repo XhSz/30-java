@@ -1,4 +1,4 @@
-package p50_project_v1_3_5;
+package p50_project_v1_4_1;
 
 import java.io.BufferedReader;
 import java.io.File;
@@ -10,6 +10,11 @@ import java.io.IOException;
 import java.io.InputStreamReader;
 import java.io.PrintStream;
 import java.io.Reader;
+import java.sql.Connection;
+import java.sql.DriverManager;
+import java.sql.ResultSet;
+import java.sql.SQLException;
+import java.sql.Statement;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.HashMap;
@@ -45,19 +50,13 @@ public class J3_Util {
 	public static long TIMESTAMP_END = System.currentTimeMillis();
 	public static boolean LAST_ERROR = false;
 	public static String LAST_LINE = "";
-	
+
     public static StringBuilder space(int n){
         StringBuilder s = new StringBuilder();
         for(int i=0;i<n;i++){
             s.append("\t");
         }
         return s;
-    }
-    public static void printDebug(J1_BeanMenu f3){
-        for(J1_BeanMenu childMenu : f3.getChildren()) {
-            System.err.println("print:"+f3.getMenuNameZh()+"'s child is "+childMenu.getMenuNameZh());
-            printDebug(childMenu);
-        }
     }
     /**
      * get branch result string
@@ -166,7 +165,6 @@ public class J3_Util {
     	}else if(M==1343) {
 			J5_Sql.doMain(343, callKeySet);//343,select all,call_name
 			J5_Sql.doMain(345, dbMap);//345,select all,tree_call_db
-			System.out.println(dbMap.containsKey("Cfb_cust_signatureDao")); ;
     		parseJava("",callKeySet,dbMap,null,callRelateList);
     		print(callRelateList);
     	}
@@ -189,7 +187,8 @@ public class J3_Util {
 //    				"D:\\03-sl-107-code\\26-gs\\99-3.0.4-stable\\cf-busi\\cf-serv\\src\\main\\java\\cn\\sunline\\icore\\cf\\serv\\base\\CfCustInfoQuery.java"
 //    				"D:\\03-sl-107-code\\26-gs\\99-3.0.4-stable\\cf-busi\\cf-serv\\src\\main\\java\\cn\\sunline\\icore\\cf\\serv\\base\\CfAgreeSignMnt.java"
 //    				"D:\\03-sl-107-code\\26-gs\\99-3.0.4-stable\\us-busi\\us-serv\\src\\main\\java\\cn\\sunline\\icore\\us\\serv\\util\\UsUtils.java"
-    				"D:\\03-sl-107-code\\26-gs\\99-3.0.4-stable\\us-busi\\us-tran\\src\\main\\java\\cn\\sunline\\icore\\us\\tran\\base\\us3080.java"
+//    				"D:\\03-sl-107-code\\26-gs\\99-3.0.4-stable\\us-busi\\us-tran\\src\\main\\java\\cn\\sunline\\icore\\us\\tran\\base\\us3080.java"
+    				"D:\\03-sl-107-code\\26-gs\\99-3.0.4-stable\\cf-busi\\cf-batch\\src\\main\\java\\cn\\sunline\\icore\\cf\\batch\\cf02DataProcessor.java"
     				;
         	System.out.println(path);
     	}
@@ -230,7 +229,7 @@ public class J3_Util {
 	            			//当前大括号所属层级, 0为Java外层层级,1为java内层级, 2为method层级, >2为方法内部层级
 							layer = 2;
 	                		if(2==layer) {
-	//                			if(J2_Main.LS)System.out.println(lineSb);
+	//                			if(J2_Main.J2_Main.LS)System.out.println(lineSb);
 	                			String lineStr = str;
 	                			lineStr = lineStr.replace("    ", " ");
 	                			lineStr = lineStr.replace("   ", " ");
@@ -440,14 +439,15 @@ public class J3_Util {
 		List<String> callNameChildList = new ArrayList<String>();
 		String callKey = "";
 		//
-		List<String> inList = split(str);
+		List<String> inList = split(str);//拆分获得所有关键字
 		for(int i=1;i<inList.size();i++) {
 			callKey = inList.get(i-1)+"."+inList.get(i);
 			if(callKeySet.contains(callKey)) {
 				callNameChildList.add(callKey);
 			}
 			callKey = fileKey+"."+inList.get(i);
-			if(callKeySet.contains(callKey)&&str.contains(inList.get(i)+"(")) {
+			if(callKeySet.contains(callKey)&&str.contains(inList.get(i)+"(")
+					&&(!callNameParent.equals(callKey))) {
 				callNameChildList.add(callKey);
 			}
 		}
@@ -627,7 +627,7 @@ public class J3_Util {
     	List<String> r = new ArrayList<String>();
     	for(String str:s) {
 	    	for(String childStr:str.split(regex)) {
-	    		r.add(childStr);
+	    		r.add(clear(childStr));
 	    	}
     	}
     	return r;
@@ -744,6 +744,12 @@ public class J3_Util {
         TIMESTAMP_END=System.currentTimeMillis();
         if(J2_Main.LS)System.out.println(key+"..耗时:"+J3_Util.longToTime(TIMESTAMP_END-TIMESTAMP_BEGIN));
         TIMESTAMP_BEGIN=TIMESTAMP_END;
+    }
+    public static void printDebug(J1_BeanMenu f3){
+        for(J1_BeanMenu childMenu : f3.getChildren()) {
+            System.err.println("print:"+f3.getMenuNameZh()+"'s child is "+childMenu.getMenuNameZh());
+            printDebug(childMenu);
+        }
     }
     @SuppressWarnings("rawtypes")
 	public static void print(Collection co) {

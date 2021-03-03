@@ -1,8 +1,7 @@
-package p50_project_v1_3_5;
+package p50_project_v1_4_1;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Map;
 
 import p50_project_v1.J1_BeanTran;
 import p50_project_v1.J1_BeanTranRelate;
@@ -17,7 +16,7 @@ import p50_project_v1.J1_BeanTranRelate;
  */
 public class J71_Tran_Main {
 	public static boolean isRealTime = true;
-	public static String CP = ((Map)J2_Config.CONFIG.get(J2_Main.PROJECT_ID)).get(J2_Config.ICORE_CODE_PATH).toString();
+	
 	public static void main(String[] args) {
 		
 		List<J1_BeanTran> tranList = new ArrayList<J1_BeanTran>();
@@ -28,7 +27,7 @@ public class J71_Tran_Main {
         long t1=System.currentTimeMillis();
         if(J2_Main.LS)System.out.println("scanTran...begin..."+t1);
 		//扫描代码根目录，获得所有flowtrans,并入库
-		J71_Tran_Util.scanTran(CP,tranList,tranRelateList);
+		J71_Tran_Util.scanTran(J2_Config.CODE_PATH,tranList,tranRelateList);
         long t2=System.currentTimeMillis();
         if(J2_Main.LS)System.out.println("scanTran...end...耗时:"+(t2-t1));
         if(J2_Main.LS)System.out.println("scanTran...end...耗时:"+J3_Util.longToTime(t2-t1));

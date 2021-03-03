@@ -1,4 +1,4 @@
-package p50_project_v1_3_5;
+package p50_project_v1_4_1;
 
 import java.io.File;
 import java.sql.PreparedStatement;
@@ -70,7 +70,7 @@ public class J71_Tran_Util {
                     		J1_BeanTran bean = new J1_BeanTran();
                     		bean.setTran_name(fn);
                     		bean.setFile_path(file2.getAbsolutePath());
-                    		if(J71_Tran_Main.isRealTime) {
+                    		if(J2_Main.isRealTime) {
                         		//tree_tran入库
                     			J5_Sql.doMain(111, bean);
                     		}else{
@@ -78,7 +78,7 @@ public class J71_Tran_Util {
                     		}
                     		//解析flowtrans.xml
                     		parseFlowTrans(file2.getAbsolutePath(), tranRelateList);
-                            System.out.println(fn+":add!");
+                            if(J3_Util.DE)System.out.println(fn+":add!");
                     	}
                     }else{
                 		scanFlows(file2.getAbsolutePath(),tranList,tranRelateList);
@@ -106,7 +106,7 @@ public class J71_Tran_Util {
 //    	path = "D:\\03-sl-107-code\\26-gs\\99-3.0.4-stable\\us-busi\\us-tran\\src\\main\\resources\\trans\\base\\us2220.flowtrans.xml";
     	String flowtransName = path.substring(path.length()-20);
     	String flowtransKey = flowtransName.substring(0,6);
-    	System.out.println(flowtransKey);
+    	if(J3_Util.DE)System.out.println(flowtransKey);
 	    DocumentBuilderFactory factory = DocumentBuilderFactory.newInstance();
 	    try {
 	        DocumentBuilder builder = factory.newDocumentBuilder();
@@ -156,7 +156,7 @@ public class J71_Tran_Util {
             	Node attr = attributes.getNamedItem(attrName);
                 J1_BeanTranRelate bean = new J1_BeanTranRelate();
                 if(isBlock) {
-                	bean.setBlock_test(element.getAttributes().getNamedItem("test").getNodeName());
+                	bean.setBlock_test(element.getAttributes().getNamedItem("test").getNodeValue());
                 }
                 bean.setTran_name(flowtransKey);
                 String callName = attr.getNodeValue();
@@ -164,13 +164,13 @@ public class J71_Tran_Util {
                 bean.setTran_type(tranType);
                 bean.setSeq_no(seq_no);
                 bean.setIs_simple(is_simple);
-        		if(J71_Tran_Main.isRealTime) {
+        		if(J2_Main.isRealTime) {
             		//tree_tran入库
         			J5_Sql.doMain(112, bean);
         		}else{
                     tranRelateList.add(bean);
         		}
-            	System.out.println(flowtransKey+","+seq_no+","+callName+","+is_simple);
+            	if(J3_Util.DE)System.out.println(flowtransKey+","+seq_no+","+callName+","+is_simple);
             }
         }
         return seq_no;

@@ -3,11 +3,12 @@ package p50_project_v1_3_5;
 import java.io.File;
 import java.util.HashSet;
 import java.util.Set;
-import p50_project_v1_3.J1_BeanCall;
-import p50_project_v1_3.J1_BeanCallRelate;
-import p50_project_v1_3.J1_BeanDb;
-import p50_project_v1_3.J1_BeanTran;
-import p50_project_v1_3.J1_BeanTranRelate;
+
+import p50_project_v1.J1_BeanCall;
+import p50_project_v1.J1_BeanCallRelate;
+import p50_project_v1.J1_BeanDb;
+import p50_project_v1.J1_BeanTran;
+import p50_project_v1.J1_BeanTranRelate;
 
 public class J73_Tran_Util {
 	public static String[] KEY_FOLD = {		"-tran",	"java",	"tables"	 ,"namedsql"};
