@@ -1,0 +1,764 @@
+package p50_project_v1_4;
+
+import java.io.BufferedReader;
+import java.io.File;
+import java.io.FileInputStream;
+import java.io.FileNotFoundException;
+import java.io.FileOutputStream;
+import java.io.FileReader;
+import java.io.IOException;
+import java.io.InputStreamReader;
+import java.io.PrintStream;
+import java.io.Reader;
+import java.util.ArrayList;
+import java.util.Collection;
+import java.util.HashMap;
+import java.util.HashSet;
+import java.util.List;
+import java.util.Map;
+import java.util.Set;
+
+import javax.xml.parsers.DocumentBuilder;
+import javax.xml.parsers.DocumentBuilderFactory;
+
+import org.w3c.dom.Document;
+import org.w3c.dom.Element;
+import org.w3c.dom.NamedNodeMap;
+import org.w3c.dom.Node;
+import org.w3c.dom.NodeList;
+
+import p50_project_v1_3.J1_BeanCall;
+import p50_project_v1_3.J1_BeanCallRelate;
+import p50_project_v1_3.J1_BeanDb;
+import p50_project_v1_3.J1_BeanMenu;
+
+
+public class J3_Util {
+	public static boolean DE = false;
+	public static String DAO = "Dao";
+	public static String ID = "id";
+	public static String NAME = "name";
+	public static String METHOD = "method";
+	public static String LONG_NAME = "longname";
+	public static String BREAK = "break";
+	public static long TIMESTAMP_BEGIN = System.currentTimeMillis();
+	public static long TIMESTAMP_END = System.currentTimeMillis();
+	public static boolean LAST_ERROR = false;
+	public static String LAST_LINE = "";
+	
+    public static StringBuilder space(int n){
+        StringBuilder s = new StringBuilder();
+        for(int i=0;i<n;i++){
+            s.append("\t");
+        }
+        return s;
+    }
+    public static void printDebug(J1_BeanMenu f3){
+        for(J1_BeanMenu childMenu : f3.getChildren()) {
+            System.err.println("print:"+f3.getMenuNameZh()+"'s child is "+childMenu.getMenuNameZh());
+            printDebug(childMenu);
+        }
+    }
+    /**
+     * get branch result string
+     * 得到枝干节点字符串
+     */
+    public static StringBuilder getBranchSb(J1_BeanMenu f3){
+        StringBuilder sb = new StringBuilder();
+        sb.append(space(f3.getLevel()))
+                .append(f3.getMenuNameZh()).append(":{\n");
+        for(int i=0;i<f3.getChildren().size();i++) {
+        	J1_BeanMenu childMenu = f3.getChildren().get(i);
+//            System.err.println("print:"+f3.getMenuNameZh()+"'s child is "+childMenu.getMenuNameZh()
+//            	+",its level is "+childMenu.getLevel());
+        	if(childMenu.isLeaf()) {
+    			if(i!=0)sb.append("\n");
+        		sb.append(getLeafSb(childMenu));
+        	}
+        	else
+        		sb.append(getBranchSb(childMenu));
+        }
+		sb.append("\n");
+        sb.append(space(f3.getLevel())).append("},");
+		sb.append("\n");
+        return sb;
+    }
+    /**
+     * get leaf result string
+     * 得到叶子节点字符串
+     */
+    public static StringBuilder getLeafSb(J1_BeanMenu f3){
+        StringBuilder sb = new StringBuilder();
+        sb.append(space(f3.getLevel()))
+                .append("[").append(f3.getMenuCode()).append("]").append(f3.getMenuNameZh()).append(":{\n")
+                .append(space(f3.getLevel()+1)).append("menu").append(space(1))
+                .append(f3.getQryTransIcore()).append("-").append(f3.getQryTrans()).append(space(1))
+                .append(f3.getMenuJsonPath()).append("\n")
+                .append(space(f3.getLevel())).append("},");
+        return sb;
+    }
+    public static void pringToJson(StringBuilder s,String jp) throws FileNotFoundException {
+        File json = new File(jp);
+        if(!json.exists())    
+        {    
+            try {    
+            	json.createNewFile();    
+            } catch (IOException e) {    
+                e.printStackTrace();    
+            }    
+        } 
+        FileOutputStream fos = new FileOutputStream(json);
+        PrintStream ps = new PrintStream(fos);
+        ps.print(s);
+        ps.close();
+    }
+    //把绝对时间转化为时分秒显示
+    public static String longToTime(long t){
+        StringBuilder sb = new StringBuilder();
+        if(t>60*60*1000){
+            sb.append(t/(60*60*1000)).append("h");
+            t=t%(60*60*1000);
+        }
+        if(t>60*1000){
+            sb.append(t/(60*1000)).append("m");
+            t=t%(60*1000);
+        }
+        if(t>1000){
+            sb.append(t/1000).append("s");
+            t=t%1000;
+        }
+        sb.append(t).append("ms");
+        return sb.toString();
+    }
+
+    public static String getJson(String path) {
+        String jsonStr = "";
+        try {
+            File file = new File(path);
+            FileReader fileReader = new FileReader(file);
+            Reader reader = new InputStreamReader(new FileInputStream(file),"Utf-8");
+            int ch = 0;
+            StringBuffer sb = new StringBuffer();
+            while ((ch = reader.read()) != -1) {
+                sb.append((char) ch);
+            }
+            fileReader.close();
+            reader.close();
+            jsonStr = sb.toString();
+            return jsonStr;
+        } catch (Exception e) {
+            return null;
+        }
+    }
+    public static void main(String[] args) {
+    	DE = true;
+    	int M = 1343;
+		Set<String> callKeySet = new HashSet<String>();
+		Set<J1_BeanCall> callSet = new HashSet<J1_BeanCall>();
+		Set<String> dbKeySet = new HashSet<String>();
+		Set<J1_BeanDb> dbSet = new HashSet<J1_BeanDb>();
+		Map<String,String> dbMap = new HashMap();
+		List<J1_BeanCallRelate> callRelateList = new ArrayList<J1_BeanCallRelate>();
+    	if(M==1352) {
+    		parseTables("", new HashSet<String>(), new HashSet<J1_BeanDb>());
+    	}if(M==1353) {
+    		parseNSQL("", new HashSet<String>(), new HashSet<J1_BeanDb>()); 
+    	}else if(M==1343) {
+			J5_Sql.doMain(343, callKeySet);//343,select all,call_name
+			J5_Sql.doMain(345, dbMap);//345,select all,tree_call_db
+    		parseJava("",callKeySet,dbMap,null,callRelateList);
+    		print(callRelateList);
+    	}
+    }
+    /**
+     * 解析java,行读取法
+     * @param list
+     */
+    public static String parseJava(String path,Set<String> callKeySet,Map<String,String> dbMap,Set<J1_BeanCall> callSet,List<J1_BeanCallRelate> callRelateList) {
+    	if(DE) {
+    		path = 
+//        			"D:\\03-sl-107-code\\26-gs\\99-3.0.4-stable\\dp-base\\dp-base\\src\\main\\java\\cn\\sunline\\icore\\dp\\base\\interest\\afresh\\DpSlipAfreshAdvance.java"
+//        			"D:\\03-sl-107-code\\26-gs\\99-3.0.4-stable\\us-busi\\us-serv\\src\\main\\java\\cn\\sunline\\icore\\us\\serv\\verify\\UsVerify.java"
+//    				"D:\\03-sl-107-code\\26-gs\\99-3.0.4-stable\\us-busi\\us-serv\\src\\main\\java\\cn\\sunline\\icore\\us\\serv\\base\\UsLakuPandaiQuery.java"
+//    				"D:\\03-sl-107-code\\26-gs\\99-3.0.4-stable\\dp-busi\\dp-serv\\src\\main\\java\\cn\\sunline\\icore\\dp\\serv\\settle\\DpSettleVoucherMaintain.java"
+//    				"D:\\03-sl-107-code\\26-gs\\99-3.0.4-stable\\dp-busi\\dp-serv\\src\\main\\java\\cn\\sunline\\icore\\dp\\serv\\maintain\\DpCardAccountRelate.java"
+//    				"D:\\03-sl-107-code\\26-gs\\99-3.0.4-stable\\dp-base\\dp-base\\src\\main\\java\\cn\\sunline\\icore\\dp\\base\\interest\\account\\DpHistInterestRate.java"
+//    				"D:\\03-sl-107-code\\26-gs\\99-3.0.4-stable\\dp-busi\\dp-batch\\src\\main\\java\\cn\\sunline\\icore\\dp\\batch\\dayend\\dp32DataProcessor.java"
+//    				"D:\\03-sl-107-code\\26-gs\\99-3.0.4-stable\\us-busi\\us-serv\\src\\main\\java\\cn\\sunline\\icore\\us\\serv\\base\\UsBatchAccounOpen.java"
+//    				"D:\\03-sl-107-code\\26-gs\\99-3.0.4-stable\\cf-busi\\cf-serv\\src\\main\\java\\cn\\sunline\\icore\\cf\\serv\\base\\CfCustInfoQuery.java"
+//    				"D:\\03-sl-107-code\\26-gs\\99-3.0.4-stable\\cf-busi\\cf-serv\\src\\main\\java\\cn\\sunline\\icore\\cf\\serv\\base\\CfAgreeSignMnt.java"
+//    				"D:\\03-sl-107-code\\26-gs\\99-3.0.4-stable\\us-busi\\us-serv\\src\\main\\java\\cn\\sunline\\icore\\us\\serv\\util\\UsUtils.java"
+//    				"D:\\03-sl-107-code\\26-gs\\99-3.0.4-stable\\us-busi\\us-tran\\src\\main\\java\\cn\\sunline\\icore\\us\\tran\\base\\us3080.java"
+    				"D:\\03-sl-107-code\\26-gs\\99-3.0.4-stable\\cf-busi\\cf-batch\\src\\main\\java\\cn\\sunline\\icore\\cf\\batch\\cf02DataProcessor.java"
+    				;
+        	System.out.println(path);
+    	}
+    	//解析用参数
+    	int layer = 0; //当前大括号所属层级, 0为Java外层层级,1为java内层级, 2为method层级, >2为方法内部层级
+    	String noteStr = "";
+        boolean noteKeyMatch = false;	//是否关键字注释匹配-功能说明
+        boolean noteMulMatch = false;	//是否多行注释匹配-/**
+    	//获得文件名
+        boolean isSev = false;
+        String[] pathArry = path.split("\\\\");
+        String fileName = pathArry[pathArry.length-1];
+    	String fileKey = fileName.substring(0,fileName.length()-5);
+    	if(fileKey.endsWith("Impl")) {
+    		fileKey = fileKey.substring(0,fileKey.length()-4);
+    		isSev=true;
+    	}
+        String methodKey = "";
+		String callNameParent = "";
+//    	System.out.println(fileKey);
+		//方法内解析用参数
+		int seq_no = 0;
+		List<J1_BeanCallRelate> serRelateList = new ArrayList<J1_BeanCallRelate>();
+        try {
+            File file = new File(path);
+            FileReader fileReader = new FileReader(file);
+            BufferedReader bf = new BufferedReader(fileReader);
+            String str;
+			while ((str = bf.readLine()) != null) {
+		        try {
+		    		if(LAST_ERROR) {
+		    			str = LAST_LINE.trim()+str.trim();
+		    			LAST_ERROR = false;
+		    		}
+					//类,方法,层级解析
+					if(!noteMulMatch&&(str.contains("public ")||str.contains("private "))) {
+						if(str.contains("(")&&!str.contains(";")) {
+	            			//当前大括号所属层级, 0为Java外层层级,1为java内层级, 2为method层级, >2为方法内部层级
+							layer = 2;
+	                		if(2==layer) {
+	//                			if(J2_Main.LS)System.out.println(lineSb);
+	                			String lineStr = str;
+	                			lineStr = lineStr.replace("    ", " ");
+	                			lineStr = lineStr.replace("   ", " ");
+	                			lineStr = lineStr.replace("  ", " ");
+	                			String[] lineArry = lineStr.split(" ");
+	                			int judgeKey = 0;
+	                			for(String js:lineArry) {
+	                				js = clear(js);
+	                    			if(	"".equals(js)
+	                    					||"static".equals(js)
+	                    					||"public".equals(js)
+	                    					||"private".equals(js)
+	                    					||"final".equals(js)) {
+	                    				judgeKey++;
+	                    			}else{
+	                    				break;
+	                    			}
+	                			}
+	                			judgeKey+=1;
+	                			methodKey = lineArry[judgeKey];
+	                			if(methodKey.contains("("))
+	                				methodKey = methodKey.split("\\(")[0];
+	                			callNameParent = fileKey+"."+methodKey;
+	                        	J1_BeanCall bean = new J1_BeanCall();
+	                        	bean.setCall_name(callNameParent);
+	//                        	if(noteStr.length()>1)
+	//                        		noteStr = noteStr.substring(0,noteStr.length()-1);
+	                        	noteStr = noteStr.trim();
+	                			bean.setCall_des(noteStr);
+	                        	if(isSev)
+	                        		bean.setTran_type("S");
+	                        	else
+	                        		bean.setTran_type("M");
+	                        	if(!callKeySet.contains(callNameParent)) {
+	                        		if(null==callRelateList) {
+	                                	if(J72_Tran_Main.isRealTime) {
+	                            			J5_Sql.doMain(113, bean);
+	                                	}else{
+	                                		callKeySet.add(callNameParent);
+	                                		callSet.add(bean);
+	                                	}
+	                        		}
+	                        	}
+	                			seq_no=0;
+	                        	if(DE)System.err.println(callNameParent+","+noteStr);
+	                    		noteStr = "";
+	                    		serRelateList = new ArrayList<J1_BeanCallRelate>();
+	                		}
+						}
+						if(str.contains("class")) {
+							layer = 1;
+	                		noteStr = "";
+						}
+					}
+					//是否非规范多行注释开启
+					if(str.contains("/**")||str.contains("/*")) {
+				        noteMulMatch = true;	//是否多行注释匹配-/**
+					}
+					if(str.contains("*/")) {
+				        noteKeyMatch = false;	//是否关键字注释匹配-功能说明
+				        noteMulMatch = false;	//是否多行注释匹配-/**
+					}
+					if(str.contains("}")) {
+	            		noteStr = "";
+					}
+					if(noteMulMatch) {
+						//keyNote解析
+						if(str.contains("功能说明")) {
+					        noteKeyMatch = true;	//是否关键字注释匹配-功能说明
+	//						 *         <li>功能说明负债开户</li>
+							 String[] strArry = null;
+							 if(str.contains(":"))
+								 strArry = str.split(":");
+							 if(str.contains("："))
+								 strArry = str.split("：");
+							 noteStr = strArry[strArry.length-1].split("<")[0];
+						}
+						if(!noteKeyMatch) {
+							String strCache = clear(str);
+							if(!strCache.equals("*")) {
+								if(!strCache.contains("@")||strCache.contains("@description")) {
+									if(isNote(strCache)) {
+										//包含方法注释的那一行
+										noteStr = strCache.replace("@description", "");//.substring(1, strCache.length());
+									}
+								}
+							}
+						}
+					}
+					//是否单行注释开启
+					if(str.contains("//")) {
+						String strCache = str.trim();
+						noteStr = strCache.substring(2, strCache.length());
+					}
+					if(null!=callRelateList) {
+						if(str.contains(".")) {
+							seq_no = isMethod(fileKey,callNameParent,seq_no,str,callKeySet,callRelateList);
+						}
+						if(serRelateList.size()>0) {
+							for(J1_BeanCallRelate bean:serRelateList) {
+								if(str.contains(bean.getTable_name()+".")) {
+									String ser = bean.getCall_name_child()+"."+str.split(bean.getTable_name()+".")[1].split("\\(")[0];
+									if(callKeySet.contains(ser)) {
+										seq_no++;
+										bean.setCall_name_child(ser);
+										bean.setSeq_no(seq_no);
+										bean.setTable_name(null);
+										callRelateList.add(bean);
+									}else{
+										if("R".equals(bean.getCall_type())) {
+											seq_no++;
+											bean.setCall_type("E");
+											bean.setCall_name_child(ser);
+											bean.setSeq_no(seq_no);
+											bean.setTable_name(null);
+											callRelateList.add(bean);
+											System.err.println("无法匹配的多行R服务："+ser);
+										}
+									}
+								}
+							}
+						}
+						if(str.contains("getRemoteInstance")||str.contains("getInstance")) {
+							String[] insArray = null;
+							J1_BeanCallRelate bean = new J1_BeanCallRelate();
+							bean.setCall_name_parent(callNameParent);
+							if(str.contains("getRemoteInstance")) {
+								bean.setCall_type("R");
+								insArray = str.split("getRemoteInstance");
+							}else if(str.contains("getInstance")) {
+								bean.setCall_type("S");
+								insArray = str.split("getInstance");
+							}
+//							ComIoUsUser.qryPushDemandInfoOut qryPushDemandInfoOut = SysUtil.getRemoteInstance(SrvIoUsUser.class).qryPushDemandInfo(qryPushDemandInfoIn);
+							String[] classArray = insArray[1].split(".class");
+							String servName = classArray[0].substring(1);
+							String serMethod = ""; 
+							boolean isOne = false;
+							if(classArray.length>1) {
+								if(classArray[1].startsWith(");")){
+	//SrvIoCfCustomerInfo customerInfo = SysUtil.getRemoteInstance(SrvIoCfCustomerInfo.class);
+									//分步处理
+									String[] equalArry = insArray[0].split("=")[0].split(" ");
+									for(int i=equalArry.length-1;i>0;i--) {
+										if(equalArry[i].length()>0) {
+											bean.setCall_name_child(servName);
+											bean.setTable_name(equalArry[i]);
+											serRelateList.add(bean);
+											break;
+										}
+									}
+								}else if(classArray[1].startsWith(").")){
+									//一步处理
+									serMethod = classArray[1].split("\\(")[0].substring(2);
+									isOne = true;
+								}
+								if(isOne) {
+									String ser = classArray[0].substring(1)+"."+serMethod;
+									if(callKeySet.contains(ser)) {
+										seq_no++;
+										bean.setCall_name_child(ser);
+										bean.setSeq_no(seq_no);
+										callRelateList.add(bean);
+									}else{
+										System.err.println("无法匹配的单行服务："+ser);
+										if(0==serMethod.length()) {
+											LAST_LINE = str;
+											LAST_ERROR = true;
+										}else{
+											seq_no++;
+											bean.setCall_type("E");
+											bean.setCall_name_child(ser);
+											bean.setSeq_no(seq_no);
+											bean.setTable_name(null);
+											callRelateList.add(bean);
+										}
+									}
+								}
+							}
+						}
+						if(str.contains(DAO)) {
+							//判断是否数据库操作
+							seq_no = isDao(path,callNameParent,seq_no,str,dbMap,callRelateList);
+						}
+					}
+				} catch (Exception e) {
+					if(!BREAK.equals(e.getMessage()))
+						e.printStackTrace();
+					continue;
+				}
+	        }
+			bf.close();
+            fileReader.close();
+            return "";
+        } catch (Exception e) {
+        	e.printStackTrace();
+            return null;
+        }
+    }
+    //判断是否注释信息
+    public static String isNote() throws Exception {
+    	return "";
+    }
+    //判断是否调用其他方法
+    public static int isMethod(String fileKey,String callNameParent,int seq_no,String str
+    		,Set<String> callKeySet,List<J1_BeanCallRelate> callRelateList){
+		List<String> callNameChildList = new ArrayList<String>();
+		String callKey = "";
+		//
+		List<String> inList = split(str);//拆分获得所有关键字
+		for(int i=1;i<inList.size();i++) {
+			callKey = inList.get(i-1)+"."+inList.get(i);
+			if(callKeySet.contains(callKey)) {
+				callNameChildList.add(callKey);
+			}
+			callKey = fileKey+"."+inList.get(i);
+			if(callKeySet.contains(callKey)&&str.contains(inList.get(i)+"(")
+					&&(!callNameParent.equals(callKey))) {
+				callNameChildList.add(callKey);
+			}
+		}
+		if(callNameChildList.size()>0) {
+//			if(DE)print(callNameChildList);
+			for(String callNameChild:callNameChildList) {
+				seq_no++;
+				J1_BeanCallRelate bean = new J1_BeanCallRelate();
+				bean.setCall_name_parent(callNameParent);
+				bean.setCall_name_child(callNameChild);
+				bean.setCall_type("M");
+				bean.setSeq_no(seq_no);
+				callRelateList.add(bean);
+			}
+		}
+		return seq_no;
+    }
+    //判断是否数据库操作
+    public static int isDao(String path,String callNameParent,int seq_no,String str
+    		,Map<String,String> dbMap,List<J1_BeanCallRelate> callRelateList) throws Exception {
+    	String[] strArray = str.split("\\.");
+		int dao = -1;
+		for(int i=0;i<strArray.length;i++) {
+			if(strArray[i].endsWith("Dao")||strArray[i].endsWith("DaoUtil")) {
+				dao = i;
+				break;
+			}
+		}
+		if(-1==dao)
+			throw new Exception(BREAK);
+		String daoStr = clear(strArray[dao]);
+		String[] daoStrTab = daoStr.split("	");//tab
+		daoStr = daoStrTab[daoStrTab.length-1];
+		String[] daoStrSpace = daoStr.split(" ");
+		daoStr = daoStrSpace[daoStrSpace.length-1];
+		String[] daoStrEqual = daoStr.split("=");
+		daoStr = daoStrEqual[daoStrEqual.length-1];
+		String[] daoStrBrackets = daoStr.split("\\(");
+		daoStr = daoStrBrackets[daoStrBrackets.length-1];
+		String[] daoStrComma = daoStr.split(",");
+		daoStr = daoStrComma[daoStrComma.length-1];
+		J1_BeanCallRelate bean = new J1_BeanCallRelate();
+		bean.setCall_name_child("");
+		bean.setCall_des("");
+		bean.setIs_return(false);
+		bean.setIs_simple(false);
+		//判断操作类型
+		String operKey = "";
+		try{
+			if(strArray.length>1)
+				operKey = strArray[dao+1].split("\\(")[0];
+			else
+				throw new Exception(BREAK);
+		}catch(Exception e){
+			System.err.println(e);
+			System.err.println("出错文件："+path);
+			System.err.println("出错行："+str);
+			LAST_ERROR = true;
+			LAST_LINE = str;
+			throw new Exception(BREAK);
+		}
+		boolean isOper = false;
+		boolean isNsql = false;
+		if(operKey.startsWith("insertBatch")) {
+			bean.setTable_oper("B");
+			isOper = true;
+			String[] classStr = str.split(".class")[0].split("\\(");
+			daoStr = classStr[classStr.length-1]+DAO;
+		}else if(operKey.startsWith("insert")) {
+			bean.setTable_oper("I");
+			isOper = true;
+		}else if(operKey.startsWith("update")) {
+			bean.setTable_oper("U");
+			isOper = true;
+		}else if(operKey.startsWith("select")) {
+			bean.setTable_oper("S");
+			isOper = true;
+		}else if(operKey.startsWith("delete")) {
+			bean.setTable_oper("D");
+			isOper = true;
+		}else if(operKey.startsWith("namedsql_")) {
+			daoStr = daoStr.substring(0,daoStr.length()-3)+"."+operKey.substring(9);
+		}else{
+			if(str.contains("import ")) {
+				
+			}else{
+				String nsqlMethod = strArray[dao+1];
+				nsqlMethod = nsqlMethod.split("\\(")[0];
+				if("DaoUtil".equals(daoStr)) {
+					if(!"insertBatch".equals(nsqlMethod)) {
+						throw new Exception(BREAK);
+					}
+				}else{
+					daoStr = daoStr.substring(0,daoStr.length()-3)+"."+nsqlMethod;
+					if(dbMap.containsKey(daoStr)) {
+						isNsql = true;
+					}else{
+						System.err.println("无法匹配Dao的行:"+str);
+						throw new Exception(BREAK);
+					}
+				}
+			}
+		}
+		if(isNsql) {
+			seq_no++;
+			bean.setCall_name_parent(callNameParent);
+			operKey = operKey.split(",")[0];
+			bean.setTable_name(daoStr);
+			bean.setCall_type("N");
+			bean.setSeq_no(seq_no);
+			callRelateList.add(bean);
+		}
+		if(isOper) {
+			seq_no++;
+			bean.setCall_name_parent(callNameParent);
+			bean.setCall_type("T");
+			bean.setSeq_no(seq_no);
+			if(dbMap.containsKey(daoStr)) {
+				bean.setTable_name(dbMap.get(daoStr));
+			}else{
+				if(!(daoStr.startsWith("import")||daoStr.equals("cn"))) {
+					bean.setTable_name(daoStr);
+//					System.err.println("不存在的Dao:"+daoStr);
+				}
+			}
+			callRelateList.add(bean);
+//			System.out.println(dbMap.get(daoStr));
+		}
+		return seq_no;
+    }
+    public static boolean isNote(String s) {
+    	if(s.length()>0&&!s.contains("20"))
+    		return true;
+    	else
+    		return false;
+    }
+    public static String clear(String s) {
+    	/*
+        *         <p>
+        *         <li>2019年12月12日-下午4:41:11</li>
+        *         <li>用户重复注册，更新邮件与名称</li>
+        *         </p>
+        */
+    	s = s.replace("<p>", "");
+    	s = s.replace("</p>", "");
+    	s = s.replace("<li>", "");
+    	s = s.replace("</li>", "");
+    	s = s.replace("*", "");
+    	s = s.replace("/", "");
+    	s = s.replace("/t", "");
+    	s = s.trim();
+    	return s;
+    }
+    public static String splitClear(String s) {
+		String daoStr = clear(s);
+		String[] daoStrSpace = daoStr.split(" ");
+		daoStr = daoStrSpace[daoStrSpace.length-1];
+		String[] daoStrEqual = daoStr.split("=");
+		daoStr = daoStrEqual[daoStrEqual.length-1];
+		String[] daoStrBrackets = daoStr.split("\\(");
+		daoStr = daoStrBrackets[daoStrBrackets.length-1];
+		String[] daoStrComma = daoStr.split(",");
+		daoStr = daoStrComma[daoStrComma.length-1];
+		return daoStr;
+    }
+    public static List<String> split(String s) {
+    	List<String> i = new ArrayList<String>();
+    	i.add(quotClear(s));
+    	List<String> r = split(i,"\\.");
+    	r = split(r," ");
+    	r = split(r,"=");
+    	r = split(r,"\\(");
+    	r = split(r,"\\)");
+    	return r;
+    }
+    public static List<String> split(List<String> s,String regex) {
+    	List<String> r = new ArrayList<String>();
+    	for(String str:s) {
+	    	for(String childStr:str.split(regex)) {
+	    		r.add(clear(childStr));
+	    	}
+    	}
+    	return r;
+    }
+    public static String quotClear(String s) {
+    	while(s.contains("\"")){
+    		int b = s.indexOf("\"");
+    		String cacheStr = s.substring(b+1);
+    		int e = cacheStr.indexOf("\"");
+    		s = s.substring(0, b)+s.substring(e+b+2, s.length());
+    	}
+    	return s;
+    }
+    /**
+     * 解析tables,xml解析
+     */
+    public static void parseTables(String path,Set<String> keySet,Set<J1_BeanDb> dbSet) {
+    	if(DE) {
+    		path = 
+//    				"D:\\03-sl-107-code\\26-gs\\99-3.0.4-stable\\dp-base\\dp-base\\src\\main\\resources\\tables\\TabDpAccountBase.tables.xml"
+    				"D:\\03-sl-107-code\\26-gs\\99-3.0.4-stable\\cf-busi\\cf-serv\\src\\main\\resources\\tables\\TabCfCustOther.tables.xml"
+    				;
+    		System.out.println(path);
+    	}
+    	DocumentBuilderFactory factory = DocumentBuilderFactory.newInstance();
+	    try {
+	        DocumentBuilder builder = factory.newDocumentBuilder();
+	        Document d = builder.parse(path);
+	        NodeList list = d.getElementsByTagName("table");
+	        String idStr = "";
+	        String nameStr = "";
+	        for (int i = 0; i <list.getLength() ; i++) {
+	            Element dbNode = (Element) list.item(i);
+                NamedNodeMap attributes = dbNode.getAttributes();
+                idStr = attributes.getNamedItem(ID).getNodeValue();
+            	if(!keySet.contains(idStr)) {
+            		keySet.add(idStr);
+            		J1_BeanDb dbBean = new J1_BeanDb();
+            		if(idStr.contains("_"))
+            			idStr = idStr.substring(0, 1).toUpperCase()+idStr.substring(1);
+            		idStr = idStr+DAO;
+            		dbBean.setTable_dao(idStr);
+            		nameStr = attributes.getNamedItem(NAME).getNodeValue();
+            		dbBean.setTable_name(nameStr);
+            		dbBean.setTable_des(attributes.getNamedItem(LONG_NAME).getNodeValue());
+            		dbBean.setTable_type("T");
+            		dbSet.add(dbBean);
+            		if(J3_Util.DE)System.out.println(nameStr+","+idStr);
+            	}
+	        }
+	    } catch (Exception e) {
+	        e.printStackTrace();
+	    }
+    }
+    /**
+     * 解析nsql,xml解析
+     */
+    public static void parseNSQL(String path,Set<String> keySet,Set<J1_BeanDb> dbSet) {
+    	if(DE) {
+    		path = 
+//    		    	"D:\\03-sl-107-code\\26-gs\\99-3.0.4-stable\\cf-busi\\cf-serv\\src\\main\\resources\\namedsql\\CfCustomerQuerySing.nsql.xml"
+//    		    	"D:\\03-sl-107-code\\26-gs\\99-3.0.4-stable\\dp-busi\\dp-serv\\src\\main\\resources\\namedsql\\batch\\SqlDpDayEnd.nsql.xml"
+//    				"D:\\03-sl-107-code\\26-gs\\99-3.0.4-stable\\cf-busi\\cf-serv\\src\\main\\resources\\namedsql\\CfCustomerBatch.nsql.xml"
+    		"D:\\03-sl-107-code\\26-gs\\99-3.0.4-stable\\us-busi\\us-serv\\src\\main\\resources\\namedsql\\UsUserBase.nsql.xml"
+    				;
+    		System.out.println(path);
+    	}
+    	//获得文件名
+        String[] pathArry = path.split("\\\\");
+        String fileName = pathArry[pathArry.length-1];
+    	String fileKey = fileName.substring(0,fileName.length()-9);
+		//解析文件
+		DocumentBuilderFactory factory = DocumentBuilderFactory.newInstance();
+	    try {
+	        DocumentBuilder builder = factory.newDocumentBuilder();
+	        Document d = builder.parse(path);
+	        addDB(fileKey,d.getElementsByTagName("dynamicSelect"),"S",keySet,dbSet);
+	        addDB(fileKey,d.getElementsByTagName("select"),"S",keySet,dbSet);
+	        addDB(fileKey,d.getElementsByTagName("update"),"U",keySet,dbSet);
+	        addDB(fileKey,d.getElementsByTagName("delete"),"D",keySet,dbSet);
+//	        System.err.println("dynamicSelect:"+d.getElementsByTagName("dynamicSelect").getLength());
+//	        System.err.println("select:"+d.getElementsByTagName("select").getLength());
+//	        System.err.println("update:"+d.getElementsByTagName("update").getLength());
+	    } catch (Exception e) {
+	        e.printStackTrace();
+	    }
+    }
+    public static void addDB(String fileKey,NodeList list,String oper,Set<String> keySet,Set<J1_BeanDb> dbSet) {
+        String idStr = "";
+        for (int i = 0; i <list.getLength() ; i++) {
+            Element dbNode = (Element) list.item(i);
+            NamedNodeMap attributes = dbNode.getAttributes();
+            idStr = attributes.getNamedItem(ID).getNodeValue();
+            idStr = fileKey+"."+idStr;
+        	if(!keySet.contains(idStr)) {
+        		keySet.add(idStr);
+        		J1_BeanDb dbBean = new J1_BeanDb();
+        		dbBean.setTable_name(idStr);
+        		dbBean.setTable_dao(idStr);
+        		dbBean.setTable_type("N");
+        		dbBean.setTable_oper(oper);
+        		Node longName = attributes.getNamedItem(LONG_NAME);
+        		if(null!=longName)
+        			dbBean.setTable_des(longName.getNodeValue());
+        		dbSet.add(dbBean);
+            	if(DE)System.out.println(idStr);
+        	}
+        }
+    }
+    public static void logB() {
+        TIMESTAMP_BEGIN=System.currentTimeMillis();
+    }
+    public static void logE(String key) {
+        TIMESTAMP_END=System.currentTimeMillis();
+        if(J2_Main.LS)System.out.println(key+"..耗时:"+J3_Util.longToTime(TIMESTAMP_END-TIMESTAMP_BEGIN));
+        TIMESTAMP_BEGIN=TIMESTAMP_END;
+    }
+    @SuppressWarnings("rawtypes")
+	public static void print(Collection co) {
+    	if(!DE)return;
+    	for(Object obj:co) {
+        	if(obj instanceof J1_BeanCallRelate) {
+        		J1_BeanCallRelate b = (J1_BeanCallRelate)obj;
+        		System.out.println(
+        			b.getCall_name_parent()+","+b.getSeq_no()+","+b.getCall_type()+","+b.getCall_name_child()
+        			+","+b.getTable_name()+","+b.getTable_oper()
+        		);
+        	}else if(obj instanceof String) {
+        		System.out.println(obj);
+        	}
+    	}
+    }
+}
