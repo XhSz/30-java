@@ -1,4 +1,4 @@
-package p50_project_v1_4_2;
+package p50_project_v1_4_4;
 
 import java.io.BufferedReader;
 import java.io.File;
@@ -10,11 +10,6 @@ import java.io.IOException;
 import java.io.InputStreamReader;
 import java.io.PrintStream;
 import java.io.Reader;
-import java.sql.Connection;
-import java.sql.DriverManager;
-import java.sql.ResultSet;
-import java.sql.SQLException;
-import java.sql.Statement;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.HashMap;
@@ -38,6 +33,7 @@ import p50_project_v1.J1_BeanCall;
 import p50_project_v1.J1_BeanCallRelate;
 import p50_project_v1.J1_BeanDb;
 import p50_project_v1.J1_BeanMenu;
+import p50_project_v1.J1_BeanTranRelate;
 
 
 public class J3_Util {
@@ -48,11 +44,30 @@ public class J3_Util {
 	public static String METHOD = "method";
 	public static String LONG_NAME = "longname";
 	public static String BREAK = "break";
+	public static String SHORT_MIDDLE_LINE = "-";
+	public static String SML = SHORT_MIDDLE_LINE;
 	public static long TIMESTAMP_BEGIN = System.currentTimeMillis();
 	public static long TIMESTAMP_END = System.currentTimeMillis();
 	public static Map<String,Long> TIMESTAMP_MAP = new HashMap<String,Long>(); 
 	public static boolean LAST_ERROR = false;
 	public static String LAST_LINE = "";
+	//S,select;I,insert;U,update;D,delete;B,batchInsert
+	public static Map<String,String> OPER_MAP = new HashMap<String,String>();
+	//R,remote service;S,local service;M,method;T,tables;N,namesql;E,error
+	public static Map<String,String> CALL_MAP = new HashMap<String,String>();
+	static {
+		OPER_MAP.put("S", "select");
+		OPER_MAP.put("I", "insert");
+		OPER_MAP.put("U", "update");
+		OPER_MAP.put("D", "delete");
+		OPER_MAP.put("B", "batchInsert");
+		CALL_MAP.put("R", "remoteSer");
+		CALL_MAP.put("S", "localSer");
+		CALL_MAP.put("M", "method");
+		CALL_MAP.put("T", "table");
+		CALL_MAP.put("N", "nsql");
+		CALL_MAP.put("E", "error");
+	}
 
     public static StringBuilder space(int n){
         StringBuilder s = new StringBuilder();
@@ -91,13 +106,77 @@ public class J3_Util {
      */
     public static StringBuilder getLeafSb(J1_BeanMenu f3,Map<String,String> map){
         StringBuilder sb = new StringBuilder();
-        sb.append(space(f3.getLevel()))
-                .append("[").append(f3.getMenuCode()).append("]").append(f3.getMenuNameZh()).append(":{\n")
-                .append(space(f3.getLevel()+1)).append("menu").append(space(1))
-                .append(map.get(f3.getQryTrans())).append("-").append(f3.getQryTrans()).append(space(1))
-                .append(f3.getMenuJsonPath()).append("\n")
-                .append(space(f3.getLevel())).append("},");
+        if(null!=map)
+	        sb.append(space(f3.getLevel()))
+	                .append("[").append(f3.getMenuCode()).append("]").append(f3.getMenuNameZh()).append(":{\n")
+	                .append(space(f3.getLevel()+1)).append("menu").append(space(1))
+	                .append(map.get(f3.getQryTrans())).append(SML).append(f3.getQryTrans()).append(space(1))
+	                .append(f3.getMenuJsonPath()).append("\n")
+	                .append(space(f3.getLevel())).append("},");
+        else {
+	        sb.append(space(f3.getLevel()))
+	                .append("[").append(f3.getMenuCode()).append("]").append(f3.getMenuNameZh()).append(":{\n")
+	                .append(space(f3.getLevel()+1)).append("menu").append(space(1))
+	                .append(f3.getQryTransIcore()).append(SML).append(f3.getQryTrans()).append(space(1))
+	                .append(f3.getMenuJsonPath());
+	        if(J2_MainUnit.tranRelateKeySet.contains(f3.getQryTransIcore())) {
+	        	sb.append(":{\n");
+	        	getTranSb(sb,J2_MainUnit.tranRelateKeyMap.get(f3.getQryTransIcore()),f3);
+	        	sb.append("\n").append(space(f3.getLevel()+1)).append("}\n");
+	        }else{
+	        	sb.append("\n");
+	        }
+	        sb.append(space(f3.getLevel())).append("},");
+        }
         return sb;
+    }
+    public static StringBuilder getTranSb(StringBuilder sb,int begin,J1_BeanMenu f3){
+    	for(int i=begin;;i++) {
+    		J1_BeanTranRelate bean = J2_MainUnit.tranRelateList.get(i);
+    		if(!f3.getQryTransIcore().equals(bean.getTran_name())) {
+    			sb.delete(sb.length()-2, sb.length());
+    			break;
+    		}
+    		sb.append(space(f3.getLevel()+2));
+    		if(bean.isIs_simple())sb.append("1-");
+    		sb.append(bean.getTran_type()).append(SML).append(bean.getCall_name());
+    		if(J2_MainUnit.callRelateKeySet.contains(bean.getCall_name())) {
+	        	sb.append(":{\n");
+	        	getCallSb(sb,J2_MainUnit.callRelateKeyMap.get(bean.getCall_name()),f3.getLevel(),bean.getCall_name());
+	        	sb.append("\n").append(space(f3.getLevel()+2)).append("},\n");
+    		}else
+    			sb.append(",\n");
+    	}
+    	return sb;
+    }
+    public static StringBuilder getCallSb(StringBuilder sb,int begin,int space,String callNameParent){
+    	for(int i=begin;;i++) {
+    		J1_BeanCallRelate bean = J2_MainUnit.callRelateList.get(i);
+    		if(!callNameParent.equals(bean.getCall_name_parent())) {
+    			sb.delete(sb.length()-2, sb.length());
+    			break;
+    		}
+    		sb.append(space(space+3));
+    		//R,remote service;S,local service;M,method;T,tables;N,namesql;E,error
+    		String c = bean.getCall_type();
+    		sb.append(CALL_MAP.get(c)).append(SML);
+    		if("R".equals(c)||"S".equals(c)||"M".equals(c)) {
+        		sb.append(bean.getCall_name_child());
+        		if(space<8&&J2_MainUnit.callRelateKeySet.contains(bean.getCall_name_child())) {
+    	        	sb.append(":{\n");
+    	        	getCallSb(sb,J2_MainUnit.callRelateKeyMap.get(bean.getCall_name_child()),space+1,bean.getCall_name_child());
+    	        	sb.append("\n").append(space(space+3)).append("},\n");
+        		}else
+        			sb.append(",\n");
+    		}else if("E".equals(c)) {
+        		sb.append(bean.getCall_name_child()).append(",\n");
+    		}else if("T".equals(c)) {
+        		sb.append(bean.getTable_name()).append(SML).append(OPER_MAP.get(bean.getTable_oper())).append(",\n");
+    		}else if("N".equals(c)) {
+        		sb.append(bean.getTable_name()).append(",\n");
+    		}
+    	}
+    	return sb;
     }
     public static void printToJson(StringBuilder s,String jp) throws FileNotFoundException {
         File json = new File(jp);
@@ -678,7 +757,7 @@ public class J3_Util {
             		dbBean.setTable_des(attributes.getNamedItem(LONG_NAME).getNodeValue());
             		dbBean.setTable_type("T");
             		dbSet.add(dbBean);
-            		if(DE)System.out.println(nameStr+","+idStr);
+            		if(J3_Util.DE)System.out.println(nameStr+","+idStr);
             	}
 	        }
 	    } catch (Exception e) {
@@ -747,15 +826,23 @@ public class J3_Util {
         TIMESTAMP_MAP.put(key, System.currentTimeMillis());
     }
     public static void logE(String key) {
+    	logE(key,1);
+    }
+    public static void logE(String key,int level) {
+    	String out = "";
     	if(TIMESTAMP_MAP.containsKey(key)) {
     		long now = System.currentTimeMillis();
-    		if(J2_Main.LS)System.out.println(key+"..耗时:"+J3_Util.longToTime(now-TIMESTAMP_MAP.get(key)));
+    			out = key+"..耗时:"+J3_Util.longToTime(now-TIMESTAMP_MAP.get(key));
             TIMESTAMP_MAP.put(key, now);
     	}else{
 	        TIMESTAMP_END=System.currentTimeMillis();
-	        if(J2_Main.LS)System.out.println(key+"..耗时:"+J3_Util.longToTime(TIMESTAMP_END-TIMESTAMP_BEGIN));
+    		out = key+"..耗时:"+J3_Util.longToTime(TIMESTAMP_END-TIMESTAMP_BEGIN);
 	        TIMESTAMP_BEGIN=TIMESTAMP_END;
     	}
+		if(J2_Main.LS) {
+			if(1==level)System.out.println(out);
+			else if(2==level)System.err.println(out);
+		}
     }
     public static void printDebug(J1_BeanMenu f3){
         for(J1_BeanMenu childMenu : f3.getChildren()) {
@@ -825,4 +912,5 @@ public class J3_Util {
         }  
         return null;
     }
+    
 }
