@@ -26,8 +26,8 @@ public class J2_Main {
 	static boolean LS = LOG_LEVEL>2;
     static String PROJECT_ID = 
 //    		"26"	//26 ex
-    		"27"	//27 gs
-//    		"06"	//06 local
+//    		"27"	//27 gs
+    		"06"	//06 local
     		;  
 	public static int M = 0000;
 	public static boolean isRealTime = false;

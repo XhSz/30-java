@@ -22,9 +22,6 @@ import p50_project_v1_4_2.J71_Tran_Util;
 import p50_project_v1_4_2.J72_Tran_Util;
 import p50_project_v1_4_2.J73_Tran_Util;
 
-/* 1.1 vue->json
- * 1.2 add config,
- */
 public class J2_Main {
 	public static int LOG_LEVEL=5;
 	//1 ERROR
@@ -55,6 +52,35 @@ public class J2_Main {
 	public static J1_BeanMenu TREE_9_MENU_3_TREE = null;
 	public static boolean DO_9_MENU_3_TREE = false;//菜单树结构初始化
 	public static String STR_9_MENU_9_PRINT = "9_MENU_9_PRINT-输出最终json";
+
+	/* 1.1 vue->json
+	 * 1.2 add config,
+	 * 1.3.1 J71 
+	 * 		scan tran
+	 * 1.3.2 J72
+	 * 		scan java , add note "功能说明"
+	 * 1.3.3 J72
+	 * 		scan java , add note /**	失败版本
+	 * 1.3.4 J72
+	 * 		sacn java , 改成每行读取
+	 * 1.3.5 J72
+	 * 		scan java , 识别单行注释/多行注释
+	 * 1.3.5 J73
+	 * 		scan table,nsql
+	 * 1.3.5 J72
+	 * 		scan java, 识别表
+	 * 1.4.1 J72_Tran_Main
+	 * 		变量控制集成版本
+	 * 1.4.2 J2_Main
+	 * 		多线程运行前端部分集成版本
+	 * 1.4.3 J2_Main
+	 * 		多线程运行全功能集成版本
+	 * 1.4.4 J2_Main
+	 * 		多线程运行集成简易发布版本
+	 * 后续计划:
+	 * 1.4.5 J2_Main
+	 * 		优化版本：
+	 */
 	
 	public static Thread THREAD_9_MENU_1_UPDATE = new Thread(){
         public void run(){
