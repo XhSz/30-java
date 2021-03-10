@@ -6,6 +6,7 @@ public class J1_BeanDb {
 	public String table_oper;
 	public String table_dao;
 	public String table_des;
+	public String table_name_nsql;
 	public String getTable_name() {
 		return table_name;
 	}
@@ -36,5 +37,10 @@ public class J1_BeanDb {
 	public void setTable_oper(String table_oper) {
 		this.table_oper = table_oper;
 	}
-
+	public String getTable_name_nsql() {
+		return table_name_nsql;
+	}
+	public void setTable_name_nsql(String table_name_nsql) {
+		this.table_name_nsql = table_name_nsql;
+	}
 }
