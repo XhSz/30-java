@@ -187,11 +187,15 @@ public class J5_Sql {
             		resultObj = selectTranRelate(stmt,(List<J1_BeanTranRelate>)input);
             	else if(343==oper)
             		selectCall(stmt,(Set<String>)input); 
+            	else if(3432==oper)
+            		selectCall(stmt,(Map<String,String>)input); 
             	else if(344==oper)
             		resultObj = selectCallRelate(stmt,(List<J1_BeanCallRelate>)input);
             	else if(345==oper)
             		selectDb(stmt,(Map<String,String>)input);
-            	else if(3453==oper)
+            	else if(3450==oper) 
+            		selectDbBean(stmt,(Map<String,J1_BeanDb>)input);
+            	else if(3453==oper) 
             		selectDbNsql(stmt,(Map<String,J1_BeanDb>)input);
             	else if(346==oper)
             		selectBat(stmt,(Map<String,String>)input);
@@ -337,6 +341,13 @@ public class J5_Sql {
         }
         return callRelateList;
     }
+    public static void selectCall(Statement stmt,Map<String,String> callMap) throws SQLException {
+        String sql = "select call_name,call_des from tree_call ";
+        ResultSet rs = stmt.executeQuery(sql);
+        while(rs.next()){
+        	callMap.put(rs.getString("call_name"),rs.getString("call_des"));
+        }
+    }
     public static void selectCall(Statement stmt,Set<String> callSet) throws SQLException {
         String sql = "select call_name from tree_call ";
         ResultSet rs = stmt.executeQuery(sql);
@@ -363,6 +374,18 @@ public class J5_Sql {
         ResultSet rs = stmt.executeQuery(sql);
         while(rs.next()){
         	batMap.put(rs.getString("tran_name"),rs.getString("tran_des"));
+        }
+    }
+    public static void selectDbBean(Statement stmt,Map<String,J1_BeanDb> dbMap) throws SQLException {
+        String sql = "select table_name,table_oper,table_des,table_name_nsql from tree_db_bean ";
+        ResultSet rs = stmt.executeQuery(sql);
+        while(rs.next()){
+        	J1_BeanDb bean = new J1_BeanDb();
+        	bean.setTable_name(rs.getString("table_name"));
+        	bean.setTable_oper(rs.getString("table_oper"));
+        	bean.setTable_des(rs.getString("table_des"));
+        	bean.setTable_name_nsql(rs.getString("table_name_nsql"));
+        	dbMap.put(rs.getString("table_name"),bean);
         }
     }
     public static void selectDbNsql(Statement stmt,Map<String,J1_BeanDb> dbMap) throws SQLException {

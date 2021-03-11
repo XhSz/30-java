@@ -164,7 +164,8 @@ public class J3_Util {
     		}
     		sb.append(space(f3.getLevel()+2));
     		if(bean.isIs_simple())sb.append("1-");
-    		sb.append(bean.getTran_type()).append(SML).append(bean.getCall_name());
+    		sb.append(bean.getTran_type()).append(SML).append(bean.getCall_name())
+    			.append(SML).append(SQM).append(J2_MainUnit.callMap.get(bean.getCall_name())).append(SQM);
     		if(J2_MainUnit.callRelateKeySet.contains(bean.getCall_name())) {
 	        	sb.append(":{\n");
 	        	getCallSb(sb,J2_MainUnit.callRelateKeyMap.get(bean.getCall_name()),f3.getLevel(),bean.getCall_name());
@@ -255,7 +256,8 @@ public class J3_Util {
     		String c = bean.getCall_type();
     		sb.append(CALL_MAP.get(c)).append(SML);
     		if("R".equals(c)||"S".equals(c)||"M".equals(c)) {
-        		sb.append(bean.getCall_name_child());
+        		sb.append(bean.getCall_name_child())
+    			.append(SML).append(SQM).append(J2_MainUnit.callMap.get(bean.getCall_name_child())).append(SQM);
         		if(space<8&&J2_MainUnit.callRelateKeySet.contains(bean.getCall_name_child())) {
     	        	sb.append(":{\n");
     	        	getCallSb(sb,J2_MainUnit.callRelateKeyMap.get(bean.getCall_name_child()),space+1,bean.getCall_name_child());
@@ -263,12 +265,18 @@ public class J3_Util {
         		}else
         			sb.append(",\n");
     		}else if("E".equals(c)) {
-        		sb.append(bean.getCall_name_child()).append(",\n");
+        		sb.append(bean.getCall_name_child())
+    			.append(SML).append(SQM).append(J2_MainUnit.callMap.get(bean.getCall_name_child())).append(SQM).append(",\n");
     		}else if("T".equals(c)) {
-        		sb.append(bean.getTable_name()).append(SML).append(OPER_MAP.get(bean.getTable_oper())).append(",\n");
+        		sb.append(bean.getTable_name()).append(SML).append(OPER_MAP.get(bean.getTable_oper()));
+    			if(J2_MainUnit.dbBeanMap.containsKey(bean.getTable_name())) {
+    				J1_BeanDb dbbean = J2_MainUnit.dbBeanMap.get(bean.getTable_name());
+    				sb.append(SML).append(SQM).append(dbbean.getTable_des()).append(SQM);
+    			}
+				sb.append(",\n");
     		}else if("N".equals(c)) {
-    			if(J2_MainUnit.dbNsqlMap.containsKey(bean.getTable_name())) {
-    				J1_BeanDb dbbean = J2_MainUnit.dbNsqlMap.get(bean.getTable_name());
+    			if(J2_MainUnit.dbBeanMap.containsKey(bean.getTable_name())) {
+    				J1_BeanDb dbbean = J2_MainUnit.dbBeanMap.get(bean.getTable_name());
     				StringBuilder tnnsb = new StringBuilder();
     				String[] tnnArray = dbbean.getTable_name_nsql().split(COMMA);
     				for(int m=0;m<tnnArray.length;m++){

@@ -75,7 +75,8 @@ public class J2_Main {
 	 * 1.4.5 J2_Main
 	 * 		优化版本
 	 * 1.3.6  增加nsql备注
-	 * 1.3.7  menu以外的call输出
+	 * 1.3.7 menu以外的call输出,跑批程序逻辑输出
+	 * 1.3.8  整合成单一json，注释输出
 	 * 后续计划:
 	 * 		vue精准识别，table、nsql、服务调用逻辑，jar级别扫描，跑批程序逻辑输出
 	 */

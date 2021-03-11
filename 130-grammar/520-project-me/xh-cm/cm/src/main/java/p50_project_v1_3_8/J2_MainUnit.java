@@ -146,7 +146,9 @@ public class J2_MainUnit {
     		while(!start) {
         		try {
 					Thread.sleep(1000);
-					start = DO_1_TRAN_3_CACHE&&DO_4_RELATE_3_CACHE&&DO_5_DB_3_NSQL_3_CACHE;
+					System.out.println(STR_9_MENU_9_PRINT_2_CACHE+":"+DO_1_TRAN_3_CACHE+J3_Util.COMMA+DO_4_RELATE_3_CACHE
+							+J3_Util.COMMA+DO_5_DB_1_INIT+J3_Util.COMMA+DO_3_CALL_3_CACHE);
+					start = DO_1_TRAN_3_CACHE&&DO_4_RELATE_3_CACHE&&DO_5_DB_1_INIT&&DO_3_CALL_3_CACHE;
 				} catch (InterruptedException e) {
 					e.printStackTrace();
 				}
@@ -170,8 +172,8 @@ public class J2_MainUnit {
         		try {
 					Thread.sleep(1000);
 					System.out.println(STR_4_RELATE_5_PRINT_2_ONL+":"+DO_1_TRAN_3_CACHE+J3_Util.COMMA+DO_4_RELATE_3_CACHE
-							+J3_Util.COMMA+DO_5_DB_3_NSQL_3_CACHE+J3_Util.COMMA+DO_1_TRAN_5_INIT);
-					start = DO_1_TRAN_3_CACHE&&DO_4_RELATE_3_CACHE&&DO_5_DB_3_NSQL_3_CACHE&&DO_1_TRAN_5_INIT;
+							+J3_Util.COMMA+DO_5_DB_1_INIT+J3_Util.COMMA+DO_1_TRAN_5_INIT+J3_Util.COMMA+DO_3_CALL_3_CACHE);
+					start = DO_1_TRAN_3_CACHE&&DO_4_RELATE_3_CACHE&&DO_5_DB_1_INIT&&DO_1_TRAN_5_INIT&&DO_3_CALL_3_CACHE;
 				} catch (InterruptedException e) {
 					e.printStackTrace();
 				}
@@ -194,8 +196,9 @@ public class J2_MainUnit {
     		while(!start) {
         		try {
 					Thread.sleep(1000);
-					System.out.println(STR_4_RELATE_5_PRINT_2_BAT+":"+DO_6_BAT_4_INIT+J3_Util.COMMA+DO_5_DB_3_NSQL_3_CACHE+J3_Util.COMMA+DO_4_RELATE_3_CACHE);
-					start = DO_6_BAT_4_INIT&&DO_5_DB_3_NSQL_3_CACHE&&DO_4_RELATE_3_CACHE;
+					System.out.println(STR_4_RELATE_5_PRINT_2_BAT+":"+DO_6_BAT_4_INIT+J3_Util.COMMA
+							+DO_5_DB_1_INIT+J3_Util.COMMA+DO_4_RELATE_3_CACHE+J3_Util.COMMA+DO_3_CALL_3_CACHE);
+					start = DO_6_BAT_4_INIT&&DO_5_DB_1_INIT&&DO_4_RELATE_3_CACHE&&DO_3_CALL_3_CACHE;
 				} catch (InterruptedException e) {
 					e.printStackTrace();
 				}
@@ -219,8 +222,10 @@ public class J2_MainUnit {
     		while(!start) {
         		try {
 					Thread.sleep(1000);
-					System.out.println(STR_4_RELATE_5_PRINT+":"+DO_9_MENU_9_PRINT_2_CACHE+J3_Util.COMMA+DO_4_RELATE_5_PRINT_2_ONL+J3_Util.COMMA+DO_4_RELATE_5_PRINT_2_BAT);
-					start = DO_9_MENU_9_PRINT_2_CACHE&&DO_4_RELATE_5_PRINT_2_ONL&&DO_4_RELATE_5_PRINT_2_BAT;
+					System.out.println(STR_4_RELATE_5_PRINT+":"+DO_9_MENU_9_PRINT_2_CACHE
+							+J3_Util.COMMA+DO_4_RELATE_5_PRINT_2_ONL+J3_Util.COMMA+DO_4_RELATE_5_PRINT_2_BAT
+							+J3_Util.COMMA+DO_3_CALL_3_CACHE);
+					start = DO_9_MENU_9_PRINT_2_CACHE&&DO_4_RELATE_5_PRINT_2_ONL&&DO_4_RELATE_5_PRINT_2_BAT&&DO_3_CALL_3_CACHE;
 				} catch (InterruptedException e) {
 					e.printStackTrace();
 				}
@@ -253,10 +258,15 @@ public class J2_MainUnit {
 	public static String STR_3_CALL_1_INIT = "3_CALL_1_INIT-方法首次初始化";
 	public static boolean DO_3_CALL_1_INIT = false;//方法首次初始化
 	public static String STR_3_CALL_2_INSERT = "3_CALL_2_INSERT-方法首次初始化入库";
-	public static boolean DO_3_CALL_2_INSERT = false;//方法首次初始化入库
+	public static boolean DO_3_CALL_2_INSERT = false;//方法首次初始化入库 
+	public static String STR_3_CALL_3_CACHE = "3_CALL_3_CACHE-方法内存化";
+	public static boolean DO_3_CALL_3_CACHE = false;//方法内存化
+	public static Map<String,String> callMap = new HashMap<String,String>();
 	public static Set<String> dbKeySet = new HashSet<String>();
 	public static Set<J1_BeanDb> dbSet = new HashSet<J1_BeanDb>();
 	public static Set<J1_BeanDb> dbTablesSet = new HashSet<J1_BeanDb>();
+	public static String STR_5_DB_4_INIT = "5_DB_4_INIT-db初始化";
+	public static boolean DO_5_DB_1_INIT = false;//db初始化
 	public static String STR_5_DB_2_TABLES_1_INIT = "5_DB_2_TABLES_1_INIT-表初始化";
 	public static boolean DO_5_DB_2_TABLES_1_INIT = false;//表初始化
 	public static String STR_5_DB_2_TABLES_2_INSERT = "5_DB_2_TABLES_2_INSERT-表初始化入库";
@@ -269,6 +279,7 @@ public class J2_MainUnit {
 	public static String STR_5_DB_3_NSQL_3_CACHE = "5_DB_3_NSQL_3_CACHE-命名SQL初始化-内存化";
 	public static boolean DO_5_DB_3_NSQL_3_CACHE = false;//命名SQL内存化 
 	public static String STR_5_DB_3_NSQL_4_INIT = "5_DB_3_NSQL_4_INIT-命名SQL初始化-查询数据库";
+	public static Map<String,J1_BeanDb> dbBeanMap = new HashMap<String,J1_BeanDb>();
 	public static Map<String,J1_BeanDb> dbNsqlMap = new HashMap<String,J1_BeanDb>();
 	public static Map<String,String> dbMap = new HashMap<String,String>();
 	public static List<J1_BeanCallRelate> callRelateList = new ArrayList<J1_BeanCallRelate>();
@@ -395,6 +406,25 @@ public class J2_MainUnit {
     		DO_3_CALL_2_INSERT = true;
         }
     };
+	public static Thread THREAD_3_CALL_3_CACHE = new Thread(){
+        public void run(){
+    		J3_Util.logB(STR_3_CALL_3_CACHE);
+    		if(needReady) {
+            	while(!DO_3_CALL_2_INSERT) {
+            		try {
+    					Thread.sleep(1000);
+    				} catch (InterruptedException e) {
+    					e.printStackTrace();
+    				}
+            	}
+    		}
+	    	if(!isRealTime) {
+				J5_Sql.doMain(3432, callMap);//3432,select all,tree_call,map
+        	}
+    		J3_Util.logE(STR_3_CALL_3_CACHE);
+    		DO_3_CALL_3_CACHE = true;
+        }
+    };
 	public static Thread THREAD_5_DB_2_TABLES_1_INIT = new Thread(){
         public void run(){
     		J3_Util.logB(STR_5_DB_2_TABLES_1_INIT);
@@ -482,6 +512,27 @@ public class J2_MainUnit {
         	}
     		J3_Util.logE(STR_5_DB_3_NSQL_4_INIT);
     		DO_5_DB_3_NSQL_1_INIT = true;
+        }
+    };
+    public static Thread THREAD_5_DB_4_INIT = new Thread(){
+        public void run(){
+    		J3_Util.logB(STR_5_DB_4_INIT);
+    		if(needReady) {
+    			boolean start = false;
+            	while(!start) {
+            		try {
+    					Thread.sleep(1000);
+    					start = DO_5_DB_2_TABLES_2_INSERT&&DO_5_DB_3_NSQL_2_INSERT;
+    				} catch (InterruptedException e) {
+    					e.printStackTrace();
+    				}
+            	}
+    		}
+	    	if(!isRealTime) {
+				J5_Sql.doMain(3450, dbBeanMap);//3450,select all,tree_db_bean
+        	}
+    		J3_Util.logE(STR_5_DB_4_INIT);
+    		DO_5_DB_1_INIT = true;
         }
     };
     public static Thread THREAD_6_BAT_4_INIT = new Thread(){
@@ -590,32 +641,6 @@ public class J2_MainUnit {
     		J3_Util.logE(STR_READY,2);
         }
     };
-	/**
-	 * 9	tree_menu初值、vue更新、交易匹配完毕
-	 * 1,2	tree_tran,tree_tran_relate初始化完毕
-	 * 3	tree_call初始化完毕
-	 * 5	tree_db_bean（table，nsql）初始化完毕
-	 * 4	tree_call_relate初始化完毕
-	 */
-    public static void main(String[] args) {
-    	IS_PRINT_ALL = true;
-    	int m = 2;
-    	needReady = (m==1||m==3?true:false);;//是否需初始化前置数据
-    	isReadyPrint = (m==2||m==3?true:false);;
-    	
-		if(needReady) {
-			ready();//准备过程..耗时:53s126ms
-		}
-		if(isReadyPrint) {
-	    	printReady();
-			printMenu();//打印过程..耗时:2s677ms
-			printOnl();
-	    	printBat();
-		}
-		if(IS_PRINT_ALL) {
-			THREAD_4_RELATE_5_PRINT.start();
-		}
-	}
     //准备工作
     public static void ready() {
 		THREAD_9_MENU_1_MATCH.start();
@@ -641,8 +666,10 @@ public class J2_MainUnit {
 		THREAD_1_TRAN_3_CACHE.start();
 		THREAD_4_RELATE_4_INIT.start();
 		THREAD_4_RELATE_3_CACHE.start();
-		THREAD_5_DB_3_NSQL_4_INIT.start();
-		THREAD_5_DB_3_NSQL_3_CACHE.start();
+//		THREAD_5_DB_3_NSQL_4_INIT.start();
+//		THREAD_5_DB_3_NSQL_3_CACHE.start();
+		THREAD_5_DB_4_INIT.start();
+		THREAD_3_CALL_3_CACHE.start();
     }
     //json-menu
     public static void printMenu() {
@@ -658,4 +685,33 @@ public class J2_MainUnit {
     	THREAD_6_BAT_4_INIT.start();
 		THREAD_4_RELATE_5_PRINT_2_BAT.start();
     }
+	/**
+	 * 9	tree_menu初值、vue更新、交易匹配完毕
+	 * 1,2	tree_tran,tree_tran_relate初始化完毕
+	 * 3	tree_call初始化完毕
+	 * 5	tree_db_bean（table，nsql）初始化完毕
+	 * 4	tree_call_relate初始化完毕
+	 */
+    public static void main(String[] args) {
+    	
+    	IS_PRINT_ALL = false;
+    	IS_PRINT_ALL = true;
+    	
+    	int m = 2;
+    	needReady = (m==1||m==3?true:false);;//是否需初始化前置数据
+    	isReadyPrint = (m==2||m==3?true:false);;
+    	
+		if(needReady) {
+			ready();//准备过程..耗时:53s126ms
+		}
+		if(isReadyPrint) {
+	    	printReady();
+			printMenu();//打印过程..耗时:2s677ms
+			printOnl();
+	    	printBat();
+		}
+		if(IS_PRINT_ALL) {
+			THREAD_4_RELATE_5_PRINT.start();
+		}
+	}
 }
