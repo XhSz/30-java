@@ -67,7 +67,8 @@ public class J3_Util {
 	public static Map<String,String> NSQL_XML_TYPE_MAP = new HashMap<String,String>();
 	//dynamicSelect,dynamicSql;select,sql;update,sql;delete,sql
 	public static Map<String,String> NSQL_XML_STR_MAP = new HashMap<String,String>();
-	public static Map<String,StringBuilder> MODULE_PRINT_MAP = new HashMap<String,StringBuilder>();
+	public static Map<String,StringBuilder> MODULE_PRINT_ONL_MAP = new HashMap<String,StringBuilder>();
+	public static Map<String,StringBuilder> MODULE_PRINT_BAT_MAP = new HashMap<String,StringBuilder>();
 	public static String[] BATCH_METHOD_ARRAY = {"getBatchDataWalker","getJobBatchDataWalker","process"};
 	
 	static {
@@ -179,26 +180,26 @@ public class J3_Util {
         sb.append("onl:{\n");
         for(String tranKey:J2_MainUnit.tranRelateKeySet) {
         	String moduleKey = tranKey.substring(0, 2);
-        	if(!MODULE_PRINT_MAP.containsKey(moduleKey)) {
+        	if(!MODULE_PRINT_ONL_MAP.containsKey(moduleKey)) {
         		StringBuilder moSb = initModuleMap(moduleKey);
-        		MODULE_PRINT_MAP.put(moduleKey, moSb);
+        		MODULE_PRINT_ONL_MAP.put(moduleKey, moSb);
         	}
-        	addTran(MODULE_PRINT_MAP.get(moduleKey),tranKey);
+        	addTran(MODULE_PRINT_ONL_MAP.get(moduleKey),tranKey);
         }
-        return endModuleMap(sb);
+        return endModuleMap(sb,MODULE_PRINT_ONL_MAP);
     }
     public static StringBuilder getBatSb() {
         StringBuilder sb = new StringBuilder();
         sb.append("bat:{\n");
         for(String tranKey:J2_MainUnit.batchMap.keySet()) {
         	String moduleKey = tranKey.substring(0, 2);
-        	if(!MODULE_PRINT_MAP.containsKey(moduleKey)) {
+        	if(!MODULE_PRINT_BAT_MAP.containsKey(moduleKey)) {
         		StringBuilder moSb = initModuleMap(moduleKey);
-        		MODULE_PRINT_MAP.put(moduleKey, moSb);
+        		MODULE_PRINT_BAT_MAP.put(moduleKey, moSb);
         	}
-        	addBatch(MODULE_PRINT_MAP.get(moduleKey),tranKey);
+        	addBatch(MODULE_PRINT_BAT_MAP.get(moduleKey),tranKey);
         }
-        return endModuleMap(sb);
+        return endModuleMap(sb,MODULE_PRINT_BAT_MAP);
     }
     public static StringBuilder initModuleMap(String tranKey){
         StringBuilder sb = new StringBuilder();
@@ -219,22 +220,21 @@ public class J3_Util {
     	sb.append(space(2)).append("},\n");
     }
     public static void addTran(StringBuilder sb,String tranKey){
-    	sb.append(space(2)).append(tranKey).append(SML).append(SQM).append(J2_MainUnit.tranMap.get(tranKey)).append(SQM);
+    	sb.append(space(2)).append(tranKey).append(SML).append(SQM).append(J2_MainUnit.tranMap.get(tranKey).replaceAll(SQM, "`")).append(SQM);
 		J1_BeanMenu f3 = new J1_BeanMenu();
 		f3.setLevel(2);
 		f3.setQryTransIcore(tranKey);
         if(J2_MainUnit.tranRelateKeySet.contains(tranKey)) {
         	sb.append(":{\n");
         	getTranSb(sb,J2_MainUnit.tranRelateKeyMap.get(tranKey),f3);
-//        	sb.append("\n").append(space(f3.getLevel()+1)).append("}\n");
         	sb.append("\n");
         }
         sb.append(space(f3.getLevel())).append("},\n");
     }
-    public static StringBuilder endModuleMap(StringBuilder sb){
-    	Set<String> ks = MODULE_PRINT_MAP.keySet();
+    public static StringBuilder endModuleMap(StringBuilder sb,Map<String,StringBuilder> map){
+    	Set<String> ks = map.keySet();
     	for(String key : ks) {
-    		sb.append(MODULE_PRINT_MAP.get(key).append("\n").append(space(1)).append("},\n"));
+    		sb.append(map.get(key).append("\n").append(space(1)).append("},\n"));
     	}
 		sb.append("\n}");
         return sb;

@@ -10,7 +10,8 @@ public class J2_Config {
     static String VUE_CODE_PATH = "VUE_CODE_PATH";
     static String VUE_JSON_PATH = "VUE_JSON_PATH";
     static String ICORE_JSON_PATH = "ICORE_JSON_PATH";
-    static String TRAN_JSON_PATH = "TRAN_JSON_PATH";
+    static String TRAN_JSON_PATH = "TRAN_JSON_PATH"; 
+    static String MENU_JSON_PATH = "MENU_JSON_PATH";
     static String ONL_JSON_PATH = "ONL_JSON_PATH";
     static String BAT_JSON_PATH = "BAT_JSON_PATH";
     static String DB_URL = "DB_URL";
@@ -50,6 +51,7 @@ public class J2_Config {
 		gs.put(ICORE_JSON_PATH, "D:\\03-sl\\326-gs\\gs-icore.json");
 		gs.put(ICORE_CODE_PATH, "D:\\03-sl-107-code\\26-gs\\99-3.0.4-stable");
 		gs.put(TRAN_JSON_PATH, "D:\\03-sl\\326-gs\\gs-tran.json");
+		gs.put(MENU_JSON_PATH, "D:\\03-sl\\326-gs\\gs-menu.json");
 		gs.put(ONL_JSON_PATH, "D:\\03-sl\\326-gs\\gs-onl.json");
 		gs.put(BAT_JSON_PATH, "D:\\03-sl\\326-gs\\gs-bat.json");
 		CONFIG.put(gsId, gs);

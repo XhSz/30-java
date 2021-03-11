@@ -36,6 +36,7 @@ public class J2_MainUnit {
 	static String TRAN_JSON_PATH = ((Map)J2_Config.CONFIG.get(J2_MainUnit.PROJECT_ID)).get(J2_Config.TRAN_JSON_PATH).toString();
 	static String JSON_PATH = ((Map)J2_Config.CONFIG.get(PROJECT_ID)).get(J2_Config.JSON_PATH).toString();
 	static String VUE_JSON_PATH = ((Map)J2_Config.CONFIG.get(PROJECT_ID)).get(J2_Config.VUE_JSON_PATH).toString();
+	static String MENU_JSON_PATH = ((Map)J2_Config.CONFIG.get(PROJECT_ID)).get(J2_Config.MENU_JSON_PATH).toString();
 	static String ONL_JSON_PATH = ((Map)J2_Config.CONFIG.get(PROJECT_ID)).get(J2_Config.ONL_JSON_PATH).toString();
 	static String BAT_JSON_PATH = ((Map)J2_Config.CONFIG.get(PROJECT_ID)).get(J2_Config.BAT_JSON_PATH).toString();
 	
@@ -70,7 +71,7 @@ public class J2_MainUnit {
 	public static String STR_4_RELATE_5_PRINT_2_BAT = "4_RELATE_5_PRINT_2_BAT-遍历relate输出bat-json";
 	public static boolean DO_4_RELATE_5_PRINT_2_BAT = false;//batSb初始化
 	public static boolean IS_PRINT_ALL = false;
-	public static StringBuilder vueSb = new StringBuilder();
+	public static StringBuilder menuSb = new StringBuilder();
 	public static StringBuilder onlSb = new StringBuilder();
 	public static StringBuilder batSb = new StringBuilder();
 	public static String STR_4_RELATE_5_PRINT = "4_RELATE_5_PRINT-输出核心json";
@@ -152,8 +153,8 @@ public class J2_MainUnit {
         	}
     		try {
     			System.out.println("输出menu内容，初始化程序，开始...");
-    			vueSb = J3_Util.getBranchSb(TREE_9_MENU_3_TREE,null);
-				if(!IS_PRINT_ALL)J3_Util.printToJson(vueSb, VUE_JSON_PATH);
+    			menuSb = J3_Util.getBranchSb(TREE_9_MENU_3_TREE,null);
+				if(!IS_PRINT_ALL)J3_Util.printToJson(menuSb, MENU_JSON_PATH);
 			} catch (FileNotFoundException e) {
 				e.printStackTrace();
 			} 
@@ -225,7 +226,7 @@ public class J2_MainUnit {
 				}
         	}
     		try {
-    			J3_Util.printToJson(vueSb.append("\n").append(onlSb).append("\n").append(batSb) , JSON_PATH);
+    			J3_Util.printToJson(menuSb.append("\n").append(onlSb).append("\n").append(batSb) , JSON_PATH);
 			} catch (FileNotFoundException e) {
 				e.printStackTrace();
 			} 
@@ -597,7 +598,7 @@ public class J2_MainUnit {
 	 * 4	tree_call_relate初始化完毕
 	 */
     public static void main(String[] args) {
-    	
+    	IS_PRINT_ALL = true;
     	int m = 2;
     	needReady = (m==1||m==3?true:false);;//是否需初始化前置数据
     	isReadyPrint = (m==2||m==3?true:false);;
@@ -607,9 +608,9 @@ public class J2_MainUnit {
 		}
 		if(isReadyPrint) {
 	    	printReady();
-//			printMenu();//打印过程..耗时:2s677ms
+			printMenu();//打印过程..耗时:2s677ms
 			printOnl();
-//	    	printBat();
+	    	printBat();
 		}
 		if(IS_PRINT_ALL) {
 			THREAD_4_RELATE_5_PRINT.start();
