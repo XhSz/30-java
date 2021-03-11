@@ -12,11 +12,13 @@ import java.io.PrintStream;
 import java.io.Reader;
 import java.util.ArrayList;
 import java.util.Collection;
+import java.util.Collections;
 import java.util.HashMap;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Map;
 import java.util.Set;
+import java.util.TreeSet;
 
 import javax.xml.parsers.DocumentBuilder;
 import javax.xml.parsers.DocumentBuilderFactory;
@@ -179,7 +181,12 @@ public class J3_Util {
     public static StringBuilder getOnlSb() {
         StringBuilder sb = new StringBuilder();
         sb.append("onl:{\n");
-        for(String tranKey:J2_MainUnit.tranRelateKeySet) {
+        final List<String> list = new ArrayList<String>();  
+        for(final String value : J2_MainUnit.tranRelateKeySet){  
+        	list.add(value);  
+        }  
+        Collections.sort(list);  
+        for(String tranKey:list) {
         	String moduleKey = tranKey.substring(0, 2);
         	if(!MODULE_PRINT_ONL_MAP.containsKey(moduleKey)) {
         		StringBuilder moSb = initModuleMap(moduleKey);
@@ -192,7 +199,12 @@ public class J3_Util {
     public static StringBuilder getBatSb() {
         StringBuilder sb = new StringBuilder();
         sb.append("bat:{\n");
-        for(String tranKey:J2_MainUnit.batchMap.keySet()) {
+        final List<String> list = new ArrayList<String>();  
+        for(final String value : J2_MainUnit.batchMap.keySet()){  
+        	list.add(value);  
+        }  
+        Collections.sort(list);  
+        for(String tranKey:list) {
         	String moduleKey = tranKey.substring(0, 2);
         	if(!MODULE_PRINT_BAT_MAP.containsKey(moduleKey)) {
         		StringBuilder moSb = initModuleMap(moduleKey);
@@ -242,6 +254,7 @@ public class J3_Util {
     }
     public static StringBuilder getCallSb(StringBuilder sb,int begin,int space,String callNameParent){
     	for(int i=begin;;i++) {
+    		if(i>=J2_MainUnit.callRelateList.size())break;
     		J1_BeanCallRelate bean = J2_MainUnit.callRelateList.get(i);
     		if(!callNameParent.equals(bean.getCall_name_parent())) {
     			sb.delete(sb.length()-2, sb.length());
@@ -392,7 +405,8 @@ public class J3_Util {
 //    				"D:\\03-sl-107-code\\26-gs\\99-3.0.4-stable\\us-busi\\us-tran\\src\\main\\java\\cn\\sunline\\icore\\us\\tran\\base\\us3080.java"
 //        			"D:\\03-sl-107-code\\26-gs\\201106\\cm-busi\\cm-serv\\src\\main\\java\\cn\\sunline\\icore\\cm\\serv\\serviceimpl\\chrg\\SrvIoCmChrgImpl.java"
 //    				"D:\\03-sl-107-code\\26-gs\\99-3.0.4-stable\\cf-busi\\cf-batch\\src\\main\\java\\cn\\sunline\\icore\\cf\\batch\\cf02DataProcessor.java"
-    				"D:\\03-sl-107-code\\26-gs\\99-3.0.4-stable\\cf-busi\\cf-batch\\src\\main\\java\\cn\\sunline\\icore\\cf\\batch\\cf07DataProcessor.java"
+//    				"D:\\03-sl-107-code\\26-gs\\99-3.0.4-stable\\cf-busi\\cf-batch\\src\\main\\java\\cn\\sunline\\icore\\cf\\batch\\cf07DataProcessor.java"
+    				"D:\\03-sl-107-code\\26-gs\\99-3.0.4-stable\\dp-busi\\dp-batch\\src\\main\\java\\cn\\sunline\\icore\\dp\\batch\\dayend\\dp01DataProcessor.java"
     				;
         	System.out.println(path);
     	}

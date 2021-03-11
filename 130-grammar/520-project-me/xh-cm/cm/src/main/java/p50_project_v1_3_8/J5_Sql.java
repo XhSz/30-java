@@ -297,7 +297,7 @@ public class J5_Sql {
         }
     }
     public static Object selectTran(Statement stmt,Map<String,String> tranMap) throws SQLException {
-        String sql = "select tran_name,tran_des from tree_tran ";
+        String sql = "select tran_name,tran_des from tree_tran order by tran_name";
         ResultSet rs = stmt.executeQuery(sql);
         while(rs.next()){
         	tranMap.put(rs.getString("tran_name"), rs.getString("tran_des"));
@@ -345,7 +345,7 @@ public class J5_Sql {
         String sql = "select call_name,call_des from tree_call ";
         ResultSet rs = stmt.executeQuery(sql);
         while(rs.next()){
-        	callMap.put(rs.getString("call_name"),rs.getString("call_des"));
+        	callMap.put(rs.getString("call_name"),rs.getString("call_des").replaceAll(J3_Util.SQM, "`"));
         }
     }
     public static void selectCall(Statement stmt,Set<String> callSet) throws SQLException {
@@ -370,7 +370,7 @@ public class J5_Sql {
         }
     }
     public static void selectBat(Statement stmt,Map<String,String> batMap) throws SQLException {
-        String sql = "select tran_name,tran_des from tree_batch ";
+        String sql = "select tran_name,tran_des from tree_batch order by tran_name";
         ResultSet rs = stmt.executeQuery(sql);
         while(rs.next()){
         	batMap.put(rs.getString("tran_name"),rs.getString("tran_des"));

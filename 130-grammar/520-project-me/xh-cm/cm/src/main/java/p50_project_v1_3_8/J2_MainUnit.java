@@ -10,6 +10,7 @@ import java.util.Set;
 
 import com.alibaba.fastjson.JSONObject;
 
+import p50_project_v1.J1_BeanBatch;
 import p50_project_v1.J1_BeanCall;
 import p50_project_v1.J1_BeanCallRelate;
 import p50_project_v1.J1_BeanDb;
@@ -292,9 +293,15 @@ public class J2_MainUnit {
 	public static boolean DO_4_RELATE_2_INSERT = false;//调用关系入库
 	public static String STR_4_RELATE_3_CACHE = "4_RELATE_3_CACHE-调用关系初始化-内存化";
 	public static boolean DO_4_RELATE_3_CACHE = false;//调用关系初始化 
+	public static String STR_6_BAT_1_INIT = "6_BAT_1_INIT-批量初始化-遍历文件";
+	public static boolean DO_6_BAT_1_INIT = false;//批量初始化-遍历文件
+	public static String STR_6_BAT_2_INSERT = "6_BAT_2_INSERT-批量初始化-入库";
 	public static boolean DO_6_BAT_2_INSERT = false;//批量入库  
 	public static boolean DO_6_BAT_4_INIT = false;//批量初始化-查询数据库 
 	public static String STR_6_BAT_4_INIT = "6_BAT_4_INIT-批量初始化-查询数据库";
+	
+	
+	public static Set<J1_BeanBatch> batchSet = new HashSet<J1_BeanBatch>();
 	public static Map<String,String> batchMap = new HashMap<String,String>();
 	
 	public static Thread THREAD_1_TRAN_1_INIT = new Thread(){
@@ -535,6 +542,32 @@ public class J2_MainUnit {
     		DO_5_DB_1_INIT = true;
         }
     };
+	public static Thread THREAD_6_BAT_1_INIT = new Thread(){
+        public void run(){
+    		J3_Util.logB(STR_6_BAT_1_INIT);
+			J71_Tran_Util.scanBatch(CP,batchSet);//扫描代码根目录，获得所有batch_tran.xml,并入库
+    		J3_Util.logE(STR_6_BAT_1_INIT);
+    		DO_6_BAT_1_INIT = true;
+        }
+    };
+	public static Thread THREAD_6_BAT_2_INSERT = new Thread(){
+        public void run(){
+        	while(!DO_6_BAT_1_INIT) {
+        		try {
+					Thread.sleep(1000);
+				} catch (InterruptedException e) {
+					e.printStackTrace();
+				}
+        	}
+    		J3_Util.logB(STR_6_BAT_2_INSERT);
+	    	if(!isRealTime) {
+				J5_Sql.doMain(446, null);//446,del all,tree_batch
+		    	J5_Sql.doMain(136,batchSet);//136,batch insert,tree_batch
+        	}
+    		J3_Util.logE(STR_6_BAT_2_INSERT);
+    		DO_6_BAT_2_INSERT = true;
+        }
+    };
     public static Thread THREAD_6_BAT_4_INIT = new Thread(){
         public void run(){
     		J3_Util.logB(STR_6_BAT_4_INIT);
@@ -658,6 +691,9 @@ public class J2_MainUnit {
 		
 		THREAD_4_RELATE_1_INIT.start();
 		THREAD_4_RELATE_2_INSERT.start();
+		
+		THREAD_6_BAT_1_INIT.start();
+		THREAD_6_BAT_2_INSERT.start();
     }
     //所有准备工作完成，查询数据，内存级别数据准备
     public static void printReady() {
@@ -710,7 +746,7 @@ public class J2_MainUnit {
 			printOnl();
 	    	printBat();
 		}
-		if(IS_PRINT_ALL) {
+		if(isReadyPrint&&IS_PRINT_ALL) {
 			THREAD_4_RELATE_5_PRINT.start();
 		}
 	}

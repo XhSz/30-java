@@ -125,13 +125,13 @@ public class J71_Tran_Util {
      * @param path
      * @param tranList
      */
-    public static void scanBatchs(String path,Set<J1_BeanBatch> batchSet) {
+    public static boolean scanBatchs(String path,Set<J1_BeanBatch> batchSet) {
         File file = new File(path);
         if (file.exists()) {
             File[] files = file.listFiles();
             if (null == files || files.length == 0) {
 //                System.err.println(file.getAbsolutePath()+":空的!");
-                return;	
+                return false;	
             } else {
                 for (File file2 : files) {
                     if (!file2.isDirectory()) {
@@ -157,7 +157,9 @@ public class J71_Tran_Util {
             }
         } else {
             System.err.println(file.getAbsolutePath()+":不存在!");
+            return false;
         }
+        return true;
     }
     public static int insertTran(PreparedStatement ps,List<J1_BeanTran> list){
     	int count = 0;
