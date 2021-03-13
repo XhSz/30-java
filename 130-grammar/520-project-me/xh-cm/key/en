@@ -1,0 +1,393 @@
+01:{
+日期		拆分	主题			发音							解释							示例							
+0120	drawdown			[ˈdrɔˌdaʊn] 乔当				n. 降低减少，提款支取			loan drawdown 贷款提取							
+		write-off			[ˈraɪt ɔːf] 莱特欧坲			n. 注销，消记，报废										
+		reimburse			[ˌriːɪmˈbɜːrs] 瑞英博思			v. 偿还，补偿，报销				accrual reimburse interest 计提偿付利息							
+		principal			[ˈprɪnsəpl] 普林斯普			n. 本金										
+		provision			[prəˈvɪʒn] 普雷威军				n. 供给, 准备金										
+		waiver				[ˈweɪvər] 威尔					n. 弃权，弃权声明				waiver overdue repayment fee 免除逾期还款费							
+		owe			 		[oʊ] 欧							v. 欠，归功于，起源于			owe overdue repayment fee 欠缴滞纳金							
+		requisite			[ˈrekwɪzɪt] 瑞科威则特			adj. 必需的,必备的 n.必需的事物								
+		Pre-requisite		[ˈpriː ˈrekwɪzɪt]					先决条件								
+		CASA												经常账户和储蓄账户	 			Current Accounts and Savings Accounts (CASA)							
+		Initial 			[ɪˈnɪʃl] 英尼肖					adj. 最初的，第一的 n. 首字母	Initial Deposit Amount 初始存款金额							
+		rollover			[ˈroʊloʊvər] 肉柔威尔			n. 转期，翻滚，翻车				Deduct before payout or rollover 支付或展期前扣除							
+		impact				[ ɪmˈpækt] 						n/v. 冲击，巨大影响								
+		Acceptance			[əkˈseptəns] 					n. 接受								
+		impose				[ɪmˈpoʊz] 英普兹				v. 征收，强行执行								
+0125	payable				[ˈpeɪəbl] 佩诶博				adj. 应付的						interest payable' "应付利息"							
+0126	Orchestration		[ˌɔːrkɪˈstreɪʃn] 欧可斯盖逊	 			编曲 编排	 			Process Orchestration  流程编排		
+0127	Conceptual			[kənˈseptʃuəl]肯赛普肖儿		adj.概念性的 					Description of Java Conceptual Diagram Java概念图说明	
+		Tutorials			[tuˈtɔriəlz] 图特雷尔兹 				教程 					Java Tutorials Learning Paths Java教程学习路径	
+		minor				[ˈmaɪnər]麦那 					adj.少数的,较小的				minor_version
+		major 				[ˈmeɪdʒər] 梅杰 				adj.主要的,大的					major_version
+		Instruction			[ɪnˈstrʌkʃn]英式夹克逊 			n.用法说明，操作指南，指令集 	The Java Virtual Machine Instruction Set Java虚拟机指令集
+		Specification		[ˌspesɪfɪˈkeɪʃn]斯贝斯发凯逊 	n.规格,规范,说明书 				Java Language and Virtual Machine Specifications Java语言和虚拟机规范
+		operand			 	[ˈɑːpərænd]欧普兰德 			n.操作数,运输数					operand stack 操作数栈
+		Bootstrap			[ˈbutˌstræps] 普特斯洽普			引导程序
+ln		occupied			[ˈɑːkjupaɪd] 阿秋派得			v.占用，使用 		
+0225	marital				[ˈmærɪtl]迈瑞特 				adj.婚姻的			
+		Optical				[ˈɑːptɪkl]阿匹提克				adj.光学的						OCR （Optical Character Recognition，光学字符识别）
+		Selfie				[ˈselfi]瑟奥菲 					n.自拍
+		Draft				[dræft] 爪福特					n.草稿,adj,v.
+		CapBay 																				EXIM/现用终端系统,马来西亚的点对点(P2P)供应链融资平台
+		Exposure			[ɪkˈspoʊʒər]伊克斯破爵			n.曝光,揭露						
+		Facility			[fəˈsɪləti]佛舍热提 			n.设施,才能
+		Issuance			[ˈɪʃuəns]伊修冷斯					发放
+		Integrate			[ˈɪntɪɡreɪt] 英特格雷特			v.整合,融合
+		manually			[ˈmænjuəli]门牛尔理 			adv.手工的
+		Generate			[ˈdʒenəreɪt]吉呐瑞特			v.引起,产生
+		Authorisation		[ˌɔ:θəraɪ'zeɪʃn]欧欧莱则逊 			授权
+		supplier			[səˈplaɪər] 舍普莱尔 			n.供应商,供货方
+		invoice				[ˈɪnvɔɪs]英沃尔斯				n.发票,应付清单,v
+		offer				[ˈɔːfər] 欧夫					v.提供,销价,n
+		Treasury			[ˈtreʒəri]洽杰瑞 				资金管理,财政部
+		Memo				[ˈmemoʊ]门磨 					n.备忘录
+		Compliance			[kəmˈplaɪəns]可目普莱恩斯 		n.顺从
+		Acknowledge			[əkˈnɑːlɪdʒ]俄克诺瑞吉			v.承认,属实
+		recharge			[ˌriːˈtʃɑːrdʒ] 					v.充电,充值
+0301	trial				[ˈtraɪəl]川伊尔					n.试验,v.选拔 
+0306	trend				[trend]川德						n.趋势,动向,vt.
+},
+theme:{
+	theme	日期	单词	拆分	主题	发音	解释	示例								其他含义									
+	exam:{	
+			0723:{	
+					virus	vi-rus	新冠	 [ˈvaɪrəs] 外瑞斯	n. 病毒	We will give our full support to ensure the progress of the project								我们将全力远程支持保证项目进度									
+					coronary	coronary		 [ˈkɔːrəneri] 阔肉内尔	adj. 冠状动脉的，n. 冠状动脉	give sb's full support to  尽某人全力做某事																	
+					corona	corona		 [kəˈroʊnə] 克肉呢	n. 日冕, 日华, 月华	sb provide  remote support to do sth 某人提供远程支持做某事								We will provide full remote support to do sth 我们将全力远程支持									
+					coronavirus	coronavirus		克肉内尔·外瑞斯	n. 日冕型，冠状病毒	ensure the progress of the project 保证项目进度																	
+					novel	no-vel		 [ˈnɑːvl] 	adj.新型的与众不同; n.长篇小说	novel coronavirus 新型冠状病毒， 纳沃·克柔内瑞·外瑞斯								coronary virus 冠状病毒									
+					mutual		签证	[ˈmjuːtʃuəl] 	adj. 互相的, 彼此的, 共同的	mutuality  [ˌmjutʃuˈæˌlɪti]  n. 互助, 互助关系								exit visa, 出境签证 ; transit visa,过境签证 ; entry visa 入境签证;									
+					exemption			 [ɪɡˈzempʃn] 	n. 免除,豁免,免税									mutual exemption of visas 互免签证 ;									
+					issuance			[ˈɪʃuəns] 一秀冷斯	n. 发行, 发给, 颁布	工作签 , working visa , emplement visa 、employment visa 就业签证								Work permit 工作许可；就业许可证 ；									
+					alien			 [ˈeɪliən]  诶廉	n. 外国人,外星生物 adj. 国外的,不相容的	Alien visa 外国人签证, 								tourist visa 旅游签,  business visa 商务签									
+					renewal			 [rɪˈnuːəl] 瑞牛尔	n. 恢复, 续期	the renewal of foreigners,  外国人续签								Suspension of issue 暂停签发									
+					immigration			 [ˌɪmɪˈɡreɪʃn] 	n.移居(入境);移民人数;移民局检查站	immigration requirements 移民要求								sign and issue 签发									
+			},
+			0724:{	
+					restrict	re-stri-ck	航班	[rɪˈstrɪkt] 瑞斯缺科特		国际航班收到限制 International flights are restricted																	
+								international flight 国际航班								world-air 世界航空公司									
+								economy class 经济舱 first-class 头等舱																	
+					airfare	air-fare		[ˈerfer] 诶瑞菲瑞	 机票费用,飞机票价	plane ticket 飞机票								the expense of a flight 飞机开销									
+							整体		keep an eye on 关注	We have been keeping an eye on the latest visa policy and flight information								我们一直在关注最新的签证政策及航班信息									
+									visa policy 签证政策	have been doing sth 一直做某事， flight information 航班信息																	
+					ban			[bæn]	v 禁止做某事 n. 禁令	Once the ban is lifted, our developers will arrive at the customer site as soon as possible								一旦解禁我们的开发人员将会尽快抵达客户现场									
+					lift			[lɪft] 	v. 举起; 移开 , 移动	customer site 客户现场																	
+										Hope to get the understanding of customers 希望得到客户的理解																	
+					affect			[əˈfekt] 	v .影响, 使悲伤, 侵袭,打动	Affected by the new coronavirus, 受新冠状病毒影响																	
+					domestic	do-mes-tic		[dəˈmestɪk] 德玛斯迪克	adj. 本国的，国内的																		
+					suspend	sus-pend		[səˈspend] 瑟斯班德	v. 悬挂, 暂缓, 推迟																		
+					attach			 [əˈtætʃ]	v.重视, 缠着, 认为…重要, 附上,粘贴, 参加	We attach great importance to your opinions. 我们对你们的意见非常重视.																	
+					addicted			 [əˈdɪktɪd]  尔迪克替德	adj. 对…成瘾,入迷	addiction [əˈdɪkʃn]  n. 瘾, 入迷, 嗜好																	
+					conditioner			[kənˈdɪʃənər] 	n. 护发剂, 护发素, 柔顺剂	streetlights 路灯								world-air conditioners 世界空调？ 									
+										We live in an "always on" world-air conditioners, streetlights, TVs, PCs, cell phones, and more.								我们生活在一个“常开”的世界，空调、路灯、电视、个人电脑、手机等等。									
+					realistically			 [ˌriːəˈlɪstɪkli] 	adv. 如实的, 明智的, 逼真的																		
+										feed our energy addiction 喂饱我们的能量瘾																	
+					ruin			[ˈruːɪn] 路乌恩	v. 破坏, 使毁灭, 失去..地位 n. 祸根	ruining our environment 破坏我们的环境																	
+					energy-saving				adj. 节省能源的									how much we may wish they would 我们多么希望他们能									
+					appliance			[əˈplaɪəns]	n. 器具									these acts by themselves 这些行为本身									
+					fuel-efficient			[ˈfjuːəl ɪˈfɪʃnt] 富由理·菲先特	adj. 低油耗的, 节能高效的																		
+					carbon-absorbing				碳吸收																		
+					diverse			 [daɪˈvɜːrs] 戴维斯	adj.不同的;相异的 , 多种多样的																		
+					practical			[ˈpræktɪkl] 普拉克·迪克	adj. 切实可行的.																		
+					emotional			[ɪˈmoʊʃənl] 	adj . 感情上的, 激动人心的																		
+					approach			[əˈproʊtʃ] 尔波琪	n . 接近,要求 v. 接近, 建议																		
+					nuclear			 [ˈnuːkliər] 	adj. 原子能的, 核能的																		
+					despite			 [dɪˈspaɪt] 	prep. 尽管																		
+					controversial			 [ˌkɑːntrəˈvɜːrʃl] 抗彻维瑟尔	adj .有争议的																		
+					reputation			 [ˌrepjuˈteɪʃn] 	n. 名誉. 名声																		
+					reliable	re-li-able		 [rɪˈlaɪəbl] 雷莱尔波	adj. 可靠的, 可信赖的	
+				}
+	}			
+	theme	日期	单词	拆分	主题	发音	解释	示例								其他含义																						
+	self:{					
+					involve			 [ɪnˈvɑːlv] 	v. 参与, 包含																		
+					engage			[ɪnˈɡeɪdʒ] 	v. 忙于, 从事于																		
+					maintenance			[ˈmeɪntənəns] 美腾呐什	n . 维护, 保养																		
+					migration			 [maɪˈɡreɪʃn] 麦格雷迅	n. 迁移																		
+					performance			 [pərˈfɔːrməns] 	n. 性能																		
+					perform			[pərˈfɔːrm] 佩佛母	n. 表演，执行																		
+					optimization	op-ti-mization		 [ˌɑːptɪməˈzeɪʃn] 欧普体梅贼讯	n .优化																		
+					encounter	en-counter		[ɪnˈkaʊntər] 英抗特	v .遇到，遭遇																		
+					consult	con-sult		 [kənˈsʌlt] 肯骚特	v .咨询请教																		
+					colleague	co-llea-gue		[ˈkɑːliːɡ]  靠理克	n. 同事																		
+					previous	pre-vi-ous		 [ˈpriːviəs] 普雷威尔斯	adj. 先前的,以往的																		
+					architecture	ar-chi-tec-ture		 [ˈɑːrkɪtektʃər] 阿克特克缺	n .体系架构																		
+					tolerant	tole-rant		 [ˈtɑːlərənt]  塔惹伦特	n. 宽容																		
+					parameter	pa-ra-meter		 [pəˈræmɪtər] 破乱米特	n. 参数																		
+					portability	prota-bility		[ˌpɔrtəˈbɪlɪti] 破特比尔瑞特	n. 便携式, 轻便																		
+					scenario	sce-na-rio		 [səˈnærioʊ] 瑟耐瑞尔	n. 设想，预测																		
+					portable	por-t-able		[ˈpɔːrtəbl]  破特破																			
+					relatively			[ˈrelətɪvli]  瑞尔体沃瑞	adj.相对的																		
+					methodology			[ˌmeθəˈdɑːlədʒi] 达瑞基	n. 方法论																		
+					process	pro-cess		 [ˈprɑːses , prəˈses]	
+	},
+	dp:{	07		Manual	ma-nual		[ˈmænjuəl] 	adj.手动的	Manual Accounting Adjustment 手工调账																	
+					Reciprocal	re-ci-pro-cal		 [rɪˈsɪprəkl] 	互惠的	Reciprocal Business Code 互惠商业代码，对方业务编码																	
+										Deposit/Withdrawal 存入支取标志																	
+					compulsory	com-plu-sory		 [kəmˈpʌlsəri] 	adj.强制的	compulsory deduction 强制扣除，强制扣划																	
+					lawsuti	law-suit		 [ˈlɔːsuːt] 	n.诉讼	002-Lawsuit failure  诉讼失败，官司败诉																	
+					accumulated	a-ccu-mu-lated		 [əˈkjuːmjəleɪt] 	v.积累，逐渐增加	2-Adjust accumulated interest 调整积数，调整累计利息																	
+										Back Value Date 倒起息日期，回值日期								Back Value : 倒算入账, 倒起息									
+	},
+	theme		日期	单词			拆分	主题	发音			解释				示例								其他含义
+	ln:{	
+				0717		
+					Principal		prin-ci-pal		[ˈprɪnsəpl] 拼舍破	n. 本金,资金,重要的,大学校长	"产品名称：Principal repaid and interest paid at one time
+			一次还本付息"								principle  [ˈprɪnsəpl] 普林舍破  n. 原则 prin-ci-ple									
+					pay	pa-y		 [peɪ] 	v. 支付,偿还																		
+					installment 	in-stall-ment	[ɪnˈstɔːlmənt] 	n. 分期付款		Equal installment  等额分期付款								install v.安装,建立程序									
+										Product Sales Mode 产品销售模式，1-Direct sales 直销，2-2-Marketing 营销																	
+					period	pe-ri-od		 [ˈpɪriəd] 	n. 一段时间,期间	Interest paid in periods but principal repaid at one time 分期付息，一次还本								 in periods 按周期 periods [ˈpɪriədz]  period的复数 									
+					Equal			[ˈiːkwəl]	adj,n,v	Equal principal and equal interest 等额本息								Equal principal 等额本金  [ˈɪntrəst]  interest  v.感兴趣									
+					advance			[ədˈvæns] 	adj.预先的	Advance Interest 预付利息																	
+					Individual	di-di-vi-dual		 [ˌɪndɪˈvɪdʒuəl] 	adj.个人的,与众不同的	Borrower Type 借款人类型 ：1-Individual customer 对私客户 2-Corporate customer 对公客户 3-Financial customer 同业客户 ，金融客户								individual corporate									
+					corporate	cor-po-rate		 [ˈkɔːrpərət] 	adj.公司的,团体的,法人的									cooperate [koʊˈɑːpəreɪt]  v.合作 co-o-pe-rate									
+																											
+					maturity	ma-tu-rity		 [məˈtʃʊrəti] 梅崔瑞迪	n. 到期,成熟,完全成长	Maturity Date 到期日																	
+					accounting	a-ccoun-ting		 [əˈkaʊntɪŋ]	n. 会计																		
+				0718	pricing	pri-cing		[ˈpraɪsɪŋ] 	n. 定价	Pricing Factory 定价工厂																	
+										Finance Management 理财 ，财务管理																	
+										Business Type 业务类型: SELF-Self operated loan 自营贷款								commission [kəˈmɪʃn] v. 委托									
+					entrust	en-tru-st		[ɪnˈtrʌst] 	v. 委托	ENTRUST-Entrusted Loan 委托贷款								委托贷款 loan by mandate									
+				0719:{
+					quality				quantity
+				}
+	theme	日期	单词	拆分	主题	发音	解释	示例								其他含义								
+				0720:{
+															in limit 是否额度贷款																	
+					tenor 	te-nor		 [ˈtenər]	n. 期限, 男高音,主旨, 音调	minimum loan tenor 最短贷款期限																	
+										Disbursement Method 放款资金处理方式								Disbursement Type 放款类型									
+					suspense	su-spen-se		 [səˈspens] 	n .悬念，担心焦虑	SELF-Self payment 自主支付， SUSPENSE-Suspense account 转挂销账，暂记帐户																	
+					temporary	tem-po-rary		[ˈtempəreri] 		INTRUST-Entrusted payment INTRUST-受托支付								TEMP-Temporary freeze 临时冻结									
+					lend			 [lend] 	v. 借出,	SINGLE-Single lending 单次放款								single [ˈsɪŋɡl] adj.单一的  Multiple lendings  [ˈmʌltɪpl]  adj.数量多的,多种多样的									
+					Interval 	inter-val		[ˈɪntərvl] 	n. 间隔	Minimum Disbursement Interval (day) 放款最小间隔（天）																	
+										Periodic Disbursement Indicator 周期性放款标志								Period  [ˈpɪriəd] n.时期，某个时代特征 ；  Indicator  [ˈɪndɪkeɪtər]  n.指示器									
+					Revolve	re-vol-ve		 [rɪˈvɑːlv]	v. 旋转，循环体	Multiple Disbursement Revolved 多次放款是否可循环																	
+					Periodic	peri-odic		 [ˌpɪriˈɑːdɪk] 	adj .周期性的	Periodic Disbursement Method 周期性放款方式  No control不控制 By amount按金额																	
+					repayment	re-pay-ment		 [rɪˈpeɪmənt] 	n. 偿还	Product Repayment Attribute 产品还款属性																	
+										Repayment Method 还款方式																	
+										BOTH_MRTY-Principal repaid and interest paid at one time 利随本清，一次还本付息																	
+					Interest	inter-est		[ˈɪntrəst]  英雀斯特		PERIOD_MRTY-Interest paid in periods but principal repaid on maturity date								按期付息到期还本									
+										EQUAL_INSTALLMENT-Equal installment 等额分期付款																	
+					alignment	align-ment		[əˈlaɪnmənt]	n .对齐方式	Alignment Method of Interest Settlement Date 结息日对齐方式								 Interest Settlement Date 结息日									
+										Due Date Alignment 结息日对齐日期，到期日调整																	
+					Manual	ma-nual		[ˈmænjuəl] 	adj.手动的	First on Next Month Handling 首期跨月方式								MANUAL-Manual 手动指定									
+					threshold	th-re-s-ho-ld		[ˈθreʃhoʊld] 	n.门槛,阈值	DATE-Date threshold 日期-日期阈值								DAYS-Days threshold 天数阈值									
+					Combination	com-bi-na-tion		[ˌkɑːmbɪˈneɪʃn] 	n.结合体;	Last Period Combination Method 末期合并方式								Automatic Deduction Indicator 自动扣款标志									
+					deduction	de-duc-tion		 [dɪˈdʌkʃn] 	n. 扣除	 Deduction Method for Insufficient Balance 不足额扣款方式，余额不足扣除法								Insufficient  [ˌɪnsəˈfɪʃnt]  insu-ffi-cient  adj,不足的 ，FULL-Full balance deduction 有多少扣多少									
+					deduct			[dɪˈdʌkt] 抵达科特	v. 扣除，扣减	pricipal deducting interest 本金扣除利息，																	
+					Rescheduling	re-sche-duling		 [ˌriːˈskedʒuːlɪŋ]	重新安排	Early Repayment Rescheduling 提前还款重新安排																	
+					 reduction	re-duction		[rɪˈdʌkʃn] 	n.减少	AVERAGE-Average repayment reduction 平均还款减少,摊薄								REDUCE-Period reduction 缩期									
+					Grace	gra-ce		[ɡreɪs]	n. 优雅的, 体面的	Grace Period Indicator 宽限期指示符																	
+					Progressive	pro-gre-ssive		 [prəˈɡresɪv] 普乐噶拉斯威	adj. 稳步发展的	Progressive Value 累进值																	
+					Amortization	amor-ti-zation		[ˌæmərtəˈzeɪʃn] 	摊销	Interest Amortization in Cooling 冷静期利息摊销方式																	
+					Lock-up				adj,锁定	Lock-up Period of Prepayment 提前还款锁定期																	
+					Compound			[ˈkɑːmpaʊnd] 康姆庞德	v. 使加重，使恶化	Compound Interest Calculated  计算复利，是否计付息								Interest Calculated on Compound Interest 复息是否计息，accrual compound interest 应计复利									
+					Accrued	a-ccur-ed		[əˈkruːd] 	adj. 应计	Accrued Interest Subsidy Indicator  应计利息补贴指标，是否应计贴息																	
+					subsidy	sub-sidy		[ˈsʌbsədi]	n.补贴	Interest Subsidy Return Indicator 贴息退还标志																	
+					annual	an-nual		[ˈænjuəl]	adj .每年的	Standard Annual Days for Dail  按日计算年基准天数																	
+					grading			[ˈɡreɪdɪŋ] 	adj. 成绩评定，评分标准	Grading method by Interest Rate Term 利率期限靠档方式								Grading method by Interest Rate 利率期限靠档方式									
+					Round			[raʊnd] 	v .四舍五入，使之变圆	Rounding Rule 舍入规则																	
+					fix			[fɪks] 	v. 修理，使固定	BASE-Reference interest rate 参考利率 ，FIX-Fixed interest rate 固定利率								NORMAL-Normal interest rate 正常利率									
+										Status Transformation Rule 形态转移规则								SINGLE-Single transfer 单笔转移  ALL-All transfer 全部转移									
+					Refinance	re-finance		[ˌriːˈfaɪnæns]	再贷款、再融资，转贷	Refinance Method 再融资法																	
+					Reverse			 [rɪˈvɜːrs] 	v. 使颠倒，使翻转	Extended Interest of Overdue Loan Reversed 逾期贷款展期利息是否回冲								verse v.作诗，使熟练、精通									
+					outstanding			[aʊtˈstændɪŋ] 	adj . 未支付，未完成的	No Outstanding Interest before  展期需无欠息																	
+					Substandard			 [ˌsʌbˈstændərd] 	adj. 不达标的，不合格的	Loan Level 借据级别，3-Substandard 次级																	
+					due			 [duː] 杜	adj. 由于，应计，到期	due interest 到期利息，应得利息								Total Interest Due 拖欠利息合									
+					penalty	pe-nal-ty		 [ˈpenəlti] 潘浓提	n. 处罚	accrual penalty interest 应计罚息
+				},
+	theme	日期	单词	拆分	主题	发音	解释	示例								其他含义																	
+				0721:{	
+					overdue			 [ˌoʊvərˈduː] 	adj. 过期的，早该完成的	overdue repayment fee 逾期还款费																	
+					withdrawal	with-dr-awal		[wɪðˈdrɔːəl] 	n. 撤走，收回，取款	OVERPAYMENT_WITHDRAW-Overpayment withdrawal 多付取款，溢缴款提取																	
+					expense			 [ɪkˈspens]	n. vt. 费用，向什么收费	FEE_CALCULATE-Loan expense calculation，贷款费用试算																	
+					extension	ex-ten-sion		[ɪkˈstenʃn] 	n. 扩大，延伸	EXTEND_TRIM-Loan extension or contraction EXTEND_TRIM-贷款展期或缩期								contraction con-trac-tion [kənˈtrækʃn] n.缩小									
+					impairment	im-pair-ment		 [ɪmˈpermənt] 	n .伤害,缺陷	PROM-Manual impairment provision 人工减值准备，手动减值准备金								provision [prəˈvɪʒn] pro-vi-sion n.准备,提供,供给 vt. 给什么提供									
+					Unamortized	un-amor-tized		 [əˈnæmərˌtaɪzd] 	adj. 未摊销的	AMOT-Unamortized interest 待摊利息								owe [oʊ] v. 欠债,归功于									
+					 receivable				adj. 应收	DUAT-Advance receivable 应收预收息，DUIT-Interest receivable 应收利息								ALAT-Interest received in advance 已收预收息，ACIT-Accrued interest应计利息									
+					loss			[lɔːs] 	adj.亏损，损失	LOSS-Loan impairment loss 贷款减值损失																	
+					Positive			[ˈpɑːzətɪv] 	adj. 积极的 n. 正面	Positive Indicator 是否正数标志																	
+					Pledge			 [pledʒ] 	质押	Pledge Loan Indicator  质押贷款指标																	
+					Joint			 [dʒɔɪnt] 	adj. 联合的，n.关节，v.骨头	Joint Loan Indicator 联名贷款标志																	
+					Posting				入账，过账，邮寄	Loan Posting Currency 贷款入账币种，贷款过帐货币																	
+					simulator	simu-lator		[ˈsɪmjuleɪtər]	软件模拟器	Repayment Plan Simulator 还款计划模拟器，还款计划试算																	
+					Arrears	a-rrea-rs		 [əˈrɪrz]	n.逾期欠款	Repayment Type 还款类型 N-Arrears payment 归还欠款																	
+										Orig.Int. Amtz. Value 旧利息摊销值								Amtz short for Amortization 摊销									
+					Matured 			[məˈtʃʊrd] 	adj. 成熟的, v. 成熟	Matured Principal 到期本金								Value Date 起息日期，起息日	
+				}
+	},
+	theme	日期	单词	拆分	主题	发音	解释	示例								其他含义
+	06:{	
+			0628:{	
+			feedback	"CIMB
+			VN
+			iCore
+			demo"		[ˈfiːdbæk]	n.反馈	"Hi Matt, Rachel feedback is positive while card PIC just commented most of his use cases are presented, didn't really said good or not but throughout the demo he didn't ask much questions. In Rachel's view, this session mainly for biz side's assessment so Rachel doubted whether he really understand all the features showcase by us or not. somemore that day Biz Head got urgent stuff n unable to attend at last minutes. So i think we gotta follow up with bank top management on their decision. 
+			嗨，Matt，Rachel的反馈是积极的，而card PIC只是评论了他的大多数用例，并没有说是好是坏，但在整个演示过程中，他没有问太多问题。在雷切尔看来，本次会议主要是为了商务方面的评估，所以雷切尔怀疑他是否真的了解我们展示的所有功能。那一天，又有一个商务主管有急事，在最后几分钟没能出席。所以我想我们应该跟银行高层管理层跟进他们的决定。"																	
+					positive			[ˈpɑːzətɪv]	adj.肯定的																		
+					PIC				picture																		
+					comment			[ˈkɑːment]	v.表达意见									doubt v.怀疑,不信任  [ˈdaʊtɪd]									
+					use				n.使用,用途																		
+					present			[ˈpreznt]	v.颁与、展示																		
+					throughout				prep.自始至终、遍及																		
+					assessment			[əˈsesmənt]	n.评估																		
+					biz				n.生意;(尤指)娱乐业																		
+					somemore				再来一点？																		
+					urgent			[ˈɜːrdʒənt]	adj.紧急的																		
+					Biz Head				商务主管	"Matt, [mæt] , adj.无光表面,n.不光亮的 ，short for Matthrew
+			Ken 海腾,解决方案部,业务部副总经理？"																	
+					stuff 			[stʌf]	n.琐事																		
+					attend			[əˈtend]	v.出席																		
+					gotta			[ˈɡɑːtə]	got to 不得不																		
+					revise			[rɪˈvaɪz]	v.修订	"After the demo, Ken talked about revised migration plan.  Rachel feel this version is better but still not comprehensive enough afraid the effort estimation would not be accurate, she brought up some areas in R1 we didnt covered up like :
+			演示结束后，肯谈到了修改后的迁移计划。瑞秋觉得这个版本比较好，但还是不够全面，怕工作量估计不准确，她在R1中提到了一些我们没有覆盖的地方"																	
+					migration			[maɪˈɡreɪʃn]	n.迁移,系统软硬件改变																		
+					comprehensive			[ˌkɑːmprɪˈhensɪv] 	adj.综合的																		
+					effort			[ˈefərt] 	n.努力，费力的事，尝试																		
+					estimation			[ˌestɪˈmeɪʃn] 	n.看法，评价、评估																		
+					accurate			 [ˈækjərət] 	adj.精确的（射击）																		
+					brought up				bring up 提出	"‘@Matthrew step is to complete the migration proposal and for sales to convince Thomson and Rachel to continue use our system. We have so far showed the icore system and also cms. Now is the migration plan, effort and commercial arrangement.G33
+			@Matthew下一步是完成迁移提案，并进行销售，以说服汤姆森和瑞秋继续使用我们的系统。到目前为止，我们已经展示了icore系统和cms。现在是移民计划、努力和商业安排。"																	
+					covered up 				掩盖																		
+					Matthew			[ˈmæθju]	马太（福音作者），sl bo																		
+					proposal			[prəˈpoʊzl] 	n.建议																		
+					convince			[kənˈvɪns] 	v.说服																		
+																											
+					integration			 [ˌɪntɪˈɡreɪʃn] 	n.整合，集成	"As i believe she want to migrate all the functions in integration platform to her system so she need to understand clearly what integration platform had currently
+			因为我相信她想将集成平台中的所有功能迁移到她的系统中，所以她需要清楚地了解集成平台目前有哪些功能"																	
+					migrate			 [ˈmaɪɡreɪt] 	v.迁移																		
+																											
+																											
+					via			 [ˈvaɪə]	prep.经由,凭借	Quick question, for applying personal loan, only way to upload documents is via takong a picture?								1）经由,地区 We flew home via Dubai. 2）通过某人、某系统 I heard about the sale via Jane									
+					takong				taking																		
+				},
+			0629:{
+					permit	eml		 [pərˈmɪt , ˈpɜːrmɪt] 	n.许可证 (特指有期限的)	 Apply Work Permit and Visa in Malaysia 在马来西亚申请工作许可和签证																	
+					visa			 [ˈviːzə]	n.(护照的)签证																		
+					Sentral				中心	evel 29-15 & 16, Q Sentral, No.2A, Jalan Stesen Sentral 2, Kuala Lumpur Sentral, 50470 KL, Malaysia 马来西亚吉隆坡，吉隆坡，邮编：50470																	
+																											
+					Jalan				移动	Jalan Stesen Sentral 2 中央车站2号路																	
+					Stesen				车站																		
+					Shu Yong													ShuYongNg.黄士容，人事专员，马来平台，吉隆坡，长亮控股，shuyong.ng@sunline-i.com									
+					laura.yang													LauraYang.杨海螺，，马来平台，吉隆坡，长亮控股，laura.yang@sunline.cn									
+					Sook Fun													SookFunChan.陈淑芬，部门经理，马来平台，吉隆坡，长亮控股，sookfun.chan@sunline-i.com									
+					 liufang													刘芳，薪酬专员，人力资源部，深圳市，长亮科技，liufang@sunline.cn									
+					leiwenmin													雷文敏，行政人事专员，深圳平台，深圳市，长亮控股，leiwenmin@sunline.cn									
+					quota			[ˈkwoʊtə] 	n.指标	his quota has approved by Xujie and Avy																	
+					free to do sth				自由地做某事	"Feel free to let me know if we need provide more info to your side
+			如果我们需要向你方提供更多信息，请随时通知我"																	
+					Employment Pass	eml		 [ɪmˈplɔɪmənt pæs]	就业准证;工作证																		
+					on hold			[ɑːn hoʊld]	延迟;暂缓;	The application of Employment Pass currently still on hold in Malaysia due to the Covid-19 outbreak 由于Covid-19爆发，目前马来西亚的就业证申请仍被搁置								 application n.申请,应用									
+					outbreak			[ˈaʊtbreɪk] 	n.爆发，突发																		
+					expat	Checklist pdf -stamp		[ˌeksˈpeɪtriət]	expatriate n.侨民，居住国外	"Employment Contract affixed with RM10.00 revenue stamp and endorsed by Inland Revenue Board (IRB) with payment receipt
+			附10.00令吉印花的雇佣合同，并由税务局（IRB）签署，并附有付款收据"																	
+					affix			 [əˈfɪks , ˈæfɪks]	v.附上,粘上																		
+					revenue			 [ˈrevənuː] 	n.收入,收益																		
+					stamp			 [stæmp] 	n.邮票																		
+					endorse			[ɪnˈdɔːrs] 	v.公开赞同,背书																		
+					Inland 			[ˌɪnˈlænd , ˈɪnlænd]	adj.内陆的									inland areas 内陆地区; inland lakes内陆湖;									
+					Board			 [bɔːrd] 	n.董事会,委员会									Inland Revenue Board  税务局 （IRB）									
+					payment receipt				n.支付收据,付费说明																		
+					RM 				ringgit malaysia 马币																		
+					designated			[ˈdezɪɡneɪtɪd] 	v.指定	To include approved address in designated premises within MSC Malaysia Cybercities and Cybercentres 在马来西亚理学硕士网络城市和网络中心内的指定场所提供经批准的地址																	
+					premises			 [ˈpremɪsɪz] 	n.营业场所																		
+					cyber			['saɪbə]	adj.电脑的,网络的									Malaysia Cybercities and Cybercentres 马来西亚网络城市和网络中心 MSC									
+					centre			[ˈsentər]	n.商业文化中心区																		
+					 coloured			 [ˈkʌlərd] 	adj.有色的，彩色的																		
+					paid-up			 [ˌpeɪd ˈʌp] 	adj.已付清,已缴费	"For company with paid-up capital below than RM100,000, duration of employment will be given upon discretion. 
+			对于实收资本低于100000林吉特的公司，雇佣期限将视情况而定。"								 paid-up capital 已付资本 									
+					capital			[ˈkæpɪtl] 	n.首都,资本,财产,启动资金																		
+					discretion			 [dɪˈskreʃn]	n.自行决定,慎重																		
+					disbursement			 [dɪsˈbɜːrsmənt]	n.支付																		
+			},
+			0630:{	
+					proceed 			 [proʊˈsiːd]	vi. 继续做某事	Kindly process file both in iCore and MBE. Ensure that active CIFs can proceed to verify and kindly exclude CIFs that have open accounts and with balance for purging.								proceed with sth，proceed to do sth, proceed to somewhere ,前往，继续									
+					exclude			[ɪkˈskluːd]	vt.排除某事物																		
+					statistical 			[stəˈtɪstɪkl] 	adj.统计的	"Anti fraud statistical dimension definition  addition
+			反欺诈统计维度定义新增"																	
+					dimension			[daɪˈmenʃn] 	n.维,范围,方面
+			}
+	}
+	theme	日期	单词	拆分	主题	发音	解释	示例								其他含义
+	07:{		
+			0703:{
+					present			 [ˈpreznt , prɪˈzent] 	adj.当前	100000495886 present in Icore but not in Mobile backend. Please provide script to trigger credentials 100000495886存在于Icore中，但不在移动后端中。请提供脚本以触发凭据								in the present situation 在当前的形势下									
+					credentials			[krəˈdenʃlz] 	n.证件																		
+																											
+					troubleshoot			[ˈtrʌblʃuːt] 	vi&vt 排除故障	ok, u can sleep now, lets troubleshoot it in morning																	
+					shoot			 [ʃuːt] 	v 射击,发射	but if it is already setup then the question is how customer can even get the option to setup again																	
+					even			 [ˈiːvn] 	adv.甚至																		
+					Meanwhile			 [ˈmiːnwaɪl] 	adv.与此同时	Meanwhile shall we ask customer to try to reset the MPIN?																	
+					Preliminary			 [prɪˈlɪmɪneri] 	adj.初步的	Preliminary Details 初步详细																	
+					Sector			 [ˈsektər] 	adj.部门,领域	Private Sector  私企																	
+					Gross			[ɡroʊs]	adj.总的	Gross Monthly Income 月总收入																	
+					Consumption			[kənˈsʌmpʃn] 	adj.个人消费	Purpose of Loan: Personal Consumption 贷款用途：个人消费																	
+					Lite			 [laɪt] 	清淡的	Lite Account								lite ice cream 低热量的冰淇淋									
+					eSavings			[ˈseɪvɪŋz]	saving n.节约	eSavings Account																	
+					pend			 [pend] 	v.有待进一步	Your personal loan has been approved and is pending disbursement to your Fast Plus Account. 您的个人贷款已被批准，正在等待支付到您的Fast Plus帐户																	
+																											
+			},
+			0724	concept	con-cept		 [ˈkɑːnsept] 抗瑟普特	n. 概念, 观念																		
+					composition			 [ˌkɑːmpəˈzɪʃn] 康们哲迅	n. 成分, 构成, 作曲, 创作																		
+			0727	architectural			[ˌɑːrkɪˈtektʃərəl]	adj. 建筑学的;建筑方面的																		
+					inherit			 [ɪnˈherɪt] 英哈瑞特	v. 继承(金钱、财产等);经遗传获得(品质、身体特征等);接替(责任等);继任																		
+					paradigm			 [ˈpærədaɪm] 派瑞戴蒙	n. 典范,范例,多样性,多态																		
+										20 more branches need to be covered by tests to reach the minimum threshold of 65.0% branch coverage.为了达到65.0%分支覆盖率的最低阈值，测试还需要覆盖20个分支。																	
+					detection			 [dɪˈtekʃn] 	检测	Dead Connection Detection																	
+	},
+	theme	日期	单词	拆分	主题	发音	解释	示例								其他含义
+	08:{	
+			0819	concurrent			[kənˈkɜːrənt] 肯克伦特	adj. 并存的;同时发生的																		
+					pipeline			[ˈpaɪplaɪn] 派普莱恩	"n. 输油/气/线管道(地下)
+			vt. 通过管道运输传递, 为...安装管道"	Jekins Pipeline 																	
+				0820	annotation			[ˌænəˈteɪʃn] 阿诺忒逊	n. 注解																		
+					Component			[kəmˈpoʊnənt] 肯勃嫩特	n. 组成部分;组件  adj. 成分的																		
+					Repository			[rɪˈpɑːzətɔːri] 瑞怕泽特锐	n. 版本库, 知识库, 资源库																		
+					wire			 [ˈwaɪər] 瓦尔	"n .金属丝,铁丝网 
+			v. 给..接通电源 , 将..连接到"	Autowire 自动装配																	
+					binary			 [ˈbaɪnəri]  百吶理	adj .二进制的, n .二进制数	binary-only 仅二进制的																	
+			0822	Prime			 [praɪm] 普莱姆	adj. 主要的,代表的	Loan Prime Rate, LPR  贷款市场报价利率	
+	},
+	08mk:{
+			0814	rebate			 [ˈriːbeɪt] 瑞贝特	n. 回扣	rebate coupon																	
+					coupon			 [ˈkuːpɑːn] 酷派儿	n. 优惠券																		
+					quota			 [ˈkwoʊtə] 酷儿塔	n. 定额、限额、指标	Face value quota 面值定额， 生效界限																	
+					Redemption			 [rɪˈdempʃn] 瑞戴蒙逊	n. 赎回	Point Redemption Allowed 允许积分兑换																	
+					valid			 [ˈvælɪd] 外瑞德	adj. 有效的	valid status 有效状态																	
+					Deductible			[dɪˈdʌktəbl]  迪达特勃	adj. 可扣除的；可减免的	Deductible coupon 免赔息票，抵扣券																	
+					Mandatory 			[ˈmændətɔːri] 曼德特瑞	adj. 强制的，必输																		
+					obtain			[əbˈteɪn] 尔伯特恩	v. 获得, 赢得	obtain a reward																	
+					reward			[rɪˈwɔːrd] 瑞沃德	n. 奖品,奖励 v. 奖励																		
+					retrieve			[rɪˈtriːv]  瑞炊威尔	v. 挽回，找回，检索数据	retrieve for 检索 ，retrieve the penalty fees/charges 收取费用																	
+					sponsor			[ˈspɑːnsər] 斯邦瑟	n. 赞助商 v. 赞助	sponsor the funds. 赞助基金																	
+				0815	Utilised				    利用																		
+					cap			 [kæp] 	n. 帽子 v. 封顶	to be capped 待封顶																	
+					Usage			[ˈjuːsɪdʒ] 尤瑟橘	n. 使用，利用率	Usage Limit 使用限制																	
+					criteria			 [kraɪ''tɪriə] 克莱提瑞亚	n. 标准，准则	criteria searches 标准搜索																	
+	},
+	theme	日期	单词	拆分	主题	发音	解释	示例								其他含义
+	09:{		
+			0901	Quota			[kənˈkɜːrənt] 肯克伦特	定额																		
+					tweaks 			 [twiːks] 忒克斯	v. 调整																		
+					align 			 [əˈlaɪn] 额莱恩	v.校准;(尤指)使成一条直线;使一致																		
+					narrow			 [ˈnæroʊ] 奈落	adj. v. n. 使狭小																		
+			0926	perspective			 [pərˈspektɪv]	n.态度;思考方法;客观判断力;透视法	
+	},
+	others:{			
+				1103	enhance			 [ɪnˈhæns] 英汉斯	v.增强、提高	enhancing its digital platform																	
+					streamline 			[ˈstriːmlaɪn]斯基姆莱恩	v.使效率更高,使增产节约	streamline more transactions																	
+					assumptions 			 [əˈsʌmpʃənz] 俄山姆逊	 假设、前提	Assumptions and Constraints																	
+					constraint			 [kənˈstreɪnt]肯斯恩准特	n.限制、限定																		
+					ease 			 [iːz] 亿滋	n.自在,容易 v.缓解,减轻	ease of describing functionality																	
+				1122	accrue			 [əˈkruː] 俄库鲁	v.增长增加 ，存款债务累计	计提？																	
+					accrual			[əˈkruːəl] 俄库鲁尔	计提;权责发生制;应计;应计制;累积	"计提，就是计算提取的意思。按规定的比率与规定的基数相乘计算提取，列入某科目。
+			企业费用已经发生，但还没有支付，这种情况下就要计提"																	
+									n. (利息的)自然累积;(投资的)累加																		
+				1207	ledger 			[ˈledʒər] 雷杰	n. 分户账簿，分类账簿	ledger check result，Fab_ledger_check_result																	
+				1216	Keteran		印尼语		说明																		
+				1223	factoring			[ˈfæktərɪŋ]法克特灵	保理业务	
+	}
+}

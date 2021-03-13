@@ -1,0 +1,1153 @@
+﻿
+vue:{		
+		ms1050 101050:{
+			MsDropListService.queryDropList
+				b.queryDropList(paramString);
+					MsBasicNSQLDao.selDropList
+						select * from msp_drop_list
+		},
+		账户查询:{
+			[4131]账户信息查询:{
+				menu
+				dp5030 315030:{
+					checkInput
+					SrvDpQueryAcct.qryAcctMainList
+						DpAcctQuery.qryMainAcctList(cplIn);
+				}
+			}
+			[4131]账户交易明细查询:{
+				menu	
+				dp5000-315000-"账户交易明细查询"-'Account transaction details query':{
+					SrvDpQueryAcct.qryAcctTransDetail
+						DpAcctQuery.qryAcctTransDetails(cplIn);:{
+							nsql-SqlDpAcctQuery.selAcctTransDetails:{
+								select * from dps_bill b
+							}
+						}
+				}
+			}
+		},
+		用户信息管理:{
+			[5403]用户登录日志查询:{
+				menu
+				us2920 542920:{
+					SrvUsUserBase.qryUserLoginLogList
+						nsql-UsUserBase.selUserLoginLogListInfo:{
+							from usl_login left join usb_person_base on usl_login.user_no = usb_person_base.user_no
+						}
+				}
+			}
+			[5408]用户升级审批结果查询:{
+				menu 	/views/us/UserPages/UserLevel/us_list_upgrafe_level_done_detail.json	
+				qry		542270-us2270:{
+							SrvUsUserBase.qryUsUpgradeLevelInfoList
+								UsUserListQuery.qryUsUpgradeLevelInfoList(input);
+									nsql-UsUserBase.qryUsUpgradeLevelInffoList:{
+										
+									}
+						}
+				print	542290-us2290:{
+							SrvUsUserQuerySign.qryUsUpgradeLevelDetailInfo
+								UsUserInfoQuery.qryUsUpgradeLevelDetailInfo(input);
+									select * from  usb_cust_upgrade_extend
+						}
+				details 542290-us2290:{}
+			}
+			[5420]批量开户信息,
+			[5421]批量开户:{
+				input 	2019112800002601 BULK_ONBOARDING_20201112_06.txt			
+				menu	/views/us/UserPages/UserBuild/user_build_file_list.json	
+					qry 	543180
+				add		/views/us/UserPages/UserDetail/user_build_file_input.json
+					submit	543190	->list_data_status{0-repeated,1-duplicate,2-update,3-new},file_status{0-add},
+							us3190:{
+								SrvUsLakuPandai.importAccountOpeningFile	
+									UsLakuPandaiQuery.fileInput(input);:{
+										//获取文件路径
+										String suffix = ApFileApi.getFullPath(UsConst.BATCH_ACCT_OPEN_FILE);
+										//创建连接下载
+										MsTransfer trans = ApFileApi.createClient(null);
+										trans.download(filePathInfo);
+										//解密如果参数为y解密为n不解密
+										ApSystemParmApi.getOFF_ON(UsConst.FILE_DECRYPTION);//FILE_DECRYPTION
+											select * from msp_parameter where parm_code='BLUK_FILE_UNCODE' and primary_key='*';	"TEST.SUNLINE"
+											
+										UsLakuPandaiQuery.parseAccountOpeningFileLine(String, int, Set<String>, List<UsOpenCustomerDetails>, String[]);{
+											UsLakuPandaiQuery.setAccountOpeningFileLineDataStatus(usb_bluk_detail);:{
+												SrvIoCfCustomer.qryPersonInfo:{
+													return CfCustInfoQuery.qryPersonInfo(qryIn);:{
+														cfb_person_base
+														cfb_person_doc
+														cfb_person_address
+														cfb_person_contact
+														cfb_person_employer
+														cfb_cust_name
+														'分析客户风险敞口信息'
+														'查询客户属性位'
+													}
+												}
+											}
+										}
+									}
+							}
+				apply	/views/us/UserPages/UserDetail/user_submit_examine.json
+					submit 	543210	us3210 	提交审核	-> 	file_status{1-approval}
+				delete 
+					submit 	543220	us3220	废弃	-> 	file_status{4-cancel}
+			},
+			[5422]批量开户审核:{
+				menu	/views/us/UserPages/UserBuild/user_build_examine_list.json
+				do 		/views/us/UserPages/UserDetail/user_examine_finish.json
+					submit 	543210	us3210->file_status{2-opening,3-reject}	->us05	->{
+								list_data_status{4-invalid},dukcapil_status,watch_list_ind,file_status{5-pending,6-completed}	
+							},		
+							us3210:{
+								SrvUsLakuPandai.batchFileStatusModify
+									UsLakuPandaiQuery.batchFileStatusModify(input);
+							}
+				details	/views/us/UserPages/UserDetail/user_info_base.json
+					543200
+			},
+			[5423]批量开户黑名单审核:{
+				menu	/views/us/UserPages/UserBuild/user_build_blacklist_examine_list.json
+				details	/views/us/UserPages/UserDetail/user_build_blacklist.json
+					us3201
+				approve/reject	us3202:{
+									SrvUsLakuPandai.batchAcctOpenBlackExamine
+										UsLakuPandaiQuery.batchAcctOpenBlackExamine(cplIn);
+								}
+			}
+		},
+		客户信息管理:{
+			[5505]客户信息查询:{
+				qyy:{
+					553016-cf3016:{
+						sev-SrvIoCfCustomer.qryPersonCustInfoList:{
+							return CfCustInfoQuery.qryPersonCustInfoList(custBaseIn);:{
+								nsql-CfCustomerBase.selPersonCustBasicList:{
+									a.marital_status FROM cfb_person_base a left join cfb_person_contact b
+								}
+							}
+						}
+					}
+				},
+				details:{
+					个人信息:{
+						婚姻状况
+					}
+				}
+			}
+		},
+},
+app:{
+	ms1050-101050,
+	cm2701-351010:{
+		SrvIoCmChrg.calcAutoChrg
+			CmChrgMain.calcAutoChrg(autoChrgCalcIn);
+				calcChrg(IoCmChrgCalcIn)
+					CmChrgApi.calcChrgAmt(chrgAmtCalcIn);
+	},
+	register:{
+		542050
+	},
+	login:{
+		us2030-query personal user info-'查询用户信息'/'验密PIN':{
+			checkBeforeTran
+			SrvUsUserQuerySign.queryPersonUserInfo:{
+				UsUserInfoQuery.qryUserInfo(input);
+					qryUserBaseInfo(input);:{
+						ApDropListApi.exists(UsConst.SAFE_VERIFY_TYPE, input.getSafe_verify_type());
+						UsVerify.validatePassword(UsValidateIn);-'密码验证及报错处理':{
+							checkPassword(input);
+								EsmUtil.verifyPassword(UsConst.RSA_INDEX, input.getCvalue(), input.getPassword(), input.getRandno(), tblUsbVerify.getPassword());
+						}
+					}
+			}
+			setProperty
+			SrvUsUserQuerySign.qryUsSafeVarifyInfo
+		},
+	},
+	home:{
+		dp:{
+			312020-dp2020-Account recharge-3.0.4:{
+				m-inputInterfaceCheck,
+				m-bookAccountingWithCheck,
+				s-SrvDpDemandAccounting.excessRegisterSave{
+					return DpExcessLimt.excessRegisterSave(demandSaveIn);:{
+						if(!P01)
+							return DpDemandSave.doMain(demandSaveIn);:{
+								DpDemandSaveOut cplOut = doMainMethod(cplIn, account, subAcct);:{
+									dealAccounting(cplIn, subAcct);:{
+										DpAccounting.online();:{
+											return prcMain(cplInput, true);:{
+												'余额更新及记账'
+												DpBaseServiceApi.tallyProcess(cplInput, onlineFlag);:{
+													return DpAccountingService.tallyProcess(cplInput, onlineFlag);:{
+														'会计流水登记'
+														regACSerail(cplInput, subAccount, bigBeforeBl)
+													}
+												},
+												'登记账单表'
+												regBill(cplInput, offsetInstDate);
+											}
+										}
+									}
+								}
+							}
+					}
+				},
+				m-checkSameCustomer,
+				s-SrvApTrxn.registerApsTransaction
+				
+				:{
+					SrvDpDemandAccounting.demandSave
+				}
+			},
+			312020-dp2020-Account recharge-3.0.3-cr_bulk-stable:{
+				m-inputInterfaceCheck,
+				m-bookAccountingWithCheck,
+				s-SrvDpDemandAccounting.demandSave{
+					return DpDemandSave.doMain(demandSaveIn);
+				},
+				m-checkSameCustomer,
+				s-SrvApTrxn.registerApsTransaction
+			},
+			td-'Time Deposit':{
+				311070-dp1070-231010:{
+					method-InterfaceCheck,
+					service-SrvDpOpenAccount.addSubAccount:{
+						return DpAddSubAccount.doMain(addSubAccountIn);:{	'开子户处理服务'
+							"开户变动推送消息中心"
+							DpOtherIobus.sendMessageChange(subAcct);:{
+								
+							}
+						}
+					},
+					method-OpenSubAcctAfterTrial,
+					block-trxn_amt&gt;0:{
+					
+					},
+					service-SrvApTrxn.registerApsTransaction
+				},
+				315050-dp5050,
+				312340-dp2340-"定期提款"-'fixed withdrawal':{	in:{'inst_handling_method'}
+					method-inputDataCheck,
+					service-SrvDpTimeAccounting.timeDraw-""-'定期支取服务':{
+						return DpTimeDraw.doMain(timeDrawIn);:{
+							DpTimeDrawOut cplOut = doMainMethod(cplIn, acctInfo, subAcct);:{	'定期支取主调方法'	'only'
+								'记账处理'
+								DpUpdAccBalOut accBalOut = dealAccounting(cplIn, subAcct);:{
+									
+								}
+								'2. 定期支取付息处理，在本金记账之前'
+								payInterest(cplIn, subAcct.getAcct_no(), subAcct.getSub_acct_no());:{	'only'
+									'定期付息'
+									DpInstAccounting cplPayed = DpBaseServiceApi.timePayInterest(cplIn, acctNo, subAcctNo);:{	'only'
+										return DpDrawService.timePayInterest(cplIn, acctNo, subAcctNo);:{	'only'
+											cplDrawInstIn.setDraw_date(CommUtil.nvl(cplIn.getBack_value_date(), BizUtil.getTrxRunEnvs().getTrxn_date()));	"draw_date"
+											'定期支取利息: 里面有修改子账户信息'
+											DpInstAccounting cplInstResult = DpAfreshInterest.afreshInterest(cplDrawInstIn, subAcct.getAcct_no(), subAcct.getSub_acct_no());:{	'定期重计息处理: 不涉及利息会计分录处理' 'only'
+												'利随本清结息处理'
+												DpInterestResult cplResult = CalcTimeDrawInst(cplIn, subAcct);:{	'定期存款支取利息计算: 含登记冲账事件DML语句'	'only'
+													'(三) 一般定期类：比如整存整取、存本取息'
+													cplOut = DpTimeAfresh.CalcTimeDrawInst(cplIn, subAcct);:{	'一般定期存款支取利息计算: 含登记冲账事件DML语句'	'(三)'
+														DpTimeAfreshAdvance.advanceDrawInterest(cplIn, subAcct);:{	'普通定期户提前支取计息处理'	'due_date'
+															cplOut = nonHolidayDraw(cplIn, subAcct);:{	'非节假日前支取计息'	'支取日期场景' 'E_TIMEDRAWDATESCENE.BEFORE' "提前支取"
+																'违约支取利率查询结果'
+																DpInrtQryOut cplInrtOut = DpTimeAfreshUtil.getTimeDrawRate(cplIn, null, subAcct, E_TIMEDRAWDATESCENE.BEFORE);:{	'only'
+																	'提前支取'
+																	cplInrtOut = getTimeBreachDrawRate(cplIn, normalRateInfo, subAcct, dateScene);	'inst_handling_method' "null"	"P" 'E_INSTHANDLINGMETHOD.PRODUCT_DEFINE' 'P - prouct define 按产品定义计息':{
+																		'获取定期支取计息表'
+																		DpProductParm.getProdTdDrawInstInfo(subAcct.getProd_id(), true);
+																			select * from dpf_td_draw_interest where prod_id='P07';
+																		listRateCode = DpInterestRateBasic.getContractRateCode(E_INRTDIRECTION.SIMPLE_CONT);	'freeInstDueDate'
+																	}
+																}
+															}
+														}
+													}
+												}
+											}
+										}
+									}
+								}
+							},
+							'CHARGE_MAPPING_099':{
+								
+							}
+						}
+					},
+					method-charge-'收费':{
+						
+					},
+					block-processing of credit processing-'',
+				},
+				312070-dp2070-"简单定期取款"-'simple fixed withdrawl':{
+					method-checkInput-'',
+					service-SrvDpTimeAccounting.timeDraw-""-'定期支取服务',
+					method-checkInputInterest,
+					block-transfersProcess,
+					service-SrvApTrxn.registerApsTransaction
+				},
+				312900-dp2900-"存款同业定期取款"-'deposit interbank fixed withdrawal':{
+					method-analyAccountType,
+					method-creditAcctCheck,
+					service-SrvDpTimeAccounting.timeDraw-""-'定期支取服务',
+					method-forexTrxnMiddleService,
+					case-prcTranIn,
+					service-SrvApTrxn.registerApsTransaction
+				},
+				service-SrvDpTimeAccounting.timeDraw-"定期支取服务"-'':{
+					DpTimeDraw.doMain(timeDrawIn);-'定期支取主服务':{
+						DpTimeSave.sendMessageChange(DpaSubAccount, Map<String, Object>, String tempId);-'定期存款邮件发送':{
+							DpOtherIobus.sendUsMessageChange(sendMessageTemplateIn);-'根据模板信息，发送通知':{
+								SrvIoUsUser.sendMessageTemplate:{
+									UsSendMessage.sendMessageTemplate(sendIn);-'消息推送通用模板':{
+										if(E_YESORNO.YES == sendMsgIn.getPushEmail()){
+											
+										}
+										SrvIoApPushMessage.sendMessage
+									}
+								}
+							}
+						}
+					}
+				},
+				317100-dp7100-"定期利息试算"-'fixed trial of interest':{
+					
+				}
+				flow:{
+					Early Withdrawal '提前支取':{
+						Reverse the accrued interest,
+						Deduct Penalty Fees/Charges amount,
+						Credit Net Amount to MiniFund,
+						Close Time Deposit Account,
+						Retrieve Email Content，
+						Send Email to customer via Email Gateway
+					}
+				}
+			},
+			dp7080-317080-'interest trial on deposit products'-"存款产品利息试算":{
+				S-SrvDpInterest.prodInterestTrial:{
+					return DpInterestBasicApi.prodInstTrialMain(cplIn);:{
+						return DpProdInterestTrial.prodInstTrialMain(cplIn);:{
+							'检查产品合法性'
+							checkProdVaild(cplIn);:{	->due_date
+								'2'
+								BizUtil.getTrxRunEnvs().getTrxn_date() + team_code	->20191201
+							}
+							'一次性存入定期产品'
+							DpGeneralInterestTrial.commonTimeProdInstTrial(cplIn);:{
+								'零头天数起息日	'
+								renmandDate
+							}
+						}
+					}
+				}
+			},
+		}
+	}
+	us2040-542040-personal user info sign in:{
+		SrvUsUserBase.userSignIn
+			return UsUserSignInfoDeal.signin(input);
+	},
+	us2070-542070-change user''s login device:{
+		service-SrvUsUserBase.changeUserLoginDevice:{
+			return UsUserInfoMnt.changeUserDevice(changeDeviceIn);
+		}			
+	},
+	us2290-542290-query user upgrade level detail formation-查询用户升级级明细表:{
+		service-SrvUsUserQuerySign.qryUsUpgradeLevelDetailInfo:{
+			return UsUserInfoQuery.qryUsUpgradeLevelDetailInfo(input);:{
+				UsUserInfoQuery.qryUserInfo();:{
+					usb_person_base tabPersonBase = qryUserBaseInfo(input);
+					usb_safety_verify
+					SrvIoCfCustomerInfo.qryCustSimpleInfo(IoCfCustQryIn);
+					usb_safety_verify
+				},
+				usb_cust_upgrade,usb_cust_upgrade_extend,usb_person_base
+			},
+			columns:{
+				ocr_file_address:{
+					select ocr_file_address from usb_cust_upgrade_extend where trxn_seq='' and user_no=''; 
+				}，ocr_score
+			}
+		}			
+	},
+	us2360:{
+		SrvUsUserBase.qryUserEkycInfo	
+			UsUserInfoFile.qryUserEkycInfo(user_no);
+				createKYCInfoPDF(usUpgrad,serOut);
+					createPDF(UsConst.USER_INFO_KYC,inMap);
+						createPDF(...);
+	},
+	us3080:{
+		SrvIoUsUser.sendMessageTemplate
+			UsSendMessage.sendMessageTemplate(sendIn);
+	}
+	dp2041-312040,
+	众筹账户收款账户.pptx:{
+		装张流程:{
+			login,
+				管理员A发起汇款申请,
+				选择领款方式,发起领款,
+				核心登记领款申请(同时发邮件);
+			login,
+				管理员B,管理员C发起审批,
+				前置编排:{
+					最后一人审批:{
+						yes:{
+							记账/更新状态,前置编排/对外付款/卡券红包派遣
+						},
+						no:{
+							更新状态,流转给前置?
+						}
+					}
+				}
+		},
+		转账流程:{
+			login,
+				管理员A发起汇款申请,
+				选择汇款方式,,
+				核心汇款申请(同时发邮件);
+			login,
+				管理员B,管理员C发起审批,
+				前置编排:{
+					最后一人审批:{
+						yes:{
+							记账/更新状态,前置编排/对外付款/卡券红包派遣
+						},
+						no:{
+							更新状态
+						}
+					}
+				}
+		}
+	},
+	FSD_Product_GroupAccount-ArisanAlumni_v1.2.docx
+},
+onl:{
+	cf2420-552420:{
+		sev-SrvCfCustomerAgreement.queryAgreeTemDetail:{
+			CfCustAgreeInfoQuery.queryAgreeTemDetail(agreeTemInfoIn);
+				from cfp_elec_cont_template
+		}
+	},
+	us2251:{	'ocr Information registration '
+		sev-SrvUsUserBase.ocrInformationRegistrationCheck,
+		sev-SrvUsUserBase.ocrInformationRegistration,
+	},
+	us3083:{
+		SrvUsGroupUser.sendMessageGeneral:{
+			UsSendMessage.sendMessageUniversal:{
+				UsSendMessage.sendMessageUniversal(list,cust_name,total_amt,order_no);
+					
+			}
+			#SrvIoApPushMessage.sendMessageForGeneral();
+				#PushMessageForsendMessageGeneral( orgId, filePath, fileFormatId,apMessageParm);
+		}
+	},
+	us3180:{
+		success_number	
+		nsql-UsLakuPandaiSql.queryBlukOpenList:{
+			select * from usb_bluk_open
+		}
+	},
+	batchAccountOpeningFileUpload:{
+
+	},
+	us3201:{
+		SrvUsLakuPandai.batchAcctOpenBlackDetailQuery	UsLakuPandaiQuery.batchAccoBlackDetailQuery(cplIn);	UsLakuPandaiSqlDao.queryBatchAcctBlackDetail
+			UsLakuPandaiSql.queryBatchAcctBlackDetail
+				select a.* from usb_bluk_detail a inner join usb_bluk_open b on a.watch_list_ind = '1'
+	},
+	us3230-encode:{
+		
+	},
+	SrvIoCfCustomerInfo.signHtmlAgreement-"html类型协议签约":{	
+		CfAgreeSignMnt.signHtmlAgreement(input);
+			select * from msp_drop_list where drop_list_type = 'AGREEMENT_TYPE' and  drop_list_value='p2'; 
+			select * from msp_parameter where parm_code='CONTACT_TEMPLATE_DAFAULT_LANGUAGE' and primary_key='*';
+			nsql-CfCustomerBase.selUseAgreementInfo:{
+				SELECT
+						* 
+				FROM
+						cfp_elec_cont_template 
+				where
+						prod_id=#prod_id# and agreement_type=#agreement_type#  and language = '3'
+						and use_agreement_ind='1'
+			}
+	}
+	SrvIoCfCustomerInfo.qryCustSimpleInfo(IoCfCustQryIn)-'客户简要信息查询':{
+		return CfCustIobusQuery.qryCustSimpleInfo(cplIn);:{
+			getDocumentInfo(cplIn);
+			getPersonBaseInfo(custNo);:{cfb_person_base}
+		}
+	}
+}
+bat:{
+	icore:{
+		tsp_tran_group_controller-批量交易组控制器-9:{
+			100	025	110	internal account timing task					'内部户定时任务'
+			100	025	120	single transfer file deal						'单笔转账文件处理'
+			100	025	130	generate reconciliation file batch trans group  '生成对账文件批量交易组'
+			100	025	810	core date switch before                         '日切前批量'				*
+			100	025	820	core date switch                                '日切批量'					*
+			100	025	830	core date switch after                          '日切后批量'				*
+			201	025	120	single transfer file deal                       '单笔转账文件处理'
+			800	025	120	single transfer file deal                       '单笔转账文件处理'
+			999	025	120	single transfer file deal                       '单笔转账文件处理'
+		},
+		tsp_tran_controller-批量交易控制器-31:{
+			100	025	110	10	cf13	customer traditional core customer number update
+			100	025	110	10	dpf25	Parm file generation notice middle plat
+			100	025	110	10	us01	user and customer upgrade extend upload
+			100	025	110	10	us06	test us06
+			100	025	110	10	us07	test us07
+			100	025	110	20	ta01	Delayed accounting for internal accounts
+			100	025	120	10	us05	Batch account opening
+			100	025	130	10	recofile	generate reconciliation file
+			100	025	130	20	dp45	
+			100	025	810	20	cm01	Arrears charge (early)
+			100	025	820	10	ap05	System switch date
+			100	025	820	20	ap06	CT System switch date
+			100	025	830	110	dp46	JG Special booking
+			100	025	830	110	dp50	Send trxn date to front
+			100	025	830	120	dp02	Automatic thawing at expiration
+			100	025	830	130	dp01	Deposit interest and interest rate processing
+			100	025	830	160	dp04	Registered deposit account total balance on the previous day
+			100	025	830	170	dp05	Registered deposit account total balance on the previous day
+			100	025	830	172	dp11	Fixed account maturity process
+			100	025	830	173	dp35	dp35 Batch transfer out
+			100	025	830	175	dp26	Deposit account form change
+			100	025	830	460	ap21	writing down file about accounting event
+			100	025	830	470	ap22	writing down file about accounting event number
+			100	025	830	480	ap23	writing down file about ledger balance accounts
+			100	025	830	490	ap24	writing down file about accrual
+			100	025	830	930	ap03	file upload
+			100	025	830	990	ap98	Partition and data clean
+			100	025	830	1000	ap99	Trade System EOD complet
+			201	025	120	10	us05	Batch account opening
+			800	025	120	10	us05	Batch account opening
+			999	025	120	10	us05	Batch account opening
+		},
+		tsp_timed_task_info-定时任务调度信息-7:{
+			100	025	onTimeDelayedAccounting				110	ta01			*/2
+			100	025	onTimePushDpProdParmNotifyMiddle	110	dpf25           */20
+			100	025	onTimePushUsProdParmNotifyMiddle	110	us01            */60
+			100	025	onTimeUpdateCifCustNoFile			110	cf13            */5
+			100	025	onTimeUs06							110	us06	*/24	0
+			100	025	onTimeUs07							110	us07            */1
+			100	025	onTimeWriteReconFile	cn.sunline.msap.rcexp.MsRcFileExportImpl			*/30	
+		}
+	},
+	ap:{
+		tsp_tran_controller-批量交易控制器--'':{
+			ap24-"写入计提文件"-'writing down file about accrual'-table级别:{		"830"-'490'
+				process:{
+					writeAccrualGl();:{
+						"data flow":{	
+							from 	
+							insert 	
+							update 	
+						},
+						"key code":{
+							"1.":{
+								nsql-ApFile.selsAccure:{
+									select
+											org_id, #trxn_date# as trxn_date, accrue_type, acct_branch, accounting_alias,
+											ccy_code, bal_attributes, 0.00 as budget_inst_amt
+									from
+											aps_accrue_record a 
+									where
+											a.trxn_date = #last_date# and a.org_id = #org_id# 
+											and not exists(
+													select
+															1 
+													from
+															aps_accrue_record b 
+													where
+															b.trxn_date = #trxn_date# and b.accrue_type = a.accrue_type 
+															and b.acct_branch = a.acct_branch and b.accounting_alias = a.accounting_alias 
+															and b.ccy_code = a.ccy_code and b.bal_attributes = a.bal_attributes 
+															and b.org_id = a.org_id 
+											)
+								}
+							},
+						}
+					}
+				}
+			},
+			ap90-""-'':{	
+				getBatchDataWalker:{
+					nsql-ApFileBase.selUnloadData:{
+						select
+								*
+						from
+								app_unload_data 
+						where
+								valid_ind=#valid_ind#
+					}
+				},
+				process:{
+						"data flow":{	
+							from 	
+							insert 	
+							update 	
+						},
+						"key code":{
+							"1.":{
+							},
+						}
+				}
+			},
+		}
+	},
+	us:{
+		us05:{
+			getBatchDataWalker:{
+				UsBatchAcctOpenSql.usbPersonBuildQuery
+					select * from usb_bluk_detail where file_id = #file_id#
+			},
+			process:{
+				UsBatchAccounOpen.checkIsNeedOpen:{
+					SrvIoCfCustomer.personalContactInfoMnt;
+						CfCustInfoMnt.updCustContactOtherInfo(updContactInfoMntIn);
+				},
+				UsBatchAccounOpen.usBatchAccountOpen(dataItem);:{
+					// 1.输入数据检查校验
+					dataItem = UsUserInfoCheck.checkBatchOpenItem(dataItem);
+						// 1.2证件信息校验
+						boolean isSuccess = UsBatchAccounOpen.checkCustomerDocNo(dataItem)
+					UsUserInfoBuild.buildPersonUserInfo(userBuildIn);		<- 	SrvUsUserBase.buildPersonUserInfo	<-	us2010
+					
+					// 4.2 KYC信息同步,插入doc=001
+					syncKyc(SrvIoCfCustomer, usb_bluk_detail, UsOpenCustomerOutput);{
+						SrvIoCfCustomer.personIdentityVarifyOthers
+							CfCustInfoMnt.updIdentityVarifyOtherInfo(identityVarifyIn);
+								// 维护个人客户证件信息
+								updatePersonCertInfo(varifyIn);
+					}
+				}
+			}
+		}
+	},
+	dp:{
+		tsp_tran_controller-批量交易控制器--'':{
+			dp01-"计息"-"存款利息利率处理"-'Deposit interest rate process':{	""
+				getBatchDataWalker:{
+					nsql-SqlDpDayEnd.selGroupIdForBatch:{
+						select distinct hash_value from dpa_sub_account where org_id = #org_id#
+					}
+				},
+				getJobBatchDataWalker:{
+					nsql-SqlDpDayEnd.selInterestData:{
+						SELECT a.acct_no, 
+							   a.sub_acct_no,
+							   a.dd_td_ind
+						  FROM dpa_sub_account a
+						 WHERE a.hash_value = #hash_value# 
+						   and a.org_id = #org_id#
+						   and a.next_inst_date <= #trxn_date#
+					}
+				},
+				process:{
+						"data flow":{	
+							from 	
+							insert 	
+							update 	
+						},
+						"key code":{
+							"1.":{
+								DpDayEndInterest.DealInterest(subAcct, listInrtChange);:{	'存款利息利率处理: 计提、结息、利率重定价'
+									"(二) 存款利息计息"
+									DpInterestBasicApi.accruedInterest(subAcct.getAcct_no(), subAcct.getSub_acct_no());:{
+										DpInterestAccrual.accruedInterest(acctNo, subAcctNo);:{		'未销户账户日终计息'	'存款利息日终计息'
+											"计不计息都登记账户历史余额拉链表"
+											modifyHistoryBalance(subAcct);	''
+											"获取计提利息索引类型"
+											E_INSTKEYTYPE instKey = DpInterestAccrualBase.getCainInstKey(subAcct, trxnDate);
+											"登记账户历史税率表"
+											DpTaxRateBasic.regHistoryTaxRate(subAcct, instAcct.getLast_prov_inst_tax_rate());:{	'分段计税存款账户历史税率拉链表登记'
+												DaoUtil.insertBatch-DphTaxRate-dph_tax_rate
+											}
+										}
+									}
+									"(三) 存款结息"
+									DpInterestSettlement.settleInterest(subAcct.getAcct_no(), subAcct.getSub_acct_no());:{
+										"2.定期到期付息: 全部记到待支付利息，如果设有到期指令则到期指令步骤再处理待支付":{
+											DpInterestSettlement.dayEndPayInterest(DpaSubAccount, DpaInterest, E_YESORNO, E_YESORNO);:{	'日终存款结息'
+												"（一）借：应付利息，贷：代扣利息税"
+												DpInterestSettlement.payInterestAccounting(cplWaitSettleInst, subAcct);:{	'付息记账处理：不含利息接收方分录'	'需考虑利息税的值不能大于利息'
+													"负债类账户应付利息类才有利息税，存放同业特殊需求也有利息税"
+													ApAccountApi.regAccountingEvent(cplTaEventIn);
+												}
+											}
+										}
+									}
+								}
+							},
+						}
+				}
+			},
+			dp03-"批量无人认领费用"-'Batch unclaimed charge':{},
+			dp04-"存盘登记"-'Dept to set aside data registration':{		"830"-'160'		"登记存款账户前一日余额合计"	'Registered deposit account total balance on the previous day'
+			},
+			dp05-"上日存款账户余额领用"-'Dept account balance of the previous day collect':{},
+			dp06-"智能存款卡生成"-'Smart deposit card generation':{},
+			dp07-"透支利息结算"-'Overdraft interest settlement':{},
+			dp08-"分割账户应计利息序列寄存器"-'divide account accrued interest sequence register':{},
+			dp11-"定期账户到期流程"-'Fixed account maturity process':{	""
+				getBatchDataWalker:{
+					nsql-SqlDpDayEnd.selGroupIdForBatch:{
+						select distinct hash_value from dpa_sub_account where org_id = #org_id#
+					}
+				},
+				getJobBatchDataWalker:{
+					nsql-SqlDpDayEnd.selTdAcctMatureData-value:{
+						select a.acct_no,
+							   a.sub_acct_no
+						  from dpa_sub_account a
+						 where 
+							a.hash_value = #hash_value# and a.org_id = #org_id# and
+							a.dd_td_ind = 'T'
+						   and a.sub_acct_status = '1'	-- 'E_SUBACCTSTATUS.NORMAL' '正常'
+						   and a.due_date = '20200717'
+					}
+				},
+				process:{
+						"data flow":{	
+							from 	
+							insert 	
+							update 	
+						},
+						"key code":{
+							"1. renewal_method"-'续存方式是':{
+								dpa_sub_account.renewal_method:{
+									null||0:{
+										DpTimeInterestApi.tdTurnOverdue(dataItem.getAcct_no(), dataItem.getSub_acct_no());:{	'日终定期逾期处理'
+											DpTdOverdue.tdTurnOverdue(acctNo, subAcctNo);:{		'负债日终定期逾期处理'
+												DpTdOverdue.tdTurnOverdue(acctNo, subAcctNo);:{	'日终定期逾期处理'
+													"设置账户逾期计息信息"
+													setOverdueInterest(subAcct, prodInst);:{	'设置逾期利率信息'
+														
+													}
+												}
+											}
+										}
+										return;
+									}
+								}
+							},
+							"2. "-'定期到期续存处理, 续存涉及转账，可能出现异常':{
+								DpTdRenewSave.tdAutoRenewSave(dataItem.getAcct_no(), dataItem.getSub_acct_no());:{	'定期到期自动续存处理'
+									2.1 '流水重置'
+									BizUtil.resetTrxnSequence();
+									2.2 '加载数据区'
+									addBuffData(subAcct);:{
+										'加载客户数据集'
+										DpPublicCheck.addDataToCustBuffer(subAcct.getCust_no(), subAcct.getCust_type());:{
+											'获取客户信息Map数据'
+											mapCustData = getCustMapInfo(custNo, custType);
+												return DpCustomerIobus.getCustBaseInfo(custNo, custType).getCustInfo();
+													SysUtil.getRemoteInstance(SrvIoCfCustomer.class).qryCfCustInfo(cplCustIn);
+										}
+									}
+									2.3 '获取续存金额':{
+										DpTdRenewSave.getRenewSaveAmount(DpaSubAccount);:{
+											dpa_sub_account.renewal_method:{
+												5:{	'transfer to other account when matured 转入其他方'
+													DpBalanceCalculateOut balInfo = DpToolsApi.getBalance(subAcct.getSub_acct_no(), subAcct.getAcct_no(), E_DRAWTYPE.CLOSE);:{
+														return DpBalancePublic.getBalance(subAcctNo, acctNo, drawType);
+															return getBalance(cplIn); ..>.. nsql-SqlDpFrozeBasic.selDrawLimitFrozeStatisInfo
+													}
+												}
+											}
+										}
+									}
+									2.6 '转账处理'
+									principalPosting(subAcct);:{	'续存本金记账'
+										principalPosting(subAcct, cplAideInfo);:{	'续存本金记账'-'不做冻结等检查，检查逻辑在前面处理'
+											dpa_sub_account.renewal_method:{
+												2:{
+													"存入定期账户自身"
+													DpInterestAccounting.instIntoSelf(cplInstInfo, subAcct);
+												},
+												5:{	'transfer to other account when matured 转入其他方'
+													matureCloseAcct(subAcct, cplAideInfo);:{	'到期销户记账'
+														dpa_sub_account.inst_payable:{	'interest payable' "应付利息" >0:{}}
+														DpBaseServiceApi.closeSubAcct(DpaSubAccount, DpCloseSubAccountBaseIn);{
+															update dpa_sub_account set ... sub_acct_status='1',
+														}
+													}
+												}
+											}
+										}
+									}
+								}
+							},
+							"3. "-'账务平衡检查':{
+								ApAccountApi.checkBalance();
+							}
+						}
+				}
+			},
+			dp12-"目标存款取消"-'Target deposit cancellation':{},
+			dp13-"透支占用调整"-'Overdraft occupancy adjustment':{},
+			dp14-"减少透支准备金计划"-'Overdraft reduction reserve plan':{},
+			dp17-"体验黄金计算利润"-'Experience gold calculation profit':{},
+			dp18-"经验金自动无效"-'Experience gold auto invalid':{},
+			dp19-"体验黄金汽车支付利息"-'Experience gold auto payment interest':{},
+			dp26-"帐户窗体移动"-'account form move':{},
+			dp27-"无存款记录账户自动关闭"-'No deposit record account automatic close':{},
+			dp31-"时间自动提取"-'time automatic withdrawal':{},
+			dp32-"定期自动存款"-'time automatic deposit':{},
+			dp36-"未通过kyc状态帐户关闭"-'no pass kyc status account close':{},
+			dp39-"智能卡到期后自动转入活期账户"-'Transfer into current account automatically after smart card expired':{},
+			dp43-"集团账户生产付款计划"-'group account Production payment plan':{},
+			dp44-"集团账户扣减"-'group account Deduction':{},
+			dp46-"JG特别预订"-'JG Special booking':{},
+			dp50-"将交易日期推给前置"-'Push trxn date to front':{},
+			dpa0-"参考开放账户奖励浮动利率"-'refer open account rewards float rate':{},
+			dpcheck-"存款日终前检查"-'Deposit EOD pre-Checking':{},
+			dpr10-"新注册名单"-'List of new registration':{},
+			dpr11-"财务关账报告清单"-'List of Financial Account Closed Report':{},
+			dpr12-"交易报告"-'Transaction Report':{}
+		}
+	},
+	ta:{
+		tsp_tran_controller-批量交易控制器--'':{
+			ta01-"内部账户预订批次延迟"-'the batch for internal accounts booking delayed':{
+			},	
+			ta21-"分支机构币种单点结算"-'branch and ccycode single point  to settle':{
+			},
+			ta22-"分支机构币种多级结算"-'branch and ccycode multi level to settle':{
+			},
+			ta23-"交易流水和分支币种单点结算"-'trxn seq and branch and ccycode single point  to settle':{
+			},
+			ta24-"交易流水和分支币种多级结算"-'trxn seq and branch and ccycode multi level to settle':{
+			},
+			ta25-"交易流水和分支币种结算处理后操作"-'trxn seq and branch and ccycode settle after':{
+			},
+			taa3-"年终清算损益类科目"-'clearing the profit and loss accounts at the end of year':{
+			},	
+			taa7-"更新内部账户的历史余额'"-'update the historial balance of internal account':{
+			},	
+			taa9-"将内部帐户信息写入分类科目"-'writing internal account information to ledger account':{
+			},	
+			taa93-"检查余额"-'check the balance':{
+			},	
+			tab7-"写下有关检查数据的文件"-'writing down file about checking data':{
+			},	
+			tac6-"记下总账会计事件"-'writing down gl  accounting events':{
+			},	
+			taf01-"写下有关会计事件的文件"-'writing down file about accounting event':{
+			},	
+		},
+		{
+			taf02-"计提文件写入"-'writing down accuring file':{		'mcb-uat':'830'		='3.0'."ap24"
+				process:{
+					TaFile.writeAccureDataMain();:{	'计提文件写入'
+						"data flow":{	
+							from 	
+							insert 	
+							update 	
+						},
+						"key code":{
+							"1.":{
+								nsql-TaFile.selMaxDateFromAccure:{
+									select
+											max(trxn_date) as trxn_date 
+									from
+											aps_accrue_record a 
+									where
+											a.org_id = #org_id# and a.trxn_date < #trxn_date# 
+								},
+								nsql-TaFile.insAccureZero:{
+									insert 
+									into
+											aps_accrue_record
+											(
+													org_id, trxn_date, accrue_type, acct_branch, accounting_alias, ccy_code, bal_attributes, budget_inst_amt 
+											) select
+													org_id, #trxn_date#, accrue_type, acct_branch, accounting_alias,
+													ccy_code, bal_attributes, 0.00 
+											from
+													aps_accrue_record a 
+											where
+													a.trxn_date = #last_date# and a.org_id = #org_id# 
+													and not exists(
+															select
+																	1 
+															from
+																	aps_accrue_record b 
+															where
+																	b.trxn_date = #trxn_date# and b.accrue_type = a.accrue_type 
+																	and b.acct_branch = a.acct_branch and b.accounting_alias = a.accounting_alias 
+																	and b.ccy_code = a.ccy_code and b.bal_attributes = a.bal_attributes 
+																	and b.org_id = a.org_id 
+													) 
+								},
+							},
+							"2. write head":{
+							},
+							"3. write body":{
+								nsql-TaFile.selAccureData:{
+									select
+											* 
+									from
+											aps_accrue_record a 
+									where
+											a.org_id=#org_id# and a.trxn_date=#last_date# 
+								}
+							}
+						}
+					}
+				}
+			},	
+			taf03-"写下有关分类科目余额的文件"-'writing down file about ledger balance accounts ':{
+			},	
+			taf04-"生成汇率文件"-'Generate exchange rate file':{
+			},	
+		}
+	},
+	ac:{	'General Ledger' '总则 [ˈdʒenrəl] 杰那柔' ' 分类帐 [ˈledʒər] 莱爵' 	"GL"
+		tsp_tran_group_controller-批量交易组控制器-4:{	'system code' "104"
+			100	file send and recveive task	'文件发送和接收批量'
+			105	core date switch before '日切前批量'	'810'
+			820	core date switch '日切批量'	'DS' "EOD" "End of Date" '日终跑批'
+			830	core date switch after '日切后批量'
+		},
+		tsp_tran_controller-批量交易控制器-20-'105':{
+*			ap04-"远程目录文件同步跑批"-'batch synchronization of remote directory files':{							'不会校验生成ok文件的前置跑批是否已经结束'			volatile:{},
+				"data flow":{	
+					from 	app_batch
+					insert 	apb_batch_receive apb_batch_request
+				},
+*				getBatchDataWalker:{
+					nsql-ApFile.selSyscBatchIdList-value:{
+												E_FILEPROCTYPE.RECV_REQUEST  'file process type' "A",'接收请求' 
+						select * from app_batch where file_proc_type = 'A' and file_recv_way ='2';
+																			E_FILERECVWAY.APPOINT_DIURECTORY "2" '约定路径自取'
+					},
+				},
+*				process:{
+					ApFileApi.syncRemoteFile2Local(appbatch.getBusi_batch_id());:{	'a.syncRemoteFile2Local(s);'
+						ApBaseFile.syncRemoteFile2Local(String)
+						"key code":{
+							"1. is ok":{
+								appbatch = AppBatchDao.selectOne_odb1;		"app_batch"
+								getFullPath		
+									select * from app_directory where dir_code='BATCH_ACCT_OPEN_FILE' order by data_sort;
+								a(String remote_dir_code, String remote_path, boolean true);
+									f(s, s1); 'list remote file'
+								ApBaseFile.syncRemoteFile2Local(String);
+									ApBaseFile.getRemoteFileList(String, String, boolean);
+										add .ok
+							},
+							"2. insert"-ApBatch.fileBatchApply(ComApFile.ApFileIn apfilein);:{
+								ApFileRecv.register();{
+									insert into apb_batch_receive	"apb_batch_receive"
+								}
+								apbbatchrequest = ApbBatchRequestDao.selectOne_odb1;		"apb_batch_request"
+									select * from apb_batch_request where busi_batch_code='';
+								insert into apb_batch_request
+							},
+						}
+					}
+				}
+			},
+			ap02-"文件接收"-'file reception':{
+				"data flow":{	
+					download	
+					update apb_batch_receive 	
+				},
+				getBatchDataWalker:{
+					nsql-ApFile.selGroupIdForRecv-value:{
+						select distinct a.hash_value from apb_batch_receive a where a.receive_ind = 'N';
+					}
+				},
+				getJobBatchDataWalker:{},
+				process:{
+						"key code":{
+							"1. download, 2. update":{
+								ApFileApi.createClient(null).download		#oss
+								ApbBatchReceiveDao.updateOne_odb1
+							},
+						}
+				}
+			},
+			ac11-"日终前检查"-'':{
+				process:{
+						"data flow":{	
+							from 	apb_batch_request apb_batch_receive msp_parameter
+							check
+						},
+						"key code":{
+							"0. check":{
+								AcEventProcessDao.selBatchFileData	*3 {E_BATCHTYPE.ACCRUE_DOWN-"F",CHECK_DOWN-"J",LEDGER_DOWN-"H",}
+									nsql-AcEventProcess.selBatchFileData-value:{				
+										select a.busi_batch_code, b.file_id ,b.file_name ,b.file_local_path from apb_batch_request a join apb_batch_receive b on a.request_file_id = b.file_id
+										where a.busi_batch_type = '' and a.file_handling_status = 'A' and b.receive_ind = 'Y' ;
+									}
+								MsParameter.getValue("AC_PARM", "");{"ACR_FILE_CNT","CHK_FILE_CNT","BAL_FILE_CNT"}
+							},
+						}
+				}
+			},
+*			ac01-"读取及处理会计事件流水文件"-'':{
+				"data flow":{	
+					from 	apb_batch_request,apb_batch_receive,acp_accounting_event_parm	
+					update 	apb_batch_request.file_handling_status,filebody_total_amt
+					insert 	acs_accounting_event_seq
+				},
+				beforeTranProcess:{
+					updateStatusToProcessing();
+						nsql-AcEventProcess.selBatchLoadData-value:{				
+							select a.busi_batch_code, b.file_id ,b.file_name ,b.file_local_path from apb_batch_request a join apb_batch_receive b on a.request_file_id = b.file_id
+							where a.busi_batch_type = 'D' and a.file_handling_status = 'A' and b.receive_ind = 'Y' ;
+						},
+						update apb_batch_request set file_handling_status = 'D'	# 'processing' '处理中'
+				},
+				getBatchDataWalker:{
+					nsql-ApFile.selBatchLoadData:{
+						select a.busi_batch_code, b.file_id ,b.file_name ,b.file_local_path from apb_batch_request a join apb_batch_receive b on a.request_file_id = b.file_id
+						where a.busi_batch_type = 'D' and a.file_handling_status = 'D' and b.receive_ind = 'Y' ;
+					}
+				},
+*				process:{
+					AcFile.processAccountingEventFile:{
+						"key code":{
+							"1. read":{
+								else ApBatch.setbatchReqStatus(fileDown.getBusi_batch_code(), cn.sunline.icore.sys.type.EnumType.E_FILEDEALSTATUS.FAILCHECK_OTHER);
+							},
+							"2. head":{
+								ApBatch.setFormatErrorByImport(fileDown.getBusi_batch_code());
+								ApBatch.setStatusByImport(fileDown.getBusi_batch_code(), 0L, BigDecimal.ZERO, totalCount, totalAmt);
+							},
+							"3. body":{
+								AcsAccountingEventSeqDao.selectFirst_odb2
+									select * from acs_accounting_event_seq where main_trxn_seq = '';		"acs_accounting_event_seq"
+								'get gl code':{
+									AcpAccountingEventParmDao.selectOne_odb1
+										select * from acp_accounting_event_parm where sys_no='104' and accounting_alias='' and bal_attributes='';		"acp_accounting_event_parm"
+								}
+								insert acs_accounting_event_seq;
+								ApBatch.setStatusByImport(fileDown.getBusi_batch_code(), headInfo.getHead_total_count().longValue(), headInfo.getHead_total_amt(), totalCount, totalAmt);
+									ApbBatchRequestDao.updateOne_odb1
+							},
+						}
+					}
+				}
+			},
+			#ac02-"会计事件流水撮合处理"-'':{},
+			ac05-"读取及处理计提文件"-'':{
+				"data flow":{	
+					from 	apb_batch_request.busi_batch_type.F
+					insert 	acs_accrue_record
+					update 	
+				},
+				getBatchDataWalker:{
+					nsql-ApFile.selBatchLoadData:{
+						select a.busi_batch_code, b.file_id ,b.file_name ,b.file_local_path from apb_batch_request a join apb_batch_receive b on a.request_file_id = b.file_id
+						where a.busi_batch_type = 'F' and a.file_handling_status = 'A' and b.receive_ind = 'Y' ;
+					}
+				},
+				process:{
+					AcFile.processAccrueFile:{
+						"key code":{
+							"4. insert":{
+								insert into acs_accrue_record 		"acs_accrue_record"
+							},
+*							acs_accrue_record-"核心银行的计提数据"-'the accure data of core bank':{
+								value:{}
+							}
+						}
+					}
+				}
+			},
+			ac06-"对账文件对账"-'':{
+				"data flow":{	
+					from 	apb_batch_request.busi_batch_type.J  acs_accounting_event_seq acs_accrue_record
+					check
+				},
+				process:{
+					nsql-AcEventProcess.selBatchFileData-value:{	'E_BATCHTYPE.CHECK_DOWN'			
+						select a.busi_batch_code, b.file_id ,b.file_name ,b.file_local_path from apb_batch_request a join apb_batch_receive b on a.request_file_id = b.file_id
+						where a.busi_batch_type = 'J' and a.file_handling_status = 'A' and b.receive_ind = 'Y' ;
+					},
+					AcCheck.checkFileRecord:{
+						"key code":{
+							"4. check":{
+								checkAccountingEventRecord(checkRecord);	'E_BATCHTYPE.ACCOUNTINGEVENT_DOWN' "D"
+									nsql-AcEventProcess.selAccountingSeqCount:{
+										select count(1) as totalCount from acs_accounting_event_seq where org_id = #org_id# and trxn_date = #trxn_date# and system_id = #system_id#
+									}
+								checkDepositAccrueRecord(checkRecord);		'E_BATCHTYPE.ACCRUE_DOWN' "F"
+									nsql-AcAccrueProcess.selAccrueCount:{
+										select count(1) as totalCount from acs_accrue_record where org_id = #org_id# and trxn_date = #trxn_date# and accrue_type = #accrue_type#
+									}
+							}
+						}
+					}
+				}
+			},
+			/*
+			ac07-"存贷款计提"-'':{},
+			ac03-"会计事件流水补平处理"-'':{},
+			ac04-"会计事件流水汇总处理"-'':{},
+			ac08-"读取登记余额文件"-'':{},
+			ac09-"余额核对"-'':{},
+			ac10-"生成机构日总账"-'':{},
+			ac12-"读取及处理核算别名相关文件"-'':{},
+			ac13-"错账流水补平后记账处理"-'':{},
+			ac14-"历史表转存处理"-'':{},
+			ac15-"科目余额和发生供数处理"-'':{},
+			ac16-"明细供数"-'':{},
+			ac17-"年终利息科目余额清零"-'':{}
+			*/
+		},
+		tsp_timed_task_info-定时任务调度信息-0
+	},
+	template:{
+			,
+			-""-'':{	
+				getBatchDataWalker:{
+					nsql-ApBranch.selBranchList:{
+						
+					}
+				},
+				process:{
+						"data flow":{	
+							from 	
+							insert 	
+							update 	
+						},
+						"key code":{
+							"1.":{
+							},
+						}
+				}
+			},
+			:{	""
+				getBatchDataWalker:{},
+				getJobBatchDataWalker:{},
+				process:{
+						"data flow":{	
+							from 	
+							insert 	
+							update 	
+						},
+						"key code":{
+							"1.":{
+							},
+						}
+				}
+			}
+	}
+},
+
+http://10.22.90.11/iCore/busi/sump-vue.git
+http://e-git.yfb.sunline.cn/sinarmas_project/cm-base.git
+http://10.22.90.11/iCore/busi/cm-busi.git
+	

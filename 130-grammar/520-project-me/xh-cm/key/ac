@@ -1,0 +1,145 @@
+
+ln:{	''
+	onl:{
+		ln6040-"贷款提取"-'loan drawdown':{
+			ser-SrvIoLnLoanDrawdown.loanDrawdownAndCheck:{
+				LnLoanDrawdownCheck.checkMain(loanDrawdownIn,false);
+				return LnLoanDrawdown.loanDrawdown(loanDrawdownIn);:{	"放款处理"
+					registerRateChangeStatement(drawdownIn); :{	"登记利率变更初始记录"
+					}
+					LnAccountingDrawdown.drawdownGl(drawdownIn);:{	"放款记账"	"记贷款账务"
+						lna_accrual.advance_interest_method:{
+							LnGlApi.addBalance4Drawdown(TabLnCore.lna_loan paramlna_loan, ComLnGL.LnBalanceBoxType paramLnBalanceBoxType, LnBaseEnumType.E_BALCODE paramE_BALCODE, BigDecimal paramBigDecimal)
+								a.addBalance4Drawdown(paramlna_loan, paramLnBalanceBoxType, paramE_BALCODE, paramBigDecimal);
+						}
+					}
+				}
+			},
+			ser-SrvIoLnLoanFund.SrvLnOpenFundEntryDeal,
+			ser-SrvIoLnLoanFund.SrvLnOpenFundTransferDeal,
+			ser-SrvLnMessSendToDsSimple.sendFundDataToDs,
+			ser-SrvLnSendMessage.SendMessage,
+			met-prepareTranFiled,
+			ser-SrvApTrxn.registerApsTransaction
+		}
+	},
+	enum:{
+		LnBaseEnumType.E_BALCODE:{	"余额代码"-41
+			"PRCP"/"P"-'本金',"AC"-'应计',"IT"/"I"/"T"-'利息',"IC"/"C"-'利息收入',"DU"-'到期',"O"-'罚',"C"-'复',"WOF"-'核销',"R"-'偿还',""-''
+			<restrictionType id="E_BALCODE" longname="balance code" base="string" maxLength="10">	
+				"本金"-''-1:{
+					"PRCP"-'本金'-'principal'-'[?pr?ns?pl] 普林斯普':{
+						#<enumeration id="PRCP" value="PRCP" longname="principal"/>							'本金'
+					},
+				},
+				"还款手续费"-''-9:{
+					"PYE"/"PF"-'还款手续费'-'repayment fee'-'':{               ''
+						"OPYE"/"OPF"-'逾期还款费'-'overdue repayment fee'-'':{
+							#<enumeration id="OPYF" value="OPYF" longname="overdue repayment fee"/>              '逾期还款费'
+							#<enumeration id="OOPF" value="OOPF" longname="owe overdue repayment fee"/>          '欠缴滞纳金'
+							#<enumeration id="WOPF" value="WOPF" longname="waiver overdue repayment fee"/>       '免除逾期还款费'
+						},
+						"PFF"-'还款失败费'-'repayment fail fee'-'':{
+							#<enumeration id="RPFF" value="RPFF" longname="repayment fail fee"/>                 '还款失败费'
+							#<enumeration id="OPFF" value="OPFF" longname="owe repayment fail fee"/>             '欠缴还款失败费'
+							#<enumeration id="WPFF" value="OPFF" longname="waiver repayment fail fee"/>          '免除还款失败费'
+						},
+						"APYF"/"APF"-'提前还款费'-'advance repayment fee'-'':{
+							#<enumeration id="APYF" value="APYF" longname="advance repayment fee"/>              '提前还款费'
+							#<enumeration id="OAPF" value="OAPF" longname="owe advance repayment fee"/>          '欠缴提前还款费'
+							#<enumeration id="WAPF" value="WAPF" longname="waiver advance repayment fee"/>       '免除提前还款费'
+						}
+					}
+				},
+				"利息"-'利罚复偿'-16:{
+					"AC"-'应计'-'accrual'-'[??kru??l] 俄库鲁尔':{
+						#<enumeration id="ACIT" value="ACIT" longname="accrual interest"/>                   '应计利息'
+						#<enumeration id="ACIC" value="ACIC" longname="accrual interest income"/>            '应计利息收入'
+						#<enumeration id="DUIT" value="DUIT" longname="due interest"/>                       '到期利息'
+						#<enumeration id="DUIC" value="DUIC" longname="due interest income"/>                '到期利息收入'
+					},
+					"O"-'罚'-'penalty'-'[?pen?lti] 潘浓提':{
+						#<enumeration id="ACOT" value="ACOT" longname="accrual penalty interest"/>           '应计罚息'
+						#<enumeration id="ACOC" value="ACOC" longname="accrual penalty interest income"/>    '应计罚息收入'
+						#<enumeration id="DUOT" value="DUOT" longname="due penalty interest"/>               '到期罚息'
+						#<enumeration id="DUOC" value="DUOC" longname="due penalty interest income"/>        '到期罚息收入'
+					},
+					"C"-'复'-'compound'-'[?kɑ?mpa?nd] 康姆庞德':{
+						#<enumeration id="ACCT" value="ACCT" longname="accrual compound interest"/>          '应计复利'
+						#<enumeration id="ACCC" value="ACCC" longname="accrual compound interest income"/>   '应计复利收入'
+						#<enumeration id="DUCT" value="DUCT" longname="due compound interest"/>              '到期复利'
+						#<enumeration id="DUCC" value="DUCC" longname="due compound interest income"/>       '到期复利收入'
+					},
+					"R"-'偿还'-'reimburse'-'[?ri??m?b??rs] 瑞英博思':{
+						#<enumeration id="ACRT" value="ACRT" longname="accrual reimburse interest"/>         '计提偿付利息'
+						#<enumeration id="ACRC" value="ACRC" longname="accrual reimburse interest income"/>  '计提偿付利息收入'
+						#<enumeration id="DURT" value="DURT" longname="due reimburse interest"/>             '到期偿付利息'
+						#<enumeration id="DURC" value="DURC" longname="due reimburse interest income"/>      '到期偿付利息收入'
+					}
+				},
+				"核销"-'write-off'-2:{
+					"WOF"-'核销'-'write-off'-'[?ra?t ??f] 莱特欧坲':{
+						#<enumeration id="WOFP" value="WOFP" longname="write-off principal"/>                '核销本金'
+						#<enumeration id="WOFI" value="WOFI" longname="write-off interest"/>                 '核销利息'
+					},
+				},
+				"准备金"-'provision'-3:{
+					"PRO"-'准备金'-'provision'-'[pr??v??n] 普雷威军':{
+						#<enumeration id="PROM" value="PROM" longname="manual loan provision"/>              '手动贷款准备金'
+						#<enumeration id="PROA" value="PROA" longname="auto loan provision"/>                '自动贷款准备金'
+						#<enumeration id="LOSS" value="LOSS" longname="loan provision loss"/>                '贷款准备金损失'
+					},
+				},
+				"预付息"-'advance interest'-3:{
+					"AT"-'预付息'-'advance interest'-'':{
+						#<enumeration id="ALAT" value="ALAT" longname="already charge advance interest"/>    ''
+						#<enumeration id="DUAT" value="DUAT" longname="due advance interest"/>               ''
+						#<enumeration id="DUAC" value="DUAC" longname="due advance interest income"/>        ''
+					},
+				},
+				"其他含义":{
+					"DU"-'到期',
+				},
+				""-''-''-'':{
+				},
+					#<enumeration id="AMOT" value="AMOT" longname="amortization interest"/>              ''
+					#<enumeration id="OPYT" value="OPYT" longname="over payment"/>                       ''
+					#<enumeration id="OLDI" value="OLDI" longname="old interest"/>                       ''
+				"票据利息费"-'bill interest fee'-3:{
+					"BF"-'票据利息费'-'bill interest fee'-'':{
+						#<enumeration id="BFRC" value="BFRC" longname="bill interest fee receivable"/>       '应收票据利息费'
+						#<enumeration id="BFIC" value="BFIC" longname="bill interest fee income"/>           '票据利息费收入'
+						#<enumeration id="BFWV" value="BFWV" longname="bill interest fee waiver"/>           '免收票据利息费'
+					},
+				},
+					#<enumeration id="VAT" value="VAT" longname="Business tax to VAT"/>                  '营业税转增值税'
+			</restrictionType>
+		}
+	}
+	tables:{
+		lna_accrual:{
+			value:{
+				
+			},
+			columns:{
+				advance_interest_method:{	'LnSysEnumType.E_ADVINTMETHOD'	"预收利息法"
+					<restrictionType id="E_ADVINTMETHOD" longname="advance collect interest method" base="string" maxLength="10">
+						<enumeration id="NO" value="NO" longname="no advance collection"/>	'无预收息'
+						<enumeration id="PRINCIPAL" value="PRINCIPAL" longname="pricipal deducting interest"/>	'本金扣除利息'
+						<enumeration id="TOTAL" value="TOTAL" longname="total amount deducting interest"/> '总金额扣息'
+					</restrictionType>
+				}
+			}
+		},
+		template:{
+			value:{
+				
+			},
+			columns:{
+				col_name:{	'EnumFile.EnumId'
+				
+				}
+			}
+		}
+	}
+}

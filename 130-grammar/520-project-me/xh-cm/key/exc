@@ -1,0 +1,678 @@
+
+
+sow:{
+	
+},
+server:{
+	config:{
+		dit:{
+			path:{
+				/home/exim/local
+			},
+			server:{
+					系统	应用	主机名	IP		用户名/密码				        备注                                 CPU(C)	内存(G)	存储（G)	状态	
+				后管服务	sump	10.22.61.97		exim/exim	10.22.61.97:9010 superman/123456                           2		4		40					
+							ct		10.22.61.97		exim/exim	ct                                                         							    		
+				核心服务	icore	10.22.61.98		exim/exim	us-用户、cf-客户、cm-公共、ac-会计、ln-贷款、cl-额度、     2		4		40					
+				PO/OTP				10.22.61.99		exim/exim	PO /otp                                                    2		4		40					
+				PL	PL				10.22.61.100	exim/exim	预约转账                                                   2		4		40					
+				消息中心	MeCen	10.22.61.101	                                                                                                            
+				网关		内网关	10.22.61.102	exim/exim	网关地址：10.22.61.102:9009                                2		4		40					
+				loader		loader	10.22.61.103	exim/exim	10.22.61.103:8090 admin/manager                            2		4		40					
+				ops			ops		10.22.61.103	exim/exim	NFS server                                                 2		4		40					
+				注册中心	zk		10.22.61.4		exim/exim	2191   zkUI:     http://10.22.61.4:9090  admin/manager     2		4		40					
+				redis		redis	10.22.61.5		exim/exim	端口6379                                                   2		4		40					
+				RocketMQ	rmq		10.22.61.5		exim/exim	端口9876                                                   2		4		40					
+				mysql		mysql	10.22.61.3					端口3306                                                   2		4	
+			},
+			db:{
+				10.22.61.3  3306 	查询用户：vlog/vlog
+				SUMP	ct	ctdb	ct/ct
+				核心服务	icore	icoredb	icore/icore
+				PL	PL	pldb	pl/pl
+				PO	po	podb	po/po
+				OTP	
+				otpdb	otp/otp
+				Message Center	Message Center	mgdb	mg/mg
+				网关	内网关	gatewaydb	gateway/gateway
+				loader	loader	loaderdb	loader/loader
+				ops	ops	opsdb	ops/ops
+			}
+		}
+	}
+}
+module:{
+	59:cl,
+}
+git:{
+	owner:{
+		ln/cl 颜梓蕾
+		cm/cf/ac/dpscript 张胜利
+		vue/sump/ct	付新斌
+		po/pl 孙睿
+	},
+	交付清单:{
+			Application								Git URL											Git Branch		Git Tag														Deployment Package URL
+				iCore	ln-贷款		https://git.yfb.sunline.cn/icore3.0/busi/ln-busi			3.2-exim-stable	3.2.2.0-EXIM-RELEASE	http://e-proxy.yfb.sunline.cn/nexus-prod/content/repositories/clht-package-releases/cn/sunline/icore/dist/core-dist/3.2.2.0-EXIM-RELEASE/core-dist-3.2.2.0-EXIM-RELEASE-linux.tar.gz
+						cl-额度		https://git.yfb.sunline.cn/icore3.0/busi/cl-busi			3.2-exim-stable	3.2.2.0-EXIM-RELEASE	
+						cm-公共		https://git.yfb.sunline.cn/icore3.0/busi/cm-busi			3.2-exim-stable	3.2.2.0-EXIM-RELEASE	
+						cf-客户		https://git.yfb.sunline.cn/icore3.0/busi/cf-busi			3.2-exim-stable	3.2.2.0-EXIM-RELEASE-1 	
+						us-用户		https://git.yfb.sunline.cn/icore3.0/busi/us-busi			3.2-exim-stable	3.2.2.0-EXIM-RELEASE-1 	
+						ac-核算		https://git.yfb.sunline.cn/icore3.0/busi/ac-busi			3.2-exim-stable	3.2.2.0-EXIM-RELEASE	
+						脚本		https://git.yfb.sunline.cn/icore3.0/busi/dbscript			3.2-exim-stable	3.2.2.0-EXIM-RELEASE-1	http://nexus.odc.sunline.cn/repository/odc-test/cn/sunline/icore/dbscripts/3.2.2.0-EXIM-RELEASE-1/dbscripts-3.2.2.0-EXIM-RELEASE-1.jar
+																																		公共脚本目录：main/
+																																		业务脚本目录：centralized_dbscript/iCore/main"
+				内管	VUE			https://git.yfb.sunline.cn/icore3.0/busi/sump-vue			3.2-exim-stable	3.2.2.0-EXIM-RELEASE	http://e-proxy.yfb.sunline.cn/nexus-prod/content/repositories/clht-release/cn/sunline/rdp/solution/sump-vue-package/3.2.2.0-EXIM-RELEASE/sump-vue-package-3.2.2.0-EXIM-RELEASE.war
+						SUMP		https://git.yfb.sunline.cn/icore3.0/busi/sump-busi			3.2-exim-stable	3.2.2.0-EXIM-RELEASE	http://e-proxy.yfb.sunline.cn/nexus-prod/content/repositories/clht-package-releases/cn/sunline/icore/dist/ct-dist/3.2.2.0-EXIM-RELEASE-2/ct-dist-3.2.2.0-EXIM-RELEASE-2-linux.tar.gz
+						CT			https://git.yfb.sunline.cn/icore3.0/busi/ct-busi			3.2-exim-stable	3.2.2.0-EXIM-RELEASE-2	
+				PO		流程编排	https://git.yfb.sunline.cn/icore3.0/busi/po-busi			3.2-exim-stable	3.2.2.0-EXIM-RELEASE-1	http://e-proxy.yfb.sunline.cn/nexus-prod/content/repositories/clht-package-releases/cn/sunline/icore/dist/po-dist/3.2.2.0-EXIM-RELEASE-1/po-dist-3.2.2.0-EXIM-RELEASE-1-linux.tar.gz
+				PL		支付转账	https://git.yfb.sunline.cn/icore3.0/busi/pl-busi			3.2-exim-stable	3.2.2.0-EXIM-RELEASE	http://e-proxy.yfb.sunline.cn/nexus-prod/content/repositories/clht-package-releases/cn/sunline/icore/dist/pl-dist/3.2.2.0-EXIM-RELEASE/pl-dist-3.2.2.0-EXIM-RELEASE-linux.tar.gz
+		Gateway governor	脚本	https://git.yfb.sunline.cn/icore3.0/busi/openbank-gateway	3.2-exim-stable	3.2.2.0-EXIM-RELEASE	"建库初始化脚本：http://e-proxy.yfb.sunline.cn/nexus-prod/content/groups/clht-dev-public/cn/sunline/openbank/gw-dbscripts/3.2.2.0-EXIM-RELEASE/gw-dbscripts-3.2.2.0-EXIM-RELEASE.jar
+																																		API参数脚本：http://e-proxy.yfb.sunline.cn/nexus-prod/content/groups/clht-dev-public/cn/sunline/openbank/gw-api/3.2.2.0-EXIM-RELEASE/gw-api-3.2.2.0-EXIM-RELEASE.jar"
+							应用	-（属总部研发中心管理）												-			4.3.0-RELEASE		http://e-proxy.yfb.sunline.cn/nexus-prod/content/repositories/yfb-dev-release/cn/sunline/edsp/midware/edsp-gateway-governor-mysql-dist/4.3.0-RELEASE/edsp-gateway-governor-mysql-dist-4.3.0-RELEASE-dist.tar.gz
+		Gateway server		应用	-（属总部研发中心管理）												-			4.3.0-RELEASE		http://e-proxy.yfb.sunline.cn/nexus-prod/content/repositories/yfb-dev-release/cn/sunline/edsp/midware/edsp-gateway-server-rpc3-dist/4.3.0-RELEASE/edsp-gateway-server-rpc3-dist-4.3.0-RELEASE-dist.tar.gz
+			跑批前台		脚本	-（属总部研发中心管理）												-				-				http://file.odc.sunline.cn/projects/3.0-yf/loader/loader-m1.7.sql
+							Loader	-（属总部研发中心管理）												-			3.1.0-M1.7			http://file.odc.sunline.cn/projects/3.0-yf/loader/edsp-loader-dist-3.1.0-M1.7.tar.gz
+							助手UI	-（属总部研发中心管理）												-			3.1.1-M25			http://file.odc.sunline.cn/projects/3.0-yf/batch-ui/edsp-batch-ui-3.1.1-M25.tar.gz
+			跑批后台		脚本	https://git.yfb.sunline.cn/icore3.0/busi/ops-dbscript		3.2-exim-stable	3.2.2.0-EXIM-RELEASE	http://e-proxy.yfb.sunline.cn/nexus-prod/content/groups/clht-dev-public/cn/sunline/icore/ops-dbscripts/3.2.2.0-EXIM-RELEASE/ops-dbscripts-3.2.2.0-EXIM-RELEASE.jar
+							应用	-（属总部研发中心管理）												-			4.1.0-M19			http://file.odc.sunline.cn/projects/3.0-yf/ops/edsp-bat-governor-tran-4.1.0-M19-1599819902080-linux.tar.gz
+	}
+}
+process:{
+	counter:{
+		xiehao02/Huawei@123,
+		"客户信息":{
+			'客户管理':{
+				'客户信息':{
+					【3216】:{
+						submit:{
+							553020-cf3020
+						}
+					}
+				}
+			}
+		},
+		"额度中心":{
+			'额度管理':{
+				【7203】额度信息维护:{
+					submit:{
+						592003-cl2003,
+					}
+				}
+			}
+		}
+	},
+	bat:{
+		icore:{
+			tsp_tran_group_controller-批量交易组控制器-10:{
+				'ex-dit'
+				100	025	10		Date switch									'日切批量'
+				100	025	100		Date switch after - High Level              '日切后批量-高级别'				*
+				100	025	1000	Date switch after - Finish                  '日切后批量-完成'				*
+				100	025	120		Timed task process                          '定时任务'
+				100	025	130		File batch process							'文件跑批'
+				100	025	300		Date switch after - Middle Level			'日切后批量-中级别'
+				100	025	600		Date switch after - General Level           '日切后批量-生成级别'
+				100	025	810		Core data switch process                    '核心数据切换'
+				100	025	900		Date switch after - Low Level               '日切后批量-低级别'
+				100	025	999		Date switch after - Clear                   '日切后批量-清理'
+				'gs-bat'
+				100	025	110	internal account timing task					'内部户定时任务'
+				100	025	120	single transfer file deal						'单笔转账文件处理'
+				100	025	130	generate reconciliation file batch trans group  '生成对账文件批量交易组'
+				100	025	810	core date switch before                         '日切前批量'				*
+				100	025	820	core date switch                                '日切批量'					*
+				100	025	830	core date switch after                          '日切后批量'				*
+				201	025	120	single transfer file deal                       '单笔转账文件处理'
+				800	025	120	single transfer file deal                       '单笔转账文件处理'
+				999	025	120	single transfer file deal                       '单笔转账文件处理'
+			},
+			tsp_tran_controller-批量交易控制器-66:{
+				100	025	10	10	ap05	System switch date
+				100	025	100	10	cl01	Credit expired
+				100	025	100	20	cl05	Whitelist analysis and push
+				100	025	1000	1000	ap99	Trade System EOD complet
+				100	025	120	5	ln47	Loan Product parameter synchronization
+				100	025	120	25	ln1000	loan interest accrual
+				100	025	120	100	ap03	file upload
+				100	025	120	101	ap04	Remote File Directory Synchronization
+				100	025	120	102	ap02	File Download
+				100	025	120	200	ac103	Register accounting event(centralized)
+				100	025	120	300	ta01	Delayed accounting for internal accounts
+				100	025	300	10	ln05	loan repayment method change
+				100	025	300	12	ln18	Old interest Amortization
+				100	025	300	20	ln21	loan rate change
+				100	025	300	30	ln09	loan interest accrual
+				100	025	300	40	ln04	loan interest amortization
+				100	025	300	50	ln23	loan holiday
+				100	025	300	60	ln16	Loan repayment schedule maintenance
+				100	025	300	70	ln12	loan info update
+				100	025	300	80	ln08	loan transfer
+				100	025	300	110	ln11	loan due interest
+				100	025	300	120	ln06	loan extend
+				100	025	300	140	ln24	loan intrust auto payment
+				100	025	500	10	ln41	loan message notification
+				100	025	600	10	ln01	loan batch repayment(night)
+				100	025	600	20	cm01	Arrears charge
+				100	025	600	50	cm07	Fee package automatic renewal
+				100	025	600	100	cm08	Charge package fee
+				100	025	810	30	ln03	repay loan pledges
+				100	025	830	127	ln19	loan fee calculate
+				100	025	830	137	ln13	loan fee payment
+				100	025	830	150	ln14	loan provision calculation
+				100	025	830	495	ln07	loan customer classification update
+				100	025	830	497	ln17	loan email send
+				100	025	830	630	ln15	loan provision summarize
+				100	025	830	855	ln40	loan accrual register
+				100	025	830	865	ap22	writing down file about accounting event number
+				100	025	900	10	ln22	loan drawdown
+				100	025	900	20	ln02	batch repay loan reimburse
+				100	025	900	30	ln10	loan interest accrual summarize							"贷款计息汇总"
+				100	025	900	40	ln20	business tax to VAT
+				100	025	900	50	ln25	VAT register											"增值税登记"
+				100	025	900	69	ln28	loan handle accounting after accounting alias changed
+				100	025	900	70	ln29	loan account balance summarize
+				100	025	900	80	ln30	loan balance(daily)
+				100	025	900	120	ln43	send  loan data to Collection by file
+				100	025	900	800	cm02	Amortization
+				100	025	900	810	taa7	Update the historial balance of internal account
+				100	025	900	820	taa9	Writing internal account information to ledger account
+				100	025	900	905	ac106	Check the number and amount of accounting events(centralized)
+				100	025	900	910	ac02	change balance status of accounting event
+				100	025	900	915	ac105	register accrue data(centralized)
+				100	025	900	920	ac06	check record
+				100	025	900	925	ac07	accrue accounting
+				100	025	900	930	ac03	register unbalance accounting event
+				100	025	900	935	ac04	summarize balanced accounting event
+				100	025	900	940	ac08	register ledger balance
+				100	025	900	945	ac109	check ledger balance(centralized)
+				100	025	900	950	ac10	generate branch gl
+				100	025	900	955	ac12	check and update gl code
+				100	025	900	960	ac13	Error Accounting Fill
+				100	025	900	965	ac14	backup data
+				100	025	900	970	ac15	Account balance and occurrence supply processing
+				100	025	900	975	ac16	gen data file(details)
+				100	025	900	980	ac17	gen data file(Summary)
+				100	025	999	999	ap98	Partition and data clean
+			},
+			tsp_timed_task_info-定时任务调度信息-7:{
+				100	025	onTimeDelayedAccounting				110	ta01			*/2
+				100	025	onTimePushDpProdParmNotifyMiddle	110	dpf25           */20
+				100	025	onTimePushUsProdParmNotifyMiddle	110	us01            */60
+				100	025	onTimeUpdateCifCustNoFile			110	cf13            */5
+				100	025	onTimeUs06							110	us06	*/24	0
+				100	025	onTimeUs07							110	us07            */1
+				100	025	onTimeWriteReconFile	cn.sunline.msap.rcexp.MsRcFileExportImpl			*/30	
+			}
+		},
+		ap:{
+			ap24-"记下有关应计项目的文件":{	'writing down file about accrual' 	''
+				process:{
+					writeAccrualGl:{
+						"data flow":{	
+							from 	aps_accrue_record
+							insert 	
+							update 	
+						},
+						"key code":{
+							"1.":{
+								nsql-ApFile.selsAccure-value:{
+									select
+											org_id, #trxn_date# as trxn_date, accrue_type, acct_branch, accounting_alias,
+											ccy_code, bal_attributes, 0.00 as budget_inst_amt
+									from
+											aps_accrue_record a 
+									where
+											a.trxn_date = #last_date# and a.org_id = #org_id# 
+											and not exists(
+													select
+															1 
+													from
+															aps_accrue_record b 
+													where
+															b.trxn_date = #trxn_date# and b.accrue_type = a.accrue_type 
+															and b.acct_branch = a.acct_branch and b.accounting_alias = a.accounting_alias 
+															and b.ccy_code = a.ccy_code and b.bal_attributes = a.bal_attributes 
+															and b.org_id = a.org_id 
+											)
+								}
+							},
+						}
+					}
+				}
+			},
+			
+		},
+		ac:{
+			ref:{
+			批量交易码				批量交易名称					处理时机							备注
+				ac103		日间定时任务同步并解析会计事件			定时任务	将核心生成的会计事件流水从表aps_accounting_event同步到核算acs_accounting_event_seq表中；并且根据核算别名和余额属性解析出科目号，映射关系在参数表acp_accounting_event_parm配置。
+				ac106	核算系统日终前核对上日会计事件总数和总额	日终批量	检查日间定时同步的会计事件总金额和总笔数是否和核心的一致，不一致则报错。
+				ac02			会计事件流水撮合处理				日终批量	会计事件账务平衡性检查，账务平衡的流水更新处理状态为“已平衡”。
+				ac105				同步计提数据					日终批量	将核心生成的计提数据从表aps_accrue_record同步到核算acs_accrue_record表中；
+				ac07				存贷款计提						日终批量	针对存款应付计提利息和贷款应收计提利息进行差额计提处理。
+				ac03			会计事件流水补平处理				日终批量	针对账务不平衡的流水进行补平处理。
+				ac04			会计事件流水汇总处理				日终批量	根据交易日期、机构、科目、币种、金额汇总会计事件流水，登记到acs_accounting_event_seq_sum表中。
+				ac08				生成分户账余额					日终批量	根据"会计事件流水"、以核算别名和余额属性为维度生成分户账余额，登记到acs_ledger_bal表中。
+				ac109				余额总分核对					日终批量	将核心登记的分户账余额数据aps_ledger_bal和核算解析的分户账余额acs_ledger_bal进行核对，余额不一致则报错。
+				ac10				生成机构日总账					日终批量	根据交易日期、机构、币种、科目生成机构日总账数据，登记到acs_branch_gl表中。
+				ac14				历史表转存处理					日终批量	将会计事件流水从表acs_accounting_event_seq迁移到历史表ach_accounting_event_seq中，默认保留30天（参数可配置）。
+				ac15			科目余额和发生额供数处理			日终批量	生成科目余额文件和科目借贷发生额文件，并上传到远程目录下。
+				ac16			明细会计分录文件生成				日终批量	生成带交易流水的会计分录数据，生成文件并上传到远程目录下。
+				ac17			汇总会计分录文件生成				日终批量	根据科目、机构、记账方向以及币种汇总会计分录数据，生成文件并上传到远程目录下。
+			},
+			ac105-"同步计提数据":{	'将核心生成的计提数据从表aps_accrue_record同步到核算acs_accrue_record表中'	'日终批量'
+				process:{
+					"data flow":{	
+						from 	acs_accrue_record
+						insert 	
+						update 	
+					},
+					"key code":{
+						"1.":{
+							nsql-AcAccrueProcess.selAccureRecordGroup-value:{
+								select *
+								from
+										acs_accrue_record a 
+								where
+										a.org_id = #org_id# 
+										
+										and a.trxn_date=#accrue_date# 
+							}
+						},
+					}
+				}
+			},
+			ac07-"存贷款计提":{	'针对存款应付计提利息和贷款应收计提利息进行差额计提处理'	'日终批量'
+				process:{
+					"data flow":{	
+						from 	acs_accrue_record
+						insert 	
+						update 	
+					},
+					"key code":{
+						"1.":{
+							nsql-AcAccrueProcess.selAccureRecordGroup-value:{
+								select *
+								from
+										acs_accrue_record a 
+								where
+										a.org_id = #org_id# 
+										
+										and a.trxn_date=#accrue_date# 
+							}
+						},
+					}
+				}
+			},
+			ac08-"生成分户账余额":{	'根据会计事件流水、以核算别名和余额属性为维度生成分户账余额，登记到acs_ledger_bal表中'	'日终批量'
+				getBatchDataWalker:{
+					nsql-AcLedgerProcess.selBranchList:{
+						
+					}
+				},
+				process:{
+					AcLedger.genLedgerBal(dataItem);:{
+						"data flow":{	
+							from 	acs_accounting_event_seq
+							insert 	
+							update 	
+						},
+						"key code":{
+							"2.":{
+								'初始化分户账余额数据'
+								AcLedgerProcessDao.insInitLedgerBalData(org_id, trxn_date, last_date, acct_branch);
+								nsql-AcLedgerProcess.selAccountingEventSum-value:{
+									select
+											system_id, org_id, trxn_date, acct_branch, trxn_ccy as ccy_code, accounting_alias, bal_attributes, 
+											sum(case when debit_credit = 'D' then trxn_amt else trxn_amt*(-1) end) as trxn_amt
+									from
+											acs_accounting_event_seq 
+									where
+											trxn_date=#trxn_date# and org_id=#org_id#
+											and process_status='3'
+											and acct_branch=#acct_branch#
+									group by
+											system_id,org_id,trxn_date,
+											acct_branch,trxn_ccy,accounting_alias,bal_attributes
+								}
+							},
+						}
+					}
+				}
+			},
+			ac109-"":{	''	
+				process:{
+					"data flow":{	
+						from 	
+						insert 	
+						update 	
+					},
+					"key code":{
+						"2.":{
+							nsql-ApFile.selLedgerBal-value:{
+								select * from aps_ledger_bal a where a.trxn_date='20201222' 
+							}
+						},
+					}
+				}
+			}
+		},
+		ln:{
+			ln10-"贷款计息汇总":{	'loan interest accrual summarize'
+				process:{
+					"data flow":{	
+						from 	
+						insert 	
+						update 	
+					},
+					"key code":{
+						"1.":{
+							LnUtilApi.getAccountingAccrualBalCode();
+								LnPara.getAccountingAccrualBalCode();	'获取利息计提需差额计提的余额代码'
+									return ApBusinessParmApi.getValue("LN_ACCOUNTING", "ACCRUAL");
+										select * from msp_parameter where parm_code='LN_ACCOUNTING' and primary_key='ACCRUAL';
+											"ACIT"'应计利息',"ACOT"'应计罚息',"ACCT"'应计复利',"DUIT"'到期利息',"DUOT"'到期罚息',"DUCT"'到期复利'
+							nsql-SqlLnDayEnd.selLnAccrualGl-value:{
+								select
+										a.ccy_code as trxn_ccy, a.acct_branch, a.accounting_alias,b.bal_attributes_gl as bal_attributes, d.busi_category
+								from
+										lna_loan a join lna_balance b join lnp_bal_attributes c join
+										lna_basic d on
+										a.ORG_ID=#org_id# and a.loan_no=b.loan_no 
+										and a.loan_no=d.loan_no and b.bal_attributes=c.bal_attributes 
+								where
+										c.bal_code in(
+												${bal_code_list} 
+										) 
+								group by
+										a.ccy_code, a.acct_branch, a.accounting_alias,b.bal_attributes_gl,d.busi_category
+							}
+						},
+					}
+				}
+			},
+		}
+	},
+	ac:{
+		accounting_subject:{
+			2:{
+				
+			}
+		},
+		accounting_alias:{
+			"PERSONAL":{
+				
+			}
+		}
+		bal_attributes:{
+			"LN07":{
+				
+			}
+		},
+		bal_type:{"C","D"}
+		gl_code:{
+			"PERSONAL_INTEREST_DUE":	2+"PERSONAL"+"LN07"+"D",
+		}
+	}
+	template:{
+			,
+			-"":{	''
+				getBatchDataWalker:{
+					nsql-AcLedgerProcess.selBranchList:{
+						
+					}
+				},
+				process:{
+					"data flow":{	
+						from 	
+						insert 	
+						update 	
+					},
+					"key code":{
+						"1.":{
+						},
+					}
+				}
+			},
+			-"":{	''	
+				getBatchDataWalker:{},
+				getJobBatchDataWalker:{},
+				process:{
+					"data flow":{	
+						from 	
+						insert 	
+						update 	
+					},
+					"key code":{
+						"1.":{
+						},
+					}
+				}
+			}
+		},
+	tables:{
+		aps_accrue_record-"核心会计数据"-"ap"-ApsAccrueRecord:{	'the accure data of core bank'
+			insertBatch-2:{
+				ap24-process-writeAccrualGl;
+				a.regAccure(ApRecordAccure);
+					ApAccountApi.regAccure(ApRecordAccure);-2:{
+						IoClient4Gl.regAccure(AccountGl);-2:{
+							LnAccountingAccrualGl.sendAccrualGl(LnLoanAccrualGLType)；-2:{
+								ln10-process;
+								ln25;
+							}
+							LnProvision.branchProvisionBatchProcessing(String);
+						}
+						SrvApAccouting.regAccure(ApRecordAccure);-0
+					}
+			}
+		},
+		acs_accrue_record-"核心会计数据"-"ac"-AcsAccrueRecordDao:{	'the accure data of core bank'
+			insertBatch-4:{
+				2-ac105-process;
+				2-AcFile.processAccrueFile(ApBatchLoadData);-1:{
+					ac05-process;
+				}
+			}
+		},
+		acs_accounting_event_seq-AcsAccountingEventSeqDao:{
+			insert-3:{
+				AcAccrue.regAccrueAccountingVoch(AcbAccrueAccounting, String);{
+					doAccrue(AcsAccrueRecord, String)
+						ac07-process
+				},
+				AcEventMatch.processFillUp(AcWaitMatchUp, String);:{
+					
+				},
+				AcEventSum.regAcsAccountingEventSeq(AcsAccountingEventSeq);:{
+					
+				}
+			}
+		},
+		acs_ledger_bal-AcsLedgerBalDao:{
+			insert-1:{
+				AcLedger.genLedgerBal(String);-1{
+					ac08-process;
+				}
+			}
+		}
+	},
+	branch:{
+		0700 Head office clearing center '总行清算中心' Y H
+		1234 DigiBank branch			 '数字银行分行' Y
+	},
+	cf:{
+		cfb_person_base:{
+			100000000104-cf_xiehao02-successed	:{
+				基本信息:{
+					cf_xiehao02	 L-Male MY-MALAYSIA	MY-MALAYSIA 10-01-1995 MY-MALAYSIA Y-是	 2021012102 A-Ordinary customers A-Ordinary customers
+				},
+				证件信息:{
+					Y-是 001-Citizen Id Number 2021012102 09-01-2019 MY-MALAYSIA 123456
+				},
+				联系信息:{
+					Y-是 MY-MALAYSIA 002-Mobile Phone 2021012102 
+				},
+				地址信息:{
+					Y-是 1 001-Registered Address MY-MALAYSIA 
+				}
+			}
+		}
+		cfb_corpor_base:{
+			200000000103-cf_xiehao01-successed	:{
+				基本信息:{
+					cf_xiehao01	MY-MALAYSIA	Y-是	01-01-2019	A-Ordinary customers
+				},
+				证件信息:{
+					Y-是 101-Business License 2021012101 09-01-2019 MY-MALAYSIA 123456
+				},
+				联系信息:{
+					Y-是 MY-MALAYSIA 002-Mobile Phone 2021012101 
+				},
+				地址信息:{
+					Y-是 001-Registered Address MY-MALAYSIA AA
+				}
+			}
+			
+		}
+	},
+	cm:{
+		新建利率,XH-LN-RATE01,
+	},
+	ln:{
+		210127:{
+			新建200000000103客户额度*3,
+			额度维护 HTICORE-947
+			贷款开户 HTICORE-948,HTICORE-949,
+			新建贷款产品,XH-LF-001,
+			贷款开户 HTICORE-963		025MYR020201222000005-normal,025MYR020201222000006-bad
+		},
+	},
+},
+test:{
+	210129:{
+		执行案例数13+12+2=27例,最终全成功,但存在用户体验类待改进缺陷jira*6;
+		ln:{
+			正常贷款-期供还款-单期还款;	HTICORE-1013
+			正常贷款-期供还款-多期还款; HTICORE-1014
+			正常贷款-期供还款-选择非正常期数还款; 
+			贷款形态转移;HTICORE-1016
+			贷款计息明细查询;
+			贷款计息还款明细查询;
+			贷款欠款查询;
+			贷款欠款期供列表查询;
+			贷款余额查询;
+			贷款账务查询;
+			贷款形态转移查询;
+			贷款还款计划试算;
+			还款试算;
+		},
+		cl:{
+			合作伙伴新增,
+			合作伙伴维护,
+			合作伙伴删除,
+			合作项目增查改,*3 
+			白名单增改删查,*4,HTICORE-1019,
+			对公客户额度冻结、解冻;HTICORE-1021
+		},
+		cf:{
+			新建对公客户*2,;
+			对公客户建立;HTICORE-1023
+		}
+	},
+	210201:{
+		执行案例数18例,3例失败;
+		ap:{
+			限额信息增删改查;*4
+			属性位定义信息增删改查*4,HTICORE-1054
+			交易控制信息维护增删改查*4;
+		},
+		ln:{
+			贷款减值准备金计提*1;	
+			贷款停本停息*1,HTICORE-1050;异常贷款能不能做停本停息;
+		}
+		cm:{
+			核算参数增删改查*4;
+		},
+		验证解决jira,
+			cf:HTICORE-834(通过)\HTICORE-835(通过)\HTICORE-836(通过);
+			ln,HTICORE-953(无法复现,关闭),HTICORE-949(无法复现,关闭);
+			cl,HTICORE-947(通过);
+	},
+	210202:{
+		执行案例数3例,成功3例;
+		ln:{
+			贷款单期利率调整*1;同HTICORE-1014;	
+			贷款产品复制,维护*2;
+		}
+	},
+	210202:{
+		验证jira:{
+			HTICORE-1109-谢佐孝(额度建立查找对公客户)(已解决,验证客户200000000103);
+			HTICORE-963-符兴斌(多次点击可以开出多笔贷款,待测试)(已解决);
+			HTICORE-841-孙睿(贷款产品维护，计息属性维护时，利率类型选择参考利率后，正常利率栏位出现问题。必须选择固定利率才能通过)(已关闭);
+			HTICORE-948-何荣璨(新建贷款产品利率类型切换,利率无法编辑)(验证通过);
+		}
+	}
+}
+cloud:{
+	你的桌面云登录账号： xiehao2  密码： RM49HRDj 	客户端及安装说明下载地址（访问密码： sunline8 ）：http://t.cn/REqfrwL
+	需要注意，只有base层放云桌面管理，业务层需要走流程发布到外部e-git
+	Git Bash Here
+	git config --global credential.helper store
+	git pull
+},
+deploy:{
+	1. 	"prepare"
+		MOne (一站式研发管理和协同平台) 内网wifi:http://10.22.1.90:8014/  外网:http://svcdesk.yfb.sunline.cn:8014
+		email;
+		commit;
+		event ;
+	2. 	"commit"
+		MOne-pipeline'应用持续集成'
+		iCore-3.0产品
+		应用 
+		module 集成
+		result
+	3.	"package"
+		icore-dist 集成 流程编排
+		共享文档	
+	4.	"deploy"
+		jekins 	https://jenkins.odc.sunline.cn/view/ODC-CICD/job/CD/job/EXIM/
+	3. package:{
+		http://e-proxy.yfb.sunline.cn/nexus-prod/content/repositories/clht-package-releases/cn/sunline/icore/dist/core-dist/
+	}
+}
+
+refer:{
+	cm:{
+		error:{
+			E0110:has not assigned the parameter of amortization-1:{
+				CmChrgQuery.qryChrgAmortDef(String, String);-1:{
+					CmChrgApi.qryChrgAmortDef(String, String);-1{
+						CmChrgAccounting.getChrgAmortInfo(CmChrgDefInfo, CmChrgInfo);-1{	'确定摊销参数'
+							CmChrgAccounting.prcChrgAccounting(CmChrgInfo);-2:{
+								CmChrgMain.prcAutoChrgAccounting(AutoChrgInfo);:{	'自动收费处理'
+								}
+								CmChrgMain.prcManualChrgAccounting(IoCmChrgManualIn);:{	'手工收费处理'
+								}
+							}
+						}
+					}
+				}
+			}
+		}
+	}
+}
+
+onl:{
+	cm2702:{
+		SrvIoCmChrg.prcManualChrgAccounting
+		SrvApTrxn.registerApsTransaction:{
+			return CmChrgMain.prcManualChrgAccounting(prcManualChrgIn);:{
+				
+			}
+		}
+	}
+}

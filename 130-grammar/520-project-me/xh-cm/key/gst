@@ -1,0 +1,768 @@
+tables:{
+	ap:{
+		app_rule-52:{
+			value:{																	'exception_rule_id'	'mapping_result'	'expiry_date'
+				"rule_scene_code"		"rule_id"					'rule_desc'						"mapping_sort"	'effect_date'
+				CHARGE_MAPPING		CHARGE_MAPPING_022		Internal Account-Transfer Fee (RTGS)		10									025	20991231	20991231	S####	S####	1
+				CHARGE_MAPPING		CHARGE_MAPPING_099		transaction in account						16									025	20991231	20991231	S####	S####	1
+				CHARGE_PROMO		CHARGE_PROMO_000		Unconditional								1									025	20991231	20991231	S####	S####	1
+				CHRG_PKG_MAPPING	CHRG_PKG_MAPPING_000	Unconditional								1									025	20991231	20991231	S####	S####	1
+				DP_ACCOUNTING_ALIAS	DP_ACCOUNTING_ALIAS_001	External customers of the bank				1	D1001	19990101	20991231	025	20991231	20991231	S####	S####	1
+				DP_ACCOUNTING_ALIAS	DP_ACCOUNTING_ALIAS_002	Bank internal customers						2	D1002	19990101	20991231	025	20991231	20991231	S####	S####	1
+				DP_ACCOUNTING_ALIAS	DP_ACCOUNTING_ALIAS_003	External customers of the bank				1	D2001	19990101	20991231	025	20991231	20991231	S####	S####	1
+			}
+		},
+		aps_accrue_record-"核心计提数据"-'the accure data of core bank'-ApsAccrueRecordDao:{
+			value:{
+				
+			},
+			columns:{
+			
+			}
+			insert-cm&ac&ap-3:{
+				ap24-process;
+				ApAccounting.regAccure(ApRecordAccure); '登记计提' -cm&ap-4:{
+					ApAccountApi.regAccure(ApRecordAccure); '计提登记输入'
+						cm&ac&ap-1:{
+							SrvApAccouting.regAccure(ApRecordAccure); -cm&ac&ap-0-dp-0
+						},
+						dp-2:{
+							dp14-process,
+							DpAccountingPluginImpl.accrueExtractRegister(DpAccrualExtractData, E_ACCRUETYPE);-dp-3:{	'应计利息汇总登记'
+								1-DpGlCheck.regAccountAccrualExtract(String);-dp-1:{		'登记应付利息计提数据'
+									regAccrualExtract(String);
+								} 
+								2-DpGlCheck.regOverdraftAccrualExtract(String);-1:{ 	'登记应收利息计提数据(透支利息)'
+									regAccrualExtract(String);
+								}
+									regAccrualExtract(String);-dp-1:{	'登记应付利息计提数据'
+										DpInterestBasicApi.regAccrualExtract(String);-dp-1	'登记应付利息计提数据(用于总账差额计提)'
+											dp04-process;
+									}
+							}
+						},
+						ln-1:{
+							IoClient4Gl.regAccure(AccountGl);-2:{
+								LnAccountingAccrualGl.sendAccrualGl(LnLoanAccrualGLType);	'发送计提登记数据给TA'
+								LnProvision.branchProvisionBatchProcessing(String);	-ln-2:{	'机构拨备计提批量登记处理'
+									ln10-process,	'贷款计息汇总'
+									ln25-process,	'增值税登记'
+								}
+								
+							}
+						}
+					SrvApAccouting.regAccure(ApRecordAccure); -cm&ac&ap-0,
+					'TaAccountingApi.regAccure(IoTaRecordAccure);'
+					'SrvIoTaAccountingBase.regAccure(IoTaRecordAccure);'
+				},
+				'TaAccounting.regAccure(ApRecordAccure); 登记计提 已注释'
+			}
+		}
+	}
+	cf:{
+		cfb_person_base:{
+			insert-1:{
+				CfCustInfoBuild.addPersonBase(String, CfPersonBuildIn);-1{
+					CfCustInfoBuild.buildPersonCustInfo(CfPersonBuildIn);-4:{
+						1-CfCustInfoBuild.buildPersonCustBriefInfo(IoCfPersonBriefBuildIn);-2:{
+							UsBatchAccounOpen.openCustomer(SrvIoCfCustomer, usb_bluk_detail);:{
+								
+							}
+						}
+					}
+				}
+			}
+		},
+		usb_person_base:{
+			insert-1:{
+				UsUserInfoBuild.addUserBase();:{
+					UsUserInfoBuild.buildPersonUserInfo();:{
+						UsBatchAccounOpen.openCustomer();:{
+							UsBatchAccounOpen.usBatchAccountOpen();:{
+								us05.process();
+							}
+						}
+					}
+				}
+			},
+			update-17:{
+				UsUserInfoBuild.buildPersonUserInfo(UsUserBuildIn);-2:{
+					
+				}
+			}
+		},
+		usb_bluk_open:{},
+		usb_safety_verify:{
+			insert-1:{
+				
+			},
+			select-11:{
+				UsVerify.validatePassword(UsValidateIn);-'密码验证及报错处理':{
+					checkPassword(input);
+				}
+				UsVerify.validatePassword(UsValidateIn);-2:{
+					UsUserInfoQuery.qryUserBaseInfo(UsUserBaseQryIn);
+				}
+			}
+		},
+		usb_login_way_link:{
+			update-1:{
+				UsUserInfoMnt.changeUserRegisterNumber(UsChangeUserRegistrationNumberIn);-1
+					SrvUsUserBase.changeUserRegistrationNumber-us2060
+			}
+		},
+		usb_cust_upgrade_extend-Usb_cust_upgrade_extendDao:{
+			insert-3:{
+				UsUserInfoMnt.usIdentityVarifyInsert(UsIdentityVarifyIn);
+				UsUserInfoMnt.ocrInformationRegistration(OcrInformationIn);-1:-1{
+					SrvUsUserBase.ocrInformationRegistration-us2251
+				}
+				UsBatchAccounOpen.insertKyc(usb_bluk_detail, String, String);
+				col-ocr_file_address-2:{
+					UsUserInfoMnt.ocrInformationRegist(String, String, Long, String);-1:
+						SrvUsUserBase.ocrInformationRegist-us2252
+				},
+				col-ocr_name-setOcr_name-2:{
+					UsUserInfoMnt.usIdentityVarifyInsert(UsIdentityVarifyIn);-1:{
+						from usb_cust_upgrade_extend
+					}
+					UsUserInfoMnt.ocrInformationRegistration(OcrInformationIn);
+				},
+				col-cust_name-:{
+					UsBatchAccounOpen.insertKyc(usb_bluk_detail, String, String);
+						from usb_bluk_detail
+					UsUserInfoMnt.ocrInformationRegistration(OcrInformationIn);
+				},
+				col-usb_cust_upgrade_extend:{
+					UsUserInfoMnt.ocrInformationRegistration(OcrInformationIn)
+				}
+			},
+			update-10:{
+				mobile-1-UsUserInfoMnt.usIdentityVarifyUpdate(UsIdentityVarifyIn);
+					SrvUsUserBase.usUserIdentityUpdate-us2250
+			}
+		},
+		cfb_person_doc:{
+			insert-3:{
+				CfCustInfoBuild.addPersonDoc(String, List<IoCfDocument>);-:{
+					CfCustInfoBuild.buildPersonCustInfo(CfPersonBuildIn);-:{
+						CfCustInfoBuild.buildPersonCustBriefInfo(IoCfPersonBriefBuildIn)
+					}
+				}
+				CfCustInfoMnt.updatePersonCertInfo(IoCfUsIdentityVarifyIn);
+				CfCustInfoMnt.modyPersonCert(String, List<CfDocumentMnt>);
+			},
+			update-2:{'CfCustInfoMnt.java'
+				updatePersonCertInfo(IoCfUsIdentityVarifyIn);'更新个人客户证件信息'-1:{
+					updIdentityVarifyOtherInfo(IoCfUsIdentityVarifyIn);-1:{
+						SrvIoCfCustomer.personIdentityVarifyOthers-us2240
+					}
+				}
+				modyPersonCert(String, List<CfDocumentMnt>);'更新个人客户证件信息'-2:{
+					mntPersonCustInfo(CfPersonMntIn);-3:{
+						SrvIoCfCustomerImpl.personCustMnt(IoCfPersonMntIn);:{
+							in-ComIoCfCustomer.IoCfPersonMntIn:{
+							
+							}
+						}
+					},
+					mntPersonCustBriefInfo(CfPersonBriefMnt);'客户简单信息维护'-1:{
+						SrvCfCustomerOther.custBriefInfoMnt-cf3017:{
+							in:{cust_no,cell_phone_no,new_cell_phone_no,e_mail},
+							errorCode=8003
+						}
+					}
+				}
+			}
+		},
+		cfp_elec_cont_template:{
+			insert-1:{
+				CfCustAgreeInfoBuild.buildAgreementTem(CfAgreementTemBuildIn);{
+					SrvCfCustomerAgreement.buildAgreementTem-cf2400-552400
+				}
+			}
+		}
+	},
+	dp:{
+		dpa_sub_account-DpaSubAccountDao:{
+			insert-1:{
+				DpSubAccountOpenService.regSubAcctTable(DpAddSubAccountBaseIn, DpaAccount)
+			}
+		}
+		dps_bill-DpsBillDao:{
+			insert-9:{
+				DpZeroAmountDraw.doMainMethod(DpDemandDrawIn, DpaAccount, DpaSubAccount);	'零金额支取服务主处理方法'
+				DpSubAccountOpenService.doMainMethod(DpDemandIn, DpaAccount, DpaSubAccount);		'零金额支取服务主处理方法'
+				DpAccounting.regBill(DpUpdAccBalIn, String);
+			},
+			value:{
+				
+			},
+			columns:{
+				trxn_record_type:{
+					value-DpBaseEnumType.E_TRXNRECORDTYPE:{
+						<restrictionType id="E_TRXNRECORDTYPE" longname="transaction details category" base="string" maxLength="1">
+							<enumeration id="NORMAL" value="1" longname="usually" desc="本金"/>
+							<enumeration id="FLOAT" value="2" longname="floating amount" desc="浮动金额"/>
+							<enumeration id="INTEREST" value="3" longname="deposit interest" desc="利息"/>
+							<enumeration id="TAX" value="4" longname="deposit interest tax" desc="利息税"/>:{
+								set-3{
+									DpTimeSlipManagement.regInterestTrxnDetail(DpTimeSlipInstTrxnRegister);-8	'登记定期卡片利息交易明细'	'数据库操作：卡片信息表更新、卡片交易表插入'
+									DpAccounting.online(DpUpdAccBalIn);-17-6:{	'联机记账处理（非热点账户）'
+										"利息税有值,再记一遍利息税的账"
+										inst_withholding_tax!=0:{	'interest withholding tax-利息预扣税'
+											cplOutput = prcMain(cplInputNew, true);:{
+												"登记账单表"
+												DpsBill billInfo = regBill(cplInput, offsetInstDate);:{
+													insert-DpsBillDao-dps_bill
+												}
+											}
+										}
+										2-DpCurrentInterestClear.java:{
+											overDraftInterestClear(DpInstClearIn, DpaSubAccount);-0
+											DpCurrentInterestClear.depositInstAccounting(DpaSubAccount, DpInstAccounting)-1-1
+												DpCurrentInterestClear.depositInterestClear(DpInstClearIn, DpaSubAccount)-1 
+													subAccountClear(DpSubAcctInstClearIn) '活期子户销户前利息结清'
+										}
+										3-0,
+										4-1,DpDemandInterestClear.settleDepositInterest(DpInstClearSubIn, DpaSubAccount);-1 
+											DpDemandInterestClear.subAccountClear(DpInstClearSubIn)	'活期子账户结清'
+										5-0,
+										6-0,
+										7-0,
+										8-1,DpDemandSave.dealAccounting(DpDemandSaveIn, DpaSubAccount);-1 
+											doMainMethod(DpDemandSaveIn, DpaAccount, DpaSubAccount) '活期存入主调方法'
+										9-0,
+										10-self,
+										11-0,
+										12-0,
+										13-0,
+										14-0,
+										15-1,DpInterestAccounting.instIntoSelf(DpInstAccounting, DpaSubAccount);-6:{	'利息入自身账户'
+											
+										}
+										16-1,DpInterestAccounting.instIntoAppointAcct(DpInstAccounting, DpaSubAccount, String, String);
+										17-0,
+										18-1,DpTrxnReversal.modifyAmtInfo(DpTrxnReversalIn, DpsBill, E_YESORNO, E_REVERSALTYPE);
+									}
+									DpAccounting.registerOtherBill(DpRegInstBill, String, String);-6	'登记过息账单'	'里面有对子账户信息表对象做修改，但是未更新子账户表数据库，需要在外面更新'
+								}
+							}
+							<enumeration id="STAMP_TAX" value="5" longname="stamp tax" desc="印花税"/>
+							<enumeration id="OD_INTEREST" value="6" longname="overdraft interest" desc="透支利息"/>
+							<description><![CDATA[交易记录类型]]></description>
+						</restrictionType>
+					},
+					set
+				}
+			}
+		}
+	},
+	cm:{
+		cmp_chrg_code,
+	},
+	ta:{
+	},
+*	ac:{
+		tap_bussincess,
+		taa_account,
+		app_accountingevent_ctrl,
+		aps_account_event,	
+		acs_accounting_event_seq:{
+			
+		},
+*		app_batch-'批量定义'-"ac":{
+			value:{
+			'busi_batch_id'								"busi_batch_type"		EnumType.E_BATCHTYPE	'文件批量类型'
+				01	Accounting file synchronization				D		A	2	CORE_ACCOUNTING_LOCAL	CORE_ACCOUNTING_REMOTE		'会计流水入库'
+				02	Accrue file synchronization					F		A	2	CORE_ACCURE_LOCAL		CORE_ACCURE_REMOTE			'计提数据入库'
+				03	Reconciliation file synchronization			J		A	2	CORE_CHECK_RECORD_LOCAL	CORE_CHECK_RECORD_REMOTE	'对账文件入库'
+				04	Core account balance file synchronization	H		A	2	CORE_LEDGER_BAL_LOCAL	CORE_LEDGER_BAL_REMOTE		'分户账余额数据入库'
+			},
+*			columns:{
+				busi_batch_type:{	
+				<restrictionType id="E_BATCHTYPE" longname="file bacth type" base="string" maxLength="1">
+					#<enumeration id="TRANBYONE" value="A" longname="one to one transfer" desc="一对一转账"/>
+					#<enumeration id="FROZETYPE" value="B" longname="frozen" desc="冻结解冻"/>
+					#<enumeration id="ACCOUNTINGEVENT_WRITE" value="C" longname="accounting event write file" desc="写会计流水文件"/>	
+					<enumeration id="ACCOUNTINGEVENT_DOWN" value="D" longname="accounting event stored" desc="会计流水入库"/>			D	taf01		ac01						ac06
+					#<enumeration id="ACCRUE_WRITE" value="E" longname="accrued data write file" desc="写计提数据文件"/>			
+					<enumeration id="ACCRUE_DOWN" value="F" longname="accrued data stored" desc="计提数据入库"/>			'利息计提'	F	taf02	c	ac05 ->acs_accrue_record	ac06
+					#<enumeration id="LEDGER_WRITE" value="G" longname="ledger balance write file" desc="写分户账余额文件"/>			
+					<enumeration id="LEDGER_DOWN" value="H" longname="ledger balance stored" desc="分户账余额数据入库"/>	'总分核对'	H	taf03	c
+					#<enumeration id="CHECK_WRITE" value="I" longname="reconciliation file write" desc="写对账文件"/>			
+					<enumeration id="CHECK_DOWN" value="J" longname="reconciliation file stored" desc="对账文件入库"/>					J	tab7	c	ac06
+					#<enumeration id="CBTwoGoTrade" value="K" longname="CB File TwoGoTrade"/>
+					#<enumeration id="CBTwoGoTrades" value="L" longname="CB File TwoGoTrade Too"/>
+					#<enumeration id="CBTwoGoTradeSend" value="M" longname="CB Send File TwoGoTrade"/>
+					#<enumeration id="OPEN_ACCT" value="N" longname="Open account" desc="批量开户"/>
+					#<enumeration id="REVERSAL" value="O" longname="File reversal" desc="批量冲账"/>
+					#<enumeration id="ACCOUNTING_EVENT_PARM" value="P" longname="event ctrl parm" desc="核算参数文件"/>
+					<description><![CDATA[文件批量类型]]></description>
+				</restrictionType>
+				}		
+			}
+		},
+		apb_batch_receive:{
+			value:{																														receive_ind	'default-insert-N'
+				201911160250000101	ACCOUNTING_201911160250000101_1002.txt	icore/025/20191116/ACCOUNTING/	icore/025/20191116/ACCOUNTING/	Y	2	1	0	20200831 10:52:11 827	20200831 10:52:14 259	S####	S####	2
+				201911160250000102	ACCURE_20191116_1002.txt				icore/025/20191116/ACCURE/			icore/025/20191116/ACCURE/	Y	1	1	0	20200831 10:52:12 316	20200831 10:52:13 758	S####	S####	2
+			},
+			columns:{
+				
+			}
+		},
+*		apb_batch_request:{																									EnumType.E_FILEDEALSTATUS
+			value:{																						batch_charges_ind	"file_handling_status"	
+																								timing_process_ind			hash_value
+				FF201911160051	01	D		201911160250000101	ACCOUNTING_201911160250000101_1002.txt	N		N				2	B	6	400000	6	400000	0	0					ID0010999	S####	999		025	20200831 10:52:11 870	20200831 10:52:15 772	S####	S####	3
+				FF201911160052	02	F		201911160250000102	ACCURE_20191116_1002.txt				N		N				3	B	1		0	1		0	0	0					ID0010999	S####	999		025	20200831 10:52:12 330	20200831 10:52:16 629	S####	S####	2
+				FF201911160053	03	J		201911160250000103	CHECK_RECORD_20191116_1002.txt			N		N				4	C	0		0	0		0	0	0					ID0010999	S####	999		025	20200831 10:52:12 693	20200831 10:52:16 947	S####	S####	2
+				FF201911160054	04	H		201911160250000104	LEDGERBAL_20191116_1002.txt				N		N				5	B	2	200000	2	200000	0	0					ID0010999	S####	999		025	20200831 10:52:13 053	20200831 10:52:19 776	S####	S####	2
+			},
+			columns:{
+				file_handling_status:{
+				<restrictionType id="E_FILEDEALSTATUS" longname="file handling status" base="string" maxLength="1" minLength="0">
+					<enumeration id="UNCHECK" value="A" longname="pending to check" desc="准备检查"/>		'default-insert'
+					<enumeration id="CHECKED" value="B" longname="checked" desc="已检查"/>
+					<enumeration id="SUCCESS" value="C" longname="success" desc="成功"/>
+					<enumeration id="PROCESSING" value="D" longname="processing" desc="处理中"/>
+					<enumeration id="FAILCHECK_OTHER" value="Q" longname="check fail - others" desc="检查失败-其他"/>
+					<enumeration id="FAILCHECK_INSERT" value="X" longname="check fail - schedule imported abnormal" desc="检查失败-调度异常"/>
+					<enumeration id="FAILCHECK_FORMAT" value="Y" longname="check fail - format error" desc="检查失败-格式错误"/>
+					<enumeration id="FAILCHECK_UNEQUAL" value="Z" longname="check fail - unmatch" desc="检查失败-不匹配"/>
+					<description><![CDATA[文件处理状态]]></description>
+				</restrictionType>
+				}
+			}
+		},
+*		acs_accounting_event_seq-"核算事件"-'accounting event':{
+				value:{	}
+			},
+*		acp_accounting_event_parm-"业务核算事件参数"-'business accounting event parameter':{
+			value:{			bal_attributes
+					accounting_alias
+			accounting_subject
+				104	1	D1001	DP01	0014150633						Emoney Account Sunline (Sinarmas Money) Don’t differentiate between Aff/Non-Affiliated customer	025	20991231	20991231	S####	S####	1
+				104	1	D1002	DP01	0014150633						Emoney Account Sunline (Sinarmas Money) Don’t differentiate between Aff/Non-Affiliated customer	025	20991231	20991231	S####	S####	1
+				104	1	D2001	DP01	IDR1611900010121						Personal savings deposit principal		'个人储蓄存款本金'								025	20991231	20991231	S####	S####	1
+				104	1	D2002	DP01	IDR1611700010121						Personal current deposit principal		'个人活期存款本金'								025	20991231	20991231	S####	S####	1
+			}
+		}
+	}
+},
+tables-template:{
+	module:{
+		table_name-""-'':{
+			value:{
+				
+			},
+			columns:{
+			
+			}
+		}
+	}
+}
+common:{
+	ap:{
+		ApChannelApi.isCounter:{
+			MsChannel.isCounter(paramString);
+				select counter_ind from msp_channel where channel_id='';
+		}
+		ApSeqApi.genSeq(CUST_SEQ_CODE);:{
+			ApBaseSeq.genSeq(paramString);
+				MsSeqUtil.genSeq(paramString);
+					select * from msp_sequence where seq_code='';
+		},
+		ApSystemParmApi.getOFF_ON("FILE_DECRYPTION"):{
+			return ApBaseSystemParm.getOFF_ON(s);
+				return MsGlobalParm.getOFF_ON(s);
+					select parm_value from msp_global_parameter where parm_code='OFF_ON' and primary_key='FILE_DECRYPTION';
+		},
+		ApFileApi:{
+			getFullPath("BATCH_ACCT_OPEN_FILE");:{
+				return a.getFullPath(s);
+			},
+			getLocalHome();{	'=ApFileApi.createClient(null).getLocalkPath()'
+				OssFactory.get().create().getLocalkPath();  'oss-sftp.properties[sftp.file.service.id[0].local.fileRootDir]'
+			}
+		},
+		a:{
+			public static String getFullPath(String s):
+			{
+				return getFullPath(s, "");
+			},
+			public static String getFullPath(String s, String s1):{
+				return e(s, s1);
+			},
+			private static String e(String s, String s1):{
+				List list = ApFileBaseDao.selDirectoryData(s, true);
+					ApFileBase.selDirectoryData
+						select * from app_directory where dir_code='BATCH_ACCT_OPEN_FILE' order by data_sort; 
+				return stringbuilder.append(s1).toString(); //icore/batch_acct_open
+			}
+		},
+		ApFileApi.createClient(null);:{
+			select root_dir_id from app_root_directory where dir_code=#dir_code#;
+			return OssFactory.get().create(str);
+		},
+		ApDropListApi:{
+			getDescribe():{
+				MsDropList.getDescribe(paramString);
+					select drop_list_name from msp_drop where drop_list_type='';
+			},
+			exists():{
+				ApBaseDropList.exists(paramString1, paramString2);
+					exists(paramString1, paramString2, true);:{
+						System.out.println("下拉列表是否存在>>>类型:" + paramString1 + ",值:" + paramString2 + ",法人代码:" + MsOrg.getDefaultOrgId());
+						MsDropList.exists(paramString1, paramString2, paramBoolean);
+							MsCoreTable.MspDropList localMspDropList = a(paramString1, paramString2);
+								MsCoreTable.MspDrop localMspDrop = MsCoreTable.MspDropDao.selectOne_odb1(paramString1, false);
+								if(diff_org_ind)
+								and dict_org_id=''  diff_org_ind=
+								select * from msp_drop_list where drop_list_type = 'p1' and  drop_list_value='p2'; 
+					}
+			},
+			getText():{
+				MsDropList.getText(paramString1, paramString2, paramBoolean);
+					select diff_org_ind,* from msp_drop where drop_list_type='paramString1';
+						N,MsOrg.getDefaultOrgId();Y,MsOrg.getReferenceOrgId(MsCoreTable.MspDropList.class);
+						select drop_list_desc from msp_drop_list where drop_list_type='paramString1' and drop_list_value='paramString2';
+			}
+		}
+		ApBusinessParmApi.getValue:{
+			ApBaseBusinessParm.getValue(paramString);
+				MsParameter.getValue(paramString);
+					select * from msp_parameter where parm_code='' and primary_key='*';
+		},
+		ApRuleApi.getFirstResultByScene("DP_ACCOUNTING_ALIAS");:{
+			ApBaseRule.getFirstResultByScene(paramString);
+				getFirstResultByScene(paramString, bizlog.isDebugEnabled() ? b.n() : null);
+					List localList = a(paramString, paramApRuleDataRetProcessor, true);
+						List localList = TabApRule.App_ruleDao.selectAll_odb1(paramString, false);
+							select * from app_rule where rule_scene_code= '';
+						for{
+							mapping(localapp_rule.getRule_id(), paramApRuleDataRetProcessor)
+								select * from app_rule where rule_id = '';
+								checkRule(paramString, paramApRuleDataRetProcessor, locala);
+									select * from app_rule_data where rule_id = '';
+						}
+		},
+		ApRuleApi.mapping("DP_ACCOUNTING_ALIAS_001");:{
+			ApBaseRule.mapping(paramString);
+				mapping(paramString, bizlog.isDebugEnabled() ? b.n() : null);:{
+					app_rule1 = App_ruleDao.selectOne_odb2
+						select * from app_rule where rule_id = 'DP_ACCOUNTING_ALIAS_001';
+				}
+		},
+		ApHolidayApi.isHoliday:{ 'holiday_code, holiday_class, holiday_date, holiday_ind, remark, data_create_time, data_update_time, data_create_user, data_update_user, data_version'
+			select holiday_date,holiday_ind from app_holiday where holiday_date='20200814' and holiday_code=#holiday_code# and holiday_class=#holiday_class#; 
+		},
+		SrvIoApPushMessage.sendMessage(Options<ApPushMessage>):{
+			out_service_app	out_service_code out_service_group
+				tinymsg		  TINYMSG0004			g1			1.0	TINYMSG0004
+		},
+		BizUtil.getComputerDateTime():{
+			return DateTools.getComputerDateTime();:{
+				SimpleDateFormat localSimpleDateFormat = new SimpleDateFormat("yyyyMMdd HH:mm:ss SSS");
+				return localSimpleDateFormat.format(new Date());
+			}
+		},
+		BizUtil.getComputerDate():{
+			SimpleDateFormat localSimpleDateFormat = new SimpleDateFormat("yyyyMMdd");
+			return localSimpleDateFormat.format(new Date());
+		}
+	}
+	us:{
+		UsUserInfoFile.qryUserEkycInfo:{
+			S-SrvUsUserBase.qryUserEkycInfo <- us2360
+		},
+		UsSendMessage.sendMessageTemplate(sendIn);-'消息推送通用模板':{
+			code:{
+				if(E_YESORNO.YES == sendMsgIn.getPushEmail()){
+					
+				}
+				SrvIoApPushMessage.sendMessage
+			},
+			call:{
+				ComIoUsUser.sendMessageTemplateIn messageIn = BizUtil.getInstance(sendMessageTemplateIn.class);
+				ApMessageParm  apMessageParm = BizUtil.getInstance(ApMessageParm.class);
+				apMessageParm.setData(map);
+				messageIn.setParams(apMessageParm);
+				messageIn.setTmplId(tempId);  //tmplId
+			}
+		},
+		SrvIoCfCustomer.qryCfCustInfo:{
+			call:{
+				dp-2:{
+					DpCustomerIobus.getCustBaseInfo(String, E_CUSTOMERTYPE);{
+						ser-7:{
+							
+						}
+					}
+				}
+			}
+		},
+	}
+	dp:{
+		SrvDpDemandAccounting.demandSave-17:{
+			4-onl,
+			3-bat,
+			1-DpTransactions.debitAccounting(DpTransferIn, DpTransferProperty, DpTransferOut):{
+				2-DpTransactions.singleTransfer-4;{
+					1-DpTransactions.multiTransfer(List<DpTransferIn>);
+					1-dp2300
+					1-SrvDpDemandAccounting.singleTransfer(DpTransferIn);-1 <- dp1900
+				}
+			}
+			
+		},
+		nsql-SqlDpFrozeBasic.selDrawLimitFrozeStatisInfo:{
+			call-1:{
+				DpFrozeUtil.getDrawLimitFrozeStatisInfo(DpaSubAccount, String, BigDecimal);-2{
+					DpBalancePublic.CalcFrozeAmount(DpaSubAccount, DpBalanceCalculateIn);-1:{
+						DpBalancePublic.getBalance(DpBalanceCalculateIn);
+					}
+					DpBalancePublic.CalcSubAcctFrozeAmountInfo(DpaSubAccount, DpBalanceCalculateIn, DpBalanceCalculateOut)
+				}
+			}
+		}
+	},
+	cm:{
+		SrvIoCmChrg.calcAutoChrg:{
+			return CmChrgMain.calcAutoChrg(autoChrgCalcIn);:{
+				CmChrgCheck.chkAutoChrgCalc(chrgAutoCalcIn);:{
+					'交易事件ID的合法性检查'
+					ApDropListApi.exists(CmConst.EVENT_ID_LIST, chrgAutoCalcIn.getTrxn_event_id());
+						select * from msp_drop_list where drop_list_type = 'EVENT_ID_LIST' and  drop_list_value='DP004';  '活期支取'
+					Cmp_chrg_code_formDao.selectAll_odb3
+						select * from cmp_chrg_form_details where chrg_form_code='';
+				},
+				calcChrg(chrgAutoCalcIn);:{		'收费试算'
+					List<CmChrgAnalysis> lstEffeChrgAna = CmChrgApi.getEffeChrgCodeList(cmChrgCalcIn);:{	'根据费用编号、交易事件、生效日期以及当前交易场景，获取有效的费用编号列表'
+						return CmChrgQuery.getEffeChrgCodeList(chrgCalcIn);:{	'获取有效的费用编号列表'
+							nsql-CmCharge.selEffeChrgCodeList:{
+								select 
+										a.*,b.chrg_cond_code,b.chrg_form_code 
+								from 
+										cmp_chrg_code a 
+								join 
+										cmp_chrg_code_form b 
+								on 
+										a.chrg_code=b.chrg_code and a.org_id=b.org_id
+								where a.chrg_code = '' and b.trxn_event_id='' and b.expiry_date>=''  and  b.effect_date<='' 
+							}
+						},
+						for{
+							ApRuleApi.mapping(chrgAnalysis.getChrg_cond_code()
+						}
+					}
+				}
+			}
+		},
+	}
+	/SUMP/rest/dict:{
+		DictController.findDictByType();:{
+			ApSysDictServiceImpl.getDictsByDictTypeWithLanguage();
+			ApSysDictRepository.findByDictTypeWithLanguage();
+				SELECT a.DICT_TYPE,a.DICT_ID,a.DICT_NAME,d.DICT_NAME as pack_name from ap_sys_dict a LEFT JOIN dict_language_packet d ON a.DICT_TYPE = d.DICT_TYPE and a.DICT_ID = d.DICT_ID and  d.LANGUAGE_TYPE=?2 WHERE a.DICT_TYPE =?1
+		}
+	}
+	EsmUtil.verifyPassword(UsConst.RSA_INDEX, input.getCvalue(), input.getPassword(), input.getRandno(), tblUsbVerify.getPassword());:{
+		{C:cvalue,P:password,RN:randno,passOffset:
+		[RSAIndex:020002, C:A1A6FEE25680D7C3DF958AED10DB7C164372BC8BCC89738D546449E10C76F8B2707AF59927F936DB3C88C80DF1D66552FED56A2415F786059E037E7DD4B9B3AACEE963047F5C3C47DF6FA8F48827314AE23D0BB4979C12BA7271166B24918258B2D0F280166BA7E746EEFF17C377DE5AADA0DAE80EAF5435487FCB0472C6C8D7, P:8BFEDE8BE7E6DB308881765B014A8816, RN:97CF1D3A10650650, passOffset:1822094035B8389095492DB58A0AC2CD9FBE48D9164BBB5F4B]
+		[INFO ][2021-01-15 09:39:26,251][BizThreadPoolExecutor-thread-15][ ][ ][ ][542030][cn.sunline.clwj.msap.encryptor.EsmUtil:86][input message is [0101000000D0EE3005000200028080A1A6FEE25680D7C3DF958AED10DB7C164372BC8BCC89738D546449E10C76F8B2707AF59927F936DB3C88C80DF1D66552FED56A2415F786059E037E7DD4B9B3AACEE963047F5C3C47DF6FA8F48827314AE23D0BB4979C12BA7271166B24918258B2D0F280166BA7E746EEFF17C377DE5AADA0DAE80EAF5435487FCB0472C6C8D7108BFEDE8BE7E6DB308881765B014A88160897CF1D3A1065065012075055524E4F4D4F075055524E4F4D4F0200031822094035B8389095492DB58A0AC2CD9FBE48D9164BBB5F4B]]
+		[INFO ][2021-01-15 09:39:26,270][BizThreadPoolExecutor-thread-15][ ][ ][ ][542030][cn.sunline.clwj.msap.encryptor.EsmUtil:90][response message is [010100000004EE300500]]
+		[INFO ][2021-01-15 09:39:26,270][BizThreadPoolExecutor-thread-15][ ][ ][ ][542030][cn.sunline.icore.us.serv.verify.UsVerify:104]
+	
+		ObmConfig localObmConfig = a();
+	}
+},
+oss:{
+	layer-oss:{
+		OssFactory.java:{
+			
+			private static OssConfig b = null;  
+			private OssFactory():{					'Sinmars'
+				Properties localProperties = a();	"oss.properties"
+				b = a(localProperties);
+			},
+			 private OssConfig a(Properties paramProperties):{
+				OssConfig localOssConfig = new OssConfig();
+				localOssConfig.setEnabled("true".equalsIgnoreCase((String)paramProperties.get("OSS.enable")));
+				localOssConfig.setOssImpl((String)paramProperties.get("OSS.DefaultImpl"));
+				return localOssConfig;
+			},
+			OssFactory():{
+				Properties properties = loadConfig();
+				config = parseConfig(properties);
+			},
+			loadConfig():{
+				properties.load(new InputStreamReader(cn/sunline/clwj/msap/oss/api/OssFactory.getClassLoader().getResourceAsStream("oss.properties"), "UTF-8"));
+			}
+			private OssConfig parseConfig(Properties properties):
+			{
+				OssConfig cfg = new OssConfig();
+				cfg.setEnabled("true".equalsIgnoreCase((String)properties.get("OSS.enable")));
+				cfg.setOssImpl((String)properties.get("OSS.DefaultImpl"));
+				return cfg;
+			},
+			OssFactory.get().create(str);:{//SftpFileTransferClientImpl.java.newInstance
+				init(configId);//_NULL_
+					else
+						api = (MsTransfer)Class.forName(config.getOssImpl()).newInstance();//cn.sunline.clwj.msap.oss.impl.MsTransferSftpImpl
+						api.init(configId);
+			},
+			public MsTransfer create(String paramString)	'Sinmars'
+			{
+				String str = configId != null ? configId : "_NULL_";
+				if(!map.containsKey(str))
+					try
+					{
+						map.put(str, a(paramString));
+					}
+					catch(Exception e)
+					{
+						throw new RuntimeException((new StringBuilder()).append("not find configId:").append(configId).toString(), e);
+					}
+				return (MsTransfer)map.get(str);
+			},
+			private MsTransfer a(String paramString):{
+				b.getOssImpl()
+			},
+			public MsTransfer create(String configId)
+			{
+				String mapId = configId != null ? configId : "_NULL_";
+				if(!map.containsKey(mapId))
+					try
+					{
+						map.put(mapId, init(configId));
+					}
+					catch(Exception e)
+					{
+						throw new RuntimeException((new StringBuilder()).append("not find configId:").append(configId).toString(), e);
+					}
+				return (MsTransfer)map.get(mapId);
+			},
+			private MsTransfer init(String configId):{
+				else
+				{
+					try
+					{
+						api = (MsTransfer)Class.forName(config.getOssImpl()).newInstance();
+						api.init(configId);
+					}
+				}
+				return api;
+			}
+		}
+	},
+	MsTransferSftpImpl.java:{
+	    public MsTransferSftpImpl():
+		{
+			innerImpl = new SftpFileTransferClientImpl();
+		},
+		public void init(String configId):
+		{
+			innerImpl.init(configId);
+		},
+		public void download(MsTransferFileInfo downFile):
+		{
+			innerImpl.download(downFile.getLocalFile().getFileFullName(), downFile.getRemoteFile().getFileFullName(), downFile.getRemoteFile().isUpdateOk());
+		},
+		 public String getLocalkPath()
+		{
+			return this.P.getLocalHome();
+		}
+	},
+	SftpFileTransferClientImpl.java:{
+		private SftpConnectionConfig X;
+		private static Map<String, SftpConnectionConfig> U = new ConcurrentHashMap();
+		public void init(String configId) // _NULL_
+		{
+			if(config == null){
+				config = SftpConfigLoader.getConfig();
+				'Sinmars'
+				this.K = SftpConfigLoader.getConfig();
+				U.put(localSftpConnectionConfig.getId(), localSftpConnectionConfig);
+			}
+			connectionConfig = (SftpConnectionConfig)configMap.get(configId);
+			if(MsStringUtil.isEmpty(connectionConfig.getLocalHome()))
+				connectionConfig.setLocalHome(config.getDefaultLocalPath());
+			'Sinmars'
+			this.X = ((SftpConnectionConfig)U.get(paramString));
+			if (MsStringUtil.isEmpty(this.X.getLocalHome())) {
+			  this.X.setLocalHome(this.K.getDefaultLocalPath());
+			}
+		},		
+		public String download(String localFileName, String remoteFileName, boolean downloadOk):
+		{
+			downloadFileToLocal(localFileName, remoteFileName);
+		},
+		private void downloadFileToLocal(String localFileName, String remoteFileName):
+		{
+			sftp = login();
+		},
+		private ChannelSftp login():
+		{
+			Session sshSession = jsch.getSession(connectionConfig.getUserName(), connectionConfig.getServerIp(), connectionConfig.getServerPort());
+		},
+		public String getLocalHome():
+		{
+			
+		}
+	},
+	SftpConfigLoader.java:{
+		private static SftpConfig K = null;
+		public static SftpConfig getConfig():
+		{
+			if(config == null)
+			{
+				config = (SftpConfig)SpringContextHolder.getBean(cn/sunline/clwj/msap/oss/config/SftpConfig);
+				if(config == null)
+					load();
+			}
+			return config;
+		},
+		private static void load():
+		{
+			Properties properties = new Properties();
+			InputStream is = cn/sunline/clwj/msap/oss/config/SftpConfigLoader.getClassLoader().getResourceAsStream("oss-sftp.properties");
+			if(is == null)
+				throw new RuntimeException("config file : oss-sftp.properties not found");
+			properties.load(new InputStreamReader(is, "UTF-8"));
+			is.close();
+			if(log.isDebugEnabled())
+				log.debug((new StringBuilder()).append("SftpConfigLoader load() properties:").append(properties).toString());
+			parse(properties);
+		},
+		private static void parseConnections(Properties p)
+		{
+			    connConfig = new SftpConnectionConfig();
+                connConfig.setId((String)p.get((new StringBuilder()).append(prefix).append("id").toString()));
+                connConfig.setServerIp((String)p.get((new StringBuilder()).append(prefix).append("\u670D\u52A1\u5668IP").toString()));
+                connConfig.setServerPort(Integer.parseInt((String)p.get((new StringBuilder()).append(prefix).append("\u670D\u52A1\u5668port").toString())));
+                connConfig.setUserName((String)p.get((new StringBuilder()).append(prefix).append("\u767B\u9646\u7528\u6237\u540D").toString()));
+                connConfig.setPassword((String)p.get((new StringBuilder()).append(prefix).append("\u767B\u9646\u5BC6\u7801").toString()));
+                connConfig.setRemoteHome((String)p.get((new StringBuilder()).append(prefix).append("\u8FDC\u7A0B\u6587\u4EF6\u6839\u76EE\u5F55").toString()));
+                connConfig.setLocalHome((String)p.get((new StringBuilder()).append(prefix).append("\u672C\u5730\u6587\u4EF6\u6839\u76EE\u5F55").toString()));
+                connConfig.setConnTimeoutInMs(Integer.parseInt((String)p.get((new StringBuilder()).append(prefix).append("\u8FDE\u63A5\u8D85\u65F6\u65F6\u95F4").toString())));
+                connConfig.setKeyPath((String)p.get((new StringBuilder()).append(prefix).append("\u79C1\u94A5\u5730\u5740").toString()));
+                if(log.isDebugEnabled())
+                    log.debug((new StringBuilder()).append("SftpConfigLoader parseConnections i=[").append(i).append("], connConfig:").append(connConfig).toString());
+                list.add(connConfig);
+		},
+		private static void parse(Properties paramProperties)	//oss-sftp.properties
+		{
+			if ("false".equalsIgnoreCase((String)paramProperties.get("sftp.file.service.enable"))) {
+			  throw new RuntimeException("SFTP配置项为开启：sftp.file.service.enable");
+			}
+			K = new SftpConfig();
+			K.setEnable(true);
+			K.setDefaultConfigId((String)paramProperties.get("sftp.file.service.default.id"));
+			K.setDefaultLocalPath((String)paramProperties.get("sftp.file.service.local.root.path"));
+			
+			b(paramProperties);
+		}
+	}
+}

@@ -1,0 +1,670 @@
+
+余额方向
+D-资产类科目
+C-负债类科目
+
+
+
+git:{
+	http://10.22.90.11/iCore/busi/cf-busi.git
+	http://10.22.90.11/iCore/iobus/cm-iobus.git
+	http://10.22.90.11/iCore/busi/us-busi.git
+	http://10.22.90.11/iCore/iobus/us-iobus.git
+	http://10.22.90.11/iCore/busi/dp-busi.git
+	http://10.22.90.11/iCore/iobus/dp-iobus.git
+	http://10.22.90.11/iCore/busi/sump-vue.git
+	http://10.22.90.11/iCore/busi/sump-busi.git
+	
+	http://10.22.90.11/iCore/iobus/us-iobus/-/refs/switch?utf8=%E2%9C%93&destination=tree&path=&ref=3.0.3-cr_bulk-stable
+	3.0.3-cr_bulk-stable
+},
+server:{
+	dev:{
+		env:{
+			10.22.12.71	10.22.90.40	"后管：ct,决策中心：rl,APP：app,对账中心：rc"	开发环境-顺序2
+			10.22.12.70	10.22.90.41	"产品：pd,营销：mk,支付：pm"	开发环境-顺序2
+			10.22.12.69	10.22.90.42	核心服务：icore	开发环境-顺序2
+			10.22.12.68	10.22.90.43	"批量助手：,RPC助手：rpcgov,开放平台：openbank"	开发环境-顺序2
+			10.22.12.67	10.22.90.44	"注册中心：zookeeper,Redis：redis,消息中间件：rmq,平台助手：loader"	开发环境-顺序2
+			10.22.12.45	10.22.90.45	文件服务器：file	开发环境-顺序2
+			10.22.12.43	10.22.90.46	核算： gl	开发环境-顺序2
+
+		},
+		zk:		10.22.90.44,
+		3051:	
+		api:	http://10.22.90.23:9010/#/apiManage/apiCenter	admin/123456
+		ct/vue/sump:		10.22.90.40		git update-index --assume-unchanged src/proxy.json
+		db:{
+			核心系统	10.22.12.109	3323	bat_core	bat_core	bat_core
+			核算服务	10.22.12.109	3323	bat_gl	bat_gl	bat_gl
+			产品服务	10.22.12.109	3323	bat_pd	bat_pd	bat_pd
+			营销服务	10.22.12.109	3323	bat_mk	bat_mk	bat_mk
+			决策中心	10.22.12.109	3323	bat_ds	bat_ds	bat_ds
+			内管平台	10.22.12.109	3323	bat_sump	bat_sump	bat_sump
+			开放平台	10.22.12.109	3323	bat_op	bat_op	bat_op
+			流程编排	10.22.12.109	3323	bat_po	bat_po	bat_po
+			支付平台	10.22.12.109	3323	bat_pm	bat_pm	bat_pm
+			对账中心	10.22.12.109	3323	bat_cr	bat_cr	bat_cr
+			OPS			10.22.12.109	3323	bat_ops	bat_ops	bat_ops
+			APP			10.22.12.109	3323	bat_app	bat_app	bat_app
+		}
+	},
+	fat:{
+		10.22.12.126	10.22.90.20	
+		10.22.12.125	10.22.90.21	文件服务器：file
+		10.22.12.124	10.22.90.22	APP：app
+		10.22.12.123	10.22.90.23	"开放平台：openbank	/支付：pm	/ops 网关助手：gwgov"
+		10.22.12.122	10.22.90.24	"后管：ct	/对账中心：rc"
+		10.22.12.121	10.22.90.25	"产品：pd	/营销：mk"
+		10.22.12.120	10.22.90.26	核算：gl
+		10.22.12.119	10.22.90.27	核心服务：core
+		10.22.12.118	10.22.90.28	"批量助手：/RPC助手：rpcgov"
+		10.22.12.117	10.22.90.29	"注册中心：zookeeper Redis：/redis 消息中间件：rmq/平台助手：loader"
+		db:{
+			核心系统	10.22.12.100 	3323	fat_core	fat_core	fat_core
+			核算服务	10.22.12.100 	3323	fat_gl	fat_gl	fat_gl
+			产品服务	10.22.12.100 	3323	fat_pd	fat_pd	fat_pd
+			营销服务	10.22.12.100 	3323	fat_mk	fat_mk	fat_mk
+			决策中心	10.22.12.100 	3323	fat_ds	fat_ds	fat_ds
+			内管平台	10.22.12.100 	3323	fat_sump	fat_sump	fat_sump
+			开放平台	10.22.12.100 	3323	fat_op	fat_op	fat_op
+			流程编排	10.22.12.100 	3323	fat_po	fat_po	fat_po
+			支付平台	10.22.12.100 	3323	fat_pm	fat_pm	fat_pm
+			对账中心	10.22.12.100 	3323	fat_cr	fat_cr	fat_cr
+			OPS	10.22.12.100 	3323	fat_ops	fat_ops	fat_ops
+			APP	10.22.12.100 	3323	fat_app	fat_app	fat_app
+		}
+	},
+	atp:{
+		10.22.12.60	10.22.90.60	"注册中心：zookeeper Redis：/redis 消息中间件：rmq/平台助手：loader"
+		10.22.12.61	10.22.90.61	"批量助手：/RPC助手：rpcgov"
+		10.22.12.62	10.22.90.62	核心服务：cc
+		10.22.12.63	10.22.90.63	核算：gl
+		10.22.12.64	10.22.90.64	"产品：pd/营销：mk"
+		10.22.12.65	10.22.90.65	"后管：ct/决策中心：rl/APP：app/对账中心：rc"
+		10.22.12.66	10.22.90.66	"开放平台：/openbank/支付：pm/ops 网关助手：gwgov"
+		db:{
+			核心系统	10.22.12.109	3323	atp_core	atp_core	atp_core
+			类信用卡测试	10.22.12.109	3323	atp_cc	atp_cc	atp_cc
+			核算服务	10.22.12.109	3323	atp_gl	atp_gl	atp_gl
+			产品服务	10.22.12.109	3323	atp_pd	atp_pd	atp_pd
+			营销服务	10.22.12.109	3323	atp_mk	atp_mk	atp_mk
+			决策中心	10.22.12.109	3323	atp_ds	atp_ds	atp_ds
+			内管平台	10.22.12.109	3323	atp_sump	atp_sump	atp_sump
+			开放平台	10.22.12.109	3323	atp_op	atp_op	atp_op
+			流程编排	10.22.12.109	3323	atp_po	atp_po	atp_po
+			支付平台	10.22.12.109	3323	atp_pm	atp_pm	atp_pm
+			对账中心	10.22.12.109	3323	atp_cr	atp_cr	atp_cr
+			OPS	10.22.12.109	3323	atp_ops	atp_ops	atp_ops
+			APP	10.22.12.109	3323	atp_app	atp_app	atp_app
+		}
+	}
+	sit:{
+		vpn-laptop:{
+			vendor_sunline16	5unl1n316
+			vendor_sunline17	5unl1n317
+			vendor_sunline18	5unl1n318
+			vendor_sunline19	5unl1n319
+			vendor_sunline20	5unl1n320
+		},
+		vpn-phone:{
+			vendor_sunline9 / 5unl1n309		5unl 1n309
+		},
+		jira:{
+			CoreDev/CoreDev
+		},
+		env1:{
+			应用名称	IP地址 	端口描述	用户/密码				数据库IP及数据库	数据库用户/密码	用途	备注	共享目录	
+			icore	10.32.8.70		icore/icore						10.32.8.106:3323	sit_core/sit_core	
+					10.32.8.83
+			ds01	10.32.8.66		ds/ds							10.32.8.106:3323	sit_ds/sit_ds				
+			ct01	10.32.8.104		ct/ct							10.32.8.106:3323	sit_sump/sit_sump		http://10.32.8.104:8080/#/login		vue
+			ac01	10.32.8.71		gl/gl							10.32.8.106:3323	sit_gl/sit_gl				
+			ops														10.32.8.106:3323	sit_ops/sit_ops		http://10.32.8.98:8090/#/login		admin/admin
+			file	10.32.8.68		file/file						
+			openbank	10.32.8.91		openbank/openbank						
+			zk	10.32.8.97		zookeeper/zookeeper						
+			HOTDB配置页							http://10.32.8.106:3324/page/index.html		admin/admin
+										 http://10.32.8.103:9010/#/apiManage/apiCenter	openAPI	admin/123456
+
+		},
+		env2:{
+			icore	10.32.8.134		icore/sunLin3$88	10.32.8.185:3323	sit_core/sit_core		
+					10.32.8.138						
+			ds01	10.32.8.155		ds/sunLin3$88	10.32.8.185:3323	sit_ds/sit_ds		
+			ct01	10.32.8.151		ct/sunLin3$88	10.32.8.185:3323	sit_sump/sit_sump		
+			ct01	10.32.8.140						http://10.32.8.140:8080/#/login
+			ac01	10.32.8.145		accounting/sunLin3$88	10.32.8.185:3323	sit_gl/sit_gl		
+				10.32.8.133						
+			ops	10.32.8.158		ops/sunLin3$88	10.32.8.185:3323	sit_ops/sit_ops		http://10.32.8.142:8090/#/login
+				10.32.8.142						
+			file	10.32.8.153		file/sunLin3$88				
+			zk	10.32.8.192		zookeeper/sunLin3$88				
+			HOTDB配置页							http://10.32.8.184:3324/page/index.html
+										 http://10.32.8.166:9010/#/login
+			user:{
+				08121011501/210115
+				08776655445/Mujiroh/3325 0430 0672 0001/369369/100000001202/000000001202/0258000012023
+			}
+		}
+	},
+	uat1:{
+		icore	10.32.10.103		icore/icore			10.32.10.104:3323	uat_core/uat_core		
+				10.32.10.88						
+		ds01	10.32.10.71				ds/ds			10.32.10.104:3323	uat_ds/uat_ds		
+				10.32.10.74						
+		ct01	10.32.10.92				ct/ct			10.32.10.104:3323	uat_sump/uat_sump		http://10.32.10.92:8080/#/login
+				10.32.10.73						
+		ac01	10.32.10.82		accounting/accounting	10.32.10.104:3323	uat_gl/uat_gl		
+				10.32.10.67						
+		ops		10.32.10.126		ops/ops				10.32.10.104:3323	uat_ops/uat_ops		http://10.32.10.127:8090/#/login
+				10.32.10.127						
+		file	10.32.10.84		file/sunLin3$88				
+				10.32.10.89						
+		zk		10.32.10.121	zookeeper/zookeeper				
+				10.32.10.96						
+				10.32.10.120						
+		HOTDB配置页							http://10.32.10.101:3324/ 	http://10.32.10.114:9010/#/login
+
+	},
+	uat2:{
+		应用名称	IP地址 	端口描述	用户/密码	数据库IP及数据库	数据库用户/密码	用途	备注	共享目录	
+		icore	10.32.10.136			icore/icore	10.32.10.203:3323	uat_core/uat_core		root/simaS123		
+				10.32.10.144									
+		ct01	10.32.10.130				ct/ct	10.32.10.203:3323	uat_sump/uat_sump		http://10.32.10.130:8080//#/login		
+				10.32.10.145										
+		ac01	10.32.10.122				gl/gl	10.32.10.203:3323	uat_gl/uat_gl				
+				10.32.10.137									
+		ops			admin/sunline					http://10.32.10.131:8090/		admin/sunline
+		file	10.32.10.133			file/file	
+		zk		10.32.10.151			zookeeper/zookeeper						
+		HOTDB配置页							http://10.32.10.193:3324/		admin/admin
+
+			}
+},
+
+plan:{
+	
+	current:{ 
+		MAS-19784:{
+			author: , env:,	user{},
+			title: eDocument文件中缺少第2页 - Missing Page 2 in eDocument File,
+			result:{
+				
+			},
+			des:{
+				
+			}
+				Pre-condition: e-KYC Flag =Yes
+				Step to replicate:
+				Go to Mini Fund
+				Successfully pass face recognition and liveness detection
+				Submit the digital signature
+				Defect: eDocument file generated is missing the page-2
+				前提条件：e-KYC Flag=是
+				复制步骤：
+				转到迷你基金
+				成功通过人脸识别和活性检测
+				提交数字签名
+				缺陷：生成的eDocument文件缺少第2页
+		},
+		template:{
+			author: , env:,	user{},
+			title: ,
+			result:{
+				
+			},
+			des:{
+				
+			}
+		},
+	},
+	step:{00,10,11,12,13},
+	history:{
+		latest:{
+			MAS2-1653:{
+				这个ocr_name的需求是怎样的？  100000001602这个uat2的客户，是批量开户生成的，批量开户生成的时候就有了cust_name，后续0127的时候该客户虽然有调用us2251升级，但是传入ocr_name为空。到底该哪边改？ 是核心这边批量开户给cust_name赋值同时也给ocr_name赋相同值吗？
+			}
+			lO:{
+				author: Melwin, env:SIT2,	user{},
+				title: ,
+				result:{
+					
+				},
+				des:{
+					确认页和结果页中的到期日不同
+					Maturity date in confirmation page and result page different 
+				},
+				log:{
+					P07,T,
+				}
+			},
+			MAS2-1621:{
+				uat1,
+				9161,SKN incoming maintain,231719-
+				des:{
+					the transaction exceeds the limit but in field remarks is 5-5 交易超出限额，但现场备注为5-5
+				}
+			},
+			MASPRD-52:{
+				title: [iCore]客户数据未链接到菜单5408中的期初表单 [iCore] Customer data is not linked to the opening form in the menu 5408 ,
+				result:{
+					客户数据未链接到菜单5408中的期初表单 Customer data is not linked to the opening form in the menu 5408
+					example : Date of birth
+				},
+				des:{
+					
+				}
+				log:{
+				},
+				cust:{
+					电话号码 085959687922		user_no=000000001205
+					证件号码 3216092606980010
+					这个资料足够吗？
+				}
+			},
+		},
+		202002:{
+			MAS-19728:{
+				author: TzeChi, env:sit2,
+				title: Prompt "Request Parameter Missing" when submit the digital signature - 提交数字签名时提示“缺少请求参数”,
+				result:{
+					
+				},
+				des:{
+					
+				}
+				log:{
+					542290 ocr_file_address，ocr_score 数据没有返回
+				}
+			},
+			MAS-19716:-ocr_name-sit2-138:-Angela待验证-ok{
+				134-20210222/542251/542251.log insert Usb_cust_upgrade_extend;
+				commit,MAS-19702;
+			},
+			MAS2-1587-dp_base-05-08:-Angela验证-sit-skn受阻9161-Retest OK{
+				title:  [SKN Incoming] Incorrect Failed Remark when account exceed balance-帐户超过余额时错误的失败备注,
+				result:{
+					未通过的备注应为3-收到的资金超过FSD中提到的余额。
+				},
+				des:{
+					iCore will assign the following Failed Remarks based on the failed validations, where 
+					the record transaction was set to Verify:
+					1) Invalid Account Number
+					2) Invalid Account Name
+					3) Incoming funds exceed balance 
+					4) Account closed
+					iCore将根据失败的验证分配以下失败备注，其中记录事务已设置为验证
+					1） 无效的帐号
+					2） 帐户名无效
+					3） 收入超过余额
+					4） 帐户已关闭
+				}
+			},
+			MASPRD-57-REJECTED-拒绝-Reopened-ZhuoTing-Commented:{
+				jira本身无问题,验证受阻,审批报错已被更新;
+			},
+			MAS2-1594-uat2-提供脚本,已发出部署邮件,
+			MAS2-1608-已解决:{
+			
+			},
+			MAS-19686-定期存款-到期-续存类型-邮件通知:{
+				
+			},
+			MAS-19715-金额不一样-已解决？-Fang-Shane验证通过,
+			MAS-19644-邮件格式不对-辉宇:{
+				dp1070,
+			},
+			MAS-19713-目标存款-提前支取-推送-辉宇:{
+				没有这块的代码?等肖辉宇确认..
+			},
+			MAS-19598-廖鼎,肖辉宇:{
+				089988776610,100000000812
+			},
+			MAS2-1587-dp_base-05-08:{
+			},
+			MAS2-1573-找不到报错日志-app:{
+			},
+			MAS2-1572-消息key用amount-app:{
+				title-Member amount doesn't show in the notification reminder-通知提醒中不显示会员金额,
+			},
+			MAS-19680-待排查-东哥:{	
+				title: Unable to maintain the minimum fee and maximum fee in iCore- 无法在iCore中维护最低费用和最高费用,
+				result:{
+					用户应该能够在iCore中设置最低费用和最高费用的参数
+				},
+				des:{
+					Test steps:
+					1. Login to iCore to maintain the minimum fee and maximum fee for target saving early withdrawal
+					Actual result:
+					1. Unable to maintain the minimum fee and maximum fee
+					测试步骤：
+					1登录iCore以维护目标保存提前取款的最低费用和最高费用
+					实际结果：
+					1无法维持最低费用和最高费用
+				}
+			},
+			MAS2-1566-配协议:{
+				title: ,
+				result:{
+					For enabling fingerprint process flow should modify to below:
+					In Onboarding process:
+					T&C or Disclaimer should be for enabling fingerprint only and not same with Product 1 T&C
+
+					In Setting menu:
+					Should add T&C or Disclaimer for enabling fingerprint (content same as from onboarding process)
+					为了启用指纹，流程应修改为：
+					入职过程中：
+					T&C或免责声明仅用于启用指纹，与产品1 T&C不同
+					在设置菜单中：
+					应为启用指纹添加T&C或免责声明（内容与入职流程相同）
+				},
+				des:{
+					
+				}
+			},
+			MAS-19695:{
+				title: Target Saving list' s Interest rate is not same with creation interest rate - 目标存单的利率与创建利率不一致,
+				result:{
+					
+				},
+				des:{
+					
+				}
+			},
+			MAS-19703-1000013204-没有计税:{
+				title: There is no Tax interest when the target saving account is matured - 当目标储蓄账户到期时没有税收利息,
+				result:{
+					
+				},
+				des:{
+					
+				}
+			},
+			MAS-19707-目标存款约定存入周期传2D-dp7110:{
+				title: No auto debit date and caused to monthly auto debit is not functioning-没有自动借记日期，导致每月自动借记无法正常工作,
+				result:{
+					
+				},
+				des:{
+					
+				}
+			}
+			MASPRD-53-批量开户发送邮件:{
+				
+			},
+			MAS-19661-东哥:{
+				result:{
+					With the Time Deposit Early Withdrawal Penalty Fee, its summary code should be TDP and Summary code description is Time Deposit Penalty
+					对于定期存款提前支取罚款，其汇总代码应为TDP，汇总代码说明为定期存款罚款
+				},
+				des:{
+					Step to replicate:
+					Go to Time Deposit
+					Select any record to withdraw
+					Go to Mini Fund check the penalty fee details
+					Defect: The actual summary code and summary code description is not same with FSD
+					复制步骤：
+					转到定期存款
+					选择要撤消的任何记录
+					前往迷你基金查看罚款详情
+					缺陷：实际汇总代码和汇总代码说明与FSD不一致
+				}
+			},
+			MAS-19610:{
+				title:[IOS][Time Deposit] - Unable to perform early withdrawal [IOS][定期存款]-无法提前支取,
+				des:{
+					Test steps:
+					1. Login to the APP
+					2. Click on Time deposit icon
+					3. Click the time deposit account in time deposit list to verify the account details
+					4. Click withdrawal
+					Actual result:
+					1. The system prompt error message (Please refer to the attachment)
+					
+					测试步骤：
+					1登录应用程序
+					2点击定期存款图标
+					三。点击定期存款列表中的定期存款账户，验证账户明细
+					4单击“撤消”
+					实际结果：
+					1系统提示错误信息（请参阅附件）
+				}
+			},
+			MAS-18378---定期账户到期:{
+				title:[iCore][Time Deposit] Time Deposit Account has no closed when the maturity date is over	【iCore】【定期存款】定期存款账户到期未关闭,
+				des:{
+					Pre-condition: open the time deposit account as 1 day and Run batch 1 day
+					Step to replicate:
+					 # Login to APP
+					 # Go to Time Deposit
+					 # check the time deposit account 
+					Actual Result: after run batch, the time deposit account still exist in the time deposit list
+					先决条件：定期存款账户开立1天，批量运行1天
+					复制步骤：
+					#登录应用程序
+					#转到定期存款
+					#检查定期存款账户
+					实际结果：批量运行后，定期存款账户仍存在于定期存款列表中
+				},
+				user:{
+					08998877661
+					密码：369369
+					妈妈名：Riana
+					身份证号：3508 1015 1184 0007
+				}
+			},
+			MAS-19619-提前支取邮件--谢豪:{
+				title:[APP][Target Saving Early Withdrawal] Wrong Email content when target saving early withdrawal	【应用】【目标存款提前支取】目标保存提前支取时邮件内容错误
+			},
+			MAS-17872---谢豪:{
+				title:[APP][Time Deposit Early Withdrawal] Penalty Fee and Net Amount has credit back to user account	【APP】【定期存款提前支取】罚款及净额已贷记回用户账户,
+				result:{
+					 # Transaction Summary must have separate Net Amount and Penalty Fee
+					 # Transaction Detail must has separate Net Amount and Penalty Fee
+					 # Only Net Amount will be credit back to user's mini fund account
+					#交易摘要必须有单独的净额和罚款
+					#                                                                                                    
+					#只有净额将贷记回用户的迷你基金帐户
+				}
+			},
+			MAS-19646-App:{
+				title:[APP][FR&DigiSign] APP to prompt error after click Next on Digital Signature page [APP][FR&DigiSign]在数字签名页上单击“下一步”后提示错误的应用程序
+			},
+			MAS2-1486-增加cf服务,
+			MAS2-1486-更新证件手机号,
+			MAS2-1486-邮箱,
+			MAS-17873---谢豪-辉宇:{
+				title:[APP][Time Deposit Early Withdrawal] No Penalty fee has displayed in Transaction Summary Page 【APP】【定期存款提前支取】交易汇总页未显示罚单,
+				result:Must have Penalty Fee transaction summary and detail  必须有罚款交易摘要和细节,
+				des:{
+					Pre-condition : Perform the early withdrawal
+					Step to replicate: 
+					Go to Mini Fund Account
+					Check the transaction Summary and detail
+					前提条件：提前退出
+					复制步骤：
+					转到迷你基金账户
+					检查交易摘要和详细信息
+				}
+			},
+			MAS2-1483-update add dukcapilCheck,
+			MAS2-1483-register open_remark,
+			MAS2-1450-回显账号
+			MAS2-1479-证件核查四维度,
+			MAS2-1479-名字大写匹配
+			MAS2-1476-:{
+				082260728727 
+			},
+			MAS2-1453 同 MAS2-1450;
+			MAS2-1466-black failed new,
+			MAS2-1460-黑名单审核拒绝,出生省市赋值, 
+			MAS2-1454-省市必输, 
+			MAS2-1457-大写转换, 
+			MAS2-1450-手机号重复更新,
+			MAS2-1447-BLUL_FILE_OUT rollback,
+			CLWJJGP-409-人脸识别接口-3160:{
+				CLWJJGP-409 首提,
+				CLWJJGP-409 pdf生成,
+				CLWJJGP-409 本地路径,
+				CLWJJGP-409 补充doc_id,
+				CLWJJGP-409 file server,delete usp_user_ekyc_info
+				CLWJJGP-409 print
+				CLWJJGP-409 path to share
+			},
+			MAS2-1435:{ 
+				MAS2-1435 safety verify
+			},
+			MAS2-1440-status field,540112
+			MAS2-1438-remark,
+			MAS2-1437-N,
+			MAS2-1436-模糊查询,
+			MAS2-1433-日期为0显示问题,
+			MAS2-1434-status,
+			MAS2-1431-二次输入无效手机号开户成功-app,
+			MAS2-1423:{
+				MAS2-1423 input content,width
+			},
+			MAS2-1408:{
+				MAS2-1408 sms,cust_no
+			}
+			MAS2-1422:{
+				MAS2-1422 examine状态
+			}
+			MAS2-1421:{
+				MAS2-1421 状态0001
+				MAS2-1421 黑名单失败数
+			}
+		201214-
+			MAS2-1418:{
+				MAS2-1418 状态修改
+				MAS2-1418 doc_no
+			}
+			CLWJJGP-415:MAS2-1406:{
+				Can upload empty file for bulk onboarding
+			},
+			CLWJJGP-405:MAS2-1400-app{
+			
+			
+				key:{
+					已转移给app,同"核心未返回后管开户标志"
+				}
+			},
+			CLWJJGP-406:MAS2-1401-app{
+				title:{
+					First time login for bulk onboarding user, APP to stuck at Challenge Question page
+					首次登录批量登录用户，应用程序停留在挑战问题页面
+				},
+				des:{
+					Precondition : account successfully created thru Bulk Onboarding process.
+					前提条件：通过批量入职流程成功创建帐户。
+					Reproduce steps:
+					重现步骤
+					Download and launch Simobi APP
+					下载并启动Simobi应用程序
+					Input the related phone number and go thru the login process until Challenge Question page.
+					输入相关的电话号码，并通过登录过程，直到质询问题页面。
+					Input the correct Challenge Question answer and click Next button.
+					输入正确的问题答案，然后单击“下一步”按钮。
+					Defect : APP to stuck at Challenge Question page.
+					缺陷：应用程序停留在挑战问题页面。
+				},
+				key:{
+					同"usb safety verify"
+				}
+			},
+			CLWJJGP-404:MAS2-1399-核心未返回后管开户标志{
+				closed;
+			},
+			CLWJJGP-390:批量开户增加与判断:{
+				commit:{
+					CLWJJGP-390 add employee_id
+					CLWJJGP-390 字段动态赋值
+					CLWJJGP-390 字段校验
+					CLWJJGP-390 Repeated
+				}
+			},
+			CLWJJGP-388:批量开户文件，如果同一个文件中存在两个相同的证件信息，第二条数据标记为重复:{
+				commit:{
+					CLWJJGP-388 文件重复证件号标为重复
+				}
+			},
+			CLWJJGP-345:{
+				des:调SrvIoCfCustomer.qryPersonInfo初始化 list_data_status;
+				sql:{
+					icore-add usb_bluk_detail.list_data_status-√;	
+				}
+			},
+			CLWJJGP-347::{
+				des:us05开户实名、黑名单校验;
+				sql:{
+					icore-add usb_bluk_detail.dukcapil_status,watch_list_ind-√;
+					icore-insert tsp_service_out:{
+						DELETE FROM `tsp_service_out` WHERE inner_service_code IN ('SrvUsUserCheck.blackListQuery','SrvUsUserCheck.dukcapilCheck');
+						INSERT INTO `tsp_service_out`(`system_code`, `sub_system_code`, `service_invoke_id`, `inner_service_code`, `out_service_app`, `out_service_code`, `out_service_group`, `out_service_version`, `description`, `protocol_id`, `timeout`, `timeout_redo_counts`, `timeout_confirm`, `alias_mapping`, `regist_call_log`) VALUES ('100', '1001', '*', 'SrvUsUserCheck.blackListQuery', '3051', '611100', '01', '1.0', 'black list', 'remote_rpc', 5000, 0, 0, 0, 1);
+						INSERT INTO `tsp_service_out`(`system_code`, `sub_system_code`, `service_invoke_id`, `inner_service_code`, `out_service_app`, `out_service_code`, `out_service_group`, `out_service_version`, `description`, `protocol_id`, `timeout`, `timeout_redo_counts`, `timeout_confirm`, `alias_mapping`, `regist_call_log`) VALUES ('100', '1001', '*', 'SrvUsUserCheck.dukcapilCheck', '3051', '611200', '01', '1.0', 'DukcapilCheck', 'remote_rpc', 5000, 0, 0, 0, 1);
+						INSERT INTO `tsp_service_out`(`system_code`, `sub_system_code`, `service_invoke_id`, `inner_service_code`, `out_service_app`, `out_service_code`, `out_service_group`, `out_service_version`, `description`, `protocol_id`, `timeout`, `timeout_redo_counts`, `timeout_confirm`, `alias_mapping`, `regist_call_log`) VALUES ('100', '1002', '*', 'SrvUsUserCheck.blackListQuery', '3051', '611100', '01', '1.0', 'black list', 'remote_rpc', 5000, 0, 0, 0, 1);
+						INSERT INTO `tsp_service_out`(`system_code`, `sub_system_code`, `service_invoke_id`, `inner_service_code`, `out_service_app`, `out_service_code`, `out_service_group`, `out_service_version`, `description`, `protocol_id`, `timeout`, `timeout_redo_counts`, `timeout_confirm`, `alias_mapping`, `regist_call_log`) VALUES ('100', '1002', '*', 'SrvUsUserCheck.dukcapilCheck', '3051', '611200', '01', '1.0', 'DukcapilCheck', 'remote_rpc', 5000, 0, 0, 0, 1);
+						COMMIT; 
+						DELETE FROM `tsp_service_control` WHERE  inner_service_code IN ('SrvUsUserCheck.blackListQuery','SrvUsUserCheck.dukcapilCheck');
+						INSERT INTO  `tsp_service_control`(`system_code`, `sub_system_code`, `service_invoke_id`, `inner_service_code`, `inner_service_impl_code`, `description`, `route_keys`, `cancel_service`, `confirm_service`, `service_transaction_mode`, `service_type`, `regist_call_log`, `service_executor_type`) VALUES ('100', '1001', '*', 'SrvUsUserCheck.blackListQuery', NULL, 'black list', NULL, NULL, NULL, 'NotSupported', 'try', 1, 'R');
+						INSERT INTO  `tsp_service_control`(`system_code`, `sub_system_code`, `service_invoke_id`, `inner_service_code`, `inner_service_impl_code`, `description`, `route_keys`, `cancel_service`, `confirm_service`, `service_transaction_mode`, `service_type`, `regist_call_log`, `service_executor_type`) VALUES ('100', '1001', '*', 'SrvUsUserCheck.dukcapilCheck', NULL, 'dukc', NULL, NULL, NULL, 'NotSupported', 'try', 1, 'R');
+						INSERT INTO  `tsp_service_control`(`system_code`, `sub_system_code`, `service_invoke_id`, `inner_service_code`, `inner_service_impl_code`, `description`, `route_keys`, `cancel_service`, `confirm_service`, `service_transaction_mode`, `service_type`, `regist_call_log`, `service_executor_type`) VALUES ('100', '1002', '*', 'SrvUsUserCheck.blackListQuery', NULL, 'black list', NULL, NULL, NULL, 'NotSupported', 'try', 1, 'R');
+						INSERT INTO  `tsp_service_control`(`system_code`, `sub_system_code`, `service_invoke_id`, `inner_service_code`, `inner_service_impl_code`, `description`, `route_keys`, `cancel_service`, `confirm_service`, `service_transaction_mode`, `service_type`, `regist_call_log`, `service_executor_type`) VALUES ('100', '1002', '*', 'SrvUsUserCheck.dukcapilCheck', NULL, 'dukc', NULL, NULL, NULL, 'NotSupported', 'try', 1, 'R');
+						INSERT INTO  `tsp_service_control`(`system_code`, `sub_system_code`, `service_invoke_id`, `inner_service_code`, `inner_service_impl_code`, `description`, `route_keys`, `cancel_service`, `confirm_service`, `service_transaction_mode`, `service_type`, `regist_call_log`, `service_executor_type`) VALUES ('201', '2011', '*', 'SrvUsUserCheck.blackListQuery', NULL, 'black list', NULL, NULL, NULL, 'NotSupported', 'try', 1, 'R');
+						INSERT INTO  `tsp_service_control`(`system_code`, `sub_system_code`, `service_invoke_id`, `inner_service_code`, `inner_service_impl_code`, `description`, `route_keys`, `cancel_service`, `confirm_service`, `service_transaction_mode`, `service_type`, `regist_call_log`, `service_executor_type`) VALUES ('201', '2011', '*', 'SrvUsUserCheck.dukcapilCheck', NULL, 'dukc', NULL, NULL, NULL, 'NotSupported', 'try', 1, 'R');
+						COMMIT;
+					}
+					pm-add system:{
+						delete from msp_channel where channel_id in ('100','999');
+						INSERT INTO `msp_channel`(`channel_id`, `channel_desc`, `counter_ind`, `channel_run_ind`, `reg_reversal_event_ind`, `cross_reversal_ind`, `channel_alias`, `data_create_time`, `data_update_time`, `data_create_user`, `data_update_user`, `data_version`) VALUES ('100', 'core online channel', 'N', 'Y', 'Y', 'Y', '100', '20201127', '20201127', 'sql', 'sql', 1);
+						INSERT INTO `msp_channel`(`channel_id`, `channel_desc`, `counter_ind`, `channel_run_ind`, `reg_reversal_event_ind`, `cross_reversal_ind`, `channel_alias`, `data_create_time`, `data_update_time`, `data_create_user`, `data_update_user`, `data_version`) VALUES ('999', 'core batch channel', 'N', 'Y', 'Y', 'Y', '999', '20201127', '20201127', 'sql', 'sql', 1);
+						COMMIT;
+					}	
+				}
+				commit:{
+					us05开户实名、黑名单校验	return code;
+					CLWJJGP-345、347、351、385 批量开户相关;
+					CLWJJGP-347 return code 0000
+					CLWJJGP-347 csv
+					CLWJJGP-347 defavalue
+					CLWJJGP-347	setAffiliated.NO
+				}
+			},
+			CLWJJGP-351:黑名单审批:{
+				sql:{
+					ct-{
+						INSERT INTO `ctp_menu`(`menu_code`, `menu_id`, `menu_upper_id`, `menu_group`, `menu_default_ind`, `menu_desc`, `page_id`, `page_display_scene`, `output_page_id`, `data_create_time`, `data_update_time`, `data_create_user`, `data_update_user`, `data_version`) VALUES ('5423', '540113', '5401', 'US', 'N', '批量开户黑名单审核', '/views/us/UserPages/UserBuild/user_build_blacklist.json', NULL, NULL, 'sql', '202011027 09:30:11 233', NULL, NULL, 0);
+						INSERT INTO `ap_sys_trans`(`trans_cd`, `trans_name`, `service_cd`, `encap_cd`, `trans_status`, `deal_cnt`, `scene_id`, `dcn_id`, `version_id`, `app_id`, `timeout`, `group_id`, `isrecord`, `islist`, `system_id`, `is_approval`) VALUES ('543202', '批量开户黑名单审核', 'sunflow', '543202', 'Y', 0, '01', 'adm', '1.0', '1001', 120000, 'US', NULL, NULL, NULL, 'false');
+						INSERT INTO `ctp_language_packet`(`language_resource_type`, `language_resource_key`, `ui_language`, `language_resource_value`, `data_create_time`, `data_update_time`, `data_create_user`, `data_update_user`, `data_version`) VALUES ('M', '5423', 'en', 'Batch account opening blacklist review', 'sql', '20201127 09:30:11 233', NULL, NULL, 0);
+						INSERT INTO `ctp_language_packet`(`language_resource_type`, `language_resource_key`, `ui_language`, `language_resource_value`, `data_create_time`, `data_update_time`, `data_create_user`, `data_update_user`, `data_version`) VALUES ('M', '5423', 'zh', '批量开户黑名单审核', 'sql', '20201127 09:30:11 233', NULL, NULL, 0);
+						COMMIT;
+					},
+					icore-{
+						INSERT INTO `tsp_service_in`(`system_code`, `sub_system_code`, `out_service_code`, `inner_service_code`, `inner_service_impl_code`, `description`, `service_category`, `route_keys`, `service_type`, `protocol_id`, `is_enable`, `transaction_mode`, `log_level`, `timeout`, `alias_mapping`, `force_unused_odb_cache`, `register_mode`) VALUES ('100', '1001', '543202', 'us3202', '*', 'Batch account opening black list examine', 'T', NULL, NULL, 'rpc', 1, 'A', NULL, 0, 0, 0, '0');
+						INSERT INTO `msp_transaction`(`trxn_code`, `trxn_type`, `trxn_desc`, `allow_reversal`, `flow_trxn_id`, `register_packet_ind`, `over_time`, `log_level`, `enable_ind`, `global_parm_mntn_ind`, `reversal_ind`, `register_trxn_ind`, `db_trxn_spread_type`, `read_write_separait`, `force_commit`, `data_create_time`, `data_update_time`, `data_create_user`, `data_update_user`, `data_version`) VALUES ('us3202', 'M', 'Batch account opening black list examine', 'N', 'us3202', 'Y', NULL, 'error', 'Y', 'N', 'N', 'N', 'Required', 'N', NULL, '20201127', '20201127', 'sql', 'sql', 1);
+						COMMIT;
+					}
+				},
+				commit:{
+					CLWJJGP-351 增加文件黑名单审核状态
+					CLWJJGP-351 审核改为调批量
+				}
+			},
+			CLWJJGP-386:定期利率设定
+			CLWJJGP-385:批量开户换设备:{
+				sql:{
+					icore-{
+						alter table usb_person_base add column change_terminal_os_ind varchar(1);
+					}
+				}
+				commit;{
+					CLWJJGP-385:批量开户换设备	add change_terminal_os_ind
+					CLWJJGP-385:批量开户换设备	2030 add change_terminal_os_ind;
+				}
+			}
+		}
+	}
+},
+
+
