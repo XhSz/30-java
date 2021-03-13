@@ -1,0 +1,1040 @@
+{
+ex:{
+	dit:{
+		icore(10.22.61.98):{
+			bin:{
+				/home/exim/icore01/bin/ltts status;
+				/home/exim/icore01/bin/ltts restart onlApp;
+				/home/exim/icore01/bin/ltts restart batApp;
+				/home/exim/icore01/bin/ltts stop onlApp;
+				/home/exim/icore01/bin/ltts start onlApp;
+				/home/exim/icore01/bin/ltts stop batApp;
+				/home/exim/icore01/bin/ltts start batApp;
+			}
+			onl:{	
+				cat filename | tail -n +3000 | head -n 1000	【一】#从第3000行开始，显示1000行。即显示3000~3999行
+				cat filename| head -n 3000 | tail -n +1000 	【二】显示1000行到3000行
+				clear;cd /logs/exim/icore01/onlApp/busi/20210125/350020;cp 350020.log 350020_1109.log;cp /dev/null 350020.log;		cm2502   
+				clear;cd /logs/exim/icore01/onlApp/busi/20210128/592003;cp 592003.log 350020_1109.log;cp /dev/null 592003.log;		cl2003
+				clear;cd /logs/exim/icore01/onlApp/busi/20210223/326020;cp 326020.log 326020_1037.log;cp /dev/null 326020.log;		ln6020
+				clear;cd /logs/exim/icore01/onlApp/busi/20210223/326020;cat 326020.log | tail -n +3000 | head -n 1000;				ln6020
+				clear;cd /logs/exim/icore01/onlApp/busi/20210223/326020;cat 326020.log | tail -n +1 | head -n 200;				ln6020	
+				at cn.sunline.edsp.midware.rpc.core.AbstractHook.call(AbstractHook.java:58) [edsp-rpc-core-3.2.20-RELEASE.jar:3.2.20-RELEASE]
+				at cn.sunline.edsp.midware.rpc.transport.netty.server.edsp.NettyServerChannelHandler._exec(NettyServerChannelHandler.java:197) [edsp-rpc-transport-netty-3.2.20-RELEASE.jar:3.2.20-RELEASE]
+				clear;cd /logs/exim/icore01/onlApp/busi/20210223/326020;cat 326020.log | tail -n +400 | head -n 400;	
+				clear;cd /logs/exim/icore01/onlApp/busi/;grep "not assigned the parameter of amortiz" 20210309/*/*.log;		20210309/351020/351020.log
+
+				
+			},
+			bat:{
+				clear;cd /logs/exim/icore01/batApp/busi/20210127/AP0521/;ll;  
+				clear;cd /logs/exim/icore01/batApp/busi/2021-01-27/flowid/123/;
+				clear;cd /logs/exim/icore01/batApp/busi/2021-01-27/General/600/;
+				clear;cd /logs/exim/icore01/batApp/busi/2021-01-27/High/100/;
+				clear;cd /logs/exim/icore01/batApp/busi/2021-01-27/Low/900/ac109;AC_SYSTEM_ID
+				clear;cd /logs/exim/icore01/batApp/busi/2021-01-27/Middle/300/;
+				clear;cd /logs/exim/icore01/batApp/busi/2021-01-27/Switch/10/;
+				clear;cd /logs/exim/icore01/batApp/busi/2021-01-27/flowid/120/us05;grep "2019112800013603" *.log;
+				/*
+				clear;find /logs/exim/icore01/batApp/busi/2021-01-27/*/ac109.log;
+				clear;cd /logs/exim/icore01/batApp/busi/20201128/flowid/;grep "input message is '" */*/*.log;
+				grep "The user's KYC visa has been approved" *.log;
+				*/
+			},
+			path:{
+				cd /home/exim/local;ll;
+				cd /home/exim/local/icore/025/LOAN/20210122;ll;
+				ll /home/exim/local/icore/025/LOAN/20210122;
+			},
+			lib:{
+				cd /home/exim/icore01/lib; wget 
+				cd /home/exim/icore01/lib;ll *sys;
+				ll /home/exim/icore01/lib/ ;
+				ll /home/exim/icore01/lib/ln*;
+				ll /home/exim/icore01/lib/cf*;
+			}
+			etc:{
+				cd /home/exim/icore01/etc/;ll;
+				cd /home/exim/icore01/etc/batApp;grep "path" *;
+			}
+		},
+		ct(10.22.61.97):{
+			bin:{
+				/home/exim/ct01/bin/ltts status;
+				/home/exim/ct01/bin/ltts restart onlApp;
+				/home/exim/ct01/bin/ltts restart batApp;
+				/home/exim/ct01/bin/ltts start onlApp;
+				/home/exim/ct01/bin/ltts stop onlApp;
+				/home/exim/ct01/bin/ltts stop batApp;
+				/home/exim/ct01/bin/ltts start batApp;
+			}
+			
+
+		}
+	}
+},
+gs:{
+	dev:{
+		sump:{
+			log:{
+				cd /home/ct/ct/apache-tomcat-9.0.22/logs;
+				cp catalina.out catalina.2020-12-10-2206.out;cp /dev/null catalina.out;	
+			},
+			restart:{
+				/home/ct/ct/apache-tomcat-9.0.22/bin/shutdown.sh;/home/ct/ct/apache-tomcat-9.0.22/bin/startup.sh;
+				/home/ct/ct/apache-tomcat-9.0.22/bin/shutdown.sh;
+				/home/ct/ct/apache-tomcat-9.0.22/bin/startup.sh;
+			}
+			cd /home/ct/ct/apache-tomcat-9.0.22/webapps/icore-sump;
+			cd /home/ct/ct/apache-tomcat-9.0.22/webapps/icore-sump/sump/WEB-INF/classes/cn/sunline/auth/service/webservice;
+			vue-deploy:{
+				clear;cd /home/ct/ct/apache-tomcat-9.0.22/webapps/icore-sump/;ll;
+				mv deploy.zip deploy-bak-201216-1533.zip;mv deploy deploy-bak-201216-1533;mkdir deploy;rz
+				unzip deploy.zip -d deploy;
+			}
+		},
+		icore():{
+			bin:{
+				/home/icore/icore01/bin/ltts status;
+				/home/icore/icore01/bin/ltts start onlApp;
+				/home/icore/icore01/bin/ltts restart onlApp;
+				/home/icore/icore01/bin/ltts stop onlApp;
+				/home/icore/icore01/bin/ltts restart batApp;
+			},
+			lib:{
+				cd /home/icore/icore01/lib;ll ap-*;
+				cd /home/icore/icore01/lib;ll cm-*;
+				cd /home/icore/icore01/lib;ll us-serv*;
+				ll /home/icore/icore01/lib/us-serv*;
+				sz /home/icore/icore01/lib/cm-base-3.0.3.0-SIMAS-RELEASE.jar;
+				cd /home/icore/icore01/lib;ll dp-*;
+			},
+			onl:{	
+				clear;cd /home/icore/icore01/log/onlApp/busi/20210302/312020;cp 312020.log 312020_1727.log;cp /dev/null 312020.log;		dp2020
+				clear;cd /home/icore/icore01/log/onlApp/busi/20210205/312340;cp 312340.log 542030_1727.log;cp /dev/null 312340.log;		dp2340
+				clear;cd /home/icore/icore01/log/onlApp/busi/20210222/315050;cp 315050.log 542030_1727.log;cp /dev/null 315050.log;		dp5050
+				clear;cd /home/icore/icore01/log/onlApp/busi/20201217/542030;cp 542030.log 542030_1727.log;cp /dev/null 542030.log;		us2030
+				clear;cd /home/icore/icore01/log/onlApp/busi/20201126/542040;cp 542040.log 542040_1119.log;cp /dev/null 542040.log;		us2040
+				clear;cd /home/icore/icore01/log/onlApp/busi/20201125/542070;cp 542070.log 542070_1125.log;cp /dev/null 542070.log;		us2070
+				clear;cd /home/icore/icore01/log/onlApp/busi/20201223/542250;cp 542250.log 542270_1800.log;cp /dev/null 542250.log;		us2250
+				clear;cd /home/icore/icore01/log/onlApp/busi/20210226/542270;cp 542270.log 542270_1800.log;cp /dev/null 542270.log;		us2270
+				clear;cd /home/icore/icore01/log/onlApp/busi/20210301/542290;cp 542290.log 542070_1125.log;cp /dev/null 542290.log;		us2290
+				clear;cd /home/icore/icore01/log/onlApp/busi/20201224/542360;cp 542360.log 542360_1313.log;cp /dev/null 542360.log;		us2360 
+				clear;cd /home/icore/icore01/log/onlApp/busi/20201113/543200;cp 543200.log 543200_1119.log;cp /dev/null 543200.log;	
+				clear;cd /home/icore/icore01/log/onlApp/busi/20201123/543010;cp 543010.log 543010_1015.log;cp /dev/null 543010.log;		us3010
+				clear;cd /home/icore/icore01/log/onlApp/busi/20201208/543083;cp 543083.log 543083_1015.log;cp /dev/null 543083.log;		us3083
+				clear;cd /home/icore/icore01/log/onlApp/busi/20201221/543180;cp 543180.log 543180_1401.log;cp /dev/null 543180.log;		us3180	543180
+				clear;cd /home/icore/icore01/log/onlApp/busi/20201201/543190;cp 543190.log 543190_1754.log;cp /dev/null 543190.log;		us3190
+				clear;cd /home/icore/icore01/log/onlApp/busi/20201221/543180;cp 543180.log 543180_1401.log;cp /dev/null 543180.log;	
+				clear;cd /home/icore/icore01/log/onlApp/busi/20201117/543201;cp 543201.log 543201_1015.log;cp /dev/null 543201.log;	 
+				clear;cd /home/icore/icore01/log/onlApp/busi/20201202/543200;cp 543200.log 543200_1409.log;cp /dev/null 543200.log;		us3200
+				clear;cd /home/icore/icore01/log/onlApp/busi/20210114/543202;cp 543202.log 543202_0122.log;cp /dev/null 543202.log;		us3202	543202
+				clear;cd /home/icore/icore01/log/onlApp/busi/20201414/543210;cp 543210.log 543210_1606.log;cp /dev/null 543210.log;		us3210		
+				clear;cd /home/icore/icore01/log/onlApp/busi/20201125/350010;cp 350010.log 350010_1125.log;cp /dev/null 350010.log;	
+				clear;cd /home/icore/icore01/log/onlApp/sys/boot;cp ltts_boot_all.log ltts_boot_all_201130_1037.log;cp /dev/null ltts_boot_all.log;	
+				
+				/*
+				clear;cd /home/icore/icore01/log/onlApp/busi/;find . */*/312020.log
+				clear;cd /home/icore/icore01/log/onlApp/busi/;grep "new_file_name=40dff78b88f247ceb3b27a6a3ba3cb33.txt" 20201027/543190/*.log;	og;	
+				clear;cd /home/icore/icore01/log/onlApp/busi/;grep "the remaining balance after transaction is not allowed if larger than the maximum account remaining balanc" 20210225/312020/*.log;		
+				clear;cd /home/icore/icore01/log/onlApp/busi/;grep "100000001602" 2021022*/542251/*.log;		 
+				clear;cd /home/icore/icore01/log/onlApp/busi/;grep "rmat of mobile_no is incorre" 20200917/*/*.log; 
+				clear;cd /home/icore/icore01/log/onlApp/busi/;grep "SrvUsUserCheck.dukcapilCheck" 20201126/*/*.log; 
+				clear;cd /home/icore/icore01/log/onlApp/busi/;grep "update usb_bluk_open set file_name='BULK_ONBOARDING_20201123_03.txt'" 20201123/*/*.log;	
+				clear;cd /home/icore/icore01/log/onlApp/busi/;grep "update usb_bluk_open set " 20201123/*/*.log;	 
+				clear;cd /home/icore/icore01/log/onlApp/busi/;grep "set change_terminal_os_ind" 20201127/*/*.log; 	 
+				clear;cd /home/icore/icore01/log/onlApp/busi/;grep "update usb_person_base" 20201127/*/*.log;  	 
+				clear;cd /home/icore/icore01/log/onlApp/busi/;grep "user_no='000000006803'" 20201127/*/*.log; 
+				clear;cd /home/icore/icore01/log/onlApp/busi/;grep "change_terminal_os_ind=null" 20201127/*/*.log;
+				clear;cd /home/icore/icore01/log/onlApp/busi/;grep "" */542250/*.log;
+				 
+				clear;cd /home/icore/icore01/log/onlApp/busi/;grep "data_version=6" 20201123/*/*.log;	
+				clear;find /home/icore/icore01/log/onlApp/busi/*/542010/542010.log
+				find . -name *buildPersonCustBriefInfo*
+				*/
+			},
+			bat:{
+				clear;cd /home/icore/icore01/log/batApp/busi/20200813/flowid/110/cf13;
+				clear;cd /home/icore/icore01/log/batApp/busi/20191128/flowid/120/us05;grep "2019112800013603" *.log;
+				/*
+				clear;find /home/icore/icore01/log/batApp/busi/*/flowid/120/us05/us05.log;
+				clear;cd /home/icore/icore01/log/batApp/busi/20201128/flowid/;grep "input message is '" */*/*.log;
+				grep "The user's KYC visa has been approved" *.log;
+				*/
+			},
+			etc:{
+				sz /home/icore/icore01/etc/onlApp/oss-sftp.properties;
+				sz /home/icore/icore01/etc/batApp/oss-sftp.properties;
+				vi /home/icore/icore01/etc/onlApp/oss-sftp.properties;
+				vi /home/icore/icore01/etc/onlApp/ltts_log4j2.xml;
+				vi /home/icore/icore01/etc/batApp/ltts_log4j2.xml;
+				vi /home/icore/icore01/etc/onlApp/settings.properties;
+				sz /home/icore/icore01/etc/onlApp/settings.properties;
+				oss.properties:{
+					OSS.enable=true
+					OSS.DefaultImpl=cn.sunline.clwj.msap.oss.impl.MsTransferSftpImpl	#OssImpl
+				},
+				oss-sftp.properties:{
+					#sftp文件服务器IP
+					sftp.file.service.id[0].service.ip=10.22.90.45
+					#sftp文件服务器本地文件根目录
+					sftp.file.service.id[0].local.fileRootDir=/home/icore/file/
+				}
+			},
+			pkg:{
+				d: & cd D:\03-sl-107-code\26-gs\01-pkg\us-busi\us-serv & mvn package
+				d: & cd D:\03-sl-107-code\26-gs\01-pkg\us-busi\us-tran & mvn package
+				cd D:\03-sl-107-code\26-gs\01-pkg\us-busi\us-tran
+				mvn package
+			},
+			log:{
+				2019112800003103
+			},
+			sql:{
+				d: &cd D:\03-sl\102-word\10.22.10.10\svn\iCore-product\001-%E5%8D%B0%E5%B0%BC%E9%87%91%E5%85%89%E9%A1%B9%E7%9B%AE\12 打版版本\R3;
+				findstr /s /i "usb_person_base" *.sql ;
+			},
+			file:{
+				
+			}
+		},
+		pd:{
+			bin:{
+				/home/pd/pd-dist-3.0.0-APLT-SNAPSHOT-1569381667264/bin/ltts status;
+				/home/pd/pd-dist-3.0.0-APLT-SNAPSHOT-1569381667264/bin/ltts restart onlApp;
+				/home/pd/pd-dist-3.0.0-APLT-SNAPSHOT-1569381667264/bin/ltts stop onlApp;
+				/home/pd/pd-dist-3.0.0-APLT-SNAPSHOT-1569381667264/bin/ltts start onlApp;
+			}
+		},
+		pm:{
+			bin:{
+				/home/pm/pm-deploy-3.0.0-SNAPSHOT-1565856458886/bin/ltts restart onlTh;
+				
+			},
+			logs:{
+				/home/pm/pm-deploy-3.0.0-SNAPSHOT-1565856458886/log/onlTh/busi/20201105/611200
+				/home/pm/pm-deploy-3.0.0-SNAPSHOT-1565856458886/log/onlTh/busi/${ctx:transDate}/611200	#SrvUsUserCheck.dukcapilCheck
+				/home/pm/pm-deploy-3.0.0-SNAPSHOT-1565856458886/log/onlTh/busi/${ctx:transDate}/611100	#SrvUsUserCheck.blackListQuery
+			}
+		},
+		ct:{
+			bin:{
+				/home/ct/ct/ct/bin/ltts status;
+				/home/ct/ct/ct/bin/ltts restart onl;
+				/home/ct/ct/ct/bin/ltts start onl;
+				
+			},
+			logs:{
+				/home/pm/pm-deploy-3.0.0-SNAPSHOT-1565856458886/log/onlTh/busi/20201105/611200
+				/home/pm/pm-deploy-3.0.0-SNAPSHOT-1565856458886/log/onlTh/busi/${ctx:transDate}/611200
+			}
+		},
+		gateway:{
+			json:{
+				cd /home/gateway/wall/response;ll KYC*;ll *WatchlistService*;
+			}
+		},
+		file:{
+			clear;cd /home/file/app/USER_INFO_KYC;ll;
+		}
+		
+		
+
+	},
+	atp:{
+		sump:{
+			cd /home/ct/ct/apache-tomcat-9.0.22/logs;
+			cp catalina.out catalina.2020-12-31-1741.out;cp /dev/null catalina.out;	
+			/home/ct/apache-tomcat-9.0.22/bin/shutdown.sh;
+			/home/ct/apache-tomcat-9.0.22/bin/startup.sh;
+			cd /home/ct/ct/apache-tomcat-9.0.22/webapps/icore-sump;
+			cd /home/ct/ct/apache-tomcat-9.0.22/webapps/icore-sump/sump/WEB-INF/classes/cn/sunline/auth/service/webservice;
+		},
+		icore:{
+			bin:{
+				/home/cc/icore-dist/bin/ltts status;
+				/home/cc/icore-dist/bin/ltts restart onlApp;
+				/home/cc/icore-dist/bin/ltts stop onlApp;
+				/home/cc/icore-dist/bin/ltts restart batApp;
+			},
+			lib:{
+				cd /home/cc/icore-dist/lib;ll us-*;
+				cd /home/cc/icore-dist/lib;ll us-serv*;
+				ll /home/cc/icore-dist/lib/us-serv*;
+				sz /home/cc/icore-dist/lib/cm-base-3.0.3.0-SIMAS-RELEASE.jar;
+			},
+			onl:{	
+				clear;cd /home/cc/icore-dist/log/onlApp/busi/20201127/542030;cp 542030.log 542030_1727.log;cp /dev/null 542030.log;		us2030
+				clear;cd /home/cc/icore-dist/log/onlApp/busi/20201126/542040;cp 542040.log 542040_1119.log;cp /dev/null 542040.log;		us2040
+				clear;cd /home/cc/icore-dist/log/onlApp/busi/20201125/542070;cp 542070.log 542070_1125.log;cp /dev/null 542070.log;		us2070
+				clear;cd /home/cc/icore-dist/log/onlApp/busi/20201202/543200;cp 543200.log 543200_1119.log;cp /dev/null 543200.log;	
+				clear;cd /home/cc/icore-dist/log/onlApp/busi/20201202/542201;cp 543200.log 542201.log;cp /dev/null 542201.log;		us2201
+				clear;cd /home/cc/icore-dist/log/onlApp/busi/20210104/542293;cp 542293.log 542293.log;cp /dev/null 542293.log;		us2293
+				clear;cd /home/cc/icore-dist/log/onlApp/busi/20201123/543010;cp 543010.log 543010_1015.log;cp /dev/null 543010.log;		us3010
+				clear;cd /home/cc/icore-dist/log/onlApp/busi/20201201/543180;cp 543180.log 543180_1933.log;cp /dev/null 543180.log;		us3180
+				clear;cd /home/cc/icore-dist/log/onlApp/busi/20201202/543190;cp 543190.log 543190_1852.log;cp /dev/null 543190.log;		us3190
+				clear;cd /home/cc/icore-dist/log/onlApp/busi/20201117/543180;cp 543180.log 543190_1936.log;cp /dev/null 543180.log;	
+				clear;cd /home/cc/icore-dist/log/onlApp/busi/20201117/543201;cp 543201.log 543201_1015.log;cp /dev/null 543201.log;	 
+				clear;cd /home/cc/icore-dist/log/onlApp/busi/20201202/543200;cp 543200.log 543200_1409.log;cp /dev/null 543200.log;		us3200
+				clear;cd /home/cc/icore-dist/log/onlApp/busi/20201217/543202;cp 543202.log 543202_1716.log;cp /dev/null 543202.log;		us3202
+				clear;cd /home/cc/icore-dist/log/onlApp/busi/20201123/543210;cp 543210.log 543210_1606.log;cp /dev/null 543210.log;		us3210
+				clear;cd /home/cc/icore-dist/log/onlApp/busi/20201231/542293;cp 542293.log 542293_1733.log;cp /dev/null 542293.log;		us2293
+				clear;cd /home/cc/icore-dist/log/onlApp/busi/20201125/350010;cp 350010.log 350010_1125.log;cp /dev/null 350010.log;	
+				clear;cd /home/cc/icore-dist/log/onlApp/busi/20201125/350010;cp 350010.log 350010_1125.log;cp /dev/null 350010.log;		us2293
+				clear;cd /home/cc/icore-dist/log/onlApp/sys/boot;cp ltts_boot_all.log ltts_boot_all_201130_1037.log;cp /dev/null ltts_boot_all.log;	
+				
+				/*
+				clear;cd /home/cc/icore-dist/log/onlApp/busi/;grep "new_file_name=40dff78b88f247ceb3b27a6a3ba3cb33.txt" 20201027/543190/*.log;	
+				clear;cd /home/cc/icore-dist/log/onlApp/busi/;grep "2019112800003103" 20201123/*/*.log;		
+				clear;cd /home/cc/icore-dist/log/onlApp/busi/;grep "rmat of mobile_no is incorre" 20201201/*/*.log; 
+				clear;cd /home/cc/icore-dist/log/onlApp/busi/;grep "SrvUsUserCheck.dukcapilCheck" 20201126/*/*.log; 
+				clear;cd /home/cc/icore-dist/log/onlApp/busi/;grep "update usb_bluk_open set file_name='BULK_ONBOARDING_20201123_03.txt'" 20201123/*/*.log;	
+				clear;cd /home/cc/icore-dist/log/onlApp/busi/;grep "update usb_bluk_open set " 20201123/*/*.log;	 
+				clear;cd /home/cc/icore-dist/log/onlApp/busi/;grep "set change_terminal_os_ind" 20201127/*/*.log; 	 
+				clear;cd /home/cc/icore-dist/log/onlApp/busi/;grep "update usb_person_base" 20201127/*/*.log;  	 
+				clear;cd /home/cc/icore-dist/log/onlApp/busi/;grep "user_no='000000006803'" 20201127/*/*.log; 
+				clear;cd /home/cc/icore-dist/log/onlApp/busi/;grep "change_terminal_os_ind=null" 20201127/*/*.log;
+				clear;cd /home/cc/icore-dist/log/onlApp/busi/;grep "SftpFileTransferClientImpl.downloadFileToLocal01" 20201202/*/*.log;
+				 
+				clear;cd /home/cc/icore-dist/log/onlApp/busi/;grep "data_version=6" 20201123/*/*.log;	
+				*/
+			},
+			etc:{
+				cd /home/cc/icore-dist/etc/onlApp/;
+				sz /home/cc/icore-dist/etc/onlApp/oss-sftp.properties;
+				sz /home/cc/icore-dist/etc/batApp/oss-sftp.properties;
+				vi /home/cc/icore-dist/etc/onlApp/ltts_log4j2.xml;
+				vi /home/cc/icore-dist/etc/onlApp/settings.properties;
+				vi /home/cc/icore-dist/etc/batApp/ltts_log4j2.xml;
+			}
+		},
+		pm:{
+			log:{
+				clear;cd /home/pm/pm-deploy-3.0.0-SNAPSHOT/log/onlTh/busi/${ctx:transDate}/611200;cp 611200.log 611200_201218_1034.log;cp /dev/null 611200.log;
+			}
+		}
+	},
+	sit/uat:{
+		sump:{
+			cd /home/ct/ct/tomcat/logs;
+			cp catalina.out catalina.2020-12-01-2300.out;cp /dev/null catalina.out;	
+			/home/ct/tomcat/bin/shutdown.sh;
+			/home/ct/tomcat/bin/startup.sh;
+			cd /home/ct/tomcat/webapps/icore-sump;
+			cd /home/ct/tomcat/webapps/icore-sump/sump/WEB-INF/classes/cn/sunline/auth/service/webservice;
+		},
+		icore:{
+			bin:{
+				/home/icore/icore-dist/bin/ltts status;
+				/home/icore/icore-dist/bin/ltts restart onlApp;
+				/home/icore/icore-dist/bin/ltts stop onlApp;
+				/home/icore/icore-dist/bin/ltts restart batApp;
+				
+			},
+			lib:{
+				cd /home/icore/icore-dist/lib;ll ap-*;
+				cd /home/icore/icore-dist/lib;ll us-*;
+				cd /home/icore/icore-dist/lib;ll us-serv*;
+				ll /home/icore/icore-dist/lib/us-serv*;
+				sz /home/icore/icore-dist/lib/cm-base-3.0.3.0-SIMAS-RELEASE.jar;
+			},
+			onl:{	
+				mv 20210115 20210115-bak01;mkdir 20210115;ll 20210115;
+				clear;cd /home/icore/icore-dist/log/onlApp/busi/20210203/; grep "external_scene_code" */*log
+				clear;cd /home/icore/icore-dist/log/onlApp/busi/20210108/101050;cp 101050.log 101050_1757.log;cp /dev/null 101050.log;	
+				clear;cd /home/icore/icore-dist/log/onlApp/busi/20210109/311070;cp 311070.log 311070_1109.log;cp /dev/null 311070.log;		dp1070
+				clear;cd /home/icore/icore-dist/log/onlApp/busi/20210209/312020;cp 312020.log 542030_1109.log;cp /dev/null 312020.log;		dp2020
+				clear;cd /home/icore/icore-dist/log/onlApp/busi/20210109/312040;cp 312040.log 542030_1109.log;cp /dev/null 312040.log;		dp2040
+				clear;cd /home/icore/icore-dist/log/onlApp/busi/20210205/312340;cp 312340.log 312340_1109.log;cp /dev/null 312340.log;		dp2340
+				clear;cd /home/icore/icore-dist/log/onlApp/busi/20201027/315000;cp 315000.log 542030_1109.log;cp /dev/null 315000.log;		dp5000 
+				clear;cd /home/icore/icore-dist/log/onlApp/busi/20201027/315010;cp 315010.log 542030_1109.log;cp /dev/null 315010.log;		dp5000 
+				clear;cd /home/icore/icore-dist/log/onlApp/busi/20210218/317110;cp 317110.log 317110_0957.log;cp /dev/null 317110.log;		dp7110 
+				clear;cd /home/icore/icore-dist/log/onlApp/busi/20201217/542030;cp 542030.log 542030_1109.log;cp /dev/null 542030.log;		us2030
+				clear;cd /home/icore/icore-dist/log/onlApp/busi/20201229/542040;cp 542040.log 542040_1119.log;cp /dev/null 542040.log;		us2040
+				clear;cd /home/icore/icore-dist/log/onlApp/busi/20201125/542070;cp 542070.log 542070_1125.log;cp /dev/null 542070.log;		us2070
+				clear;cd /home/icore/icore-dist/log/onlApp/busi/20201202/543200;cp 543200.log 543200_1119.log;cp /dev/null 543200.log;	
+				clear;cd /home/icore/icore-dist/log/onlApp/busi/20201202/542201;cp 543200.log 542201.log;cp /dev/null 542201.log;		us2201
+				clear;cd /home/icore/icore-dist/log/onlApp/busi/20201202/542290;cp 543200.log 542290.log;cp /dev/null 542290.log;		us2290
+				clear;cd /home/icore/icore-dist/log/onlApp/busi/20201123/543010;cp 543010.log 543010_1015.log;cp /dev/null 543010.log;		us3010
+				clear;cd /home/icore/icore-dist/log/onlApp/busi/20210107/543080;cp 543080.log 543083_1015.log;cp /dev/null 543083.log;		us3080
+				clear;cd /home/icore/icore-dist/log/onlApp/busi/20201208/543083;cp 543083.log 543083_1015.log;cp /dev/null 543083.log;		us3083
+				clear;cd /home/icore/icore-dist/log/onlApp/busi/20201201/543180;cp 543180.log 543180_1933.log;cp /dev/null 543180.log;		us3180
+				clear;cd /home/icore/icore-dist/log/onlApp/busi/20201217/543190;cp 543190.log 543190_1552.log;cp /dev/null 543190.log;		us3190
+				clear;cd /home/icore/icore-dist/log/onlApp/busi/20201117/543180;cp 543180.log 543190_1936.log;cp /dev/null 543180.log;	
+				clear;cd /home/icore/icore-dist/log/onlApp/busi/20201117/543201;cp 543201.log 543201_1015.log;cp /dev/null 543201.log;	 
+				clear;cd /home/icore/icore-dist/log/onlApp/busi/20201202/543200;cp 543200.log 543200_1409.log;cp /dev/null 543200.log;		us3200
+				clear;cd /home/icore/icore-dist/log/onlApp/busi/20201126/543202;cp 543202.log 543202_1409.log;cp /dev/null 543202.log;		us3202
+				clear;cd /home/icore/icore-dist/log/onlApp/busi/20201123/543210;cp 543210.log 543210_1606.log;cp /dev/null 543210.log;		us3210
+				clear;cd /home/icore/icore-dist/log/onlApp/busi/20210108/542251;cp 542251.log 543210_1606.log;cp /dev/null 542251.log;		us3210
+				clear;cd /home/icore/icore-dist/log/onlApp/busi/20201125/350010;cp 350010.log 350010_1125.log;cp /dev/null 350010.log;	 
+				clear;cd /home/icore/icore-dist/log/onlApp/sys/boot;cp ltts_boot_all.log ltts_boot_all_201130_1037.log;cp /dev/null ltts_boot_all.log;	
+				
+				/*
+				clear;cd /home/icore/icore-dist/log/onlApp/busi/;find . */*/312020.log
+				clear;cd /home/icore/icore-dist/log/onlApp/busi/;grep "the remaining balance after transaction is not allowed if larger than the maximum account remaining balanc" 20210225/312020/*.log;		
+				clear;cd /home/icore/icore-dist/log/onlApp/busi/;grep "new_file_name=40dff78b88f247ceb3b27a6a3ba3cb33.txt" 20201027/543190/*.log;	
+				clear;cd /home/icore/icore-dist/log/onlApp/busi/;grep "20210222000000000001064141" 202102*/311070/*.log;		
+				clear;cd /home/icore/icore-dist/log/onlApp/busi/;grep "100000001602" 2021012*/542251/*.log;			
+				clear;cd /home/icore/icore-dist/log/onlApp/busi/;grep "210303756044" 202103*/312020/*.log;					
+				clear;cd /home/icore/icore-dist/log/onlApp/busi/;grep "20210222445253020672" 202102*/317080/*.log;						
+				clear;cd /home/icore/icore-dist/log/onlApp/busi/;grep "20210210449836567040" 202102*/*/*.log;				20210218/542010/542010.log		
+				clear;cd /home/icore/icore-dist/log/onlApp/busi/20210215/;grep "20210210449836567040" */*.log;		
+				clear;cd /home/icore/icore-dist/log/onlApp/busi/20210215/;grep "The transaction amount does not meet the channel limit" */*.log;			
+				clear;cd /home/icore/icore-dist/log/onlApp/busi/;grep "Start" 2021021*/317110/*.log;		
+				clear;cd /home/icore/icore-dist/log/onlApp/busi/;grep "2020073102580000000003260" 20210218/542290/*.log;	
+				clear;cd /home/icore/icore-dist/log/onlApp/busi/;grep "insert into cfb_person_base " 20210218/*/*.log;			
+				mv /home/icore/icore-dist/log/onlApp/busi/20210115/315050/315050.log 	/home/icore/icore-dist/log/onlApp/busi/20210115/315050/315050.log.bak			
+				clear;cd /home/icore/icore-dist/log/onlApp/busi/;grep "100000005301" 20210115/315050/*.log;
+				clear;cd /home/icore/icore-dist/log/onlApp/busi/;grep "000000005401" 20210115/315050/*.log;		 
+				clear;cd /home/icore/icore-dist/log/onlApp/busi/;grep "1000009806" */311*/311*.log;	 
+				clear;cd /home/icore/icore-dist/log/onlApp/busi/;grep "08812312317" 20210115/*/*.log;	
+				clear;cd /home/icore/icore-dist/log/onlApp/busi/;grep "0861234567" 20210115/*/*.log; 
+				clear;cd /home/icore/icore-dist/log/onlApp/busi/;grep "SrvUsUserCheck.dukcapilCheck" 20201126/*/*.log; 
+				clear;cd /home/icore/icore-dist/log/onlApp/busi/;grep "590000.00" 2020102*/*/*.log;	
+				clear;cd /home/icore/icore-dist/log/onlApp/busi/;grep "15681870.77" 2020102*/*/*.log;	
+				clear;cd /home/icore/icore-dist/log/onlApp/busi/;grep "0258000006021" 2020102*/315000/*.log;	
+				clear;cd /home/icore/icore-dist/log/onlApp/busi/;grep "0258000006021" 2020102*/315010/*.log;	
+				clear;cd /home/icore/icore-dist/log/onlApp/busi/;grep "update usb_bluk_open set " 20201123/*/*.log;	 
+				clear;cd /home/icore/icore-dist/log/onlApp/busi/;grep "set change_terminal_os_ind" 20201127/*/*.log; 	 
+				clear;cd /home/icore/icore-dist/log/onlApp/busi/;grep "update usb_person_base" 20201127/*/*.log;  	 
+				clear;cd /home/icore/icore-dist/log/onlApp/busi/;grep "user_no='000000006803'" 20201127/*/*.log; 
+				clear;cd /home/icore/icore-dist/log/onlApp/busi/;grep "change_terminal_os_ind=null" 20201127/*/*.log;
+				clear;cd /home/icore/icore-dist/log/onlApp/busi/;grep "You have exceeded max" 20201229/*/*.log;
+				clear;cd /home/icore/icore-dist/log/onlApp/busi/;grep "user_no='000000002801'" */*/*.log;
+				clear;cd /home/icore/icore-dist/log/onlApp/busi/;grep "insert into usb_safety_verify'" 20201228/*/*.log;
+				 
+				clear;cd /home/icore/icore-dist/log/onlApp/busi/;grep "data_version=6" 20201123/*/*.log;	
+				*/
+			},
+			bat:{
+			/home/icore/icore-dist/log/batApp/busi/20200716/Core_SOD/830/dp11/	
+				clear;cd /home/icore/icore-dist/log/onlApp/busi/;grep "insert into cfb_person_base " 20210218/*/*.log;	
+				clear;cd /home/icore/icore-dist/log/batApp/busi/; grep "insert into dps_bill" 202007*/Core_SOD/830/dp11/*.log
+				clear;cd /home/icore/icore-dist/log/batApp/busi/; grep "insert into dps_bill" 202102*/Core_SOD/830/dp11/*.log
+				clear;cd /home/icore/icore-dist/log/batApp/busi/20200813/flowid/110/cf13;
+				clear;cd /home/icore/icore-dist/log/batApp/busi/20210218/flowid/120/us05;grep "insert into cfb_person_base " *.log
+				clear;cd /home/icore/icore-dist/log/batApp/busi/;grep "20210218 09:32:29 379" 202008*/flowid/*/*/*.log
+				clear;cd /home/icore/icore-dist/log/batApp/busi/;grep "insert into cfb_person_base " 202008*/flowid/*/*/*.log 
+				clear;cd /home/icore/icore-dist/log/batApp/busi/;grep "insert into cfb_person_base " 202008*/flowid/120/us05/*.log
+				clear;cd /home/icore/icore-dist/log/batApp/busi/20201211/flowid/120/us05;grep "Automatic batch run has " *.log
+				clear;cd /home/icore/icore-dist/log/batApp/busi/20200903/flowid/120/us05;grep "insert into dps_bill" *.log				#sit1
+				clear;cd /home/icore/icore-dist/log/batApp/busi/20200821/flowid/120/us05;grep "2020090300001801" *.log				#uat1
+				/*
+				clear;find /home/icore/icore-dist/log/batApp/busi/*/flowid/120/us05/us05.log;
+				clear;cd /home/icore/icore-dist/log/batApp/busi/20201128/flowid/;grep "mat of mobile_no is incor'" */*/*.log;
+				grep "change_terminal_os_ind=" *.log;
+				findstr /s /i "2020082500002604" *.log ;
+				*/
+			},
+			etc:{
+				cd /home/icore/icore-dist/etc/onlApp/;
+				sz /home/icore/icore-dist/etc/onlApp/oss-sftp.properties;
+				sz /home/icore/icore-dist/etc/batApp/oss-sftp.properties;
+				vi /home/icore/icore-dist/etc/onlApp/ltts_log4j2.xml;
+				vi /home/icore/icore-dist/etc/onlApp/settings.properties;
+				vi /home/icore/icore-dist/etc/batApp/ltts_log4j2.xml;
+			}
+		},		
+		pm:{
+			bin:{
+				/home/pm/pm-dist/bin/ltts restart onlTh;
+				
+			},
+			logs:{
+				/home/pm/pm-dist/log/onlTh/busi/20201214/611200;		#SrvUsUserCheck.dukcapilCheck
+				/home/pm/pm-dist/log/onlTh/busi/20201214/611100;		#SrvUsUserCheck.blackListQuery
+				cd /home/pm/pm-dist/log/onlTh/busi/${ctx:transDate}/611200
+				cd /home/pm/pm-dist/log/onlTh/busi/${ctx:transDate}/611100	#SrvUsUserCheck.blackListQuery
+				find */611200/*.log
+			}
+		},		
+		zk(10.22.63.8):{
+			bin 
+				sh /app/zookeeper/zookeeper-3.4.10/bin/zkCli.sh;
+				cd /app/zookeeper/zookeeper-3.4.10/bin;
+				sh zkCli.sh
+			zkCli.sh
+				ls /
+					edsp, zookeeper, root
+				ls /edsp
+					consume, instance, config
+				ls /edsp/instance
+					01:3012:1.0, 01:2031:1.0, onl16:3041:0.1, 01:1031:1.0, 01:1002:1.0, CS:edsp:1.0, 01:3011:1.0, 01:3041:1.0, 01:1011:1.0, 01:2011:1.0, 01:2032:1.0, 01:2033:1.0, 01:1003:1.0, otp:onl01:0.1, 01:1001:1.0
+				ls /edsp/instance/01:1001:1.0
+				get /edsp/instance/01:1001:1.0/edsp%3A%2F%2F10.32.8.70%3A29004%3Fpid%3D17725
+				get /edsp/instance/01:1001:1.0/edsp%3A%2F%2F10.32.8.83%3A29004%3Fpid%3D23438
+				get /edsp/instance/01:1001:1.0/edsp%3A%2F%2F10.22.63.86%3A30001%3Fpid%3D255622
+				 /root/edsp/instance/01:1001:1.0/
+				
+		}
+	}
+}
+jcom:{
+	27 
+		icore(10.22.63.86):{
+			bin:{
+				/home/icore/icore01/bin/ltts status;
+				/home/icore/icore01/bin/ltts restart onlApp;
+				/home/icore/icore01/bin/ltts restart batApp;
+				/home/icore/icore01/bin/ltts stop batApp;
+				/home/icore/icore01/bin/ltts start batApp;
+				/home/icore/icore01/bin/ltts start onlApp;
+				backup:{
+					clear;ll /home/icore/icore01/lib/*cf*;
+					clear;sz /home/icore/icore01/lib/ct-batch-3.1.3.14-JOCOM-RELEASE.jar;
+					---------------------------------------------------
+					clear;cd /home/icore/icore01/bin;./ltts status;
+					clear;cd /home/icore/icore01/bin;./ltts stop onlApp;
+					clear;cd /home/icore/icore01/bin;./ltts start onlApp;
+					clear;ll /logs/icore/icore01/onlApp/sys/boot/;tail -300 /logs/icore/icore01/onlApp/sys/boot/ltts_boot_all.log;
+					clear;ll /logs/icore/icore01/onlApp/sys/boot/;cp ltts_boot_all.log ltts_boot_all.log.2020-10-26-2.log;cp /dev/null ltts_boot_all.log;	
+					clear;cd /logs/icore/icore01/onlApp/sys/boot/;
+					/*
+					clear;ll /home/icore/icore01/lib/*cm-*;
+					clear;ll /home/icore/icore01/lib/*ap*;
+					*/
+					clear;cd /home/icore/icore01/lib/;
+					clear;rz /home/icore/icore01/lib/;
+				}
+			},
+			onl:{
+				clear;cd /logs/icore/icore01/onlApp/busi/20201113/543190;cp 543190.log 543190_1936.log;cp /dev/null 543190.log;	 
+				clear;cd /logs/icore/icore01/onlApp/busi/20201029/231110;cp 231110.log 231110_1402.log;cp /dev/null 231110.log;	 
+				clear;cd /logs/icore/icore01/onlApp/busi/20201104/351010;cp 351010.log 351010_1324.log;cp /dev/null 351010.log;	 
+				clear;cd /logs/icore/icore01/onlApp/busi/20201228/355110;cp 351010.log 351010_1324.log;cp /dev/null 351010.log;
+				clear;cd /logs/icore/icore01/onlApp/busi/20201104/312000;cp 312000.log 312000_1843.log;cp /dev/null 312000.log;	
+				clear;cd /logs/icore/icore01/onlApp/busi/;grep "SYS.E0004" */355110/*.log 	311070/311070.log
+				/*
+				clear;cd /logs/icore/icore01/onlApp/busi/;grep "increment step rule" */*/*.log  
+				clear;cd /logs/icore/icore01/onlApp/busi/20201026; grep "100000005546" */*/*.log 
+				clear;cd /logs/icore/icore01/onlApp/busi/20201026; grep "where cust_no='100000005546'" */*.log 
+				clear;cd /logs/icore/icore01/onlApp/busi/20201228; grep "SYS.E0004" */*.log 
+				clear;cd /logs/icore/icore01/onlApp/busi/20201027; grep "000004608" */*.log 	
+					SrvIoCfCustomer.qryPersonInfo/SrvIoCfCustomer.qryPersonInfo.log
+					553019/553019.log	
+					553014/553014.log	
+					542025/542025.log	
+					542024/542024.log	
+					542022/542022.log 
+				*/
+				sed -n "41694,41824p" 
+				backup:{
+					clear;cd /home/icore/icore01/logs/onlApp/busi/20200831/316070;cp 316070.log 316070_1327.log;cp /dev/null 316070.log;
+					clear;cd /logs/icore/icore01/onlApp/busi/20200918/316070;cp 316070.log 316070_1327.log;cp /dev/null 316070.log;
+					clear;cd /logs/icore/icore01/onlApp/busi/20200918/316070;cp 316070.log 316070_1327.log;cp /dev/null 316070.log;
+					232122
+						clear;cd /logs/icore/icore01/onlApp/busi/20200924/542030;cp 542030.log 542030.log;cp /dev/null 542030.log;		us2030 	query personal user info
+						clear;cd /logs/icore/icore01/onlApp/busi/20200924/553014;cp 553014.log 553014.log;cp /dev/null 553014.log;		cf3014
+					"clear;cd /logs/icore/icore01/onlApp/busi/20200925/;grep -n "already has a sub-account" */*.log" 
+					311070/311070.log
+					clear;cd /logs/icore/icore01/onlApp/busi/20200928/553019;cp 553019.log 553019_1535.log;cp /dev/null 553019.log;
+					clear;cd /logs/icore/icore01/onlApp/busi/20200929;grep "already has a sub-account" */*.log;		
+					clear;cd /logs/icore/icore01/onlApp/busi/20200929/542010;cp 542010.log 542010_1657.log;cp /dev/null 542010.log;	6984
+					clear;cd /logs/icore/icore01/onlApp/busi/20201011/
+					clear;cd /logs/icore/icore01/onlApp/busi/20201012/
+					clear;cd /logs/icore/icore01/onlApp/busi/20201013/553014;
+					clear;cd /logs/icore/icore01/onlApp/busi/20201014/553014;cp 553014.log 553014_1216.log;cp /dev/null 553014.log; 
+					clear;cd /logs/icore/icore01/onlApp/busi/20201014/312020;cp 553014.log 553014_1216.log;cp /dev/null 553014.log; 
+					clear;cd /logs/icore/icore01/onlApp/busi/20201013/553208;
+					clear;cd /logs/icore/icore01/onlApp/busi/20201015/560021; 
+					clear;cd /logs/icore/icore01/onlApp/busi/20201015/352190;
+					clear;cd /logs/icore/icore01/onlApp/busi/20201016/;grep "cannot be opened again" */*.log 	311070/311070.log
+					sed -n "6567,6767p" 
+					clear;cd /logs/icore/icore01/onlApp/busi/20200930;
+					clear;cd /logs/icore/icore01/onlApp/busi/20201016/;grep "cannot be entered" */*.log 	311070/311070.log
+					clear;cd /logs/icore/icore01/onlApp/busi/20201016/312300;cp 312300.log 312300_1216.log;cp /dev/null 553014.log; 
+					clear;cd /logs/icore/icore01/onlApp/busi/;grep " status=S" */312000/*.log 	311070/311070.log
+					clear;cd /logs/icore/icore01/onlApp/busi/20201021/;grep "未配置"  */*.log
+					clear;cd /logs/icore/icore01/onlApp/busi/20201020/312020;
+					clear;cd /logs/icore/icore01/onlApp/busi/20201020/311070;
+					clear;cd /logs/icore/icore01/onlApp/busi/;grep " status=S" */311070/*.log 	311070/311070.log
+					clear;cd /logs/icore/icore01/onlApp/busi/;grep " status=S" */311000/*.log 	311070/311070.log
+					clear;cd /logs/icore/icore01/onlApp/busi/;grep "input_prod_id" */110030/*.log 	311070/311070.log
+					clear;cd /logs/icore/icore01/onlApp/busi/;grep "Account doesn't balance" */*/*.log
+					clear;cd /logs/icore/icore01/onlApp/busi/20201020/311070;
+					clear;cd /logs/icore/icore01/onlApp/busi/20201022;grep "超时" */*.log;	
+					clear;cd /logs/icore/icore01/onlApp/busi/20201022/312000;cp 312000.log 312000_1930.log;cp /dev/null 312000.log;	
+					/* grep "RM3.92" */*.log  */
+						41794 	开始
+					 43351		RM400
+						执行服务[SrvIoCmChrg.calcAutoChrg]
+					 45061		RM3.92
+						46058	结束
+						46440	开始
+					 49662
+					 73608
+					 78194
+				}
+			},	
+			bat
+				clear;cd /logs/icore/ct01/batApp/console;cp console.log console_1629.log;cp /dev/null console.log;
+				clear;cd /logs/icore/icore01/batApp
+			etc
+				vi /home/icore/icore01/etc/onlApp/settings.properties
+				vi /home/icore/icore01/etc/onlApp/application.properties
+				vi /home/icore/icore01/etc/batApp/application.properties
+				cd /home/icore/icore01/etc/onlApp/;sz application.properties
+				sz /home/icore/icore01/etc/onlApp/application.properties
+				cd /home/icore/icore01/etc/batApp/;sz application.properties
+				vi /home/icore/icore01/etc/onlApp/log4j2.xml
+				sz /home/icore/icore01/etc/onlApp/log4j2.xml
+			clear 
+				clear;cd /logs/icore/icore01/batApp/
+				clear;cd /logs/icore/icore01/onlApp/
+		},	
+		ct(10.22.63.27):{
+			bin
+				/home/icore/ct01/bin/ltts status;
+				/home/icore/ct01/bin/ltts restart onlApp;
+				/home/icore/ct01/bin/ltts start onlApp;
+				/home/icore/ct01/bin/ltts stop onlApp;
+				/home/icore/ct01/bin/ltts stop batApp;
+				/home/icore/ct01/bin/ltts start batApp;
+				/home/icore/ct01/bin/ltts restart batApp;
+				clear;ll /home/icore/ct01/lib/*ct*;
+				clear;sz /home/icore/ct01/lib/ct-batch-3.1.3.14-JOCOM-RELEASE.jar;
+				/*---------------------------------------------------*/
+				clear;cd /home/icore/ct01/bin;./ltts status;
+				clear;cd /home/icore/ct01/bin;./ltts stop batApp;
+				clear;cd /home/icore/ct01/bin;./ltts restart onlApp;
+				clear;cd /home/icore/ct01/bin;./ltts restart batApp;
+			etc
+				vi /home/icore/ct01/etc/onlApp/application.properties
+				vi /home/icore/ct01/etc/onlApp/log4j2.xml
+				vi /home/icore/ct01/etc/batApp/application.properties
+				vi /home/icore/ct01/etc/batApp/log4j2.xml
+			onl
+				clear;cd /home/icore/ct01/logs/onlApp/busi/20200831/111061;cp 111061.log 111061_1800.log;cp /dev/null 111061.log;
+				clear;cd /logs/icore/ct01/onlApp/busi/20200916/212003;cp 212003.log 212003_1550.log;cp /dev/null 212003.log;
+				clear;cd /logs/icore/ct01/onlApp/busi/20200917/212016;cp 212016.log 212016_1120.log;cp /dev/null 212016.log;
+				clear;cd /logs/icore/ct01/onlApp/busi/20201030/212016;cp 212016.log 212016_1354.log;cp /dev/null 212016.log;
+				clear;cd /logs/icore/ct01/onlApp/busi/20201028/212018;cp 212018.log 212018_1858.log;cp /dev/null 212018.log;
+				clear;cd /logs/icore/ct01/onlApp/busi/20201011/212016;cp 212016.log 212016_1650.log;cp /dev/null 212016.log;
+				clear;cd /logs/icore/ct01/onlApp/busi/20201029/212016;cp 212016.log 212016_0133.log;cp /dev/null 212016.log;
+				clear;cd /logs/icore/ct01/onlApp/busi/20201013/212017;cp 212016.log 212016_1650.log;cp /dev/null 212016.log;
+				clear;cd /logs/icore/ct01/onlApp/busi/20201014/212048;cp 212048.log 212048_1712.log;cp /dev/null 212048.log;
+				clear;cd /logs/icore/ct01/onlApp/busi/20201014/212028;cp 212028.log 212028_1712.log;cp /dev/null 212028.log;
+				clear;cd /logs/icore/ct01/onlApp/busi/20201023/212016;cp 212016.log 212016_1325.log;cp /dev/null 212016.log;
+			bat
+				clear;cd /logs/icore/ct01/batApp
+				clear;ll /logs/icore/ct01/batApp/sys/timer_busi;
+				clear;mv /logs/icore/ct01/batApp /logs/icore/ct01/batApp_0927_0231;
+				clear;cd /logs/icore/ct01/batApp/busi/2020-09-27/flowid/200/ct01;
+				clear;cd /logs/icore/ct01/batApp/busi/2020-10-14/flowid/200/ct01;
+			onl
+				clear;cd /logs/icore/ct01/onlApp
+			lib 
+				ll  /home/icore/ct01/lib/ct-serv*;
+				sz  /home/icore/ct01/lib/ct-serv*;
+			tomcat 
+				clear;cd /home/icore/tomcat/logs;grep "" *.*;
+				clear;cd /home/icore/tomcat/logs;cp catalina.out catalina_201027_0030.out;cp /dev/null catalina.out;
+		},
+		po(10.22.63.27):{
+			onl
+				clear;cd /logs/icore/ct01/onlApp/busi/20201023/232212;cp 212016.log 212016_1325.log;cp /dev/null 212016.log;
+				clear;cd /home/icore/po02/po-full-3.1.6.0-JOCOM-POC-BETA-1/logs/poOnl/busi/20201228/232112
+		}
+		sump:{
+			backup
+				cd /home/icore/tomcat/webapps;sz SUMP.war;
+		},
+		mk(10.22.63.97):{ 
+			bin
+				/home/icore/ig01/bin/ltts status;
+				/home/icore/ig01/bin/ltts restart onlApp;
+				/home/icore/ig01/bin/ltts stop batApp;
+				/home/icore/ig01/bin/ltts start batApp;
+				/home/icore/ig01/bin/ltts restart batApp;
+			onl
+				clear;cd /logs/icore/ig01/onlApp/busi/20201104/530012;cp 530012.log 560022_1327.log;cp /dev/null 560022.log;
+				grep -n "already has a sub-account"
+				clear;cd /logs/icore/ig01/onlApp/busi/20200928/560022;cp 560022.log 560022_1327.log;cp /dev/null 560022.log;
+				clear;ll /home/icore/ig01/lib/ap*;	ap-3.1.2.26-RELEASE
+				clear;cd /logs/icore/ig01/onlApp/busi/20200928/500003;
+				clear;cd /logs/icore/ig01/onlApp/busi/20201008/500051;
+				clear;cd /logs/icore/ig01/onlApp/busi/20201009/500053;
+				clear;cd /logs/icore/ig01/onlApp/busi/20201102/500014;cp 500014.log 500014_1327.log;cp /dev/null 500014.log;	
+				clear;cd /logs/icore/ig01/onlApp/busi/20201102/351010;
+				clear;cd /logs/icore/ig01/onlApp/busi/20201101/560020;grep -n "开始" 560020.log;cp 560020.log 560020_1756.log;cp /dev/null 560020.log;
+				clear;cd /logs/icore/ig01/onlApp/busi/20201009/560020;grep -n "结束" 560020.log;
+				clear;cd /logs/icore/ig01/onlApp/busi/20201102/500013;grep -n "data_version=148" 500013.log;
+				clear;cd /logs/icore/ig01/onlApp/busi/;grep -n "data_version=148" */500013/500013.log;
+				clear;cd /logs/icore/ig01/onlApp/busi/;grep -n "data_version=149" */500025/500025.log;
+				clear;cd /logs/icore/ig01/onlApp/busi/20201013/560020;
+				clear;cd /logs/icore/ig01/onlApp/busi/20201014/560020;
+				clear;cd /logs/icore/ig01/onlApp/busi/20201102/500001;cp 500001.log 500001_1432.log;cp /dev/null 500001.log;
+				clear;cd /logs/icore/ig01/onlApp/busi/20201104/500003;cp 500003.log 500003_1700.log;cp /dev/null 500003.log;
+				clear;cd /logs/icore/ig01/onlApp/busi/20201016/500013;cp 500013.log 500013_1000.log;cp /dev/null 500013.log;
+				clear;cd /logs/icore/ig01/onlApp/busi/20201016/560005;cp 500024.log 500024_1546.log;cp /dev/null 500022.log; mv 500024_1546.log ../../500024_1546.log;
+				clear;cd /logs/icore/ig01/onlApp/busi/20201016/500002;
+				clear;cd /logs/icore/ig01/onlApp/busi/20201021/;grep "TRXN_CTRL"  */*.log
+				clear;cd /logs/icore/ig01/onlApp/busi/20201102/;grep " activity_status='4'"  */*.log
+				clear;cd /logs/icore/ig01/onlApp/busi/20201104/500001/;grep "0173175911" *.log	500001/500001.log  	grep "A0300151" */*.log	
+				clear;cd /logs/icore/ig01/onlApp/busi/20201104/;grep "0173175911" */*.log	500001/500001.log  	grep "A0300151" */*.log	
+				clear;cd /logs/icore/ig01/onlApp/busi/20201022/500001;cp 500001.log 500001_1617.log;cp /dev/null 500001.log;
+				clear;cd /logs/icore/ig01/onlApp/busi/20201021/500034;grep -n "100000004901" 500034.log;
+				clear;cd /logs/icore/ig01/onlApp/busi/20201023/500025;
+				clear;cd /logs/icore/ig01/onlApp/busi/; grep "data_version=149" */*/*.log
+				clear;cd /logs/icore/ig01/batApp/busi/20201102; grep "data_version=149" */*.log	  
+				/*	grep " meet the conditions" */*.log 
+				clear;cd /logs/icore/ig01/onlApp/busi/20201022/;grep "Account doesn't balance" */*.log
+				*/
+			bat
+				ll /logs/icore/ig01/batApp/busi/2020-10-08/flowid/100/mk04; 
+				ll /logs/icore/ig01/batApp/busi/2020-10-13/flowid/100/mk06;
+				cd /logs/icore/ig01/batApp/busi/2020-10-13/flowid/; grep "data_version=149" */*/*.log
+				cd /logs/icore/ig01/batApp/busi/2020-10-13/flowid/; grep "data_version=149" */*.log
+				cd /logs/icore/ig01/batApp/busi/2020-10-14/flowid/100/mk06;
+				cd /logs/icore/ig01/batApp/busi/2020-10-16/flowid/100/mk06;
+				clear;cd /logs/icore/ig01/batApp/busi/2020-10-08/flowid/100/mk04;
+			etc
+				vi /home/icore/ig01/etc/onlApp/application.properties
+				vi /home/icore/ig01/etc/onlApp/log4j2.xml
+			lib 
+				/*
+				ll /home/icore/ig01/lib/*mk-serv*;
+				ll /home/icore/ig01/lib/*cm-*;	
+				ll /home/icore/ig01/lib/*pf-serv*;
+				sz /home/icore/ig01/lib/pf-serv-3.1.0.0-RELEASE.jar;
+				ll /home/icore/ig01/lib/*ds-iobus*;	
+				ll /home/icore/ig01/lib/*ds-busi*;	
+				ll /home/icore/ig01/lib/*cf-iobus*;	
+				ll /home/icore/ig01/lib/*cf-iobus*;	
+				ll /home/icore/ig01/lib/*pf-busi*;				
+				*/
+			clear
+				clear;cd /logs/icore/ig01/onlApp/busi/
+				tar zcvf mk-onl-boot-201027-log.tar boot/
+				tar zcvf mk-onl-default-201027-log.tar default/
+				tar zcvf mk-onl-error-201027-log.tar error/
+				tar zcvf mk-onl-error-links-log.tar links/
+				tar zcvf mk-onl-error-monitor-log.tar monitor/;rm -rf monitor/;
+				tar zcvf mk-onl-pkg-log.tar pkg/;rm -rf pkg/;
+				tar zcvf mk-onl-poll-log.tar poll/;rm -rf poll/;
+				clear;cd /logs/icore/ig01/onlApp/;tar zcvf mk-onl-console-log.tar console/;rm -rf console/;  
+				clear;cd /logs/icore/ig01/onlApp/;tar zcvf mk-onl-ltts_gc-log.tar ltts_gc*;rm -rf ltts_gc*;  
+				clear;cd /logs/icore/ig01/onlApp/;sz *tar;rm -rf *tar;
+				clear;cd /logs/icore/ig01/;tar zcvf mk-bat-log.war batApp/;rm -rf console/; 
+				
+		},
+		vue(10.22.63.27):{
+			bin 
+				sh /home/icore/tomcat/bin/startup.sh
+				
+		},
+		zk(10.22.63.8):{
+			bin 
+				sh /home/icore/zookeeper/zk-01/bin/zkCli.sh
+				cd /home/icore/zookeeper/zk-01/bin
+				sh zkCli.sh
+			zkCli.sh
+				ls /
+					edsp, zookeeper, root
+				ls /edsp
+					consume, instance, config
+				ls /edsp/instance
+					01:3012:1.0, 01:2031:1.0, onl16:3041:0.1, 01:1031:1.0, 01:1002:1.0, CS:edsp:1.0, 01:3011:1.0, 01:3041:1.0, 01:1011:1.0, 01:2011:1.0, 01:2032:1.0, 01:2033:1.0, 01:1003:1.0, otp:onl01:0.1, 01:1001:1.0
+				ls /edsp/instance/01:1001:1.0/
+				get /edsp/instance/01:1001:1.0/edsp%3A%2F%2F10.22.63.86%3A30001%3Fpid%3D36880
+				get /edsp/instance/01:1001:1.0/edsp%3A%2F%2F10.22.63.86%3A30001%3Fpid%3D255622
+				 /root/edsp/instance/01:1001:1.0/
+				
+		}
+},
+
+		
+dos:{
+	java:{
+		file-size:{
+			d:;
+			cd D:\30-java\130-grammar\520-project-me\xh-common\bin;
+			java -cp fastjson-1.2.73.jar; cn.J1_MainExecute;
+			d: & cd D:\30-java\130-grammar\520-project-me\xh-common\bin;
+			java -cp fastjson-1.2.73.jar; p21_file_size.release.v1_3.J1_MainExecute ;
+																				 'STORE //1.0.0 store绝对标识'								  'THRESHOLD_INIT //10M //1.2 会被初始化的容量大小阈值'
+																			         'FLAG //1.0.2 运算标识'											  'THRESHOLD_PRINT //10M //1.3 会以G形式被输出的容量大小阈值'
+																				 'STORE'  		'TARGET_PATH //1.1 检测目标路径'			  'THRESHOLD_INIT'			'HOLDER //2.1 打印当前文件时间间隔' 
+			java -cp fastjson-1.2.73.jar; p21_file_size.release.v1_3.J1_MainExecute 28 08 E:\\09D\\03-sl\\224-mcb-gl\\SunEDSP-IDE.0\\workspace 10*1024*1024 10*1024*1024 1000
+																																		 'STORE //1.0.0 store绝对标识'								  'THRESHOLD_INIT //10M //1.2 会被初始化的容量大小阈值'
+																																			 'FLAG //1.0.2 运算标识'											  'THRESHOLD_PRINT //10M //1.3 会以G形式被输出的容量大小阈值'
+																																		 'STORE'  		'TARGET_PATH //1.1 检测目标路径'			  'THRESHOLD_INIT'			'HOLDER //2.1 打印当前文件时间间隔' 
+			cd D:\30-java\130-grammar\520-project-me\xh-common\bin & java -cp fastjson-1.2.73.jar; p21_file_size.release.v1_3.J1_MainExecute 28 08 E:\\09D\\03-sl\\224-mcb-gl\\SunEDSP-IDE.0\\workspace 10*1024*1024 10*1024*1024 1000
+			cd D:\30-java\130-grammar\520-project-me\xh-common\bin & java -cp fastjson-1.2.73.jar; p21_file_size.release.v1_3.J1_MainExecute 28 01 E:\\09D\\03-sl\\224-mcb-gl\\maven_jar_java 10*1024*1024 10*1024*1024 5000
+			cd D:\30-java\130-grammar\520-project-me\xh-common\bin & java -cp fastjson-1.2.73.jar; p21_file_size.release.v1_3.J1_MainExecute 09 01 D:\\03-sl\\224-mcb-gl\\maven_jar_java 10*1024*1024 10*1024*1024 5000
+			cd D:\30-java\130-grammar\520-project-me\xh-common\bin & java -cp fastjson-1.2.73.jar; p21_file_size.release.v1_3.J1_MainExecute 09 01 D:\\03-sl\\224-mcb-gl 10*1024*1024 10*1024*1024 5000
+			cd D:\30-java\130-grammar\520-project-me\xh-common\bin & java -cp fastjson-1.2.73.jar; p21_file_size.release.v1_5.J1_MainExecute 09 01 D:\\05D\\03-sl\\201-PH-CIMB-DAP-Production-CPUDAC\\41-pro-confirm\\20191122-pro-r13\\SATD 10*1024*1024 10*1024*1024 5000 0
+			cd D:\30-java\130-grammar\520-project-me\xh-common\bin & java -cp fastjson-1.2.73.jar; p21_file_size.release.v1_5.J1_MainExecute 28 01 E:\\09D 10*1024*1024 10*1024*1024 5000 1
+			cd D:\30-java\130-grammar\520-project-me\xh-common\bin & java -cp fastjson-1.2.73.jar; p21_file_size.release.v1_5.J1_MainExecute 28 01 E:\\lxe 10*1024*1024 10*1024*1024 5000 1
+			cd D:\30-java\130-grammar\520-project-me\xh-common\bin & java -cp fastjson-1.2.73.jar; p21_file_size.release.v1_5.J1_MainExecute 28 01 E:\lxe 100*1024*1024 10*1024*1024 5000 0
+			cd D:\30-java\130-grammar\520-project-me\xh-common\bin & java -cp fastjson-1.2.73.jar; p21_file_size.release.v1_5.J1_MainExecute 09 01 D:\\05D\\03-sl\\201-PH-CIMB-DAP-Production-CPUDAC\\41-pro-confirm\\20191122-pro-r13\\SATD 10*1024*1024 10*1024*1024 5000 0
+			cd D:\30-java\130-grammar\520-project-me\xh-common\bin & java -cp fastjson-1.2.73.jar; p21_file_size.release.v1_5.J1_MainExecute 28 01 E:\09D 100*1024*1024 10*1024*1024 5000 1
+			cd D:\30-java\130-grammar\520-project-me\xh-common\bin & java p21_file.CreateFolder 
+			cd D:\30-java\130-grammar\520-project-me\xh-common\bin & java -cp fastjson-1.2.73.jar; p21_file_size.release.v1_5.J1_MainExecute 09 01 D:\03-sl\221-scc 100*1024*1024 10*1024*1024 5000 1
+			cd D:\30-java\130-grammar\520-project-me\xh-common\bin & java -cp fastjson-1.2.73.jar; p21_file_size.release.v1_5.J1_MainExecute 09 01 D:\ 100*1024*1024 10*1024*1024 5000 1
+			cd D:\30-java\130-grammar\520-project-me\xh-common\bin & java -cp fastjson-1.2.73.jar; p21_file_size.release.v1_5.J1_MainExecute 09 01 D:\05D\03-sl 100*1024*1024 10*1024*1024 5000 2
+			cd D:\30-java\130-grammar\520-project-me\xh-common\bin & java -cp fastjson-1.2.73.jar; p21_file_size.release.v1_5.J1_MainExecute 09 01 D:\23-log\12-wechat 100*1024*1024 10*1024*1024 5000 2
+			cd D:\30-java\130-grammar\520-project-me\xh-common\bin & java -cp fastjson-1.2.73.jar; p21_file_size.release.v1_5.J1_MainExecute 09 01 D:\23-log\12-wechat-file 100*1024*1024 10*1024*1024 5000 2
+			
+			
+			cd D:\30-java\130-grammar\520-project-me\xh-common\bin & java -cp fastjson-1.2.73.jar; p21_file_size.release.v1_5.J1_MainExecute 21 01 E:\ 100*1024*1024 10*1024*1024 5000 1
+			cd D:\30-java\130-grammar\520-project-me\xh-common\bin & java -cp fastjson-1.2.73.jar; p21_file_size.release.v1_5.J1_MainExecute 92 01 E:\ 100*1024*1024 10*1024*1024 1000 1
+			cd D:\30-java\130-grammar\520-project-me\xh-common\bin & java -cp fastjson-1.2.73.jar; p21_file_size.release.v1_5.J1_MainExecute 22 01 E:\ 100*1024*1024 10*1024*1024 5000 1
+			cd D:\30-java\130-grammar\520-project-me\xh-common\bin & java -cp fastjson-1.2.73.jar; p21_file_size.release.v1_5.J1_MainExecute 23 01 E:\ 100*1024*1024 10*1024*1024 5000 1
+			cd D:\30-java\130-grammar\520-project-me\xh-common\bin & java -cp fastjson-1.2.73.jar; p21_file_size.release.v1_5.J1_MainExecute 25 01 E:\ 100*1024*1024 10*1024*1024 5000 2
+			cd D:\30-java\130-grammar\520-project-me\xh-common\bin & java -cp fastjson-1.2.73.jar; p21_file_size.release.v1_5.J1_MainExecute 25 01 F:\ 100*1024*1024 10*1024*1024 5000 2
+			cd D:\30-java\130-grammar\520-project-me\xh-common\bin & java -cp fastjson-1.2.73.jar; p21_file_size.release.v1_5.J1_MainExecute 25 01 F:\30-video 100*1024*1024 10*1024*1024 5000 2
+			cd D:\30-java\130-grammar\520-project-me\xh-common\bin & java -cp fastjson-1.2.73.jar; p21_file_size.release.v1_5.J1_MainExecute 25 01 E:\62-vm\ 100*1024*1024 10*1024*1024 1000 2
+			cd D:\30-java\130-grammar\520-project-me\xh-common\bin & java -cp fastjson-1.2.73.jar; p21_file_size.release.v1_5.J1_MainExecute 25 01 F:\backup\04-lenovo-pro\20200804\D\ 100*1024*1024 10*1024*1024 5000 0
+			cd D:\30-java\130-grammar\520-project-me\xh-common\bin & java -cp fastjson-1.2.73.jar; p21_file_size.release.v1_5.J1_MainExecute 26 01 F:\ 100*1024*1024 10*1024*1024 5000 1			'26-wd_black'
+		
+		}
+	},
+	sftp 
+		sftp xiehao@192.168.137.1	yes		xiehao
+	findstr
+		findstr /s /i "key" *.*
+			/s	在当前目录和所有子目录中搜索匹配的文件
+			/i	指定搜索不区分大小写
+		findstr /s /i "USER_INFO_KYC" *.sql
+		findstr /s /i "8080" *.*
+		findstr /s /i "4138" *.sql
+		findstr /s /i "CL_GROUP_LIMIT_CTRL" *.sql
+		findstr /s /i "0" Gli_Item_Sm.txt
+		findstr /s /i "100002118172" *.sql
+		findstr /s /i "KwbVqoCB" *.* 
+		findstr /s /i "insert into fab_ledger_check_seq" *.log 
+		d:
+		cd D:\03-sl\201-PH-CIMB-DAP-Production-CPUDAC\43-pro-bug-date\20200311-Multiple CIF - Round 2
+		findstr /s /i "ctp_menu" *.sql
+		d:
+		cd C:\Users\KKONE20190926\Documents\Navicat\MySQL\Servers\jc-dev-12-ig-cdig\cd_ig
+		findstr /s /i "" *.sql
+		findstr /s /i "usp_safety_verify" *.sql
+		findstr /s /i "Resource" *.*
+		
+		
+		findstr /s /i "ac1054" *.*	
+		findstr /s /i "1.5.9" *.js	
+		findstr /s /i "ta7105_select.json" *.*	
+		findstr /s /i "ta7101_select.json" *.*	
+		.json
+		findstr /s /i "现金业务允许标志" *.js	
+		findstr /s /i "aps_call_seq" *.sql	
+		
+		
+		findstr /s /i "msap-file" *.pom*
+		d:
+		cd D:\03-sl\325-jocom\24-dev\10-init\2\package\sump-vue-3.1.2.14-BNC-RELEASE\i18ns\en
+		findstr /s /i "优惠券产品" *.json*
+		findstr /s /i "优惠" *.json*
+		
+		findstr /s /i "cbs-ap-base" *.pom*
+		findstr /s /i "Bootstrap" *.*
+		findstr /s "Bootstrap" *.*
+		findstr "Bootstrap" *.*
+		findstr /s /i "cn.sunline.ltts.frw.model.validate.validator.LocalUniqueValidator" *.*
+		findstr /s "TxnExecutor" *.*
+		findstr /s "dc8819.flowtrans.xml" *.*
+		findstr /s "Trans" *.*
+		findstr /s "4367410785283508" 5920.log		Server .27_5920 LOG\onl2\5920\5920.log:
+		transaction amount in this transaction[1030.00]
+		findstr /s "transaction amount in this transaction[1030.00]" 5920.log
+		findstr /s "1030.00" 5920*.log
+		
+		Trans(联机交易)
+	netstat -aon|findstr "49157"
+		netstat -aon|findstr "8080"
+		tasklist|findstr "7556"
+},					
+jcom{				
+	103
+		sed -n '100,200p' mysql_slow_query.log
+		cp /dev/null   filename.out
+		tar zxvf marketing-dist-3.1.2.36-BNC-RELEASE-linux.tar.gz		解压
+		tar zcvf 6.tar.gz marketing-dist-3.1.2.36-BNC-RELEASE/			压缩
+		clear;cd /app/phpod2cbs/test/tar;tar zcvf i0907-1.tar.gz icore-dist-3.1.2.38-BNC-RELEASE			压缩
+		clear;cd /app/phpod2cbs/test/tar/marketing-dist-3.1.2.36-BNC-0829-1943-RELEASE-linux/;tar zcvf marketing-dist-3.1.2.36-BNC-0831-1613-RELEASE.tar.gz marketing-dist-3.1.2.36-BNC-RELEASE/		
+		icore
+			clear;cd /home/icore/icore02/bin;./ltts status;
+			clear;cd /home/icore/icore02/bin;./ltts stop onlApp;
+			clear;cd /home/icore/icore02/bin;./ltts start onlApp;
+			clear;cd /home/icore/icore02/logs/onlApp/busi/20200831/316070;cp 316070.log 316070_1327.log;cp /dev/null 316070.log;
+		mk
+			clear;cd /home/icore/mk02/bin;./ltts status;
+		ct
+			clear;cd /home/icore/ct02/logs/onlApp/busi/20200831/111061;cp 111061.log 111061_1800.log;cp /dev/null 111061.log;
+},
+vnd:{
+	FAT-ODCFATDPS11
+		log
+			cd /home/rd_icore/dp01/logs/onlApp/busi/20200624/405010
+		bin
+			/home/dp/cbs-dp-full-3.1.3.10-RELEASE-1/bin/ltts
+		lib
+			cd /home/rd_icore/dp01/lib/
+
+	jps
+	cd /proc/3456/
+		log
+			/home/dp/cbs-dp-full-3.1.3.10-RELEASE-1/bin/ltts status
+			/home/dp/cbs-dp-full-3.1.3.10-RELEASE-1/bin/ltts restart onlApp
+			cd /home/dp/cbs-dp-full-3.1.3.10-RELEASE-1/logs/onlApp/busi/20200620/405010/
+			cd /home/dp/cbs-dp-full-3.1.3.10-RELEASE-1/logs/onlApp/busi/20200622/405010/
+			cd /home/dp/cbs-dp-full-3.1.3.10-RELEASE-1/logs/onlApp/busi/20200623/405010/
+			ll
+			tail -300 405010.log
+
+			
+
+		bin
+			/home/dp/cbs-dp-full-3.1.3.10-RELEASE-1/bin/ltts status
+			/home/dp/cbs-dp-full-3.1.3.10-RELEASE-1/bin/ltts start onlApp
+			/home/dp/cbs-dp-full-3.1.3.10-RELEASE-1/bin/ltts stop onlApp
+			/home/dp/cbs-dp-full-3.1.3.10-RELEASE-1/bin/ltts restart onlApp
+
+	dp-dc-2 
+		log
+			cd /home/dp/cbs-dp-full-3.1.3.10-RELEASE/logs/onlApp/busi/20200617/405010/
+			cd /home/dp/cbs-dp-full-3.1.3.10-RELEASE/logs/onlApp/busi/20200619/405010/
+			cd /home/dp/cbs-dp-full-3.1.3.10-RELEASE/logs/onlApp/busi/20200620/405010/
+			tail -300 405010.log 
+			cp 405010.log 405010.15.53.log
+			> 405010.log
+		bin
+			/home/dp/cbs-dp-full-3.1.3.10-RELEASE/bin/ltts status
+			/home/dp/cbs-dp-full-3.1.3.10-RELEASE/bin/ltts start onlApp
+			/home/dp/cbs-dp-full-3.1.3.10-RELEASE/bin/ltts stop onlApp
+			/home/dp/cbs-dp-full-3.1.3.10-RELEASE/bin/ltts restart onlApp
+	cm
+		/home/cm/cm01/logs/onlApp/busi/20200616/SrvIoCmChrg.calcAutoChrg/
+	dp-dc	
+		log
+			/home/dp/dp01/logs/onlApp/busi/20200617/405010/
+			/home/dp/dp01/logs/onlApp/busi/20200618/405010/
+			/home/dp/dp01/logs/onlApp/busi/20200619/405010/
+			/home/dp/dp01/logs/onlApp/busi/20200624/405010/
+		bin
+			/home/dp/dp01/bin/ltts status
+			/home/dp/dp01/bin/ltts start onlApp
+			/home/dp/dp01/bin/ltts stop onlApp
+			/home/dp/dp01/bin/ltts restart onlApp
+},
+php:{
+	fat2
+		lsof -i:29001
+		lsof -i:26031
+		find . -name "RdpAp*"
+		find . -name "sqlnet.ora"
+
+		find 20191201/ -type f -newermt '2019-10-15 17:51'
+		
+		find 20191201/ -type f -newermt '2019-10-17 11:51'
+		find /app/phpod2cbs/cbs_fat/log/bat/busi/ -name "cf*.log"
+		/app/phpod2cbs/cbs_fat/log/bat/busi/20210204/CoreEOD/830/cf01/cf01.log
+		
+		
+		grep "cf04DataProcessor begin>>>>>>>" /app/phpod2cbs/cbs_fat/log/bat/busi/20*/flowid/*/cf04/cf04.log
+		grep "DataProcessor begin>>>>>>>" /app/phpod2cbs/cbs_fat/log/bat/busi/20*/flowid/*/cf0*/cf0*.log
+		grep "DataProcessor begin>>>>>>>" /app/phpod2cbs/cbs_fat/log/bat/busi/20*/flowid/*/*/*.log
+		grep "cf01DataProcessor begin>>>>>>>" /app/phpod2cbs/cbs_fat/log/bat/busi/20*/CoreEOD/830/cf01/cf01.log
+		grep "METHOD" /app/phpod2cbs/cbs_fat/log/bat/busi/20*/CoreEOD/830/*/*.log
+		/app/phpod2cbs/cbs_fat/log/bat/busi/20210131/CoreEOD/830/ln01/CoreEOD_20210131_2086_9.log
+		grep "METHOD\]\[" /app/phpod2cbs/cbs_fat/log/bat/busi/20*/CoreEOD/830/*/*.log
+		grep "METHOD" /app/phpod2cbs/cbs_fat/log/bat/busi/20*/flowid/*/*/*.log
+		grep "METHOD\]\[" /app/phpod2cbs/cbs_fat/log/bat/busi/20*/flowid/*/*/*.log
+		
+		grep "ltts.log.home" /app/phpod2cbs/cbs_fat/*/*/*/*.*
+		
+		
+	uat2
+		172.29.231.79	cbs/welcome1
+		find . -name "dpt40.log"
+	pro
+		grep
+			5920
+			grep "4367414053788669" /sunline/cbs/cbs_prod/log/onl*/busi/20200301/5920/5920.log 
+			grep "[2008][Daily ATM Withdrawal Limit-1000023021]:transaction amount in this transaction[1030.00]" /sunline/cbs/cbs_prod/log/onl*/busi/20200712/5920/5920.log 
+			grep "4367414053788669" /sunline/cbs/cbs_prod/log/onl*/busi/20200301/50920/50920.log 
+			grep "4367411777002476" /sunline/cbs/cbs_prod/log/onl*/busi/2020062*/5920/5920.log 		#no
+			grep "4367411777002476" /sunline/cbs/cbs_prod/log/onl*/busi/2020062*/*/*.log 
+			grep "4367411777002476" /sunline/cbs/cbs_prod/log/onl*/busi/202007*/*/*.log 			#too much 
+			grep "4367411777002476" /sunline/cbs/cbs_prod/log/onl*/busi/20200718/*/*.log 			#no
+			grep "4367411777002476" /sunline/cbs/cbs_prod/log/onl*/busi/20200711/*/*.log 			#no
+			grep "timeout" /sunline/cbs/cbs_prod/log/onl*/busi/20*/80819/80819.log
+			
+			grep '{"input":{"fraud_status":"","btngridpagedown_list01":"","trigger_no":"","btngridpagegoto_list01":"","inquireresetbtn":"","card_no":"","gridnowpage_list01":"","inquireconfirmbtn":"","inquirecancelbtn":"","cust_no":"","acct_no":"","btngridpageup_list01":"","fraud_status_input":""},' /sunline/cbs/cbs_prod/log/onl*/busi/20*/80819/80819.log
+			/sunline/cbs/cbs_prod/log/onl/busi/20200330/80819/80819.log
+		mysql	
+			如果/etc/目录下没有my.cnf配置文件，请到/usr/share/mysql/下找到*.cnf文件，拷贝其中一个到/etc/并改名为my.cnf)中。命令如下：
+			find /usr/share/mysql/ -name "*.cnf"
+		
+			grep "we are not able to proceed with your" /sunline/cbs/cbs_prod/log/onl*/busi/20*/*/*.log
+			
+			grep "000016" /sunline/cbs/cbs_prod/log/onl*/busi/20*/*/*.log
+			grep "\"000016\"" /sunline/cbs/cbs_prod/log/onl*/busi/20*/*/*.log
+			grep "\"000016\"" /sunline/cbs/cbs_prod/log/onl*/busi/20*/*/*.log
+			grep "\"000016\"" /sunline/cbs/cbs_prod/log/onl*/busi/20*/3047/3047.log
+			grep "100000311858" /sunline/cbs/cbs_prod/log/onl*/busi/20*/*/*.log
+			find /sunline/cbs/cbs_prod/log/onl*/busi/20*/3047/ 3047.log
+			yib as hish ou = ou si sa biy
+			27
+			/sunline/cbs/cbs_prod/log/onl2/busi/20200416/4410/4410.log
+			/sunline/cbs/cbs_prod/log/onl/busi/20200416/6101/6101.log
+			/sunline/cbs/cbs_prod/log/onl/busi/20200416/4405/4405.log
+			grep "100000311858" /sunline/cbs/cbs_prod/log/onl*/busi/20*/*.log
+			grep "4367416300246284" /sunline/cbs/cbs_prod/log/onl*/busi/20*/50984/50984.log
+			
+			/sunline/cbs/cbs_prod/log/onl/busi/20200419/50984/50984.log
+
+		find
+			find /sunline/cbs/cbs_prod/log/onl*/busi/20*/5984/5984.log
+			find /sunline/cbs/cbs_prod/log/onl*/busi/20*/50984/50984.log
+			find /sunline/cbs/cbs_prod/log/onl*/busi/20*/5920/5920.log
+			find /sunline/cbs/cbs_prod/log/onl*/busi/20*/50920/50920.log
+			find /sunline/cbs/cbs_prod/log/onl*/busi/20200712/50920/50920.log
+},
+mcb:{
+	
+		/oracle/app/oracle/product/11.2.0/network/admin/samples
+	uat:{
+		cbs:{
+			cd /app/v7base/apps/cbs;
+			lib:{
+				cd /app/v7base/apps/cbs/lib/1.0.0.181-UAT-RELEASE-1.2;
+			}
+		},
+		gl:{
+			cd /app/v7base/apps/gl;
+		},
+		logs:{
+			/app/v7base/logs/glBat/sys/target/20201231/110/fat2	;
+			/app/v7base/logs/glBat/busi/20201224/flowid/110/fat2/
+		}
+		
+		grep "212551231.56" /app/v7base/logs/glBat/busi/20201230/gl_dayend/900/gl00/*.log;
+		grep "212551231.56" /app/v7base/logs/glBat/busi/20201230/gl_dayend/*/*/*.log;
+	}
+},	
+scc:{
+	dev-cl
+		grep "100000000901" /home/cl/icore_cl/logs/onlApp/busi/20*/598000/598000.log
+		grep "100000000112" /home/cl/icore_cl/logs/onlApp/busi/20*/598000/598000.log
+		grep "100000000901" /home/cl/icore_cl/logs/onlApp/busi/20200414/598000/598000.log
+		100000000901	/home/cl/icore_cl/logs/onlApp/busi/20200408/598000/598000.log
+		
+		grep "must be within the period of validity" /home/cl/icore_cl/logs/onlApp/busi/20200415/*/*.log
+		/home/cl/icore_cl/logs/onlApp/busi/20200415/SrvIoClLimitUse.occupyLimit/SrvIoClLimitUse.occupyLimit.log
+		
+	dev-ln
+		grep "20190829210010980021683700" /home/ln/ln_cbs/logs/onlApp/busi/20200415/*/*.log
+		/home/ln/ln_cbs/logs/onlApp/busi/20200415/326320/326320.log
+		[SERVICE[Begine][SrvIoLnLoanOpenSimple.loanNormalOpenAndCheck]]
+		[SERVICE[Begine][SrvIoLnLoanOpenSimple.loanNormalOpenAndCheck]]
+		[SERVICE[End][SrvLnLoanDrawdown.loanDrawdownForNormalOpen]]
+	10.22.62.26
+			/home/icore/icore01/logs/onlApp/busi/20200427
+			find /home/icore/icore01/logs/onlApp/busi/20200427/312330/312330.log
+			find /home/icore/icore01/logs/onlApp/busi/2020*/312330/312330.log
+	
+}

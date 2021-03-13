@@ -1,0 +1,201 @@
+	msb-左神-200415-1-1-0-0:{https://pan.baidu.com/s/1vj2oA9lIiFubMNhpYa_PMA 提取码: kcax },
+	{马士兵老师亲自整理 P5入门级-P8架构师全部知识体系内容：http://mashibing.com/mca.html}
+	11-00-all,
+	11-01-algo:{
+		
+	},
+	11-21-分布式:{
+		微服务-总讲-msb-张一明-210109-1-1-0-0:{
+			两天微服务训练营的录播来啦，记得保存 链接: https://pan.baidu.com/s/1skQPJx1IeF95DcedzQgL2A 提取码: rxs3 
+		},
+		微服务-实战-图灵-210103-1-0-0-0：{'https://pan.baidu.com/s/1gRBVLO3pTVvauGWE-LsXMg oyhx https://pan.baidu.com/s/1KUyee3oGQ26ah8Ekhn2XGQ t2au https://pan.baidu.com/s/1voIhJe0AW0BjILAAgaMM_w 提取码: ee8v'}
+		安全:{
+			shiro:{
+				软件安全理论基础:{
+					'作用||目的':资源只被正确的人正确的操作,
+					'方面':{
+						访问控制:{
+							权限建模-"Role-Based Access Control Model":{
+								role/auth/user,
+							},
+							权限管理(授权),
+							认证鉴权
+						},
+						安全存储,
+						安全传输
+					},
+					''
+					JAAS:{jdk标准认证鉴权api},
+					spring security:{spring天然集成,重型框架,各种安全策略,60/70%用不上,功能强大},
+					shiro:{简单易学易用}
+				},
+				23m30s,
+				shiro架构与原理:{
+					'功能体系':{
+						Primary Concerns'重点':{
+							Authentication'身份认证',
+							Authorization'授权',
+							Session Management'会话管理',
+							Cryptography'密码组件'
+						},
+						Supporting Features:{
+							Web Support,
+							Caching,
+							Remember me,
+							Run As,
+							Testing
+						}
+					},
+					'架构'26m17s,7897:{
+						SecurityManager:{
+							Authenticator'认证器',
+							Authorizer'鉴权器',
+							SessionManager'会话管理',
+							CacheManager'缓存器',
+						},
+						Realms:{
+							pluggable'可插的adj.',
+							自实现,
+						}
+					},
+					'核心概念'30m40s,9200:{
+						Subject'主体',
+						Principal'用户名',
+						Credintial'密码',
+						Token'用户名+密码',
+						SecurityManager,
+						Authenticator,
+						Authorizer,
+						Realm'安全数据源'"自带扩展点",
+						Role'角色',
+						Permissions'权限':{
+							域'类',操作,实例
+						}
+					}
+				},
+				shiro应用,33m15s,9979:{
+					spring-boot集成:{
+						1.引入jar,<dependency>...
+						2.配置webfilter,@Bean,'把某Bean注入到spring-filter':{
+							url权限控制过滤器链定义,43m52s,13164:{
+								anon,authc,authcBase,roles,perms,rest,user
+							},
+							默认提供的filter,47m14s,14172
+							自定义Filter,49m51s,14958:{
+								
+							}
+						},
+						3.配置bean
+							1.ShiroFilter,
+							2.SecurityManager,
+							3.Realms
+						4. 演示 30m25s,11526
+					}
+				},
+				shiro源码、扩展
+				baidu:{
+					Apache Shiro, 身份验证、授权、密码、会话管理；
+						易于理解的API,快速、轻松的获得任何应用程序，从最小的移动应用程序到最大的网络和企业应用程序；
+						Subject:当前操作用户(不仅指人，第三方进程、后台账户[Daemon Account]，其他类似事物，当前跟软件交互的东西),当前用户的安全操作,
+						SecurityManager,管理所有用户的安全操作,Shiro的核心,典型Facade模式,
+						Realms
+				}
+			}
+		},
+		分布式-架构演化-分治-msb-200207-1-1-0-0:{'链接: https://pan.baidu.com/s/1PCy8Z50GJrsHkK-fq_kz7A 提取码: 3fbb '},
+		分布式-锁-msb-晁鹏飞-210108:{'https://pan.baidu.com/s/16x4yI69LONRoZOULrLVuIA 提取码: vjta'},
+		分布式-网约车-项目实例-msb-晁鹏飞-201124-1-1-0-0:{'https://pan.baidu.com/s/1LeYNXv7fywZOaCsLNENjbg 提取码: 8888'},
+		分布式-锁-redis-msb-210103:{'https://pan.baidu.com/s/1OyXxppYDtEqvE0Ih-WS5Lg 提取码：khvt '},
+		分布式-锁-zk-图灵-201108-1-0-0-0：{'微服务架构Zookeeper高阶分布式锁实战链接：https://pan.baidu.com/s/1keBcwGQJSLrmulhiSW-rGA 提取码：28tq'}
+		服务注册-nacos-图灵-201224-阅读资料-1-1-0-0:{'https://pan.baidu.com/s/1-NWX4yQksnqgzGYPXupVBg 提取码: avpr'},
+		rocketMQ-课件-图灵：{'链接：https://pan.baidu.com/s/1qY71SEIdOobqeTWfdLKw7Q?提取码： pno5'}
+	},
+	11-22-高并发:{
+			多线程-预习资料-msb-msb-201008-1-1-0-0:面试都在问【多线程高并发】你答对了吗？10月8号9号《马老师亲自》为你揭晓答案 报名链接：https://ke.qq.com/course/3028260?tuin=8f56bbee 预习资料：https://pan.baidu.com/s/1pV4Fu6cww281pxDC3d6k-w 提取码：fv19
+			5m,
+				秒杀系统
+			12m,
+			03.高并发系统架构-高并发下的会话管理方案对比;
+				Session与Cookies&Token在高并发系统中存在的问题;
+			04.多级缓存-系统缓存整体设计策略:{
+				电商项目架构方案对比与高并发瓶颈分析;
+				多源异构数据、服务数据闭环;
+				nginx本地API动态网页内存数据缓存渲染直接输出方案;'100/1000w并发'
+				
+			};
+			05.多级缓存-亿级流量多级缓存架构解决方案:{
+				接入缓冲层:Nginx静态文件缓存、Nginx动态数据缓存、Lua-resty-lrucachae,
+				
+			};
+			06.多级缓存-前端缓存;
+			07.高并发系统架构-资源隔离;
+			09.高并发系统架构-服务降级;
+			11.应用层技术架构-常用中间件服务核心解密与技术选型;
+		高并发-redis-图灵-201220-1-0-0-0：{'秒杀系统后端Redis高并发架构实战 链接：https://pan.baidu.com/s/1kgZQ4L_RLhJxymwMhGNqqA 9vii 亿级流量新浪微博与微信Redis架构实战 链接：https://pan.baidu.com/s/10WpN3A2k45KBnfyYScpzqg t96b'}
+			
+	},
+	30-110-jvm:{
+		1m1s,60,
+		ClassLayout.
+		boolean 1bit+7bit=1byte,
+		String,8byte,64bit,64win,
+		6m14s,372,win-bit,我们能够拥有的寻址空间,2位,2的2次方的地址;point,64bit;
+		8m16s,496,java -XX:+PrintCommandLineFlags -version:{ "打印命令行参数"
+			-XX:InitialHeapSize=130660224 -XX:MaxHeapSize=2090563584 -XX:+PrintCommandLineFlags -XX:+UseCompressedClassPointers -XX:+UseCompressedOops -XX:-UseLargePagesIndividualAllocation -XX:+UseParallelGC
+			java version "1.8.0_161"
+			Java(TM) SE Runtime Environment (build 1.8.0_161-b12)
+			Java HotSpot(TM) 64-Bit Server VM (build 25.161-b12, mixed mode)
+			10m14s,614,-XX:-UseCompressedClassPointers
+		};
+		jvm-性能-msb-msb-201231-0:{'马士兵老师深度解析JVM，性能翻倍链接: https://pan.baidu.com/s/1tVbXNZzG8BtIp1dB-zYcFw 提取码: 34rm'},
+		jvm-训练营-msb-msb-20121230-1-1-0-0:{'https://pan.baidu.com/s/1xFyeis27EVYmq_6LizzfmQ 提取码：8888'},
+		jvm-资料-图灵-210113-1-1-0-0:{'链接: https://pan.baidu.com/s/1rh8S1BwA-ldn0i75j0wamg 提取码: 92t8'},
+		jvm-视频-图灵-210113-1-0-0-0:{'链接：https://pan.baidu.com/s/1wmB5usAlR01G33Vtz94DVA 提取码：sgxf'},
+		jvm-垃圾回收-图灵-201104-资料-1-1-0-0:{'JVM垃圾回收机制深度剖析与性能调优实战-白起课程资料 https://pan.baidu.com/s/1Fda8DMIDWjFDOuQ2r0y_jA? 提取码： 84mz'},
+		jvm-性能实战-图灵-201105-1-0-0-0:{'JVM课程资料链-诸葛 链接: https://pan.baidu.com/s/1N1EXIqY2u7KXKgyUzbZtqQ 提取码: p2n5 BAT大厂高并发系统JVM性能优化实战-1012 链接：https://pan.baidu.com/s/13rxanUsnscXvzFcYhtqlCQ 提取码： yqep'},
+		jvm-性能实战-图灵-201226-1-0-0-0:{'双十一亿级电商系统JVM性能调优实战 链接：https://pan.baidu.com/s/1dIYmDJ8W9AoWJ_3g_IVv4Q 提取码： h9lh https://pan.baidu.com/s/1mSUpGsFzlOKaz6xPkIYaTA 提取码： vvho'}
+	},
+	30-130-p22_Thread:{
+		nio:{
+			io,08m:{
+				磁盘IO、网络IO
+			}
+			10m,
+			BIO/NIO/OIO
+			22m,
+			如何实现,
+			46m,
+			bio,每连接对应一个线程,
+			nio,54m,
+			C10K,21m13,
+			21m22,多路复用优化,同步IO多路复用器(只能拿到状态),同步,
+			21m28,
+			1)每次都要传递大量的
+			2)每次都要重新遍历,
+			epoll,create,ctl,wait
+			mmap
+			21m46,广告时间
+		},
+		多线程-nio-netty-msb-msb-200610-预习资料-1-1-0-0:{'戳此链接报名：https://ke.qq.com/course/2705474?tuin=8f56bbee 预习资料：https://pan.baidu.com/s/1yc3kNqEPlwLmjtH15_uEKw 提取码： j39z'},
+		多线程-高并发-msb-191223-1-1-0-0:{'https://pan.baidu.com/s/1xgFDXQboe5-DhmpNfLewkA 提取码: ganv'},
+		多线程-训练营-msb-201217-1-1-0-0：{'https://pan.baidu.com/s/1DZq4LNu-lR8XwsSqDBUqLA 提取码: eg3q '},
+		多线程-msb-msb-201201-1-0-0-0:{'https://pan.baidu.com/s/1xUEQD4N8T5oi3vq1H6IOEA 8888 https://pan.baidu.com/s/16zWt8vN4l6mH1q6WJ27Wcg 8888'},
+		源码学习-concurrenthashmap-msb-连鹏举-201107-1-0-0-0:{'https://pan.baidu.com/s/1LGJkcRmXD1puYIyLKWUbSQ 8888'}
+	},
+	34-spring:{
+		spring-springcloud-图灵-210110-1-1-0-0:{ 双十一阿里微服务Spring Cloud Alibaba三高架构实战 视频一、链接：https://pan.baidu.com/s/1gRBVLO3pTVvauGWE-LsXMg 提取码：oyhx 视频二、Spring Cloud Alibaba三高架构组件源码深度剖析 链接：https://pan.baidu.com/s/1KUyee3oGQ26ah8Ekhn2XGQ 提取码： t2au
+			视频三、双十一亿级电商系统JVM性能调优实战链接：https://pan.baidu.com/s/1dIYmDJ8W9AoWJ_3g_IVv4Q 提取码： h9lh
+			https://pan.baidu.com/s/1A8QhyBEmsCzV1uuq5PxUDA 提取码： mrcm
+		},
+		spring-springcloud-alibaba-图灵-210108-1-0-0-0:{Spring Cloud Alibaba三高架构组件源码深度剖析-0108 链接：https://pan.baidu.com/s/1fbulDyuIPc_kCMDMruQHLw 提取码： d5bv 双十一阿里微服务Spring Cloud Alibaba三高架构实战-0107 链接：https://pan.baidu.com/s/1ytUEB57WsumTvY4fnh3xBg 提取码： flty}
+		spring-源码设计-msb-msb-200818-预习资料-1-1-0-0:{今晚8：00 超级干货【Spring源码设计训练营】开营哇！预习资料：https://pan.baidu.com/s/1EPcjIZsnLu48e09jhQE2KQ 提取码：rvvi},
+		spring-springboot-msb-200529-预习资料-0-0-0-0:{0.02 springboot 报名链接：https://ke.qq.com/course/2587077?tuin=8f56bbee 这个是预习资料哈 https://pan.baidu.com/s/1o_5wT8QAmldAt2gwZGi_2w 提取码： inss},
+		spring-循环依赖-资料-图灵-201209-1-1-0-0：{'Spring?循环依赖底层原理深度剖析-徐庶课程资料链接:?https://pan.baidu.com/s/1yBysSNwevnDF2TN-RxiHJw?提取码:?nwza'},
+	},
+	70-database:{
+		mybatis-核心源码-图灵-资料-201230-1-0-0-0:{'阿里P7二面题-Spring整合Mybatis核心源码剖析-课程资料 链接:?https://pan.baidu.com/s/1ObNhF21AwIkxFjAY34mCTQ?提取码:? kssp'},
+		redis-图灵-211215-资料-1-1-0-0:{'https://pan.baidu.com/s/1R9d-hOu4bfGhvrBzdNb_ng 提取码 t4vy'},
+		mysql-index-图灵-201105-1-0-0-0：{'阿里巴巴内部Mysql索引性能优化最佳实践-0925 链接：https://pan.baidu.com/s/1rA18pNq-eCHzuPHjpeaGtQ 提取码： yl05'},
+		mysql-index-msb-201201-1-0-0-0:{'https://pan.baidu.com/s/1JN8u25Ditc1ZJgSp9MW0CQ 提取码：8888 '}
+	},
+	50-agreement
