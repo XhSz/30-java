@@ -17,105 +17,97 @@ latest:{
 			201219-0144-E:\05D\03-sl\101-install\boss_forWindows_64bit(424 MB),
 		}
 	},
-	2-hard_disk:{
-		2020-1-'21,22'-"use-se-no"-'3':{
-			21-TOSHIBA-931GB:{
-				"note":{"use-key"'鸡米-使用-3',"use-video-no-se"'非-趋势-视频-3',"use-img-no-se"'非-趋势-照片-3'},
-				20201216-434GB-496GB:{
-					"21-TOSHIBA":{
-						"75.8GB-.svn",
-						"6.65GB-01_200905_201303_台式电脑320G_西部数据",
-						"72.1GB-05_201404_201604_联想ThinkPadT410_160G固态硬盘",
-						"31.2GB-06_201410_201604_苹果500G",
-						"76.5GB-10-联想Pro小新-462G",
-						"31.2GB-image","9.05GB-12-KINGSTON"
-						"71.4GB-word","13.8GB-word-backup"
+	2-cache:{
+		hard_disk:{
+			2020-1-'21,22'-"use-se-no"-'3':{
+				21-TOSHIBA-931GB:{	"note":{"use-key"'鸡米-使用-3',"use-video-no-se"'非-趋势-视频-3',"use-img-no-se"'非-趋势-照片-3'},
+					20201216-434GB-496GB:{
+						"21-TOSHIBA":{
+							"75.8GB-.svn",
+							"6.65GB-01_200905_201303_台式电脑320G_西部数据",
+							"72.1GB-05_201404_201604_联想ThinkPadT410_160G固态硬盘",
+							"31.2GB-06_201410_201604_苹果500G",
+							"76.5GB-10-联想Pro小新-462G",
+							"31.2GB-image","9.05GB-12-KINGSTON"
+							"71.4GB-word","13.8GB-word-backup"
+						}
+					},
+					add	VMware			20180624	0024
+					add	image/xh-Image	20180624	0117
+					add	xh-cache		20180628	2112
+				},
+				22-Lenovo-931GB:{	"note":{"use-video-no-se"'非-趋势-视频-3'},
+					20201216-849GB-81.6GB:{
+						"6.43GB-20190328","4.46GB-20190330",
+						"823GB-video"
+					}
+				}
+			},
+			2020-2-'23,24'-"use-se"-'2':{
+				23-XDISK-Black-duan-931GB:{	"note":{"video_spec-1","img_spec-2","09DH-62vm","09DH-29es"},
+					"note":{"use-img-se-no-self"'趋势-照片-使用-非-己-2',"use-video-se"'趋势-视频-使用-2'},
+					20210103--100GB,
+					20201216-903GB-27.6GB:{
+						"170GB-05D",
+						"23-XDISK-duan":{
+							"72.7GB-10-联想Pro小新-462G",
+							"5.57GB-install","168GB-video","485GB-VMware"
+						}
 					}
 				},
-				add	VMware			20180624	0024
-				add	image/xh-Image	20180624	0117
-				add	xh-cache		20180628	2112
+				24-XDISK2-Black-chang-931GB:{	"note":{"use-img-se"'趋势-照片-使用-2',"use-video-se"'趋势-视频-使用-2'},
+					20201216-779GB-151GB:{
+						"46.9 GB-05D",
+						"721GB------24-XDISK-chang":{
+							"306GB-----32-Bigdata","152GB------33-Java","20.9GB-----videos-english-bak",
+							"16.8GB-----videos-海腾","4.91GB-xh-industry","11GB-xh-java","11.6GB-xh-js"
+							"195GB-13-20190818-2-pro-D.GHO"
+						}
+					}
+				},
 			},
-			22-Lenovo-931GB:{
-				"note":{"use-video-no-se"'非-趋势-视频-3'},
-				20201216-849GB-81.6GB:{
-					"6.43GB-20190328","4.46GB-20190330",
-					"823GB-video"
+			2020-3-'25'-"use-java"-'3':{
+				25-x3-1.81TB:{	"note":{"use-java"'java-使用-3'},
+					201231--400GB,
+					201216-1.71TB-106GB:{
+						"1234.86G------":{
+							"635.22G------backup":{
+								"388.73G------04-lenovo-pro":{"271.64G------20200804","117.09G------D"},
+								"108.33G------07-videos-lxe":{"77.15G------01-haitech","25.62G------02-english","5.57G------03-java"},
+								"88.75G------05-lenovo-pro-2":{"72.07G------20200302-0933-sl","16.68G------20191020-2228"},
+								"28.06G------06-working-java":{"28.06G------win10-ent-x64-java"},
+								"18.10G------06-working-vpn":{"17.62G------win10-ent-x64-vpn","0.48G------Day01 JVM基础必备篇.mp4"},
+								"3.25G------12-phone-se"
+							},
+							"339.34G------log","167.90G------05D",
+							"72.66G------05-backup-os-200805.GHO","9.22G------迅雷下载","8.58G------FileHistory","1.00G------录像172.lxe","0.94G------Jack梦晴-JVM从入门到入魔"
+						}
+					}
+				},
+			},
+			2021-1-'26,27,28'-"bk-cache":{
+				26-wd_black-1.81T:{	"note":{"bk_full_no_superbig"'非-超大-所有文件-备份-2',"bk-key"'鸡米-备份-1'},},
+				27-wd_blue-1.81T:{	"note":{"bk-zip",'压缩-备份-4',"bk-key"'鸡米-备份-0'},},
+				28-wd_red-1.81T:{	"note":{"bk-hot-unzip"'日用-非压缩-备份-4',"ref-unzip-bk"'引用-非压缩-备份-3'},
+					210104-1629:"143.28G------09D",
+					210104-1634:"143.28G------09D",
+					
 				}
+			},
+			2021-2-'31,32'-"bk-history":{
+				31-nm-3.63T:{	"note":{"bk_full_key_no_se_no"'非-鸡米-非-趋势-所有文件-备份-1',"bk_vm"'虚拟机-备份-0',"bk_video"'视频-备份-0'},},
+				32--T:{	"note":{"bk_full_key_no_se_no"'非-鸡米-非-趋势-所有文件-备份-0'},},
+				33-wd_white-4.54T:{	"note":{"bk_full_se"'趋势-所有文件-备份-1',"bk_vm"'虚拟机-备份-1',"bk_video"'视频-备份-1'},},
+				34--T:{	"note":{"bk_full_se"'趋势-所有文件-备份-0'},},
 			}
 		},
-		2020-2-'23,24'-"use-se"-'2':{
-			23-XDISK-Black-duan-931GB:{
-				"note":{"use-img-se-no-self"'趋势-照片-使用-非-己-2',"use-video-se"'趋势-视频-使用-2'},
-				"note":{"video_spec-1","img_spec-2","09DH-62vm","09DH-29es"},
-				20210103--100GB,
-				20201216-903GB-27.6GB:{
-					"170GB-05D",
-					"23-XDISK-duan":{
-						"72.7GB-10-联想Pro小新-462G",
-						"5.57GB-install","168GB-video","485GB-VMware"
-					}
-				}
-			},
-			24-XDISK2-Black-chang-931GB:{
-				"note":{"use-img-se"'趋势-照片-使用-2',"use-video-se"'趋势-视频-使用-2'},
-				20201216-779GB-151GB:{
-					"46.9 GB-05D",
-					"721GB------24-XDISK-chang":{
-						"306GB-----32-Bigdata","152GB------33-Java","20.9GB-----videos-english-bak",
-						"16.8GB-----videos-海腾","4.91GB-xh-industry","11GB-xh-java","11.6GB-xh-js"
-						"195GB-13-20190818-2-pro-D.GHO"
-					}
-				}
-			},
-		},
-		2020-3-'25'-"use-java"-'3':{
-			25-x3-1.81TB:{
-				"note":{"use-java"'java-使用-3'},
-				201231--400GB,
-				201216-1.71TB-106GB:{
-					"1234.86G------":{
-						"635.22G------backup":{
-							"388.73G------04-lenovo-pro":{"271.64G------20200804","117.09G------D"},
-							"108.33G------07-videos-lxe":{"77.15G------01-haitech","25.62G------02-english","5.57G------03-java"},
-							"88.75G------05-lenovo-pro-2":{"72.07G------20200302-0933-sl","16.68G------20191020-2228"},
-							"28.06G------06-working-java":{"28.06G------win10-ent-x64-java"},
-							"18.10G------06-working-vpn":{"17.62G------win10-ent-x64-vpn","0.48G------Day01 JVM基础必备篇.mp4"},
-							"3.25G------12-phone-se"
-						},
-						"339.34G------log","167.90G------05D",
-						"72.66G------05-backup-os-200805.GHO","9.22G------迅雷下载","8.58G------FileHistory","1.00G------录像172.lxe","0.94G------Jack梦晴-JVM从入门到入魔"
-					}
-				}
-			},
-		},
-		2021-1-'26,27,28'-"bk-cache":{
-			26-wd_black-1.81T:{
-				"note":{"bk_full_no_superbig"'非-超大-所有文件-备份-2',"bk-key"'鸡米-备份-1'},
-			},
-			27-wd_blue-1.81T:{
-				"note":{"bk-zip",'压缩-备份-4',"bk-key"'鸡米-备份-0'},
-			},
-			28-wd_red-1.81T:{
-				"note":{"bk-hot-unzip"'日用-非压缩-备份-4',"ref-unzip-bk"'引用-非压缩-备份-3'},
-				210104-1629:"143.28G------09D",
-				210104-1634:"143.28G------09D",
-				
+		type:{
+			se:{	'趋势' 'video_spec' 'img_spec'
+				02:'性'-'绝密'-'露脸SM',
+				03:'性'-'露脸'-'露脸性行为',
+				04:'性'-'暴露'-'不露脸性行为',
+				05:'性'-'隐含'-'个人其他骚照',
 			}
-		},
-		2021-2-'31,32'-"bk-history":{
-			31-nm-3.63T:{
-				"note":{"bk_full_key_no_se_no"'非-鸡米-非-趋势-所有文件-备份-1',"bk_vm"'虚拟机-备份-0',"bk_video"'视频-备份-0'},
-			},
-			32--T:{
-				"note":{"bk_full_key_no_se_no"'非-鸡米-非-趋势-所有文件-备份-0'},
-			},
-			33-ks-3.63T:{
-				"note":{"bk_full_se"'趋势-所有文件-备份-1',"bk_vm"'虚拟机-备份-1',"bk_video"'视频-备份-1'},
-			},
-			34--T:{
-				"note":{"bk_full_se"'趋势-所有文件-备份-0'},
-			},
 		}
 	},
 	3-u:{
