@@ -22,7 +22,7 @@ ex:{
 				at cn.sunline.edsp.midware.rpc.core.AbstractHook.call(AbstractHook.java:58) [edsp-rpc-core-3.2.20-RELEASE.jar:3.2.20-RELEASE]
 				at cn.sunline.edsp.midware.rpc.transport.netty.server.edsp.NettyServerChannelHandler._exec(NettyServerChannelHandler.java:197) [edsp-rpc-transport-netty-3.2.20-RELEASE.jar:3.2.20-RELEASE]
 				clear;cd /logs/exim/icore01/onlApp/busi/20210223/326020;cat 326020.log | tail -n +400 | head -n 400;	
-				clear;cd /logs/exim/icore01/onlApp/busi/;grep "not assigned the parameter of amortiz" 20210309/*/*.log;		20210309/351020/351020.log
+				clear;cd /logs/exim/icore01/onlApp/busi/;grep "`tbl` . `se_private_id` " 20210315/*/*.log;		20210309/351020/351020.log
 
 				
 			},
@@ -38,6 +38,7 @@ ex:{
 				/*
 				clear;find /logs/exim/icore01/batApp/busi/2021-01-27/*/ac109.log;
 				clear;cd /logs/exim/icore01/batApp/busi/20201128/flowid/;grep "input message is '" */*/*.log;
+				clear;cd /logs/exim/icore01/batApp/busi/20210315/flowid/;grep "se_private_id" */*/*.log;
 				grep "The user's KYC visa has been approved" *.log;
 				*/
 			},

@@ -196,13 +196,22 @@ process:{
 				100	025	999	999	ap98	Partition and data clean
 			},
 			tsp_timed_task_info-定时任务调度信息-7:{
-				100	025	onTimeDelayedAccounting				110	ta01			*/2
-				100	025	onTimePushDpProdParmNotifyMiddle	110	dpf25           */20
-				100	025	onTimePushUsProdParmNotifyMiddle	110	us01            */60
-				100	025	onTimeUpdateCifCustNoFile			110	cf13            */5
-				100	025	onTimeUs06							110	us06	*/24	0
-				100	025	onTimeUs07							110	us07            */1
-				100	025	onTimeWriteReconFile	cn.sunline.msap.rcexp.MsRcFileExportImpl			*/30	
+			210314:{
+					100	025	loanMessageNotification				500	ln41	15
+					100	025	onTimeDelayedAccounting				120	ta01			*/2
+					100	025	onTimeFileUpload					120	ap03            */2
+					100	025	onTimePushLoanProdParmNotifyMiddle	120	ln47            */2		
+					100	025	onTimeSyncAccountingEvents			120	ac103           */2
+				},
+			210314:{
+					100	025	onTimeDelayedAccounting				110	ta01			*/2
+					100	025	onTimePushDpProdParmNotifyMiddle	110	dpf25           */20
+					100	025	onTimePushUsProdParmNotifyMiddle	110	us01            */60
+					100	025	onTimeUpdateCifCustNoFile			110	cf13            */5
+					100	025	onTimeUs06							110	us06	*/24	0
+					100	025	onTimeUs07							110	us07            */1
+					100	025	onTimeWriteReconFile	cn.sunline.msap.rcexp.MsRcFileExportImpl			*/30	
+				}
 			}
 		},
 		ap:{
