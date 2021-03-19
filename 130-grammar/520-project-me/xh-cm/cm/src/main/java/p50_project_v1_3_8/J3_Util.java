@@ -380,6 +380,15 @@ public class J3_Util {
     	}else if(M==1354) {
 			J5_Sql.doMain(343, callKeySet);//343,select all,call_name
 			J5_Sql.doMain(345, dbMap);//345,select all,tree_call_db
+
+			J5_Sql.doMain(344, J2_MainUnit.callRelateList);//344,select all,tree_call_db
+    		for(int i=0;i<J2_MainUnit.callRelateList.size();i++) {
+    			J1_BeanCallRelate bean =  J2_MainUnit.callRelateList.get(i);
+    			if(!J2_MainUnit.callRelateKeySet.contains(bean.getCall_name_parent())) {
+    				J2_MainUnit.callRelateKeySet.add(bean.getCall_name_parent());
+    				J2_MainUnit.callRelateKeyMap.put(bean.getCall_name_parent(), i);
+    			}
+    		}
     		parseJava("",callKeySet,dbMap,null,callRelateList);
     		print(callRelateList);
     	}
@@ -406,7 +415,8 @@ public class J3_Util {
 //        			"D:\\03-sl-107-code\\26-gs\\201106\\cm-busi\\cm-serv\\src\\main\\java\\cn\\sunline\\icore\\cm\\serv\\serviceimpl\\chrg\\SrvIoCmChrgImpl.java"
 //    				"D:\\03-sl-107-code\\26-gs\\99-3.0.4-stable\\cf-busi\\cf-batch\\src\\main\\java\\cn\\sunline\\icore\\cf\\batch\\cf02DataProcessor.java"
 //    				"D:\\03-sl-107-code\\26-gs\\99-3.0.4-stable\\cf-busi\\cf-batch\\src\\main\\java\\cn\\sunline\\icore\\cf\\batch\\cf07DataProcessor.java"
-    				"D:\\03-sl-107-code\\26-gs\\99-3.0.4-stable\\dp-busi\\dp-batch\\src\\main\\java\\cn\\sunline\\icore\\dp\\batch\\dayend\\dp01DataProcessor.java"
+//    				"D:\\03-sl-107-code\\26-gs\\99-3.0.4-stable\\dp-busi\\dp-batch\\src\\main\\java\\cn\\sunline\\icore\\dp\\batch\\dayend\\dp01DataProcessor.java"
+    				"D:\\03-sl-107-code\\26-gs\\99-3.0.4-stable\\dp-busi\\dp-serv\\src\\main\\java\\cn\\sunline\\icore\\dp\\serv\\account\\draw\\DpDemandDrawCheck.java"
     				;
         	System.out.println(path);
     	}
@@ -549,9 +559,10 @@ public class J3_Util {
 						if(str.contains("return ")) {
 							isReturn = true;
 						}
-						if(str.contains(".")) {
-							seq_no = isMethod(fileKey,callNameParent,seq_no,str,callKeySet,callRelateList,isReturn);
-						}
+						seq_no = isMethod(fileKey,callNameParent,seq_no,str,callKeySet,callRelateList,isReturn);
+//						if(str.contains(".")) {
+//						}
+//						seq_no = isSelfMethod(fileKey,callNameParent,seq_no,str,callKeySet,callRelateList,isReturn);
 						if(serRelateList.size()>0) {
 							for(J1_BeanCallRelate bean:serRelateList) {
 								if(str.contains(bean.getTable_name()+".")) {
@@ -664,10 +675,14 @@ public class J3_Util {
 		String callKey = "";
 		//
 		List<String> inList = split(str);//拆分获得所有关键字
-		for(int i=1;i<inList.size();i++) {
-			callKey = inList.get(i-1)+"."+inList.get(i);
-			if(callKeySet.contains(callKey)) {
-				callNameChildList.add(callKey);
+		for(int i=0;i<inList.size();i++) {
+			if(inList.get(i).equals("checkDrawCtrl"))
+				System.err.println();
+			if(i>0) {
+				callKey = inList.get(i-1)+"."+inList.get(i);
+				if(callKeySet.contains(callKey)) {
+					callNameChildList.add(callKey);
+				}
 			}
 			callKey = fileKey+"."+inList.get(i);
 			if(callKeySet.contains(callKey)&&str.contains(inList.get(i)+"(")

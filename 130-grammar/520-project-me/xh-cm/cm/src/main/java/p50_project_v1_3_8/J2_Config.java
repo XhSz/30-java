@@ -25,7 +25,7 @@ public class J2_Config {
 	static {
 		String exId = "26";//26 ex
 		Map ex = new HashMap<String,String>();
-		ex.put(JSON_PATH, "D:\\03-sl\\327-exim\\ex.json");
+		ex.put(JSON_PATH, "D:\\30-java\\130-grammar\\520-project-me\\xh-cm\\key\\ex.json");
 		ex.put(DB_URL, "jdbc:mysql://10.22.61.3:3306/ctdb?useSSL=false&allowPublicKeyRetrieval=true&serverTimezone=UTC");
 		ex.put(DB_USER, "ct");
 		ex.put(DB_PW, "ct");
@@ -39,7 +39,7 @@ public class J2_Config {
 		CONFIG.put(exId, ex);
 		String gsId = "27";//27 gs
 		Map gs = new HashMap<String,String>();
-		gs.put(JSON_PATH, "D:\\03-sl\\326-gs\\gs.json");
+		gs.put(JSON_PATH, "D:\\30-java\\130-grammar\\520-project-me\\xh-cm\\key\\gs.json");
 		gs.put(DB_URL, "jdbc:mysql://10.22.12.109:3323/bat_sump?useSSL=false&allowPublicKeyRetrieval=true&serverTimezone=UTC");
 		gs.put(DB_USER, "bat_sump");
 		gs.put(DB_PW, "bat_sump");
@@ -57,7 +57,7 @@ public class J2_Config {
 		CONFIG.put(gsId, gs);
 		String localId = "06";//06 local
 		Map local = new HashMap<String,String>();
-		local.put(JSON_PATH, "D:\\03-sl\\326-gs\\gs.json");
+		local.put(JSON_PATH, "D:\\30-java\\130-grammar\\520-project-me\\xh-cm\\key\\gs.json");
 		local.put(DB_URL, "jdbc:mysql://localhost:3306/sump?useSSL=false&allowPublicKeyRetrieval=true&serverTimezone=UTC");
 		local.put(DB_USER, "root");
 		local.put(DB_PW, "hao6990807");
