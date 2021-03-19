@@ -372,7 +372,12 @@ gs:{
 				
 				/*
 				clear;cd /home/icore/icore-dist/log/onlApp/busi/;find . */*/312020.log
-				clear;cd /home/icore/icore-dist/log/onlApp/busi/;grep "the remaining balance after transaction is not allowed if larger than the maximum account remaining balanc" 20210225/312020/*.log;		
+				clear;cd /home/icore/icore-dist/log/onlApp/busi/;grep "the remaining balance after transaction is not allowed if larger than the maximum account remaining balanc" 20210225/312020/*.log;	
+				clear;cd /home/icore/icore-dist/log/onlApp/busi/;grep "20210315 14:23" 20210315/315000/*.log;	
+				clear;cd /home/icore/icore-dist/log/onlApp/busi/;grep "20210315 14:23" 20210315/315003/*.log;	
+				clear;cd /home/icore/icore-dist/log/onlApp/busi/;grep "23734098.11" 20210315/*/*.log;	
+				clear;cd /home/icore/icore-dist/log/onlApp/busi/;grep "insert into dps_bill" 20210315/312000/*.log;	
+				
 				clear;cd /home/icore/icore-dist/log/onlApp/busi/;grep "new_file_name=40dff78b88f247ceb3b27a6a3ba3cb33.txt" 20201027/543190/*.log;	
 				clear;cd /home/icore/icore-dist/log/onlApp/busi/;grep "20210222000000000001064141" 202102*/311070/*.log;		
 				clear;cd /home/icore/icore-dist/log/onlApp/busi/;grep "100000001602" 2021012*/542251/*.log;			
@@ -805,6 +810,7 @@ dos:{
 		findstr /s /i "100002118172" *.sql
 		findstr /s /i "KwbVqoCB" *.* 
 		findstr /s /i "insert into fab_ledger_check_seq" *.log 
+		findstr /s /i "2293" *.json 
 		d:
 		cd D:\03-sl\201-PH-CIMB-DAP-Production-CPUDAC\43-pro-bug-date\20200311-Multiple CIF - Round 2
 		findstr /s /i "ctp_menu" *.sql

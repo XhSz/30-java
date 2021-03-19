@@ -1,144 +1,4 @@
 ﻿
-vue:{		
-		ms1050 101050:{
-			MsDropListService.queryDropList
-				b.queryDropList(paramString);
-					MsBasicNSQLDao.selDropList
-						select * from msp_drop_list
-		},
-		账户查询:{
-			[4131]账户信息查询:{
-				menu
-				dp5030 315030:{
-					checkInput
-					SrvDpQueryAcct.qryAcctMainList
-						DpAcctQuery.qryMainAcctList(cplIn);
-				}
-			}
-			[4131]账户交易明细查询:{
-				menu	
-				dp5000-315000-"账户交易明细查询"-'Account transaction details query':{
-					SrvDpQueryAcct.qryAcctTransDetail
-						DpAcctQuery.qryAcctTransDetails(cplIn);:{
-							nsql-SqlDpAcctQuery.selAcctTransDetails:{
-								select * from dps_bill b
-							}
-						}
-				}
-			}
-		},
-		用户信息管理:{
-			[5403]用户登录日志查询:{
-				menu
-				us2920 542920:{
-					SrvUsUserBase.qryUserLoginLogList
-						nsql-UsUserBase.selUserLoginLogListInfo:{
-							from usl_login left join usb_person_base on usl_login.user_no = usb_person_base.user_no
-						}
-				}
-			}
-			[5408]用户升级审批结果查询:{
-				menu 	/views/us/UserPages/UserLevel/us_list_upgrafe_level_done_detail.json	
-				qry		542270-us2270:{
-							SrvUsUserBase.qryUsUpgradeLevelInfoList
-								UsUserListQuery.qryUsUpgradeLevelInfoList(input);
-									nsql-UsUserBase.qryUsUpgradeLevelInffoList:{
-										
-									}
-						}
-				print	542290-us2290:{
-							SrvUsUserQuerySign.qryUsUpgradeLevelDetailInfo
-								UsUserInfoQuery.qryUsUpgradeLevelDetailInfo(input);
-									select * from  usb_cust_upgrade_extend
-						}
-				details 542290-us2290:{}
-			}
-			[5420]批量开户信息,
-			[5421]批量开户:{
-				input 	2019112800002601 BULK_ONBOARDING_20201112_06.txt			
-				menu	/views/us/UserPages/UserBuild/user_build_file_list.json	
-					qry 	543180
-				add		/views/us/UserPages/UserDetail/user_build_file_input.json
-					submit	543190	->list_data_status{0-repeated,1-duplicate,2-update,3-new},file_status{0-add},
-							us3190:{
-								SrvUsLakuPandai.importAccountOpeningFile	
-									UsLakuPandaiQuery.fileInput(input);:{
-										//获取文件路径
-										String suffix = ApFileApi.getFullPath(UsConst.BATCH_ACCT_OPEN_FILE);
-										//创建连接下载
-										MsTransfer trans = ApFileApi.createClient(null);
-										trans.download(filePathInfo);
-										//解密如果参数为y解密为n不解密
-										ApSystemParmApi.getOFF_ON(UsConst.FILE_DECRYPTION);//FILE_DECRYPTION
-											select * from msp_parameter where parm_code='BLUK_FILE_UNCODE' and primary_key='*';	"TEST.SUNLINE"
-											
-										UsLakuPandaiQuery.parseAccountOpeningFileLine(String, int, Set<String>, List<UsOpenCustomerDetails>, String[]);{
-											UsLakuPandaiQuery.setAccountOpeningFileLineDataStatus(usb_bluk_detail);:{
-												SrvIoCfCustomer.qryPersonInfo:{
-													return CfCustInfoQuery.qryPersonInfo(qryIn);:{
-														cfb_person_base
-														cfb_person_doc
-														cfb_person_address
-														cfb_person_contact
-														cfb_person_employer
-														cfb_cust_name
-														'分析客户风险敞口信息'
-														'查询客户属性位'
-													}
-												}
-											}
-										}
-									}
-							}
-				apply	/views/us/UserPages/UserDetail/user_submit_examine.json
-					submit 	543210	us3210 	提交审核	-> 	file_status{1-approval}
-				delete 
-					submit 	543220	us3220	废弃	-> 	file_status{4-cancel}
-			},
-			[5422]批量开户审核:{
-				menu	/views/us/UserPages/UserBuild/user_build_examine_list.json
-				do 		/views/us/UserPages/UserDetail/user_examine_finish.json
-					submit 	543210	us3210->file_status{2-opening,3-reject}	->us05	->{
-								list_data_status{4-invalid},dukcapil_status,watch_list_ind,file_status{5-pending,6-completed}	
-							},		
-							us3210:{
-								SrvUsLakuPandai.batchFileStatusModify
-									UsLakuPandaiQuery.batchFileStatusModify(input);
-							}
-				details	/views/us/UserPages/UserDetail/user_info_base.json
-					543200
-			},
-			[5423]批量开户黑名单审核:{
-				menu	/views/us/UserPages/UserBuild/user_build_blacklist_examine_list.json
-				details	/views/us/UserPages/UserDetail/user_build_blacklist.json
-					us3201
-				approve/reject	us3202:{
-									SrvUsLakuPandai.batchAcctOpenBlackExamine
-										UsLakuPandaiQuery.batchAcctOpenBlackExamine(cplIn);
-								}
-			}
-		},
-		客户信息管理:{
-			[5505]客户信息查询:{
-				qyy:{
-					553016-cf3016:{
-						sev-SrvIoCfCustomer.qryPersonCustInfoList:{
-							return CfCustInfoQuery.qryPersonCustInfoList(custBaseIn);:{
-								nsql-CfCustomerBase.selPersonCustBasicList:{
-									a.marital_status FROM cfb_person_base a left join cfb_person_contact b
-								}
-							}
-						}
-					}
-				},
-				details:{
-					个人信息:{
-						婚姻状况
-					}
-				}
-			}
-		},
-},
 app:{
 	ms1050-101050,
 	cm2701-351010:{
@@ -345,6 +205,19 @@ app:{
 					}
 				}
 			},
+			Saving Account:{
+				MoneyOut:{
+					
+				},
+				TransDetails:{
+					315000:{
+					
+					},  
+					315003:{
+						
+					}
+				}
+			}
 		}
 	}
 	us2040-542040-personal user info sign in:{
@@ -425,6 +298,146 @@ app:{
 		}
 	},
 	FSD_Product_GroupAccount-ArisanAlumni_v1.2.docx
+},
+vue:{		
+		ms1050 101050:{
+			MsDropListService.queryDropList
+				b.queryDropList(paramString);
+					MsBasicNSQLDao.selDropList
+						select * from msp_drop_list
+		},
+		账户查询:{
+			[4131]账户信息查询:{
+				menu
+				dp5030 315030:{
+					checkInput
+					SrvDpQueryAcct.qryAcctMainList
+						DpAcctQuery.qryMainAcctList(cplIn);
+				}
+			}
+			[4131]账户交易明细查询:{
+				menu	
+				dp5000-315000-"账户交易明细查询"-'Account transaction details query':{
+					SrvDpQueryAcct.qryAcctTransDetail
+						DpAcctQuery.qryAcctTransDetails(cplIn);:{
+							nsql-SqlDpAcctQuery.selAcctTransDetails:{
+								select * from dps_bill b
+							}
+						}
+				}
+			}
+		},
+		用户信息管理:{
+			[5403]用户登录日志查询:{
+				menu
+				us2920 542920:{
+					SrvUsUserBase.qryUserLoginLogList
+						nsql-UsUserBase.selUserLoginLogListInfo:{
+							from usl_login left join usb_person_base on usl_login.user_no = usb_person_base.user_no
+						}
+				}
+			}
+			[5408]用户升级审批结果查询:{
+				menu 	/views/us/UserPages/UserLevel/us_list_upgrafe_level_done_detail.json	
+				qry		542270-us2270:{
+							SrvUsUserBase.qryUsUpgradeLevelInfoList
+								UsUserListQuery.qryUsUpgradeLevelInfoList(input);
+									nsql-UsUserBase.qryUsUpgradeLevelInffoList:{
+										
+									}
+						}
+				print	542290-us2290:{
+							SrvUsUserQuerySign.qryUsUpgradeLevelDetailInfo
+								UsUserInfoQuery.qryUsUpgradeLevelDetailInfo(input);
+									select * from  usb_cust_upgrade_extend
+						}
+				details 542290-us2290:{}
+			}
+			[5420]批量开户信息,
+			[5421]批量开户:{
+				input 	2019112800002601 BULK_ONBOARDING_20201112_06.txt			
+				menu	/views/us/UserPages/UserBuild/user_build_file_list.json	
+					qry 	543180
+				add		/views/us/UserPages/UserDetail/user_build_file_input.json
+					submit	543190	->list_data_status{0-repeated,1-duplicate,2-update,3-new},file_status{0-add},
+							us3190:{
+								SrvUsLakuPandai.importAccountOpeningFile	
+									UsLakuPandaiQuery.fileInput(input);:{
+										//获取文件路径
+										String suffix = ApFileApi.getFullPath(UsConst.BATCH_ACCT_OPEN_FILE);
+										//创建连接下载
+										MsTransfer trans = ApFileApi.createClient(null);
+										trans.download(filePathInfo);
+										//解密如果参数为y解密为n不解密
+										ApSystemParmApi.getOFF_ON(UsConst.FILE_DECRYPTION);//FILE_DECRYPTION
+											select * from msp_parameter where parm_code='BLUK_FILE_UNCODE' and primary_key='*';	"TEST.SUNLINE"
+											
+										UsLakuPandaiQuery.parseAccountOpeningFileLine(String, int, Set<String>, List<UsOpenCustomerDetails>, String[]);{
+											UsLakuPandaiQuery.setAccountOpeningFileLineDataStatus(usb_bluk_detail);:{
+												SrvIoCfCustomer.qryPersonInfo:{
+													return CfCustInfoQuery.qryPersonInfo(qryIn);:{
+														cfb_person_base
+														cfb_person_doc
+														cfb_person_address
+														cfb_person_contact
+														cfb_person_employer
+														cfb_cust_name
+														'分析客户风险敞口信息'
+														'查询客户属性位'
+													}
+												}
+											}
+										}
+									}
+							}
+				apply	/views/us/UserPages/UserDetail/user_submit_examine.json
+					submit 	543210	us3210 	提交审核	-> 	file_status{1-approval}
+				delete 
+					submit 	543220	us3220	废弃	-> 	file_status{4-cancel}
+			},
+			[5422]批量开户审核:{
+				menu	/views/us/UserPages/UserBuild/user_build_examine_list.json
+				do 		/views/us/UserPages/UserDetail/user_examine_finish.json
+					submit 	543210	us3210->file_status{2-opening,3-reject}	->us05	->{
+								list_data_status{4-invalid},dukcapil_status,watch_list_ind,file_status{5-pending,6-completed}	
+							},		
+							us3210:{
+								SrvUsLakuPandai.batchFileStatusModify
+									UsLakuPandaiQuery.batchFileStatusModify(input);
+							}
+				details	/views/us/UserPages/UserDetail/user_info_base.json
+					543200
+			},
+			[5423]批量开户黑名单审核:{
+				menu	/views/us/UserPages/UserBuild/user_build_blacklist_examine_list.json
+				details	/views/us/UserPages/UserDetail/user_build_blacklist.json
+					us3201
+				approve/reject	us3202:{
+									SrvUsLakuPandai.batchAcctOpenBlackExamine
+										UsLakuPandaiQuery.batchAcctOpenBlackExamine(cplIn);
+								}
+			}
+		},
+		客户信息管理:{
+			[5505]客户信息查询:{
+				qyy:{
+					553016-cf3016:{
+						sev-SrvIoCfCustomer.qryPersonCustInfoList:{
+							return CfCustInfoQuery.qryPersonCustInfoList(custBaseIn);:{
+								nsql-CfCustomerBase.selPersonCustBasicList:{
+									a.marital_status FROM cfb_person_base a left join cfb_person_contact b
+								}
+							}
+						}
+					}
+				},
+				details:{
+					个人信息:{
+						婚姻状况
+					}
+				}
+			}
+		},
 },
 onl:{
 	cf2420-552420:{

@@ -733,7 +733,7 @@ public class J2_MainUnit {
     	IS_PRINT_ALL = false;
     	IS_PRINT_ALL = true;
     	
-    	int m = 2;
+    	int m = 1;
     	needReady = (m==1||m==3?true:false);;//是否需初始化前置数据
     	isReadyPrint = (m==2||m==3?true:false);;
     	

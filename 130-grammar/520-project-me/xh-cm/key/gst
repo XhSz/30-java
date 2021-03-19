@@ -184,6 +184,14 @@ tables:{
 		}
 	},
 	dp:{
+		dpf_base:{
+			P01	Simobi EMoney			PROD_DESC
+			P03	Sinarmas Saving Account	Sinarmas Mini-Fund
+			P04	Tabungan Simas BSA	 	Tabungan Simas BSA
+			P07	Time Deposit			Time Deposit
+			P09	Target Saving			Target Saving
+			P10	Monthly Deposit			Monthly Deposit
+		},
 		dpa_sub_account-DpaSubAccountDao:{
 			insert-1:{
 				DpSubAccountOpenService.regSubAcctTable(DpAddSubAccountBaseIn, DpaAccount)

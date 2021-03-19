@@ -186,42 +186,73 @@ server:{
 plan:{
 	
 	current:{ 
-		MAS-19784:{
-			author: , env:,	user{},
-			title: eDocument文件中缺少第2页 - Missing Page 2 in eDocument File,
-			result:{
-				
+			MAS2-1690:{
+				author: , env: uat2,	user{},
+				title: Money out to E-Money showing incorrect behaviour 向电子货币付款显示出不正确的行为,
+				result:{
+					Should be match the nominal transferred 应与标称值匹配
+				},
+				des:{
+					Money out to E-money IDR 4000, but what was in to e-money was only IDR 1000 and IDR 3000 were returned to the saving account
+					把钱汇出电子货币4000印尼盾，但电子货币只有1000印尼盾，3000印尼盾被退回储蓄账户
+				},
+				log:{
+				sub_acct_no	serial_no	back_value_date	trxn_event_id	show_ind	tally_record_ind	trxn_record_type	cash_trxn_ind	debit_credit	trxn_ccy	trxn_amt	bal_after_trxn	card_no	acct_no	sub_acct_seq	prod_id	dd_td_ind	acct_name	acct_branch	acct_branch_name	accounting_alias	cust_no	cust_type	voch_type	voch_no	fee_code	opp_acct_route	opp_card_no	opp_acct_no	opp_acct_ccy	opp_sub_acct_seq	opp_sub_acct_no	opp_acct_name	opp_trxn_amt	opp_branch_id	opp_branch_name	trxn_remark	customer_remark	summary_code	summary_name	trxn_code	recon_code	third_party_date	trxn_channel	trxn_date	busi_seq	trxn_seq	trxn_branch	trxn_teller	trxn_time	host_date	trxn_status	reversal_ind	reversal_type	clear_accounts_ind	original_trxn_date	original_trxn_seq	original_busi_seq	agent_doc_type	agent_doc_no	agent_name	agent_country	receipt_seq	external_scene_code	payment_mode	trxn_area	consume_date	consume_time	trxn_area_ccy	trxn_area_amt	trxn_area_exch_rate	real_opp_acct_no	real_opp_acct_name	real_opp_acct_alias	real_opp_country	real_opp_bank_id	real_opp_bank_name	real_opp_branch_name	real_opp_remark	interest_tax	inst_tax_rate	vat_amt	vat_rate	mcc_id	store_no	card_coupon_trxn_amt	card_coupon_source	card_coupon_code	card_coupon_acct_no	integral_trxn_amt	integral_acct_no	trxn_integral	org_id	data_create_time	data_update_time	data_create_user	data_update_user	data_version	contact_phone
+				1000001402	283				20200710		DP003			Y			Y					1					T	C	IDR	3000	23733098.11		0258000012032	00002	P03	D	ANDY WIJAYA	ID0010999	Digital Banking Branch	D2001	100000001203	1				B		0258000012032	IDR			ANDY WIJAYA	4000					MOI	Money In (Prd 01 to Prd 03)	dp2000		20210315	401	20200710	20210315424933896192	2020071002580000000001027	ID0010999	88880001	14:23:51 644	20210315	N	N																																								025	20210315 14:23:52 065	20210315 14:23:52 065	88880001		1	
+				1000001402	282				20200710		DP004			Y			Y					1					T	D	IDR	4000	23730098.11		0258000012032	00002	P03	D	ANDY WIJAYA	ID0010999	Digital Banking Branch	D2001	100000001203	1						0258000012032	IDR			ANDY WIJAYA	4000					MOT	Money Out (Prd 03 to Prd 01)	dp2000		20210315	401	20200710	20210315424933896192	2020071002580000000001027	ID0010999	88880001	14:23:51 644	20210315	N	N																																								025	20210315 14:23:51 840	20210315 14:23:51 840	88880001		1	
+				}
 			},
-			des:{
-				
+			MAS2-1693:{			
+				author: , env:,	user{},
+				title: ,
+				result:{
+					
+				},
+				des:{
+					
+				}
 			}
-				Pre-condition: e-KYC Flag =Yes
-				Step to replicate:
-				Go to Mini Fund
-				Successfully pass face recognition and liveness detection
-				Submit the digital signature
-				Defect: eDocument file generated is missing the page-2
-				前提条件：e-KYC Flag=是
-				复制步骤：
-				转到迷你基金
-				成功通过人脸识别和活性检测
-				提交数字签名
-				缺陷：生成的eDocument文件缺少第2页
-		},
-		template:{
-			author: , env:,	user{},
-			title: ,
-			result:{
-				
-			},
-			des:{
-				
-			}
-		},
 	},
+			template:{
+				author: , env:,	user{},
+				title: ,
+				result:{
+					
+				},
+				des:{
+					
+				}
+			},
 	step:{00,10,11,12,13},
 	history:{
 		latest:{
+		},
+			MAS-19812:{
+				
+			}, 
+			MAS-19784:{
+				author: , env:,	user{},
+				title: eDocument文件中缺少第2页 - Missing Page 2 in eDocument File,
+				result:{
+					
+				},
+				des:{
+					
+				}
+					Pre-condition: e-KYC Flag =Yes
+					Step to replicate:
+					Go to Mini Fund
+					Successfully pass face recognition and liveness detection
+					Submit the digital signature
+					Defect: eDocument file generated is missing the page-2
+					前提条件：e-KYC Flag=是
+					复制步骤：
+					转到迷你基金
+					成功通过人脸识别和活性检测
+					提交数字签名
+					缺陷：生成的eDocument文件缺少第2页
+			},
+		202002:{
 			MAS2-1653:{
 				这个ocr_name的需求是怎样的？  100000001602这个uat2的客户，是批量开户生成的，批量开户生成的时候就有了cust_name，后续0127的时候该客户虽然有调用us2251升级，但是传入ocr_name为空。到底该哪边改？ 是核心这边批量开户给cust_name赋值同时也给ocr_name赋相同值吗？
 			}
@@ -263,8 +294,6 @@ plan:{
 					这个资料足够吗？
 				}
 			},
-		},
-		202002:{
 			MAS-19728:{
 				author: TzeChi, env:sit2,
 				title: Prompt "Request Parameter Missing" when submit the digital signature - 提交数字签名时提示“缺少请求参数”,
