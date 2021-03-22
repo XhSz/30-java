@@ -26,17 +26,17 @@ xiehao2@sunline.cn
 liqishan@sunline.cn
 wujunjie@sunline.cn
 
-张苑生 		 √   		 				zhangyuansheng@sunline.cn
-夏庆      	√ 				   	
-Pik San 	√	    					ChanPikSan@sunline.cn
-谢豪       √ 							xiehao2@sunline.cn
-陶堃       √ 							taokun@sunline.cn 
+张苑生 		    		 				zhangyuansheng@sunline.cn
+夏庆      	 				   	
+Pik San 		    					ChanPikSan@sunline.cn
+谢豪        							xiehao2@sunline.cn
+陶堃        							taokun@sunline.cn 
 周胜华    √	  							sengwah.chow@sunline-i.com
-朱伟      √			   	
-黄铭杰  	√	    				huangmingjie@sunline.cn
-伍俊杰 		√   	   					wujunjie@sunline.cn
-张凯祐    √					  			zhangkaiyou@sunline.cn
-曾家健    √		   
+朱伟      			   	
+黄铭杰  		    				huangmingjie@sunline.cn
+伍俊杰 		   	   					wujunjie@sunline.cn
+张凯祐    					  			zhangkaiyou@sunline.cn
+曾家健    		   
 -李启善     
 -王阳      
 四部： 
@@ -57,14 +57,13 @@ ln			毛列东
 mk			周其昌
 周报:{
 上周:
-	exim,环境维护,客户差异比对功能了解,常用业务调用关系梳理;
-	SinarMAS,MAS-19784;
-	CIMB 数据移植,代码梳理;
-	其他,疫苗咨询、接种;
+	SinarMAS,MAS2-1690;
+	exim,po熟悉,本地运行环境调试;
+	坦桑项目,导代码,熟悉环境,熟悉项目基本情况;
+	其他,挑选部门新成员,框架业务梳理;
  
 本周:
-	按exim项目安排;
-	按CIMB 数据移植项目安排;
+	按工作需要安排;
 },
 log:{
 	210315:{
