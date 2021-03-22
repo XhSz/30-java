@@ -7,11 +7,11 @@ import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 import java.io.FileReader;
 import java.io.IOException;
-import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.io.OutputStream;
 import java.io.PrintStream;
 import java.io.Reader;
+import java.io.UnsupportedEncodingException;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.Collections;
@@ -26,31 +26,19 @@ import javax.xml.parsers.DocumentBuilderFactory;
 
 import org.apache.poi.EncryptedDocumentException;
 import org.apache.poi.common.usermodel.HyperlinkType;
-import org.apache.poi.openxml4j.exceptions.InvalidFormatException;
+import org.apache.poi.hssf.usermodel.HSSFCellStyle;
 import org.apache.poi.ss.usermodel.Cell;
 import org.apache.poi.ss.usermodel.CellStyle;
 import org.apache.poi.ss.usermodel.CreationHelper;
 import org.apache.poi.ss.usermodel.Font;
-import org.apache.poi.ss.usermodel.Hyperlink;
+import org.apache.poi.ss.usermodel.HorizontalAlignment;
 import org.apache.poi.ss.usermodel.IndexedColors;
 import org.apache.poi.ss.usermodel.Row;
 import org.apache.poi.ss.usermodel.Sheet;
-import org.apache.poi.ss.usermodel.Workbook;
+import org.apache.poi.ss.usermodel.VerticalAlignment;
 import org.apache.poi.ss.usermodel.WorkbookFactory;
-import org.apache.poi.xssf.usermodel.XSSFCellStyle;
 import org.apache.poi.xssf.usermodel.XSSFFont;
 import org.apache.poi.xssf.usermodel.XSSFHyperlink;
-import org.apache.poi.hssf.usermodel.HSSFCell;
-import org.apache.poi.hssf.usermodel.HSSFCellStyle;
-import org.apache.poi.hssf.usermodel.HSSFClientAnchor;
-import org.apache.poi.hssf.usermodel.HSSFFont;
-import org.apache.poi.hssf.usermodel.HSSFHyperlink;
-import org.apache.poi.hssf.usermodel.HSSFPatriarch;
-import org.apache.poi.hssf.usermodel.HSSFRow;
-import org.apache.poi.hssf.usermodel.HSSFSheet;
-import org.apache.poi.hssf.usermodel.HSSFWorkbook;
-import org.apache.poi.hssf.util.HSSFColor;
-
 import org.w3c.dom.Document;
 import org.w3c.dom.Element;
 import org.w3c.dom.NamedNodeMap;
@@ -62,6 +50,7 @@ import com.alibaba.fastjson.JSONObject;
 import p50_project_v1.J1_BeanBatch;
 import p50_project_v1.J1_BeanCall;
 import p50_project_v1.J1_BeanCallRelate;
+import p50_project_v1.J1_BeanCol;
 import p50_project_v1.J1_BeanDb;
 import p50_project_v1.J1_BeanMenu;
 import p50_project_v1.J1_BeanTran;
@@ -72,6 +61,7 @@ public class J3_Util {
 	public static boolean DE = false;
 	public static String DAO = "Dao";
 	public static String ID = "id";
+	public static String TYPE = "type";
 	public static String NAME = "name";
 	public static String METHOD = "method";
 	public static String LONG_NAME = "longname";
@@ -105,7 +95,9 @@ public class J3_Util {
 	public static String[] BATCH_METHOD_ARRAY = {"getBatchDataWalker","getJobBatchDataWalker","process"};
 	public static CreationHelper dbBookHelper = null;
 	public static XSSFHyperlink dbBookLink = null;
-	public static CellStyle dbBookStyle = null;
+	public static CellStyle linkColStyle = null;
+	public static CellStyle commonColStyle = null;
+	public static CellStyle desColStyle = null;
 	
 	static {
 		OPER_MAP.put("S", "select");
@@ -405,7 +397,7 @@ public class J3_Util {
     		parseTables("", new HashSet<String>(), new HashSet<J1_BeanDb>());
 			try {
 				OutputStream fileOut = new FileOutputStream(J2_MainUnit.TABLE_PATH);
-		        J2_MainUnit.dbBook.write(fileOut);
+		        J2_MainUnit.dbBook.write(fileOut);J2_MainUnit.dbBook.getSheetAt(3).getRow(4);
 			} catch (Exception e) {
 				e.printStackTrace();
 			}
@@ -978,7 +970,7 @@ public class J3_Util {
             		dbBean.setTable_type("T");
             		dbSet.add(dbBean);
             		if(J3_Util.DE)System.out.println(nameStr+COMMA+idStr);
-            		addDBBookTable(nameStr);
+            		addDBBookTable(nameStr,dbNode);
             	}
 	        }
 	    } catch (Exception e) {
@@ -1235,12 +1227,21 @@ public class J3_Util {
 		try {
 			J2_MainUnit.dbBook = WorkbookFactory.create(new FileInputStream(J2_MainUnit.TABLE_MODEL_PATH));
             dbBookHelper = J2_MainUnit.dbBook.getCreationHelper();
-            dbBookLink = (XSSFHyperlink) dbBookHelper.createHyperlink(HyperlinkType.DOCUMENT);
-            dbBookStyle = J2_MainUnit.dbBook.createCellStyle();
+//            dbBookLink = (XSSFHyperlink) dbBookHelper.createHyperlink(HyperlinkType.DOCUMENT);
+            linkColStyle = J2_MainUnit.dbBook.createCellStyle();
             Font font = J2_MainUnit.dbBook.createFont();
             font.setUnderline(XSSFFont.U_DOUBLE);
             font.setColor(IndexedColors.BLUE.getIndex());
-            dbBookStyle.setFont(font);
+            linkColStyle.setFont(font);
+            commonColStyle = J2_MainUnit.dbBook.createCellStyle();
+            commonColStyle.setAlignment(HorizontalAlignment.CENTER);//设置水平对齐的样式为居中对齐; 
+            commonColStyle.setVerticalAlignment(VerticalAlignment.CENTER);//设置垂直对齐的样式为居中对齐; 
+            desColStyle = J2_MainUnit.dbBook.createCellStyle();
+            desColStyle.setAlignment(HorizontalAlignment.CENTER);//设置水平对齐的样式为居中对齐; 
+            desColStyle.setVerticalAlignment(VerticalAlignment.CENTER);//设置垂直对齐的样式为居中对齐; 
+            Font desFont = J2_MainUnit.dbBook.createFont();
+            desFont.setColor(IndexedColors.BLUE_GREY.getIndex());
+            desColStyle.setFont(desFont);
         	J2_MainUnit.dbBookMap.put(MAX_TABLESPACE_DBOOK, -1);
         	J2_MainUnit.dbBookMap.put(POS_TABLESPACE_DBOOK, -1);
 	        J2_MainUnit.dbBookMap.put(MAX_TABLE_DBOOK,0);
@@ -1249,8 +1250,19 @@ public class J3_Util {
 		}
     }
     public static void setLink(Cell cell,String goal) {
-    	dbBookLink.setAddress(goal+"!A1");
+    	cell.setCellStyle(linkColStyle);
+    	XSSFHyperlink dbBookLink = (XSSFHyperlink) dbBookHelper.createHyperlink(HyperlinkType.DOCUMENT);
+    	dbBookLink.setAddress(goal);
         cell.setHyperlink(dbBookLink);
+    }
+    public static void setDesCol(Cell cell) {
+    	cell.setCellStyle(desColStyle);
+    }
+    public static void sc(Cell cell) {
+    	setCommonCol(cell);
+    }
+    public static void setCommonCol(Cell cell) {
+    	cell.setCellStyle(commonColStyle);
     }
     public static void addDBBookTableSpace(String tableSpace) {
 		try {
@@ -1270,7 +1282,7 @@ public class J3_Util {
 			e.printStackTrace();
 		}
     }
-    public static void addDBBookTable(String tableName) {
+    public static void addDBBookTable(String tableName,Element dbNode) {
 		try {
 			//00增加注释
 			int posSpace = J2_MainUnit.dbBookMap.get(POS_TABLESPACE_DBOOK);
@@ -1282,22 +1294,116 @@ public class J3_Util {
 	        Cell cell3 = row.getCell(3);if (cell3 == null)cell3 = row.createCell(3);cell3.setCellValue(tableName);
 	        String sheetName = integerToString(maxSpace)+integerToString(maxTable);
 	        //添加超链接
-	        cell3.setCellStyle(dbBookStyle);
-	        setLink(cell3,sheetName);
+	        setLink(cell3,sheetName+"!B4");
 	        //增加sheet
 	        J2_MainUnit.dbBook.cloneSheet(1);
 	        J2_MainUnit.dbBook.setSheetName(posSpace+2, sheetName);
 	        //参数递增
 	        J2_MainUnit.dbBookMap.put(MAX_TABLE_DBOOK,maxTable+1);
 	        J2_MainUnit.dbBookMap.put(POS_TABLESPACE_DBOOK,posSpace+1);
+	        setDBBookTable(posSpace+2,sheetName,tableName,dbNode);
+	        
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
+    }
+    public static void setDBBookTable(int posSpace,String sheetName,String tableName,Element dbNode) {
+    	//初始化J2_MainUnit.colMapList
+        NodeList list = dbNode.getElementsByTagName("field");
+        String idStr = "";
+        for (int i = 0; i <list.getLength() ; i++) {
+            Element fieldNode = (Element) list.item(i);
+            NamedNodeMap attributes = fieldNode.getAttributes();
+            idStr = attributes.getNamedItem(ID).getNodeValue();
+            J1_BeanCol colBean = new J1_BeanCol();
+            int colType = 0;
+            if(attributes.getNamedItem(TYPE).getNodeValue().endsWith("U_INTEGE"))colType=1;
+            colBean.setCol_name(idStr);
+            colBean.setCol_type(colType);
+            Node desNode = attributes.getNamedItem(LONG_NAME);
+            if(null!=desNode)colBean.setCol_des(desNode.getNodeValue());
+            J2_MainUnit.colMapList.add(colBean);
+        	if(J3_Util.DE)System.out.println(tableName+COMMA+idStr);
+        }
+    	//写入excel
+        Sheet sheet = J2_MainUnit.dbBook.getSheet(sheetName);
+        //写入excel - 返回
+        Row row0 = sheet.getRow(0);if (row0 == null)row0 = sheet.createRow(0);
+        Cell cell0 = row0.getCell(0);if (cell0 == null)cell0 = row0.createCell(0);cell0.setCellValue("00");
+        setLink(cell0,"00"+"!D"+posSpace);
+        //写入excel - head
+        Row row1 = sheet.getRow(1);if (row1 == null)row1 = sheet.createRow(1);
+        for(int j=0;j<J2_MainUnit.colMapList.size();j++) {
+            Cell cell = row0.getCell(j+1);if (cell == null)cell = row0.createCell(j+1);
+            sc(cell);
+            cell.setCellValue(J2_MainUnit.colMapList.get(j).getCol_name());
+            Cell cellDes = row1.getCell(j+1);if (cellDes == null)cellDes = row1.createCell(j+1);
+            setDesCol(cellDes);
+            cellDes.setCellValue(J2_MainUnit.colMapList.get(j).getCol_des());
+        }
+        //写入excel - body
+        Object result = J5_Sql.doMain(340,tableName,3);
+        if(result instanceof List) {
+	        List<Map<String,String>> resultList = (List<Map<String,String>>)result;
+	        for(int i=0;i<resultList.size();i++) {
+	        	int rowInt = i+3;
+	            Row row = sheet.getRow(rowInt);if (row == null)row = sheet.createRow(rowInt);
+	            Map<String,String> map = resultList.get(i);
+	            for(int j=0;j<J2_MainUnit.colMapList.size();j++) {
+	                Cell cell = row.getCell(j+1);if (cell == null)cell = row.createCell(j+1);
+	                sc(cell);
+	                cell.setCellValue(map.get(J2_MainUnit.colMapList.get(j).getCol_name()));
+	            }
+	        }
+	        setAutoWidth(sheet,J2_MainUnit.colMapList.size()+1);
+        }
+	    J2_MainUnit.colMapList = new ArrayList<J1_BeanCol>();
     }
     public static String integerToString(int i) {
     	StringBuilder sb = new StringBuilder();
     	if(i<10)sb.append("0");
     	sb.append(i);
     	return sb.toString();
+    }
+    public static void setAutoWidth(Sheet sheet,int maxColumn) {
+    	//列宽自适应，只对英文和数字有效  
+        for (int i = 0; i <= maxColumn; i++)  
+        {  
+            sheet.autoSizeColumn(i);  
+        }  
+        //获取当前列的宽度，然后对比本列的长度，取最大值  
+        for (int columnNum = 0; columnNum <= maxColumn; columnNum++)  
+        {  
+            int columnWidth = sheet.getColumnWidth(columnNum) / 256;  
+            for (int rowNum = 0; rowNum <= sheet.getLastRowNum(); rowNum++)  
+            {  
+				try {
+	                Row currentRow;  
+	                //当前行未被使用过  
+	                if (sheet.getRow(rowNum) == null)  
+	                {  
+	                    currentRow = sheet.createRow(rowNum);  
+	                }  
+	                else   
+	                {  
+	                    currentRow = sheet.getRow(rowNum);  
+	                }  
+	
+	                if(currentRow.getCell(columnNum) != null)  
+	                {  
+	                    Cell currentCell = currentRow.getCell(columnNum);  
+	                    int length;
+							length = currentCell.toString().getBytes("GBK").length;
+	                    if (columnWidth < length + 1)  
+	                    {  
+	                        columnWidth = length + 1;  
+	                    }  
+	                }  
+	            }catch (UnsupportedEncodingException e) {
+					e.printStackTrace();
+				}    
+	            sheet.setColumnWidth(columnNum, columnWidth * 256);  
+			} 
+        } 
     }
 }

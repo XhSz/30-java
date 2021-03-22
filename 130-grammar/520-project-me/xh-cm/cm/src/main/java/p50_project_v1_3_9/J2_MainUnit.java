@@ -1,8 +1,6 @@
 package p50_project_v1_3_9;
 
-import java.io.FileInputStream;
 import java.io.FileNotFoundException;
-import java.io.IOException;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.HashSet;
@@ -10,18 +8,14 @@ import java.util.List;
 import java.util.Map;
 import java.util.Set;
 
-import org.apache.poi.EncryptedDocumentException;
-import org.apache.poi.openxml4j.exceptions.InvalidFormatException;
-import org.apache.poi.ss.usermodel.CreationHelper;
 import org.apache.poi.ss.usermodel.Workbook;
-import org.apache.poi.ss.usermodel.WorkbookFactory;
-import org.apache.poi.xssf.usermodel.XSSFHyperlink;
 
 import com.alibaba.fastjson.JSONObject;
 
 import p50_project_v1.J1_BeanBatch;
 import p50_project_v1.J1_BeanCall;
 import p50_project_v1.J1_BeanCallRelate;
+import p50_project_v1.J1_BeanCol;
 import p50_project_v1.J1_BeanDb;
 import p50_project_v1.J1_BeanMenu;
 import p50_project_v1.J1_BeanTran;
@@ -278,6 +272,7 @@ public class J2_MainUnit {
 	public static Set<J1_BeanDb> dbSet = new HashSet<J1_BeanDb>();
 	public static Set<J1_BeanDb> dbTablesSet = new HashSet<J1_BeanDb>();
 	public static Workbook dbBook = null;
+	public static List<J1_BeanCol> colMapList = new ArrayList<J1_BeanCol>();
 	public static Map<String,Integer> dbBookMap = new HashMap<String,Integer>();
 	public static String STR_5_DB_4_INIT = "5_DB_4_INIT-db初始化";
 	public static boolean DO_5_DB_1_INIT = false;//db初始化

@@ -7,6 +7,7 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.Set;
@@ -16,6 +17,7 @@ import com.alibaba.fastjson.JSONObject;
 import p50_project_v1.J1_BeanBatch;
 import p50_project_v1.J1_BeanCall;
 import p50_project_v1.J1_BeanCallRelate;
+import p50_project_v1.J1_BeanCol;
 import p50_project_v1.J1_BeanDb;
 import p50_project_v1.J1_BeanMenu;
 import p50_project_v1.J1_BeanTran;
@@ -180,6 +182,28 @@ public class J5_Sql {
 //            			selectDb(stmt,(Map<String,String>)input);
             		}
             	}
+            }else if(oper==340) {
+				String sql = " select * from "+input+" limit 100 ";
+	            ResultSet rs = stmt.executeQuery(sql);
+	            List<Map<String,String>> resultList = new ArrayList<Map<String,String>>();
+	            while(rs.next()){
+	            	Map<String,String> mapItem = new HashMap<String,String>();
+	            	for(J1_BeanCol colBean:J2_MainUnit.colMapList) {
+	            		try {
+		            		if(0==colBean.getCol_type())
+		            			mapItem.put(colBean.getCol_name(), rs.getString(colBean.getCol_name()));
+		            		else if(1==colBean.getCol_type())
+		            			mapItem.put(colBean.getCol_name(), String.valueOf(rs.getInt(colBean.getCol_name())));
+	            		}catch(Exception e) {
+	            			String errStr = e.toString();
+	                    	if(errStr.startsWith("java.sql.SQLException: Column")&&errStr.endsWith("not found."))
+	                    		System.err.println(errStr);
+	                    	else throw e;
+	            		}
+	            	}
+	            	resultList.add(mapItem);
+	            }
+	            return resultList;
             }else if((oper>340&&oper<350)||(oper>3400&&oper<3500)) {
             	if(341==oper)
             		resultObj = selectTran(stmt,(Map<String,String>)input);
@@ -213,10 +237,12 @@ public class J5_Sql {
 	        if(ps!=null)ps.close();
 	        if(stmt!=null)stmt.close();
             conn.close();
-        }catch(SQLException se){
-            se.printStackTrace();
         }catch(Exception e){
-            e.printStackTrace();
+        	String errStr = e.toString();
+        	if(errStr.startsWith("java.sql.SQLException: Table")&&errStr.endsWith("doesn't exist"))
+        		System.err.println(errStr);
+        	else
+        		e.printStackTrace();
         }finally{
             try{
                 if(ps!=null) ps.close();
