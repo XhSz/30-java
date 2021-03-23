@@ -1,0 +1,4 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<session version="1.0">
+<refactoring comment="Copy 3 elements to &apos;xh-common/src/p21_file_updatetime&apos;&#x0D;&#x0A;- Original project: &apos;xh-common&apos;&#x0D;&#x0A;- Destination element: &apos;xh-common/src/p21_file_updatetime&apos;&#x0D;&#x0A;- Original elements:&#x0D;&#x0A;     p21_file_size.release.v1_0.J2_Bean.java&#x0D;&#x0A;     p21_file_size.release.v1_0.J1_MainExecute.java&#x0D;&#x0A;     p21_file_size.release.v1_0.J3_Util.java" description="Copy compilation units" destination="/src&lt;p21_file_updatetime" element1="/src&lt;p21_file_size.release.v1_0{J2_Bean.java" element2="/src&lt;p21_file_size.release.v1_0{J1_MainExecute.java" element3="/src&lt;p21_file_size.release.v1_0{J3_Util.java" files="0" flags="589830" folders="0" id="org.eclipse.jdt.ui.copy" policy="org.eclipse.jdt.ui.copyResources" stamp="1584076979162" units="3" version="1.0"/>
+</session>

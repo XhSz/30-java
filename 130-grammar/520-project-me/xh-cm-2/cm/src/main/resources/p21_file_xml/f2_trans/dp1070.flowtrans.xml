@@ -1,0 +1,215 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<flowtran xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" id="dp1070" longname="Fixed Product purchase" kind="F" package="cn.sunline.icore.dp.trans.open" xsi:noNamespaceSchemaLocation="ltts-model.xsd">
+    <description><![CDATA[1. 本接口支持开追开各类定期子户
+2. 适用于定活期子户都在一个账号下的模式]]></description>
+    <interface package="cn.sunline.icore.dp.trans.open.intf">
+        <input packMode="true">
+            <field id="acct_no" type="BaseType.U_ACCTNO" required="false" multi="false" array="false" longname="account no" ref="SysDict.A.acct_no"/>
+            <field id="acct_type" type="BaseType.U_ACCTTYPE" required="false" multi="false" array="false" longname="account type" ref="SysDict.A.acct_type"/>
+            <field id="acct_name" type="BaseType.U_ACCTNAME" required="false" multi="false" array="false" longname="account name" desc="账户名称" ref="SysDict.A.acct_name"/>
+            <field id="prod_id" type="BaseType.U_PRODUCTCODE" required="false" multi="false" array="false" longname="product code" ref="SysDict.A.prod_id"/>
+            <field id="base_prod_id" type="BaseType.U_PRODUCTCODE" required="false" multi="false" array="false" longname="product code" ref="SysDict.A.base_prod_id"/>
+            <field id="ccy_code" type="BaseType.U_CURRENCY" required="false" multi="false" array="false" longname="currency code" ref="SysDict.A.ccy_code"/>
+            <field id="trxn_amt" type="BaseType.U_MONEY" required="false" multi="false" array="false" longname="transaction amount" ref="SysDict.A.trxn_amt"/>
+            <field id="term_code" type="BaseType.U_CYCLE" required="false" multi="false" array="false" longname="term code" desc="存期" ref="SysDict.A.term_code"/>
+            <field id="due_date" type="BaseType.U_DATE" required="false" multi="false" array="false" longname="due date" desc="到期日" ref="SysDict.A.due_date"/>
+            <field id="pay_inst_cyc" type="BaseType.U_CYCLE" required="false" multi="false" array="false" longname="interest cycle" desc="付息周期" ref="DpBaseDict.A.pay_inst_cyc"/>
+            <field id="inrt_float_method" type="EnumType.E_FLOATWAY" required="false" multi="false" array="false" longname="floating method" desc="利率浮动方式" ref="SysDict.A.inrt_float_method"/>
+            <field id="inrt_float_value" type="BaseType.U_INTERESTRATE" required="false" multi="false" array="false" longname="floating value" desc="利率浮动值" ref="SysDict.A.inrt_float_value"/>
+            <field id="renewal_method" type="DpBaseEnumType.E_RENEWSAVEWAY" required="false" enums="PRINCIPAL,PRIN_INST,MATURE_TO_OTHER_ACCT" multi="false" array="false" longname="renewal method" desc="续存方式" ref="DpBaseDict.A.renewal_method"/>
+            <field id="renew_save_amt" type="BaseType.U_MONEY" required="false" multi="false" array="false" longname="renew save amt" desc="续存金额" ref="DpBaseDict.A.renew_save_amt"/>
+            <field id="renew_save_term" type="BaseType.U_CYCLE" required="false" multi="false" array="false" longname="renew save term" desc="续存存期" ref="DpBaseDict.A.renew_save_term"/>
+            <field id="scheduled_dept_cycle" type="BaseType.U_CYCLE" required="false" multi="false" array="false" longname="scheduled deposit cycle" desc="约定存入间隔周期" ref="DpBaseDict.A.scheduled_dept_cycle"/>
+            <field id="target_amt" type="BaseType.U_MONEY" required="false" multi="false" array="false" longname="Target amount" desc="目标金额" ref="DpBaseDict.A.target_amt"/>
+            <field id="scheduled_withdrawal_cycle" type="BaseType.U_CYCLE" required="false" multi="false" array="false" longname="scheduled withdrawal cycle" desc="约定支取间隔周期" ref="DpBaseDict.A.scheduled_withdrawal_cycle"/>
+            <field id="max_withdrawal_count" type="BaseType.U_LONG" required="false" multi="false" array="false" longname="maximum withdrawal count" desc="最大支取次数" ref="DpBaseDict.A.max_withdrawal_count"/>
+            <field id="income_source" type="BaseType.U_BYTE50" required="false" multi="false" array="false" longname="main source of income" desc="主要经济来源" ref="DpDict.A.income_source"/>
+            <field id="fund_source" type="BaseType.U_BYTE3" required="false" multi="false" array="false" longname="fund source" desc="资金来源" ref="DpDict.A.fund_source"/>
+            <field id="fund_use_way" type="BaseType.U_BYTE3" required="false" multi="false" array="false" longname="fund use way" desc="资金用途" ref="DpDict.A.fund_use_way"/>
+            <field id="acct_manager_id" type="BaseType.U_USERID" required="false" multi="false" array="false" longname="account manager id" desc="账户经理号" ref="DpBaseDict.A.acct_manager_id"/>
+            <field id="acct_manager_name" type="BaseType.U_CHNAME" required="false" multi="false" array="false" longname="account manager name" desc="账户经理姓名" ref="DpBaseDict.A.acct_manager_name"/>
+            <field id="check_password_ind" type="MsEnumType.E_YESORNO" required="false" multi="false" array="false" longname="password form indication" desc="验密标志" ref="SysDict.A.check_password_ind"/>
+            <field id="trxn_password" type="BaseType.U_BYTE32" required="false" multi="false" array="false" longname="trxn password" desc="交易密码" ref="SysDict.A.trxn_password"/>
+            <field id="summary_code" type="BaseType.U_BYTE8" required="false" multi="false" array="false" longname="summary code" desc="摘要代码" ref="SysDict.A.summary_code"/>
+            <field id="trxn_remark" type="BaseType.U_SHORTDESC" required="false" multi="false" array="false" longname="transaction remark" desc="交易备注" ref="SysDict.A.trxn_remark"/>
+            <field id="customer_remark" type="BaseType.U_SHORTDESC" required="false" multi="false" array="false" longname="customer remark" desc="客户备注" ref="SysDict.A.customer_remark"/>
+            <field id="income_inst_acct" type="BaseType.U_ACCTNO" required="false" multi="false" array="false" longname="income interest account no" desc="收息账号" ref="DpBaseDict.A.income_inst_acct"/>
+            <field id="income_inst_ccy" type="BaseType.U_CURRENCY" required="false" multi="false" array="false" longname="income interest currency" desc="收息账户币种" ref="DpBaseDict.A.income_inst_ccy"/>
+            <field id="prin_trsf_acct" type="BaseType.U_ACCTNO" required="false" multi="false" array="false" longname="Principal and interest account" desc="本息账户" ref="DpBaseDict.A.prin_trsf_acct"/>
+            <field id="prin_trsf_acct_ccy" type="BaseType.U_CURRENCY" required="false" multi="false" array="false" longname="Principal and interest account currency code" desc="本息账户币种" ref="DpBaseDict.A.prin_trsf_acct_ccy"/>
+            <field id="withdrawal_busi_type" type="DpSysEnumType.E_DRAWBUSIKIND" required="false" default="C" multi="false" array="false" longname="withdrawal business types" desc="支取业务种类" ref="DpSysDict.A.withdrawal_busi_type"/>
+            <field id="chrg_amt" type="BaseType.U_MONEY" required="false" multi="false" array="false" longname="charge amount" desc="收费金额" ref="SysDict.A.chrg_amt"/>
+        </input>
+        <output asParm="true" packMode="true">
+            <field id="card_no" type="BaseType.U_ACCTNO" required="false" multi="false" array="false" longname="card no" desc="卡号" ref="SysDict.A.card_no"/>
+            <field id="cust_no" type="BaseType.U_CUSTNO" required="false" multi="false" array="false" longname="customer number" desc="客户号" ref="SysDict.A.cust_no"/>
+            <field id="acct_no" type="BaseType.U_ACCTNO" required="false" multi="false" array="false" longname="account no" desc="账号" ref="SysDict.A.acct_no"/>
+            <field id="acct_type" type="BaseType.U_ACCTTYPE" required="false" multi="false" array="false" longname="account type" desc="账户类型" ref="SysDict.A.acct_type"/>
+            <field id="acct_name" type="BaseType.U_ACCTNAME" required="false" multi="false" array="false" longname="account name" desc="账户名称" ref="SysDict.A.acct_name"/>
+            <field id="sub_acct_seq" type="BaseType.U_SUBACCTSEQ" required="false" multi="false" array="false" longname="sub-account sequence" desc="子账户序号" ref="SysDict.A.sub_acct_seq"/>
+            <field id="ccy_code" type="BaseType.U_CURRENCY" required="false" multi="false" array="false" longname="currency code" desc="货币代码" ref="SysDict.A.ccy_code"/>
+            <field id="acct_bal" type="BaseType.U_MONEY" required="false" multi="false" array="false" longname="account balance" desc="账户余额" ref="SysDict.A.acct_bal"/>
+            <field id="prod_id" type="BaseType.U_PRODUCTCODE" required="false" multi="false" array="false" longname="product code" desc="产品编号" ref="SysDict.A.prod_id"/>
+            <field id="efft_inrt" type="BaseType.U_INTERESTRATE" required="false" multi="false" array="false" longname="effective interest rate" desc="账户执行利率" ref="SysDict.A.efft_inrt"/>
+            <field id="spec_dept_type" type="DpBaseEnumType.E_SPECPRODTYPE" required="false" multi="false" array="false" longname="special deposit type" desc="特定存款种类" ref="DpBaseDict.A.spec_dept_type"/>
+            <field id="term_code" type="BaseType.U_CYCLE" required="false" multi="false" array="false" longname="term code" desc="存期" ref="SysDict.A.term_code"/>
+            <field id="due_date" type="BaseType.U_DATE" required="false" multi="false" array="false" longname="due date" desc="到期日" ref="SysDict.A.due_date"/>
+            <field id="start_inst_date" type="BaseType.U_DATE" required="false" multi="false" array="false" longname="starting  interest date" desc="起息日期" ref="SysDict.A.start_inst_date"/>
+            <field id="maturity_profit" type="BaseType.U_MONEY" required="false" multi="false" array="false" longname="Maturity profit" desc="到期收益" ref="DpBaseDict.A.maturity_profit"/>
+            <field id="interest_tax" type="BaseType.U_MONEY" required="false" multi="false" array="false" longname="interest tax" desc="利息税" ref="DpSysDict.A.interest_tax"/>
+            <field id="inst_tax_rate" type="BaseType.U_INTERESTRATE" required="false" multi="false" array="false" longname="accrued interest rate " desc="应计利息税率" ref="DpBaseDict.A.inst_tax_rate"/>
+            <field id="interest" type="BaseType.U_MONEY" required="false" multi="false" array="false" longname="interest" desc="利息" ref="SysDict.A.interest"/>
+            <field id="trxn_time" type="BaseType.U_DATETIME" required="false" multi="false" array="false" longname="transaction time" desc="交易时间" ref="SysDict.A.trxn_time"/>
+            <field id="trxn_date" type="BaseType.U_DATE" required="false" multi="false" array="false" longname="transaction date" desc="交易日期" ref="SysDict.A.trxn_date"/>
+        </output>
+        <property packMode="true">
+            <field id="acct_no" type="BaseType.U_ACCTNO" required="false" multi="false" array="false" longname="account no" desc="账号" ref="SysDict.A.acct_no"/>
+            <field id="acct_name" type="BaseType.U_ACCTNAME" required="false" multi="false" array="false" longname="account name" desc="账户名称" ref="SysDict.A.acct_name"/>
+            <field id="cust_no" type="BaseType.U_CUSTNO" required="false" multi="false" array="false" longname="customer number" desc="客户号" ref="SysDict.A.cust_no"/>
+            <field id="acct_type" type="BaseType.U_ACCTTYPE" required="false" multi="false" array="false" longname="account type" desc="账户类型" ref="SysDict.A.acct_type"/>
+            <field id="card_no" type="BaseType.U_ACCTNO" required="false" multi="false" array="false" longname="card no" desc="卡号" ref="SysDict.A.card_no"/>
+            <field id="start_inst_date" type="BaseType.U_DATE" required="false" multi="false" array="false" longname="starting  interest date" desc="起息日期" ref="SysDict.A.start_inst_date"/>
+            <field id="due_date" type="BaseType.U_DATE" required="false" multi="false" array="false" longname="due date" desc="到期日" ref="SysDict.A.due_date"/>
+            <field id="efft_inrt" type="BaseType.U_INTERESTRATE" required="false" multi="false" array="false" longname="effective interest rate" desc="账户执行利率" ref="SysDict.A.efft_inrt"/>
+            <field id="sub_acct_seq" type="BaseType.U_SUBACCTSEQ" required="false" multi="false" array="false" longname="sub-account sequence" desc="子账户序号" ref="SysDict.A.sub_acct_seq"/>
+            <field id="target_trxn_amt" type="BaseType.U_MONEY" required="false" multi="false" array="false" longname="transaction amount"/>
+            <field id="sub_acct_no" type="BaseType.U_ACCTNO" required="false" multi="false" array="false" longname="sub account number" desc="子账号" ref="DpDict.A.sub_acct_no"/>
+            <field id="summary_code" type="BaseType.U_BYTE8" required="false" multi="false" array="false" longname="summary code" desc="摘要代码" ref="SysDict.A.summary_code"/>
+            <fields id="list_inrt" scope="ComIoDpOpenAccount.DpInrtSet" required="false" multi="true" longname="interet rate information" desc="利率信息" array="false">
+                <field id="inrt_key_type" type="DpBaseEnumType.E_INSTKEYTYPE" required="false" multi="false" array="false" longname="interest rate key type" desc="利率索引类型" ref="DpBaseDict.A.inrt_key_type"/>
+                <field id="inrt_float_method" type="EnumType.E_FLOATWAY" required="false" multi="false" array="false" longname="floating method" desc="利率浮动方式" ref="SysDict.A.inrt_float_method"/>
+                <field id="inrt_float_value" type="BaseType.U_INTERESTRATE" required="false" multi="false" array="false" longname="floating value" desc="利率浮动值" ref="SysDict.A.inrt_float_value"/>
+            </fields>
+            <field id="maturity_profit" type="BaseType.U_MONEY" required="false" multi="false" array="false" longname="Maturity profit" desc="到期收益" ref="DpBaseDict.A.maturity_profit"/>
+            <field id="income_inst_acct" type="BaseType.U_ACCTNO" required="false" multi="false" array="false" longname="income interest account no" desc="收息账号" ref="DpBaseDict.A.income_inst_acct"/>
+            <field id="income_inst_ccy" type="BaseType.U_CURRENCY" required="false" multi="false" array="false" longname="income interest currency" desc="收息账户币种" ref="DpBaseDict.A.income_inst_ccy"/>
+            <field id="prin_trsf_acct" type="BaseType.U_ACCTNO" required="false" multi="false" array="false" longname="Principal and interest account" desc="本息账户" ref="DpBaseDict.A.prin_trsf_acct"/>
+            <field id="prin_trsf_acct_ccy" type="BaseType.U_CURRENCY" required="false" multi="false" array="false" longname="Principal and interest account currency code" desc="本息账户币种" ref="DpBaseDict.A.prin_trsf_acct_ccy"/>
+        </property>
+        <printer packMode="true"/>
+    </interface>
+    <flow>
+        <method method="InterfaceCheck" id="InterfaceCheck" longname="Interface Check"/>
+        <service mappingToProperty="true" serviceName="SrvDpOpenAccount.addSubAccount" id="new open sub account" longname="new open fixed sub account">
+            <in_mappings by_interface="true">
+                <mapping src="acct_manager_id" dest="addSubAccountIn.acct_manager_id" by_interface="true" on_top="true"/>
+                <mapping src="acct_manager_name" dest="addSubAccountIn.acct_manager_name" by_interface="true" on_top="true"/>
+                <mapping src="acct_no" dest="addSubAccountIn.acct_no" by_interface="true" on_top="true"/>
+                <mapping src="acct_type" dest="addSubAccountIn.acct_type" by_interface="true" on_top="true"/>
+                <mapping src="card_no" dest="addSubAccountIn.card_no" by_interface="true" on_top="true"/>
+                <mapping src="ccy_code" dest="addSubAccountIn.ccy_code" by_interface="true" on_top="true"/>
+                <mapping src="due_date" dest="addSubAccountIn.due_date" by_interface="true" on_top="true"/>
+                <mapping src="fund_source" dest="addSubAccountIn.fund_source" by_interface="true" on_top="true"/>
+                <mapping src="fund_use_way" dest="addSubAccountIn.fund_use_way" by_interface="true" on_top="true"/>
+                <mapping src="income_inst_acct" dest="addSubAccountIn.income_inst_acct" by_interface="true" on_top="true"/>
+                <mapping src="income_inst_ccy" dest="addSubAccountIn.income_inst_ccy" by_interface="true" on_top="true"/>
+                <mapping src="income_source" dest="addSubAccountIn.income_source" by_interface="true" on_top="true"/>
+                <mapping src="list_inrt" dest="addSubAccountIn.list_inrt" by_interface="true" on_top="true"/>
+                <mapping src="maturity_profit" dest="addSubAccountIn.maturity_profit" by_interface="true" on_top="true"/>
+                <mapping src="pay_inst_cyc" dest="addSubAccountIn.pay_inst_cyc" by_interface="true" on_top="true"/>
+                <mapping src="prin_trsf_acct" dest="addSubAccountIn.prin_trsf_acct" by_interface="true" on_top="true"/>
+                <mapping src="prin_trsf_acct_ccy" dest="addSubAccountIn.prin_trsf_acct_ccy" by_interface="true" on_top="true"/>
+                <mapping src="prod_id" dest="addSubAccountIn.prod_id" by_interface="true" on_top="true"/>
+                <mapping src="customer_remark" dest="addSubAccountIn.remark" by_interface="true" on_top="true"/>
+                <mapping src="renew_save_amt" dest="addSubAccountIn.renew_save_amt" by_interface="true" on_top="true"/>
+                <mapping src="renew_save_term" dest="addSubAccountIn.renew_save_term" by_interface="true" on_top="true"/>
+                <mapping src="renewal_method" dest="addSubAccountIn.renewal_method" by_interface="true" on_top="true"/>
+                <mapping src="scheduled_dept_cycle" dest="addSubAccountIn.scheduled_dept_cycle" by_interface="true" on_top="true"/>
+                <mapping src="scheduled_withdrawal_cycle" dest="addSubAccountIn.scheduled_withdrawal_cycle" by_interface="true" on_top="true"/>
+                <mapping src="target_amt" dest="addSubAccountIn.target_amt" by_interface="true" on_top="true"/>
+                <mapping src="term_code" dest="addSubAccountIn.term_code" by_interface="true" on_top="true"/>
+                <mapping src="trxn_amt" dest="addSubAccountIn.trxn_amt" by_interface="true" on_top="true"/>
+                <mapping src="trxn_password" dest="addSubAccountIn.trxn_password" by_interface="true" on_top="true"/>
+            </in_mappings>
+            <out_mappings by_interface="false">
+                <mapping src="addSubAccountOut.acct_name" dest="acct_name" by_interface="true" on_top="true"/>
+                <mapping src="addSubAccountOut.cust_no" dest="cust_no" desc="description" by_interface="true" on_top="true"/>
+                <mapping src="addSubAccountOut.acct_no" dest="acct_no" by_interface="true" on_top="true"/>
+                <mapping src="addSubAccountOut.due_date" dest="due_date" by_interface="true" on_top="true"/>
+                <mapping src="addSubAccountOut.efft_inrt" dest="efft_inrt" by_interface="true" on_top="true"/>
+                <mapping src="addSubAccountOut.start_inst_date" dest="start_inst_date" desc="description" by_interface="true" on_top="true"/>
+                <mapping src="addSubAccountOut.sub_acct_seq" dest="sub_acct_seq" by_interface="true" on_top="true"/>
+                <mapping src="addSubAccountOut.sub_acct_no" dest="sub_acct_no" desc="description" by_interface="true" on_top="true"/>
+            </out_mappings>
+        </service>
+        <method method="OpenSubAcctAfterTrial" id="OpenSubAcctAfterTrial" longname="trial after open subclass account"/>
+        <block id="transferFund" test="trxn_amt&gt;0" longname="processing of funds">
+            <service serviceName="SrvDpDemandAccounting.demandDraw" id="SrvDpDemandAccounting.demandDraw" longname="CASA withdrawl">
+                <in_mappings by_interface="true">
+                    <mapping src="acct_no" dest="demandDrawIn.acct_no" by_interface="true" on_top="true"/>
+                    <mapping src="ccy_code" dest="demandDrawIn.ccy_code" by_interface="true" on_top="true"/>
+                    <mapping src="check_password_ind" dest="demandDrawIn.check_password_ind" by_interface="true" on_top="true"/>
+                    <mapping src="base_prod_id" dest="demandDrawIn.prod_id" by_interface="true" on_top="true"/>
+                    <mapping src="customer_remark" dest="demandDrawIn.customer_remark" by_interface="true" on_top="true"/>
+                    <mapping src="summary_code" dest="demandDrawIn.summary_code" by_interface="true" on_top="true"/>
+                    <mapping src="trxn_amt" dest="demandDrawIn.trxn_amt" by_interface="true" on_top="true"/>
+                    <mapping src="trxn_password" dest="demandDrawIn.trxn_password" by_interface="true" on_top="true"/>
+                    <mapping src="trxn_remark" dest="demandDrawIn.trxn_remark" by_interface="true" on_top="true"/>
+                    <mapping src="#dict.EnumType.E_ACCOUTANALY().DEPOSIT" dest="demandDrawIn.opp_acct_route" desc="description" by_interface="true" on_top="true"/>
+                    <mapping src="acct_no" dest="demandDrawIn.opp_acct_no" desc="description" by_interface="true" on_top="true"/>
+                    <mapping src="ccy_code" dest="demandDrawIn.opp_acct_ccy" desc="description" by_interface="true" on_top="true"/>
+                    <mapping src="sub_acct_seq" dest="demandDrawIn.opp_sub_acct_seq" desc="description" by_interface="true" on_top="true"/>
+                    <mapping src="#dict.MsEnumType.E_CASHTRXN().TRXN" dest="demandDrawIn.cash_trxn_ind" desc="description" by_interface="true" on_top="true"/>
+                    <mapping src="trxn_amt" dest="demandDrawIn.opp_trxn_amt" desc="description" by_interface="true" on_top="true"/>
+                    <mapping src="trxn_remark" dest="demandDrawIn.trxn_remark" by_interface="true" on_top="true"/>
+                    <mapping src="withdrawal_busi_type" dest="demandDrawIn.withdrawal_busi_type" desc="description" by_interface="true" on_top="true"/>
+                    <mapping src="chrg_amt" dest="demandDrawIn.chrg_amt" desc="description" by_interface="true" on_top="true"/>
+                </in_mappings>
+                <out_mappings by_interface="false"/>
+            </service>
+            <service serviceName="SrvDpTimeAccounting.timeSave" id="SrvDpTimeAccounting.timeSave" longname="Fixed Deposit">
+                <in_mappings by_interface="true">
+                    <mapping src="acct_no" dest="timeSaveIn.acct_no" by_interface="true" on_top="true"/>
+                    <mapping src="acct_type" dest="timeSaveIn.acct_type" by_interface="true" on_top="true"/>
+                    <mapping src="ccy_code" dest="timeSaveIn.ccy_code" by_interface="true" on_top="true"/>
+                    <mapping src="sub_acct_seq" dest="timeSaveIn.sub_acct_seq" desc="description" by_interface="true" on_top="true"/>
+                    <mapping src="customer_remark" dest="timeSaveIn.customer_remark" by_interface="true" on_top="true"/>
+                    <mapping src="summary_code" dest="timeSaveIn.summary_code" by_interface="true" on_top="true"/>
+                    <mapping src="trxn_amt" dest="timeSaveIn.trxn_amt" by_interface="true" on_top="true"/>
+                    <mapping src="trxn_remark" dest="timeSaveIn.trxn_remark" by_interface="true" on_top="true"/>
+                    <mapping src="#dict.MsEnumType.E_CASHTRXN().TRXN" dest="timeSaveIn.cash_trxn_ind" desc="description" by_interface="true" on_top="true"/>
+                    <mapping src="#dict.MsEnumType.E_YESORNO().YES" dest="timeSaveIn.open_acct_save_ind" desc="description" by_interface="true" on_top="true"/>
+                    <mapping src="ccy_code" dest="timeSaveIn.opp_acct_ccy" desc="description" by_interface="true" on_top="true"/>
+                    <mapping src="acct_no" dest="timeSaveIn.opp_acct_no" desc="description" by_interface="true" on_top="true"/>
+                    <mapping src="#dict.EnumType.E_ACCOUTANALY().DEPOSIT" dest="timeSaveIn.opp_acct_route" desc="description" by_interface="true" on_top="true"/>
+                    <mapping src="acct_type" dest="timeSaveIn.opp_acct_type" desc="description" by_interface="true" on_top="true"/>
+                </in_mappings>
+                <out_mappings by_interface="true">
+                    <mapping src="timeSaveOut.acct_bal" dest="acct_bal" by_interface="true" on_top="true"/>
+                    <mapping src="timeSaveOut.acct_name" dest="acct_name" by_interface="true" on_top="true"/>
+                    <mapping src="timeSaveOut.acct_no" dest="acct_no" by_interface="true" on_top="true"/>
+                    <mapping src="timeSaveOut.acct_type" dest="acct_type" by_interface="true" on_top="true"/>
+                    <mapping src="timeSaveOut.card_no" dest="card_no" by_interface="true" on_top="true"/>
+                    <mapping src="timeSaveOut.ccy_code" dest="ccy_code" by_interface="true" on_top="true"/>
+                    <mapping src="timeSaveOut.sub_acct_seq" dest="sub_acct_seq" by_interface="true" on_top="true"/>
+                </out_mappings>
+            </service>
+        </block>
+        <service serviceName="SrvApTrxn.registerApsTransaction" id="SrvApTrxn.registerApsTransaction" longname="register sequence">
+            <in_mappings by_interface="true">
+                <mapping src="customer_remark" dest="trxn_info.customer_remark" by_interface="true" on_top="true"/>
+                <mapping src="trxn_amt" dest="trxn_info.trxn_amt" by_interface="true" on_top="true"/>
+                <mapping src="trxn_remark" dest="trxn_info.trxn_remark" by_interface="true" on_top="true"/>
+                <mapping src="acct_no" dest="trxn_info.trxn_acct_no" desc="description" by_interface="true" on_top="true"/>
+                <mapping src="ccy_code" dest="trxn_info.trxn_ccy" desc="description" by_interface="true" on_top="true"/>
+                <mapping src="#dict.MsEnumType.E_CASHTRXN().TRXN" dest="trxn_info.cash_trxn_ind" desc="description" by_interface="true" on_top="true"/>
+                <mapping src="acct_no" dest="trxn_info.counterparty_acct_no" desc="description" by_interface="true" on_top="true"/>
+                <mapping src="acct_name" dest="trxn_info.counterparty_acct_na" desc="description" by_interface="true" on_top="true"/>
+            </in_mappings>
+            <out_mappings by_interface="true"/>
+        </service>
+    </flow>
+    <outMapping by_interface="false">
+        <mapping src="acct_name" dest="acct_name" by_interface="true" on_top="true"/>
+        <mapping src="acct_no" dest="acct_no" by_interface="true" on_top="true"/>
+        <mapping src="cust_no" dest="cust_no" desc="description" by_interface="true" on_top="true"/>
+        <mapping src="acct_type" dest="acct_type" by_interface="true" on_top="true"/>
+        <mapping src="ccy_code" dest="ccy_code" by_interface="true" on_top="true"/>
+        <mapping src="due_date" dest="due_date" by_interface="true" on_top="true"/>
+        <mapping src="prod_id" dest="prod_id" by_interface="true" on_top="true"/>
+        <mapping src="term_code" dest="term_code" by_interface="true" on_top="true"/>
+        <mapping src="efft_inrt" dest="efft_inrt" desc="description" by_interface="true" on_top="true"/>
+    </outMapping>
+    <propertyToPrinterMapping by_interface="false"/>
+    <outToPrinterMapping by_interface="false"/>
+</flowtran>

@@ -3,6 +3,7 @@ package p50_project_v1;
 public class J1_BeanCol {
 	public String col_name;
 	public String col_des;
+	public String col_enum;
 	public int col_type;
 	public String getCol_name() {
 		return col_name;
@@ -21,5 +22,11 @@ public class J1_BeanCol {
 	}
 	public void setCol_des(String col_des) {
 		this.col_des = col_des;
+	}
+	public String getCol_enum() {
+		return col_enum;
+	}
+	public void setCol_enum(String col_enum) {
+		this.col_enum = col_enum;
 	}
 }
