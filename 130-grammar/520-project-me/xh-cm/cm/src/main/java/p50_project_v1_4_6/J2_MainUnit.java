@@ -490,7 +490,8 @@ public class J2_MainUnit {
     				}
             	}
     		}
-			J2_MainUnit.CP="D:\\03-sl-107-code\\26-gs\\99-3.0.4-stable\\cf-busi\\cf-serv";
+//			J2_MainUnit.CP="D:\\03-sl-107-code\\26-gs\\99-3.0.4-stable\\cf-busi\\cf-serv";
+//    		J2_MainUnit.CP="D:\\03-sl-107-code\\26-gs\\99-3.0.4-stable\\dp-base\\dp-base";
 			J73_Tran_Util.scanFolder(CP, 2, dbKeySet, dbTablesSet);// tables
 			dbSet.addAll(dbTablesSet);
     		J3_Util.logE(STR_5_DB_2_TABLES_1_INIT);

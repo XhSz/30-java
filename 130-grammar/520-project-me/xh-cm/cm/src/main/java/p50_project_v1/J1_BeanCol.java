@@ -1,10 +1,14 @@
 package p50_project_v1;
 
+import java.util.Map;
+
 public class J1_BeanCol {
 	public String col_name;
 	public String col_des;
 	public String col_enum;
 	public int col_type;
+	public Map<String,Integer> enumMap;
+	
 	public String getCol_name() {
 		return col_name;
 	}
@@ -28,5 +32,11 @@ public class J1_BeanCol {
 	}
 	public void setCol_enum(String col_enum) {
 		this.col_enum = col_enum;
+	}
+	public Map<String, Integer> getEnumMap() {
+		return enumMap;
+	}
+	public void setEnumMap(Map<String, Integer> enumMap) {
+		this.enumMap = enumMap;
 	}
 }

@@ -100,6 +100,16 @@ public class J3_Util {
 	public static XSSFHyperlink dbBookLink = null;
 	public static CellStyle linkColStyle = null;
 	public static CellStyle commonColStyle = null;
+	public static int colorSize = 6;
+	public static CellStyle[] colorColStyle = new CellStyle[colorSize];
+	public static short[] colorIndex = {
+    		IndexedColors.GREEN.getIndex(),
+			IndexedColors.RED.getIndex(),
+    		IndexedColors.BLUE.getIndex(),
+    		IndexedColors.GREY_80_PERCENT.getIndex(),
+    		IndexedColors.ORANGE.getIndex(),
+    		IndexedColors.GOLD.getIndex()
+    };
 	public static CellStyle desColStyle = null;
 	public static String TABLE_NOT_EXIST_ERR = "TABLE_NOT_EXIST_ERR";
 	
@@ -1207,6 +1217,14 @@ public class J3_Util {
             printDebug(childMenu);
         }
     }
+	public static boolean isNull(Object obj) {
+		if(null==obj)return true;
+		if(obj instanceof String) {
+			if("".equals(((String) obj).trim()))
+				return true;
+		}
+		return false;
+	}
 	public static void print(Object obj) {
     	if(!DE)return;
 		if(obj instanceof J1_BeanTran) {
@@ -1315,6 +1333,15 @@ public class J3_Util {
             Font desFont = J2_MainUnit.dbBook.createFont();
             desFont.setColor(IndexedColors.BLUE_GREY.getIndex());
             desColStyle.setFont(desFont);
+            for(int i=0;i<colorColStyle.length;i++){
+            	CellStyle cellStyle = J2_MainUnit.dbBook.createCellStyle();
+                Font colorFont = J2_MainUnit.dbBook.createFont();
+                colorFont.setColor(colorIndex[i]);
+                cellStyle.setFont(colorFont);
+                cellStyle.setAlignment(HorizontalAlignment.CENTER);//设置水平对齐的样式为居中对齐; 
+                cellStyle.setVerticalAlignment(VerticalAlignment.CENTER);//设置垂直对齐的样式为居中对齐;
+                colorColStyle[i] = cellStyle;
+            }
         	J2_MainUnit.dbBookMap.put(LINE_POS_DBOOK, -1);
         	J2_MainUnit.dbBookMap.put(SHEET_POS_DBOOK, -1);
         	J2_MainUnit.dbBookMap.put(MAX_TABLESPACE_DBOOK, 0);
@@ -1378,7 +1405,11 @@ public class J3_Util {
 		        //增加sheet
 				int sheetPos = J2_MainUnit.dbBookMap.get(SHEET_POS_DBOOK)+1;
 		        J2_MainUnit.dbBook.cloneSheet(1);
-		        J2_MainUnit.dbBook.setSheetName(sheetPos+2, sheetName);
+		        try {
+		        	J2_MainUnit.dbBook.setSheetName(sheetPos+2, sheetName);
+		        }catch(Exception e) {
+		        	System.err.println();
+		        }
 		        //参数递增
 		        J2_MainUnit.dbBookMap.put(SHEET_POS_DBOOK,sheetPos);
 		        setDBBookTable(sheetName,tableName,(List<Map<String,String>>)result);
@@ -1413,8 +1444,15 @@ public class J3_Util {
             	if("IoCfEnumType.E_NAMETYPE".equals(colBean.getCol_enum()))
             		System.err.println();
                 String colEnum = J2_MainUnit.enumMap.get(colBean.getCol_enum());
-                if(null!=colEnum)
-                	colBean.setCol_enum(J2_MainUnit.enumMap.get(colBean.getCol_enum()));
+                if(null!=colEnum) {
+                	colBean.setCol_enum(colEnum);
+                	Map<String,Integer> colEnumMap = new HashMap<String,Integer>();
+                	String[] enumArry = colEnum.split(ENTER);
+                	for(int j=0;j<enumArry.length;j++) {
+                		colEnumMap.put(enumArry[j].split(COMMA)[0].trim(), j);
+                	}
+                    colBean.setEnumMap(colEnumMap);
+                }
             }
             Node desNode = attributes.getNamedItem(LONG_NAME);
             if(null!=desNode)colBean.setCol_des(desNode.getNodeValue());
@@ -1432,6 +1470,8 @@ public class J3_Util {
         //写入excel - head
         Row row1 = sheet.getRow(1);if (row1 == null)row1 = sheet.createRow(1);
         Row row2 = sheet.getRow(2);if (row2 == null)row2 = sheet.createRow(2);
+        List<String> colEnumList = new ArrayList<String>();
+        List<Integer> colEnumIndexList = new ArrayList<Integer>();
         for(int j=0;j<J2_MainUnit.colMapList.size();j++) {
             Cell cell = row0.getCell(j+1);if (cell == null)cell = row0.createCell(j+1);
             sc(cell);
@@ -1441,11 +1481,12 @@ public class J3_Util {
             cellDes.setCellValue(J2_MainUnit.colMapList.get(j).getCol_des());
             Cell cellEnum = row2.getCell(j+1);if (cellEnum == null)cellEnum = row2.createCell(j+1);
             setDesCol(cellEnum);
-            String colEnum = J2_MainUnit.colMapList.get(j).getCol_enum();
-            if(null==colEnum)
-            	System.err.println();
-            else
-            	cellEnum.setCellValue(colEnum);
+            String colEnum = J2_MainUnit.colMapList.get(j).getCol_enum();//字段enum类型描述
+            cellEnum.setCellValue(colEnum);
+            if(colEnum.contains(ENTER)) {
+	            colEnumList.add(colEnum);
+	            colEnumIndexList.add(j);
+            }
         }
         //写入excel - body
         for(int i=0;i<resultList.size();i++) {
@@ -1453,9 +1494,21 @@ public class J3_Util {
             Row row = sheet.getRow(rowInt);if (row == null)row = sheet.createRow(rowInt);
             Map<String,String> map = resultList.get(i);
             for(int j=0;j<J2_MainUnit.colMapList.size();j++) {
+            	J1_BeanCol bean = J2_MainUnit.colMapList.get(j);
+            	String value = map.get(bean.getCol_name());
                 Cell cell = row.getCell(j+1);if (cell == null)cell = row.createCell(j+1);
                 sc(cell);
-                cell.setCellValue(map.get(J2_MainUnit.colMapList.get(j).getCol_name()));
+                if(!isNull(value)) {
+	                for(int k:colEnumIndexList) {
+	                	try {
+		                	if(j==k)
+		                    	cell.setCellStyle(colorColStyle[bean.getEnumMap().get(value)%colorSize]);
+	                	}catch(Exception e) {
+	                		System.err.println();
+	                	}
+	                }
+                }
+                cell.setCellValue(value);
             }
         }
         setAutoWidth(sheet,J2_MainUnit.colMapList.size()+1);
@@ -1472,6 +1525,7 @@ public class J3_Util {
         {  
             sheet.autoSizeColumn(i);  
         }  
+        if(true)return;
         //获取当前列的宽度，然后对比本列的长度，取最大值  
         for (int columnNum = 0; columnNum <= maxColumn; columnNum++)  
         {  
