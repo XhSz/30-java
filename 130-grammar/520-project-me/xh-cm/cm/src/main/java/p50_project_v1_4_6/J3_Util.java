@@ -1388,6 +1388,7 @@ public class J3_Util {
     @SuppressWarnings("unchecked")
 	public static void addDBBookTable(String tableName,Element dbNode,String des) {
 		try {
+			tableName = tableName.toLowerCase();
 			//00增加注释
 			int linePos = J2_MainUnit.dbBookMap.get(LINE_POS_DBOOK)+1;
 			int maxSpace = J2_MainUnit.dbBookMap.get(MAX_TABLESPACE_DBOOK);
@@ -1400,7 +1401,13 @@ public class J3_Util {
 	        //初始化字段map
 	        setColMap(tableName,dbNode);
 	        //判断表是否存在
-	        Object result = J5_Sql.doMain(340,tableName,3);
+	        Object result = null;
+	        if(tableName.startsWith("ct"))
+	        	result = J5_Sql.doMain(340,tableName,2);
+	        else if(tableName.startsWith("po"))
+	        	result = J5_Sql.doMain(340,tableName,5);
+	        else
+	        	result = J5_Sql.doMain(340,tableName,3);
 	        if(result instanceof List) {
 		        String sheetName = integerToString(maxSpace)+integerToString(maxTable);
 		        //添加超链接

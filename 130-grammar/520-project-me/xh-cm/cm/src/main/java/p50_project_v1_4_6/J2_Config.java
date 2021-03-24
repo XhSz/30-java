@@ -20,6 +20,9 @@ public class J2_Config {
     static String DB_URL_ICORE = "DB_URL_ICORE";
     static String DB_USER_ICORE = "DB_USER_ICORE";
     static String DB_PW_ICORE = "DB_PW_ICORE";
+    static String DB_URL_PO = "DB_URL_PO";
+    static String DB_USER_PO = "DB_USER_PO";
+    static String DB_PW_PO = "DB_PW_PO";
     static String ICORE_CODE_PATH = "ICORE_CODE_PATH";
     static String TABLE_MODEL_PATH = "TABLE_MODEL_PATH";
     static String TABLE_PATH = "TABLE_PATH";
@@ -28,17 +31,26 @@ public class J2_Config {
 	static {
 		String exId = "26";//26 ex
 		Map ex = new HashMap<String,String>();
-		ex.put(JSON_PATH, "D:\\30-java\\130-grammar\\520-project-me\\xh-cm\\key\\ex.json");
+		ex.put(JSON_PATH, "D:\\03-sl\\327-exim\\ex.json");
 		ex.put(DB_URL, "jdbc:mysql://10.22.61.3:3306/ctdb?useSSL=false&allowPublicKeyRetrieval=true&serverTimezone=UTC");
 		ex.put(DB_USER, "ct");
 		ex.put(DB_PW, "ct");
 		ex.put(DB_URL_ICORE, "jdbc:mysql://10.22.61.3:3306/icoredb?useSSL=false&allowPublicKeyRetrieval=true&serverTimezone=UTC");
 		ex.put(DB_USER_ICORE, "icore");
 		ex.put(DB_PW_ICORE, "icore");
-		ex.put(VUE_CODE_PATH, "D:\\03-sl-107-code\\27-ex\\vue-210126\\sump-vue\\src");
+		ex.put(DB_URL_PO, "jdbc:mysql://10.22.61.3:3306/podb?useSSL=false&allowPublicKeyRetrieval=true&serverTimezone=UTC");
+		ex.put(DB_USER_PO, "po");
+		ex.put(DB_PW_PO, "po");
+		ex.put(VUE_CODE_PATH, "D:\\03-sl-107-code\\27-ex\\latest\\sump-vue\\src");
 		ex.put(VUE_JSON_PATH, "D:\\03-sl\\327-exim\\ex-vue.json");
 		ex.put(ICORE_JSON_PATH, "D:\\03-sl\\327-exim\\ex-icore.json");
+		ex.put(ICORE_CODE_PATH, "D:\\03-sl-107-code\\27-ex\\latest");
 		ex.put(TRAN_JSON_PATH, "D:\\03-sl\\327-exim\\ex-tran.json");
+		ex.put(MENU_JSON_PATH, "D:\\03-sl\\327-exim\\ex-menu.json");
+		ex.put(ONL_JSON_PATH, "D:\\03-sl\\327-exim\\ex-onl.json");
+		ex.put(BAT_JSON_PATH, "D:\\03-sl\\327-exim\\ex-bat.json");
+		ex.put(TABLE_MODEL_PATH, "D:\\03-sl\\105-key\\cbs\\1.5-tables\\00-model-gs.xlsx");
+		ex.put(TABLE_PATH, "D:\\30-java\\130-grammar\\520-project-me\\xh-cm\\key\\ex.xlsx");
 		CONFIG.put(exId, ex);
 		String gsId = "27";//27 gs
 		Map gs = new HashMap<String,String>();

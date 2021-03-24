@@ -48,6 +48,8 @@ public class J5_Sql {
         	return doMain(oper,input,J2_Config.DB_URL,J2_Config.DB_USER,J2_Config.DB_PW);
     	}else if(3==dbId) {	//3,icore
         	return doMain(oper,input,J2_Config.DB_URL_ICORE,J2_Config.DB_USER_ICORE,J2_Config.DB_PW_ICORE);
+    	}else if(5==dbId) {	//5,po
+        	return doMain(oper,input,J2_Config.DB_URL_PO,J2_Config.DB_USER_PO,J2_Config.DB_PW_PO);
     	}
     	return doMain(oper,input,J2_Config.DB_URL,J2_Config.DB_USER,J2_Config.DB_PW);
     }
