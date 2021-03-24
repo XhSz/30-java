@@ -249,7 +249,7 @@ public class J5_Sql {
             conn.close();
         }catch(Exception e){
         	String errStr = e.toString();
-        	if(errStr.startsWith("java.sql.SQLException: Table")&&errStr.endsWith("doesn't exist")) {
+        	if(errStr.contains("Exception: Table")&&errStr.endsWith("doesn't exist")) {
         		if(J3_Util.DE)System.err.println(errStr);
         		resultObj = J3_Util.TABLE_NOT_EXIST_ERR;
         	}else

@@ -264,6 +264,7 @@ public class J2_MainUnit {
 				}
         	}
     		try {
+    			J3_Util.endDBBook();
 				OutputStream fileOut = new FileOutputStream(J2_MainUnit.TABLE_PATH);
 		        J2_MainUnit.dbBook.write(fileOut);
 			} catch (Exception e) {

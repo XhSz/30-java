@@ -11,7 +11,6 @@ import java.io.InputStreamReader;
 import java.io.OutputStream;
 import java.io.PrintStream;
 import java.io.Reader;
-import java.io.UnsupportedEncodingException;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.Collections;
@@ -1011,7 +1010,8 @@ public class J3_Util {
     		path = 
 //    				"D:\\03-sl-107-code\\26-gs\\99-3.0.4-stable\\dp-base\\dp-base\\src\\main\\resources\\tables\\TabDpAccountBase.tables.xml"
 //    				"D:\\03-sl-107-code\\26-gs\\99-3.0.4-stable\\cf-busi\\cf-serv\\src\\main\\resources\\tables\\TabCfCustOther.tables.xml"
-    				"D:\\03-sl-107-code\\26-gs\\99-3.0.4-stable\\cf-busi\\cf-serv\\src\\main\\resources\\tables\\TabCfCustOther.tables.xml"
+//    				"D:\\03-sl-107-code\\26-gs\\99-3.0.4-stable\\cf-busi\\cf-serv\\src\\main\\resources\\tables\\TabCfCustOther.tables.xml"
+    				"D:\\03-sl-107-code\\26-gs\\00-sync\\us-busi\\us-serv\\src\\main\\resources\\tables\\TabUsUser.tables.xml"
     				;
     		System.out.println(path);
     		J3_Util.initDBBook();
@@ -1048,7 +1048,7 @@ public class J3_Util {
             		dbSet.add(dbBean);
             		if(J3_Util.DE)System.out.println(nameStr+COMMA+idStr);
                 	if(J2_MainUnit.IS_PRINT_EXCEL)
-                		addDBBookTable(nameStr,dbNode);
+                		addDBBookTable(nameStr,dbNode,dbBean.getTable_des());
             	}
 	        }
 	    } catch (Exception e) {
@@ -1319,6 +1319,8 @@ public class J3_Util {
             dbBookHelper = J2_MainUnit.dbBook.getCreationHelper();
 //            dbBookLink = (XSSFHyperlink) dbBookHelper.createHyperlink(HyperlinkType.DOCUMENT);
             linkColStyle = J2_MainUnit.dbBook.createCellStyle();
+            linkColStyle.setAlignment(HorizontalAlignment.CENTER);//设置水平对齐的样式为居中对齐; 
+            linkColStyle.setVerticalAlignment(VerticalAlignment.CENTER);//设置垂直对齐的样式为居中对齐;
             Font font = J2_MainUnit.dbBook.createFont();
             font.setUnderline(XSSFFont.U_DOUBLE);
             font.setColor(IndexedColors.BLUE.getIndex());
@@ -1373,8 +1375,8 @@ public class J3_Util {
 	        Sheet sheet = J2_MainUnit.dbBook.getSheetAt(0);//获取第一个工作表信息
 	        //添加tablespace
 	        Row row = sheet.getRow(linePos);if (row == null)row = sheet.createRow(linePos);
-	        Cell cell0 = row.getCell(0);if (cell0 == null)cell0 = row.createCell(0);cell0.setCellValue(integerToString(maxSpace));
-	        Cell cell1 = row.getCell(1);if (cell1 == null)cell1 = row.createCell(1);cell1.setCellValue(tableSpace);
+	        Cell cell0 = row.getCell(0);if (cell0 == null)cell0 = row.createCell(0);sc(cell0);cell0.setCellValue(integerToString(maxSpace));
+	        Cell cell1 = row.getCell(1);if (cell1 == null)cell1 = row.createCell(1);sc(cell1);cell1.setCellValue(tableSpace);
 			//更新map
 	        J2_MainUnit.dbBookMap.put(LINE_POS_DBOOK,linePos);
         	J2_MainUnit.dbBookMap.put(MAX_TABLESPACE_DBOOK, maxSpace);
@@ -1384,7 +1386,7 @@ public class J3_Util {
 		}
     }
     @SuppressWarnings("unchecked")
-	public static void addDBBookTable(String tableName,Element dbNode) {
+	public static void addDBBookTable(String tableName,Element dbNode,String des) {
 		try {
 			//00增加注释
 			int linePos = J2_MainUnit.dbBookMap.get(LINE_POS_DBOOK)+1;
@@ -1392,8 +1394,9 @@ public class J3_Util {
 			int maxTable = J2_MainUnit.dbBookMap.get(MAX_TABLE_DBOOK)+1;
 	        Sheet sheet = J2_MainUnit.dbBook.getSheetAt(0);//获取第一个工作表信息
 	        Row row = sheet.getRow(linePos);if (row == null)row = sheet.createRow(linePos);
-	        Cell cell2 = row.getCell(2);if (cell2 == null)cell2 = row.createCell(2);cell2.setCellValue(integerToString(maxTable));
-	        Cell cell3 = row.getCell(3);if (cell3 == null)cell3 = row.createCell(3);cell3.setCellValue(tableName);
+	        Cell cell2 = row.getCell(2);if (cell2 == null)cell2 = row.createCell(2);sc(cell2);cell2.setCellValue(integerToString(maxTable));
+	        Cell cell3 = row.getCell(3);if (cell3 == null)cell3 = row.createCell(3);sc(cell3);cell3.setCellValue(tableName);
+	        Cell cell4 = row.getCell(4);if (cell4 == null)cell4 = row.createCell(4);sc(cell4);cell4.setCellValue(des);
 	        //初始化字段map
 	        setColMap(tableName,dbNode);
 	        //判断表是否存在
@@ -1415,7 +1418,7 @@ public class J3_Util {
 		        setDBBookTable(sheetName,tableName,(List<Map<String,String>>)result);
 	        }else if(result instanceof String) {
 	        	if(TABLE_NOT_EXIST_ERR.equals(result)) {
-	    	        Cell cell4 = row.getCell(4);if (cell4 == null)cell4 = row.createCell(4);cell4.setCellValue("not exist");
+	    	        Cell cell5 = row.getCell(5);if (cell5 == null)cell5 = row.createCell(5);cell5.setCellValue("not exist");
 	        	}
 	        }
 	        J2_MainUnit.dbBookMap.put(LINE_POS_DBOOK,linePos);
@@ -1565,5 +1568,13 @@ public class J3_Util {
 				}    
 			} 
         } 
+    }
+    public static void endDBBook() {
+		try {
+	        Sheet sheet = J2_MainUnit.dbBook.getSheetAt(0);//获取第一个工作表信息
+	        setAutoWidth(sheet,4);
+		} catch (EncryptedDocumentException e) {
+			e.printStackTrace();
+		}
     }
 }
