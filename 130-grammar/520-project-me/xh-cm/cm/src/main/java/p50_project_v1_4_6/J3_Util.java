@@ -111,6 +111,8 @@ public class J3_Util {
     };
 	public static CellStyle desColStyle = null;
 	public static String TABLE_NOT_EXIST_ERR = "TABLE_NOT_EXIST_ERR";
+	public static String TABLE_CELL_TOO_LONG_ERR = 
+			"The maximum length of cell contents (text) is 32767 characters";
 	
 	static {
 		OPER_MAP.put("S", "select");
@@ -399,7 +401,7 @@ public class J3_Util {
     }
     public static void main(String[] args) {
     	DE = true;
-    	int M = 1370;
+    	int M = 1354;
 		Set<String> callKeySet = new HashSet<String>();
 		Set<J1_BeanCall> callSet = new HashSet<J1_BeanCall>();
 		Set<String> dbKeySet = new HashSet<String>();
@@ -471,7 +473,8 @@ public class J3_Util {
 //    				"D:\\03-sl-107-code\\26-gs\\99-3.0.4-stable\\cf-busi\\cf-batch\\src\\main\\java\\cn\\sunline\\icore\\cf\\batch\\cf02DataProcessor.java"
 //    				"D:\\03-sl-107-code\\26-gs\\99-3.0.4-stable\\cf-busi\\cf-batch\\src\\main\\java\\cn\\sunline\\icore\\cf\\batch\\cf07DataProcessor.java"
 //    				"D:\\03-sl-107-code\\26-gs\\99-3.0.4-stable\\dp-busi\\dp-batch\\src\\main\\java\\cn\\sunline\\icore\\dp\\batch\\dayend\\dp01DataProcessor.java"
-    				"D:\\03-sl-107-code\\26-gs\\99-3.0.4-stable\\dp-busi\\dp-serv\\src\\main\\java\\cn\\sunline\\icore\\dp\\serv\\account\\draw\\DpDemandDrawCheck.java"
+//    				"D:\\03-sl-107-code\\26-gs\\99-3.0.4-stable\\dp-busi\\dp-serv\\src\\main\\java\\cn\\sunline\\icore\\dp\\serv\\account\\draw\\DpDemandDrawCheck.java"
+    				"D:\\03-sl-107-code\\12-tz\\jar-210405\\cbs-jar-busi-1.3.2.81-RELEASE\\src\\1.3.2.81-RELEASE-java\\cbs-agtran-1.3.2.81-RELEASE.jar.java.pkg\\cn\\sunline\\ltts\\cbs\\agtran\\batchtran\\ag01DataProcessor.java" 
     				;
         	System.out.println(path);
     	}
@@ -534,7 +537,7 @@ public class J3_Util {
 	                    				break;
 	                    			}
 	                			}
-	                			judgeKey+=1;
+//	                			judgeKey+=1;
 	                			methodKey = lineArry[judgeKey];
 	                			if(methodKey.contains("("))
 	                				methodKey = methodKey.split("\\(")[0];
@@ -1149,16 +1152,17 @@ public class J3_Util {
 		}
 		sqlStr = sqlStr.toLowerCase();
         if(DE)System.err.println(sqlStr); 
-		try {
-		}catch(Exception e) {
-			e.printStackTrace();
-		}
         //获得sql语句，并解析获得表
         List<String> tableList = new ArrayList<String>(); 
         if(dbBean.getTable_oper().equals("S")||dbBean.getTable_oper().equals("D")) {
         	String[] joinArray = sqlStr.split("join");
         	String[] fromArray = joinArray[0].split("from");
-        	initTableList(fromArray[1],tableList);
+    		try {
+            	initTableList(fromArray[1],tableList);
+    		}catch(Exception e) {
+    			System.err.println(sqlStr);
+    			e.printStackTrace();
+    		}
         	if(joinArray.length>1) {
             	for(int l=1;l<joinArray.length;l++) {
                 	initTableList(joinArray[l],tableList);
@@ -1518,7 +1522,14 @@ public class J3_Util {
 	                	}
 	                }
                 }
-                cell.setCellValue(value);
+            	try {
+                    cell.setCellValue(value);
+            	}catch(Exception e) {
+            		String errStr = e.toString();
+            		if(errStr.contains(TABLE_CELL_TOO_LONG_ERR))
+                        cell.setCellValue(TABLE_CELL_TOO_LONG_ERR);
+            		System.err.println(e+","+tableName+","+value);
+            	}
             }
         }
         setAutoWidth(sheet,J2_MainUnit.colMapList.size()+1);

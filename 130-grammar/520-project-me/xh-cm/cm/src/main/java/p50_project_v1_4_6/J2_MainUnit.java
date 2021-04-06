@@ -34,8 +34,9 @@ public class J2_MainUnit {
 	static boolean LS = LOG_LEVEL>2;
     static String PROJECT_ID = 
 //    		"26"	//26 ex
-    		"27"	//27 gs
+//    		"27"	//27 gs
 //    		"06"	//06 local
+    		"12"	//12 tz
     		;  
 	public static int M = 0000;
 	public static boolean isRealTime = false;
@@ -53,6 +54,7 @@ public class J2_MainUnit {
 	public static String STR_PRINT = "打印过程";
 
 	public static boolean needReady = true;//是否需初始化前置数据
+	public static boolean isVersion3 = true;
 	/**
 	 * 9	tree_menu初值、vue更新、交易匹配完毕
 	 * 1,2	tree_tran,tree_tran_relate初始化完毕
@@ -782,7 +784,10 @@ public class J2_MainUnit {
     //准备工作
     public static void ready() {
 		THREAD_9_MENU_1_MATCH.start();
-		THREAD_9_MENU_2_VUE.start();
+		if(isVersion3)
+			THREAD_9_MENU_2_VUE.start();
+		else
+			DO_9_MENU_2_VUE = true;
 		THREAD_9_MENU_1_UPDATE.start();
 		
 		THREAD_1_TRAN_1_INIT.start();
@@ -794,16 +799,16 @@ public class J2_MainUnit {
 			THREAD_7_ENUM_2_INSERT.start();
 			THREAD_7_ENUM_4_INIT.start();
 		}
-		THREAD_5_DB_2_TABLES_1_INIT.start();
-		THREAD_5_DB_2_TABLES_2_INSERT.start();
-		THREAD_5_DB_3_NSQL_1_INIT.start();
-		THREAD_5_DB_3_NSQL_2_INSERT.start();
+//		THREAD_5_DB_2_TABLES_1_INIT.start();
+//		THREAD_5_DB_2_TABLES_2_INSERT.start();
+//		THREAD_5_DB_3_NSQL_1_INIT.start();
+//		THREAD_5_DB_3_NSQL_2_INSERT.start();
 		
-		THREAD_4_RELATE_1_INIT.start();
-		THREAD_4_RELATE_2_INSERT.start();
+//		THREAD_4_RELATE_1_INIT.start();
+//		THREAD_4_RELATE_2_INSERT.start();
 		
-		THREAD_6_BAT_1_INIT.start();
-		THREAD_6_BAT_2_INSERT.start();
+//		THREAD_6_BAT_1_INIT.start();
+//		THREAD_6_BAT_2_INSERT.start();
     }
     //所有准备工作完成，查询数据，内存级别数据准备
     public static void printReady() {
@@ -839,9 +844,13 @@ public class J2_MainUnit {
 	 * 4	tree_call_relate初始化完毕
 	 */
     public static void main(String[] args) {
-
-    	IS_PRINT_EXCEL = false;
+    	
+    	Object projectVersion = ((Map)J2_Config.CONFIG.get(J2_MainUnit.PROJECT_ID)).get(J2_Config.PROJECT_VERSION);
+    	if(J2_Config.PROJECT_VERSION_1.equals(projectVersion))
+    		isVersion3 = false;
+    	
     	IS_PRINT_EXCEL = true;
+    	IS_PRINT_EXCEL = false;
     	IS_PRINT_ALL = false;
     	IS_PRINT_ALL = true;
     	 

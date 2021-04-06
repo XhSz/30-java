@@ -14,6 +14,11 @@ public class J2_Config {
     static String MENU_JSON_PATH = "MENU_JSON_PATH";
     static String ONL_JSON_PATH = "ONL_JSON_PATH";
     static String BAT_JSON_PATH = "BAT_JSON_PATH";
+    static String PROJECT_VERSION = "PROJECT_VERSION";
+    static String PROJECT_VERSION_1 = "1.0";
+    static String PROJECT_VERSION_3 = "3.0";
+    static String DB_TYPE = "DB_TYPE";
+    static String ORACLE = "ORACLE";
     static String DB_URL = "DB_URL";
     static String DB_USER = "DB_USER";
     static String DB_PW = "DB_PW";
@@ -29,6 +34,13 @@ public class J2_Config {
     
 	public static Map CONFIG = new HashMap<String,Map>();
 	static {
+		initEx();
+		initGs();
+		initLo();
+		initTz();
+	}
+	public static String CODE_PATH = ((Map)CONFIG.get(J2_Main.PROJECT_ID)).get(ICORE_CODE_PATH).toString();
+	public static void initEx() {
 		String exId = "26";//26 ex
 		Map ex = new HashMap<String,String>();
 		ex.put(JSON_PATH, "D:\\03-sl\\327-exim\\ex.json");
@@ -52,6 +64,8 @@ public class J2_Config {
 		ex.put(TABLE_MODEL_PATH, "D:\\03-sl\\105-key\\cbs\\1.5-tables\\00-model-gs.xlsx");
 		ex.put(TABLE_PATH, "D:\\30-java\\130-grammar\\520-project-me\\xh-cm\\key\\ex.xlsx");
 		CONFIG.put(exId, ex);
+	}
+	public static void initGs() {
 		String gsId = "27";//27 gs
 		Map gs = new HashMap<String,String>();
 		gs.put(JSON_PATH, "D:\\30-java\\130-grammar\\520-project-me\\xh-cm\\key\\gs.json");
@@ -73,6 +87,8 @@ public class J2_Config {
 		gs.put(TABLE_PATH, "D:\\30-java\\130-grammar\\520-project-me\\xh-cm\\key\\gs.xlsx");
 		
 		CONFIG.put(gsId, gs);
+	}
+	public static void initLo() {
 		String localId = "06";//06 local
 		Map local = new HashMap<String,String>();
 		local.put(JSON_PATH, "D:\\30-java\\130-grammar\\520-project-me\\xh-cm\\key\\gs.json");
@@ -88,6 +104,30 @@ public class J2_Config {
 		local.put(ICORE_CODE_PATH, "D:\\03-sl-107-code\\26-gs\\99-3.0.4-stable");
 		local.put(TRAN_JSON_PATH, "D:\\03-sl\\326-gs\\gs-tran.json");
 		CONFIG.put(localId, local);
+		
 	}
-	public static String CODE_PATH = ((Map)CONFIG.get(J2_Main.PROJECT_ID)).get(ICORE_CODE_PATH).toString();
+	public static void initTz() {
+		String tzId = "12";//12 tz
+		Map tz = new HashMap<String,String>();
+		tz.put(JSON_PATH, "D:\\30-java\\130-grammar\\520-project-me\\xh-cm\\key\\tz.json");
+		tz.put(PROJECT_VERSION, PROJECT_VERSION_1);
+		tz.put(DB_TYPE, ORACLE);
+		tz.put(DB_URL, "jdbc:oracle:thin:@10.22.60.149:1521:FIXDB");
+		tz.put(DB_USER, "cbsbase");
+		tz.put(DB_PW, "cbsbase");
+		tz.put(DB_URL_ICORE, "jdbc:oracle:thin:@10.22.60.149:1521:FIXDB");
+		tz.put(DB_USER_ICORE, "cbsbase");
+		tz.put(DB_PW_ICORE, "cbsbase");
+//		tz.put(VUE_CODE_PATH, "D:\\03-sl-107-code\\26-tz\\201127-vue\\sump-vue\\src");
+		tz.put(VUE_JSON_PATH, "D:\\03-sl\\212-tz\\tz-vue.json");
+		tz.put(ICORE_JSON_PATH, "D:\\03-sl\\212-tz\\tz-icore.json");
+		tz.put(ICORE_CODE_PATH, "D:\\03-sl-107-code\\12-tz\\jar-210405");// \\cbs-jar-busi-1.3.2.81-RELEASE
+		tz.put(TRAN_JSON_PATH, "D:\\03-sl\\212-tz\\tz-tran.json");
+		tz.put(MENU_JSON_PATH, "D:\\03-sl\\212-tz\\tz-menu.json");
+		tz.put(ONL_JSON_PATH, "D:\\03-sl\\212-tz\\tz-onl.json");
+		tz.put(BAT_JSON_PATH, "D:\\03-sl\\212-tz\\tz-bat.json");
+		tz.put(TABLE_MODEL_PATH, "D:\\03-sl\\105-key\\cbs\\1.5-tables\\00-model-gs.xlsx");
+		tz.put(TABLE_PATH, "D:\\30-java\\130-grammar\\520-project-me\\xh-cm\\key\\tz.xlsx");
+		CONFIG.put(tzId, tz);
+	}
 }

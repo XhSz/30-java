@@ -24,8 +24,9 @@ public class J2_Main {
 	static boolean LS = LOG_LEVEL>2;
     static String PROJECT_ID = 
 //    		"26"	//26 ex
-    		"27"	//27 gs
+//    		"27"	//27 gs
 //    		"06"	//06 local
+    		"12"	//12 tz
     		;  
 	public static int M = 0000;
 	public static boolean isRealTime = false;
@@ -396,6 +397,12 @@ public class J2_Main {
 			J2_MainUnit.THREAD_7_ENUM_4_INIT.start();
 			J2_MainUnit.THREAD_5_DB_2_TABLES_1_INIT.start();
 			J2_MainUnit.THREAD_7_ENUM_PRINT.start();
+		}
+		if(false) {
+			THREAD_5_DB_2_TABLES_1_INIT.start();
+			THREAD_5_DB_2_TABLES_2_INSERT.start();
+			THREAD_5_DB_3_NSQL_1_INIT.start();
+			THREAD_5_DB_3_NSQL_2_INSERT.start();
 		}
 	}
 

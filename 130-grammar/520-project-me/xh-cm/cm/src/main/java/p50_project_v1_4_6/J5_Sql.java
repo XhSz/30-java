@@ -31,14 +31,16 @@ public class J5_Sql {
     public static String VUE_TREE = "vueTree"; 
 	static boolean LS = J2_Main.LOG_LEVEL>2;
     // MySQL 8.0 以下版本 - JDBC 驱动名及数据库 URL
-    static final String JDBC_DRIVER = "com.mysql.jdbc.Driver";  
+    static final String JDBC_DRIVER_MYSQL = "com.mysql.jdbc.Driver"; 
+    static final String JDBC_DRIVER_ORACLE = "oracle.jdbc.OracleDriver";  
  
     public static void main(String[] args) {
     	J1_BeanTran bean = new J1_BeanTran();
     	bean.setTran_name("us3160");
     	List list = new ArrayList<J1_BeanTran>();
     	list.add(bean);
-    	System.out.println(doMain(131,list)); ;
+//    	System.out.println(doMain(131,list)); ;
+    	doMain(332,list);
     }
     public static Object doMain(int oper ,Object input){
     	return doMain(oper,input,2);
@@ -60,8 +62,12 @@ public class J5_Sql {
         Statement stmt = null;	
     	PreparedStatement ps = null;
         try{
-            Class.forName(JDBC_DRIVER);
             Map projectMap = (Map) J2_Config.CONFIG.get(J2_Main.PROJECT_ID);
+            Object dbTypeObj = projectMap.get(J2_Config.DB_TYPE);
+        	if(null==dbTypeObj||"".equals(dbTypeObj))
+        		Class.forName(JDBC_DRIVER_MYSQL);
+        	else if(J2_Config.ORACLE.equals(dbTypeObj))
+        		Class.forName(JDBC_DRIVER_ORACLE);
             conn = DriverManager.getConnection(
 	            		projectMap.get(url).toString(),
 	            		projectMap.get(user).toString(),
@@ -79,7 +85,9 @@ public class J5_Sql {
         	String tableName = "";
         	String exeSql = "";
         	int ti = oper%10;
-        	if(1==ti)
+        	if(0==ti) {
+        		tableName = " select * from "+input+" limit 100 ";
+        	}else if(1==ti)
         		tableName = "tree_tran";
         	else if(2==ti) {
         		tableName = "tree_tran_relate";
@@ -102,7 +110,8 @@ public class J5_Sql {
         		tableName = "tree_menu";
         		exeSql = " insert into tree_tran_relate (tran_name,seq_no,block_test,call_name,tran_type,is_simple) values (?,?,?,?,?,?) ";
         	}
-    		ps = conn.prepareStatement(exeSql);
+        	if(!J3_Util.isNull(exeSql))
+        		ps = conn.prepareStatement(exeSql);
             if(oper>110&&oper<120) {
 	            if(111==oper) {
 		        	//111,单一插入,trans
@@ -194,6 +203,8 @@ public class J5_Sql {
             	}
             }else if(oper==340) {
 				String sql = " select * from "+input+" limit 100 ";
+	        	if(J2_Config.ORACLE.equals(dbTypeObj))
+	        		sql = " select * from "+input+" where rownum < 101 ";
 	            ResultSet rs = stmt.executeQuery(sql);
 	            List<Map<String,String>> resultList = new ArrayList<Map<String,String>>();
 	            while(rs.next()){
@@ -251,7 +262,8 @@ public class J5_Sql {
             conn.close();
         }catch(Exception e){
         	String errStr = e.toString();
-        	if(errStr.contains("Exception: Table")&&errStr.endsWith("doesn't exist")) {
+        	if((errStr.contains("Exception: Table")&&errStr.endsWith("doesn't exist"))
+        			||(errStr.contains("java.sql.SQLSyntaxErrorException")&&errStr.contains("ORA-00942"))) {
         		if(J3_Util.DE)System.err.println(errStr);
         		resultObj = J3_Util.TABLE_NOT_EXIST_ERR;
         	}else
@@ -540,7 +552,7 @@ public class J5_Sql {
     	try {
     		count += ps.executeUpdate();
     	}catch(Exception e){
-    		System.err.println(e);
+    		System.err.println("J5_Sql.insertDb(PreparedStatement ps,J1_BeanDb bean);"+bean.getTable_name()+" throw "+e);
     	}
     	return count;
     }
@@ -562,7 +574,7 @@ public class J5_Sql {
     	try {
     		count += ps.executeUpdate();
     	}catch(Exception e){
-    		System.err.println(e);
+    		System.err.println("J5_Sql.insertEnum(PreparedStatement ps,J1_BeanEnum bean);"+bean.getEnum_name()+" throw "+e);
     	}
     	return count;
     }
