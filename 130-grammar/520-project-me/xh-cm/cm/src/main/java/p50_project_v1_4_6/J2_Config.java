@@ -29,6 +29,7 @@ public class J2_Config {
     static String DB_USER_PO = "DB_USER_PO";
     static String DB_PW_PO = "DB_PW_PO";
     static String ICORE_CODE_PATH = "ICORE_CODE_PATH";
+    static String ICORE_CODE_JAVA_PATH = "ICORE_CODE_JAVA_PATH";
     static String TABLE_MODEL_PATH = "TABLE_MODEL_PATH";
     static String TABLE_PATH = "TABLE_PATH";
     
@@ -121,6 +122,7 @@ public class J2_Config {
 //		tz.put(VUE_CODE_PATH, "D:\\03-sl-107-code\\26-tz\\201127-vue\\sump-vue\\src");
 		tz.put(VUE_JSON_PATH, "D:\\03-sl\\212-tz\\tz-vue.json");
 		tz.put(ICORE_JSON_PATH, "D:\\03-sl\\212-tz\\tz-icore.json");
+		tz.put(ICORE_CODE_JAVA_PATH, "D:\\03-sl-107-code\\12-tz\\svn-latest");
 		tz.put(ICORE_CODE_PATH, "D:\\03-sl-107-code\\12-tz\\jar-210405");// \\cbs-jar-busi-1.3.2.81-RELEASE
 		tz.put(TRAN_JSON_PATH, "D:\\03-sl\\212-tz\\tz-tran.json");
 		tz.put(MENU_JSON_PATH, "D:\\03-sl\\212-tz\\tz-menu.json");

@@ -39,11 +39,20 @@ public class J71_Tran_Util {
             } else {
                 for (File file2 : files) {
                     if (file2.isDirectory()) {
-                    	if(file2.getAbsolutePath().endsWith("-tran")) {
-                            System.out.println(file2.getAbsolutePath()+":ok!");
-                            scanFlows(file2.getAbsolutePath()+"\\src\\main\\resources\\trans",tranList,tranRelateList);
-                    	}else{
-                    		scanTran(file2.getAbsolutePath(),tranList,tranRelateList);
+                    	if(J2_MainUnit.isVersion3) {
+	                    	if(file2.getAbsolutePath().endsWith("-tran")) {
+	                            System.out.println(file2.getAbsolutePath()+":ok!");
+	                            scanFlows(file2.getAbsolutePath()+"\\src\\main\\resources\\trans",tranList,tranRelateList);
+	                    	}else{
+	                    		scanTran(file2.getAbsolutePath(),tranList,tranRelateList);
+	                    	}
+                    	}else {
+	                    	if(file2.getAbsolutePath().contains("tran-")) {
+	                            System.out.println(file2.getAbsolutePath()+":ok!");
+	                            scanFlows(file2.getAbsolutePath()+"\\trans",tranList,tranRelateList);
+	                    	}else{
+	                    		scanTran(file2.getAbsolutePath(),tranList,tranRelateList);
+	                    	}
                     	}
                     }
                 }
@@ -107,11 +116,20 @@ public class J71_Tran_Util {
             } else {
                 for (File file2 : files) {
                     if (file2.isDirectory()) {
-                    	if(file2.getAbsolutePath().endsWith("-batch")) {
-                            System.out.println(file2.getAbsolutePath()+":ok!");
-                            scanBatchs(file2.getAbsolutePath()+"\\src\\main\\resources\\batchtran",batchSet);
-                    	}else{
-                    		scanBatch(file2.getAbsolutePath(),batchSet);
+                    	if(J2_MainUnit.isVersion3) {
+                        	if(file2.getAbsolutePath().endsWith("-batch")) {
+                                System.out.println(file2.getAbsolutePath()+":ok!");
+                                scanBatchs(file2.getAbsolutePath()+"\\src\\main\\resources\\batchtran",batchSet);
+                        	}else{
+                        		scanBatch(file2.getAbsolutePath(),batchSet);
+                        	}
+                    	}else {
+                        	if(file2.getAbsolutePath().endsWith("batchtran")) {
+                                System.out.println(file2.getAbsolutePath()+":ok!");
+                                scanBatchs(file2.getAbsolutePath(),batchSet);
+                        	}else{
+                        		scanBatch(file2.getAbsolutePath(),batchSet);
+                        	}
                     	}
                     }
                 }

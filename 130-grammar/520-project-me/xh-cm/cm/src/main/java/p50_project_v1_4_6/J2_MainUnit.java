@@ -41,6 +41,7 @@ public class J2_MainUnit {
 	public static int M = 0000;
 	public static boolean isRealTime = false;
 	public static String CP = ((Map)J2_Config.CONFIG.get(J2_MainUnit.PROJECT_ID)).get(J2_Config.ICORE_CODE_PATH).toString();
+	public static String CODE_PATH_JAVE = ((Map)J2_Config.CONFIG.get(J2_MainUnit.PROJECT_ID)).get(J2_Config.ICORE_CODE_JAVA_PATH).toString();
 	static String TRAN_JSON_PATH = ((Map)J2_Config.CONFIG.get(J2_MainUnit.PROJECT_ID)).get(J2_Config.TRAN_JSON_PATH).toString();
 	static String JSON_PATH = ((Map)J2_Config.CONFIG.get(PROJECT_ID)).get(J2_Config.JSON_PATH).toString();
 	static String VUE_JSON_PATH = ((Map)J2_Config.CONFIG.get(PROJECT_ID)).get(J2_Config.VUE_JSON_PATH).toString();
@@ -49,12 +50,12 @@ public class J2_MainUnit {
 	static String BAT_JSON_PATH = ((Map)J2_Config.CONFIG.get(PROJECT_ID)).get(J2_Config.BAT_JSON_PATH).toString();
 	static String TABLE_MODEL_PATH = ((Map)J2_Config.CONFIG.get(PROJECT_ID)).get(J2_Config.TABLE_MODEL_PATH).toString();
 	static String TABLE_PATH = ((Map)J2_Config.CONFIG.get(PROJECT_ID)).get(J2_Config.TABLE_PATH).toString();
-	
 	public static String STR_READY = "准备过程";
 	public static String STR_PRINT = "打印过程";
 
 	public static boolean needReady = true;//是否需初始化前置数据
-	public static boolean isVersion3 = true;
+	public static boolean isVersion3 = !J2_Config.PROJECT_VERSION_1.equals(((Map)J2_Config.CONFIG.get(J2_MainUnit.PROJECT_ID)).get(J2_Config.PROJECT_VERSION));
+	
 	/**
 	 * 9	tree_menu初值、vue更新、交易匹配完毕
 	 * 1,2	tree_tran,tree_tran_relate初始化完毕
@@ -436,7 +437,7 @@ public class J2_MainUnit {
 	public static Thread THREAD_3_CALL_1_INIT = new Thread(){
         public void run(){
     		J3_Util.logB(STR_3_CALL_1_INIT);
-	    	J72_Tran_Util.scanJavaFolder(CP, callKeySet,null,callSet, null);//扫描代码根目录，获得所有java,method并入库
+	    	J72_Tran_Util.scanJavaFolder(CODE_PATH_JAVE, callKeySet,null,callSet, null);//扫描代码根目录，获得所有java,method并入库
     		J3_Util.logE(STR_3_CALL_1_INIT);
     		DO_3_CALL_1_INIT = true;
         }
@@ -714,7 +715,7 @@ public class J2_MainUnit {
 					e.printStackTrace();
 				}
         	}
-			J72_Tran_Util.scanJavaFolder(CP, callKeySet,dbMap,null,callRelateList);//遍历构建调用关系
+			J72_Tran_Util.scanJavaFolder(CODE_PATH_JAVE, callKeySet,dbMap,null,callRelateList);//遍历构建调用关系
     		J3_Util.logE(STR_4_RELATE_1_INIT);
     		DO_4_RELATE_1_INIT = true;
         }
@@ -783,22 +784,22 @@ public class J2_MainUnit {
     };
     //准备工作
     public static void ready() {
-		THREAD_9_MENU_1_MATCH.start();
-		if(isVersion3)
-			THREAD_9_MENU_2_VUE.start();
-		else
-			DO_9_MENU_2_VUE = true;
-		THREAD_9_MENU_1_UPDATE.start();
-		
-		THREAD_1_TRAN_1_INIT.start();
-		THREAD_1_TRAN_2_INSERT.start();
-		THREAD_3_CALL_1_INIT.start();
-		THREAD_3_CALL_2_INSERT.start();
-		if(IS_PRINT_EXCEL) {
-			THREAD_7_ENUM_1_INIT.start();
-			THREAD_7_ENUM_2_INSERT.start();
-			THREAD_7_ENUM_4_INIT.start();
-		}
+//		THREAD_9_MENU_1_MATCH.start();
+//		if(isVersion3)
+//			THREAD_9_MENU_2_VUE.start();
+//		else
+//			DO_9_MENU_2_VUE = true;
+//		THREAD_9_MENU_1_UPDATE.start();
+//		
+//		THREAD_1_TRAN_1_INIT.start();
+//		THREAD_1_TRAN_2_INSERT.start();
+//		THREAD_3_CALL_1_INIT.start();
+//		THREAD_3_CALL_2_INSERT.start();
+//		if(IS_PRINT_EXCEL) {
+//			THREAD_7_ENUM_1_INIT.start();
+//			THREAD_7_ENUM_2_INSERT.start();
+//			THREAD_7_ENUM_4_INIT.start();
+//		}
 //		THREAD_5_DB_2_TABLES_1_INIT.start();
 //		THREAD_5_DB_2_TABLES_2_INSERT.start();
 //		THREAD_5_DB_3_NSQL_1_INIT.start();
@@ -807,8 +808,8 @@ public class J2_MainUnit {
 //		THREAD_4_RELATE_1_INIT.start();
 //		THREAD_4_RELATE_2_INSERT.start();
 		
-//		THREAD_6_BAT_1_INIT.start();
-//		THREAD_6_BAT_2_INSERT.start();
+		THREAD_6_BAT_1_INIT.start();
+		THREAD_6_BAT_2_INSERT.start();
     }
     //所有准备工作完成，查询数据，内存级别数据准备
     public static void printReady() {
@@ -845,16 +846,12 @@ public class J2_MainUnit {
 	 */
     public static void main(String[] args) {
     	
-    	Object projectVersion = ((Map)J2_Config.CONFIG.get(J2_MainUnit.PROJECT_ID)).get(J2_Config.PROJECT_VERSION);
-    	if(J2_Config.PROJECT_VERSION_1.equals(projectVersion))
-    		isVersion3 = false;
-    	
     	IS_PRINT_EXCEL = true;
     	IS_PRINT_EXCEL = false;
-    	IS_PRINT_ALL = false;
     	IS_PRINT_ALL = true;
+    	IS_PRINT_ALL = false;
     	 
-    	int m = 1;
+    	int m = 2;
     	needReady = (m==1||m==3?true:false);;//是否需初始化前置数据
     	isReadyPrint = (m==2||m==3?true:false);;
     	
@@ -863,8 +860,8 @@ public class J2_MainUnit {
 		}
 		if(isReadyPrint) {
 	    	printReady();
-			printMenu();//打印过程..耗时:2s677ms
-			printOnl();
+//			printMenu();//打印过程..耗时:2s677ms
+//			printOnl();
 	    	printBat();
 		}
 		if(isReadyPrint&&IS_PRINT_ALL) {

@@ -113,6 +113,11 @@ public class J3_Util {
 	public static String TABLE_NOT_EXIST_ERR = "TABLE_NOT_EXIST_ERR";
 	public static String TABLE_CELL_TOO_LONG_ERR = 
 			"The maximum length of cell contents (text) is 32767 characters";
+	public static String TABLE_COL_TOO_LONG_ERR = 
+			"The column length is too long";
+	public static String ARRAY_INDEX_OUT = 
+			"java.lang.ArrayIndexOutOfBoundsException";
+	
 	
 	static {
 		OPER_MAP.put("S", "select");
@@ -474,7 +479,8 @@ public class J3_Util {
 //    				"D:\\03-sl-107-code\\26-gs\\99-3.0.4-stable\\cf-busi\\cf-batch\\src\\main\\java\\cn\\sunline\\icore\\cf\\batch\\cf07DataProcessor.java"
 //    				"D:\\03-sl-107-code\\26-gs\\99-3.0.4-stable\\dp-busi\\dp-batch\\src\\main\\java\\cn\\sunline\\icore\\dp\\batch\\dayend\\dp01DataProcessor.java"
 //    				"D:\\03-sl-107-code\\26-gs\\99-3.0.4-stable\\dp-busi\\dp-serv\\src\\main\\java\\cn\\sunline\\icore\\dp\\serv\\account\\draw\\DpDemandDrawCheck.java"
-    				"D:\\03-sl-107-code\\12-tz\\jar-210405\\cbs-jar-busi-1.3.2.81-RELEASE\\src\\1.3.2.81-RELEASE-java\\cbs-agtran-1.3.2.81-RELEASE.jar.java.pkg\\cn\\sunline\\ltts\\cbs\\agtran\\batchtran\\ag01DataProcessor.java" 
+//    				"D:\\03-sl-107-code\\12-tz\\jar-210405\\cbs-jar-busi-1.3.2.81-RELEASE\\src\\1.3.2.81-RELEASE-java\\cbs-agtran-1.3.2.81-RELEASE.jar.java.pkg\\cn\\sunline\\ltts\\cbs\\agtran\\batchtran\\ag01DataProcessor.java" 
+    				"D:\\03-sl-107-code\\12-tz\\jar-210405\\cbs-jar-busi-1.3.2.81-RELEASE\\src\\1.3.2.81-RELEASE-java\\cbs-cm-1.3.2.81-RELEASE.jar.java.pkg\\cn\\sunline\\ltts\\cbs\\cm\\serviceimpl\\pwd\\SrvCmPwdImpl.java"
     				;
         	System.out.println(path);
     	}
@@ -537,8 +543,14 @@ public class J3_Util {
 	                    				break;
 	                    			}
 	                			}
-//	                			judgeKey+=1;
-	                			methodKey = lineArry[judgeKey];
+	                			judgeKey+=1;
+	                			try {
+	                				methodKey = lineArry[judgeKey];
+	                			}catch(Exception e){
+	                				String es = e.toString();
+	                				if(es.contains(ARRAY_INDEX_OUT))
+		                				methodKey = lineArry[judgeKey-1];
+	                			}
 	                			if(methodKey.contains("("))
 	                				methodKey = methodKey.split("\\(")[0];
 	                			callNameParent = fileKey+"."+methodKey;
@@ -1069,7 +1081,8 @@ public class J3_Util {
 //    				"D:\\03-sl-107-code\\26-gs\\99-3.0.4-stable\\cf-busi\\cf-serv\\src\\main\\resources\\namedsql\\CfCustomerBatch.nsql.xml"
 //    		"D:\\03-sl-107-code\\26-gs\\99-3.0.4-stable\\us-busi\\us-serv\\src\\main\\resources\\namedsql\\UsUserBase.nsql2.xml"
 //    				"D:\\03-sl-107-code\\26-gs\\99-3.0.4-stable\\cf-busi\\cf-serv\\src\\main\\resources\\namedsql\\CfCustomerBatch.nsql2.xml"
-    				"D:\\03-sl-107-code\\26-gs\\99-3.0.4-stable\\cf-busi\\cf-serv\\src\\main\\resources\\namedsql\\CfCustomerBase.nsql2.xml"
+//    				"D:\\03-sl-107-code\\26-gs\\99-3.0.4-stable\\cf-busi\\cf-serv\\src\\main\\resources\\namedsql\\CfCustomerBase.nsql2.xml"
+    				"D:\\03-sl-107-code\\12-tz\\jar-210405\\cbs-jar-busi-1.3.2.81-RELEASE\\src\\1.3.2.81-RELEASE-java\\cbs-st-1.3.2.81-RELEASE.jar.java.pkg\\namedsql\\StCheque.nsql.xml"
     				;
     		System.out.println(path);
     	}

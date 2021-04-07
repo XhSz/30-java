@@ -1,53 +1,62 @@
 01:{
-日期		拆分	主题			发音							解释							示例							
-0120	drawdown			[ˈdrɔˌdaʊn] 乔当				n. 降低减少，提款支取			loan drawdown 贷款提取							
-		write-off			[ˈraɪt ɔːf] 莱特欧坲			n. 注销，消记，报废										
-		reimburse			[ˌriːɪmˈbɜːrs] 瑞英博思			v. 偿还，补偿，报销				accrual reimburse interest 计提偿付利息							
-		principal			[ˈprɪnsəpl] 普林斯普			n. 本金										
-		provision			[prəˈvɪʒn] 普雷威军				n. 供给, 准备金										
-		waiver				[ˈweɪvər] 威尔					n. 弃权，弃权声明				waiver overdue repayment fee 免除逾期还款费							
-		owe			 		[oʊ] 欧							v. 欠，归功于，起源于			owe overdue repayment fee 欠缴滞纳金							
-		requisite			[ˈrekwɪzɪt] 瑞科威则特			adj. 必需的,必备的 n.必需的事物								
-		Pre-requisite		[ˈpriː ˈrekwɪzɪt]					先决条件								
-		CASA												经常账户和储蓄账户	 			Current Accounts and Savings Accounts (CASA)							
-		Initial 			[ɪˈnɪʃl] 英尼肖					adj. 最初的，第一的 n. 首字母	Initial Deposit Amount 初始存款金额							
-		rollover			[ˈroʊloʊvər] 肉柔威尔			n. 转期，翻滚，翻车				Deduct before payout or rollover 支付或展期前扣除							
-		impact				[ ɪmˈpækt] 						n/v. 冲击，巨大影响								
-		Acceptance			[əkˈseptəns] 					n. 接受								
-		impose				[ɪmˈpoʊz] 英普兹				v. 征收，强行执行								
-0125	payable				[ˈpeɪəbl] 佩诶博				adj. 应付的						interest payable' "应付利息"							
-0126	Orchestration		[ˌɔːrkɪˈstreɪʃn] 欧可斯盖逊	 			编曲 编排	 			Process Orchestration  流程编排		
-0127	Conceptual			[kənˈseptʃuəl]肯赛普肖儿		adj.概念性的 					Description of Java Conceptual Diagram Java概念图说明	
-		Tutorials			[tuˈtɔriəlz] 图特雷尔兹 				教程 					Java Tutorials Learning Paths Java教程学习路径	
-		minor				[ˈmaɪnər]麦那 					adj.少数的,较小的				minor_version
-		major 				[ˈmeɪdʒər] 梅杰 				adj.主要的,大的					major_version
-		Instruction			[ɪnˈstrʌkʃn]英式夹克逊 			n.用法说明，操作指南，指令集 	The Java Virtual Machine Instruction Set Java虚拟机指令集
-		Specification		[ˌspesɪfɪˈkeɪʃn]斯贝斯发凯逊 	n.规格,规范,说明书 				Java Language and Virtual Machine Specifications Java语言和虚拟机规范
-		operand			 	[ˈɑːpərænd]欧普兰德 			n.操作数,运输数					operand stack 操作数栈
-		Bootstrap			[ˈbutˌstræps] 普特斯洽普			引导程序
-ln		occupied			[ˈɑːkjupaɪd] 阿秋派得			v.占用，使用 		
-0225	marital				[ˈmærɪtl]迈瑞特 				adj.婚姻的			
-		Optical				[ˈɑːptɪkl]阿匹提克				adj.光学的						OCR （Optical Character Recognition，光学字符识别）
-		Selfie				[ˈselfi]瑟奥菲 					n.自拍
-		Draft				[dræft] 爪福特					n.草稿,adj,v.
-		CapBay 																				EXIM/现用终端系统,马来西亚的点对点(P2P)供应链融资平台
-		Exposure			[ɪkˈspoʊʒər]伊克斯破爵			n.曝光,揭露						
-		Facility			[fəˈsɪləti]佛舍热提 			n.设施,才能
-		Issuance			[ˈɪʃuəns]伊修冷斯					发放
-		Integrate			[ˈɪntɪɡreɪt] 英特格雷特			v.整合,融合
-		manually			[ˈmænjuəli]门牛尔理 			adv.手工的
-		Generate			[ˈdʒenəreɪt]吉呐瑞特			v.引起,产生
-		Authorisation		[ˌɔ:θəraɪ'zeɪʃn]欧欧莱则逊 			授权
-		supplier			[səˈplaɪər] 舍普莱尔 			n.供应商,供货方
-		invoice				[ˈɪnvɔɪs]英沃尔斯				n.发票,应付清单,v
-		offer				[ˈɔːfər] 欧夫					v.提供,销价,n
-		Treasury			[ˈtreʒəri]洽杰瑞 				资金管理,财政部
-		Memo				[ˈmemoʊ]门磨 					n.备忘录
-		Compliance			[kəmˈplaɪəns]可目普莱恩斯 		n.顺从
-		Acknowledge			[əkˈnɑːlɪdʒ]俄克诺瑞吉			v.承认,属实
-		recharge			[ˌriːˈtʃɑːrdʒ] 					v.充电,充值
-0301	trial				[ˈtraɪəl]川伊尔					n.试验,v.选拔 
-0306	trend				[trend]川德						n.趋势,动向,vt.
+日期		拆分	主题			发音							解释							示例			
+0401	Intranet			[ˈɪntrənet]英切奈特					内部网
+		Utility				[juːˈtɪləti]优跳热提 			n.公共事业,实用程序 adj.多用途的
+		repository			[rɪˈpɑːzətɔːri]瑞怕泽特瑞		n.仓库.智囊
+		BSD																					Berkly Software Distribution ,1979 年加州大学伯克利分校发布了BSD Unix,	Apache和BSD操作系统等开源软件所采纳
+		Berkly								伯克利			加州大学柏克利分校
+		Distribution		[ˌdɪstrɪˈbjuːʃn]迪斯催比逊		n.分配,分布,分送,经销			
+		unified 			[ˈjuːnɪfaɪd]优尼凡得			v.统一,使成一体					unify的过去分词和过去式
+		Sentinel			[ˈsentɪnl]盛特诺				护卫兵,哨兵
+		SUMP 																				Sunline Unified Management Platform	长亮统一管理平台
+		OPS																					Operation Platform System 作业平台系统
+		ODS																					Operational Data Store 运营数据存储
+		Agile				[ˈædʒl]艾杰 					adj.动作/思维 敏捷的,机灵的		Agile Development 敏捷开发
+		Acquisition			[ˌækwɪˈzɪʃn] 阿奎泽逊 			n.(知识/技能)获得得到,够得物,收购		
+		Metrics				[ˈmɛtrɪks] 梅崔克斯 			度量,指标,衡量标准
+		Vendor				[ˈvendər] 温得					n.小贩,销售公司,卖主		
+		Recon				[ˈriːkɑːn]瑞康						侦察兵
+0402	Capability 			[ˌkeɪpəˈbɪləti]K贝比热提		n.能力,才能,军事力量,军事武器	
+		Loyalty 			[ˈlɔɪəlti] 罗伊尔提				n.忠诚
+		Reconciliation		[ˌrekənsɪliˈeɪʃn]瑞可泽瑞诶逊		和解,对账
+		Authorization		[ˌɔːθərəˈzeɪʃn] 俄骚瑞泽逊			许可,授权,认证
+		Mart				[mɑːrt]马特							市场,超市,大卖场 
+		Consolidation 		[kənˌsɑːlɪˈdeɪʃn]肯骚理德逊			合并,巩固 	
+		governance			[ˈɡʌvərnəns]嘎位呐斯			n.统治,管理,管理办法
+		Bureau				[ˈbjʊroʊ] 比俄柔				n.书桌,办公室,局,科
+		Retail				[ˈriːteɪl , rɪˈteɪl] 			n.零售
+		Infra				[ˈɪnfrə] 基础网,下面的
+		propose				[prəˈpoʊz]普乐普兹 				v.计划打算建议
+		Equity				[ˈekwəti]艾奎提					n.公平,公证,adj.股票的 
+		preference			[ˈprefrəns]普乐弗兰斯 			n.偏爱,喜爱
+		formula				[ˈfɔːrmjələ]佛米热 				n.公式,方程,方案
+		components			[kəmˈpoʊnənts]肯破尼恩斯		n.组成部分;部件;
+		Circuit				[ˈsɜːrkɪt]舍K特 				n.环形;vt.巡回,周游
+		Breaker				[ˈbreɪkər]布瑞克					空气开关,断路器
+		Sharding												分片
+		Restful				[ˈrestfl] 软斯特佛					宁静的
+		track				[træk] 踹卡额					n.轨迹,路径;v.跟踪
+		Standalone 												独立的
+		embed				[ɪmˈbed]英母贝德 				v.嵌入,派遣
+		monitor				[ˈmɑːnɪtər]妈尼特				n.监控;v.监视,监听;
+		Dynamic				[daɪˈnæmɪk]黛娜咪可 			n.动力,相互作用;adj.动态的,变化的
+		stash				[stæʃ]斯达席 					v.存放,贮藏;n.一批贮藏物; 
+		JWT 																				Json web token	分布式站点的单点登录（SSO）场景
+		concurrent			[kənˈkɜːrənt]肯克瑞特			adj.并存的,同时发生的 
+		fuse				[fjuːz]佛优兹					n.保险丝,导火索;v.融合,结合,
+		degradation			[ˌdeɡrəˈdeɪʃn]黛格雷戴逊		n.堕落,毁坏;
+		Domain				[doʊˈmeɪn]豆梅恩 				n.范围,域
+		isolation			[ˌaɪsəˈleɪʃn]艾社雷逊 			n.隔离,孤立;
+		broker				[ˈbroʊkər]布露克				n.经纪人;v.安排,协商
+		Scalable			[ˈskeɪləbl]斯凯热波				adj.可攀登的,可称量的
+		Secure				[sɪˈkjʊr]舍秋儿 				adj.安全,有把握的;v.获得,保卫,安全
+		orient				[ˈɔːrient]欧瑞恩特 				v.朝向,面对
+		flexible			[ˈfleksəbl]佛莱克斯波			adj.能适应新情况的,灵活的,柔韧的,弹性的
+		agnostic			[æɡˈnɑːstɪk]阿哥纳斯提克		n.不可知论者;adj.不可只论的
+		intuitive			[ɪnˈtuːɪtɪv]英推优维提维		adj.凭直觉的,直观的
+		informative			[ɪnˈfɔːrmətɪv]英佛母体委 		adj.提供有用信息的,给予知识的
+		delivery			[dɪˈlɪvəri]迪理维瑞 			n.传送,传递,交付
+		Collaboration		[kəˌlæbəˈreɪʃn]克莱波雷逊		n.合作,勾结
 },
 theme:{
 	theme	日期	单词	拆分	主题	发音	解释	示例								其他含义									
@@ -107,7 +116,7 @@ theme:{
 					maintenance						[ˈmeɪntənəns] 美腾呐什	n . 维护, 保养																		
 					migration			 			[maɪˈɡreɪʃn] 麦格雷迅	n. 迁移																		
 					performance			 			[pərˈfɔːrməns] 	n. 性能																		
-					perform							[pərˈfɔːrm] 佩佛母	n. 表演，执行																		
+					perform							[pərˈfɔːrm] 佩佛母	n. 表演，执行,完成,运行,工作																		
 					optimization	op-ti-mization		 [ˌɑːptɪməˈzeɪʃn] 欧普体梅贼讯	n .优化																		
 					encounter	en-counter		[ɪnˈkaʊntər] 英抗特	v .遇到，遭遇																		
 					consult	con-sult		 [kənˈsʌlt] 肯骚特	v .咨询请教																		
@@ -244,9 +253,9 @@ theme:{
 					gotta			[ˈɡɑːtə]	got to 不得不																		
 					revise			[rɪˈvaɪz]	v.修订	"After the demo, Ken talked about revised migration plan.  Rachel feel this version is better but still not comprehensive enough afraid the effort estimation would not be accurate, she brought up some areas in R1 we didnt covered up like :
 			演示结束后，肯谈到了修改后的迁移计划。瑞秋觉得这个版本比较好，但还是不够全面，怕工作量估计不准确，她在R1中提到了一些我们没有覆盖的地方"																	
-					migration			[maɪˈɡreɪʃn]	n.迁移,系统软硬件改变																		
-					comprehensive			[ˌkɑːmprɪˈhensɪv] 	adj.综合的																		
-					effort			[ˈefərt] 	n.努力，费力的事，尝试																		
+					migration			[maɪˈɡreɪʃn]						n.迁移,系统软硬件改变																		
+					comprehensive		[ˌkɑːmprɪˈhensɪv]康普瑞憨斯威 		adj.综合的																		
+					effort				[ˈefərt] 							n.努力，费力的事，尝试																		
 					estimation			[ˌestɪˈmeɪʃn] 	n.看法，评价、评估																		
 					accurate			 [ˈækjərət] 	adj.精确的（射击）																		
 					brought up				bring up 提出	"‘@Matthrew step is to complete the migration proposal and for sales to convince Thomson and Rachel to continue use our system. We have so far showed the icore system and also cms. Now is the migration plan, effort and commercial arrangement.G33
@@ -310,6 +319,7 @@ theme:{
 			反欺诈统计维度定义新增"																	
 					dimension			[daɪˈmenʃn] 	n.维,范围,方面
 			}
+	}
 	}
 	theme	日期	单词	拆分	主题	发音	解释	示例								其他含义
 	07:{		
@@ -389,5 +399,55 @@ theme:{
 				1207	ledger 			[ˈledʒər] 雷杰	n. 分户账簿，分类账簿	ledger check result，Fab_ledger_check_result																	
 				1216	Keteran		印尼语		说明																		
 				1223	factoring			[ˈfæktərɪŋ]法克特灵	保理业务	
+	},
+	2101-2103:{				
+		0120	drawdown			[ˈdrɔˌdaʊn] 乔当				n. 降低减少，提款支取			loan drawdown 贷款提取							
+				write-off			[ˈraɪt ɔːf] 莱特欧坲			n. 注销，消记，报废										
+				reimburse			[ˌriːɪmˈbɜːrs] 瑞英博思			v. 偿还，补偿，报销				accrual reimburse interest 计提偿付利息							
+				principal			[ˈprɪnsəpl] 普林斯普			n. 本金										
+				provision			[prəˈvɪʒn] 普雷威军				n. 供给, 准备金										
+				waiver				[ˈweɪvər] 威尔					n. 弃权，弃权声明				waiver overdue repayment fee 免除逾期还款费							
+				owe			 		[oʊ] 欧							v. 欠，归功于，起源于			owe overdue repayment fee 欠缴滞纳金							
+				requisite			[ˈrekwɪzɪt] 瑞科威则特			adj. 必需的,必备的 n.必需的事物								
+				Pre-requisite		[ˈpriː ˈrekwɪzɪt]					先决条件								
+				CASA												经常账户和储蓄账户	 			Current Accounts and Savings Accounts (CASA)							
+				Initial 			[ɪˈnɪʃl] 英尼肖					adj. 最初的，第一的 n. 首字母	Initial Deposit Amount 初始存款金额							
+				rollover			[ˈroʊloʊvər] 肉柔威尔			n. 转期，翻滚，翻车				Deduct before payout or rollover 支付或展期前扣除							
+				impact				[ ɪmˈpækt] 						n/v. 冲击，巨大影响								
+				Acceptance			[əkˈseptəns] 					n. 接受								
+				impose				[ɪmˈpoʊz] 英普兹				v. 征收，强行执行								
+		0125	payable				[ˈpeɪəbl] 佩诶博				adj. 应付的						interest payable' "应付利息"							
+		0126	Orchestration		[ˌɔːrkɪˈstreɪʃn] 欧可斯盖逊	 			编曲 编排	 			Process Orchestration  流程编排		
+		0127	Conceptual			[kənˈseptʃuəl]肯赛普肖儿		adj.概念性的 					Description of Java Conceptual Diagram Java概念图说明	
+				Tutorials			[tuˈtɔriəlz] 图特雷尔兹 				教程 					Java Tutorials Learning Paths Java教程学习路径	
+				minor				[ˈmaɪnər]麦那 					adj.少数的,较小的				minor_version
+				major 				[ˈmeɪdʒər] 梅杰 				adj.主要的,大的					major_version
+				Instruction			[ɪnˈstrʌkʃn]英式夹克逊 			n.用法说明，操作指南，指令集 	The Java Virtual Machine Instruction Set Java虚拟机指令集
+				Specification		[ˌspesɪfɪˈkeɪʃn]斯贝斯发凯逊 	n.规格,规范,说明书 				Java Language and Virtual Machine Specifications Java语言和虚拟机规范
+				operand			 	[ˈɑːpərænd]欧普兰德 			n.操作数,运输数					operand stack 操作数栈
+				Bootstrap			[ˈbutˌstræps] 普特斯洽普			引导程序
+		ln		occupied			[ˈɑːkjupaɪd] 阿秋派得			v.占用，使用 		
+		0225	marital				[ˈmærɪtl]迈瑞特 				adj.婚姻的			
+				Optical				[ˈɑːptɪkl]阿匹提克				adj.光学的						OCR （Optical Character Recognition，光学字符识别）
+				Selfie				[ˈselfi]瑟奥菲 					n.自拍
+				Draft				[dræft] 爪福特					n.草稿,adj,v.
+				CapBay 																				EXIM/现用终端系统,马来西亚的点对点(P2P)供应链融资平台
+				Exposure			[ɪkˈspoʊʒər]伊克斯破爵			n.曝光,揭露						
+				Facility			[fəˈsɪləti]佛舍热提 			n.设施,才能
+				Issuance			[ˈɪʃuəns]伊修冷斯					发放
+				Integrate			[ˈɪntɪɡreɪt] 英特格雷特			v.整合,融合
+				manually			[ˈmænjuəli]门牛尔理 			adv.手工的
+				Generate			[ˈdʒenəreɪt]吉呐瑞特			v.引起,产生
+				Authorisation		[ˌɔ:θəraɪ'zeɪʃn]欧欧莱则逊 			授权
+				supplier			[səˈplaɪər] 舍普莱尔 			n.供应商,供货方
+				invoice				[ˈɪnvɔɪs]英沃尔斯				n.发票,应付清单,v
+				offer				[ˈɔːfər] 欧夫					v.提供,销价,n
+				Treasury			[ˈtreʒəri]洽杰瑞 				资金管理,财政部
+				Memo				[ˈmemoʊ]门磨 					n.备忘录
+				Compliance			[kəmˈplaɪəns]可目普莱恩斯 		n.顺从
+				Acknowledge			[əkˈnɑːlɪdʒ]俄克诺瑞吉			v.承认,属实
+				recharge			[ˌriːˈtʃɑːrdʒ] 					v.充电,充值
+		0301	trial				[ˈtraɪəl]川伊尔					n.试验,v.选拔 
+		0306	trend				[trend]川德						n.趋势,动向,vt.
 	}
 }

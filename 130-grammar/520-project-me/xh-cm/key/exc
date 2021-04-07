@@ -3,6 +3,20 @@
 sow:{
 	
 },
+SASA-Sunline Application Solution Architecture:{
+	006,
+	007,
+	008,1/2,
+	009,1/2/3,
+	010,1/2/3/4,
+	011,1,
+	013,1/2,
+	023,Nacos,
+	024,Nacos,
+	026,log,Elastic Search,
+	027,1/2,
+	028,ELB
+},
 server:{
 	config:{
 		dit:{
@@ -686,3 +700,4 @@ onl:{
 		}
 	}
 }
+

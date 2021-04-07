@@ -30,7 +30,6 @@ public class J2_Main {
     		;  
 	public static int M = 0000;
 	public static boolean isRealTime = false;
-	public static String CP = ((Map)J2_Config.CONFIG.get(J2_Main.PROJECT_ID)).get(J2_Config.ICORE_CODE_PATH).toString();
 	static String TRAN_JSON_PATH = ((Map)J2_Config.CONFIG.get(J2_Main.PROJECT_ID)).get(J2_Config.TRAN_JSON_PATH).toString();
 	static String JSON_PATH = ((Map)J2_Config.CONFIG.get(PROJECT_ID)).get(J2_Config.JSON_PATH).toString();
 	
@@ -195,7 +194,7 @@ public class J2_Main {
 	public static Thread THREAD_1_TRAN_1_INIT = new Thread(){
         public void run(){
     		J3_Util.logB(STR_1_TRAN_1_INIT);
-			J71_Tran_Util.scanTran(CP,tranList,tranRelateList);//扫描代码根目录，获得所有flowtrans
+			J71_Tran_Util.scanTran(J2_MainUnit.CP,tranList,tranRelateList);//扫描代码根目录，获得所有flowtrans
     		J3_Util.logE(STR_1_TRAN_1_INIT);
     		DO_1_TRAN_1_INIT = true;
         }
@@ -223,7 +222,7 @@ public class J2_Main {
 	public static Thread THREAD_3_CALL_1_INIT = new Thread(){
         public void run(){
     		J3_Util.logB(STR_3_CALL_1_INIT);
-	    	J72_Tran_Util.scanJavaFolder(CP, callKeySet,null,callSet, null);//扫描代码根目录，获得所有java,method并入库
+	    	J72_Tran_Util.scanJavaFolder(J2_MainUnit.CODE_PATH_JAVE, callKeySet,null,callSet, null);//扫描代码根目录，获得所有java,method并入库
     		J3_Util.logE(STR_3_CALL_1_INIT);
     		DO_3_CALL_1_INIT = true;
         }
@@ -249,7 +248,7 @@ public class J2_Main {
 	public static Thread THREAD_5_DB_2_TABLES_1_INIT = new Thread(){
         public void run(){
     		J3_Util.logB(STR_5_DB_2_TABLES_1_INIT);
-			J73_Tran_Util.scanFolder(CP, 2, dbKeySet, dbTablesSet);// tables
+			J73_Tran_Util.scanFolder(J2_MainUnit.CP, 2, dbKeySet, dbTablesSet);// tables
 			dbSet.addAll(dbTablesSet);
     		J3_Util.logE(STR_5_DB_2_TABLES_1_INIT);
     		DO_5_DB_2_TABLES_1_INIT = true;
@@ -276,7 +275,7 @@ public class J2_Main {
 	public static Thread THREAD_5_DB_3_NSQL_1_INIT = new Thread(){
         public void run(){
     		J3_Util.logB(STR_5_DB_3_NSQL_1_INIT);
-			J73_Tran_Util.scanFolder(CP, 3, dbKeySet, dbNsqlSet);// 3,nsql
+			J73_Tran_Util.scanFolder(J2_MainUnit.CP, 3, dbKeySet, dbNsqlSet);// 3,nsql
 			dbSet.addAll(dbNsqlSet);
     		J3_Util.logE(STR_5_DB_3_NSQL_1_INIT);
     		DO_5_DB_3_NSQL_1_INIT = true;
@@ -321,7 +320,7 @@ public class J2_Main {
 					e.printStackTrace();
 				}
         	}
-			J72_Tran_Util.scanJavaFolder(CP, callKeySet,dbMap,null,callRelateList);//遍历构建调用关系
+			J72_Tran_Util.scanJavaFolder(J2_MainUnit.CODE_PATH_JAVE, callKeySet,dbMap,null,callRelateList);//遍历构建调用关系
     		J3_Util.logE(STR_4_RELATE_1_INIT);
     		DO_4_RELATE_1_INIT = true;
         }
@@ -362,8 +361,35 @@ public class J2_Main {
 		boolean isCallSet = (M==1330||M==1307||M==1300);//是否需要第一遍初始化方法call
 		boolean isDbSet = (M==1352||M==1353||M==1307||M==1300);//是否需要初始化db
 		boolean isCallRelate = (M==1340||M==1307||M==1300);//是否需要插入callRelate
-		boolean isPrint = (M==1390||M==1392||M==1300);//是否需初始化menu
-		if(false) {
+		boolean isPrint = (M==1390||M==1392||M==1300);//是否需初始化menu吧、
+		boolean isVersion3 = true;
+    	Object projectVersion = ((Map)J2_Config.CONFIG.get(J2_MainUnit.PROJECT_ID)).get(J2_Config.PROJECT_VERSION);
+    	if(J2_Config.PROJECT_VERSION_1.equals(projectVersion))
+    		isVersion3 = false;
+		if((!isVersion3)&&true) {
+			//1.0
+//			THREAD_9_MENU_1_MATCH.start();
+//			THREAD_9_MENU_2_VUE.start();
+//			THREAD_9_MENU_1_UPDATE.start();
+			
+//			THREAD_1_TRAN_1_INIT.start();
+//			THREAD_1_TRAN_2_INSERT.start();
+			THREAD_3_CALL_1_INIT.start();
+//			THREAD_3_CALL_2_INSERT.start();
+//			THREAD_5_DB_2_TABLES_1_INIT.start();
+//			THREAD_5_DB_2_TABLES_2_INSERT.start();
+//			THREAD_5_DB_3_NSQL_1_INIT.start();
+//			THREAD_5_DB_3_NSQL_2_INSERT.start();
+			DO_5_DB_3_NSQL_2_INSERT = true;
+			DO_5_DB_2_TABLES_2_INSERT = true;
+			THREAD_4_RELATE_1_INIT.start();
+//			THREAD_4_RELATE_2_INSERT.start();
+//			THREAD_9_MENU_3_TREE.start();
+    		DO_9_MENU_3_TREE = true;
+    		DO_9_MENU_1_MATCH = true;
+			THREAD_9_MENU_9_PRINT.start();
+		}
+		if(isVersion3&&false) {
 			THREAD_9_MENU_1_MATCH.start();
 			THREAD_9_MENU_2_VUE.start();
 			THREAD_9_MENU_1_UPDATE.start();
@@ -391,7 +417,7 @@ public class J2_Main {
 			J2_MainUnit.THREAD_7_ENUM_1_INIT.start();
 			J2_MainUnit.THREAD_7_ENUM_2_INSERT.start();
 		}
-		if(true) {
+		if(false) {
 	    	J2_MainUnit.IS_PRINT_EXCEL = true;
 			J2_MainUnit.THREAD_7_ENUM_1_INIT.start();
 			J2_MainUnit.THREAD_7_ENUM_4_INIT.start();

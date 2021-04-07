@@ -32,7 +32,6 @@ import p50_project_v1.J1_BeanDb;
 public class J72_Tran_Main {
 	public static boolean isRealTime = false;
 	public static int M = 1353;
-	public static String CP = ((Map)J2_Config.CONFIG.get(J2_Main.PROJECT_ID)).get(J2_Config.ICORE_CODE_PATH).toString();
 	public static void main(String[] args) {
 		Set<String> callKeySet = new HashSet<String>();
 		Set<J1_BeanCall> callSet = new HashSet<J1_BeanCall>();
@@ -45,7 +44,7 @@ public class J72_Tran_Main {
 		//初始化，准备工作
 		if(isCallSet) {
 			J3_Util.logB();
-	    	J72_Tran_Util.scanJavaFolder(CP, callKeySet,dbMap,callSet, null);//扫描代码根目录，获得所有java,method并入库
+	    	J72_Tran_Util.scanJavaFolder(J2_MainUnit.CODE_PATH_JAVE, callKeySet,dbMap,callSet, null);//扫描代码根目录，获得所有java,method并入库
 	        J3_Util.logE("133-init call");
 	    	if(!J72_Tran_Main.isRealTime) {
 				J5_Sql.doMain(443, null);//443,del all,tree_call
@@ -54,7 +53,7 @@ public class J72_Tran_Main {
 		}
 		if(isDbSet||M==1352) {
 			Set<J1_BeanDb> dbTablesSet = new HashSet<J1_BeanDb>();
-			J73_Tran_Util.scanFolder(CP, 2, dbKeySet, dbTablesSet);// tables
+			J73_Tran_Util.scanFolder(J2_MainUnit.CP, 2, dbKeySet, dbTablesSet);// tables
 			J3_Util.logE("135-tables-init db");
         	if(!J72_Tran_Main.isRealTime) {
     			J5_Sql.doMain(435, "table_type='T'");//435,del if,tree_db_bean 
@@ -64,7 +63,7 @@ public class J72_Tran_Main {
 		}
 		if(isDbSet||M==1353) {
 			Set<J1_BeanDb> dbNsqlSet = new HashSet<J1_BeanDb>();
-			J73_Tran_Util.scanFolder(CP, 3, dbKeySet, dbNsqlSet);// 3,nsql
+			J73_Tran_Util.scanFolder(J2_MainUnit.CP, 3, dbKeySet, dbNsqlSet);// 3,nsql
 			J3_Util.logE("135-nsql-init db");
 //        	if(!J72_Tran_Main.isRealTime) {
 //    			J5_Sql.doMain(435, "table_type='N'");//435,del if,tree_db_bean 
@@ -81,7 +80,7 @@ public class J72_Tran_Main {
 				J5_Sql.doMain(345, dbMap);//345,select all,tree_call_db
 			}
 			List<J1_BeanCallRelate> callRelateList = new ArrayList<J1_BeanCallRelate>();
-			J72_Tran_Util.scanJavaFolder(CP, callKeySet,dbMap,null,callRelateList);//遍历构建调用关系
+			J72_Tran_Util.scanJavaFolder(J2_MainUnit.CODE_PATH_JAVE, callKeySet,dbMap,null,callRelateList);//遍历构建调用关系
 			J3_Util.logE("134-init callRelate");
         	if(!J72_Tran_Main.isRealTime) {
     			J5_Sql.doMain(444, null);//444,del all,tree_call_relate

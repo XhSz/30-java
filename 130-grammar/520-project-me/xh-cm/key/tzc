@@ -1,0 +1,157 @@
+
+vue:{
+	300003/888888
+},  
+
+中华大圣银行:{
+	中國大盛集團有限公司China Dasheng Group Limited 成立于2016年05月23日，公司註冊編號為:2380392 ,屬於香港(私人股份有限公司). 目前公司狀態,仍在登記冊上.
+}
+
+code:{
+	04-call-1m30s77ms/15m814ms:{
+		ln6107TellerTransactionReportReportProcessorReportProcessor.cn.sunline.ltts.cbs.at.type.loan.ComLnQuery.LnScheduleListTitle,
+		AccessHttpPluginConstantDef.SPC_AH,blic static final IString C002 = new IString("AccessHttpPluginConstantDef.SPC_AH.C002", "\u542F\u52A8\u5931\u8D25:http://%s:%s");
+	},
+	07-nsql:{
+		AtQuery.selLoanList-:{
+			select a.loan_no,
+			a.ccy_code,
+			a.contract_no,
+			a.cust_no,
+			a.cust_name,
+			g.loan_object,
+			g.joint_ind,
+			a.loan_amt,
+			a.available_drawdown_amt,
+			a.outstanding_prcp,
+			a.loan_status,
+			a.start_inst_date,
+			f.rpym_method,
+			a.maturity_date,
+			a.prod_id,
+            f.rpym_cycle,
+            f.due_date_align,
+            f.due_date_align_date,
+            c.dwdn_type,
+            b.last_accrual_date,
+            b.next_rate_change_date,
+            b.last_rate_change_date,
+           	a.loan_classification,
+	    	i.prod_name,
+	     	a.limit_code,
+	     	h.ccy_code curcl_ccy,
+	     	(h.init_limit_amt+h.adjust_amt) init_limit_amt
+            from 
+            lna_loan a,
+            lna_accrual b,
+            lna_drawdown c,
+            lna_maturity d,
+            lna_repayment f,
+            lna_basic g,
+            cla_account h,
+            lnf_basic i
+			insert:{
+				insert into tree_db_bean(TABLE_NAME,TABLE_TYPE,TABLE_OPER,TABLE_DAO,TABLE_DES,TABLE_NAME_NSQL)values
+				('AtQuery.selLoanList','N','S','AtQuery.selLoanList','AtQuery.selLoanList'
+				,'lna_loan,lna_accrual,lna_drawdown,lna_maturity,lna_repayment,lna_basic,cla_account,lnf_basic');commit;
+			}
+		}
+	},
+	08-tables-print excel-1m40s478ms:{
+		
+	},
+	10-enum:{
+		BusinessType.E_LOAN_TRXNEVENT-:{
+			LN001,loan release
+			LN002,loan repayment
+			LN003,loan interest rate
+			LN004,loan interest accrual gl
+			LN005,loan interest due
+			LN006,loan interest rate change
+			LN007,loan transfer
+			LN008,extend loan
+			LN009,loan write off
+			LN010,loan write off repayment
+			LN011,loan repayment reimburse
+			LN012,manual loan provision
+			LN013,auto loan provision
+			LN014,loan intrust pay manual
+			LN015,loan interest amortization
+			LN016,adjust loan interest
+			LN017,loan overdue fee
+			LN018,loan scheudle fee
+			LN019,loan schedule maintenance
+			LN020,loan maturity date change
+			LN021,loan accounting alias change
+			LN022,loan account branch change
+			LN023,loan special defined settings change
+			LN024,loan informations maintenance
+			CO001,collateral account opening
+			CO002,collateral in out
+			CO003,collateral refer to
+		},
+		BusinessType.E_TSTRXNEVENT-887:{
+			TS001,export registion
+			TS002,export modify
+			TS003,export urging
+			TS004,export accept registion
+			TS005,export pay off
+			TS006,export dishonour registion
+			TS007,export chargeback
+			TS008,export free bills registion
+			TS009,export cancel
+			TS011,import registion
+			TS012,import modify registion
+			TS013,import accept
+			TS014,import payment
+			TS015,import dishonout
+			TS016,import chargeback registion
+			TS017,import free bills
+			TS018,import cancel
+			TS041,open guarantee
+			TS042,amend guarantee
+			TS043,compliance guarantee
+			TS044,logout guarantee
+			TS045,extend guarantee
+			TS051,clean apply
+			TS052,clean urging
+			TS053,clean chargeback
+			TS054,clean payment
+			TS055,clean cancle
+			TS061,import letter credit registion
+			TS062,import letter credit modify apply
+			TS063,import letter credit modify
+			TS064,import letter credit cancle
+			TS071,import bill registration
+			TS081,export letter credit registration
+			TS082,export letter credit amendment
+		}
+		BusinessType.E_BALCODE-720:{
+			PRCP,principal
+			ACIT,accrual interest
+			ACIC,accrual interest income
+			DUIT,due interest
+			DUIC,due interest income
+			ACOT,accrual penalty interest
+			ACOC,accrual penalty interest income
+			DUOT,due penalty interest
+			DUOC,due penalty interest income
+			ACCT,accrual compound interest
+			ACCC,accrual compound interest income
+			DUCT,due compound interest
+			DUCC,due compound interest income
+			WOFP,write-off principal
+			WOFI,write-off interest
+			ACRT,accrual reimburse interest
+			ACRC,accrual reimburse interest income
+			DURT,due reimburse interest
+			DURC,due reimburse interest income
+			PROM,manual loan provision
+			PROA,auto loan provision
+			LOSS,loan provision loss
+			LOSP,loan loss-write-off principal
+			LOSP,loan loss-write-off interest
+			AMOT,amortization interest
+		}
+	}
+}

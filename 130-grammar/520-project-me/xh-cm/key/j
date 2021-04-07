@@ -28,3 +28,37 @@
 
 
 
+61-linux:{
+	105-os-env:{	"环境变量"	
+		des:{
+			 '简要的说，就是指定一个目录，运行软件的时候，相关的程序将会按照该目录寻找相关文件。''设置变量对于一般人最实用的功能就是：不用拷贝某些dll文件到系统目录中了，而path这一系统变量就是系统搜索dll文件的一系列路径。'
+		? ? '在linux系统下，如果你下载并安装了应用程序，很有可能在键入它的名称时出现“command not found”的提示内容。如果每次都到安装目标文件夹内，找到可执行文件来进行操作就太繁琐了。这涉及到环境变量?PATH?的设置问题，而?PATH的设置也是在linux下定制环境变量的一个组成部分。linux 查看环境变量与设置环境变量在使用过程中很常见，本文整理了一些常用的与环境变量相关的命令。'
+		},
+		set/unset/readonly :{
+			/etc/profile			'所有用户-永久'		eg.:{	# vi  /etc/profile 				export CLASSPATH=./JAVA_HOME/lib;$JAVA_HOME/jre/lib }		# source /etc/profile
+			$HOME/.bash_profile		'单一用户-永久'		eg.:{	# vi  /home/guok/.bash.profile 	export CLASSPATH=./JAVA_HOME/lib;$JAVA_HOME/jre/lib }		$ source /home/guok/.bash_profile		$HOME/.bashrc
+			export					'当前sh	 -临时'		eg.:{	$ export HELLO="Hello!" }		'只在当前的shell(BASH)或其子shell(BASH)下是有效的，shell关闭了，变量也就失效了，再打开新shell时就没有这个变量，需要使用的话还需要重新定义'
+			$ unset $TEST 
+			$ readonly TEST
+		}
+		see:{
+			$ echo $HELLO	/	echo $JAVA_HOME 
+			$ env	'所有的环境变量'			$ env|grep TEST
+			$ set	'所有本地定义的Shell变量'
+			type -a SHELL_NAME
+			
+		},
+		order:{
+			1. 绝对命令 '指定目录',
+			2. alias 别名,
+			3. 内置命令:{
+				'由SHELL解释器（Bash）来判断用户输入的是内部命令还是外部命令'
+				内部命令: '所谓的是解释器内部的指令（在启动时就调入内存的，执行效率高），会被直接的执行，而绝大部分的时候都会是外部命令（系统的软件功能，用户需要时才从硬盘调入内存的），交由给第四步骤来继续处理，当然您还可以使用“type 命令名称”来手工判断是内部命令还是外部命令，也是很有趣的'
+			},			
+			4. env-path:{
+				/etc/profile	->		/etc/bashrc						->		~/.profile，												->		~/.bashrc
+				/etc/profile	->	/etc/profile.d和/etc/inputrc 		->		~/.bash_profile	->	~/.bash_login	->	~/.profile			->		~/.bashrc
+			}
+		}
+	}
+}

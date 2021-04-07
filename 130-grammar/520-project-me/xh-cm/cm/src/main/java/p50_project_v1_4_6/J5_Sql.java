@@ -266,8 +266,9 @@ public class J5_Sql {
         			||(errStr.contains("java.sql.SQLSyntaxErrorException")&&errStr.contains("ORA-00942"))) {
         		if(J3_Util.DE)System.err.println(errStr);
         		resultObj = J3_Util.TABLE_NOT_EXIST_ERR;
-        	}else
+        	}else {
         		e.printStackTrace();
+        	}
         }finally{
             try{
                 if(ps!=null) ps.close();
@@ -535,7 +536,11 @@ public class J5_Sql {
     	try {
     		count += ps.executeUpdate();
     	}catch(Exception e){
-    		System.err.println(e);
+//    		String errStr = e.toString();
+//    		if(errStr.contains("java.sql.SQLException")&&errStr.endsWith("ORA-12899"))
+    		{	
+        		System.err.println(e+","+bean.getCall_name()+","+bean.getCall_des());
+        	}
     	}
 //		System.out.println("insert:"+bean.getCall_name());
 //		System.out.println(bean.getCall_name());

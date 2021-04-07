@@ -1,0 +1,187 @@
+
+
+
+traning:{
+	1:{
+		video:{
+			po1110.bpl-行内转账,
+		}
+	}
+	doc:{
+		PO流程编排开发手册:{	'深圳市长亮科技股份有限公司' 
+			文档修订记录:{	'变更方式：A-增加，M-修改，D-删除?'
+				版本	变更方式	修订说明	日期	变更人	备注
+				V0.1	A	起草	2020/12/17	Lvbang	
+			},		
+			目录:{
+				1 概述	5
+				1.1 编写目的	5
+				1.2 适用读者	5
+				2 PO简介	5
+				2.1 名词解释	5
+				2.2 系统编号	5
+				3 项目结构说明	6
+				3.1 工程结构说明	6
+				3.2 依赖说明	6
+				3.3 Git地址	7
+				4 CR开发规范	7
+				4.1 文件命名规范	7
+				4.2 包命名规范	7
+				4.3 bpl规范	8
+				4.4 组件规范	9
+				5 简单交易开发流程	10
+				5.1 创建bpl流程	10
+				5.2 参数配置	12
+				5.3 赋值节点	13
+				5.4 Java组件	14
+				6 外调子系统交易开发流程	16
+				6.1 新增服务类型	16
+				6.2 新增外调服务类型	17
+				6.3 新增Java组件类	17
+				6.4 新增bpl文件	17
+				6.5 服务接入接出表配置	18
+			},
+			正文:{
+				1 概述:{
+					1.1 编写目的:{
+						1)	对PO系统做概要说明以及描述PO在iCore系统中的作用。
+						2)	给开发人员提供指导手册。
+					},
+					1.2 适用读者:后台开发人员。
+				},
+				2 PO简介:{
+					2.1 名词解释:{
+						PO : Process Orchestration，流程编排。主要是对微服务系统中子系统服务进行编排与包装处理。
+						CR : 流程，一个CR流程可为系统内独立的业务功能，可独立完成一个业务事件或一个业务场景。同时确定了输入输出字段等属性。CR交易相对于FlowTran交易来说更为灵活。
+					}
+					2.2 系统编号:{
+						子系统编号	304
+						联机子系统编号	3041
+						批量子系统编号	3042
+						交易码	23XXXX
+					}
+				},
+				3 项目结构说明:{ 
+					3.1 工程结构说明:{
+						1)	最外层pom文件主要用于依赖管理，各子模块parent 均为此pom中的定义；
+						2)	po-bat 定时和批量交易；
+						3)	po-comm基础应用模块，基础扩展点实现、公共工具类、基础类型等定义；
+						4)	po-dbscripts 脚本模块；
+						5)	po-document 文档模块；
+						6)	po-serv 组合服务模块；
+						7)	po-test 测试模块；
+						8)	po-tran交易模块；
+					},
+					3.2 依赖说明:{
+						PO的parent依赖为openbank，iCore其他子系统parent依赖为aplt，openbank依赖中包含了报文公共区处理逻辑、交易与服务的回调点、冲正处理逻辑等。
+							<parent>
+								<groupId>cn.sunline.openbank</groupId>
+								<artifactId>openbank-parent</artifactId>
+								<version>3.2.2.0-OPBK-BETA-2</version>
+							</parent>
+						icore-component是PO的另一个重要依赖，其作用相当与iCore系统的iobus层，该依赖包含外调服务所需的字典、枚举、基础类型、复合类型、服务实现相关组件。
+						 <dependency>
+										<groupId>cn.sunline.openbank</groupId>
+										<artifactId>icore-component</artifactId>
+										<version>${icore.component.version}</version>
+						</dependency>
+					},
+					3.3 Git地址:{
+						po-busi：https://git.yfb.sunline.cn/icore3.0/busi/po-busi.git
+						icore-component：https://git.yfb.sunline.cn/icore3.0/busi/icore-component.git
+						openbank：https://git.yfb.sunline.cn/icore3.0/base/openbank-parent.git
+					}
+				}
+				4 CR开发规范:{
+					4.1 文件命名规范:{	'说明：文件命名严格按照java类命名规范，首字母大写，驼峰式命名，交易文件名称固定八位'
+						1)	限制类型：XxxType.u_schema.xml 
+						2)	枚举类型：XxxEnumType.e_schema.xml
+						3)	字典类型：XxxDict.d_schema.xml
+						4)	复合类型：XxxComplexType.c_schema.xml
+						5)	表类型：XxxTable.tables.xml
+						6)	服务类型：XxxService.serviceType.xml
+						7)	服务类型实现：XxxServiceImpl.serviceImpl.xml
+						8)	联机交易文件：Xxxxxxxx.flowtrans.xml 
+						9)	批量交易文件：Xxxxxxxx.batch_tran
+					},
+					4.2 包命名规范:{
+						10)	包名统一以  cn.sunline.icore开头，再跟上不同的子系统简称（如 贷款: cn.sunline.icore.ln.模块）
+					},
+					4.3 bpl规范:{
+						目录：\src\main\resources\crflow
+						目录名只能用crflow
+						?	新建bpl流程文件
+						?	bpl流程文件属性设置
+						显示名称：必须是中文名， 方便查看；
+						生成类包名：使用通用前缀+子目录名；
+						?	bpl流程图规范
+						节点必须写明作用；
+						子流程调用必须有异常连线来处理异常；
+						对于一些特殊条件，建议在连线上加上简单注释；
+						子流程必须原子化，只要能提供流程需要的入参就能实现功能。
+					},
+					4.4 组件规范:{
+						?	私有组件
+						对于只有当前流程使用的组件必需定义为私有组件，其它流程无法选取此组件的方法
+						命名规范：类名=bpl名称+ Component
+						注解规范：在类上只能打 @Component
+						?	公共组件
+						公共组件所有流程均可调用，公有组件可以自定义图标 
+						命名规范：类名=对接系统名称+ PubComponent
+						注解规范：在类上只能打 @FlowComp
+					}
+				},				
+				5 简单交易开发流程:{
+					5.1 创建bpl流程:{
+						1、 工程上右键->NEW->Other->创建流程文件，创建方法如下图所示：{
+							或者新建向导->CR->创建流程文件
+							修改默认生成类包名为：cn.sunline.icore.crflow
+							设置流程文件ID			
+						},
+						2、 点击完成生成bpl文件	
+					},
+					5.2 参数配置:{
+						1、 流程文件空白处点击右键配置全局参数				 
+						2、 切换至设置选项卡设置实现名称、作者、生成类包名、简单描述等信息
+					},
+					5.3 赋值节点:{
+						1、 新增赋值节点
+						双击打开文件，流程上默认有开始、结束节。在右侧的工具栏中有可供选择的流程子节点。点击左上角可打开该流程生成的对应的Java类				 
+						2、 配置赋值节点
+						双击赋值节点，打开设置界面，点击左侧菜单栏添加即可添加一对映射，左值表示被被赋值的变量名(只能是流程全局变量或者流程输入参数字段)，右值为常量或者变量。
+					},
+					5.4 Java组件:{
+						1、	新增Java组件类
+						需添加@FlowComp与@Bizlet注解，否则Java组件节点无法识别该方法				 
+						2、	新增Java组件节点			 
+						3、	双击Java组件节点，配置该节点				 
+						4、 配置出入参
+						注意入参名与出参名，需与pbl属性配置一致。
+					}
+				},
+				6 外调子系统交易开发流程:{
+					6.1 新增服务类型
+						1、	在po-serv模块下新增servertype
+						2、	配置出入参					 
+					6.2 新增外调服务类型
+						在iCore-Component工程下对应的子系统模块新增需外调的服务类型，并配置出入参。					  
+					6.3 新增Java组件类
+						新增Java组件类，并配置各节点外调处理逻辑				 
+					6.4 新增bpl文件					 
+					6.5 服务接入接出表配置
+						服务接入表配置
+						INSERT INTO tsp_service_in(system_code, sub_system_code, out_service_code, inner_service_code, inner_service_impl_code, description, service_category, route_keys, service_type, protocol_id, is_enable, transaction_mode, log_level, timeout, alias_mapping, force_unused_odb_cache, register_mode) VALUES ('304', '3041', 'demo03', 'PO.Demo03', 'demo03', '*', 'S', '', '', 'rpc', 1, 'A', '', 60000, 0, 1, '0');
+						服务接出表配置
+						INSERT INTO tsp_service_out(system_code, sub_system_code, service_invoke_id, inner_service_code, out_service_app, out_service_code, out_service_group, out_service_version, description, protocol_id, timeout, timeout_redo_counts, timeout_confirm, alias_mapping, regist_call_log) VALUES ('304', '3041', 'cf3203', 'CF.CF3203', '2011', '553203', '01', '1.0', '', 'remote_rpc', 5000, 0, 0, 0, 1);
+						INSERT INTO tsp_service_out(system_code, sub_system_code, service_invoke_id, inner_service_code, out_service_app, out_service_code, out_service_group, out_service_version, description, protocol_id, timeout, timeout_redo_counts, timeout_confirm, alias_mapping, regist_call_log) VALUES ('304', '3041', 'cf3203', 'RemoteCall.remoteCall', '2011', '553203', '01', '1.0', '', 'remote_rpc', 5000, 0, 0, 0, 1);
+						服务控制表配置
+						INSERT INTO tsp_service_control(system_code, sub_system_code, service_invoke_id, inner_service_code, inner_service_impl_code, description, route_keys, cancel_service, confirm_service, service_transaction_mode, service_type, regist_call_log, service_executor_type) VALUES ('304', '3041', 'cf3203', 'CF.CF3203', '', '', '', '', '', 'Supports', 'try', 1, 'R');
+						INSERT INTO tsp_service_control(system_code, sub_system_code, service_invoke_id, inner_service_code, inner_service_impl_code, description, route_keys, cancel_service, confirm_service, service_transaction_mode, service_type, regist_call_log, service_executor_type) VALUES ('304', '3041', 'cf3203', 'RemoteCall.remoteCall', '', '', '', '', '', 'Supports', 'try', 1, 'R');
+						注意:每个外调服务都需配置两条记录，inner_service_code分别对应服务ID 与RemoteCall.remoteCall
+				}
+			}
+		}
+	}
+}
+
+				 
