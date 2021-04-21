@@ -1,21 +1,116 @@
 
+1. 云桌面账号 
+2. git
+云桌面:
+	https://git.yfb.sunline.cn/
+3. 部署、po、视频
+	
+4.	跑批助手
+	
+外面：
+	http://e-git.yfb.sunline.cn/
+	http://gitlab.odc.sunline.cn/
+1. wifi
+	ht..
+2. e-mail/企业微信
+
+
 
 sow:{
 	
 },
+
+concept:{
+	CapBay-点对点（P2P）供应链融资初创公司:{
+		咨询:{
+			A轮融资中筹集了2000万美元-2021年2月4日 北京时间 星期四 上午 5:29:07,https://0xzx.com/2021020405291149605.html
+			总部位于马来西亚
+			2017 年，由新加坡的KK Find领投了50万美元的种子资金，该公司也是CapBay最新一轮的主要投资者。 其他参与者是天使投资人。
+			利用现有的贸易数据和关系来促进包容性商业融资;
+			专有信贷决策模型/各种规模的企业-短期融资;
+			2020 年3月推出了P2P平台，迄今为止，它已提供了1亿马币（2480万美元）的资金，涵盖500份投资票据; 
+			自2017年推出以来，它还推动了 10,000 笔涵盖中小企业的交易的MYR 800（1.98亿美元）;
+			去年，它成为与国家电信马来西亚电信（TM）以及14家金融机构和银行合作的“第一家也是唯一一家”金融科技公司，推出了TM供应商融资计划Perintis。 
+			通过这种合作关系，P2P投资者可以与机构投资者一起投资由政府和企业应收款支持的资产类别。
+			CapBay收购了当地公司Kenanga Capital Islamic（KCI）49％的股份，以期建立一家专注于符合伊斯兰教义的供应链金融的金融技术合资企业;
+		},
+		中投网:{
+			未央网 2021-01-27 09:56
+			成立于2016年，旨在通过为中小企业提供融资解决方案，充裕供应链中的现金流，助力中小企业发展;
+			该公司前身为 CapitalBay，于2020年3月推出 P2P 服务，据称已帮助500个投资项目完成2470万美元融资。本轮融资将用于技术研发及市场开发;
+		},
+		crunchbase:{
+			CapBay is a peer to peer (P2P) supply chain financing platform based In Malaysia.,	https://www.crunchbase.com/organization/capital-bay
+		}
+	}
+},
 SASA-Sunline Application Solution Architecture:{
-	006,
-	007,
-	008,1/2,
-	009,1/2/3,
-	010,1/2/3/4,
-	011,1,
-	013,1/2,
-	023,Nacos,
-	024,Nacos,
-	026,log,Elastic Search,
-	027,1/2,
-	028,ELB
+	EXIM-BEFORE:{
+			Front End
+		Electronic Trade 
+		Finance System ETF
+		电子交易金融系统
+	},
+	ppt:{
+		0406:{
+			006,
+			007,
+			008,1/2,
+			009,1/2/3,
+			010,1/2/3/4,
+			011,1,
+			013,1/2,
+			023,Nacos,
+			024,Nacos,
+			026,log,Elastic Search,
+			027,1/2,
+			028,ELB
+		},
+		0407:{
+			Foundation->toolchain 具体包含哪些?
+			 工具链是devops的工具链吗？
+			 Jira (项目管理工具)
+			 gitlab（代码管理工具） 
+			 Jenkins（持续集成）
+			 Maven（构建工具）
+			 SonarQube（质量扫描）
+			 Dependency-check (代码依赖扫描)
+			 RSAS (安全扫描)
+			 Docker（容器）
+			 Jmeter （性能测试）
+			 ...
+			 
+			Access Applications->Protocol Management到底指什么协议管理?
+			  http/rpc  OpenApi Factory
+			Core Services—>Capability Modules->BO Admin Center  这是backoffice？柜面？也就是SUMP?
+			  不清楚
+			Core Services—>Advanced Capability Modules->Approval Center  柜面审批流?
+			  不懂
+			Application Architecture->Services->Operation  服务运维?
+			 应该就是运维吧
+			Application Architecture->Services->swift报文转账  Transfer Service?
+			 swift是国际结算系统，2.0版本这块是在前置实现的，3.0之后应该也是在前置也就是gateway实现吧？这块应该是属于支付的范畴
+			Application Architecture->Platform->APM  auto plateform management? DevOPS？CI/CD?
+			 APM：应该是Application monitoring management，应用监控管理   性能管理中心..?应用性能分析...edsp.. 链路追踪..  log management  
+			 sp4 na+rest+容器   sp3 zk+rpc  
+			 domain  
+			 
+			Proposed Solution Design->Payment Center->Smart Routing，智能路由是啥？gateway的自动分发?
+			 Smart Routing：监控调度机制，与CDN服务节点相关  payment switch  新老核心账号
+			 
+			Proposed Solution Design->Management  ACL是啥？
+			 访问控制列表？
+			Foundation Framework->edsp->Circuit Breaker，这啥？环形阻断器？服务降级？
+			 Hystrix断路器:当某个服务单元发生故障（类似用电器发生短路）之后，通过断路器的故障监控（类似熔断保险丝），向调用方返回一个错误响应，而不是长时间的等待。这样就不会使得线程因调用故障服务被长时间占用不释放，避免了故障在分布式系统中的蔓延。
+			Core Breakdown->Common Modules->Model  具体指什么模型? 元数据 开，发
+			 就是我们项目项目的开发模型，flowtran的开发模型
+			Core Breakdown->Access Modules->Profile 轮廓?什么轮廓?
+			 不懂
+			AD?密码平台?  什么的简写？
+			 中文名字：统一用户管理  
+			 通过统一集中的用户身份管理系统，实现应用系统的用户、角色和组织机构统一化管理
+		}
+	}
 },
 server:{
 	config:{

@@ -1,12 +1,64 @@
 
-vue:{
-	300003/888888
-},  
-
+坦桑尼亚:{
+	
+},
 中华大圣银行:{
 	中國大盛集團有限公司China Dasheng Group Limited 成立于2016年05月23日，公司註冊編號為:2380392 ,屬於香港(私人股份有限公司). 目前公司狀態,仍在登記冊上.
 }
+通过视图  来访问 数据库;
+第6、7个待查;
+server:{
+	fix:{
+		vue:{
+			300003/888888
+		},  
+	},
+	uat:{
+		vue-http://172.31.2.12:6100/ -300004/888888:{}, 
+		db:{
+			172.31.5.12:1521/BASEDB 	cbsbase/cbsbase
+		}
+	}
+},
+enum:{
+	cf:{
+		EnumType.e_schema.xml
+		<restrictionType id="E_CUSTOMERTYPE" longname="customer type" base="string" maxLength="1">
+			<enumeration id="PERSONAL" value="1" longname="personal"/>		1-个人 
+			<enumeration id="CORPORATE" value="2" longname="corporate"/>	2-公司		corporate customer
+			<enumeration id="FI" value="3" longname="FI"/>					3-同业		finance customer 金融客户
+			<enumeration id="JOINT" value="4" longname="joint"/>			4-联名
+		</restrictionType>
+	},
+	st:{
 
+		BusinessType.E_CHEQUESTATUS-支票本状态,
+		<restrictionType id="E_CHEQUESTATUS" longname="cheque status" base="string" maxLength="1">
+			<enumeration id="UNPAID" value="U" longname="Unpaid"/>          A-申请
+			<enumeration id="PAID" value="P" longname="Paid"/>              P-已受理
+			<enumeration id="RETURN" value="R" longname="Return"/>          I-已入库
+			<enumeration id="STOP" value="S" longname="Stop"/>              U-待领取
+			<enumeration id="HOLD" value="M" longname="Mark Good"/>         S-启用
+		</restrictionType>
+		cheque_book_status-BusinessType.E_CHEQUEBOOKSTATUS-
+		<restrictionType id="E_CHEQUEBOOKSTATUS" longname="cheque book status" base="string" maxLength="1">
+			<enumeration id="APPLICATION" value="A" longname="application"/>		A-申请
+			<enumeration id="PRINTING" value="P" longname="printing"/>				P-已受理
+			<enumeration id="IN_STORE" value="I" longname="in store"/>				I-已入库
+			<enumeration id="UNCLAIMED" value="U" longname="unclaimed"/>			U-待领取
+			<enumeration id="START_US" value="S" longname="start using"/>			S-启用
+			<enumeration id="CANCEL" value="C" longname="cancel"/>
+		</restrictionType>
+	}
+},
+product-dp:{
+	cust_type=1:{
+		活期(储蓄+结算)+定期,5(3+2)+3=8:{		
+			SA1001	dpf_interest.pay_inst_cyc=1H=半年;
+		}
+	},
+	可用透支额度,available_overdraw_amount
+}
 code:{
 	04-call-1m30s77ms/15m814ms:{
 		ln6107TellerTransactionReportReportProcessorReportProcessor.cn.sunline.ltts.cbs.at.type.loan.ComLnQuery.LnScheduleListTitle,
@@ -152,6 +204,627 @@ code:{
 			LOSP,loan loss-write-off principal
 			LOSP,loan loss-write-off interest
 			AMOT,amortization interest
+		}
+	}
+}
+vue:{
+	ap:{
+		1000	10001	ap1000In	7201	当日冲账
+		1001	10002	ap1004In	7202	隔日冲账
+		1042	10012	ap1042In	A101	机构信息查询
+		1042	10033	ap1042In	A101	机构信息查询
+		1043	10032	ap1043In	A102	机构关系查询
+		1043	10013	ap1043In	A102	机构关系查询
+		1052	10017	ap1052In	B102	下拉字典查詢
+		1052	10017	ap1052In	A107	下拉字典查詢
+		1052	10031	ap1052In	A107	下拉字典查詢
+		1052	10031	ap1052In	B102	下拉字典查詢
+		1055	10055	ap1055In	B304	现金出纳业务编码查询
+		1055	10055	ap1055In	A504	现金出纳业务编码查询
+		1055	10055	ap1055In	B304	现金出纳业务编码查询
+		1055	10055	ap1055In	A504	现金出纳业务编码查询
+		1060	10018	ap1060In	A103	货币信息查询
+		1070	10019	ap1070In	A104	证件种类查询
+		1100	10038	ap1100In	B101	节假日信息查询
+		1100	10038	ap1100In	A105	节假日信息查询
+		1100	10027	ap1100In	A105	节假日信息查询
+		1100	10027	ap1100In	B101	节假日信息查询
+		1110	10030	ap1110In	7101	交易流水查询
+		2028	20030	ap1113In	7104	交易重打
+		1140	10039	ap1140In	7102	业务数据审计日志查询
+		1140	10040	ap1140In	7102	业务数据审计日志查询
+	},
+	cb:{
+		2125	20125	cb2125In	8407	柜员现金领用
+		2126	20126	cb2126In	8408	柜员现金上缴
+		2127	20127	cb2127In	8409	柜员现金调剂
+		2130	20130	cb2130In	8401	现金入库
+		2131	20131	cb2131In	8410	长短款登记
+		2132	20132	cb2132In	8411	长短款处理
+		2133	20133	cb2133In	8402	现金出库
+		2135	20135	cb2135In	8418	长短款查询
+		2135	20135	cb2135In	8418	长短款查询
+		2137	20137	cb2137In	8414	现金碰库
+		2138	20138	cb2138In	8417	现金调拔登记薄查询
+		2143	20143	cb2143In	8412	现金支出
+		2145	20145	cb2145In	8413	现金收入
+		2147	20147	cb2147In	8419	现金面值兑换
+		2150	20150	cb2150In	A106	面值查询
+		2150	20150	cb2150In	A106	面值查询
+	},
+	cf:{
+		3010	30001	cf3010In	1101	个人客户信息建立
+		3012	30002	cf3012In	1102	个人客户信息维护
+		3016	30004	cf3016In	1103	个人客户信息查询
+		3020	30005	cf3020In	1201	公司客户信息建立
+		3022	30006	cf3022In	1202	公司客户信息维护
+		3026	30008	cf3026In	1203	公司客户信息查询	cf3026  
+		3030	30009	cf3030In	1301	同业客户信息建立	cf3030	cfb_fi_base,cfb_fi_doc,cfb_fi_address,cfb_fi_contact
+		3032	30010	cf3032In	1302	同业客户信息维护
+		3036	30012	cf3036In	1303	同业客户信息查询
+		3091	30106	cf3106In	1401	联名客户建立		cf3091	cfb_cust_joint_list,cfb_cust_joint
+		3092	30107	cf3107In	1402	联名客户维护
+		3094	30111	cf3111In	1403	联名客户查询
+		3050	30113	cf3113In	1501	黑名单导入
+		3053	30114	cf3114In	1502	黑名单列表查询
+	},
+	cl-额度:{
+		6810	60810	cl6810In	4701	客户额度建立
+		6811	68111	cl68112In	4702	客户子额度建立
+		6813	60813	cl6813In	4703	客户额度查询
+		6814	60814	cl6814In	4704	客户额度信息维护
+		6817	60817	cl6817In	4706	客户额度金额冻结/解冻
+		6834	60834	cl6834In	4705	客户额度账单查询
+	},
+	cm:{
+		2300	20301	cm2300In	8301	尾箱信息维护
+		2301	20302	cm2301In	8302	尾箱领用上缴
+		2302	20303	cm2302In	8303	尾箱列表信息查询
+		2304	20315	cm2304In	8415	现金余额列表查询
+		2305	20316	cm2305In	8416	现金交易明细查询
+		2306	21000	cm2306In	8304	尾箱现金面额查询
+		2500	20308	cm2500In	A411	当前利率查询
+		2500	20308	cm2500In	B211	当前利率查询
+		2500	20308	cm2500In	A411	当前利率查询
+		2500	20308	cm2500In	B211	当前利率查询
+		2500	20308	cm2500In	A411	当前利率查询
+		2500	20308	cm2500In	B211	当前利率查询
+		2501	20309	cm2501In	A412	利率历史查询
+		2503	20348	cm2503In	B212	税率代码查询
+		2503	20348	cm2503In	B212	税率代码查询
+		2504	20349	cm2504In	A413	账户层浮动授权查询
+		2504	20349	cm2504In	A413	账户层浮动授权查询
+		2517	20999	cm2517In	A414	账户层浮动授权维护
+		2517	20999	cm2517In	B213	账户层浮动授权维护
+		2517	20999	cm2517In	B213	账户层浮动授权维护
+		2517	20999	cm2517In	A414	账户层浮动授权维护
+		2519	20519	cm2521In	B214	利率导入
+		2601	20312	cm2601In	A421	当前汇率查询
+		2601	20312	cm2601In	A421	当前汇率查询
+		2602	20313	cm2602In	B221	汇率录入
+		2603	20325	cm2603In	A423	货币对查询
+		2605	20321	cm2605In	A424	外币兑换试算
+		2610	20358	cm2614In	B222	汇率优惠查询
+		2610	20358	cm2614In	A425	汇率优惠查询
+		2610	20358	cm2614In	B222	汇率优惠查询
+		2610	20358	cm2614In	A425	汇率优惠查询
+		2612	20612	cm2618In	A422	历史汇率查询
+		2612	20612	cm2618In	A422	历史汇率查询
+		2613	20613	cm2619In	2208	外币兑换试算
+		2613	20613	cm2619In	2208	外币兑换试算
+		2615	20615	cm2621In	B224	汇率文件导入
+		2700	20317	cm2700In	8601	手工收费试算
+		2702	20319	cm2702In	8602	手工收费
+		2708	20366	cm2708In	8605	欠费收取
+		2710	20322	cm2710In	B231	费用参数查询
+		2710	20322	cm2710In	A431	费用参数查询
+		2710	20322	cm2710In	B231	费用参数查询
+		2710	20322	cm2710In	A431	费用参数查询
+		2710	20322	cm2710In	B231	费用参数查询
+		2710	20322	cm2710In	A431	费用参数查询
+		2712	20329	cm2712In	B232	费用公式维护
+		2712	20329	cm2712In	B232	费用公式维护
+		2712	20329	cm2712In	B232	费用公式维护
+		2720	20323	cm2720In	8603	费用台账查询
+		2721	20324	cm2721In	8604	欠费查询
+		2723	20359	cm2723In	8606	费用摊销查询
+		2724	20360	cm2724In	8607	费用摊销调整
+		2725	20361	cm2725In	8608	费用返还查询
+		2726	20362	cm2726In	8609	费用返还
+		2727	20363	cm2727In	8610	费用分润查询
+		2722	20368	cm2753In	8611	费用明细查询
+	},
+	co-押品:{
+		6200	60700	co6200In	4601	押品开户
+		6201	60701	co6201In	4602	押品出入库
+		6202	60702	co6202In	4603	押品关联
+		6203	60703	co6203In	4604	押品维护
+		6230	60704	co6230In	4605	押品查询
+		6231	60705	co6231In	4606	押品关联查询
+		6232	60706	co6232In	4607	押品出入库明细查询
+		6238	60712	co6238In	4608	押品参数维护
+	},
+	ct:{
+		2000	20000	ct2000In	8101	柜员新增
+		2001	20001	ct2001In	8102	柜员信息维护
+		2002	20002	ct2002In	8103	柜员信息查询
+		2006	20006	ct2006In	8104	柜员角色维护
+		2008	20008	ct2008In	8105	柜员强制签退
+		2009	20009	ct2009In	8106	柜员密码修改
+		2010	20010	ct2010In	8107	柜员密码重置
+		2011	20011	ct2011In	8108	柜员密码解锁
+		2013	20013	ct2013In	8201	机构开机
+		2014	20014	ct2014In	8202	机构关机
+		2018	20018	ct2018In	9613	待办事项查询
+		2020	20020	ct2020In	8203	机构重开机
+		2030	20028	ct2030In	8110	柜员平账发起
+		2031	20031	ct2031In	8112	柜员平账
+		2032	20027	ct2032In	8111	柜员取消平账
+		2036	20036	ct2036In	8109	柜员流水查询
+		2037	20037	ct2037In	7103	工作流信息查询
+		2050	20050	ct2050In	A601	角色查询
+		2050	20050	ct2050In	A601	角色查询
+		2076	20159	ct2076In	A602	角色平账流程查询
+		2076	20159	ct2076In	A602	角色平账流程查询
+		2094	20094	ct2094In	A603	交易受理方式查询
+		2094	20094	ct2094In	A603	交易受理方式查询
+		2097	20097	ct2097In	A605	工作任务信息查询
+		2097	20097	ct2097In	A605	工作任务信息查询
+		2100	20100	ct2100In	A606	工作任务线路信息查询
+		2100	20100	ct2100In	A606	工作任务线路信息查询
+		2103	20103	ct2103In	A604	工作流定义查询
+		2103	20103	ct2103In	A604	工作流定义查询
+	},
+	dp:{
+		4001	40101	dp4001In	2103	定期开户
+		4002	40104	dp4003In	2911	存放同业活期开户
+		4003	40105	dp4004In	2912	存放同业定期开户
+		4011	40111	dp4011In	2102	活期销户
+		4012	40112	dp4012In	2913	存放同业活期销户
+		4200	40210	dp4040In	2402	定期续存信息维护
+		4041	40211	dp4041In	2204	定期支取
+		4042	40212	dp4042In	2915	存放同业定期支取
+		4050	40220	dp4050In	2206	待支取利息支取
+		4051	40051	dp4051In	2504	账户利息调整
+		4052	40523	dp4052In	2205	定期到期转存
+		4053	40053	dp4053In	2914	存放同业账户利息调整
+		4000	40100	dp4100In	2101	活期开户
+		4020	40200	dp4200In	2201	转账
+		4027	40201	dp4201In	2202	活期支取
+		4028	40202	dp4202In	2203	活期存入
+		4023	40203	dp4203In	2207	外币兑换
+		4029	40205	dp4205In	2918	存放同业活期转账
+		4066	40206	dp4210In	2211	外币兑换手动汇率
+		4220	40500	dp4220In	2501	活期账户利率维护
+		4247	40247	dp4247In	2821	约定转账签约
+		4248	40248	dp4248In	2822	约定转账维护
+		4030	40300	dp4300In	2301	冻结
+		4032	40301	dp4301In	2302	解冻
+		4033	40303	dp4303In	2303	强制扣划
+		4420	40320	dp4320In	2304	冻结信息查询
+		4330	40340	dp4330In	2931	同业拆入账户开立
+		4331	40341	dp4331In	2932	同业拆入账户还款
+		4332	40342	dp4332In	2941	同业拆借账户开立
+		4333	40343	dp4333In	2942	同业拆借账户收款
+		4056	40344	dp4334In	2933	同业拆入利息调整
+		4053	40345	dp4335In	2943	同业拆借利息调整
+		4200	40400	dp4400In	2401	账户基本信息维护
+		4464	40464	dp4464In	2823	约定转账查询
+		4450	40510	dp4510In	2502	账户利率查询
+		4452	40520	dp4520In	2503	存款产品利息试算
+		4402	40601	dp4601In	2601	账户信息查询				dp4402
+		4401	40603	dp4603In	2607	账户列表查询
+		4461	40606	dp4606In	2604	定期转存历史信息查询
+		4455	40607	dp4607In	2605	账户付息历史信息查询
+		4451	40608	dp4608In	2606	账户应计利息信息查询
+		4410	40610	dp4610In	2602	活期交易明细查询
+		4410	40611	dp4611In	2603	定期交易明细查询
+		4614	40614	dp4614In	2916	存放同业账户信息查询
+		4410	40610	dp4615In	2917	存放同业存款账单查询
+		4614	40616	dp4616In	2934	同业拆入账号信息查询
+		4614	40617	dp4617In	2944	同业拆借账号信息查询
+		4640	40640	dp4640In	2209	定期存款证明开立
+		4642	40642	dp4642In	2210	定期存款证明回收
+		4650	40650	dp4650In	2921	清算账户登记
+		4651	40651	dp4651In	2922	清算账户维护
+		4652	40652	dp4652In	2923	清算账户查询
+		4653	40653	dp4653In	2A01	????????
+		4655	40655	dp4655In	2A02	????????
+		4656	40656	dp4656In	2A03	??????
+		4235	40803	dp4821In	2701	透支协议签约			dp4235
+		4236	40804	dp4822In	2702	透支协议维护
+		4483	40805	dp4823In	2703	透支协议查询
+		4239	40824	dp4824In	2704	透支利息归还
+		4241	40806	dp4831In	2811	约定转账签约
+		4242	40807	dp4832In	2812	约定转账维护
+		4462	40808	dp4833In	2813	约定转账查询
+		4901	40901	dp4901In	A201	存款产品查询
+		4901	40950	dp4950In	B501	存款产品维护
+	},
+	ln:{
+		6020	60001	ln6001In	4101	贷款开户
+		6040	60003	ln6003In	4102	贷款发放
+		6006	60028	ln6011In	B601	贷款产品维护
+		6137	60067	ln6012In	4502	贷款还款方式变更
+		6001	60082	ln6015In	4501	贷款信息维护
+		6038	60056	ln6038In	4208	利率调整 
+		6048	60048	ln6048In	4207	利息调整
+		6041	60005	ln6101In	4201	贷款归还
+		6075	60011	ln6107In	4202	贷款展期
+		6044	60012	ln6108In	4203	贷款形态转移
+		6045	60013	ln6109In	4204	贷款核销
+		6046	60014	ln6110In	4205	贷款核销收回
+		6172	60015	ln6111In	4206	贷款减值准备金计提
+		6122	60045	ln6122In	4307	形态转移查询
+		6116	60101	ln6151In	4309	核销收回登记薄查询
+		6141	60102	ln6152In	4310	调整利息登记薄查询
+		6101	60018	ln6202In	4301	贷款查询
+		6103	60019	ln6203In	4302	贷款账务查询
+		6106	60022	ln6206In	4303	利率变更查询
+		6113	60025	ln6209In	4305	核销登记薄查询
+		6006	60028	ln6210In	A302	贷款产品查询
+		6107	60033	ln6212In	4306	贷款还款计划表查询
+		6002	60036	ln6215In	A301	贷款还款顺序查询
+		6130	60057	ln6224In	4308	贷款放款计划查询
+		6132	60059	ln6225In	4304	展期登记薄查询
+		6110	60029	ln6301In	4401	贷款还款计划试算
+	},
+	py:{
+		7501	70501	py7501In	9204	NAK202电文重发
+		7501	70505	py7505In	3301	单笔头寸调拨
+		7506	70506	py7506In	3302	外汇平盘交易
+		7508	70508	py7508In	3303	??????
+		7509	70509	py7509In	3304	??????
+		7550	70550	py7550In	B401	错误电文参数查询
+		7550	70550	py7550In	A701	错误电文参数查询
+		7550	70550	py7550In	A701	错误电文参数查询
+		7550	70550	py7550In	B401	错误电文参数查询
+		7554	70554	py7554In	B402	银行信息查询
+		7554	70554	py7554In	B402	银行信息查询
+		7554	70554	py7554In	A702	银行信息查询
+		7554	70554	py7554In	A702	银行信息查询
+		7559	70559	py7559In	A703	账户行信息查询
+		7559	70559	py7559In	B403	账户行信息查询
+		7559	70559	py7559In	B403	账户行信息查询
+		7559	70559	py7559In	A703	账户行信息查询
+		7600	70600	py7600In	3101	汇出汇款
+		7602	70602	py7602In	3102	汇出止付
+		7603	70603	py7603In	3103	汇出汇款查询
+		7604	70604	py7604In	9202	失败电文重发
+		7605	70605	py7605In	9203	发送自由格式电文
+		7651	70651	py7651In	3201	汇入汇款信息查询
+		7654	70654	py7654In	9201	往电电文信息查询
+		7655	70655	py7655In	9101	来电电文信息查询
+		7658	70658	py7658In	3202	挂账解付
+		7660	70660	py7660In	9102	汇入电文修改
+		7661	70661	py7661In	9103	账户行单笔电文处理
+		7663	70663	py7663In	9104	非账户行错发电文处理
+		7680	70680	py7680In	9301	账户行余额核对结果查询
+		7681	70681	py7681In	9302	对账单明细信息查询
+		7683	70683	py7683In	9303	单笔勾兑
+	},
+	st-支票/票据:{
+		2200	20200	st2200In	8503	支票本申请				st2200
+		2201	20201	st2201In	8510	支票本查询				st2201
+		2203	20203	st2203In	8511	支票号查询				st2203
+		2204	20204	st2204In	8508	支票停用				st2204
+		2205	20205	st2205In	8505	支票本申请维护
+		2205	20205	st2205In	8505	支票本申请维护
+		2206	20206	st2206In	8504	支票本申请查询
+		2216	20216	st2216In	8515	本行票据受理业务查詢
+		2217	20217	st2217In	8516	他行票据受理业务查詢
+		2217	20217	st2217In	8516	他行票据受理业务查詢
+		2217	20217	st2217In	8516	他行票据受理业务查詢
+		2226	20226	st2226In	8509	支票重新启用			st2226
+		2239	20239	st2239In	8512	支票本类型配置查询
+		2239	20239	st2239In	8512	支票本类型配置查询
+		2257	20273	st2257In	8502	支票本总行受理
+		2257	20273	st2257In	8506	支票本总行受理
+		2257	20273	st2257In	8507	支票本总行受理
+		2257	20273	st2257In	8501	支票本总行受理
+		2257	20276	st2257In	8501	支票本总行受理
+		2257	20274	st2257In	8507	支票本总行受理
+		2257	20274	st2257In	8506	支票本总行受理
+		2257	20274	st2257In	8502	支票本总行受理
+		2257	20274	st2257In	8501	支票本总行受理
+		2257	20275	st2257In	8507	支票本总行受理
+		2257	20275	st2257In	8506	支票本总行受理
+		2257	20275	st2257In	8502	支票本总行受理
+		2257	20275	st2257In	8501	支票本总行受理
+		2257	20257	st2257In	8507	支票本总行受理
+		2257	20257	st2257In	8506	支票本总行受理
+		2257	20257	st2257In	8502	支票本总行受理
+		2257	20257	st2257In	8501	支票本总行受理
+		2257	20276	st2257In	8507	支票本总行受理
+		2257	20276	st2257In	8506	支票本总行受理
+		2257	20276	st2257In	8502	支票本总行受理
+		2277	20277	st2277In	8513	支票本送印文件生成
+		2279	20279	st2279In	8514	支票本送印文件下载
+	},
+	ta:{
+		7103	70003	ta7102In	B301	业务编码维护
+		7103	70003	ta7103In	A501	业务编码查询
+		4022	70019	ta7107In	6301	一对一内部户转账
+		4021	70021	ta7109In	6302	多对多内部户转账
+		7106	70025	ta7111In	A502	多对多业务场景查询
+		7106	70025	ta7112In	B302	多对多业务场景码维护
+		7110	70027	ta7114In	A503	业务场景查询
+		7110	70027	ta7115In	B303	多对多业务场景维护
+		7201	70006	ta7201In	6101	内部户开户
+		7202	70007	ta7202In	6102	内部户维护
+		7203	70008	ta7203In	6201	内部户查询
+		7205	70010	ta7205In	6103	内部户销户
+		7206	70011	ta7206In	6202	内部户交易明细查询
+		7207	70012	ta7207In	6104	内部户停用启用
+		7303	70014	ta7303In	6203	挂销账查询
+		7306	70018	ta7306In	6204	挂销账交易明细查询
+		7309	70023	ta7309In	6105	挂销编号维护
+	},
+	ts:{
+		7700	70700	ts7700In	5111	保函开出
+		7701	70701	ts7701In	5112	保函维护
+		7702	70702	ts7702In	5113	保函履约
+		7703	70703	ts7703In	5114	保函注销
+		7704	70704	ts7704In	5121	保函台账列表查询
+		7707	70707	ts7707In	5115	保函展期
+		7730	70730	ts7730In	5321	出口托收台账列表查询
+		7733	70733	ts7733In	5401	收到承兑电文列表查询
+		7735	70735	ts7735In	5402	收到不符点电文列表查询
+		7737	70737	ts7737In	5403	收到托收委托书确认电文列表查询
+		7740	70740	ts7740In	5311	出口托收申请
+		7741	70741	ts7741In	5312	出口托收修改申请
+		7742	70742	ts7742In	5313	出口托收催收
+		7743	70743	ts7743In	5314	出口托收承兑登记
+		7744	70744	ts7744In	5315	出口托收拒承拒付登记
+		7745	70745	ts7745In	5316	出口托收收汇解付
+		7746	70746	ts7746In	5317	出口托收退单通知
+		7747	70747	ts7747In	5318	出口托收无偿放单登记
+		7748	70748	ts7748In	5319	出口托收作废
+		7750	70750	ts7750In	5211	进口代收登记
+		7751	70751	ts7751In	5212	进口代收修改
+		7752	70752	ts7752In	5213	进口代收承兑
+		7753	70753	ts7753In	5214	进口代收付款
+		7754	70754	ts7754In	5215	进口代收拒承拒付
+		7755	70755	ts7755In	5216	进口代收退单
+		7756	70756	ts7756In	5217	进口代收无偿放单
+		7757	70757	ts7757In	5218	进口代收作废
+		7758	70758	ts7758In	5221	进口代收台账列表查询
+		7761	70761	ts7761In	5404	收到催收电文列表查询
+		7763	70763	ts7763In	5405	收到修改指示电文列表查询
+		7769	70769	ts7769In	5406	单笔头寸调拨电文列表查询
+		7770	70770	ts7770In	5511	光票托收申请
+		7771	70771	ts7771In	5512	光票托收催收
+		7772	70772	ts7772In	5513	光票托收收汇解付
+		7773	70773	ts7773In	5514	光票托收退票申请
+		7774	70774	ts7774In	5515	光票托收作废
+		7775	70775	ts7775In	5521	光票托收台账列表查询
+		7780	70780	ts7780In	5711	进口信用证开立
+		7781	70781	ts7781In	5712	进口信用证修改申请
+		7782	70782	ts7782In	5713	进口信用证修改确认
+		7783	70783	ts7783In	5714	进口信用证归档
+		7784	70784	ts7784In	5731	进口信用证台账列表查询
+		7790	70790	ts7790In	5721	进口来单登记
+		7791	70791	ts7791In	5722	进口来单承兑
+		7792	70792	ts7792In	5723	进口来单更改承兑到期日
+		7793	70793	ts7793In	5724	进口来单付款
+		7794	70794	ts7794In	5725	进口来单拒承拒付
+		7795	70795	ts7795In	5726	进口来单不符点处理
+		7796	70796	ts7796In	5727	进口来单无偿放单
+		7797	70797	ts7797In	5728	进口来单退单
+		7798	70798	ts7798In	5732	进口来单台账列表查询
+		7800	70800	ts7800In	5611	来证通知登记
+		7801	70801	ts7801In	5612	来证通知修改
+		7802	70802	ts7802In	5613	来证通知归档
+		7803	70803	ts7803In	5631	出口信用证台账列表查询
+		7810	70810	ts7810In	5621	出口寄单发起
+		7811	70811	ts7811In	5622	出口寄单修改
+		7812	70812	ts7812In	5623	出口寄单承兑登记
+		7813	70813	ts7813In	5624	出口寄单更改承兑到期日
+		7814	70814	ts7814In	5625	出口寄单收汇解付
+		7815	70815	ts7815In	5626	出口寄单拒承拒付
+		7816	70816	ts7816In	5627	出口寄单无偿放单登记
+		7817	70817	ts7817In	5628	出口寄单退单
+		7818	70818	ts7818In	5632	出口寄单台账列表查询
+		7831	70831	ts7831In	5407	收到MT700电文列表查询
+		7833	70833	ts7833In	5408	收到MT701电文列表查询
+		7835	70835	ts7835In	5409	收到MT707电文列表查询
+		7837	70837	ts7837In	5410	收到MT708电文列表查询
+		7839	70839	ts7839In	5411	收到MT730电文列表查询
+		7841	70841	ts7841In	5412	收到MT750电文列表查询
+		7843	70843	ts7843In	5413	收到MT734电文列表查询
+		7851	70851	ts7851In	5741	提货担保登记
+		7852	70852	ts7852In	5742	提货担保催单
+		7853	70853	ts7853In	5743	提货担保归档
+		7854	70854	ts7854In	5744	提货担保台账列表查询
+		7860	70860	ts7860In	5811	进口代收押汇放款
+		7861	70861	ts7861In	5821	出口托收押汇放款
+		7862	70862	ts7862In	5831	进口信用证押汇放款
+		7863	70863	ts7863In	5841	出口信用证押汇放款
+		7864	70864	ts7864In	5851	打包贷款放款
+		7870	70870	ts7870In	5812	进口代收押汇还款
+		7871	70871	ts7871In	5822	出口托收押汇还款
+		7872	70872	ts7872In	5832	进口信用证押汇还款
+		7873	70873	ts7873In	5842	出口信用证押汇还款
+		7874	70874	ts7874In	5852	打包贷款还款
+		7880	70880	ts7880In	5813	进口代收押汇台账列表查询
+		7881	70881	ts7881In	5823	出口托收押汇台账列表查询
+		7882	70882	ts7882In	5833	进口信用证押汇台账列表查询
+		7883	70883	ts7883In	5843	出口信用证押汇台账列表查询
+		7884	70884	ts7884In	5853	打包贷款台账列表查询
+	}
+}
+bat:{
+	group-'KSYS_JYZKZQ-交易组控制器'-12:{
+		100	file send and recveive task			100-文件发送接收任务
+		110	internal account timing task		110-定时任务
+		120	single transfer file deal			120-单独交易文件处理
+		130	writing file about sms				130-写入短信文件
+		140	writing file about cust				140-写入客户文件
+		150	authority transfer					150-转账授权
+		160	sms or email send					160-短信/邮件发送
+		200	counter bussiness timing task		200-柜面业务定时任务
+		300	swift task							300-swift任务
+		810	core date switch before				810-日终跑批-日切前
+		820	core date switch					820-日终跑批-日切
+		830	core date switch after				830-日终跑批-日切后
+	},
+	bat-'KSYS_JYKZHQ-交易控制器'-88:{
+		100	file send and recveive task:{		100-文件发送接收任务
+			100	21		taf01	onTimeAccountingEvent	1
+			100	22		ap02	onTimeFileDownload	1
+			100	23		ap03	onTimeFileUpload	1
+			100	24		ap04	onTimeSyscRemoteDirectory	1
+			100	25		cm06	onTimeRateExcel	1
+		},
+		110	internal account timing task:{		110-定时任务
+			110	26		ta01	onTimePendingAccountProc	1
+		},
+		120	single transfer file deal:{			120-单独交易文件处理
+			120	27		dpf04	Excel File Import	1
+			120	28		dpf02	onTimeFileOneToOneTransferAccounting	1
+			120	29		dpf03	onTimeFileOneToOneTransferUpload	1
+			120	333		dpf01	onTimeFileOneToOneTransferImport	1
+		},
+		130	writing file about sms:{			130-写入短信文件
+			130	30		ap10	onTimeWriteFileAboutSMS	1
+		},
+		140	writing file about cust:{			140-写入客户文件
+			140	31		cf01	onTimeWriteFileAboutBlacklist	1
+			140	32		cf03	onTimeWriteFileAboutCustDocInfo	1
+			140	33		cf04	onTimeWriteFileAboutCustEmployerInfo	1
+			140	34		cf02	onTimeWriteFileAboutCustBaseInfo	1
+		},
+		150	authority transfer:{				150-转账授权	*
+			150	35		ap13	onTimeSentSMS	1
+		},
+		200	counter bussiness timing task:{		200-柜面业务定时任务
+			200	36		st02	AutomaticreLeaseFloatingAmount	1
+		},
+		300	swift task:{						300-swift任务
+			300	37		py05	onTimeAutomaticEntryAccount	1
+			300	38		py04	onTimeMessageMatch	1
+			300	39		py03	onTimeClearingAccount	1
+			300	40		py02	onTimeMessageAnalysis	1
+			300	41		py01	onTimeMessageFileDownload	1
+			300	45		py15	onTimeAutoRefundMatched	1
+			300	46		py14	onTimeAutoRefundNotMatched	1
+			300	47		py13	onTimeAutoRefundNotCleared	1
+			300	48		py12	onTimeErrorMessageHandle	1
+			300	49		py11	onTimeStatementCheck	1
+			300	50		py10	onTimeStatementMessage	1
+			300	51		py09	onTimeReceiptHandle	1
+			300	53		py07	onTimeMessageCreate	1
+			300	54		py08	onTimeMessageFileSend	1
+			300	55		ts01	onTimeTsModuleMessageAssign	1
+			300	56		ts02	onTimeTsMt202MessageAssign	1
+		},
+		810	core date switch before:{			810-日终跑批-日切前
+			810	10		ln01	Loan Auto Repayment	1
+			810	20		cm01	Payable Charge Auto Repayment	1
+			810	57		ts14	guarantee margin return	0
+			810	58		ts13	import LC margin return	1
+			810	60		dp13	Overdraft Limit Adjustment	1
+			810	70		ts15	synchronize loan information	1
+		},
+		820	core date switch:{					820-日终跑批-日切
+			820	10		ap05	Change System Date	1
+		},
+		830	core date switch after:{			830-日终跑批-日切后
+			830	80		cl01	Limit Processing at Limit Maturity Date	1
+			830	84		cl03	Update Limit Balance	1
+			830	100		dp02	UnFeezing at Frozen Maturity Date	1
+			830	110		dp01	Deposit Interest Accural / Settlement and Change Interest Rate 	1
+			830	115		dp07	Overdraft Interest Settlement	1
+			830	120		ln05	Change Loan Repayment Method at Fully Drawdown	1
+			830	123		ln21	Change Loan Interest Rate in Plan	1
+			830	125		ln09	Loan Interest Accural	1
+			830	130		ln04	Loan PrePaid Interest Amortization	1
+			830	131		ln23	Change Loan Repayment Plan For Holiday	1
+			830	133		ln16	Change Loan Repayment Method in Plan	1
+			830	135		ln12	Update Loan Information	1
+			830	140		ln08	Change Loan Risk Level	1
+			830	150		ln14	Loan Provision Auto Adjustment	1
+			830	160		ln06	Loan Extension	1
+			830	220		cm02	Charge Amortization	1
+			830	310		dp11	Fixed Deposit Rollover	1
+			830	320		dp12	Fixed Deposit Processing at Maturity Date Without Rollover	1
+			830	321		dp23	Standing Order Auto Transfer to Customer Account	1
+			830	322		dp24	Standing Order Auto Transfer to External Account	1
+			830	323		dp51	Auto-repayment of interbank accounts	1
+			830	410		ln11	Loan Interest Settlement	1
+			830	420		ln22	Loan Auto Drawdown in Plan	1
+			830	450		ln01	Loan Auto Repayment	1
+			830	455		ln33	Loan Auto Written Off as Loss	1
+			830	500		cm01	Payable Charge Auto Repayment	1
+			830	510		dp21	Active Deposit Account Change to Dormant	1
+			830	515		dp22	Dormant Account to Unclaimed	1
+			830	550		dp03	Charge Auto Repayment	1
+			830	551		dp50	Fixed Deposit Collection at Maturity Date	1
+			830	610		dp04	Deposit Interest Accural Data Aggregation	1
+			830	620		ln10	Loan Interest Accural Data Aggregation	1
+			830	630		ln15	Loan Provision Data Aggregation	1
+			830	720		taa7	Internal Account History Balace Creation	1
+			830	810		taa9	Internal Account Last Day Balances Aggregation	1
+			830	830		cm05	Cash Last Day Balance Aggregation	1
+			830	840		dp05	Deposit Account Last Day Balance Aggregation	1
+			830	850		ln29	Loan Account Last Day Balance Aggregation	1
+			830	855		co29	Collateral Last Day Balance Aggregation	1
+			830	910		taf02	Create Accrual Date File	1
+			830	920		taf03	Create Last Day Balance File	1
+			830	925		taf04	Create Exchange Rate File	1
+			830	927		tab5	Checking Ledger Balance	1
+			830	930		tab7	Create Transaction Data File	1
+			830	935		ln25	Create CRD XML FILE	1
+			830	937		ln26	Send XML File to File Server	1
+			830	940		taa3	Zeroing Internal Account(Early the Year)	1
+			830	1000	ap99	Change Ops Date	1
+		}
+	},
+	timing-'KSYS_DSRWDD-定时任务调度'-27:{
+		
+	}
+}
+tables:{
+	cfb_person_base:{
+		columns:{
+			data_sync_ind:{
+				30001-insert-default-N;
+				cf02->update->Y;
+			},
+			data_sync_file_id:{
+				cf02->set gen no;
+			},
+			cust_status:{
+				30001-insert-default-1;
+			},
+		}
+	}
+	Cfb_corpor_base,tabCorporDoc;
+	Cfb_fi_base,Cfb_fi_doc;
+	Cfb_person_base,Cfb_person_doc;
+	Cfb_person_employer
+	apb_batch_send-select-11:{
+		ag03-'Obtain third party execution results'-33533-33772-1,
+		tab7-'核心对账文件写入'-66215-66636-4,
+		taf04-'核心汇率文件生成'-67152-67383-3,
+		ap03-'file upload'-67646-67728-3,
+	}
+},
+common:{
+	path:{
+		CUST_INFO_LOCAL-14:{
+			create-6
+			file:{
+				TSCUSLSTD%s.txt-2 
+				TSCUSLSTF%s.txt-2 
+				internal_iCORE.txt-2
+			}
+			Const-2
+		}
+	},
+	ApFileSend.register:{
+		Apb_batch_send-insert:{
+			Send_ind-default-N,
 		}
 	}
 }

@@ -23,6 +23,104 @@
 		p41_http:{
 			
 		}
+	},
+	302-deploy-nacos:{
+		concept:{
+			https://www.jianshu.com/p/39ade28c150d
+			Dynamic Naming and Configuration Service	
+			Na为naming/nameServer即注册中心,co为configuration即注册中心,service是指该注册/配置中心都是以服务为核心,服务在nacos是一等公民;
+			Nacos服务领域模型主要分为命名空间、集群、服务。
+			在下图的分级存储模型可以看到，
+				在服务级别，保存了健康检查开关、元数据、路由机制、保护阈值等设置，
+				而集群保存了健康检查模式、元数据、同步机制等数据，
+				实例保存了该实例的ip、端口、权重、健康检查状态、下线状态、元数据、响应时间
+			5/15/30 秒
+		},
+		history:{
+			2.0.0-bugfix (Mar 30th, 2021),
+			1.4.1 (Jan 15, 2021),
+			1.4.0 (Nov 2, 2020),
+			1.3.2 (Aug 4, 2020),
+			1.2.1 (Mar 31th, 2020),
+			1.1.4 (Oct 24th, 2019),
+			1.1.0 (Jul 6th, 2019) Not recommended-'190706-1.1.0':{
+				灰度配置、地址服务器模式、配置文件导入导出
+			},
+			1.0.1 (Jun 12, 2019)
+			
+		},
+		design:{
+						主动轮训(发现)		注册							注册		主动轮训(发现)	
+			provider		<—— 			——>			Server				<—— 			——>			consumer	
+
+			服务消费者nacos-consumer通过主动轮询获取他所订阅消费的服务信息列表;
+			nacos-consumer根据获取到的服务信息列表，进行服务调用。
+			
+		},
+		ow:{
+			快速开始:{
+				Nacos:{
+					startup.sh -m standalone
+					http://192.168.137.1:8848/nacos/index.html#/login		nacos/nacos
+					curl -X POST "http://127.0.0.1:8848/nacos/v1/ns/instance?serviceName=nacos.naming.serviceName&ip=20.18.7.10&port=8080"
+					curl -X GET "http://127.0.0.1:8848/nacos/v1/ns/instance/list?serviceName=nacos.naming.serviceName"
+					curl -X POST "http://127.0.0.1:8848/nacos/v1/cs/configs?dataId=nacos.cfg.dataId&group=test&content=HelloWorld"
+					curl -X GET "http://127.0.0.1:8848/nacos/v1/cs/configs?dataId=nacos.cfg.dataId&group=test"
+				},
+				Nacos Spring:{
+					启动配置管理:{
+						1. 添加依赖:{
+							<dependency>
+								<groupId>com.alibaba.nacos</groupId>
+								<artifactId>nacos-spring-context</artifactId>
+								<version>${latest.version}</version>
+							</dependency>
+						}
+					}
+					启动服务发现:{
+						1. 添加依赖:{
+							<dependency>
+								<groupId>com.alibaba.nacos</groupId>
+								<artifactId>nacos-spring-context</artifactId>
+								<version>${latest.version}</version>
+							</dependency>
+						}
+					}
+				}
+			}
+		},
+		延伸阅读:{
+				https://www.oschina.net/p/nacos?hmsr=aladdin1e1	
+			区别
+				http://www.qishunwang.net/news_show_20689.aspx		
+				https://www.cnblogs.com/aixing/p/13327127.html
+				https://zhuanlan.zhihu.com/p/165217227
+				https://www.cnblogs.com/youyouxiaosheng-lh/p/11209421.html
+				https://blog.csdn.net/fly910905/article/details/100023415
+				https://blog.csdn.net/weixin_42496542/article/details/109241719
+		},
+		vs：{
+			Nacos与Eureka区别:最大区别：Nacos支持两种模式CP/Ap模式，从Nacos 1.0 版本开始，注意模式就是Ap模式
+			
+			大多的注册中心都是AP
+
+			Nacos对比Zookeeper、Eureka之间的区别
+			从相同点、不同点、中心化思想三方面来
+			三者都可以实现分布式注册中心框架.
+			不同点：
+			Zookeeper采用CP保证数据的一致性的问题， 原理采用(ZAP原子广播协议) ， 当我们ZK领导者因为某种情况下部分节点出现了故障，会自动重新实现选举新的领导角色，整个选举的过程中为了保证数据一致性的问题， 客户端暂时无法使用我们的Zookeeper， 那么这意味着整个微服务无法实现通讯（本地有缓存除外）。
+			注意：可运行的节点必须满足过半机制，整个zk采用使用，自己选举 leader 和 处理follower 
+
+			Eureka采用AP设计思想实现分布式注册中心， 完全去中心化、每个节点都是相等， 采用你中有我、我中有你相互注册设计思想，只要最后有一台Eureka节点存在整个微服务就可以实现通讯。
+
+			中心化：必须围绕一个领导角色作为核心，选举领导和跟随者角色。
+			去中心化：每个角色都是均等。
+
+			我们在使用注册中心，可用性优先级最高，可以读取数据短暂不一致性，但是至少要能够保证注册中心可用性。
+
+			Nacos从1.0版本选择AP和CP混合形式实现注册中心， 默认情况下采用AP， CP则采用Raft协议实现保持数据的一致性。
+			如果选择为AP模式，注册服务的实例仅支持临时模式，在网络分区的的情况允许注册服务实例，选择CP模式可以支持注册服务的实例为持久模式，在网络分区的产生了抖动情况下不允许注册服务实例。
+		}
 	}
 }
 

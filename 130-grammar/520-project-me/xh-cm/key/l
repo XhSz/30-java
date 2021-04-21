@@ -41,7 +41,9 @@ tz:{
 				at cn.sunline.edsp.midware.rpc.core.AbstractHook.call(AbstractHook.java:58) [edsp-rpc-core-3.2.20-RELEASE.jar:3.2.20-RELEASE]
 				at cn.sunline.edsp.midware.rpc.transport.netty.server.edsp.NettyServerChannelHandler._exec(NettyServerChannelHandler.java:197) [edsp-rpc-transport-netty-3.2.20-RELEASE.jar:3.2.20-RELEASE]
 				clear;cd /logs/exim/icore01/onlApp/busi/20210223/326020;cat 326020.log | tail -n +400 | head -n 400;	
-				clear;cd /logs/exim/icore01/onlApp/busi/;grep "`tbl` . `se_private_id` " 20210315/*/*.log;		20210309/351020/351020.log
+				clear;cd /app/tzcbs_hotfix/logs/cbs-ltts-onl/busi/20190531/;grep "个人客户信息建立" */*.log;		20035/20035.log			# ct2035
+				clear;cd /app/tzcbs_hotfix/logs/cbs-ltts-onl/busi/*/;grep "cust_status=" 30001/*.log;		20035/20035.log			# ct2035
+				clear;cd /app/tzcbs_hotfix/logs/cbs-ltts-onl/busi/;grep "cust_status=" */30001/*.log;	
 
 				
 			},
@@ -111,9 +113,7 @@ ex:{
 				at cn.sunline.edsp.midware.rpc.core.AbstractHook.call(AbstractHook.java:58) [edsp-rpc-core-3.2.20-RELEASE.jar:3.2.20-RELEASE]
 				at cn.sunline.edsp.midware.rpc.transport.netty.server.edsp.NettyServerChannelHandler._exec(NettyServerChannelHandler.java:197) [edsp-rpc-transport-netty-3.2.20-RELEASE.jar:3.2.20-RELEASE]
 				clear;cd /logs/exim/icore01/onlApp/busi/20210223/326020;cat 326020.log | tail -n +400 | head -n 400;	
-				clear;cd /logs/exim/icore01/onlApp/busi/;grep "`tbl` . `se_private_id` " 20210315/*/*.log;		20210309/351020/351020.log
-
-				
+				clear;cd /logs/exim/icore01/onlApp/busi/;grep "ail to retreive data from tab" 20210415/*/*.log;		20210309/351020/351020.log				
 			},
 			bat:{
 				clear;cd /logs/exim/icore01/batApp/busi/20210127/AP0521/;ll;  
@@ -163,6 +163,9 @@ ex:{
 			}
 			
 
+		},
+		gateway:{
+			
 		}
 	}
 },
@@ -953,9 +956,20 @@ dos:{
 		findstr /s "1030.00" 5920*.log
 		
 		Trans(联机交易)
-	netstat -aon|findstr "49157"
-		netstat -aon|findstr "8080"
-		tasklist|findstr "7556"
+	http:{
+		netstat -aon|findstr "49157"
+			netstat -aon|findstr "8080"
+			tasklist|findstr "7556"
+		curl:{
+			-L:自动跳转,
+			-i:,
+			-I:,
+			-X:默认HTTP{curl -X POST www.example.com,curl -X DELETE www.example.com},
+			curl -X POST --data "data=xxx" example.com/form.cgi						-d
+			curl -X POST--data-urlencode "date=April 1" example.com/form.cgi		表单编码
+			curl --user-agent "[User Agent]" [URL]
+		}
+	},
 },					
 jcom{				
 	103

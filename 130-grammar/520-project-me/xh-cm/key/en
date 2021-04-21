@@ -1,5 +1,10 @@
 01:{
-日期		拆分	主题			发音							解释							示例			
+日期		拆分	主题			发音							解释							示例		
+0421	authority			[əˈθɔːrəti] 俄索尔雷体 			n.权力,权威,授权				authority transfer 转账授权
+0420	joint				[dʒɔɪnt]乔因特 					adj.联合的,共同的 				joint customer 联合客户
+		nostro						诺斯乔儿				n.往来账						nostro 往来账账户
+0418	Cellular			[ˈseljələr]塞瑞尤尔				adj.细胞的,网状的 				CellularPhone 蜂窝电话
+0414 	Objective			[əbˈdʒektɪv]					n.目标
 0401	Intranet			[ˈɪntrənet]英切奈特					内部网
 		Utility				[juːˈtɪləti]优跳热提 			n.公共事业,实用程序 adj.多用途的
 		repository			[rɪˈpɑːzətɔːri]瑞怕泽特瑞		n.仓库.智囊
@@ -57,6 +62,9 @@
 		informative			[ɪnˈfɔːrmətɪv]英佛母体委 		adj.提供有用信息的,给予知识的
 		delivery			[dɪˈlɪvəri]迪理维瑞 			n.传送,传递,交付
 		Collaboration		[kəˌlæbəˈreɪʃn]克莱波雷逊		n.合作,勾结
+0408
+		Infrastructure		[ˈɪnfrəstrʌktʃər]英佛斯夹克切	n.(国家或机构的)基础设施，基础建设 	
+		Overview			[ˈoʊvərvjuː] 					n.概述,概况
 },
 theme:{
 	theme	日期	单词	拆分	主题	发音	解释	示例								其他含义									
@@ -211,7 +219,7 @@ theme:{
 	theme	日期	单词	拆分	主题	发音	解释	示例								其他含义																	
 				0721:{	
 					overdue			 [ˌoʊvərˈduː] 	adj. 过期的，早该完成的	overdue repayment fee 逾期还款费																	
-					withdrawal	with-dr-awal		[wɪðˈdrɔːəl] 	n. 撤走，收回，取款	OVERPAYMENT_WITHDRAW-Overpayment withdrawal 多付取款，溢缴款提取																	
+					withdrawal		with-dr-awal	[wɪðˈdrɔːəl]威兹乔 	n. 撤走，收回，取款	OVERPAYMENT_WITHDRAW-Overpayment withdrawal 多付取款，溢缴款提取																	
 					expense			 [ɪkˈspens]	n. vt. 费用，向什么收费	FEE_CALCULATE-Loan expense calculation，贷款费用试算																	
 					extension	ex-ten-sion		[ɪkˈstenʃn] 	n. 扩大，延伸	EXTEND_TRIM-Loan extension or contraction EXTEND_TRIM-贷款展期或缩期								contraction con-trac-tion [kənˈtrækʃn] n.缩小									
 					impairment	im-pair-ment		 [ɪmˈpermənt] 	n .伤害,缺陷	PROM-Manual impairment provision 人工减值准备，手动减值准备金								provision [prəˈvɪʒn] pro-vi-sion n.准备,提供,供给 vt. 给什么提供									
