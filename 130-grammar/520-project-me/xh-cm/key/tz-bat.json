@@ -66234,7 +66234,14 @@ where-select-'Get the loan total amount according to the contract number'
 								table-app_organization-select-'organization infomation'
 							}
 						},
-						nsql-TaFile.selNoWriteCount-S-tas_accounting_event-select-'会计事件表里是否有未写入的数据',
+						nsql-TaFile.selNoWriteCount-S-tas_accounting_event-select-'会计事件表里是否有未写入的数据':{
+							select
+									count(1) 
+							from
+									tas_accounting_event a 
+							where
+									a.org_id=#org_id# and a.trxn_date= #last_date#and a.data_sync_ind='N'
+						},
 						method-ApOrg.getReferenceOrgId-'null':{
 							method-BizUtil.getTrxRunEnvs-'null',
 							method-BizUtil.isOrgRelated-'null',
@@ -66248,7 +66255,15 @@ where-select-'Get the loan total amount according to the contract number'
 								table-app_organization-select-'organization infomation'
 							}
 						},
-						nsql-TaFile.selFileIdFromAccountingEnvent-S-tas_accounting_event-select-'获取上日已同步数据的文件ID',
+						nsql-TaFile.selFileIdFromAccountingEnvent-S-tas_accounting_event-select-'获取上日已同步数据的文件ID':{
+							select
+									distinct(a.data_sync_file_id) 
+							from
+									tas_accounting_event a 
+							where
+									a.org_id=#org_id# and a.trxn_date = #last_date# 
+									and a.data_sync_ind='Y'
+						},
 						method-ApFileSend.getFileInfo-'null':{
 							method-BizUtil.fieldNotNull-'null',
 							table-apb_batch_send-select-'batch request  book'

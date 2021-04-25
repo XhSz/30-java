@@ -3,6 +3,22 @@
 
 
 30-java:{
+	110-jvm:{
+		parameter:{
+			-Djava.awt.headless=true:{
+				1. 	什么是Headless mode？ Headless模式是系统的一种配置模式。在该模式下，系统缺少了显示设备、键盘或鼠标。
+				2. 	何时使用和headless mode？Headless模式虽然不是我们愿意见到的，但事实上我们却常常需要在该模式下工作，尤其是服务器端程序开发者。
+					因为服务器（如提供Web服务的主机）往往可能"缺少"前述设备，但又需要"使用"他们提供的功能，生成相应的数据，以提供给客户端（如浏览器所在的配有相关的显示设备、键盘和鼠标的主机）。
+				3.	如何使用和Headless mode？一般是在程序开始激活headless模式，告诉程序，现在你要工作在Headless mode下，就不要指望硬件帮忙了，你得自力更生，依靠系统的计算能力模拟出这些特性来:发布于 2020-06-11
+				
+				4. 测试程序：
+				5. Toolkit类的getDefaultToolkit 函数 api中文说明
+					public static Toolkit  getDefaultToolkit ()获取默认工具包。如果名为 "java.awt.headless" 的系统属性被设置为 true，则使用 Toolkit 的 headless 实现。如果不存在 "java.awt.headless" 或 "java.awt.headless" 被设置为 false，且存在名为 "awt.toolkit" 的系统属性，则该属性将被视为 Toolkit 子类的名称；否则将使用特定于平台的默认 Toolkit 实现。还可以使用 Sun 引用实现中指定的属性 'assistive_technologies' 将其他类加载到 VM 中，该属性是在 'accessibility.properties' 文件的一个行中指定的。形式是 "assistive_technologies=..."，其中 "..." 是以逗号分隔的、要加载的辅助技术类的列表。每个类都以给定的顺序加载，并且要使用 Class.forName(class).newInstance() 创建每个类的单独实例。此操作在创建 AWT 工具包之后进行。所有错误都通过 AWTError 异常来处理。  返回： 默认工具包。  抛出： AWTError - 如果不能找到 工具包 ，或者不能访问或实例化工具包。
+				
+				ref,	https://blog.idrsolutions.com/2013/08/what-is-headless-mode-in-java/
+			}
+		}
+	},
 	130-grammar:{
 		p21_file_xls:{
 			jxl-小:{

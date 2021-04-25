@@ -1,12 +1,73 @@
 
+siaogroup
+
+yus:{
+	控制开发量,
+},
 坦桑尼亚:{
 	
 },
-中华大圣银行:{
+中华大盛银行-CHINA DASHENG BANK LTD-CDB:{
 	中國大盛集團有限公司China Dasheng Group Limited 成立于2016年05月23日，公司註冊編號為:2380392 ,屬於香港(私人股份有限公司). 目前公司狀態,仍在登記冊上.
+	ICT MANAGER-Privatus Audax-paudax@cdbbank.co.tz-+255687440558 / 255629888606-EX-Telecoms House, Ground Floor 32,Samora Avenue road P.O.BOX 388, Dar es Salaam
+},
+0416 优先级:{
+	1. 生产问题,生产答疑;:{
+		0420-blacklist,
+		0421-error-column,
+		0422-statement-7101:{
+			raised by CRD and its very critical;
+			from the system, it is failing to pick the correct fields accordingly, 
+				so from the Basic info it should pick the name and from the corperate details, 
+				it should pick the reg no, but instead, it picks the commodity name instead of Customer name.
+			below is the file extracted from the system for upload to CRD;
+			LnCreateXmlFileList.AddXml();:{
+				
+			}
+		},
+		0424-TaErr.E0056:{
+			There exists not uploaded accounting event document, date [${lastDate}]
+			
+			TaFile.writeCheckRecord()
+			
+			没同步/没上传
+		}
+	}
+	2. '剩余的两个问题':{
+		价值重估需求,
+		透支报表缺陷
+	},
+	3. '网银和ATM':{
+		网银..问题不大..
+		ATM:{
+			待确认,工作流不小;
+		}
+	},
+	4.	新需求-收集:{
+		'不影响进度的前提下小的可以做',
+		'大的就建议他们单独立项'
+	},
+	5.	一直未解决的要看是什么问题-挨个分析;
+	
+},
+techurate-wecodee:{
+	office web:{	"http://www.techurate.com/"
+		Techurate provides Smart and Digital software to financial institutions, of any size, anywhere in the world.
+		Techurate为全球任何规模的金融机构提供智能和数字软件.
+	},
+	ob-online bank:{
+		
+	}
+},
+bcx:{
+	mobile banking 
+	VISA
+	ATM
 }
+
 通过视图  来访问 数据库;
 第6、7个待查;
+
 server:{
 	fix:{
 		vue:{
@@ -18,6 +79,12 @@ server:{
 		db:{
 			172.31.5.12:1521/BASEDB 	cbsbase/cbsbase
 		}
+	},
+	pro:{
+		core		http://172.30.2.11:6100/
+		core ops	http://172.30.2.11:6199/		batch01/123456
+		gl 			http://172.30.2.11:7100/
+		gl 	ops		http://172.30.2.11:7100/
 	}
 },
 enum:{
@@ -59,6 +126,19 @@ product-dp:{
 	},
 	可用透支额度,available_overdraw_amount
 }
+
+Service Request:{
+	category  Product/Service Related
+}
+Term Depositor:{	Term Deposit	Tender	Management
+		TenorName tenorCurrency 	
+},
+BI Statement:{
+	reportName	accountParamName sDatePrraName eDateParm		Status 
+	
+}
+
+
 code:{
 	04-call-1m30s77ms/15m814ms:{
 		ln6107TellerTransactionReportReportProcessorReportProcessor.cn.sunline.ltts.cbs.at.type.loan.ComLnQuery.LnScheduleListTitle,
@@ -229,7 +309,7 @@ vue:{
 		1100	10038	ap1100In	A105	节假日信息查询
 		1100	10027	ap1100In	A105	节假日信息查询
 		1100	10027	ap1100In	B101	节假日信息查询
-		1110	10030	ap1110In	7101	交易流水查询
+		1110	10030	ap1110In	7101	交易流水查询			ap1110
 		2028	20030	ap1113In	7104	交易重打
 		1140	10039	ap1140In	7102	业务数据审计日志查询
 		1140	10040	ap1140In	7102	业务数据审计日志查询
@@ -828,3 +908,6 @@ common:{
 		}
 	}
 }
+
+
+log

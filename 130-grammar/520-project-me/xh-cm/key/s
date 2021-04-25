@@ -6,7 +6,10 @@ select count(*) from table_name;--
 select * from table_name limit 1; -- 
 select * from table_name limit 100;
 select * from table_name where rownum <101;
-select * from table_name order by org_id limit 100;
+select * from table_name order by data_create_time desc limit 100;
+select * from(
+	select * from table_name order by data_create_time desc 
+)a where rownum<101;
 
 -- 1.4-base-insert
 insert into table_name

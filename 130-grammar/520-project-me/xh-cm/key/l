@@ -4,32 +4,86 @@ tz:{
 		cbs(10.22.60.132 tzr1cbs/tzr1cbs):{
 			clear;find . */cbs-ltts-onl;
 			bin:{
-				/app/tzcbs_hotfix/appctl status;
-				/app/tzcbs_hotfix//user/bin/mantools/appctl cbs-ltts-onl status;
-				/app/tzcbs_hotfix//user/bin/mantools/appctl restart onlApp;
-				/app/tzcbs_hotfix//user/bin/mantools/appctl restart batApp;
-				/app/tzcbs_hotfix//user/bin/mantools/appctl stop onlApp;
-				/app/tzcbs_hotfix//user/bin/mantools/appctl start onlApp;
-				/app/tzcbs_hotfix//user/bin/mantools/appctl stop batApp;
-				/app/tzcbs_hotfix//user/bin/mantools/appctl start batApp;
-				onl-start
-				tzr1cbs   74835      1  0 Feb22 ?        
-					05:11:38 /usr/java/java7/bin/java 
-						-Dltts.app.name=cbs -Dltts.vmid=cbs-ltts-onl -server -Xms2048m -Xmx2048m -XX:PermSize=128m -XX:MaxPermSize=1024m -XX:+UseFastAccessorMethods -XX:+UseCompressedOops -XX:+DisableExplicitGC -XX:+ExplicitGCInvokesConcurrent 
-						-XX:ParallelGCThreads=10 -XX:-UseAdaptiveSizePolicy -Xmn768m -XX:SurvivorRatio=6 -XX:+UseConcMarkSweepGC -XX:+CMSParallelRemarkEnabled -XX:+UseCMSCompactAtFullCollection -XX:+UseCMSInitiatingOccupancyOnly 
-						-XX:CMSInitiatingOccupancyFraction=70 -XX:+PrintGCApplicationStoppedTime -XX:+PrintGCApplicationConcurrentTime -verbose:gc -XX:+PrintGCTimeStamps -XX:+PrintGCDateStamps -XX:-TraceClassUnloading -XX:+PrintGCDetails 
-						-Xloggc:/app/tzcbs_hotfix//logs/cbs-ltts-onl/sys/gc-cbs-ltts-onl.log 
-							-DProfileMode=true -Dcom.sun.management.jmxremote.port=6693 -Dcom.sun.management.jmxremote.ssl=false -Dcom.sun.management.jmxremote.authenticate=false -Dltts.shutdown.port=6893 -Djava.awt.headless=true 
-							-Dlog4j.configurationFile=ltts_log.xml -Dfile.encoding=UTF-8 -Dtarget.schema.ids=ServersConfig -Dpath.file=classpath:server.xml 
-							-Djava.endorsed.dirs=/app/tzcbs_hotfix//frw/endorsed -classpath 
-								/tuxedo/tuxedo10gR3/udataobj/jolt/joltadmin.jar:/tuxedo/tuxedo10gR3/udataobj/jolt/jolt.jar:.:/usr/java/jdk1.8.0_131/lib/dt.jar:/usr/java/jdk1.8.0_131/lib/tools.jar:
-								/app/tzcbs_hotfix//apps/cbs/etc:/app/tzcbs_hotfix//frw/etc:/app/tzcbs_hotfix//frw/lib/2.6.8-RELEASE-1/*:/app/tzcbs_hotfix//frw/lib/2.6.8-RELEASE-1/third/*:
-								/app/tzcbs_hotfix//frw/lib/2.6.8-RELEASE-1/third/jmxetric/*:/app/tzcbs_hotfix//user/etc:/app/tzcbs_hotfix//user/lib/*:/app/tzcbs_hotfix//apps/cbs/lib/third/*:
-								/app/tzcbs_hotfix//apps/cbs/lib/1.3.2.81-RELEASE/* 
-							-Dltts.classpath= -Dltts.home=/app/tzcbs_hotfix//apps/cbs -Dltts.log.home=/app/tzcbs_hotfix//logs -Djava.io.tmpdir=/app/tzcbs_hotfix//apps/cbs/temp 
-							-Dsetting.file=setting.cbs-ltts-onl.properties -Dinternational.enable=true -DappId=onl -Dlanguage.conf=en 
-						cn.sunline.edsp.microcore.Bootstrap cbs cbs-ltts-onl start
-			}
+				exe:{
+					/app/tzcbs_hotfix/
+					/app/tzcbs_hotfix/appctl status;
+					/*
+					clear;cd /app/tzcbs_hotfix/user/bin/mantools/;grep "Djava." *;
+					grep "Djava." */*
+					*/
+					/app/tzcbs_hotfix/user/bin/mantools/appctl cbs-ltts-onl status;
+					/app/tzcbs_hotfix/user/bin/mantools/appctl restart onlApp;
+					/app/tzcbs_hotfix/user/bin/mantools/appctl restart batApp;
+					/app/tzcbs_hotfix/user/bin/mantools/appctl stop onlApp;
+					/app/tzcbs_hotfix/user/bin/mantools/appctl start onlApp;
+					/app/tzcbs_hotfix/user/bin/mantools/appctl stop batApp;
+					/app/tzcbs_hotfix/user/bin/mantools/appctl start batApp;
+					/*
+					onl-start
+					tzr1cbs   74835      1  0 Feb22 ?        
+						05:11:38 /usr/java/java7/bin/java 
+							-Dltts.app.name=cbs -Dltts.vmid=cbs-ltts-onl -server -Xms2048m -Xmx2048m -XX:PermSize=128m -XX:MaxPermSize=1024m -XX:+UseFastAccessorMethods -XX:+UseCompressedOops -XX:+DisableExplicitGC -XX:+ExplicitGCInvokesConcurrent 
+							-XX:ParallelGCThreads=10 -XX:-UseAdaptiveSizePolicy -Xmn768m -XX:SurvivorRatio=6 -XX:+UseConcMarkSweepGC -XX:+CMSParallelRemarkEnabled -XX:+UseCMSCompactAtFullCollection -XX:+UseCMSInitiatingOccupancyOnly 
+							-XX:CMSInitiatingOccupancyFraction=70 -XX:+PrintGCApplicationStoppedTime -XX:+PrintGCApplicationConcurrentTime -verbose:gc -XX:+PrintGCTimeStamps -XX:+PrintGCDateStamps -XX:-TraceClassUnloading -XX:+PrintGCDetails 
+							-Xloggc:/app/tzcbs_hotfix/logs/cbs-ltts-onl/sys/gc-cbs-ltts-onl.log 
+								-DProfileMode=true -Dcom.sun.management.jmxremote.port=6693 -Dcom.sun.management.jmxremote.ssl=false -Dcom.sun.management.jmxremote.authenticate=false -Dltts.shutdown.port=6893 -Djava.awt.headless=true 
+								-Dlog4j.configurationFile=ltts_log.xml -Dfile.encoding=UTF-8 -Dtarget.schema.ids=ServersConfig -Dpath.file=classpath:server.xml 
+								-Djava.endorsed.dirs=/app/tzcbs_hotfix/frw/endorsed -classpath 
+									/tuxedo/tuxedo10gR3/udataobj/jolt/joltadmin.jar:/tuxedo/tuxedo10gR3/udataobj/jolt/jolt.jar:.:/usr/java/jdk1.8.0_131/lib/dt.jar:/usr/java/jdk1.8.0_131/lib/tools.jar:
+									/app/tzcbs_hotfix/apps/cbs/etc:/app/tzcbs_hotfix/frw/etc:/app/tzcbs_hotfix/frw/lib/2.6.8-RELEASE-1/*:/app/tzcbs_hotfix/frw/lib/2.6.8-RELEASE-1/third/*:
+									/app/tzcbs_hotfix/frw/lib/2.6.8-RELEASE-1/third/jmxetric/*:/app/tzcbs_hotfix/user/etc:/app/tzcbs_hotfix/user/lib/*:/app/tzcbs_hotfix/apps/cbs/lib/third/*:
+									/app/tzcbs_hotfix/apps/cbs/lib/1.3.2.81-RELEASE/* 
+								-Dltts.classpath= -Dltts.home=/app/tzcbs_hotfix/apps/cbs -Dltts.log.home=/app/tzcbs_hotfix/logs -Djava.io.tmpdir=/app/tzcbs_hotfix/apps/cbs/temp 
+								-Dsetting.file=setting.cbs-ltts-onl.properties -Dinternational.enable=true -DappId=onl -Dlanguage.conf=en 
+							cn.sunline.edsp.microcore.Bootstrap cbs cbs-ltts-onl start
+					*/
+				},
+				ps -ef | grep java	:{
+					ori:{
+						tzr1cbs   74835      1  0 Feb22 ?        08:32:01 /usr/java/java7/bin/java -Dltts.app.name=cbs -Dltts.vmid=cbs-ltts-onl -server -Xms2048m -Xmx2048m -XX:PermSize=128m -XX:MaxPermSize=1024m -XX:+UseFastAccessorMethods -XX:+UseCompressedOops -XX:+DisableExplicitGC -XX:+ExplicitGCInvokesConcurrent -XX:ParallelGCThreads=10 -XX:-UseAdaptiveSizePolicy -Xmn768m -XX:SurvivorRatio=6 -XX:+UseConcMarkSweepGC -XX:+CMSParallelRemarkEnabled -XX:+UseCMSCompactAtFullCollection -XX:+UseCMSInitiatingOccupancyOnly -XX:CMSInitiatingOccupancyFraction=70 -XX:+PrintGCApplicationStoppedTime -XX:+PrintGCApplicationConcurrentTime -verbose:gc -XX:+PrintGCTimeStamps -XX:+PrintGCDateStamps -XX:-TraceClassUnloading -XX:+PrintGCDetails -Xloggc:/app/tzcbs_hotfix//logs/cbs-ltts-onl/sys/gc-cbs-ltts-onl.log -DProfileMode=true -Dcom.sun.management.jmxremote.port=6693 -Dcom.sun.management.jmxremote.ssl=false -Dcom.sun.management.jmxremote.authenticate=false -Dltts.shutdown.port=6893 -Djava.awt.headless=true -Dlog4j.configurationFile=ltts_log.xml -Dfile.encoding=UTF-8 -Dtarget.schema.ids=ServersConfig -Dpath.file=classpath:server.xml -Djava.endorsed.dirs=/app/tzcbs_hotfix//frw/endorsed -classpath /tuxedo/tuxedo10gR3/udataobj/jolt/joltadmin.jar:/tuxedo/tuxedo10gR3/udataobj/jolt/jolt.jar:.:/usr/java/jdk1.8.0_131/lib/dt.jar:/usr/java/jdk1.8.0_131/lib/tools.jar:/app/tzcbs_hotfix//apps/cbs/etc:/app/tzcbs_hotfix//frw/etc:/app/tzcbs_hotfix//frw/lib/2.6.8-RELEASE-1/*:/app/tzcbs_hotfix//frw/lib/2.6.8-RELEASE-1/third/*:/app/tzcbs_hotfix//frw/lib/2.6.8-RELEASE-1/third/jmxetric/*:/app/tzcbs_hotfix//user/etc:/app/tzcbs_hotfix//user/lib/*:/app/tzcbs_hotfix//apps/cbs/lib/third/*:/app/tzcbs_hotfix//apps/cbs/lib/1.3.2.81-RELEASE/* -Dltts.classpath= -Dltts.home=/app/tzcbs_hotfix//apps/cbs -Dltts.log.home=/app/tzcbs_hotfix//logs -Djava.io.tmpdir=/app/tzcbs_hotfix//apps/cbs/temp -Dsetting.file=setting.cbs-ltts-onl.properties -Dinternational.enable=true -DappId=onl -Dlanguage.conf=en cn.sunline.edsp.microcore.Bootstrap cbs cbs-ltts-onl start
+					},
+					key:{
+						tzr1cbs   74835      1  0 Feb22 ?        08:32:01 
+							/usr/java/java7/bin/java 
+								-Dltts.app.name=cbs 
+								-Dltts.vmid=cbs-ltts-onl 
+								-server -Xms2048m -Xmx2048m -XX:PermSize=128m -XX:MaxPermSize=1024m 
+								-XX:+UseFastAccessorMethods -XX:+UseCompressedOops -XX:+DisableExplicitGC -XX:+ExplicitGCInvokesConcurrent -XX:ParallelGCThreads=10 -XX:-UseAdaptiveSizePolicy -Xmn768m -XX:SurvivorRatio=6 -XX:+UseConcMarkSweepGC 
+								-XX:+CMSParallelRemarkEnabled -XX:+UseCMSCompactAtFullCollection -XX:+UseCMSInitiatingOccupancyOnly -XX:CMSInitiatingOccupancyFraction=70 -XX:+PrintGCApplicationStoppedTime 
+								-XX:+PrintGCApplicationConcurrentTime -verbose:gc -XX:+PrintGCTimeStamps -XX:+PrintGCDateStamps -XX:-TraceClassUnloading -XX:+PrintGCDetails 
+								-Xloggc:/app/tzcbs_hotfix//logs/cbs-ltts-onl/sys/gc-cbs-ltts-onl.log -DProfileMode=true -Dcom.sun.management.jmxremote.port=6693 -Dcom.sun.management.jmxremote.ssl=false -Dcom.sun.management.jmxremote.authenticate=false 
+								-Dltts.shutdown.port=6893 -Djava.awt.headless=true -Dlog4j.configurationFile=ltts_log.xml -Dfile.encoding=UTF-8 -Dtarget.schema.ids=ServersConfig -Dpath.file=classpath:server.xml 
+								-Djava.endorsed.dirs=/app/tzcbs_hotfix//frw/endorsed 
+								-classpath 
+									/tuxedo/tuxedo10gR3/udataobj/jolt/joltadmin.jar
+									:/tuxedo/tuxedo10gR3/udataobj/jolt/jolt.jar:.
+									:/usr/java/jdk1.8.0_131/lib/dt.jar:/usr/java/jdk1.8.0_131/lib/tools.jar
+									:/app/tzcbs_hotfix//apps/cbs/etc:/app/tzcbs_hotfix//frw/etc
+									:/app/tzcbs_hotfix//frw/lib/2.6.8-RELEASE-1/*
+									:/app/tzcbs_hotfix//frw/lib/2.6.8-RELEASE-1/third/*
+									:/app/tzcbs_hotfix//frw/lib/2.6.8-RELEASE-1/third/jmxetric/*
+									:/app/tzcbs_hotfix//user/etc
+									:/app/tzcbs_hotfix//user/lib/*
+									:/app/tzcbs_hotfix//apps/cbs/lib/third/*
+									:/app/tzcbs_hotfix//apps/cbs/lib/1.3.2.81-RELEASE/* 
+								-Dltts.classpath= 
+								-Dltts.home=/app/tzcbs_hotfix//apps/cbs 
+								-Dltts.log.home=/app/tzcbs_hotfix//logs 
+								-Djava.io.tmpdir=/app/tzcbs_hotfix//apps/cbs/temp -Dsetting.file=setting.cbs-ltts-onl.properties 
+								-Dinternational.enable=true 
+								-DappId=onl 
+								-Dlanguage.conf=en 
+							cn.sunline.edsp.microcore.Bootstrap cbs cbs-ltts-onl start
+					},
+				},
+				inner:{
+					/app/tzcbs_hotfix/frw/sbin/ltts.bat:set MAINCLASS=cn.sunline.ltts.boot.startup.Bootstrap
+					/app/tzcbs_hotfix/frw/sbin/ltts.sh:#MAINCLASS=cn.sunline.ltts.boot.startup.Bootstrap
+					/app/tzcbs_hotfix/frw/sbin/ltts.sh:MAINCLASS=cn.sunline.edsp.microcore.Bootstrap
+					/app/tzcbs_hotfix/frw/sbin/appCtrl.sh:    GC_OPTS="$GC_OPTS -XX:+PrintGCApplicationStoppedTime -XX:+PrintGCApplicationConcurrentTime "
+					/app/tzcbs_hotfix/frw/sbin/appCtrl.sh:	export JAVA_OPTS="$JAVA_OPTS -Djava.awt.headless=true"
+				}
+			},
 			onl:{	
 				cat filename | tail -n +3000 | head -n 1000	【一】#从第3000行开始，显示1000行。即显示 3000~3999 行
 				cat filename| head -n 3000 | tail -n +1000 	【二】显示1000行到3000行
@@ -43,7 +97,7 @@ tz:{
 				clear;cd /logs/exim/icore01/onlApp/busi/20210223/326020;cat 326020.log | tail -n +400 | head -n 400;	
 				clear;cd /app/tzcbs_hotfix/logs/cbs-ltts-onl/busi/20190531/;grep "个人客户信息建立" */*.log;		20035/20035.log			# ct2035
 				clear;cd /app/tzcbs_hotfix/logs/cbs-ltts-onl/busi/*/;grep "cust_status=" 30001/*.log;		20035/20035.log			# ct2035
-				clear;cd /app/tzcbs_hotfix/logs/cbs-ltts-onl/busi/;grep "cust_status=" */30001/*.log;	
+				clear;cd /app/tzcbs_hotfix/logs/cbs-ltts-onl/busi/;grep "NoClassDef" 20210421/10030/*.log;	
 
 				
 			},
@@ -72,12 +126,19 @@ tz:{
 				ll /home/exim/local/icore/025/LOAN/20210122;
 			},
 			lib:{
-				cd /app/tzcbs_hotfix/apps/cbs/lib; wget 
-				cd /app/tzcbs_hotfix/apps/cbs/lib;ll *sys;
-				cd /app/tzcbs_hotfix/apps/cbs/lib/1.3.2.81-RELEASE;ll *sys;
-				ll /app/tzcbs_hotfix/apps/cbs/lib/ ;
-				ll /app/tzcbs_hotfix/apps/cbs/lib/ln*;
-				ll /app/tzcbs_hotfix/apps/cbs/lib/cf*;
+				aps:{
+					cd /app/tzcbs_hotfix/apps/cbs/lib; wget 
+					cd /app/tzcbs_hotfix/apps/cbs/lib;ll *sys;
+					cd /app/tzcbs_hotfix/apps/cbs/lib;ll *jasperreports*;
+					cd /app/tzcbs_hotfix/apps/cbs/lib/1.3.2.81-RELEASE;ll *sys;
+					ll /app/tzcbs_hotfix/apps/cbs/lib/ ;
+					ll /app/tzcbs_hotfix/apps/cbs/lib/ln*;
+					ll /app/tzcbs_hotfix/apps/cbs/lib/cf*;
+				},
+				frw:{
+					cd /app/tzcbs_hotfix/frw/lib/#pkg_version#;ll *jasperreports*jar;		#jasperreports-5.2.0.jar
+					
+				}
 			}
 			etc:{
 				cd /home/exim/icore01/etc/;ll;
@@ -87,6 +148,20 @@ tz:{
 		bds(10.22.60.132 tzr1bds/tzr1bds):{
 			bin:{
 			}
+		}
+	},
+	pro:{
+		
+		cbs:{
+			bin:{
+				cd /sunline/v7base/;ps -ef | grep java > 0423.1448.log;ll;grep "Djava.awt.headless=true" 0423.1448.log;sz 0423.1448.log;
+				cd /sunline/v7base/;find . -name "appCtrl.sh"
+				ll /sunline/v7base/frw/sbin/*Ctrl*; sz /sunline/v7base/frw/sbin/appCtrl.sh
+			},
+			onl:{
+				cd /sunline/v7base/logs/cbs-ltts-onl/busi/20210421/10030/;cat 10030.log| head -n 1680 | tail -n +980 > 0422.1539.log;ll;sz 0422.1539.log;
+				cat /sunline/v7base/logs/cbs-ltts-onl/busi/20210421/10030/10030.log| head -n 1680 | tail -n +980 > /sunline/v7base/logs/cbs-ltts-onl/busi/20210421/10030/0422.1532.log; 	【二】显示980行到1680行
+			},
 		}
 	}
 },
