@@ -11,6 +11,9 @@ yus:{
 	中國大盛集團有限公司China Dasheng Group Limited 成立于2016年05月23日，公司註冊編號為:2380392 ,屬於香港(私人股份有限公司). 目前公司狀態,仍在登記冊上.
 	ICT MANAGER-Privatus Audax-paudax@cdbbank.co.tz-+255687440558 / 255629888606-EX-Telecoms House, Ground Floor 32,Samora Avenue road P.O.BOX 388, Dar es Salaam
 },
+wifi:{
+	office,..code/Da2018sheng;
+},
 0416 优先级:{
 	1. 生产问题,生产答疑;:{
 		0420-blacklist,
@@ -74,8 +77,9 @@ server:{
 			300003/888888
 		},  
 	},
-	uat:{
+	uat(172.31.2.12):{
 		vue-http://172.31.2.12:6100/ -300004/888888:{}, 
+		cbs:v7base/v7base,
 		db:{
 			172.31.5.12:1521/BASEDB 	cbsbase/cbsbase
 		}
@@ -493,7 +497,7 @@ vue:{
 		4450	40510	dp4510In	2502	账户利率查询
 		4452	40520	dp4520In	2503	存款产品利息试算
 		4402	40601	dp4601In	2601	账户信息查询				dp4402
-		4401	40603	dp4603In	2607	账户列表查询
+		4401	40603	dp4603In	2607	账户列表查询				dp4401/40603
 		4461	40606	dp4606In	2604	定期转存历史信息查询
 		4455	40607	dp4607In	2605	账户付息历史信息查询
 		4451	40608	dp4608In	2606	账户应计利息信息查询
@@ -518,7 +522,7 @@ vue:{
 		4241	40806	dp4831In	2811	约定转账签约
 		4242	40807	dp4832In	2812	约定转账维护
 		4462	40808	dp4833In	2813	约定转账查询
-		4901	40901	dp4901In	A201	存款产品查询
+		4901	40901	dp4901In	A201	存款产品查询			dp4901
 		4901	40950	dp4950In	B501	存款产品维护
 	},
 	ln:{
@@ -890,6 +894,94 @@ tables:{
 		ap03-'file upload'-67646-67728-3,
 	}
 },
+
+rdp:{
+	RdpConnectToolHttpClient.connect(byte[]):{
+		String sInput = (new StringBuilder("query,split,text|")).append(Base64Util.encode(tInput)).toString();	
+	},
+	RdpServlet->RdpAcceptor.java:{
+		doPost():{},
+		judge(HttpServletRequest, HttpServletResponse):{
+			actionFactory = (RdpWebActionFactory)RdpWebActionFactory.getInstance();
+			actionFactory.getActuatorResponseWrite;:{
+				return (RdpActuatorResponseWriter)responseWriters.get(rdpActuatorHeader.getDataType());	/*Map responseWriters;*/
+			},
+			tOutput = responseMaker.makeResponseSuccess(reqContext, requestHeader);	/*RdpActionResponseMaker responseMaker;*/	:{
+				try
+				{
+					return performMakeResponse(reqContext, requestHeader);
+				}
+				catch(Throwable e)
+				{
+					return makeResponseError(reqContext, requestHeader, e);
+				}
+			}
+			responseWrite.execute(req, resp, tOutput);	/*RdpActuatorResponseWriter responseWrite;*/
+		}
+	},
+	public abstract class RdpActuatorResponseWriter:{
+		relize:{		
+			instance.registerResponseWriter("bin", new RdpActuatorResponseWriterBin());
+			instance.registerResponseWriter("text", new RdpActuatorResponseWriterText());
+		}
+	},
+	public abstract class RdpActionResponseMaker:{
+		makeResponseSuccessData(RdpRequestContext):{
+			RdpData trxData = reqContext.getOutData();-15:{
+				RdpLttsConnectDataConvert.makeOutData(RdpConnectContextInterface, RdpRequestContext, RdpLttsConnectResponse):{
+					RdpData outputmap = connectResponse.getOutputData().getOutData();
+						<-	makeConnectResponse(RdpConnectContextInterface, RdpRequestContext, RdpLttsConnectResponse):{
+								<- 	RdpConnectTool.performTask(String, RdpData):{
+										RdpConnectInterface connect = connectContext.getConnectInterface();
+										RdpConnectResponseInterface connectResponse = (RdpConnectResponseInterface)connect.doConnect(connectContext, connectRequest);
+										connectConvert.makeConnectResponse(connectContext, reqContext, connectResponse);
+									}
+							}
+				}
+			},
+			outData.put("RDP_TRXOUTDATA", trxData);
+		},
+		relize:{		
+			RdpActuatorResponseMakerConfig,
+			RdpActuatorResponseMakerTrx:{
+				performMakeResponse(RdpRequestContext, RdpActuatorHeader):{
+					RdpData outData = makeResponseSuccessData(recContext);
+				}
+			}
+		}
+	},
+	public interface RdpConnectInterface:{
+		implements-1:{
+			RdpConnectAbstract:{
+				doConnect(RdpConnectContextInterface, Object):{
+					RdpConnectTypeInterface connectType = connectContext.getConnectType();
+					tOuter = connectType.contrl(connectContext, tSender);
+					response = makeConnectOut(connectContext, tOuter);
+				},
+				relize-1:{
+					public abstract class RdpLttsConnectAbstract:{
+						AccessId accessId = new AccessId(taskId, systemId, version);
+					}
+				}
+			},
+		}
+	},
+	public interface RdpConnectTypeInterface:{
+		implements:{
+			public class RdpConnectTypeHttp,
+*			public class RdpConnectTypeRpc:{
+				contrl(RdpConnectContextInterface, byte[]):{
+					String taskId = context.getConnectConfig().getTaskId();
+					AccessId accessId = new AccessId(taskId, systemId, version);
+					RPCResult response = RPCConsumer.invoke(registryConfig.getAddress(), accessId, request);
+				}
+			},
+			public class RdpConnectTypeSocket,
+			public class RdpConnectTypeTuxedo,
+			public class RdpConnectTypeTuxedoJolt,
+		}
+	},
+}
 common:{
 	path:{
 		CUST_INFO_LOCAL-14:{
@@ -911,3 +1003,17 @@ common:{
 
 
 log
+
+E0116:{
+	doLedgerBalFile();:{
+		gl03,glt03
+	},
+	doCheckAccountingFile():{
+		GlFile.doCheckAccountingFile();<-gl06
+	}
+},
+E0114:{
+	doCoreExchangeRateFile:{
+		GlFile.doCoreExchangeRateFile();<- gl04
+	}
+}

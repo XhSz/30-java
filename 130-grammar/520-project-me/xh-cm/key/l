@@ -150,8 +150,112 @@ tz:{
 			}
 		}
 	},
-	pro:{
+	uat(172.31.2.12):{
+		port(只能查看当前用户占用端口号):{
+			lsof -i:端口号					#lsof -i 用以显示符合条件的进程情况，lsof(list open files)是一个列出当前系统打开文件的工具
+			lsof -i
+			netstat -tunpl |grep 端口号
+			netstat -tunpl |grep 6100		rdpbase 	156857
+			netstat -tunpl |grep 8123		esbbase		127776
+			ps -ef|grep 156857
+			ps -ef|grep 128616
+			ps -ef|grep 127776
+			
+		},
+		cbs(172.31.2.12 v7base//v7base):{
+			bin:{
+				exe:{				
+					/sunline/v7base/user/bin/mantools/appctl cbs-ltts-onl status;
+					/sunline/v7base/user/bin/mantools/appctl restart onlApp;
+					/sunline/v7base/user/bin/mantools/appctl restart batApp;
+					/sunline/v7base/user/bin/mantools/appctl cbs-ltts-onl stop;
+					/sunline/v7base/user/bin/mantools/appctl cbs-ltts-onl start;
+					/sunline/v7base/user/bin/mantools/appctl start onlApp;
+					/sunline/v7base/user/bin/mantools/appctl stop batApp;
+					/sunline/v7base/user/bin/mantools/appctl start batApp;
+				}
+				ps -ef | grep java	:{
+					ori:{
+						/*
+						v7base   128616      1  0 Mar16 ?        02:08:12 /usr/java/java7/bin/java -Dltts.app.name=cbs -Dltts.vmid=cbs-ltts-onl -server -Xms2048m -Xmx2048m -XX:PermSize=128m -XX:MaxPermSize=1024m -XX:+UseFastAccessorMethods -XX:+UseCompressedOops -XX:+DisableExplicitGC -XX:+ExplicitGCInvokesConcurrent -XX:ParallelGCThreads=10 -XX:-UseAdaptiveSizePolicy -Xmn768m -XX:SurvivorRatio=6 -XX:+UseConcMarkSweepGC -XX:+CMSParallelRemarkEnabled -XX:+UseCMSCompactAtFullCollection -XX:+UseCMSInitiatingOccupancyOnly -XX:CMSInitiatingOccupancyFraction=70 -XX:+PrintGCApplicationStoppedTime -XX:+PrintGCApplicationConcurrentTime -verbose:gc -XX:+PrintGCTimeStamps -XX:+PrintGCDateStamps -XX:-TraceClassUnloading -XX:+PrintGCDetails -Xloggc:/sunline/v7base/logs/cbs-ltts-onl/sys/gc-cbs-ltts-onl.log -DProfileMode=true -Dcom.sun.management.jmxremote.port=6693 -Dcom.sun.management.jmxremote.ssl=false -Dcom.sun.management.jmxremote.authenticate=false -Dltts.shutdown.port=6893 -Dlog4j.configurationFile=ltts_log.xml -Dfile.encoding=UTF-8 -Dtarget.schema.ids=ServersConfig -Dpath.file=classpath:server.xml -Djava.endorsed.dirs=/sunline/v7base/frw/endorsed -classpath .:/usr/java/java7/lib/dt.jar:/usr/java/java7/lib/tools.jar:/sunline/v7base/apps/cbs/etc:/sunline/v7base/frw/etc:/sunline/v7base/frw/lib/2.6.8-RELEASE-1/*:/sunline/v7base/frw/lib/2.6.8-RELEASE-1/third/*:/sunline/v7base/frw/lib/2.6.8-RELEASE-1/third/jmxetric/*:/sunline/v7base/user/etc:/sunline/v7base/user/lib/*:/sunline/v7base/apps/cbs/lib/third/*:/sunline/v7base/apps/cbs/lib/1.3.2.83-RELEASE/* -Dltts.classpath= -Dltts.home=/sunline/v7base/apps/cbs -Dltts.log.home=/sunline/v7base/logs -Djava.io.tmpdir=/sunline/v7base/apps/cbs/temp -Dsetting.file=setting.cbs-ltts-onl.properties -Dinternational.enable=true -DappId=onl -Dlanguage.conf=en cn.sunline.edsp.microcore.Bootstrap cbs cbs-ltts-onl start
+						v7base   130801      1  1 Mar16 ?        10:44:15 /usr/java/java7/bin/java -Dltts.app.name=cbs -Dltts.vmid=cbs-ltts-bat -server -Xms2048m -Xmx2048m -XX:PermSize=128m -XX:MaxPermSize=1024m -XX:+UseFastAccessorMethods -XX:+UseCompressedOops -XX:+DisableExplicitGC -XX:+ExplicitGCInvokesConcurrent -XX:ParallelGCThreads=10 -XX:-UseAdaptiveSizePolicy -Xmn768m -XX:SurvivorRatio=6 -XX:+UseConcMarkSweepGC -XX:+CMSParallelRemarkEnabled -XX:+UseCMSCompactAtFullCollection -XX:+UseCMSInitiatingOccupancyOnly -XX:CMSInitiatingOccupancyFraction=70 -XX:+PrintGCApplicationStoppedTime -XX:+PrintGCApplicationConcurrentTime -verbose:gc -XX:+PrintGCTimeStamps -XX:+PrintGCDateStamps -XX:-TraceClassUnloading -XX:+PrintGCDetails -Xloggc:/sunline/v7base/logs/cbs-ltts-bat/sys/gc-cbs-ltts-bat.log -DProfileMode=true -Dcom.sun.management.jmxremote.port=6993 -Dcom.sun.management.jmxremote.ssl=false -Dcom.sun.management.jmxremote.authenticate=false -Dltts.shutdown.port=6793 -Dlog4j.configurationFile=ltts_log.xml -Dfile.encoding=UTF-8 -Dtarget.schema.ids=ServersConfig -Dpath.file=classpath:server.xml -Djava.endorsed.dirs=/sunline/v7base/frw/endorsed -classpath .:/usr/java/java7/lib/dt.jar:/usr/java/java7/lib/tools.jar:/sunline/v7base/apps/cbs/etc:/sunline/v7base/frw/etc:/sunline/v7base/frw/lib/2.6.8-RELEASE-1/*:/sunline/v7base/frw/lib/2.6.8-RELEASE-1/third/*:/sunline/v7base/frw/lib/2.6.8-RELEASE-1/third/jmxetric/*:/sunline/v7base/user/etc:/sunline/v7base/user/lib/*:/sunline/v7base/apps/cbs/lib/third/*:/sunline/v7base/apps/cbs/lib/1.3.2.83-RELEASE/* -Dltts.classpath= -Dltts.home=/sunline/v7base/apps/cbs -Dltts.log.home=/sunline/v7base/logs -Djava.io.tmpdir=/sunline/v7base/apps/cbs/temp -Dsetting.file=setting.cbs-ltts-bat.properties -Dinternational.enable=true -DappId=onl -Dlanguage.conf=en cn.sunline.edsp.microcore.Bootstrap cbs cbs-ltts-bat start
+						*/
+					},
+					key:{
+						/*
+						-classpath .
+							:/usr/java/java7/lib/dt.jar:/usr/java/java7/lib/tools.jar
+							:/sunline/v7base/apps/cbs/etc									setting.cbs-ltts-onl.properties,setting.cbs-ltts-bat.properties
+							:/sunline/v7base/frw/etc										ltts_log.xml
+							:/sunline/v7base/frw/lib/2.6.8-RELEASE-1/*
+							:/sunline/v7base/frw/lib/2.6.8-RELEASE-1/third/*
+							:/sunline/v7base/frw/lib/2.6.8-RELEASE-1/third/jmxetric/*
+							:/sunline/v7base/user/etc										setting.comm.properties
+							:/sunline/v7base/user/lib/*
+							:/sunline/v7base/apps/cbs/lib/third/*
+							:/sunline/v7base/apps/cbs/lib/1.3.2.83-RELEASE/* 
+						*/
+					}
+				}
+			}
+		},
+		zookeeper,rdpbase*2,ops*2,v7base*2,glbase*2,etluser*8,glrdpbase,glrdpbase*3,biee*4,esbbase*2,
+		esbbase:{
+			bin:{
+				ps -ef | grep java	:{
+					ori:{
+						/*
+						esbbase  201000      1  0 Feb24 ?        00:25:45 java -Duser.dir=/sunline/esbbase/sunesb -Dfile.encoding=GBK -classpath .:/sunline/esbbase/sunesb/classes/:/sunline/esbbase/sunesb/bin:/sunline/esbbase/sunesb/lib/system/*:/sunline/esbbase/sunesb/lib/user/*:/sunline/esbbase/sunesb/lib/* -XX:PermSize=256m -XX:MaxPermSize=512m -Xms1024m -Xmx1024m com.sunline.flowbank.cr.core.CRMain start cts
+						esbbase  201040      1  0 Feb24 ?        00:16:11 java -Duser.dir=/sunline/esbbase/sunesb -Dfile.encoding=GBK -classpath .:/sunline/esbbase/sunesb/classes/:/sunline/esbbase/sunesb/bin:/sunline/esbbase/sunesb/lib/system/*:/sunline/esbbase/sunesb/lib/user/*:/sunline/esbbase/sunesb/lib/* -XX:PermSize=256m -XX:MaxPermSize=512m -Xms1024m -Xmx1024m com.sunline.flowbank.cr.core.CRMain start fzds
+						esbbase  201085      1  0 Feb24 ?        00:16:01 java -Duser.dir=/sunline/esbbase/sunesb -Dfile.encoding=GBK -classpath .:/sunline/esbbase/sunesb/classes/:/sunline/esbbase/sunesb/bin:/sunline/esbbase/sunesb/lib/system/*:/sunline/esbbase/sunesb/lib/user/*:/sunline/esbbase/sunesb/lib/* -XX:PermSize=256m -XX:MaxPermSize=512m -Xms1024m -Xmx1024m com.sunline.flowbank.cr.core.CRMain start sms
+						*/
+					},
+					key:{
+						/*
+						-classpath .
+							:/usr/java/java7/lib/dt.jar:/usr/java/java7/lib/tools.jar
+							:/sunline/v7base/apps/cbs/etc									setting.cbs-ltts-onl.properties,setting.cbs-ltts-bat.properties
+							:/sunline/v7base/frw/etc										ltts_log.xml
+							:/sunline/v7base/frw/lib/2.6.8-RELEASE-1/*
+							:/sunline/v7base/frw/lib/2.6.8-RELEASE-1/third/*
+							:/sunline/v7base/frw/lib/2.6.8-RELEASE-1/third/jmxetric/*
+							:/sunline/v7base/user/etc										setting.comm.properties
+							:/sunline/v7base/user/lib/*
+							:/sunline/v7base/apps/cbs/lib/third/*
+							:/sunline/v7base/apps/cbs/lib/1.3.2.83-RELEASE/* 
+						*/
+					}
+				}
+			}
+		},
+		rdp:{
+			bin:{
+				ps -ef | grep java	:{
+					ori:{
+						/*
+						rdpbase  156857      1  0 Mar16 ?        01:26:18 /usr/java/java7/bin/java -Djava.util.logging.config.file=/sunline/rdpbase/apps/cbs/conf/logging.properties -Djava.util.logging.manager=org.apache.juli.ClassLoaderLogManager -Djdk.tls.ephemeralDHKeySize=2048 -Djava.endorsed.dirs=/sunline/rdpbase/user/app/apache-tomcat-7.0.70/endorsed -classpath /sunline/rdpbase/user/app/apache-tomcat-7.0.70/bin/bootstrap.jar:/sunline/rdpbase/user/app/apache-tomcat-7.0.70/bin/tomcat-juli.jar -Dcatalina.base=/sunline/rdpbase/apps/cbs -Dcatalina.home=/sunline/rdpbase/user/app/apache-tomcat-7.0.70 -Djava.io.tmpdir=/sunline/rdpbase/apps/cbs/temp org.apache.catalina.startup.Bootstrap start
+						rdpbase   18452      1  0 Feb06 ?        09:30:06 /usr/java/java7/bin/java -Djava.util.logging.config.file=/sunline/rdpbase/apps/cbs/conf/logging.properties -Djava.util.logging.manager=org.apache.juli.ClassLoaderLogManager -Djdk.tls.ephemeralDHKeySize=2048 -Djava.endorsed.dirs=/sunline/rdpbase/user/app/apache-tomcat-7.0.70/endorsed -classpath /sunline/rdpbase/user/app/apache-tomcat-7.0.70/bin/bootstrap.jar:/sunline/rdpbase/user/app/apache-tomcat-7.0.70/bin/tomcat-juli.jar -Dcatalina.base=/sunline/rdpbase/apps/cbs -Dcatalina.home=/sunline/rdpbase/user/app/apache-tomcat-7.0.70 -Djava.io.tmpdir=/sunline/rdpbase/apps/cbs/temp org.apache.catalina.startup.Bootstrap start
+						
+						rdpbase  156857      1  0 Mar16 ?        01:26:21 /usr/java/java7/bin/java -Djava.util.logging.config.file=/sunline/rdpbase/apps/cbs/conf/logging.properties -Djava.util.logging.manager=org.apache.juli.ClassLoaderLogManager -Djdk.tls.ephemeralDHKeySize=2048 -Djava.endorsed.dirs=/sunline/rdpbase/user/app/apache-tomcat-7.0.70/endorsed -classpath /sunline/rdpbase/user/app/apache-tomcat-7.0.70/bin/bootstrap.jar:/sunline/rdpbase/user/app/apache-tomcat-7.0.70/bin/tomcat-juli.jar -Dcatalina.base=/sunline/rdpbase/apps/cbs -Dcatalina.home=/sunline/rdpbase/user/app/apache-tomcat-7.0.70 -Djava.io.tmpdir=/sunline/rdpbase/apps/cbs/temp org.apache.catalina.startup.Bootstrap start
+						*/
+					},
+					key:{
+						/*
+							/sunline/rdpbase/user/app/apache-tomcat-7.0.70/endorsed 
+						-classpath /sunline/rdpbase/user/app/apache-tomcat-7.0.70
+						*/
+					}
+				}
+			},
+			log:{	
+				cp catalina.out catalina.2021-04-27-1647.out;cp /dev/null catalina.out;	
+				mv catalina.out catalina.2021-04-27-1647.out;vi catalina.out;	
+				ll catalina*;
+			}
+		}
 		
+	},
+	pro(172.30.2.11):{
 		cbs:{
 			bin:{
 				cd /sunline/v7base/;ps -ef | grep java > 0423.1448.log;ll;grep "Djava.awt.headless=true" 0423.1448.log;sz 0423.1448.log;
