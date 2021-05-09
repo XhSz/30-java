@@ -1,0 +1,139 @@
+
+		dp4020-'one to one transfer':{
+				M-setCashTrxnInd-:{
+					property.setCash_trxn_ind
+				},
+				M-tranStosPrc-:{
+					inputDataCheck(input);:{		'非空字段检查'
+					},
+					initInputData(input);:{			'输入数据初始化'
+						
+					},
+					DpTransactions.singleTransfer:{		'一对一转账处理'	'单条一对一活期转账处理'	'不包括授权检查、交易流水登记等接口独特性部分'
+						trxnAdvanceCheck(cplIn);:{		'交易预检查'
+							debitAccountRouteAnaly(cplIn);:{	'借方账户路由分析'
+								SrvIoTaAccounting.analyAccountType:{	'调用ta资金记账分析'
+									return TaAccount.analyAccountType(ioAccountAnalyIn);:{
+										table-tap_business-select-'',
+										return taAccountAnalyOut;
+									}
+								}
+							}
+						},
+						trxnMiddleCheck(cplIn, cplProperty);:{		'交易中间检查'
+							CommUtil.equals(cplIn.getTrxn_ccy(), cplIn.getDebit_ccy_code()):{		'交易币种和借方币种一样'
+								debitAccounting(cplIn, cplProperty, cplOut);:{		'借方记账'
+									cplProperty.getDebit_acct_analy():E_ACCOUTANALY.{
+										CASH:{			'现金'
+											(SrvIoCmCash.class).prcCashAccounting(cashAccountingIn);:{		'调用公共现金记账服务'
+												
+											}
+										},
+										DEPOSIT:{		'活期支取'
+											SrvIoDpDemandAccounting.demandDrawWithCheck(demandDrawIn);:{	'调用活期存款支取服务'
+													DpDemandDraw.doMain(demandDrawIn);:{	'活期支取(包含检查)'
+														dpa_account account = DpPublic.locateSingleAccount(cplIn.getAcct_no(), cplIn.getAcct_type(), true);:{		'获取账户信息，带锁防止并发解冻'
+															
+														},
+														DpAcctAccessOut acctAccessOut = DpPublic.locateSingleSubAcct(acctAccessIn);:{		'获取存款子账户信息'
+															
+														},
+														doMainMethod(cplIn, account, subAccount);:{		'活期支取处理'
+															withdrawal_busi_type && trxn_amt:{		'强制扣划，且交易金额为零，直接返回账户余额'	},
+															cheque_no:{	'结算凭证调用'	},
+															froze_no:{	'解冻处理'	},
+															withdrawal_ctrl_method:{	'更新支取控制处理'	},
+															back_value_date:{	'支取服务里面的倒起息处理，要放在记账处理前面， 因为透支时倒起息依赖记账前的可以额度'	
+																DpInterestAdjust.adjustInstForBackvalue(subAccount, cplAdjustIn);
+															},
+															accountingTally(cplIn, subAccount.getSub_acct_no());:{		'记账处理'	'会计记账'
+																acct_bal < trxn_amt: {	'账户余额比交易金额少且存在有效的支取保护协议则会触发关联保护'	},
+																DpAccounting.online(cplInput);:{	'本金记账'
+																	prcMain(cplInput, true);:{		'负债本金记账处理'
+																		updAccBal(cplInput, onlineFlag);:{	'余额更新'	'更新账户余额:外围要确保已经Lock子账户信息表'
+																			asst_liab_ind:{
+																				B-DEBT:{	'负债账户'
+																					debit_credit:{
+																						C-credit:{	'贷'	},
+																					}
+																				},
+																			}
+																			subAccount.setAcct_bal(afterBl);
+																			Dpa_sub_accountDao.updateOne_odb1(subAccount);	'更新账户余额信息'
+																		}
+																	}
+																}
+															},
+															ccy_code!=opp_acct_ccy:{
+																
+															}else{
+																ApLimit.process(E_DEPTTRXNEVENT.DP_DRAW.getValue(), cplIn.getCcy_code(), cplIn.getTrxn_amt());
+															},
+															agent_doc_no && agent_doc_type:{	'代理人信息登记'		}
+														}
+													}
+											}
+										},
+										SUSPENSE:{		'挂销账'	},
+										INSIDE:{		'内部户'	},
+										NOSTRO:{		'同业'		}
+									}
+								},
+								creditAccounting(cplIn, cplProperty, cplOut);:{		'贷方记账'
+										CASH:{			'现金'
+											(SrvIoCmCash.class).prcCashAccounting(cashAccountingIn);:{		'调用公共现金记账服务'
+												
+											}
+										},
+										DEPOSIT:{		'存款账户'
+											SrvIoDpDemandAccounting.demandSaveWithCheck(demandDrawIn);:{	'调用存款存入服务'
+													DpDemandSave.doMain(demandDrawIn);:{	'活期存入(包含检查)'
+														dpa_account account = DpPublic.locateSingleAccount(cplIn.getAcct_no(), cplIn.getAcct_type(), true);:{		'获取账户信息，带锁防止并发解冻'
+															
+														},
+														DpAcctAccessOut acctAccessOut = DpPublic.locateSingleSubAcct(acctAccessIn);:{		'获取存款子账户信息'
+															
+														},
+														doMainMethod(cplIn, account, subAccount);:{		'活期存入主调方法'
+															dealAccounting(cplIn, subAccount.getSub_acct_no());:{		'记账处理'	'活期存入记账处理'
+																opp_acct_route:{	'A-cash','E-suspense'		},
+																DpAccounting.online(cplInput);:{	'本金记账'
+																	prcMain(cplInput, true);:{		'负债本金记账处理'
+																		updAccBal(cplInput, onlineFlag);:{	'余额更新'	'更新账户余额:外围要确保已经Lock子账户信息表'
+																			asst_liab_ind:{
+																				B-DEBT:{	'负债账户'
+																					debit_credit:{
+																						C-credit:{	'贷'	},
+																					}
+																				},
+																			}
+																			subAccount.setAcct_bal(afterBl);
+																			Dpa_sub_accountDao.updateOne_odb1(subAccount);	'更新账户余额信息'
+																		}
+																	}
+																}
+															},
+															back_value_date:{	'倒起息'	},
+															froze_kind_code:{	'冻结止付处理'	},
+															ccy_code!=opp_acct_ccy:{
+																
+															}else{
+																ApLimit.process(E_DEPTTRXNEVENT.DP_DRAW.getValue(), cplIn.getCcy_code(), cplIn.getTrxn_amt());
+															},
+															agent_doc_no && agent_doc_type:{	'代理人信息登记'		}
+														}
+													}
+											}
+										},
+										SUSPENSE:{		'挂销账'	},
+										INSIDE:{		'内部户'	},
+										NOSTRO:{		'同业'		}
+								}
+							}
+						}
+					}
+				},
+				M-prepareTranFiled-'null',
+				M-prt4020-'null'
+		},
+		

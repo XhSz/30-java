@@ -20,6 +20,14 @@
 		}
 	},
 	130-grammar:{
+		Class:{
+			Class.getName()：以String的形式，返回Class对象的“实体”名称；{
+				com.se7n.test.Main
+			},
+			Class.getSimpleName()：获取源代码中给出的“底层类”简称。:{
+				Main
+			}
+		},
 		p21_file_xls:{
 			jxl-小:{
 				<dependency>

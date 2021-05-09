@@ -1,19 +1,189 @@
-
+cn.sunline.ltts.maven:ltts-maven-plugin:jar:2.5.5-BETA_2 
 siaogroup
 
 yus:{
 	控制开发量,
 },
 坦桑尼亚:{
-	
+	语言-斯瓦希里语-'斯语':{
+		baidu{
+			斯瓦希里语（kiswahili）属于尼日尔-刚果语系—大西洋-刚果语族—沃尔特语支，是非洲语言使用人数最多的语言之一，和"阿拉伯语"及"豪萨语"并列非洲三大语言。
+		}
+		common:{
+			prononcaation:{
+				元音:{	标准斯瓦希里语有五个元音音位：/ɑ/、/?/、/i/、/?/以及/u/。其中/u/的发音介于国际音标中的[u]和[o]之间。无论轻重音如何，元音都不会约减。各元音发音如下：
+						/ɑ/发音如同“father”中的“a”；
+						/?/发音如同“bed”中的“e”；
+						/i/发音如同“ski”中的“i”；
+						/?/发音如同“or”中的“o”；
+						/u/发音如同“boot”中的“oo”。
+						斯瓦希里语没有双元音，当元音在一起时，每个字母单独发音。因此斯瓦希里语中“豹”一词“chui”念做/t?u.i/，有停顿。
+				},
+				辅音:{
+									唇音		齿音		齿龈音		齿龈后音/硬颚音		软腭音		声门音
+					鼻音			m/m/					n/n/			ny/?/			ng’/?/
+					前鼻音化塞音	mb/mb/					nd/nd/		nj/??/~/n?/			ng/?ɡ/
+					内爆音			b/?/					d/?/		j/? ~ ??/			g/?/
+					不送气塞音		p/p/					t/t/		ch/t?/				k/k/
+					送气塞音	（p/p?/）				（t/t?/）		（ch/t??/）			（k/k?/）
+					前鼻音化擦音	mv/?v/					nz/nz/
+					浊擦音			v/v/	（dh/e/）		z/z/							（gh/?/）
+					清擦音			f/f/	（th/θ/）		s/s/			sh/?/			（kh/x/）	h/h/
+					闪音									r/?/
+					近音									l/l/			y/j/			w/w/
+				}
+			},
+							发音			拼写 		示例	
+				kiswahili	K斯瓦希里		斯瓦希里语		
+			问候:{
+				Jambo		将卜 			你好		
+				salamu		萨拉姆			打招呼
+				Hujambo		胡将卜			喂，你好
+				habari 		哈巴里			信息?你好?	
+				早上好		哈巴里.咋.阿苏不嘿 		habari za asubuhi
+				下午好		哈巴里.咋.阿拉斯里 		habari za alasiri
+				晚上好		哈巴里.咋.乔尼 			habari za jioni
+				karibuni	卡里卜尼 				欢迎/最新的		karibu
+				
+				mzuri		母猪理			好的
+				
+				kwa heri	瓜嘿理			再见
+				tuonane kesho	多纳呢.K搜	明天见
+			},
+			称谓:{
+				我			咪咪			Mimi
+				你			微微			wewe
+				他			爷爷			yeye
+				我们		谁谁			sisi
+				你们		你一一			Nyinyi
+				他们		哇嗷 			wao
+				先生		卜哇呐			Bwana		Bwana Xie
+			},
+			礼貌:{	
+				谢谢		阿桑得			Asante
+			},
+			名词-具体:{		
+				chakula		洽库拉			食物
+				rafiki		路啊菲K			朋友		
+			},
+			名词-抽象:{
+				amani		阿玛尼			和平
+				今天      斯库黑兹 			Siku hizi/leo
+				kesho		K搜 			明天
+				asubuhi		阿苏卜嘿		早上	
+				alasiri		阿拉斯里		下午		
+				jioni		乔尼			晚上
+				sasa        撒撒 			现在
+			},
+			短语:{
+				nakupenda	纳库盘大		我爱你 		NAKUPENDA
+				Unafanya nini leo 	乌纳法妮妮雷欧		你今天干嘛了?
+			},
+			提问:{
+				Kwanini		哇丽丽 			干嘛
+			},
+			介词:{
+				za			咋				for 为了?
+			}
+			MIMI,WEWE,WHOU,CICI	我,你,他,我们;
+			GUO HEI LI,再见;
+			QIA GU LA	food ; 
+			sleep
+			SaRouMi,	The girl‘s name,  
+		}
+	}
 },
 中华大盛银行-CHINA DASHENG BANK LTD-CDB:{
 	中國大盛集團有限公司China Dasheng Group Limited 成立于2016年05月23日，公司註冊編號為:2380392 ,屬於香港(私人股份有限公司). 目前公司狀態,仍在登記冊上.
 	ICT MANAGER-Privatus Audax-paudax@cdbbank.co.tz-+255687440558 / 255629888606-EX-Telecoms House, Ground Floor 32,Samora Avenue road P.O.BOX 388, Dar es Salaam
 },
-wifi:{
-	office,..code/Da2018sheng;
-},
+out:{
+	wifi:{
+		office,..code/Da2018sheng;
+		home,TTCL_9E90/37386333;
+	},
+	中国移动:{
+		-》 国内  9.9毛(接听)  3元
+		短信- 》 1.29  1.68
+		3元->3M 						30元.(自动生成  北京.)
+	},
+	Airtel:{
+		*149*99#:{
+			 1. Unlimited Bundles():{
+				Non-expiring bundles	未到期
+				1. Sh  1000 = 30 Min+50 SMS+10 MB
+				2. Sh 10000 = 2 GB
+				3. Sh 20000 = 6 GB
+				4. Buy for Friend
+			 },
+			 2. Combo(Mins+MBs)
+			 3. All Networks
+			 4. Aritel-Aritel
+			 5. Internet
+			 6. International:{
+				611122,balance;
+				CHOOSE BUNDLE
+				1. International Bundles:{
+					1. Daily:{
+						1. INDIA
+						2. CHINA:{
+							1. Get 1200 seconds :{
+								1. AirtelTime
+								2. 
+							}
+						}
+					}
+					2. Weekly
+					3. Monthly
+					# Previous Menu
+				}
+				2. Safari Roaming Bundles		
+			 },
+			 7. Special Offer
+			 8. Jiachie SMS
+			 9. Send Airtime
+			10. Balance/Usage outside Bundle
+			11. Badili Lugha
+		}
+	},
+	shiryley:{
+		1） 虾仁豆腐煲
+		2） 豉汁炒牛肉
+		4） 红烧茄子牛肉煲
+		5） 时菜炒牛肉
+		6） 红烧鱼煲
+		7） 麻婆豆腐煲----（辣）
+		8） 豉汁豆腐煲
+		9） 炒时菜
+		10） 明炉烤鸡+时菜
+		11） 白切鸡+时菜
+		12） 豉油鸡+时菜
+		13） 蜜汁叉烧+时菜
+		14） 红烧猪手+时菜
+		16） 西红柿炒鸡蛋/牛肉丝
+		17） 滑蛋牛肉
+		18） 土豆丝炒牛肉丝
+		*以上含白米饭一碗
+		*饭量大的请说一下?一碗米饭。                                                  
+		请注意?：下单时间； 10:00 下单安排厨房排菜， 10:30 按单起菜。 11:30 送出； 11:00 下单的 12:30 送出。 11:00 am 停止下单外卖！   
+		21） 海鲜炒饭
+		22） 鸡粒炒饭
+		23） 牛肉粒炒饭
+		24） 香港炒饭
+		25） 杨州炒饭
+		26） 蔬菜炒饭
+		27） 鸡蛋炒饭
+		28） 虾仁炒饭
+		31） 海鲜炒面
+		32） 鸡丝炒面
+		33） 牛肉丝炒面
+		34） 鸡蛋丝炒面
+		35） 蔬菜炒面
+		36） 云吞汤面
+		统一价：10000先令                
+		请注意?：下单时间； 10:00 下单安排厨房排菜， 10:30 按单起菜。 11:30 送出； 11:00 下单的 12:30 送出。 11:00 am 停止下单外卖！		
+	}
+}
 0416 优先级:{
 	1. 生产问题,生产答疑;:{
 		0420-blacklist,
@@ -72,23 +242,116 @@ bcx:{
 第6、7个待查;
 
 server:{
+	loc:{
+		http://nexus.odc.sunline.cn/
+	},
 	fix:{
 		vue:{
 			300003/888888
 		},  
 	},
 	uat(172.31.2.12):{
-		vue-http://172.31.2.12:6100/ -300004/888888:{}, 
-		cbs:v7base/v7base,
-		db:{
-			172.31.5.12:1521/BASEDB 	cbsbase/cbsbase
-		}
+		vpn:{
+			cdbsslvpn01/cdb@1234*
+			cdb_sn01/Cdb@2021*$
+			cdb_sn02/Cdb@2021*1
+		},
+		core:{
+			user:{
+				Xie Hao:{
+					cust_no:9100000329,
+					sub_acct_no:1000006302, 
+					acct_no:1050002702,			160,000.00
+				}
+			},
+			vue,{	-http://172.31.2.12:6100/ -300004/888888
+				user:{
+					hex_md5('300003'+'888888')=c072ea691eae241137d0bcfc3c3825ac,
+					888888:{
+						SYS###+88888=true
+						$#####+88888=true
+						300001+88888=true
+						300002+88888=true
+						300003+88888=true
+						300004+88888=true
+						300008+88888=true
+						300009+88888=true
+						300021+88888=true
+						300022+88888=true
+						300027+88888=true
+						300028+88888=true
+						300033+88888=true
+					},
+					error:{
+						123456,111111,666666,同账号名
+						300041+88888=false
+						300042+88888=false
+						300043+88888=false
+						300040+88888=false
+						300006+88888=false
+						300007+88888=false
+						300010+88888=false
+						300011+88888=false
+						300012+88888=false
+						300013+88888=false
+						300014+88888=false
+						300015+88888=false
+						300018+88888=false
+						300019+88888=false
+						300020+88888=false
+						300023+88888=false
+						300024+88888=false
+						300025+88888=false
+						300030+88888=false
+						300037+88888=false
+						300036+88888=false
+						300029+88888=false
+						300031+88888=false
+						300032+88888=false
+						300030+88888=false
+						300037+88888=false
+						300036+88888=false
+						300029+88888=false
+						300031+88888=false
+						300032+88888=false
+					},
+				},
+				hex_md5('300003'+'888888')=c072ea691eae241137d0bcfc3c3825ac,
+				js:{
+					/*
+					 * Configurable variables. You may need to tweak these to be compatible with
+					 * the server-side, but the defaults work in most cases.
+					 */
+					var hexcase = 0;  /* hex output format. 0 - lowercase; 1 - uppercase        */
+					var b64pad  = ""; /* base-64 pad character. "=" for strict RFC compliance   */
+					var chrsz   = 8;  /* bits per input character. 8 - ASCII; 16 - Unicode      */
+
+					/*
+					 * These are the functions you'll usually want to call
+					 * They take string arguments and return either hex or base-64 encoded strings
+					 */
+					function hex_md5(s){ return binl2hex(core_md5(str2binl(s), s.length * chrsz));}
+					function b64_md5(s){ return binl2b64(core_md5(str2binl(s), s.length * chrsz));}
+					function str_md5(s){ return binl2str(core_md5(str2binl(s), s.length * chrsz));}
+					function hex_hmac_md5(key, data) { return binl2hex(core_hmac_md5(key, data)); }
+					function b64_hmac_md5(key, data) { return binl2b64(core_hmac_md5(key, data)); }
+					function str_hmac_md5(key, data) { return binl2str(core_hmac_md5(key, data)); }
+				}
+			}, 
+			cbs:v7base/v7base,
+			db:{
+				172.31.5.12:1521/BASEDB 	cbsbase/cbsbase
+			},
+			ops:http://172.31.2.12:6199/ batch01/123456,
+			jcm:http://172.31.2.12:8080/jcmadm/vision/index.jsp
+		},
 	},
 	pro:{
 		core		http://172.30.2.11:6100/
 		core ops	http://172.30.2.11:6199/		batch01/123456
 		gl 			http://172.30.2.11:7100/
 		gl 	ops		http://172.30.2.11:7100/
+		oracle web	http://172.30.2.11:9502/
 	}
 },
 enum:{
@@ -141,9 +404,80 @@ BI Statement:{
 	reportName	accountParamName sDatePrraName eDateParm		Status 
 	
 }
-
-
+行方 说今天想投产一个ln25生成 xml的，UAT已经改好验证成功了，只需要投产一个class，但是反编译生成这个class..
+git:{
+	io-bus:{
+		/type/lt/dept/ComIoDpDemandAccounting.c_schema.xml						dp4020,add branch_name
+		\cn\sunline\ltts\cbs\iobus\type\lt\dept\ComIoDpDemandAccounting.class	dp4020,add branch_name
+	},
+	sys:{
+		/dict/DpDict.d_schema.xml												dp4406,add cust_str;dp4020,add branch_name
+		/cn/sunline/ltts/cbs/sys/dict/DpDict.java								dp4406,add cust_str;dp4020,add branch_name
+	},
+	cf-tran:{
+		/trans/base/cf3015.flowtrans.xml
+		/cn/sunline/ltts/busi/cftran/trans/base/intf/Cf3015.java
+	},
+	lt-tran:{
+		/trans/query/dp4406.flowtrans.xml					refer 		ap1044
+		/cn\sunline\ltts\busi\lttran\trans\query\intf\Dp4406.class
+		/trans/instruct/dp4241.flowtrans.xml										dp4241,add sign_seq
+		/cn\sunline\ltts\cbs\lttran\trans\instruct\intf							dp4241,add sign_seq
+		/trans/accounting/dp4020.flowtrans.xml									dp2040,add branch_name
+		/cn/sunline/ltts/cbs/dptran/trans/intf/Dp4020.java						dp2040,add branch_name
+		/cn/sunline/ltts/cbs/lttran/trans/accounting/dp4020.java					dp2040,add branch_name
+		
+		/cbs-lttran-1.3.2.83-RELEASE.jar\trans\query
+		/cbs-lttran-1.3.2.83-RELEASE.jar\cn\sunline\ltts\busi\lttran\trans\query\intf
+		/cbs-lttran-1.3.2.83-RELEASE.jar\cn\sunline\ltts\cbs\lttran\trans\instruct
+		\cn\sunline\ltts\cbs\lttran\trans\accounting
+		\cn\sunline\ltts\cbs\dptran\trans\intf\	dp4020.class
+	},
+	lt:{
+		/type/dept/ComDpQueryAcct.c_schema.xml
+		/type/dept/ComDpInstruct.c_schema.xml									dp4241,add sign_seq
+		/cn/sunline/ltts/cbs/lt/type/dept/ComDpQueryAcct.java
+		/cn/sunline/ltts/cbs/lt/type/dept/ComDpInstruct.java						dp4241,add sign_seq
+		/src/main/resources/servicetype/dept/SrvDpQueryAcct.serviceType.xml
+		/cn/sunline/ltts/cbs/lt/servicetype/dept/SrvDpQueryAcct.java
+		/cn/sunline/ltts/cbs/lt/serviceimpl/dept/SrvDpQueryAcctImpl.java
+		/cn/sunline/ltts/cbs/lt/dept/query/DpAcctQuery.java
+		/cn/sunline/ltts/cbs/lt/dept/instruct/DpAgreeTransfers.java				dp4241,add sign_seq
+		/cn/sunline/ltts/cbs/lt/dept/common/DpTransactions.java					dp2040,add branch_name
+		/namedsql/online/DpAcctQuery.nsql.xml
+		/cn/sunline/ltts/cbs/lt/namedsql/online/DpAcctQueryDao.java
+		/namedsql/online/DpFroze.nsql.xml
+		
+		
+	},
+	db:{
+		KSYS_FWCJXX,ctp_trxn_mapping,APP_TRANSACTION
+	},
+	commit:{
+		1. getCommodity_name -> getCust_name 
+		2. 之前已投产未提交到svn的几处代码改动
+	}
+},
+bug:{
+	ProfitsInstallment*.xml
+		LnCreateXmlFileList.java.AddXml(); <- ln25 :{
+			corporateXML(lna_loan, lna_basic, Element);	:{
+				instalmentJudge(lna_repayment, lna_loan, Element):{
+					ConnectedSubject(lna_loan, Element);:{
+						SubjectChoiceCorporate(qryCustomerMessage, subjectChoice);:{
+							Element companyData = company.addElement("CompanyData");:{
+								Element tradeName = companyData.addElement("TradeName"); //税号
+							}
+						}
+					}
+				}
+			}
+		} 
+},
 code:{
+	flowtrans:{
+		ap1044-branch relationship maintenance:{input:list01}-1044
+	},
 	04-call-1m30s77ms/15m814ms:{
 		ln6107TellerTransactionReportReportProcessorReportProcessor.cn.sunline.ltts.cbs.at.type.loan.ComLnQuery.LnScheduleListTitle,
 		AccessHttpPluginConstantDef.SPC_AH,blic static final IString C002 = new IString("AccessHttpPluginConstantDef.SPC_AH.C002", "\u542F\u52A8\u5931\u8D25:http://%s:%s");
@@ -384,7 +718,6 @@ vue:{
 		2517	20999	cm2517In	A414	账户层浮动授权维护
 		2519	20519	cm2521In	B214	利率导入
 		2601	20312	cm2601In	A421	当前汇率查询
-		2601	20312	cm2601In	A421	当前汇率查询
 		2602	20313	cm2602In	B221	汇率录入
 		2603	20325	cm2603In	A423	货币对查询
 		2605	20321	cm2605In	A424	外币兑换试算
@@ -450,7 +783,9 @@ vue:{
 		2050	20050	ct2050In	A601	角色查询
 		2076	20159	ct2076In	A602	角色平账流程查询
 		2076	20159	ct2076In	A602	角色平账流程查询
-		2094	20094	ct2094In	A603	交易受理方式查询
+		2094	20094	ct2094In	A603	交易受理方式查询:{
+			工作流ID:FLOW0006,Applied by CreditANA Authorized by SCM,Senior Credit Manager	
+		}
 		2094	20094	ct2094In	A603	交易受理方式查询
 		2097	20097	ct2097In	A605	工作任务信息查询
 		2097	20097	ct2097In	A605	工作任务信息查询
@@ -473,7 +808,7 @@ vue:{
 		4052	40523	dp4052In	2205	定期到期转存
 		4053	40053	dp4053In	2914	存放同业账户利息调整
 		4000	40100	dp4100In	2101	活期开户
-		4020	40200	dp4200In	2201	转账
+		4020	40200	dp4200In	2201	转账					dp4020/40200
 		4027	40201	dp4201In	2202	活期支取
 		4028	40202	dp4202In	2203	活期存入
 		4023	40203	dp4203In	2207	外币兑换
@@ -519,19 +854,19 @@ vue:{
 		4236	40804	dp4822In	2702	透支协议维护
 		4483	40805	dp4823In	2703	透支协议查询
 		4239	40824	dp4824In	2704	透支利息归还
-		4241	40806	dp4831In	2811	约定转账签约
+		4241	40806	dp4831In	2811	约定转账签约			dp4241
 		4242	40807	dp4832In	2812	约定转账维护
-		4462	40808	dp4833In	2813	约定转账查询
+		4462	40808	dp4833In	2813	约定转账查询			dp4462/40808
 		4901	40901	dp4901In	A201	存款产品查询			dp4901
 		4901	40950	dp4950In	B501	存款产品维护
 	},
 	ln:{
-		6020	60001	ln6001In	4101	贷款开户
-		6040	60003	ln6003In	4102	贷款发放
+		6020	60001	ln6001In	4101	贷款开户				ln6020/60001
+		6040	60003	ln6003In	4102	贷款发放				ln6040/60003
 		6006	60028	ln6011In	B601	贷款产品维护
 		6137	60067	ln6012In	4502	贷款还款方式变更
 		6001	60082	ln6015In	4501	贷款信息维护
-		6038	60056	ln6038In	4208	利率调整 
+		6038	60056	ln6038In	4208	利率调整 				ln6038/60056
 		6048	60048	ln6048In	4207	利息调整
 		6041	60005	ln6101In	4201	贷款归还
 		6075	60011	ln6107In	4202	贷款展期
@@ -886,12 +1221,49 @@ tables:{
 	Cfb_corpor_base,tabCorporDoc;
 	Cfb_fi_base,Cfb_fi_doc;
 	Cfb_person_base,Cfb_person_doc;
-	Cfb_person_employer
+	Cfb_person_employer,
+	LNA_LOAN-insert-1:{
+		LnLoan.registerLoan(LnLoanRegisterData, CustomerInfo, LnLoanType, Options)-1:{
+			LnLoanOpen.registerLoan(LnLoanOpenIn);-1:{
+				LnLoanOpen.loanOpen(LnLoanOpenIn)-2:{
+					SrvLnLoanOpen.loanNormalOpenAndCheck	<-	SrvIoLnLoanOpen.loanNormalOpenAndCheck	<-	ln6020,
+					SrvLnLoanOpen.loanOverdueOpenAndCheck	<-	SrvIoLnLoanOpen.loanOverdueOpenAndCheck,<-	ln6021
+				}
+			}
+		}
+	},
+	LNA_PHASE:{
+		insert-15:{
+			10:{
+				ln6009-'Loan repayment schedule maintenance'-10,
+			},
+			1-LnOverdueDrawdown.registerPhase(LnGenScheduleType),
+			1-LnPhase.insertPhase(String, lna_phase, String, String)-7+5:{
+				5-LnPhase.rerankPhase(lna_loan, lna_repayment_schedule, lna_repayment_schedule, String),
+			}
+		},
+		tc-select-11:{
+			11-ln6009-'Loan repayment schedule maintenance',
+			
+		}
+	},
 	apb_batch_send-select-11:{
 		ag03-'Obtain third party execution results'-33533-33772-1,
 		tab7-'核心对账文件写入'-66215-66636-4,
 		taf04-'核心汇率文件生成'-67152-67383-3,
 		ap03-'file upload'-67646-67728-3,
+	},
+	apb_sms_book-insert:{
+		onl-5:{
+			cf3010-'personal customer info build'-56937-59059,
+			cf3012-'personal customer info maintainance',
+			cf3020-'corpor customer info build',
+			cf3022-'corpor customer info maintainance',
+			ag2174-'contract key send',
+		},
+		dp-2:{
+			dp25-2-'fixed send sms messages before maturity',
+		}
 	}
 },
 
@@ -981,7 +1353,33 @@ rdp:{
 			public class RdpConnectTypeTuxedoJolt,
 		}
 	},
-}
+},
+esb:{
+	com.sunline.flowbank.cr.core.CRMain start ibps	
+},
+etl:{
+	RMIServlet:{
+		<servlet>
+			<servlet-name>RMIServlet</servlet-name>
+			<servlet-class>jcm.framework.rmi.RMIServlet</servlet-class>
+		</servlet>
+		
+		<servlet-mapping>
+			<servlet-name>RMIServlet</servlet-name>
+			<url-pattern>/vision/RMIServlet</url-pattern>
+		</servlet-mapping>
+		
+		<servlet-mapping>
+			<servlet-name>RMIServlet</servlet-name>
+			<url-pattern>/version/RMIServlet</url-pattern>
+		</servlet-mapping>
+			
+		<servlet-mapping>
+			<servlet-name>RMIServlet</servlet-name>
+			<url-pattern>*.stub</url-pattern>
+		</servlet-mapping>
+	}
+},
 common:{
 	path:{
 		CUST_INFO_LOCAL-14:{
@@ -1015,5 +1413,54 @@ E0116:{
 E0114:{
 	doCoreExchangeRateFile:{
 		GlFile.doCoreExchangeRateFile();<- gl04
+	}
+}
+
+key:{
+	BizUtil:{
+		genInputMap(Method, Object[]):{
+			String srvFullId = getSrvFullId(method);
+			Service srv = ServiceUtil.getByFullId(srvFullId);:{
+				Service service = (Service)OdbFactory.get().getOdbManager(cn/sunline/edsp/service/type/model/Service).selectByKey(new Object[] {serviceFullId});
+			}
+			Input input = srv.getDataInterface().getInput();
+			input.getPackMode().booleanValue():{
+				for (Object obj: args) {
+					dataIntfToMap(input, obj, inputMap);
+				}
+			}else{
+				
+			}
+		}
+	},
+	multi:{
+	
+	},
+	packMode:{
+		xml-8,897:{
+			*.batch_tran.xml-556,*.flowtrans.xml-3484,=4040;
+			component/ApBaseComp.compschema.xml,*.compschema.xml-300,=8620;
+			report/ap1110TranFlowReport.report.xml,*.report.xml-272,=8892;
+			SrvApAttr.serviceType.xml,*.serviceType.xml-4280,=8320
+		}
+	},
+	ltts-api-2.6.8-RELEASE.jar:{
+		cn.sunline.ltts.frw.model.annotation:{
+			interface Input	extends Annotation:{			
+				public abstract Element[] value();
+				public abstract boolean packMode();
+			}
+		},
+		n.sunline.ltts.core.api.model.dm:{
+			public interface Element extends ModelObject, OwnerAware:{
+				
+			}
+		}
+	},
+	java.lang.annotation.Annotation:{
+		boolean equals(Object obj);
+		int hashCode();
+		String toString();
+		Class<? extends Annotation> annotationType();
 	}
 }

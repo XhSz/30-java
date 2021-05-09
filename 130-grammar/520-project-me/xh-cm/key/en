@@ -1,7 +1,46 @@
 01:{
 日期		拆分					发音							解释												示例										主题
+0506 
+		concatenate			康科特尼特						adj.连在一起的；连锁的 v.使连接（连续，衔接）起来；连锁；串级				concat
+		subtract			[səbˈtrækt] 舍卜特科特			v.减;减去
+0506 
+		SoleProprietor-Individual with Trading Licence(Sole Proprietor)			持有营业执照的个体工商户（独资）
+0502:{
+	map:{
+	
+	},
+	booking room:{																																				booking room
+		1)	Can i reserve an half-day room here?
+			Does your hotel accept the half-day room reservation?							你们酒店接受半天的房间预订吗？
+		2)	I just need to provide you with my passport to check in, right?					我只需要提供护照给你们登记就能入住对吗？
+		3)	how much and for how many hours?Do your hotel need a deposit?Is everything in the room free
+		4)	Do you have a reservation phone number in your hotel?							你们酒店有预订电话吗？
+		5)  In addition to the cost of booking the room itself, are there any other charges?
+			Is everything in the room free?
+		half-day room		半天房/钟点房
+		reserve				[rɪˈzɜːrv] 瑞泽武				v.预订，预约(座位、席位、房间等);保留;贮备;拥有，保持，保留(某种权利)
+															n.储备(量);储藏(量);(动植物)保护区;自然保护区;内向;寡言少语;矜持
+		The reservation center does not accept the half-day room reservation now.		预订中心暂时不提供钟点房的预订服务。
+	}
+},
 0429:
-	take-out food:{																																				take-out food
+		initiator			[ɪˈnɪʃieɪtər] 因尼叙特 			n.发起人;创始人										initiator_system  发起系统
+		sponsor				[ˈspɑːnsər] 斯邦瑟				n.(广播电视节目、音乐会或运动会的)赞助者，赞助商;为慈善活动捐资的人;义赛(或义演等)捐款者;(培训或教育的)资助者				sponsor_system 赞助系统?
+															v.赞助(活动、节目等);主办;举办;促成;为慈善活动捐资;为义赛捐款 
+		unlimited			[ʌnˈlɪmɪtɪd] 盎力米特德			adj.尽量多的;任意多的;无限制的		
+		bundle				[ˈbʌndl] 半岛					n.(一)捆，包，扎;一批(同类事物或出售的货品);风趣的人;笑料
+															v.匆匆送走;推搡;赶;(成群地)匆忙赶往;额外免费提供(设备等);(尤指出售计算机时)赠送(软件)
+	phone fee:{
+		postpaid											后付费;后付;后付款;邮资已付;后付服务
+	},
+	charge:{																																						charge
+		battery				[ˈbætəri] 百脆					n.电池;一系列;一批;一群;排炮						My laptop has only half battery.
+		problem				[ˈprɑːbləm] 帕卜伦				
+		supply				[səˈplaɪ] 舍普莱 				n.供应量;供给量;储备;(军队或探险队等的)补给，补给品;供应;供给;提供;补给				Has the power supply problem been solved? 电源的问题还没有解决吗
+															v.(尤指大量)供应，供给，提供
+		strip				[strɪp] 斯爵普 					v.脱光衣服;脱掉大部分衣服;扒光…的衣服;进行脱衣表演;表演脱衣舞;除去，剥去(一层);(尤指)剥光			My strip has still not power 我的排插到现在还不能接通电源
+															n.(纸、金属、织物等)条，带;(陆地、海域等)狭长地带;带状水域;队服
+	}
 0426	feature				[ˈfiːtʃər]费切					n.特征,特色,特写,专题 v.以..为特色
 		rate				[reɪt]瑞特						n.速度,进度,比率,价格,费用 v.评估,评价,划分等级
 		review				[rɪˈvjuː]瑞维尤					n.评审,评介,报告,评论,回顾 v.复查,回顾,反思 
@@ -90,6 +129,13 @@
 					Container Charges : 
 				}
 			}
+			Finger Lickin' Chicken 吮指鸡:{}
+			BBQ CHICKEN :{
+				Chicken Kentucky
+			},
+			CHICKEN SCHNITZEL 炸肉排:{
+				Chicken Kentucky
+			},
 		}
 	}
 0423	accordingly			[əˈkɔːrdɪŋli]俄克得灵			adv.相应地,因此
@@ -477,7 +523,7 @@ theme:{
 					sponsor			[ˈspɑːnsər] 斯邦瑟	n. 赞助商 v. 赞助	sponsor the funds. 赞助基金																	
 				0815	Utilised				    利用																		
 					cap			 [kæp] 	n. 帽子 v. 封顶	to be capped 待封顶																	
-					Usage			[ˈjuːsɪdʒ] 尤瑟橘	n. 使用，利用率	Usage Limit 使用限制																	
+					usage			[ˈjuːsɪdʒ] 尤瑟橘	n.(词语的)用法，惯用法;使用;利用;利用率		Usage Limit 使用限制																	
 					criteria			 [kraɪ''tɪriə] 克莱提瑞亚	n. 标准，准则	criteria searches 标准搜索																	
 	},
 	theme	日期	单词	拆分	主题	发音	解释	示例								其他含义

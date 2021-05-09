@@ -1,0 +1,838 @@
+Demo01	demo01 forward transaction		
+ag2160	batch confirm query		
+ag2161	before batch confirm query manage		
+ag2162	proxy batch single  reverse entry query		
+ag2163	proxy batch single reverse entry manage		
+ag2164	proxy business sundry file upload		
+ag2165	proxy business sundry upload file query		
+ag2166	general real-time collection		
+ag2167	add definition of real time collection		
+ag2168	inquiring general real time collection info list		
+ag2169	inquiring definition of real time collection list		
+ag2170	maintain definition of real time collection		
+ag2171	before proxy batch confirm query		
+ag2172	proxy batch batch reverse entry		
+ag2173	query batch file info		
+ag2174	contract key send		
+ag2177	agent batch config file		
+ag2179	FSS payment record enquiry		
+ag2180	Proxy three party protocol inquiry		
+ag2181	New three party agreement on agency business		
+ag2182	Agency business, three party agreement, maintenance		
+ag2183	FSS counter payment		
+ag2184	FSS payment enquiry		
+ag2185	subscription information maintance		
+ag2186	proxy batch param maintance		
+ag2189	check file repetion		
+ag2190	Proxy batch definition query		
+ag2191	Proxy batch contract information inquiry		
+ag2192	Proxy batch contract		
+ag2193	Proxy termination		
+ag2194	Proxy batch applications		
+ag2195	Proxy batch withdrawal		
+ag2196	Proxy bulk application information inquiry		
+ag2199	Proxy batch detail query		
+ag2200	add batch def		
+ag2201	create contract key		
+ag2202	query inside salary detail		
+ag2203	query config file information		
+ag2204	query config file detail information		
+ap1000	general charge		
+ap1001	query reversal exception list		
+ap1002	query positive exception details		
+ap1010	build organization information		
+ap1011	organization information maintenance		
+ap1012	query organization list		
+ap1020	query business parameter		
+ap1021	business parameter maintenance		
+ap1030	query system parameters		
+ap1040	build branch information		
+ap1041	branch information maintenance		
+ap1042	query branch information		
+ap1043	query branch relationship information		
+ap1044	branch relationship maintenance		
+ap1050	query droplist		
+ap1051	droplist maintenance		
+ap1052	query droplist declaration list		
+ap1053	dynamic drop list query		
+ap1054	query droplist		
+ap1055	query pretty cash droplist		
+ap1056	droplist maintenance		
+ap1060	query currency information		
+ap1070	query identity type		
+ap1071	identity number rule check		
+ap1080	simple rule maintenance		
+ap1081	query simple rule list		
+ap1082	query rule data		
+ap1083	rule scene maintenance		
+ap1084	query rule scene list		
+ap1090	query attribute information		
+ap1091	attribute information maintenance		
+ap1093	attribute information maintenance		
+ap1100	query holiday information		
+ap1101	holiday information maintenance		
+ap1102	explore holiday information		
+ap1103	get the work date		
+ap1110	query transaction flow information		
+ap1111	query transaction code information		
+ap1120	file batch application		
+ap1121	file batch processing result query		
+ap1130	query system date		
+ap1131	query next work date		
+ap1132	query account due date		
+ap1140	audit log query		
+ap1141	audit detail log query		
+ap1142	audit cust log query		
+ap1150	query limit basic info list		
+ap1151	query limit detail config info		
+ap1152	query limit register		
+ap1153	maintenance limit information		
+ap1154	generate limit no		
+ap1160	query report flow		
+ap1170	query transaction control detail		
+ap1171	maintain transaction control		
+ap1180	Scene Auth query		
+ap1181	Scene Auth modify		
+cb2100	Voucher Purchase		
+cb2101	Voucher Outbound		
+cb2102	Voucher Transfer Application		
+cb2103	Voucher Reserve To Transfer Information Inquiry (List)		
+cb2104	Voucher Transfer Application Information Inquiry（By Reservation Code）		
+cb2105	Voucher Transfer Application Handling		
+cb2106	Voucher Transfer Out		
+cb2107	Voucher Transfer In		
+cb2108	Voucher Adjustment		
+cb2109	Voucher Allocate		
+cb2110	Voucher Turn Over		
+cb2111	Invalid Voucher		
+cb2112	Voucher To Destroy		
+cb2113	Detroyed Voucher		
+cb2114	Voucher Reconciliation		
+cb2115	Voucher Count Calculation		
+cb2116	Vochver to be destroyed turned over		
+cb2117	Voucher transfer register inquiry		
+cb2120	Reservation For Cash Transfer		
+cb2121	Reservation For Cash Transfer Information Inquiry (List)		
+cb2122	Rerservation For Cash Transfer Information Inquiry（By Reservation Code）		
+cb2123	Reservation For Cash Transfer Handling		
+cb2124	Cash Out		
+cb2125	Cash Allocate		
+cb2126	Cash Turn Over		
+cb2127	Cash Adjustment		
+cb2128	Cash In		
+cb2130	Cash Inbound		
+cb2131	Cash Over And Short Register		
+cb2132	Cash Over And Short Handling		
+cb2133	Cash Outbound		
+cb2134	Cash Value List Inquiry		
+cb2135	Cash Over And Short Inquiry		
+cb2136	Cash Value Information Inquiry		
+cb2137	Cash Reconciliation		
+cb2138	Cash transfer register inquiry		
+cb2143	Cash Spending and Incoming		
+cb2145	Cash Spending and Incoming		
+cb2147	Cash Denomination Exchange		
+cb2150	Denomination Enquiry		
+cb2151	Denomination Create		
+cb2152	Denomination Maintenance		
+cf3010	personal customer info build		
+cf3012	personal customer info maintainance		
+cf3014	personal customer info inquiry		
+cf3016	personal customer info list inquiry		
+cf3020	corpor customer info build		
+cf3022	corpor customer info maintainance		
+cf3024	corpor customer info inquiry		
+cf3026	corporation customer info list inquiry		
+cf3030	Fi customer info build		
+cf3032	Ficustomer info maintainance		
+cf3034	Fi customer info inquiry		
+cf3036	Fi customer info list inquiry		
+cf3037	customer base information inquery		
+cf3040	customer signature info build		
+cf3041	customer signature info inquiry		
+cf3042	customer brief info inquiry		
+cf3043	customer document existence check		
+cf3044	customer relation association info inquiry		
+cf3045	customer relation association info check		
+cf3046	customer list build		
+cf3047	customer list info inquiry		
+cf3048	customer black list check		
+cf3049	customer list maintainance		
+cf3050	customer black list file upload		
+cf3051	KYC review date calculation		
+cf3053	blacklist list query		
+cf3054	blacklist detail query		
+cf3055	blacklist External query		
+cf3056	blacklist internal query		
+cf3058	customer manager change		
+cf3059	customer manager infomation inquery		
+cf3060	country code list inquiry		
+cf3061	customer auxiliary info list inquiry		
+cf3062	customer relation type inquiry		
+cf3063	kyc risk rating list inquiry		
+cf3064	customer manager info list inquiry		
+cf3066	blacklist file upload		
+cf3067	blacklist file upload detail		
+cf3070	country code maintainance		
+cf3071	customer auxiliary info maintainance		
+cf3072	customer relation type info maintainance		
+cf3073	kyc risk rating info maintainance		
+cf3074	customer manager info maintainance		
+cf3075	country code add		
+cf3076	customer auxiliary info add		
+cf3077	customer relation type info add		
+cf3078	kyc risk rating info add		
+cf3079	customer manager info add		
+cf3081	Group customer information build		
+cf3082	Inquiry group customer information list		
+cf3083	Group customer information maintenance		
+cf3084	Group customer information delete		
+cf3085	Inquiry single group customer information		
+cf3086	Inquiry group customer member tree		
+cf3087	Group comtomer member information build		
+cf3088	Delete group customer member		
+cf3089	Inquiry group customer member list		
+cf3091	joint customer information build		
+cf3092	joint customer information maintenance		
+cf3093	inquiry joint customer information		
+cf3094	inquiry joint customer list information		
+cf3100	customer information sign		
+cf3101	query customer by doc		
+cf3102	qryCustNo		
+cl6800	Limit product create		
+cl6801	Limit Product Maintenance		
+cl6802	Limit product inquiry		
+cl6803	Limit product details inquiry		
+cl6810	Create customers comprehensive limit		
+cl6811	The customer limit segmentation		
+cl6812	Customer limit amount adjust		
+cl6813	Customer limit inquiry		
+cl6814	Customer limit information maintenance		
+cl6815	Customer limit Occupy		
+cl6816	The customer limit release		
+cl6817	Customer limit amount freeze and thaw		
+cl6818	Customer limit overdraw info adjust		
+cl6819	Use restriction maintain for group limit		
+cl6830	Limit details inquiry		
+cl6831	Inquiry All Of The Comprehensive Limits Of Customer		
+cl6832	Limit tree inquiry with collateral in result		
+cl6833	Create limit number		
+cl6834	Customer limit bill inquiry		
+cl6835	Limit tree inquery with group restrictions in result		
+cl6840	limit drafts list query		
+cl6841	delete limit draft		
+cm2300	till info maintainance		
+cm2301	till operation		
+cm2302	till infolist inquiry		
+cm2303	voucher stock info inquiry		
+cm2304	现金余额列表查询		
+cm2305	现金交易明细查询		
+cm2306	query cash denomination list		
+cm2400	voucher reporting of loss register		
+cm2401	customer voucher reporting of loss cancellation		
+cm2402	auto voucher reporting of loss cancellation		
+cm2403	open new voucher		
+cm2404	voucher reporting of loss register inquiry		
+cm2405	voucher reporting of loss info inquiry		
+cm2406	Voucher pay out		
+cm2410	voucher type info inquiry		
+cm2411	voucher no rule info inquiry		
+cm2420	voucher type maintanence		
+cm2421	voucher no rule maintanence		
+cm2500	interest rate code info list inquiry		
+cm2501	interest rate  info inquiry		
+cm2502	interest rate trail		
+cm2503	interest rate promo inquery		
+cm2504	tax rate list inquery		
+cm2510	interest rate maintainance		
+cm2511	interest rate promo maintainance		
+cm2512	tax rate list maintainance		
+cm2517	interest rate Float Auth inquery		
+cm2518	interest rate Float Auth		
+cm2519	inrt import		
+cm2600	exchange rate inquiry		
+cm2601	exchange rate info list inquiry		
+cm2602	exchange rate input		
+cm2603	currency pairs inquiry		
+cm2604	currency pairs maintainance		
+cm2605	currency exchange trail		
+cm2606	real-time exchange rate inquiry		
+cm2607	exchange rate inquiry		
+cm2608	tas promotion exchange rate inquiry		
+cm2609	tas currency pairs price confirm		
+cm2610	exchange rate promote query		
+cm2611	maintain exchange rate promo		
+cm2612	history exchange rate info list inquiry		
+cm2613	cash currency exchange trail		
+cm2614	query denomination list		
+cm2615	Exchange File Upload		
+cm2700	manually charge trial		
+cm2701	automatically charge trial		
+cm2702	manually charge		
+cm2708	owe charging		
+cm2709	amortization		
+cm2710	charge code list inquiry		
+cm2711	charge formula details inquiry		
+cm2712	charge formula list inquiry		
+cm2714	charge float list inquiry		
+cm2715	charge promotion info list inquiry		
+cm2716	charge code form info inquiry		
+cm2717	charge param inquiry		
+cm2718	charge return parm info inquery		
+cm2720	charge accountig info inquiry		
+cm2721	owe register inquiry		
+cm2722	charge transnation detail information query		
+cm2723	amortization of the cost inquiry		
+cm2724	amortization of the cost adjustments		
+cm2725	charge reimbursement info inquery		
+cm2726	charge reimbursement process		
+cm2727	charge share profit info inquery		
+cm2728	charge amortization plan information query		
+cm2730	charge code maintainance		
+cm2731	charge formula maintainance		
+cm2734	charge float maintainance		
+cm2735	charge promotion maintainance		
+cm2740	charge params maintainance		
+cm2741	Tax filing details query		
+cm2742	Tax filing count query		
+cm2743	Bill of charge details		
+cm2760	vat code inquery		
+cm2761	vat rate inquery		
+cm2765	vat rate maintanence		
+cm2766	vat rate trial		
+cm2800	set owner's password		
+cm2801	modify owner's password		
+cm2802	reset owner's password		
+cm2803	vefy password		
+cm2810	query password error count information		
+cm2811	query custermor password error count information		
+cm2812	query customer password log register		
+cm2820	password error statistics define maintain		
+co6200	Collateral Open		
+co6201	Collateral inout		
+co6202	Collateral relation		
+co6203	Collateral maintenance		
+co6230	Collateral inquiry		
+co6231	Collateral related inquiry		
+co6232	Collateral detail inquiry		
+co6233	Collateral related detail inquiry		
+co6234	Collateral parameter inquiry		
+co6235	Collateral inout data inquiry		
+co6236	Inquiry single collateral		
+co6237	Collateral related display		
+co6238	Collateral Parameter maintenance		
+ct2000	Teller Add		
+ct2001	Teller Information Maintenance		
+ct2002	Teller Information Enquiry		
+ct2003	Teller Check In		
+ct2004	柜员身份认证		
+ct2006	Teller Role Maintenance		
+ct2007	Teller Check Out		
+ct2008	Teller Forced Check Out		
+ct2009	Teller Change Password		
+ct2010	Teller Reset Password		
+ct2011	Teller Unlock Password		
+ct2012	柜员授权权限检查		
+ct2013	机构开机		
+ct2014	机构关机		
+ct2015	单笔交易界面展现		
+ct2016	Build TODO list		
+ct2017	Get receiver list		
+ct2018	Todo list query		
+ct2019	Todo details query		
+ct2020	机构重开机		
+ct2022	Teller Information Enquiry(BY Teller ID)		
+ct2023	柜员ID合法性校验		
+ct2024	柜员角色信息查询（根据userId）		
+ct2025	角色信息列表查询		
+ct2026	query original page information		
+ct2027	delete todo list information		
+ct2028	transaction restart transfer authorization		
+ct2030	teller day end launch		
+ct2031	teller day end		
+ct2032	teller cancle day end		
+ct2035	Menu List Query		
+ct2036	query teller transaction information		
+ct2037	workflow information query		
+ct2038	query workflow instance approval process		
+ct2039	teller common transaction register		
+ct2040	teller common transaction delete		
+ct2041	teller common transaction query		
+ct2042	receive user card		
+ct2044	User card information query		
+ct2045	user card status maintenance		
+ct2046	user card status maintenance		
+ct2047	user card information check		
+ct2050	role information query		
+ct2051	role information add		
+ct2052	role information maintenance		
+ct2053	menu information query		
+ct2054	menu information added		
+ct2055	menu information maintenance		
+ct2056	counter transaction information query		
+ct2057	counter transaction information insert		
+ct2058	counter transaction information maintenance		
+ct2060	role resource information query		
+ct2061	Role resource information added		
+ct2062	role resource information maintenance		
+ct2066	Role mutually exclusive information query		
+ct2067	Role mutex information added		
+ct2068	Role mutex information maintenance		
+ct2069	authorization parameter query		
+ct2070	Authorization details query		
+ct2071	Authorization details added		
+ct2072	Authorization information maintenance		
+ct2073	query menu encoding maximum		
+ct2076	role day end control infomation query		
+ct2077	role day end control infomation insert		
+ct2079	role day end control infomation maintenance		
+ct2080	Role mutex information delete		
+ct2081	announce information maintenance		
+ct2082	effective announce information query		
+ct2083	Announce information query		
+ct2090	authority transfer		
+ct2091	authority recall		
+ct2092	query authority ID		
+ct2094	transaction acceptance query		
+ct2095	transaction acceptance method added		
+ct2096	transaction acceptance method maintenance		
+ct2097	工作任务信息查询		
+ct2098	新增工作任务信息		
+ct2099	维护工作任务信息		
+ct2100	工作任务线路信息查询		
+ct2101	新增工作任务线路信息		
+ct2102	维护工作任务线路信息		
+ct2103	工作流定义查询		
+ct2104	工作流定义新增		
+ct2105	工作流定义维护		
+ct2106	工作流角色信息查询		
+ct2107	工作流角色信息新增		
+ct2108	工作流角色信息维护		
+dp4000	current open account		
+dp4001	open account regularly		
+dp4002	deposit interbank current open account		
+dp4003	deposit interbank time open account		
+dp4004	open time account regularly		
+dp4007	old to new		
+dp4010	general account		
+dp4011	current close account		
+dp4012	close inter-bank deposits account		
+dp4020	one to one transfer		
+dp4021	multi to multi transfer		
+dp4022	multiple one to one transfers		
+dp4023	foreign currency cash exchange		
+dp4024	foreign currency cash exchange		
+dp4030	frozen stop payment		
+dp4031	continued freezing		
+dp4032	unfreeze		
+dp4033	court deduction		
+dp4040	fixed deposit		
+dp4041	fixed withdrawal		
+dp4042	deposit interbank fixed withdrawal		
+dp4050	interest withdrawal		
+dp4051	Interest adjustment on account		
+dp4052	Fixed Maturity After Renew Instruct maintenance		
+dp4053	Deposit interest adjustment on the interbank account		
+dp4200	deposit account information maintenance		
+dp4201	court inquiry account information		
+dp4211	joint account joint information maintenance		
+dp4220	account interest rate maintenance		
+dp4222	account startement information mantenance		
+dp4230	periodic transfer instruction maintenance		
+dp4235	overdraft signed		
+dp4236	overdraft agreement maintenance		
+dp4237	overdraft interest settlement		
+dp4238	Withdraw protect agree order adjustment		
+dp4239	single overdraft interest settlement		
+dp4240	property control settings		
+dp4241	agree transfers sign		
+dp4242	agree transfers maintenance		
+dp4243	Withdraw Protect Signed		
+dp4244	Withdraw Protect Signed Maintenance		
+dp4247	intermediate bank agree transfers sign		
+dp4248	intermediate bank agree transfers maintenance		
+dp4250	passbook epair registered		
+dp4251	passbook adjustment		
+dp4252	passbook deposit certificate replacement		
+dp4253	passbook epair registered pretreatment		
+dp4255	Passbook re-print		
+dp4257	passbook rewrite magnetic		
+dp4300	buildGroupRelation		
+dp4301	group relation maintenance		
+dp4302	group relation query		
+dp4303	group account query		
+dp4304	group account bill query		
+dp4330	open interbank borrowing account		
+dp4331	interbank borrowing repayment		
+dp4332	open interbank placement account		
+dp4333	interbank placement collection		
+dp4340	cheque banlance not  enough handle		
+dp4400	account details enquiry		
+dp4401	account list query		
+dp4402	sub account information inquiry		
+dp4403	main account information inquiry		
+dp4404	customer asset information inquiry		
+dp4405	information inquiry of customer's deposit under customer		
+dp4410	deposit bill inquiry		
+dp4411	passbook row location query		
+dp4412	Passbook printed information inquiry		
+dp4420	freeze query		
+dp4421	Freeze the details of the query		
+dp4450	Account rate inquiry		
+dp4451	Account accrued interest information inquiry		
+dp4452	interest trial on deposit products		
+dp4453	the current account interest calculation		
+dp4454	fixed trial of interest		
+dp4455	Account interest payments information inquiry		
+dp4459	deposit change amount trial		
+dp4460	attribute control query		
+dp4461	Fixed Renew History Information Query		
+dp4462	agreement transfers query		
+dp4464	intermediate bank agree transfers inquery		
+dp4480	zero deposit withdraw renew instruction query		
+dp4481	fixed renew instruction query		
+dp4483	overdraft agreement query		
+dp4484	Withdraw Protect Signed Inquiries		
+dp4490	account type list query		
+dp4491	account type information query		
+dp4492	product open account information inquiry		
+dp4493	product currency control query		
+dp4494	interest rate inquiry on deposit products		
+dp4495	freeze code list query		
+dp4496	freeze code information query		
+dp4497	overdraft agreement type query		
+dp4501	qry cifno info		
+dp4502	query all acct		
+dp4503	print		
+dp4504	account accredit		
+dp4505	qry auth acct		
+dp4506	modifyAuthAcct		
+dp4507	due date calculation		
+dp4614	query interbank account information		
+dp4640	deposit certificate open		
+dp4641	time deposit certificate inquery		
+dp4642	cancle time deposit certificate		
+dp4650	clearing account register		
+dp4651	clearing account maintenance		
+dp4652	clearing account query		
+dp4653	Employee Salary File Upload Registration		
+dp4655	Employee Salary File Upload query		
+dp4656	salary information query		
+dp4900	product parameter inquiry for liabilities		
+dp4901	fuzzy query of debt products		
+dp4950	maintenance of liabilities product parameters		
+dp4952	account type parameter maintenance		
+dp4953	freeze classification parameter maintenance		
+dp4960	copy old product to new product		
+dp4961	new additions to the account type		
+dp4962	new additions to the frozen category		
+dp4963	debt products added		
+ln6001	Loan Maintainence		
+ln6002	Loan Repayment Sequence Inquiry		
+ln6005	Inquiry single loan product		
+ln6006	Inquiry loan product list		
+ln6007	Inquiry all loan product information		
+ln6008	loan drawdown schedule maintenance		
+ln6009	Loan repayment schedule maintenance		
+ln6010	create loan product		
+ln6011	loan product maintenance		
+ln6012	copy new product		
+ln6013	Loan interest rate plan maintenance		
+ln6020	loan account opening		
+ln6021	loan overdue account opening		
+ln6028	Inquiry contract information		
+ln6038	adjust loan interest rate		
+ln6039	preset or cancel long pledge repayment		
+ln6040	loan drawdown		
+ln6041	loan repayment		
+ln6042	special repayment		
+ln6044	loan transfer		
+ln6045	loan write-off		
+ln6046	loan write-off repayment		
+ln6047	Pledge repayment		
+ln6048	Interest adjustment		
+ln6049	Loan Intrusted/Pay Payment Cancellation		
+ln6050	Loan reimburse repayment		
+ln6051	Reimburse Interest Repayment		
+ln6052	Interest adjustment		
+ln6071	Loan cooperative project registration and maintenance		
+ln6072	Reimburse information maintenance		
+ln6074	Loan Precontract Extend		
+ln6075	Loan extend		
+ln6080	Loan maturity date change		
+ln6085	Loan special define change		
+ln6100	Loan single inquiry		
+ln6101	Loan list inquiry		
+ln6102	Loan pledge account inquiry		
+ln6103	Loan transaction details inquiry		
+ln6104	Deposit account transaction details inquiry		
+ln6105	Inquiry loan period transaction details		
+ln6106	Loan interest rate changes detailed inquiry		
+ln6107	Loan repayment schedule inquiry		
+ln6108	Loan intrust payment book inquiry		
+ln6109	Loan Classification Inquiry		
+ln6110	Loan Repayment Schedule Trial		
+ln6111	Inquiry loan interest register book		
+ln6112	Inquiry branch provision		
+ln6113	Inquiry loan write-off book		
+ln6114	Loan balance inquiry		
+ln6115	Loan Overdue Balance Inquiry		
+ln6116	Inquiry loan write-off repayment book		
+ln6117	Loan cooperation project information inquiry		
+ln6118	Reimburse Information List Inquiry		
+ln6119	Loans Intrusted Payment Inquiry		
+ln6120	Reimburse Interest Payment Details Inquiry		
+ln6121	Ious booking extension single inquiry		
+ln6122	Loan Transfer Inquiry		
+ln6123	Loan Accounting Balance Attribute Inquiry		
+ln6124	Drawdown Register Inquiry		
+ln6125	Joint Loan Information Inquiry		
+ln6126	Inquiry loan repayment book		
+ln6127	Balance Attribute Definition Inquiry		
+ln6128	Full Repayment Method Change Inquiry		
+ln6129	Reimburse information single inquiry		
+ln6130	Loan Drawdown Schedule List Inquiry		
+ln6131	Detailed Account Of Interest On Loans Inquiry		
+ln6132	Extend Register Inquiry		
+ln6133	Loan Balance Change Details Inquiry		
+ln6134	Loan Cooperate Project List Inquiry		
+ln6135	Transaction Event Register Inquiry		
+ln6136	Inquiry balance book		
+ln6137	Inquiry Repayment Schedule Reservation List		
+ln6138	Inquiry of loan interest rate information		
+ln6139	Loan cooperation project information inquiry-single		
+ln6140	Reimburse Repaymment Register Inquiry		
+ln6141	Loan interest adjust book inquiry		
+ln6143	Loan Repayment Trial		
+ln6144	Loan Interest Rate Trial		
+ln6145	Loan pledge information inquiry		
+ln6146	Loan repayment schedule inquiry count		
+ln6147	Loan repayment schedul single inquiry		
+ln6172	Loan impairment reserve provision		
+ln6173	Inquiry fee schedule		
+ln6192	Calculation of the length of maturity		
+ln6193	Loan Fee Schedule		
+ln6194	Loan Fee Schedule Display		
+ln6195	Create New Fee Schedule		
+ln6196	Loan input list inquiry		
+ln6199	Customer Manager Information Change		
+ln6209	Inquiry User Define Phase Reservation List		
+ln6211	Loan input inquiry		
+py7501	bank Transfer Message		
+py7506	Sold and sold flat disk		
+py7508	FX Confirmation		
+py7509	Fix Deposit Confirmation		
+py7550	error message parameter query		
+py7551	error message parameter maintain		
+py7552	automatically underlined parameter query		
+py7554	bank information list query		
+py7555	bank information list maintain		
+py7559	correspondent bank information list query		
+py7560	correspondent bank information list maintain		
+py7562	query messages details of  nak mt202		
+py7569	telex code information list query		
+py7570	telex code information maintain		
+py7600	outward Remittance		
+py7602	outward Remittance Stop Payment		
+py7603	outward Remittance list information query		
+py7604	resend Failtrue Message		
+py7605	add Free Message		
+py7650	inward remittance		
+py7651	remittance information query		
+py7652	manual judgment and handling of accounts		
+py7653	7653		
+py7654	outward Message Query		
+py7655	incoming message query		
+py7657	message original text query		
+py7658	suspense stop payment		
+py7660	outward Message Query		
+py7661	single message match		
+py7663	wrong message process		
+py7680	account bank balance check result query		
+py7681	statement details query		
+py7683	recon message		
+st2200	cheque book request		
+st2201	cheque book information enquiry		
+st2202	cheque book status maintenance		
+st2203	cheque number enquiry		
+st2204	stop cheque maintenance		
+st2205	cheque book request status maintenance		
+st2206	cheque book request status enquiry		
+st2207	mark cheque maintenance		
+st2208	Inward clearing exchange note		
+st2209	collection exchange notes posting		
+st2210	outward exchange note return		
+st2211	outward exchange deposit		
+st2212	house exchange note return		
+st2213	single manual release float amount		
+st2214	cheque float days maintenance		
+st2215	cancelloss Promissory Note		
+st2216	Inward clearing transaction enquiry		
+st2217	outward clearing transaction enquiry		
+st2220	issue promissory note		
+st2221	settlement promissory note		
+st2222	report the loss of promissory note		
+st2223	the day exchange note query summary		
+st2225	cleaning hose float days enquiry		
+st2226	cheque status maintenance		
+st2227	query promissory note list		
+st2228	query promissory note info		
+st2229	renewal promissory note		
+st2230	bank code information query		
+st2231	add the bank code information		
+st2232	bank code information maintenance		
+st2233	collection of check and bill collection type query		
+st2234	add the collection of check and bill collection type		
+st2235	collection of check and bill collection type maintenance		
+st2236	query the check currency control information		
+st2237	add check currency control information		
+st2238	modify check currency information		
+st2239	cheque type information query		
+st2240	add cheque type information		
+st2241	bank code information maintenance		
+st2242	inquiring clearing house information		
+st2243	add the clearing house information		
+st2244	clearing house information maintenance		
+st2245	check file repeattability		
+st2248	batch manual release float amount		
+st2249	Batch import bank exchange note		
+st2250	outward clearing transaction enquiry		
+st2251	other cheque open fixed account		
+st2252	other bank fail note regiest inquiry		
+st2253	import note into detailed inquiry		
+st2254	batch exchange notes withdrawal		
+st2255	other bank fail note regiest maintenance		
+st2257	cheque book information enquiry		
+st2258	house note exchange deposit		
+st2265	The envelope number set		
+st2270	outward clearing transaction enquiry		
+st2271	house exchange note return		
+st2272	house exchange note return		
+st2277	cheque book request information enquiry		
+st2278	print file create		
+st2279	cheque book print file enquiry		
+ta7101	业务编码信息建立		
+ta7102	业务编码信息维护		
+ta7103	业务编码信息列表查询		
+ta7104	业务编码信息查询		
+ta7105	业务编码信息删除		
+ta7106	inquiring scene of multi to multi transfer		
+ta7107	maintianing gl reference code information		
+ta7110	inquiring multi transfer business transfer information		
+ta7111	maintaianing multi transfer business scene information		
+ta7201	内部户开户		
+ta7202	内部户维护		
+ta7203	inquiring internal account list information		
+ta7204	内部户信息查询		
+ta7205	内部户销户		
+ta7206	内部户交易明细查询		
+ta7207	内部账户停用启用		
+ta7208	账户基础信息查询		
+ta7209	enquiry accounting event		
+ta7301	挂账编号手工建立		
+ta7303	挂销账信息列表查询		
+ta7304	挂销账信息查询		
+ta7305	closing suspense number		
+ta7306	挂销账交易明细查询		
+ta7309	The suspense account modify		
+ts7700	international settlement Import LG open guarantee		
+ts7701	international settlement Import LG amendment guarantee		
+ts7702	international settlement Import LG compliance guarantee		
+ts7703	international settlement Import LG logout guarantee		
+ts7704	international settlement import LG list query		
+ts7705	international settlement import LG detail query		
+ts7707	international settlement Import LG extend guarantee		
+ts7730	international settlement export register book list query		
+ts7731	international settlement export collection register book detail info query		
+ts7732	query message mt412 information		
+ts7733	query message mt412 list information		
+ts7734	query message mt456 information		
+ts7735	query message mt456 list information		
+ts7736	query message mt410 information		
+ts7737	query message mt410 list information		
+ts7740	international settlement export collection registration		
+ts7741	international settlement export collection modify		
+ts7742	international settlement export  urging payment		
+ts7743	international settlement export accept registration		
+ts7744	international settlement export collection dishonour registration		
+ts7745	international settlement export collection payment		
+ts7746	international settlement export collection chargeback		
+ts7747	international settlement export collection free release		
+ts7748	international settlement export collection cancellation		
+ts7750	international settlement Import collection registration		
+ts7751	international settlement import collection maintenance		
+ts7752	international settlement import collection accept		
+ts7753	international settlement import collection payment		
+ts7754	international settlement import collection dishonour		
+ts7755	international settlement import collection chargeback		
+ts7756	international settlement import collection free bills		
+ts7757	international settlement import collection cancel		
+ts7758	international settlement import collection list query		
+ts7759	international settlement import collection detail query		
+ts7760	query message mt420 information		
+ts7761	query message mt420 list information		
+ts7762	query message mt430 information		
+ts7763	query message mt430 list information		
+ts7768	query message mt202 information		
+ts7769	query message mt202 list information		
+ts7770	clean bill collection apply		
+ts7771	clean bill collection urging payment		
+ts7772	clean bill collection payment		
+ts7773	clean bill collection chargeback apply		
+ts7774	clean bill collection cancellation		
+ts7775	clean bill collection book list enquiry		
+ts7776	clean bill collection book detail enquiry		
+ts7780	International Settlement Letter Credit Import Registion		
+ts7781	International Settlement Letter Credit Import Modity Apply		
+ts7782	International Settlement Letter Credit Import Confirm Modity		
+ts7783	International Settlement Letter Credit Import Cancel		
+ts7784	International Settlement Letter Credit Import Query List		
+ts7785	International Settlement Letter Credit Import Query Information		
+ts7790	Import order registration interface		
+ts7791	Imported single acceptance interface		
+ts7792	Import order to change import expiration date		
+ts7793	Payment against import bill of lading		
+ts7794	Imported orders refused to accept payment		
+ts7795	Imported single discrepancy		
+ts7796	Import bill of lading without compensation		
+ts7797	Import Bill of Lading and Return		
+ts7798	International Settlement Import Bill Query Information		
+ts7799	International Settlement Import Bill Query Information		
+ts7800	export letter credit registration		
+ts7801	export letter credit modify		
+ts7802	export letter credit cancellation		
+ts7803	export letter credit book list query		
+ts7804	export letter credit book information query		
+ts7810	export bill registration		
+ts7811	export bill modify		
+ts7812	export bill accept		
+ts7813	export bill accept maintain		
+ts7814	export bill payment		
+ts7815	export bill refuse pay		
+ts7816	export bill free release		
+ts7817	export bill chargeback		
+ts7818	export bill book list query		
+ts7819	export bill book single infomation query		
+ts7830	query message mt700 information		
+ts7831	query message mt700 list information		
+ts7832	query message mt701 information		
+ts7833	query message mt701 list information		
+ts7834	query message mt707 information		
+ts7835	query message mt707 list information		
+ts7836	query message mt708 information		
+ts7837	query message mt708 list information		
+ts7838	query message mt730 information		
+ts7839	query message mt730 list information		
+ts7840	query message mt740 information		
+ts7841	query message mt740 list information		
+ts7842	query message mt734 information		
+ts7843	query message mt734 list information		
+ts7851	international settlement delivery registration		
+ts7852	international settlement delivery reminder		
+ts7853	international settlement delivery archive		
+ts7854	international settlement delivery list query		
+ts7855	international settlement delivery detail query		
+ts7860	international settlement loan		
+ts7870	international settlement repayment		
+ts7880	international settlement finance list query		
+ts7890	international settlement finance detail query		

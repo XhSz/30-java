@@ -1,0 +1,15 @@
+ln6020-'loan account opening':{
+				S-SrvIoLnLoanOpen.loanNormalOpenAndCheck-'null',
+				S-SrvLnLoanDrawdown.loanDrawdownForNormalOpen-'null',
+				S-SrvLnLoanDrawdown.lnNormalRepay-'null',
+				S-SrvLnLoanDrawdown.lnEarlyRepay-'null',
+				S-SrvLnLoan.SrvLnOpenFundEntryDeal-'null',
+				S-SrvLnLoan.SrvLnOpenFundTransferDeal-'null',
+				M-prepareTranFiled-'null',
+				S-SrvLnLoan.SrvLnConfirmTasCcyPairPrice-'null',
+				M-outputDataFromInput-'null',
+				M-printOpenCountInfo-'null',
+				S-SrvLnLoanDrawdown.lnLoanInput-'null',
+				M-printOpenCountInfo-'null'
+		},
+		

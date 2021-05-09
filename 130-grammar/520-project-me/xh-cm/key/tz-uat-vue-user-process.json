@@ -1,0 +1,319 @@
+				result:{
+						300041+88888=false
+						300042+88888=false
+						300043+88888=false
+						SYS###+88888=true
+						$#####+88888=true
+						300040+88888=false
+						300001+88888=true
+						300002+88888=true
+						300003+88888=true
+						300004+88888=true
+						300006+88888=false
+						300007+88888=false
+						300008+88888=true
+						300009+88888=true
+						300010+88888=false
+						300011+88888=false
+						300012+88888=false
+						300013+88888=false
+						300014+88888=false
+						300015+88888=false
+						300018+88888=false
+						300019+88888=false
+						300020+88888=false
+						300021+88888=true
+						300022+88888=true
+						300023+88888=false
+						300024+88888=false
+						300025+88888=false
+						300027+88888=true
+						300028+88888=true
+						300030+88888=false
+						300037+88888=false
+						300036+88888=false
+						300029+88888=false
+						300031+88888=false
+						300032+88888=false
+						300033+88888=true
+						300034+88888=false
+						300038+88888=false
+						300039+88888=false
+						300035+88888=false
+						300044+88888=false
+						300045+88888=false
+						300046+88888=false 
+					},
+					key:{
+						300041+88888= fb98b3bd2eabcfa9d59bb030bfb80ed6	dd7c85fabcb3e814d8035240bb5baa55
+						300042+88888= 0a1b5c0776c406438047926d253042a0  be83912d16bf89d119f132827791ef2a
+						300043+88888= 7d3c0ba868bf808a9c38861917b92703  13cb20e3cdacc4311dc01b91aa5f1cfd
+					1	SYS###+88888= 80cba17da83e1233725356498e6d8d9a  80cba17da83e1233725356498e6d8d9a
+					1	$#####+88888= f2da2ae031ab4af38b149ae3dace5dd8  f2da2ae031ab4af38b149ae3dace5dd8
+						300040+88888= bd51ce0e4801fa18a69432f525e6e8e6  d1f44f9895ba6fdcb107311447725748
+						300001+88888= 7a3a25c3f679eb3eccab4f5cc2a9f187  7a3a25c3f679eb3eccab4f5cc2a9f187
+						300002+88888= a652461e96a50a7af8baffcc74708444  a652461e96a50a7af8baffcc74708444
+						300003+88888= c072ea691eae241137d0bcfc3c3825ac  c072ea691eae241137d0bcfc3c3825ac
+						300004+88888= 83dde543218536206b27badd6d06e22c  83dde543218536206b27badd6d06e22c
+						300006+88888= ec9ca57e19d13329f9f4369ee58305e8  a5fb1207f2a38763f2b29270537b4adf
+						300007+88888= a8ed402f2b2c856a76a85df576455ec7  73edddfe3be9926500f2d0af803b47c9
+						300008+88888= 459b58741d6f22d95009be3cad09d7bd  459b58741d6f22d95009be3cad09d7bd
+						300009+88888= c4148de83c5972169db9cf0ec7b9a907  c4148de83c5972169db9cf0ec7b9a907
+						300010+88888= d34d82601c91f136dd29067c5d14afa6  9b90a3c32d1dced1b877412555883159
+						300011+88888= 5f27ffdd00f3adc414d1ad83a4c02437  559d7b3c52e6c8be24ced51a998d5be0
+						300012+88888= 73c75ae0cb580be67ee50a9244739714  861304a824954a7d794b409bf49d57bb
+						300013+88888= 8bbcaced32d8856405fc738cc9b045ce  4360bda45a9d4436a8d63dc104755031
+						300014+88888= 4d7784f38c121f0c11546ced5b1042ae  ae8fec5088165366a555da74e0c6339d
+						300015+88888= a8bf946e7fae77d2836f68ee75b2f611  941efc8185bdb657ad4c80536227752e
+						300018+88888= 7cc3f255b597b04d097c8a9eb51e8532  1dbe72a6fd8b0804b361234aff7c590f
+						300019+88888= c13800df33af7248e7f378cccef00197  d88f5f85dc0f07ee22e1adfa1e951ee4
+						300020+88888= 0ff420895195bd95fa84ce9c7a64e6cf  bc2cae6245233ed5b3550dbb5f00b655
+						300021+88888= fd4e0ed92c3c41148fd239d85e145391  fd4e0ed92c3c41148fd239d85e145391
+						300022+88888= 8deb7e9dc748d652f90c8d1db082cece  8deb7e9dc748d652f90c8d1db082cece
+						300023+88888= 2b20e44a34942560ccf9f2210eb6b585  dd50aea6575f796f3bd9efb79198e67f
+						300024+88888= 92570d1d3f5280f2df8de3125a6037f8  a526de5b445030b434f3b5e94889389c
+						300025+88888= 0de75b3cc3af41424d60c493157e65f2  426848bd7b1a12145d6bb5bbf51e6bb3
+						300027+88888= 4fb146f67f826669bdd480160e88d2b1  4fb146f67f826669bdd480160e88d2b1
+						300028+88888= 98914eff98271b38f60c3d842eb16cf0  98914eff98271b38f60c3d842eb16cf0
+						300030+88888= b846b57d66d642db876cb572b1f8d0ee  094a9e44089d925230380eef1b9a6943
+						300037+88888= 0f4eccbe970eb966aa5e553bb42f42f9  2247bf1ea252fc49f4296510d0fa25a0
+						300036+88888= 556d2b77b95babcfac62518527256e32  73eeb6d398e4d458fe79875942f86527
+						300029+88888= 8658cd87878ce908fb48d63ce2dadfd3  520bfb89d7ed2bd8154efbad6ac3e27c
+						300031+88888= 4dec8860743faf97e9fa7cd532eb748e  3bebebc28185eebf7f3e090562822f80
+						300032+88888= 5e2cb979eadf7a2d5a938a1439530fbb  b93578a1a4c6389526dc35bb577e5601
+						300033+88888= 902d008ee024e057f12822f383067607  902d008ee024e057f12822f383067607
+						300034+88888= d72f72c1eb480b0f4231682b4014dda3  e996b653ef89a58c9ce463909cac2acf
+						300038+88888= da449fed49c8ff83dbb8fe251dd86581  46fcbc611191ad6f387f33dc54ec950f
+						300039+88888= 269db685956038bc5b99c0bc185ee604  a08b440df4f364ab2e5d17ffd30bb8db
+						300035+88888= 8707932ca80320c8f3f8adc4d3e08d38  71631eac5b645cceb1efcddb0341ba5a
+						300044+88888= b9175e2f7711f74d802bbafbb5f879dc  001b7569f5007c9b5026eac0348a50fb
+						300045+88888= 74ade5f1f8c7eb7e9f27f88ed744740e  57511d533ff50bc63a973ac307301c16
+						300046+88888= ec6ffdcdae3fefff42744d0f8d649cd1  4cdac7a96e06d41ddcd7ab7e44a868c6
+					},
+					process:{
+						console.log('300041+88888='+hex_md5('300041'+'888888'));
+						console.log('300042+88888='+hex_md5('300042'+'888888'));
+						console.log('300043+88888='+hex_md5('300043'+'888888'));
+						console.log('SYS###+88888='+hex_md5('SYS###'+'888888'));
+						console.log('$#####+88888='+hex_md5('$#####'+'888888'));
+						console.log('300040+88888='+hex_md5('300040'+'888888'));
+						console.log('300001+88888='+hex_md5('300001'+'888888'));
+						console.log('300002+88888='+hex_md5('300002'+'888888'));
+						console.log('300003+88888='+hex_md5('300003'+'888888'));
+						console.log('300004+88888='+hex_md5('300004'+'888888'));
+						console.log('300006+88888='+hex_md5('300006'+'888888'));
+						console.log('300007+88888='+hex_md5('300007'+'888888'));
+						console.log('300008+88888='+hex_md5('300008'+'888888'));
+						console.log('300009+88888='+hex_md5('300009'+'888888'));
+						console.log('300010+88888='+hex_md5('300010'+'888888'));
+						console.log('300011+88888='+hex_md5('300011'+'888888'));
+						console.log('300012+88888='+hex_md5('300012'+'888888'));
+						console.log('300013+88888='+hex_md5('300013'+'888888'));
+						console.log('300014+88888='+hex_md5('300014'+'888888'));
+						console.log('300015+88888='+hex_md5('300015'+'888888'));
+						console.log('300018+88888='+hex_md5('300018'+'888888'));
+						console.log('300019+88888='+hex_md5('300019'+'888888'));
+						console.log('300020+88888='+hex_md5('300020'+'888888'));
+						console.log('300021+88888='+hex_md5('300021'+'888888'));
+						console.log('300022+88888='+hex_md5('300022'+'888888'));
+						console.log('300023+88888='+hex_md5('300023'+'888888'));
+						console.log('300024+88888='+hex_md5('300024'+'888888'));
+						console.log('300025+88888='+hex_md5('300025'+'888888'));
+						console.log('300027+88888='+hex_md5('300027'+'888888'));
+						console.log('300028+88888='+hex_md5('300028'+'888888'));
+						console.log('300030+88888='+hex_md5('300030'+'888888'));
+						console.log('300037+88888='+hex_md5('300037'+'888888'));
+						console.log('300036+88888='+hex_md5('300036'+'888888'));
+						console.log('300029+88888='+hex_md5('300029'+'888888'));
+						console.log('300031+88888='+hex_md5('300031'+'888888'));
+						console.log('300032+88888='+hex_md5('300032'+'888888'));
+						console.log('300033+88888='+hex_md5('300033'+'888888'));
+						console.log('300034+88888='+hex_md5('300034'+'888888'));
+						console.log('300038+88888='+hex_md5('300038'+'888888'));
+						console.log('300039+88888='+hex_md5('300039'+'888888'));
+						console.log('300035+88888='+hex_md5('300035'+'888888'));
+						console.log('300044+88888='+hex_md5('300044'+'888888'));
+						console.log('300045+88888='+hex_md5('300045'+'888888'));
+						console.log('300046+88888='+hex_md5('300046'+'888888'));
+						console.log('300041+88888='+('fb98b3bd2eabcfa9d59bb030bfb80ed6'=='dd7c85fabcb3e814d8035240bb5baa55'));
+						console.log('300042+88888='+('0a1b5c0776c406438047926d253042a0'=='be83912d16bf89d119f132827791ef2a'));
+						console.log('300043+88888='+('7d3c0ba868bf808a9c38861917b92703'=='13cb20e3cdacc4311dc01b91aa5f1cfd'));
+						console.log('SYS###+88888='+('80cba17da83e1233725356498e6d8d9a'=='80cba17da83e1233725356498e6d8d9a'));
+						console.log('$#####+88888='+('f2da2ae031ab4af38b149ae3dace5dd8'=='f2da2ae031ab4af38b149ae3dace5dd8'));
+						console.log('300040+88888='+('bd51ce0e4801fa18a69432f525e6e8e6'=='d1f44f9895ba6fdcb107311447725748'));
+						console.log('300001+88888='+('7a3a25c3f679eb3eccab4f5cc2a9f187'=='7a3a25c3f679eb3eccab4f5cc2a9f187'));
+						console.log('300002+88888='+('a652461e96a50a7af8baffcc74708444'=='a652461e96a50a7af8baffcc74708444'));
+						console.log('300003+88888='+('c072ea691eae241137d0bcfc3c3825ac'=='c072ea691eae241137d0bcfc3c3825ac'));
+						console.log('300004+88888='+('83dde543218536206b27badd6d06e22c'=='83dde543218536206b27badd6d06e22c'));
+						console.log('300006+88888='+('ec9ca57e19d13329f9f4369ee58305e8'=='a5fb1207f2a38763f2b29270537b4adf'));
+						console.log('300007+88888='+('a8ed402f2b2c856a76a85df576455ec7'=='73edddfe3be9926500f2d0af803b47c9'));
+						console.log('300008+88888='+('459b58741d6f22d95009be3cad09d7bd'=='459b58741d6f22d95009be3cad09d7bd'));
+						console.log('300009+88888='+('c4148de83c5972169db9cf0ec7b9a907'=='c4148de83c5972169db9cf0ec7b9a907'));
+						console.log('300010+88888='+('d34d82601c91f136dd29067c5d14afa6'=='9b90a3c32d1dced1b877412555883159'));
+						console.log('300011+88888='+('5f27ffdd00f3adc414d1ad83a4c02437'=='559d7b3c52e6c8be24ced51a998d5be0'));
+						console.log('300012+88888='+('73c75ae0cb580be67ee50a9244739714'=='861304a824954a7d794b409bf49d57bb'));
+						console.log('300013+88888='+('8bbcaced32d8856405fc738cc9b045ce'=='4360bda45a9d4436a8d63dc104755031'));
+						console.log('300014+88888='+('4d7784f38c121f0c11546ced5b1042ae'=='ae8fec5088165366a555da74e0c6339d'));
+						console.log('300015+88888='+('a8bf946e7fae77d2836f68ee75b2f611'=='941efc8185bdb657ad4c80536227752e'));
+						console.log('300018+88888='+('7cc3f255b597b04d097c8a9eb51e8532'=='1dbe72a6fd8b0804b361234aff7c590f'));
+						console.log('300019+88888='+('c13800df33af7248e7f378cccef00197'=='d88f5f85dc0f07ee22e1adfa1e951ee4'));
+						console.log('300020+88888='+('0ff420895195bd95fa84ce9c7a64e6cf'=='bc2cae6245233ed5b3550dbb5f00b655'));
+						console.log('300021+88888='+('fd4e0ed92c3c41148fd239d85e145391'=='fd4e0ed92c3c41148fd239d85e145391'));
+						console.log('300022+88888='+('8deb7e9dc748d652f90c8d1db082cece'=='8deb7e9dc748d652f90c8d1db082cece'));
+						console.log('300023+88888='+('2b20e44a34942560ccf9f2210eb6b585'=='dd50aea6575f796f3bd9efb79198e67f'));
+						console.log('300024+88888='+('92570d1d3f5280f2df8de3125a6037f8'=='a526de5b445030b434f3b5e94889389c'));
+						console.log('300025+88888='+('0de75b3cc3af41424d60c493157e65f2'=='426848bd7b1a12145d6bb5bbf51e6bb3'));
+						console.log('300027+88888='+('4fb146f67f826669bdd480160e88d2b1'=='4fb146f67f826669bdd480160e88d2b1'));
+						console.log('300028+88888='+('98914eff98271b38f60c3d842eb16cf0'=='98914eff98271b38f60c3d842eb16cf0'));
+						console.log('300030+88888='+('b846b57d66d642db876cb572b1f8d0ee'=='094a9e44089d925230380eef1b9a6943'));
+						console.log('300037+88888='+('0f4eccbe970eb966aa5e553bb42f42f9'=='2247bf1ea252fc49f4296510d0fa25a0'));
+						console.log('300036+88888='+('556d2b77b95babcfac62518527256e32'=='73eeb6d398e4d458fe79875942f86527'));
+						console.log('300029+88888='+('8658cd87878ce908fb48d63ce2dadfd3'=='520bfb89d7ed2bd8154efbad6ac3e27c'));
+						console.log('300031+88888='+('4dec8860743faf97e9fa7cd532eb748e'=='3bebebc28185eebf7f3e090562822f80'));
+						console.log('300032+88888='+('5e2cb979eadf7a2d5a938a1439530fbb'=='b93578a1a4c6389526dc35bb577e5601'));
+						console.log('300033+88888='+('902d008ee024e057f12822f383067607'=='902d008ee024e057f12822f383067607'));
+						console.log('300034+88888='+('d72f72c1eb480b0f4231682b4014dda3'=='e996b653ef89a58c9ce463909cac2acf'));
+						console.log('300038+88888='+('da449fed49c8ff83dbb8fe251dd86581'=='46fcbc611191ad6f387f33dc54ec950f'));
+						console.log('300039+88888='+('269db685956038bc5b99c0bc185ee604'=='a08b440df4f364ab2e5d17ffd30bb8db'));
+						console.log('300035+88888='+('8707932ca80320c8f3f8adc4d3e08d38'=='71631eac5b645cceb1efcddb0341ba5a'));
+						console.log('300044+88888='+('b9175e2f7711f74d802bbafbb5f879dc'=='001b7569f5007c9b5026eac0348a50fb'));
+						console.log('300045+88888='+('74ade5f1f8c7eb7e9f27f88ed744740e'=='57511d533ff50bc63a973ac307301c16'));
+						console.log('300046+88888='+('ec6ffdcdae3fefff42744d0f8d649cd1'=='4cdac7a96e06d41ddcd7ab7e44a868c6'));
+					},
+					format:{
+						console.log('300041+888888='+(hex_md5('300041'+'888888')=='dd7c85fabcb3e814d8035240bb5baa55'));
+						console.log('300042+888888='+(hex_md5('300042'+'888888')=='be83912d16bf89d119f132827791ef2a'));
+						console.log('300043+888888='+(hex_md5('300043'+'888888')=='13cb20e3cdacc4311dc01b91aa5f1cfd'));
+						console.log('SYS###+888888='+(hex_md5('SYS###'+'888888')=='80cba17da83e1233725356498e6d8d9a'));
+						console.log('$#####+888888='+(hex_md5('$#####'+'888888')=='f2da2ae031ab4af38b149ae3dace5dd8'));
+						console.log('300040+888888='+(hex_md5('300040'+'888888')=='d1f44f9895ba6fdcb107311447725748'));
+						console.log('300001+888888='+(hex_md5('300001'+'888888')=='7a3a25c3f679eb3eccab4f5cc2a9f187'));
+						console.log('300002+888888='+(hex_md5('300002'+'888888')=='a652461e96a50a7af8baffcc74708444'));
+						console.log('300003+888888='+(hex_md5('300003'+'888888')=='c072ea691eae241137d0bcfc3c3825ac'));
+						console.log('300004+888888='+(hex_md5('300004'+'888888')=='83dde543218536206b27badd6d06e22c'));
+						console.log('300006+888888='+(hex_md5('300006'+'888888')=='a5fb1207f2a38763f2b29270537b4adf'));
+						console.log('300007+888888='+(hex_md5('300007'+'888888')=='73edddfe3be9926500f2d0af803b47c9'));
+						console.log('300008+888888='+(hex_md5('300008'+'888888')=='459b58741d6f22d95009be3cad09d7bd'));
+						console.log('300009+888888='+(hex_md5('300009'+'888888')=='c4148de83c5972169db9cf0ec7b9a907'));
+						console.log('300010+888888='+(hex_md5('300010'+'888888')=='9b90a3c32d1dced1b877412555883159'));
+						console.log('300011+888888='+(hex_md5('300011'+'888888')=='559d7b3c52e6c8be24ced51a998d5be0'));
+						console.log('300012+888888='+(hex_md5('300012'+'888888')=='861304a824954a7d794b409bf49d57bb'));
+						console.log('300013+888888='+(hex_md5('300013'+'888888')=='4360bda45a9d4436a8d63dc104755031'));
+						console.log('300014+888888='+(hex_md5('300014'+'888888')=='ae8fec5088165366a555da74e0c6339d'));
+						console.log('300015+888888='+(hex_md5('300015'+'888888')=='941efc8185bdb657ad4c80536227752e'));
+						console.log('300018+888888='+(hex_md5('300018'+'888888')=='1dbe72a6fd8b0804b361234aff7c590f'));
+						console.log('300019+888888='+(hex_md5('300019'+'888888')=='d88f5f85dc0f07ee22e1adfa1e951ee4'));
+						console.log('300020+888888='+(hex_md5('300020'+'888888')=='bc2cae6245233ed5b3550dbb5f00b655'));
+						console.log('300021+888888='+(hex_md5('300021'+'888888')=='fd4e0ed92c3c41148fd239d85e145391'));
+						console.log('300022+888888='+(hex_md5('300022'+'888888')=='8deb7e9dc748d652f90c8d1db082cece'));
+						console.log('300023+888888='+(hex_md5('300023'+'888888')=='dd50aea6575f796f3bd9efb79198e67f'));
+						console.log('300024+888888='+(hex_md5('300024'+'888888')=='a526de5b445030b434f3b5e94889389c'));
+						console.log('300025+888888='+(hex_md5('300025'+'888888')=='426848bd7b1a12145d6bb5bbf51e6bb3'));
+						console.log('300027+888888='+(hex_md5('300027'+'888888')=='4fb146f67f826669bdd480160e88d2b1'));
+						console.log('300028+888888='+(hex_md5('300028'+'888888')=='98914eff98271b38f60c3d842eb16cf0'));
+						console.log('300030+888888='+(hex_md5('300030'+'888888')=='094a9e44089d925230380eef1b9a6943'));
+						console.log('300037+888888='+(hex_md5('300037'+'888888')=='2247bf1ea252fc49f4296510d0fa25a0'));
+						console.log('300036+888888='+(hex_md5('300036'+'888888')=='73eeb6d398e4d458fe79875942f86527'));
+						console.log('300029+888888='+(hex_md5('300029'+'888888')=='520bfb89d7ed2bd8154efbad6ac3e27c'));
+						console.log('300031+888888='+(hex_md5('300031'+'888888')=='3bebebc28185eebf7f3e090562822f80'));
+						console.log('300032+888888='+(hex_md5('300032'+'888888')=='b93578a1a4c6389526dc35bb577e5601'));
+						console.log('300033+888888='+(hex_md5('300033'+'888888')=='902d008ee024e057f12822f383067607'));
+						console.log('300034+888888='+(hex_md5('300034'+'888888')=='e996b653ef89a58c9ce463909cac2acf'));
+						console.log('300038+888888='+(hex_md5('300038'+'888888')=='46fcbc611191ad6f387f33dc54ec950f'));
+						console.log('300039+888888='+(hex_md5('300039'+'888888')=='a08b440df4f364ab2e5d17ffd30bb8db'));
+						console.log('300035+888888='+(hex_md5('300035'+'888888')=='71631eac5b645cceb1efcddb0341ba5a'));
+						console.log('300044+888888='+(hex_md5('300044'+'888888')=='001b7569f5007c9b5026eac0348a50fb'));
+						console.log('300045+888888='+(hex_md5('300045'+'888888')=='57511d533ff50bc63a973ac307301c16'));
+						console.log('300046+888888='+(hex_md5('300046'+'888888')=='4cdac7a96e06d41ddcd7ab7e44a868c6'));
+					},
+					update:{
+						console.log("update CTB_USER set USER_PASSWORD='"+hex_md5('300041'+'888888')+"' where USER_ID='300041';");
+						console.log("update CTB_USER set USER_PASSWORD='"+hex_md5('300042'+'888888')+"' where USER_ID='300042';");
+						console.log("update CTB_USER set USER_PASSWORD='"+hex_md5('300043'+'888888')+"' where USER_ID='300043';");
+						console.log("update CTB_USER set USER_PASSWORD='"+hex_md5('SYS###'+'888888')+"' where USER_ID='SYS###';");
+						console.log("update CTB_USER set USER_PASSWORD='"+hex_md5('$#####'+'888888')+"' where USER_ID='$#####';");
+						console.log("update CTB_USER set USER_PASSWORD='"+hex_md5('300040'+'888888')+"' where USER_ID='300040';");
+						console.log("update CTB_USER set USER_PASSWORD='"+hex_md5('300001'+'888888')+"' where USER_ID='300001';");
+						console.log("update CTB_USER set USER_PASSWORD='"+hex_md5('300002'+'888888')+"' where USER_ID='300002';");
+						console.log("update CTB_USER set USER_PASSWORD='"+hex_md5('300003'+'888888')+"' where USER_ID='300003';");
+						console.log("update CTB_USER set USER_PASSWORD='"+hex_md5('300004'+'888888')+"' where USER_ID='300004';");
+						console.log("update CTB_USER set USER_PASSWORD='"+hex_md5('300006'+'888888')+"' where USER_ID='300006';");
+						console.log("update CTB_USER set USER_PASSWORD='"+hex_md5('300007'+'888888')+"' where USER_ID='300007';");
+						console.log("update CTB_USER set USER_PASSWORD='"+hex_md5('300008'+'888888')+"' where USER_ID='300008';");
+						console.log("update CTB_USER set USER_PASSWORD='"+hex_md5('300009'+'888888')+"' where USER_ID='300009';");
+						console.log("update CTB_USER set USER_PASSWORD='"+hex_md5('300010'+'888888')+"' where USER_ID='300010';");
+						console.log("update CTB_USER set USER_PASSWORD='"+hex_md5('300011'+'888888')+"' where USER_ID='300011';");
+						console.log("update CTB_USER set USER_PASSWORD='"+hex_md5('300012'+'888888')+"' where USER_ID='300012';");
+						console.log("update CTB_USER set USER_PASSWORD='"+hex_md5('300013'+'888888')+"' where USER_ID='300013';");
+						console.log("update CTB_USER set USER_PASSWORD='"+hex_md5('300014'+'888888')+"' where USER_ID='300014';");
+						console.log("update CTB_USER set USER_PASSWORD='"+hex_md5('300015'+'888888')+"' where USER_ID='300015';");
+						console.log("update CTB_USER set USER_PASSWORD='"+hex_md5('300018'+'888888')+"' where USER_ID='300018';");
+						console.log("update CTB_USER set USER_PASSWORD='"+hex_md5('300019'+'888888')+"' where USER_ID='300019';");
+						console.log("update CTB_USER set USER_PASSWORD='"+hex_md5('300020'+'888888')+"' where USER_ID='300020';");
+						console.log("update CTB_USER set USER_PASSWORD='"+hex_md5('300021'+'888888')+"' where USER_ID='300021';");
+						console.log("update CTB_USER set USER_PASSWORD='"+hex_md5('300022'+'888888')+"' where USER_ID='300022';");
+						console.log("update CTB_USER set USER_PASSWORD='"+hex_md5('300023'+'888888')+"' where USER_ID='300023';");
+						console.log("update CTB_USER set USER_PASSWORD='"+hex_md5('300024'+'888888')+"' where USER_ID='300024';");
+						console.log("update CTB_USER set USER_PASSWORD='"+hex_md5('300025'+'888888')+"' where USER_ID='300025';");
+						console.log("update CTB_USER set USER_PASSWORD='"+hex_md5('300027'+'888888')+"' where USER_ID='300027';");
+						console.log("update CTB_USER set USER_PASSWORD='"+hex_md5('300028'+'888888')+"' where USER_ID='300028';");
+						console.log("update CTB_USER set USER_PASSWORD='"+hex_md5('300030'+'888888')+"' where USER_ID='300030';");
+						console.log("update CTB_USER set USER_PASSWORD='"+hex_md5('300037'+'888888')+"' where USER_ID='300037';");
+						console.log("update CTB_USER set USER_PASSWORD='"+hex_md5('300036'+'888888')+"' where USER_ID='300036';");
+						console.log("update CTB_USER set USER_PASSWORD='"+hex_md5('300029'+'888888')+"' where USER_ID='300029';");
+						console.log("update CTB_USER set USER_PASSWORD='"+hex_md5('300031'+'888888')+"' where USER_ID='300031';");
+						console.log("update CTB_USER set USER_PASSWORD='"+hex_md5('300032'+'888888')+"' where USER_ID='300032';");
+						console.log("update CTB_USER set USER_PASSWORD='"+hex_md5('300033'+'888888')+"' where USER_ID='300033';");
+						console.log("update CTB_USER set USER_PASSWORD='"+hex_md5('300034'+'888888')+"' where USER_ID='300034';");
+						console.log("update CTB_USER set USER_PASSWORD='"+hex_md5('300038'+'888888')+"' where USER_ID='300038';");
+						console.log("update CTB_USER set USER_PASSWORD='"+hex_md5('300039'+'888888')+"' where USER_ID='300039';");
+						console.log("update CTB_USER set USER_PASSWORD='"+hex_md5('300035'+'888888')+"' where USER_ID='300035';");
+						console.log("update CTB_USER set USER_PASSWORD='"+hex_md5('300044'+'888888')+"' where USER_ID='300044';");
+						console.log("update CTB_USER set USER_PASSWORD='"+hex_md5('300045'+'888888')+"' where USER_ID='300045';");
+						console.log("update CTB_USER set USER_PASSWORD='"+hex_md5('300046'+'888888')+"' where USER_ID='300046';");						
+						update CTB_USER set USER_PASSWORD='fb98b3bd2eabcfa9d59bb030bfb80ed6' where USER_ID='300041';
+						update CTB_USER set USER_PASSWORD='0a1b5c0776c406438047926d253042a0' where USER_ID='300042';
+						update CTB_USER set USER_PASSWORD='7d3c0ba868bf808a9c38861917b92703' where USER_ID='300043';
+						update CTB_USER set USER_PASSWORD='80cba17da83e1233725356498e6d8d9a' where USER_ID='SYS###';
+						update CTB_USER set USER_PASSWORD='f2da2ae031ab4af38b149ae3dace5dd8' where USER_ID='$#####';
+						update CTB_USER set USER_PASSWORD='bd51ce0e4801fa18a69432f525e6e8e6' where USER_ID='300040';
+						update CTB_USER set USER_PASSWORD='7a3a25c3f679eb3eccab4f5cc2a9f187' where USER_ID='300001';
+						update CTB_USER set USER_PASSWORD='a652461e96a50a7af8baffcc74708444' where USER_ID='300002';
+						update CTB_USER set USER_PASSWORD='c072ea691eae241137d0bcfc3c3825ac' where USER_ID='300003';
+						update CTB_USER set USER_PASSWORD='83dde543218536206b27badd6d06e22c' where USER_ID='300004';
+						update CTB_USER set USER_PASSWORD='ec9ca57e19d13329f9f4369ee58305e8' where USER_ID='300006';
+						update CTB_USER set USER_PASSWORD='a8ed402f2b2c856a76a85df576455ec7' where USER_ID='300007';
+						update CTB_USER set USER_PASSWORD='459b58741d6f22d95009be3cad09d7bd' where USER_ID='300008';
+						update CTB_USER set USER_PASSWORD='c4148de83c5972169db9cf0ec7b9a907' where USER_ID='300009';
+						update CTB_USER set USER_PASSWORD='d34d82601c91f136dd29067c5d14afa6' where USER_ID='300010';
+						update CTB_USER set USER_PASSWORD='5f27ffdd00f3adc414d1ad83a4c02437' where USER_ID='300011';
+						update CTB_USER set USER_PASSWORD='73c75ae0cb580be67ee50a9244739714' where USER_ID='300012';
+						update CTB_USER set USER_PASSWORD='8bbcaced32d8856405fc738cc9b045ce' where USER_ID='300013';
+						update CTB_USER set USER_PASSWORD='4d7784f38c121f0c11546ced5b1042ae' where USER_ID='300014';
+						update CTB_USER set USER_PASSWORD='a8bf946e7fae77d2836f68ee75b2f611' where USER_ID='300015';
+						update CTB_USER set USER_PASSWORD='7cc3f255b597b04d097c8a9eb51e8532' where USER_ID='300018';
+						update CTB_USER set USER_PASSWORD='c13800df33af7248e7f378cccef00197' where USER_ID='300019';
+						update CTB_USER set USER_PASSWORD='0ff420895195bd95fa84ce9c7a64e6cf' where USER_ID='300020';
+						update CTB_USER set USER_PASSWORD='fd4e0ed92c3c41148fd239d85e145391' where USER_ID='300021';
+						update CTB_USER set USER_PASSWORD='8deb7e9dc748d652f90c8d1db082cece' where USER_ID='300022';
+						update CTB_USER set USER_PASSWORD='2b20e44a34942560ccf9f2210eb6b585' where USER_ID='300023';
+						update CTB_USER set USER_PASSWORD='92570d1d3f5280f2df8de3125a6037f8' where USER_ID='300024';
+						update CTB_USER set USER_PASSWORD='0de75b3cc3af41424d60c493157e65f2' where USER_ID='300025';
+						update CTB_USER set USER_PASSWORD='4fb146f67f826669bdd480160e88d2b1' where USER_ID='300027';
+						update CTB_USER set USER_PASSWORD='98914eff98271b38f60c3d842eb16cf0' where USER_ID='300028';
+						update CTB_USER set USER_PASSWORD='b846b57d66d642db876cb572b1f8d0ee' where USER_ID='300030';
+						update CTB_USER set USER_PASSWORD='0f4eccbe970eb966aa5e553bb42f42f9' where USER_ID='300037';
+						update CTB_USER set USER_PASSWORD='556d2b77b95babcfac62518527256e32' where USER_ID='300036';
+						update CTB_USER set USER_PASSWORD='8658cd87878ce908fb48d63ce2dadfd3' where USER_ID='300029';
+						update CTB_USER set USER_PASSWORD='4dec8860743faf97e9fa7cd532eb748e' where USER_ID='300031';
+						update CTB_USER set USER_PASSWORD='5e2cb979eadf7a2d5a938a1439530fbb' where USER_ID='300032';
+						update CTB_USER set USER_PASSWORD='902d008ee024e057f12822f383067607' where USER_ID='300033';
+						update CTB_USER set USER_PASSWORD='d72f72c1eb480b0f4231682b4014dda3' where USER_ID='300034';
+						update CTB_USER set USER_PASSWORD='da449fed49c8ff83dbb8fe251dd86581' where USER_ID='300038';
+						update CTB_USER set USER_PASSWORD='269db685956038bc5b99c0bc185ee604' where USER_ID='300039';
+						update CTB_USER set USER_PASSWORD='8707932ca80320c8f3f8adc4d3e08d38' where USER_ID='300035';
+						update CTB_USER set USER_PASSWORD='b9175e2f7711f74d802bbafbb5f879dc' where USER_ID='300044';
+						update CTB_USER set USER_PASSWORD='74ade5f1f8c7eb7e9f27f88ed744740e' where USER_ID='300045';
+						update CTB_USER set USER_PASSWORD='ec6ffdcdae3fefff42744d0f8d649cd1' where USER_ID='300046';
+					}
+				
