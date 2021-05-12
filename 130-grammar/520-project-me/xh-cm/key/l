@@ -209,6 +209,7 @@ tz:{
 					clear;cd /sunline/v7base/logs/cbs-ltts-onl/busi/20210113/40200/;cp 40200.log 40200.210507-1845.log;cp /dev/null 40200.log;	
 					clear;cd /sunline/v7base/logs/cbs-ltts-onl/busi/20210110/40101/;cp 40101.log 40101.210430-1359.log;cp /dev/null 40101.log;	
 					clear;cd /sunline/v7base/logs/cbs-ltts-onl/busi/20210110/44060/;cp 44060.log 44060.210505-1436.log;cp /dev/null 44060.log;	
+					clear;cd /sunline/v7base/logs/cbs-ltts-onl/busi/20210114/60001/;cp 60001.log 60001.210510-2130.log;cp /dev/null 60001.log;	
 				}
 			}
 		},
@@ -512,6 +513,8 @@ ex:{
 				ll /home/exim/local/icore/025/LOAN/20210122;
 			},
 			lib:{
+				cd /sunline/v7base/apps/cbs/lib/1.3.2.77-Release/
+				sz /sunline/v7base/apps/cbs/lib/1.3.2.77-Release/cbs-at-1.3.2.77-Release.jar
 				cd /home/exim/icore01/lib; wget 
 				cd /home/exim/icore01/lib;ll *sys;
 				ll /home/exim/icore01/lib/ ;
@@ -522,6 +525,11 @@ ex:{
 				cd /home/exim/icore01/etc/;ll;
 				cd /home/exim/icore01/etc/batApp;grep "path" *;
 			}212022
+			log:{
+				delete from lna_phase where loan_no='8402190115005'
+				cd /sunline/v7base/logs/cbs-ltts-onl/busi/;grep "delete from lna_phase where loan_no='8402190115005'" 2021*/*/*log
+				cd /sunline/v7base/logs/cbs-ltts-onl/busi/;grep "delete from lna_phase where loan_no='8402190115005'" */*/*log
+			}
 		},
 		ct(10.22.61.97):{
 			bin:{
@@ -533,8 +541,6 @@ ex:{
 				/home/exim/ct01/bin/ltts stop batApp;
 				/home/exim/ct01/bin/ltts start batApp;
 			}
-			
-
 		},
 		gateway:{
 			

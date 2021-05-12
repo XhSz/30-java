@@ -1,0 +1,122 @@
+
+		dp4401-'account list query':{
+				S-SrvIoCtUser.chkAuthPermission-'null':{},
+				S-SrvDpQueryAcct.qryAcctMainList-'null':{
+					return method-DpAcctQuery.qryMainAcctList-'null':{
+						method-BizUtil.getTrxRunEnvs-'null',
+						nsql-DpAcctQuery.selMainAcctList-S-dpa_account-select,dpa_card_account-select-'Query the master account list information',
+						method-DpAcctQuery.getAcctInfo-'null':{
+							table-dpp_account_type-select-'Account Type Definition Table',
+							method-ApBranch.getItem-'null':{
+								table-apb_branch-select-'branch infomation'
+							},
+							localSer-SrvIoCmVoucher.qryCustVoucherInfo-'null':{
+								return method-CmVoucherQry.qryCustVoucherInfo-'null':{
+									method-BizUtil.getTrxRunEnvs-'null',
+									method-ApOrg.getReferenceOrgId-'null':{
+										method-BizUtil.getTrxRunEnvs-'null',
+										method-BizUtil.isOrgRelated-'null',
+										table-app_parameter_reference-select-'parameter reference define',
+										table-app_parameter_reference-select-'parameter reference define',
+										method-BizUtil.isParmTable-'null',
+										method-ApOrg.getOrgInfo-'null':{
+											table-app_organization-select-'organization infomation'
+										},
+										method-ApOrg.getOrgInfo-'null':{
+											table-app_organization-select-'organization infomation'
+										}
+									},
+									nsql-CmVoucher.selCustVoucherInfo-S-cmb_cust_voch-select-'select customer voucher info dynamically'
+								}
+							},
+							method-ApChannel.isCounter-'null':{
+								method-ApChannel.getChannel-'null':{
+									table-app_channel-select-'channel define'
+								}
+							},
+							method-BizUtil.getTrxRunEnvs-'null',
+							localSer-SrvDpQueryFroze.queryFrozeInfo-'null':{
+								return method-DpFrozeQuery.queryFroze-'null':{
+									method-ApCurrency.exists-'null':{
+										table-app_currency-select-'currency define'
+									},
+									method-DpQueryLocateAccount.locateSubAcct-'null':{
+										method-DpQueryLocateAccount.locateAccount-'null':{
+											table-dpa_account-select-'Deposit account table',
+											table-dpa_card-select-'Card information',
+											table-dpa_card_new-select-'new card and old card register',
+											table-dpa_card-select-'Card information',
+											table-dpa_account-select-'Deposit account table',
+											method-BizUtil.getTrxRunEnvs-'null',
+											nsql-DpCardAcctRelate.locateAcctByCard-S-dpa_card_account-select,dpa_account-select-'Locate the account by card number',
+											nsql-DpCardAcctRelate.existsCard-S-dpa_card-select-'To determine whether the card number exists',
+											table-dpa_card_new-select-'new card and old card register',
+											nsql-DpCardAcctRelate.locateAcctByCard-S-dpa_card_account-select,dpa_account-select-'Locate the account by card number'
+										},
+										method-BizUtil.getTrxRunEnvs-'null',
+										nsql-DpCommon.locateSubAcct-S-dpa_account_relate-select-'Locate sub-account'
+									},
+									method-DpQueryLocateAccount.locateAccount-'null':{
+										table-dpa_account-select-'Deposit account table',
+										table-dpa_card-select-'Card information',
+										table-dpa_card_new-select-'new card and old card register',
+										table-dpa_card-select-'Card information',
+										table-dpa_account-select-'Deposit account table',
+										method-BizUtil.getTrxRunEnvs-'null',
+										nsql-DpCardAcctRelate.locateAcctByCard-S-dpa_card_account-select,dpa_account-select-'Locate the account by card number',
+										nsql-DpCardAcctRelate.existsCard-S-dpa_card-select-'To determine whether the card number exists',
+										table-dpa_card_new-select-'new card and old card register',
+										nsql-DpCardAcctRelate.locateAcctByCard-S-dpa_card_account-select,dpa_account-select-'Locate the account by card number'
+									},
+									method-BizUtil.getTrxRunEnvs-'null',
+									nsql-DpFroze.selFrozeByFrozeInfo-S-dpb_froze-select-'query freeze register by freezing information',
+									method-DpParameter.getFrozeTypeInfo-'null':{
+										table-dpp_froze_type-select-'Freeze type definition table'
+									},
+									table-dpa_sub_account-select-'Deposit sub-account table',
+									table-dpa_account-select-'Deposit account table',
+									table-dpa_account-select-'Deposit account table',
+									localSer-SrvIoCfCustomer.qryCfCustInfo-'null':{
+										return method-CfCustInfoQuery.qryCfCustInfo-'null':{
+											method-BizUtil.getTrxRunEnvs-'null',
+											method-ApOrg.getReferenceOrgId-'null',
+											nsql-CfCustomerBase.selPersonCustByDoc-S-cfb_person_doc-select-'select customer info by customer no',
+											table-cfb_person_base-select-'personal customer basic information',
+											method-BizUtil.dateDiff-'null',
+											method-BizUtil.getTrxRunEnvs-'null',
+											table-cfb_person_contact-select-'personal customer contact information',
+											table-cfb_person_address-select-'personal customer address information',
+											table-cfb_person_contact-select-'personal customer contact information',
+											table-cfb_person_doc-select-'personal customer document information',
+											method-ApOrg.getReferenceOrgId-'null',
+											nsql-CfCustomerBase.selCorporCustByDoc-S-cfb_corpor_doc-select-'select  copor customer info by document no',
+											table-cfb_corpor_base-select-'corporation customer basic information',
+											table-cfb_corpor_address-select-'corporation customer address information',
+											table-cfb_siger_agent-select-'cfb siger agent list',
+											table-cfb_person_base-select-'personal customer basic information',
+											table-cfb_siger_agent-select-'cfb siger agent list',
+											table-cfb_person_base-select-'personal customer basic information',
+											table-cfb_corpor_doc-select-'corporation customer document information',
+											table-cfb_corpor_contact-select-'corporation customer contact information',
+											method-ApOrg.getReferenceOrgId-'null',
+											nsql-CfCustomerBase.selFiCustByDoc-S-cfb_fi_doc-select-'select  Fi customer info by document no',
+											table-cfb_fi_base-select-'fi customer basic information',
+											table-cfb_fi_address-select-'fi customer address information',
+											table-cfb_siger_agent-select-'cfb siger agent list',
+											table-cfb_person_base-select-'personal customer basic information',
+											table-cfb_siger_agent-select-'cfb siger agent list',
+											table-cfb_person_base-select-'personal customer basic information',
+											table-cfb_fi_doc-select-'fi customer document information',
+											table-cfb_fi_contact-select-'fi customer contact information',
+											table-cfb_cust_joint-select-'joint customer',
+											table-cfb_cust_joint_list-select-'joint customer list',
+											table-cfb_person_base-select-'personal customer basic information'
+										}
+									}
+								}
+							},
+							table-dpa_sub_account-select-'Deposit sub-account table'
+						}
+					}
+				}
+		},

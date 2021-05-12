@@ -1,6 +1,23 @@
 ln6020-'loan account opening':{
 				S-SrvIoLnLoanOpen.loanNormalOpenAndCheck-'null',
-				S-SrvLnLoanDrawdown.loanDrawdownForNormalOpen-'null',
+				S-SrvLnLoanDrawdown.loanDrawdownForNormalOpen-'null':{		
+					LnLoanDrawdown.drawdown		
+						LnLoan.getLnaBasic	
+						LnLoan.getLnaLoan	
+						LnLoanDrawdown.registerRateChangeStatement	
+						LnLoanDrawdown.updateLoanDrawdown
+						LnLoanDrawdown.dealRepaymentSchedule
+							LnLoan.getLnaRepayment
+							LnLoan.getLnaLoan
+							LnLoan.getLnaAccrual
+							LnLoan.getLnaMaturity
+							LnLoan.getLnaBasic
+							LnPhaseDrawdown.genPhaseAndSchedule
+								LnInterestRateConversion.calInterestRatesByCycle
+								LnSchedule.calInstallment4EqualInstallment  
+								LnSchedule.calBaseInstallmentOrPrincipal  
+								insert 					
+				},
 				S-SrvLnLoanDrawdown.lnNormalRepay-'null',
 				S-SrvLnLoanDrawdown.lnEarlyRepay-'null',
 				S-SrvLnLoan.SrvLnOpenFundEntryDeal-'null',
@@ -12,4 +29,4 @@ ln6020-'loan account opening':{
 				S-SrvLnLoanDrawdown.lnLoanInput-'null',
 				M-printOpenCountInfo-'null'
 		},
-		
+	

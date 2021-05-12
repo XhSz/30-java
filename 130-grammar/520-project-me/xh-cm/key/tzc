@@ -146,7 +146,7 @@ out:{
 			11. Badili Lugha
 		}
 	},
-	shiryley:{
+	华人餐厅-刘姐-shirley:{
 		1） 虾仁豆腐煲
 		2） 豉汁炒牛肉
 		4） 红烧茄子牛肉煲
@@ -240,7 +240,12 @@ bcx:{
 
 通过视图  来访问 数据库;
 第6、7个待查;
-
+plan:{
+	ATM  /  Mobile Bank:{
+		
+	}
+		
+},
 server:{
 	loc:{
 		http://nexus.odc.sunline.cn/
@@ -262,25 +267,33 @@ server:{
 					cust_no:9100000329,
 					sub_acct_no:1000006302, 
 					acct_no:1050002702,			160,000.00
-				}
+					loan_no:{8341210114003,}
+				},
+				Huang Mingjie:{
+					cust_no:9100000331,
+					sub_acct_no:1000006602, 
+					acct_no:1030002902,			
+					
+				},
+				Business Promotion Expenses:{EX6082102,10183415029}
 			},
 			vue,{	-http://172.31.2.12:6100/ -300004/888888
 				user:{
 					hex_md5('300003'+'888888')=c072ea691eae241137d0bcfc3c3825ac,
 					888888:{
 						SYS###+88888=true
-						$#####+88888=true
+						$#####+88888=true		可以
 						300001+88888=true
-						300002+88888=true
+						300002+88888=true		法人代码
 						300003+88888=true
 						300004+88888=true
-						300008+88888=true
-						300009+88888=true
-						300021+88888=true
-						300022+88888=true
-						300027+88888=true
-						300028+88888=true
-						300033+88888=true
+						300008+88888=true		法人代码
+						300009+88888=true		法人代码
+						300021+88888=true		可以
+						300022+88888=true		可以
+						300027+88888=true		密码过期
+						300028+88888=true		密码过期
+						300033+88888=true		公共业务
 					},
 					error:{
 						123456,111111,666666,同账号名
@@ -405,6 +418,20 @@ BI Statement:{
 	
 }
 行方 说今天想投产一个ln25生成 xml的，UAT已经改好验证成功了，只需要投产一个class，但是反编译生成这个class..
+
+log:{
+	两个需求签约,下周三;
+	wecodee:{
+		网银API:{},
+		mobilebanking,atm&api;
+	},
+	其实是形同陌路的两个人,我非要让他们相交.
+	Hardi:{
+		210511: 讨论visa,esb调用;梳理菜单到柜员关系;wecodee接口:dp4401增加可用余额,调通约定转账查询;
+		210512: 参与遗留问题讨论;wecodee接口,内部户第三方账户相关交易准备;生产问题,随心还贷款利率调整业务熟悉;
+	}
+
+},
 git:{
 	io-bus:{
 		/type/lt/dept/ComIoDpDemandAccounting.c_schema.xml						dp4020,add branch_name
@@ -419,13 +446,15 @@ git:{
 		/cn/sunline/ltts/busi/cftran/trans/base/intf/Cf3015.java
 	},
 	lt-tran:{
-		/trans/query/dp4406.flowtrans.xml					refer 		ap1044
-		/cn\sunline\ltts\busi\lttran\trans\query\intf\Dp4406.class
-		/trans/instruct/dp4241.flowtrans.xml										dp4241,add sign_seq
+		/trans/query/dp4406.flowtrans.xml				refer ap1044			dp4406,add cust_str,usable_bal;dp4020,add branch_name
+		/cn\sunline\ltts\busi\lttran\trans\query\intf\Dp4406.class				dp4406,add cust_str,usable_bal;dp4020,add branch_name
+		/trans/instruct/dp4241.flowtrans.xml									dp4241,add sign_seq
 		/cn\sunline\ltts\cbs\lttran\trans\instruct\intf							dp4241,add sign_seq
 		/trans/accounting/dp4020.flowtrans.xml									dp2040,add branch_name
 		/cn/sunline/ltts/cbs/dptran/trans/intf/Dp4020.java						dp2040,add branch_name
-		/cn/sunline/ltts/cbs/lttran/trans/accounting/dp4020.java					dp2040,add branch_name
+		/cn/sunline/ltts/cbs/lttran/trans/accounting/dp4020.java				dp2040,add branch_name
+		/trans/query/dp4401.flowtrans.xml										dp4401,add usable_bal;
+		\cn\sunline\ltts\busi\lttran\trans\query\intf\Dp4401.java				dp4401,add usable_bal
 		
 		/cbs-lttran-1.3.2.83-RELEASE.jar\trans\query
 		/cbs-lttran-1.3.2.83-RELEASE.jar\cn\sunline\ltts\busi\lttran\trans\query\intf
@@ -433,15 +462,15 @@ git:{
 		\cn\sunline\ltts\cbs\lttran\trans\accounting
 		\cn\sunline\ltts\cbs\dptran\trans\intf\	dp4020.class
 	},
-	lt:{
-		/type/dept/ComDpQueryAcct.c_schema.xml
+	lt:{	D:\03-sl-107-code\12-tz\svn-latest\busi\lt\target\classes\
+		/type/dept/ComDpQueryAcct.c_schema.xml									dp4406,add cust_str;dp4401,add usable_bal;
 		/type/dept/ComDpInstruct.c_schema.xml									dp4241,add sign_seq
-		/cn/sunline/ltts/cbs/lt/type/dept/ComDpQueryAcct.java
-		/cn/sunline/ltts/cbs/lt/type/dept/ComDpInstruct.java						dp4241,add sign_seq
+		/cn/sunline/ltts/cbs/lt/type/dept/ComDpQueryAcct.java					dp4406,add cust_str;dp4401,add usable_bal;
+		/cn/sunline/ltts/cbs/lt/type/dept/ComDpInstruct.java					dp4241,add sign_seq
 		/src/main/resources/servicetype/dept/SrvDpQueryAcct.serviceType.xml
 		/cn/sunline/ltts/cbs/lt/servicetype/dept/SrvDpQueryAcct.java
 		/cn/sunline/ltts/cbs/lt/serviceimpl/dept/SrvDpQueryAcctImpl.java
-		/cn/sunline/ltts/cbs/lt/dept/query/DpAcctQuery.java
+		/cn/sunline/ltts/cbs/lt/dept/query/DpAcctQuery.java						dp4406,add cust_str;dp4401,add usable_bal;
 		/cn/sunline/ltts/cbs/lt/dept/instruct/DpAgreeTransfers.java				dp4241,add sign_seq
 		/cn/sunline/ltts/cbs/lt/dept/common/DpTransactions.java					dp2040,add branch_name
 		/namedsql/online/DpAcctQuery.nsql.xml
@@ -783,7 +812,7 @@ vue:{
 		2050	20050	ct2050In	A601	角色查询
 		2076	20159	ct2076In	A602	角色平账流程查询
 		2076	20159	ct2076In	A602	角色平账流程查询
-		2094	20094	ct2094In	A603	交易受理方式查询:{
+		2094	20094	ct2094In	A603	交易受理方式查询:{		ct2094
 			工作流ID:FLOW0006,Applied by CreditANA Authorized by SCM,Senior Credit Manager	
 		}
 		2094	20094	ct2094In	A603	交易受理方式查询
@@ -831,14 +860,14 @@ vue:{
 		4464	40464	dp4464In	2823	约定转账查询
 		4450	40510	dp4510In	2502	账户利率查询
 		4452	40520	dp4520In	2503	存款产品利息试算
-		4402	40601	dp4601In	2601	账户信息查询				dp4402
+		4402	40601	dp4601In	2601	账户信息查询				dp4402/40601
 		4401	40603	dp4603In	2607	账户列表查询				dp4401/40603
 		4461	40606	dp4606In	2604	定期转存历史信息查询
 		4455	40607	dp4607In	2605	账户付息历史信息查询
 		4451	40608	dp4608In	2606	账户应计利息信息查询
 		4410	40610	dp4610In	2602	活期交易明细查询
 		4410	40611	dp4611In	2603	定期交易明细查询
-		4614	40614	dp4614In	2916	存放同业账户信息查询
+		4614	40614	dp4614In	2916	存放同业账户信息查询		dp4614/40614
 		4410	40610	dp4615In	2917	存放同业存款账单查询
 		4614	40616	dp4616In	2934	同业拆入账号信息查询
 		4614	40617	dp4617In	2944	同业拆借账号信息查询
@@ -854,7 +883,7 @@ vue:{
 		4236	40804	dp4822In	2702	透支协议维护
 		4483	40805	dp4823In	2703	透支协议查询
 		4239	40824	dp4824In	2704	透支利息归还
-		4241	40806	dp4831In	2811	约定转账签约			dp4241
+		4241	40806	dp4831In	2811	约定转账签约			dp4241/40806
 		4242	40807	dp4832In	2812	约定转账维护
 		4462	40808	dp4833In	2813	约定转账查询			dp4462/40808
 		4901	40901	dp4901In	A201	存款产品查询			dp4901
@@ -890,10 +919,12 @@ vue:{
 	},
 	py:{
 		7501	70501	py7501In	9204	NAK202电文重发
-		7501	70505	py7505In	3301	单笔头寸调拨
-		7506	70506	py7506In	3302	外汇平盘交易
-		7508	70508	py7508In	3303	??????
-		7509	70509	py7509In	3304	??????
+		支付业务/Inward/Outward Transfer -> 头寸管理 / Position Management:{
+			7501	70505	py7505In	3301	单笔头寸调拨 / Position Regulate
+			7506	70506	py7506In	3302	外汇平盘交易 / Foreign Exchange Flat
+			7508	70508	py7508In	3303	?????? 外汇买卖证实 / Foreign Exchange Confirmation
+			7509	70509	py7509In	3304	?????? 定期存放证实 / Fixed  Deposit Confirmation
+		}
 		7550	70550	py7550In	B401	错误电文参数查询
 		7550	70550	py7550In	A701	错误电文参数查询
 		7550	70550	py7550In	A701	错误电文参数查询
@@ -962,7 +993,7 @@ vue:{
 	},
 	ta:{
 		7103	70003	ta7102In	B301	业务编码维护
-		7103	70003	ta7103In	A501	业务编码查询
+		7103	70003	ta7103In	A501	业务编码查询			ta7103/70003
 		4022	70019	ta7107In	6301	一对一内部户转账
 		4021	70021	ta7109In	6302	多对多内部户转账
 		7106	70025	ta7111In	A502	多对多业务场景查询
@@ -970,8 +1001,8 @@ vue:{
 		7110	70027	ta7114In	A503	业务场景查询
 		7110	70027	ta7115In	B303	多对多业务场景维护
 		7201	70006	ta7201In	6101	内部户开户
-		7202	70007	ta7202In	6102	内部户维护
-		7203	70008	ta7203In	6201	内部户查询
+		7202	70007	ta7202In	6102	内部户维护				ta7202/70007
+		7203	70008	ta7203In	6201	内部户查询				ta7203/70008
 		7205	70010	ta7205In	6103	内部户销户
 		7206	70011	ta7206In	6202	内部户交易明细查询
 		7207	70012	ta7207In	6104	内部户停用启用
@@ -1245,6 +1276,26 @@ tables:{
 		tc-select-11:{
 			11-ln6009-'Loan repayment schedule maintenance',
 			
+		},
+		del-14:{
+			LnExtend.genPhase4EqualInstallment(IoLnExtendIn, String, String, BigDecimal, Long)-1:{
+				LnExtend.phaseAndSchedule(IoLnExtendIn, String, String, BigDecimal, Long)-1:{
+					LnExtend.extendDateDeal(IoLnExtendIn)-1:{
+						LnExtend.processExtend(IoLnExtendIn)-1:{
+							SrvLnLoanExtend.loanExtend-1	<-		ln6075	Loan extend	 贷款展期
+						}
+					}
+				}
+			},
+			LnExtend.modifyMaturityDate(IoLnExtendIn, String)-2:{
+				2-LnExtend.extendDateDeal(IoLnExtendIn);
+			},
+			LnMaturityDateChange.modifyMaturityDate1(IoLnMaturityDateChange)-1:{
+				LnMaturityDateChange.reduceDateDeal(IoLnMaturityDateChange);-1:{
+					processMaturityDateChange(IoLnMaturityDateChange);
+				}
+			}
+			
 		}
 	},
 	apb_batch_send-select-11:{
@@ -1400,8 +1451,6 @@ common:{
 }
 
 
-log
-
 E0116:{
 	doLedgerBalFile();:{
 		gl03,glt03
@@ -1463,4 +1512,141 @@ key:{
 		String toString();
 		Class<? extends Annotation> annotationType();
 	}
+}
+
+
+8583:{
+
+ISO8583 ISO8583_1993[] =
+{
+    0, "Bit Map                                           ", "位元表                ", "              ", 0, FT_B   , 8,
+    1, "Bit Map/Extended                                  ", "扩展位元表            ", "              ", 0, FT_B   , 8,
+    2, "Primary Account Number                            ", "主帐号                ", "LLVAR         ", 2, FT_N   , 19,
+    3, "Processing Code                                   ", "处理代码              ", "              ", 0, FT_N   , 6,
+    4, "Amount, Transaction                               ", "交易金额              ", "              ", 0, FT_N   , 12,
+    5, "Amount, Reconciliation                            ", "对帐金额              ", "              ", 0, FT_N   , 12,
+    6, "Amount, Cardholder Billing                        ", "持卡人签单金额        ", "              ", 0, FT_N   , 12,
+    7, "Date and Time, Transmission                       ", "传输日期和时间        ", "MMDDhhmmss    ", 0, FT_N   , 10,
+    8, "Amount, Cardholder Billing Fee                    ", "持卡人签单手续费金额  ", "              ", 0, FT_N   , 8,
+    9, "Conversion Rate, Reconciliation                   ", "对帐兑换率            ", "              ", 0, FT_N   , 8,
+   10, "Conversion Rate, Cardholder Billing               ", "持卡人签单兑换率      ", "              ", 0, FT_N   , 8,
+   11, "Systems Trace Audit Number                        ", "系统跟踪审计号        ", "              ", 0, FT_N   , 6,
+   12, "Date and Time, Local Transaction                  ", "本地交易日期时间      ", "YYMMDDhhmmss  ", 0, FT_N   , 12,
+   13, "Date, Effective                                   ", "生效日期              ", "YYMM          ", 0, FT_N   , 4,
+   14, "Date, Expiration                                  ", "截止日期              ", "YYMM          ", 0, FT_N   , 4,
+   15, "Date, Settlement                                  ", "清算日期              ", "YYMMDD        ", 0, FT_N   , 6,
+   16, "Date, Conversion                                  ", "兑换日期              ", "MMDD          ", 0, FT_N   , 4,
+   17, "Date, Capture                                     ", "受理日期              ", "MMDD          ", 0, FT_N   , 4,
+   18, "Merchant Type                                     ", "商户类型              ", "              ", 0, FT_N   , 4,
+   19, "Country Code, Acquiring Institution               ", "代理机构国家代码      ", "              ", 0, FT_N   , 3,
+   20, "Country Code, Primary Account Number              ", "主帐号国家代码        ", "              ", 0, FT_N   , 3,
+   21, "Country Code, Forwarding Institution              ", "发送机构国家代码      ", "              ", 0, FT_N   , 3,
+   22, "Point of Service Data Code                        ", "服务点数据代码        ", "              ", 0, FT_AN  , 12,
+   23, "Card Sequence Number                              ", "卡顺序号              ", "              ", 0, FT_N   , 3,
+   24, "Function Code                                     ", "功能代码              ", "              ", 0, FT_N   , 3,
+   25, "Message Reason Code                               ", "报文理由代码          ", "              ", 0, FT_N   , 4,
+   26, "Card Acceptor Business Code                       ", "受卡方业务代码        ", "              ", 0, FT_N   , 4,
+   27, "Approval Code Length                              ", "批准代码长度          ", "              ", 0, FT_N   , 1,
+   28, "Date, Reconciliation                              ", "对帐日期              ", "YYMMDD        ", 0, FT_N   , 6,
+   29, "Reconciliation Indicator                          ", "对帐指示符            ", "              ", 0, FT_N   , 3,
+   30, "Amounts, Original                                 ", "原始金额              ", "              ", 0, FT_N   , 24,
+   31, "Acquirer Reference Data                           ", "代理方参考数据        ", "LLVAR         ", 2, FT_ANS , 99,
+   32, "Acquirer Institution ID Code                      ", "代理方机构标识码      ", "LLVAR         ", 2, FT_N   , 11,
+   33, "Forwarding Institution ID Code                    ", "发送机构标识码        ", "LLVAR         ", 2, FT_N   , 11,
+   34, "Primary Account Number, Extended                  ", "扩展的主帐号          ", "LLVAR         ", 2, FT_NS  , 28,
+   35, "Track 2 Data                                      ", "第二磁道数据          ", "LLVAR         ", 2, FT_Z   , 37,
+   36, "Track 3 Data                                      ", "第三磁道数据          ", "LLLVAR        ", 3, FT_Z   , 104,
+   37, "Retrieval Reference Number                        ", "检索参考号            ", "              ", 0, FT_ANP , 12,
+   38, "Approval Code                                     ", "批准代码              ", "              ", 0, FT_ANP , 6,
+   39, "Action Code                                       ", "动作代码              ", "              ", 0, FT_N   , 3,
+   40, "Service Code                                      ", "服务代码              ", "              ", 0, FT_N   , 3,
+   41, "Card Acceptor Terminal ID                         ", "受卡方终端标识        ", "              ", 0, FT_ANS , 8,
+   42, "Card Acceptor ID Code                             ", "受卡方标识代码        ", "              ", 0, FT_ANS , 15,
+   43, "Card Acceptor Name/Location                       ", "受卡方名称/地点       ", "LLVAR         ", 2, FT_ANS , 99,
+   44, "Additional Response Data                          ", "附加响应数据          ", "LLVAR         ", 2, FT_ANS , 99,
+   45, "Track 1 Data                                      ", "第一磁道数据          ", "LLVAR         ", 2, FT_ANS , 76,
+   46, "Amounts, Fees                                     ", "手续费金额            ", "LLLVAR        ", 3, FT_ANS , 204,
+   47, "Additional Data - National                        ", "附加数据-国家         ", "LLLVAR        ", 3, FT_ANS , 999,
+   48, "Additional Data - Private                         ", "附加数据-民间         ", "LLLVAR        ", 3, FT_ANS , 999,
+   49, "Currency Code, Transaction                        ", "交易货币代码          ", "              ", 0, FT_A   , 3,
+   50, "Currency Code, Reconciliation                     ", "对帐货币代码          ", "              ", 0, FT_A   , 3,
+   51, "Currency Code, Cardholder Billing                 ", "持卡人签单货币代码    ", "              ", 0, FT_A   , 3,
+   52, "Personal ID (PIN) Data                            ", "用户密码PIN数据       ", "              ", 0, FT_B   , 8,
+   53, "Security Related Control Information              ", "安全控制信息          ", "LLVAR         ", 2, FT_B   , 48,
+   54, "Amounts, Additional                               ", "附加金额              ", "LLLVAR        ", 3, FT_ANS , 120,
+   55, "Integrated Circuit Card System Related Data       ", "IC卡系统相关数据      ", "LLLVAR        ", 3, FT_B   , 48,
+   56, "Original Data Elements                            ", "原始数据元            ", "LLVAR         ", 2, FT_N   , 35,
+   57, "Authorization Life Cycle Code                     ", "授权生命周期代码      ", "              ", 0, FT_N   , 3,
+   58, "Authorizing Agent Institution ID Code             ", "授权代理机构标识代码  ", "LLVAR         ", 2, FT_N   , 11,
+   59, "Transport Data                                    ", "传输数据              ", "LLLVAR        ", 3, FT_ANS , 999,
+   60, "Reserved for National Use                         ", "保留给国家使用        ", "LLLVAR        ", 3, FT_ANS , 999,
+   61, "Reserved for National Use                         ", "保留给国家使用        ", "LLLVAR        ", 3, FT_ANS , 999,
+   62, "Reserved for Private Use                          ", "保留给民间使用        ", "LLLVAR        ", 3, FT_ANS , 999,
+   63, "Reserved for Private Use                          ", "保留给民间使用        ", "LLLVAR        ", 3, FT_ANS , 999,
+   64, "Message Authentication Code Field                 ", "报文鉴别代码字段      ", "              ", 0, FT_B   , 8,
+   65, "Reserved for ISO                                  ", "保留给ISO使用         ", "              ", 0, FT_B   , 8,
+   66, "Amounts, Original Fees                            ", "原始手续费金额        ", "LLLVAR        ", 3, FT_ANS , 204,
+   67, "Extended Payment Data                             ", "扩展的付款数据        ", "              ", 0, FT_N   , 2,
+   68, "Country Code, Receiving Institution               ", "接收机构国家代码      ", "              ", 0, FT_N   , 3,
+   69, "Country Code, Settlement Institution              ", "清算机构国家代码      ", "              ", 0, FT_N   , 3,
+   70, "Country Code, Authorizing Agent Institution       ", "授权代理机构国家代码  ", "              ", 0, FT_N   , 3,
+   71, "Message Number                                    ", "报文编号              ", "              ", 0, FT_N   , 8,
+   72, "Data, Record                                      ", "数据记录              ", "LLLVAR        ", 3, FT_ANS , 999,
+   73, "Date, Action                                      ", "动作日期              ", "YYMMDD        ", 0, FT_N   , 6,
+   74, "Credits, Number                                   ", "贷记笔数              ", "              ", 0, FT_N   , 10,
+   75, "Credits, Reversal Number                          ", "撤消贷记笔数          ", "              ", 0, FT_N   , 10,
+   76, "Debits, Number                                    ", "借记笔数              ", "              ", 0, FT_N   , 10,
+   77, "Debits, Reversal Number                           ", "撤消借记笔数          ", "              ", 0, FT_N   , 10,
+   78, "Transfer, Number                                  ", "转帐笔数              ", "              ", 0, FT_N   , 10,
+   79, "Transfer, Reversal Number                         ", "撤消转帐笔数          ", "              ", 0, FT_N   , 10,
+   80, "Inquiries, Number                                 ", "查询笔数              ", "              ", 0, FT_N   , 10,
+   81, "Authorizations, Number                            ", "授权笔数              ", "              ", 0, FT_N   , 10,
+   82, "Inquiries, Reversal Number                        ", "撤消查询笔数          ", "              ", 0, FT_N   , 10,
+   83, "Payments, Number                                  ", "付款笔数              ", "              ", 0, FT_N   , 10,
+   84, "Payments, Reversal Number                         ", "撤消付款笔数          ", "              ", 0, FT_N   , 10,
+   85, "Fee Collections, Number                           ", "手续费收取笔数        ", "              ", 0, FT_N   , 10,
+   86, "Credits, Amount                                   ", "贷记金额              ", "              ", 0, FT_N   , 16,
+   87, "Credits, Reversal Amount                          ", "撤消贷记金额          ", "              ", 0, FT_N   , 16,
+   88, "Debits, Amount                                    ", "借记金额              ", "              ", 0, FT_N   , 16,
+   89, "Debits, Reversal Amount                           ", "撤消借记金额          ", "              ", 0, FT_N   , 16,
+   90, "Authorizations, Reversal Number                   ", "撤消授权笔数          ", "              ", 0, FT_N   , 10,
+   91, "Country Code, Transaction Destination Institution ", "交易终点机构国家代码  ", "              ", 0, FT_N   , 3,
+   92, "Country Code, Transaction Originator Institution  ", "交易发起机构国家代码  ", "              ", 0, FT_N   , 3,
+   93, "Transaction Destination Institution ID Code       ", "交易终点机构标识代码  ", "LLVAR         ", 2, FT_N   , 11,
+   94, "Transaction Originator Institution ID Code        ", "交易发起机构标识代码  ", "LLVAR         ", 2, FT_N   , 11,
+   95, "Card Issuer Reference Data                        ", "发卡方参考数据        ", "LLVAR         ", 2, FT_ANS , 99,
+   96, "Key Management Data                               ", "密钥管理数据          ", "LLLVAR        ", 3, FT_B   , 999,
+   97, "Amount, Net Reconciliation                        ", "净对帐金额            ", "              ", 0, FT_XN  , 16,
+   98, "Payee                                             ", "收款人                ", "              ", 0, FT_ANS , 25,
+   99, "Settlement Institution ID Code                    ", "清算机构标识代码      ", "LLVAR         ", 2, FT_AN  , 11,
+  100, "Receiving Institution ID Code                     ", "接收机构标识代码      ", "LLVAR         ", 2, FT_AN  , 11,
+  101, "File Name                                         ", "文件名                ", "LLVAR         ", 2, FT_ANS , 17,
+  102, "Account ID 1                                      ", "帐户标识1             ", "LLVAR         ", 2, FT_ANS , 28,
+  103, "Account ID 2                                      ", "帐户标识2             ", "LLVAR         ", 2, FT_ANS , 28,
+  104, "Transaction Description                           ", "交易说明              ", "LLLVAR        ", 3, FT_ANS , 100,
+  105, "Credits, Chargeback Amount                        ", "反向贷记金额          ", "              ", 0, FT_N   , 16,
+  106, "Debits, Chargeback Amount                         ", "反向借记金额          ", "              ", 0, FT_N   , 16,
+  107, "Credits, Chargeback Number                        ", "反向贷记笔数          ", "              ", 0, FT_N   , 10,
+  108, "Debits, Chargeback Number                         ", "反向借记笔数          ", "              ", 0, FT_N   , 10,
+  109, "Credits, Fee Amounts                              ", "手续费贷记金额        ", "LLVAR         ", 2, FT_ANS , 84,
+  110, "Debits, Fee Amounts                               ", "手续费借记金额        ", "LLVAR         ", 2, FT_ANS , 84,
+  111, "Reserved for ISO Use                              ", "保留给ISO使用         ", "LLLVAR        ", 3, FT_ANS , 999,
+  112, "Reserved for ISO Use                              ", "保留给ISO使用         ", "LLLVAR        ", 3, FT_ANS , 999,
+  113, "Reserved for ISO Use                              ", "保留给ISO使用         ", "LLLVAR        ", 3, FT_ANS , 999,
+  114, "Reserved for ISO Use                              ", "保留给ISO使用         ", "LLLVAR        ", 3, FT_ANS , 999,
+  115, "Reserved for ISO Use                              ", "保留给ISO使用         ", "LLLVAR        ", 3, FT_ANS , 999,
+  116, "Reserved for National Use                         ", "保留给国家使用        ", "LLLVAR        ", 3, FT_ANS , 999,
+  117, "Reserved for National Use                         ", "保留给国家使用        ", "LLLVAR        ", 3, FT_ANS , 999,
+  118, "Reserved for National Use                         ", "保留给国家使用        ", "LLLVAR        ", 3, FT_ANS , 999,
+  119, "Reserved for National Use                         ", "保留给国家使用        ", "LLLVAR        ", 3, FT_ANS , 999,
+  120, "Reserved for National Use                         ", "保留给国家使用        ", "LLLVAR        ", 3, FT_ANS , 999,
+  121, "Reserved for National Use                         ", "保留给国家使用        ", "LLLVAR        ", 3, FT_ANS , 999,
+  122, "Reserved for National Use                         ", "保留给国家使用        ", "LLLVAR        ", 3, FT_ANS , 999,
+  123, "Reserved for Private Use                          ", "保留给民间使用        ", "LLLVAR        ", 3, FT_ANS , 999,
+  124, "Reserved for Private Use                          ", "保留给民间使用        ", "LLLVAR        ", 3, FT_ANS , 999,
+  125, "Reserved for Private Use                          ", "保留给民间使用        ", "LLLVAR        ", 3, FT_ANS , 999,
+  126, "Reserved for Private Use                          ", "保留给民间使用        ", "LLLVAR        ", 3, FT_ANS , 999,
+  127, "Reserved for Private Use                          ", "保留给民间使用        ", "LLLVAR        ", 3, FT_ANS , 999,
+  128, "Message Authentication Code Field                 ", "报文鉴别代码字段      ", "              ", 0, FT_B   , 8,
+};
 }

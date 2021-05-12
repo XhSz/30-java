@@ -1,5 +1,10 @@
 01:{
 日期		拆分					发音							解释												示例										主题
+0512
+		accural				累计
+0511
+		assign				[əˈsaɪn] 俄塞恩					v.分配(某物);分派，布置(工作、任务等);指定;指派;委派;派遣			
+		allocation			[ˌæləˈkeɪʃn] 俄拉K逊			n.划拨的款项;拨给的场地;分配的东西;划;拨;分配
 0506 
 		concatenate			康科特尼特						adj.连在一起的；连锁的 v.使连接（连续，衔接）起来；连锁；串级				concat
 		subtract			[səbˈtrækt] 舍卜特科特			v.减;减去
@@ -314,7 +319,7 @@ theme:{
 	theme	日期	单词	拆分	主题	发音	解释	示例								其他含义								
 				0720:{
 															in limit 是否额度贷款																	
-					tenor 	te-nor		 [ˈtenər]	n. 期限, 男高音,主旨, 音调	minimum loan tenor 最短贷款期限																	
+					tenor 	te-nor		 [ˈtenər]腾呐	n. 期限, 男高音,主旨, 音调	minimum loan tenor 最短贷款期限																	
 										Disbursement Method 放款资金处理方式								Disbursement Type 放款类型									
 					suspense	su-spen-se		 [səˈspens] 	n .悬念，担心焦虑	SELF-Self payment 自主支付， SUSPENSE-Suspense account 转挂销账，暂记帐户																	
 					temporary	tem-po-rary		[ˈtempəreri] 		INTRUST-Entrusted payment INTRUST-受托支付								TEMP-Temporary freeze 临时冻结									
