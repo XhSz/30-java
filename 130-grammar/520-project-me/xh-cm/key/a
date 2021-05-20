@@ -1,0 +1,132 @@
+
+
+
+ta:{
+	SrvIoTaAccounting.regAccountingEvent:{	'登记会计事件'
+		field:{
+			acct_no-'现金账号'
+			debit_credit-'记账方向'
+			trxn_ccy-'交易币种'
+			trxn_amt-'交易金额'
+			acct_branch-'账务机构'
+			accounting_alias-'核算别名':{
+				"CASH",
+			},
+			accounting_subjet-'会计主体':{
+				enum:{
+					<restrictionType id="E_ACCOUNTINGSUBJECT" longname="accounting subject" base="string" maxLength="1" minLength="0">
+						<enumeration id="DEPOSIT" value="1" longname="deposit"/>
+						<enumeration id="LOAN" value="2" longname="loan"/>
+						<enumeration id="CASH" value="3" longname="cash"/>
+						<enumeration id="VOUCHER" value="4" longname="voucher"/>
+						<enumeration id="FEE" value="5" longname="fees"/>
+						<enumeration id="INSIDE" value="6" longname="internal account"/>
+						<enumeration id="CREDIT" value="7" longname="credit card"/>
+					</restrictionType>
+				}
+			},
+			bal_attributes-'余额属性':{
+				note:{
+					dp:{
+						"DP01"-"负债本金"
+						"DP02"-"应付利息"
+						"DP03"-"利息税"
+						"DP04"-"已付利息"
+						"DP11"-"资产本金"
+						"DP12"-"应收利息"
+						"DP13"-"利息收入"
+						"DP14"-"超额利息"
+						"DP15"-"特殊准备金"
+					},
+					ta:{					
+						"TA01"-"内部户本金"
+					},
+					ln:{
+						"LN01"-"贷款减值损失"
+					},
+					cs:{
+						"CS01"-"现金存量"
+						"CS02"-"途中现金库存"
+						"CS03"-"现金装置"
+						"CS04"-"途中现金装置"
+						"CS05"-"一般现金"
+						"CS06"-"漂亮现金"
+						"CS11"-"现金变动利润"
+						"CS12"-"现金变动损失"
+					},
+					vc:{
+						"VC01"-"代金券库存"
+					},
+					cg:{
+						"CG01"-"收费"
+						"CG02"-"摊销费用"
+					},
+					co:{
+						"CO01"-"抵押物价值"
+					}233,254,275,296,321,434,443,471,505,620,662,682,
+				},
+				enum:{
+					<restrictionType id="E_BALPROPERTY" longname="balance property" base="string" maxLength="4">
+						<enumeration id="DEPOSIT" value="DP01" longname="deposit principal"/>								"DP01"-"负债本金"
+						<enumeration id="INTEREST_PAYABLE" value="DP02" longname="interest payable"/>                       "DP02"-"应付利息"
+						<enumeration id="INTEREST_TAX" value="DP03" longname="interest tax"/>                               "DP03"-"利息税"
+						<enumeration id="INTEREST_PAY" value="DP04" longname="interest pay"/>                               "DP04"-"已付利息"
+						<enumeration id="CAPITAL" value="DP11" longname="asset principal"/>                                 "DP11"-"资产本金"
+						<enumeration id="INTEREST_RECEIVABLE" value="DP12" longname="receivable interest"/>                 "DP12"-"应收利息"
+						<enumeration id="INTEREST_INCOME" value="DP13" longname="interest income"/>                         "DP13"-"利息收入"
+						<enumeration id="BAD_INTEREST_RECEIVABLE" value="DP14" longname="bad overdraft accrued Interest"/>  "DP14"-"超额利息"
+						<enumeration id="SPECIAL_PROVISION_AMT" value="DP15" longname="special provision amtount"/>         "DP15"-"特殊准备金"
+						<enumeration id="INAC_PRCP" value="TA01" longname="internal account principal"/>                    "TA01"-"内部户本金"
+						<enumeration id="LOAN_IMPAIRMENT_LOSS" value="LN01" longname="loan impairment loss"/>               "LN01"-"贷款减值损失"
+						<enumeration id="CASH_STOCK" value="CS01" longname="cash stock"/>                                   "CS01"-"现金存量"
+						<enumeration id="CASH_STOCK_WAY" value="CS02" longname="on the way cash stock"/>                    "CS02"-"途中现金库存"
+						<enumeration id="CASH_DEVICE" value="CS03" longname="cash device"/>                                 "CS03"-"现金装置"
+						<enumeration id="CASH_DEVICE_WAY" value="CS04" longname="on the way cash device"/>                  "CS04"-"途中现金装置"
+						<enumeration id="CASH_GENERAL" value="CS05" longname="cash general"/>                               "CS05"-"一般现金"
+						<enumeration id="CASH_PRETTY" value="CS06" longname="cash pretty"/>                                 "CS06"-"漂亮现金"
+						<enumeration id="CASH_CHANGE_PROFIT" value="CS11" longname="cash change profit"/>                   "CS11"-"现金变动利润"
+						<enumeration id="CASH_CHANGE_LOSS" value="CS12" longname="cash change loss"/>                       "CS12"-"现金变动损失"
+						<enumeration id="VOCH_STOCK" value="VC01" longname="voucher stcok"/>                                "VC01"-"代金券库存"
+						<enumeration id="CHRG" value="CG01" longname="charge"/>                                             "CG01"-"收费"
+						<enumeration id="CHRG_AMORT" value="CG02" longname="amortization charge"/>                          "CG02"-"摊销费用"
+						<enumeration id="COLLATERAL_VALUE" value="CO01" longname="collateral value"/>                       "CO01"-"抵押物价值"
+						<subenums>
+							<subenum id="E_TA" enums="INAC_PRCP" longname="internal account balance property"/>
+							<subenum id="E_DP" enums="DEPOSIT,INTEREST_PAYABLE,INTEREST_TAX,INTEREST_PAY,CAPITAL,INTEREST_RECEIVABLE,INTEREST_INCOME" longname="loan balance property"/>
+							<subenum id="E_CS" enums="CASH_STOCK,CASH_STOCK_WAY,CASH_DEVICE,CASH_DEVICE_WAY" longname="cash balance property"/>
+							<subenum id="E_VC" enums="VOCH_STOCK" longname="voucher stock balance property"/>
+							<subenum id="E_CG" enums="CHRG,CHRG_AMORT" longname="charge balance property"/>
+						</subenums>
+					</restrictionType>
+				}
+			},
+			double_entry_ind-'复试记账标志':{
+				baidu:{
+					'复式记账法是以资产与权益平衡关系作为记账基础，对于每一笔经济业务，都要以相等的金额在两个或两个以上相互联系的账户中进行登记，系统地反映资金运动变化结果的一种记账方法。'
+					'复式记账是对每一项经济业务通过两个或两个以上有关账户相互联系起来进行登记的一种专门方法。任何一项经济活动都会引起资金的增减变动或财务收支的变动。'
+				}
+			}
+		},
+		caogao:{
+			taAccountingEvnetIn.setAcct_no(regACSerailIn.getAcct_no()); 			// 现金账号
+			taAccountingEvnetIn.setDebit_credit(regACSerailIn.getDebit_credit());	// 记账方向
+			taAccountingEvnetIn.setTrxn_ccy(regACSerailIn.getCcy_code()); 			// 交易币种
+			taAccountingEvnetIn.setTrxn_amt(regACSerailIn.getTrxn_amt()); 			// 交易金额
+			taAccountingEvnetIn.setAcct_branch(regACSerailIn.getAcct_branch()); 	// 账务机构
+			taAccountingEvnetIn.setAccounting_alias(CmConst.CASH_ACCOUNTING_ALIAS); // 核算别名
+			taAccountingEvnetIn.setAccounting_subject(E_ACCOUNTINGSUBJECT.CASH); 	// 会计主体
+			taAccountingEvnetIn.setBal_attributes(balProperty.toString()); 			// 余额属性
+			taAccountingEvnetIn.setDouble_entry_ind(E_YESORNO.YES);					// 复试记账标志
+		}
+		logic:{
+			TaAccounting.regAccountingEvent(IoTaAccountingEventIn);:{
+				tables-tap_accountingevent_ctrl-'会计事件控制'-select:{
+					where accounting_alias='' and bal_attributes=''
+				},
+				tables-tap_accountingevent_ctrl-'会计事件表'-insert:{
+					
+				}
+			}
+		}
+	}
+}

@@ -28,6 +28,7 @@ desc table_name;
 
 
 -- 1.1-base-index
+-- mysql
 show index from table_name;-- 
 ALTER TABLE table_name ADD INDEX index_name (column_list);
 ALTER TABLE table_name ADD UNIQUE (column_list);
@@ -37,6 +38,9 @@ CREATE UNIQUE INDEX index_name ON table_name (column_list);
 DROP INDEX index_name ON talbe_name;
 ALTER TABLE table_name DROP INDEX index_name;
 ALTER TABLE table_name DROP PRIMARY KEY;
+-- oracle
+SELECT A.* FROM USER_CONS_COLUMNS A INNER JOIN USER_CONSTRAINTS B 
+ON A.CONSTRAINT_NAME = B.CONSTRAINT_NAME AND B.CONSTRAINT_TYPE = 'P' AND B.TABLE_NAME = 'CTB_USER_ROLE';
 
 -- 6.0-busi
 

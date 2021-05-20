@@ -167,6 +167,12 @@ tz:{
 		},
 		cbs(172.31.2.12 v7base/v7base):{
 			bin:{
+				²¿Êð²½Öè£º{
+				 1£© upload pkg£»
+				 2£© vi  /sunline/v7base/conf/version/ltts.cbs.version
+				 3£©/sunline/v7base/user/bin/mantools/appctl cbs-ltts-onl restart;
+					/sunline/v7base/user/bin/mantools/appctl cbs-ltts-bat restart;
+				},
 				exe:{				
 					/sunline/v7base/user/bin/mantools/appctl cbs-ltts-onl status;
 					/sunline/v7base/user/bin/mantools/appctl cbs-ltts-onl restart;
@@ -210,6 +216,7 @@ tz:{
 					clear;cd /sunline/v7base/logs/cbs-ltts-onl/busi/20210110/40101/;cp 40101.log 40101.210430-1359.log;cp /dev/null 40101.log;	
 					clear;cd /sunline/v7base/logs/cbs-ltts-onl/busi/20210110/44060/;cp 44060.log 44060.210505-1436.log;cp /dev/null 44060.log;	
 					clear;cd /sunline/v7base/logs/cbs-ltts-onl/busi/20210114/60001/;cp 60001.log 60001.210510-2130.log;cp /dev/null 60001.log;	
+					clear;cd /sunline/v7base/logs/cbs-ltts-onl/busi/20210114/60056/;cp 60056.log 60056.210517-2245.log;cp /dev/null 60056.log;	
 				}
 			}
 		},
@@ -526,9 +533,11 @@ ex:{
 				cd /home/exim/icore01/etc/batApp;grep "path" *;
 			}212022
 			log:{
+				/*
 				delete from lna_phase where loan_no='8402190115005'
 				cd /sunline/v7base/logs/cbs-ltts-onl/busi/;grep "delete from lna_phase where loan_no='8402190115005'" 2021*/*/*log
 				cd /sunline/v7base/logs/cbs-ltts-onl/busi/;grep "delete from lna_phase where loan_no='8402190115005'" */*/*log
+				*/
 			}
 		},
 		ct(10.22.61.97):{
@@ -565,6 +574,8 @@ gs:{
 				clear;cd /home/ct/ct/apache-tomcat-9.0.22/webapps/icore-sump/;ll;
 				mv deploy.zip deploy-bak-201216-1533.zip;mv deploy deploy-bak-201216-1533;mkdir deploy;rz
 				unzip deploy.zip -d deploy;
+				zip -q -r html.zip /home/html
+				zip -q -r html.zip *
 			}
 		},
 		icore():{

@@ -1,0 +1,112 @@
+tz-ln6038-'adjust loan interest rate':{
+		S-SrvIoCtUser.chkAuthPermission-'null':{},
+		S-SrvIoLnLoanAdjust.loanRateAdjust-'null':{
+			SrvLnLoanAdjust.loanRateAdjust:{
+				LnRateAdjust.adjustCheck(rateAdjustIn);
+				LnHoliday.refreshByHoliday(rateAdjustIn.getLoan_no(), BizUtil.getTrxRunEnvs().getTrxn_date());
+				return LnRateAdjust.adjustProcess(IoLnRateAdjustIn);:{
+					LnLoan.getLnaAccrual(rateAdjustIn.getLoan_no());:{
+						tables-lna_accrual-select-one-'',
+					},
+					updateAccrual(rateAdjustIn, oldAccrual);:{	'更新计息属性表'
+						Lna_accrualDao.updateOne_odb1(newAccrual);
+					},
+					runEnvs.getTrxn_date(), minMaturityDate:{
+						<:{
+							LnPhaseHelper.refreshPhaseAndSchedule(loanInfo, effectRate, true);:{
+								refreshPhaseAndSchedule(loanInfo, effectRate, isRateAdjust, trxnDate);:{
+									lnaRepayment.getRpym_method():{
+										E_RPYMMETHOD.PERIOD_PLAN:{
+											LnSpecDefinedMaintenance.modifyScheduleSpecial(lnGenScheduleType, currentSchedule);:{
+												runEnvs.getTrxn_date(), lnGenScheduleType.getOriginal_maturity_date():{
+													<:{	'未到期'
+														lna_special_define spec : lstSpecSchedule	:{
+															'本期计划表'
+															spec.getPeriod_no(), lnaLoan.getCurrent_period_no():{
+																<:{},
+																=:{	'贷款当前阶段'='该阶段'
+																	Lna_accrualDao.updateOne_odb1(lnaAccrual);
+																},
+															}
+														}
+													}
+												}
+											}
+										}
+									}
+								}
+							}
+							Lna_loanDao.updateOne_odb1(loanInfo);				
+						}
+					}
+					
+					
+					LnSpecDefinedMaintenance.modifyScheduleSpecial(LnGenScheduleType, lna_repayment_schedule);:{	'随心还计划维护'
+						:{/* 贷款整笔到期或逾期后调整计划 */
+						}else{	'未到期'
+						}
+					}
+					
+				}
+			}
+		},
+		M-adjustloanirPrint-'null'
+},
+
+mcb-n6038-'adjust loan interest rate':{
+		S-SrvIoCtUser.chkAuthPermission-'null':{},
+		S-SrvIoLnLoanAdjust.loanRateAdjust-'null':{
+			SrvLnLoanAdjust.loanRateAdjust:{
+				LnRateAdjust.adjustCheck(rateAdjustIn);
+				
+				return LnRateAdjust.adjustProcess(IoLnRateAdjustIn);:{
+					LnLoan.getLnaAccrual(rateAdjustIn.getLoan_no());:{
+						tables-lna_accrual-select-one-'',
+					}
+					// 更新计息属性表
+					lna_accrual newAccrual = updateAccrual(rateAdjustIn, oldAccrual);
+					oldAccrual.getNormal_interest_rate(), rateAdjustIn.getNormal_interest_rate():{
+						!=:{
+							runEnvs.getTrxn_date(), minMaturityDate:{
+								<:{		'未到期'
+									LnPhaseHelper.refreshPhaseAndSchedule(loanInfo, effectRate, true);:{
+										refreshPhaseAndSchedule(loanInfo, effectRate, isRateAdjust, trxnDate);:{
+											lnaRepayment.getRpym_method():{
+												E_RPYMMETHOD.PERIOD_PLAN:{
+													LnSpecDefinedMaintenance.modifyScheduleSpecial(lnGenScheduleType, currentSchedule);:{	
+														'随心还计划维护':{	/* 贷款整笔到期或逾期后调整计划 */
+														}else{	'未到期'
+															lna_special_define spec : lstSpecSchedule	:{
+																'本期计划表'
+																spec.getPeriod_no(), lnaLoan.getCurrent_period_no():{
+																	<:{},
+																	=:{
+																		Lna_accrualDao.updateOne_odb1(lnaAccrual);
+																	},
+																}
+															}
+														}
+													}
+												}
+											}
+										}
+									},
+									Lna_loanDao.updateOne_odb1(loanInfo);
+								}
+							}
+						}
+					}
+					back_date_ind:{
+						N:{
+							regRateChangeDetail(oldAccrual, newAccrual, runEnvs.getTrxn_date());:{
+								LnRateChangeStatement.registerRateChangeStatement(rateChangeType);:{
+									tables-lns_rate_change-insert
+								}
+							}
+						}
+					}
+				}
+			}
+		},
+		M-adjustloanirPrint-'null'
+},
