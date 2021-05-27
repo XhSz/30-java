@@ -1,4 +1,170 @@
 
+co:{
+	"借记"-'debit' & "贷记"-'credit':{
+		zhihu:{	'https://www.zhihu.com/question/21222111'
+			'入门':{
+				'借贷'是"符号":{
+					"资产"、"费用"-'越借越多',"借方+","贷方-";
+					"负债"、"权益"、"收入"-'越借越少',"借方-","贷方+";
+				},
+			},
+			'提高':{
+				
+			}
+		}
+	}
+}
+
+file:{
+	LEDGERBAL-taf03:{
+		TaFile.writeLedgerBalDataMain()	<-	taf03.process	<-	tas_ledger_bal
+	}
+}
+
+tables:{
+	tas_ledger_bal-'分户账余额':{
+		1-insert:{
+			TaAccounting.regLedgerBal(IoTaRegLedgerBal);-2:{
+				SrvIoTaAccountingImpl.regLedgerBal();-5:{
+					at-IoClient4Gl.regLedgerBal(AccountBalance);
+					co-IoClient4Gl.regLedgerBal(AccountBalance);
+					cm-cm03.process:{accounting_alias:"VOUCHER"};
+					cm-cm05.process:{accounting_alias:"CASH"};
+					lt-DpAcctVerifyData.regLedgerBalance();-1:{
+						dp05-'Dept account balance of the previous day collect':{
+							process:{
+									method-DpAcctVerifyData.regLedgerBalance-'null':{
+										List listAcctBal = nsql-DpDayEnd.selLastBalanceExtractRecord-S-dpa_sub_account-select-'Statistical dept balance data for the previous day':{
+											
+										},
+										for(listAcctBal){
+											localSer-SrvIoTaAccounting.regLedgerBal-'null':{
+												method-TaAccounting.regLedgerBal-'null':{
+													method-ApBusinessParm.getValue-'null':{
+														table-app_business_parameter-select-'system parameter'
+													},
+													table-tap_accountingevent_ctrl-select-'contrl accounting event',
+													method-BizUtil.getTrxRunEnvs-'null',
+													table-tas_ledger_bal-insert-' the balance of ledger account'
+												}
+											}
+										}
+									}
+							},
+						},
+					}
+				},
+				taa9-'内部账入分户账余额流水'	<-	taa_account:{
+					getBatchDataWalker:{
+							method-ApOrg.getReferenceOrgId-'null':{
+								method-BizUtil.getTrxRunEnvs-'null',
+								method-BizUtil.isOrgRelated-'null',
+								table-app_parameter_reference-select-'parameter reference define',
+								table-app_parameter_reference-select-'parameter reference define',
+								method-BizUtil.isParmTable-'null',
+								method-ApOrg.getOrgInfo-'null':{
+									table-app_organization-select-'organization infomation'
+								},
+								method-ApOrg.getOrgInfo-'null':{
+									table-app_organization-select-'organization infomation'
+								}
+							},
+							nsql-ApBranch.selBranchList-S-apb_branch-select-'branch infomation list inquire':{
+								SELECT * from apb_branch where real_branch_ind = Y
+							}
+					},
+					process:{
+							method-BizUtil.getTrxRunEnvs-'null',
+							method-ApOrg.getReferenceOrgId-'null':{},
+							List acctBalList = nsql-TaAccounting.selAccountBal-S-taa_account-select-'inquering internal account balance':{
+								a.gl_ref_code
+							},
+							method-ApOrg.getReferenceOrgId-'null':{},
+							nsql-TaAccounting.selSuspensBal-S-(select-select-'the ledger  balance of suspense accounts',
+							for(acctBal:acctBalList){
+								regBal.setAccounting_alias(acctBal.getGl_ref_code());
+								method-TaAccounting.regLedgerBal-'null':{
+									method-BizUtil.fieldNotNull-'null',
+									method-ApBusinessParm.getValue-'null':{
+										table-app_business_parameter-select-'system parameter'
+									},
+									table-tap_accountingevent_ctrl-select-'contrl accounting event',
+									method-BizUtil.getTrxRunEnvs-'null',
+									table-tas_ledger_bal-insert-' the balance of ledger account'
+								}
+							}
+					},
+				},
+			}	
+		}
+	},
+	taa_account-'内部户':{
+		1-insert:{
+			TaAccountMnt.openAcct(TaAcctInfo):{
+				openInterAccounts(IoTaOpenAccountIn);-1:{
+					SrvIoTaAccountingImpl.openInterAccounts(IoTaOpenAccountIn);:{
+						AgUntil.openInterAccountInfo(IoTaOpenAccountIn);-1:{
+							AgBatchMnt.AddBatchContract(AgBatchContractInfo);-1:{
+								SrvAgBatchBusinessImpl.AddBatchContract(AgBatchContractInfo);-1:{
+									ag2192
+								}
+							}
+						}
+					}
+				}
+			}
+		},
+		10-update:{
+			1-TaAccountMnt.modifyAcct(TaAcctInfo, Options, Options);
+			1-TaAccountMnt.closeAcct(String, Long);
+			1-TaAccountMnt.stopOrStartAccount(String, E_YESORNO, Long)
+			2-TaAccounting.updAccBal(TaAcctBalUpadatingIn, taa_account);-2:{
+				TaAccounting.onlineAccounting(IoTaBookAccountingIn, taa_account);:{
+					bookAccounting(IoTaBookAccountingIn, boolean);-2:{
+						bookAccountingWithNoCheck(IoTaBookAccountingIn);
+						bookAccountingWithCheck(IoTaBookAccountingIn);		-7:{
+		*					1-TaSetAccounting.busiCodeAccounting(IoTaAccountListIn);
+							1-TaSetAccounting.insideAccounting(IoTaAccountListIn);
+							2-SrvIoTaAccountingImpl.bookAccountingWith..;:{
+								1-at-IoClient4Gl.ioBookAccounting(BusiCodeIn);
+								1-cb-CbCashOutInStock.regAccounting(CbCashPrettyIn);
+								1-cb-CbCashOverShort.bookInsideAcct(CbCashOverShortDoneIn, RunEnvs, E_DEBITCREDIT, String);
+								4-cb-note;
+								1-cb-IoClient4Inside.bookAccountingWithCheck(CbBookAccountingIn);
+								1-cm-CmChrgAccounting.chrgDebit(CmChrgDeAccounting, BigDecimal, Boolean);:{
+									chrgDebitAccounting(CmChrgDeAccounting)-2:{
+										prcChrgAccounting(CmChrgInfo)-2:{
+											CmChrgMain.prcAutoChrgAccounting(AutoChrgInfo)-1:{
+												SrvIoCmChrgImpl.prcAutoChrgAccounting(AutoChrgInfo);-5
+											}
+											CmChrgMain.prcManualChrgAccounting(IoCmChrgManualIn)
+										}
+										prcChrgOwe(IoCmTakeChrgOweIn)
+									}
+								}
+								1-cm-CmChrgAccounting.prcChrgReturn(CmChrgReimburse);
+								1-cm-CmReveralAccounting.chrgDebit(CmChrgDeAccounting, BigDecimal, Boolean);
+								1-cm-CmReveralAccounting.prcChrgReturn(CmChrgReimburse);
+								lt-10,
+								lttran-2,
+								py-1,
+								st-1,
+								ts-2,
+							}
+							2-TaSuspenseMnt.closeSuspense(String, String, String);
+							1-AgUntil.insideAccounting(agb_batch_request, E_DEBITCREDIT, String, BigDecimal);
+						}
+					}
+				}
+				ta01.process
+			}
+			2-TaAccounting.reverslUpdAccBal(TaAcctBalUpadatingIn, taa_account);
+			1-TaReversal.openInsiAcctReversal(TaOpenInsiAcctReversalIn);
+			1-TaReversal.closeAcctReversal(TaCloseInsiAcctReversal);
+			1-taa3.process(String, int, String, Input, Property);
+		}
+	}
+},
 ln:{	''
 	onl:{
 		ln6040-"贷款提取"-'loan drawdown':{

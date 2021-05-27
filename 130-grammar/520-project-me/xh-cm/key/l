@@ -157,18 +157,22 @@ tz:{
 			netstat -tunpl |grep ¶Ë¿ÚºÅ
 			netstat -tunpl |grep 6100		rdpbase 	156857
 			netstat -tunpl |grep 8123		esbbase		127776 
+			netstat -tunpl |grep 8228		esbbase		127776 
 			netstat -tunpl |grep 6199		ops 		40837/nginx: master		
 			netstat -tunpl |grep 8080		etluser 	141986
+			netstat -tunpl |grep 9518		biee 		219474/java    
 			ps -ef|grep 156857
 			ps -ef|grep 128616
 			ps -ef|grep 127776
 			ps -ef|grep 40837
+			ps -ef|grep 219474
 			
 		},
 		cbs(172.31.2.12 v7base/v7base):{
 			bin:{
 				²¿Êð²½Öè£º{
-				 1£© upload pkg£»
+					 upload pkg£»
+				 1£© unzip cbs-ltts-busi-full-1.3.2.87-RELEASE.zip;
 				 2£© vi  /sunline/v7base/conf/version/ltts.cbs.version
 				 3£©/sunline/v7base/user/bin/mantools/appctl cbs-ltts-onl restart;
 					/sunline/v7base/user/bin/mantools/appctl cbs-ltts-bat restart;
@@ -422,6 +426,66 @@ tz:{
 				http%3A%2F%2F172.31.2.12%3A29000%2F40601%3FappId%3DCBS%26codec%3Dhttp%26group%3D800%26pid%3D100238%26serializer%3Dstring%26version%3D1.0
 				http://172.31.2.12:29000/40601?appId=CBS&codec=http&group=800&pid=100238&serializer=string&version=1.0
 				ls /edsp/44060/providers
+		}
+		biee:{	biee/biee
+			ori:{
+				biee     219474 219421  1 Jan04 ?        2-02:07:14 /sunline/etl/app/jdk1.8.0_144/bin/java -server -Xms256m -Xmx2048m -cp /home/biee/Oracle/Middleware/Oracle_Home/wlserver/server/lib/weblogic-launcher.jar -Dlaunch.use.env.classpath=true -Dweblogic.Name=bi_server1 -Djava.security.policy=/home/biee/Oracle/Middleware/Oracle_Home/wlserver/server/lib/weblogic.policy -Dweblogic.ProductionModeEnabled=true -Dweblogic.system.BootIdentityFile=/home/biee/Oracle/Middleware/Oracle_Home/user_projects/domains/biee12/servers/bi_server1/data/nodemanager/boot.properties -Dweblogic.nodemanager.ServiceEnabled=true -Dweblogic.nmservice.RotationEnabled=true -Djava.system.class.loader=com.oracle.classloader.weblogic.LaunchClassLoader -Djava.protocol.handler.pkgs=oracle.mds.net.protocol -Dopss.version=12.2.1.3 -Digf.arisidbeans.carmlloc=/home/biee/Oracle/Middleware/Oracle_Home/user_projects/domains/biee12/config/fmwconfig/carml -Digf.arisidstack.home=/home/biee/Oracle/Middleware/Oracle_Home/user_projects/domains/biee12/config/fmwconfig/arisidprovider -Doracle.security.jps.config=/home/biee/Oracle/Middleware/Oracle_Home/user_projects/domains/biee12/config/fmwconfig/jps-config.xml -Doracle.deployed.app.dir=/home/biee/Oracle/Middleware/Oracle_Home/user_projects/domains/biee12/servers/bi_server1/tmp/_WL_user -Doracle.deployed.app.ext=/- -Dweblogic.alternateTypesDirectory=/home/biee/Oracle/Middleware/Oracle_Home/oracle_common/modules/oracle.ossoiap,/home/biee/Oracle/Middleware/Oracle_Home/oracle_common/modules/oracle.oamprovider,/home/biee/Oracle/Middleware/Oracle_Home/oracle_common/modules/oracle.jps -Doracle.mds.filestore.preferred= -Dadf.version=12.2.1.3.0 -Dweblogic.jdbc.remoteEnabled=true -Dcommon.components.home=/home/biee/Oracle/Middleware/Oracle_Home/oracle_common -Djrf.version=12.2.2 -Dorg.apache.commons.logging.Log=org.apache.commons.logging.impl.Jdk14Logger -Ddomain.home=/home/biee/Oracle/Middleware/Oracle_Home/user_projects/domains/biee12 -Doracle.server.config.dir=/home/biee/Oracle/Middleware/Oracle_Home/user_projects/domains/biee12/config/fmwconfig/servers/bi_server1 -Doracle.domain.config.dir=/home/biee/Oracle/Middleware/Oracle_Home/user_projects/domains/biee12/config/fmwconfig -Doracle.maps.config=/home/biee/Oracle/Middleware/Oracle_Home/user_projects/domains/biee12/config/fmwconfig/mapviewer/conf/mapViewerConfig.xml -Djava.awt.headless=true -javaagent:/home/biee/Oracle/Middleware/Oracle_Home/wlserver/server/lib/debugpatch-agent.jar -da -Dwls.home=/home/biee/Oracle/Middleware/Oracle_Home/wlserver/server -Dweblogic.home=/home/biee/Oracle/Middleware/Oracle_Home/wlserver/server -Djavax.management.builder.initial=weblogic.management.jmx.mbeanserver.WLSMBeanServerBuilder -DESS_ES_HOME=/home/biee/Oracle/Middleware/Oracle_Home/user_projects/domains/biee12/servers/bi_server1/aps -Daps.property.file=/home/biee/Oracle/Middleware/Oracle_Home/user_projects/domains/biee12/config/fmwconfig/biconfig/aps/essbase.properties -DESSBASEPATH=/home/biee/Oracle/Middleware/Oracle_Home/bi/products/Essbase/EssbaseServer -DCDS_DATASOURCE=BIPlatformDatasource -DEPM_ORACLE_HOME=/home/biee/Oracle/Middleware/Oracle_Home/bi -DHYPERION_HOME=/home/biee/Oracle/Middleware/Oracle_Home/bi -DEPM_ORACLE_INSTANCE=novalue -Dhyperion.home=/home/biee/Oracle/Middleware/Oracle_Home/bi -DEPM_REG_PROPERTIES_PATH=/home/biee/Oracle/Middleware/Oracle_Home/user_projects/domains/biee12/config/fmwconfig -Depm.useApplicationContextId=false -Dxdo.server.config.dir=/home/biee/Oracle/Middleware/Oracle_Home/user_projects/domains/biee12/bidata/components/bipublisher -DXDO_FONT_DIR=/home/biee/Oracle/Middleware/Oracle_Home/bi/../oracle_common/internal/fonts -Doracle.bi.home.dir=/home/biee/Oracle/Middleware/Oracle_Home/bi -Doracle.bi.config.dir=/home/biee/Oracle/Middleware/Oracle_Home/user_projects/domains/biee12/config/fmwconfig/biconfig -Doracle.bi.environment.dir=/home/biee/Oracle/Middleware/Oracle_Home/user_projects/domains/biee12/config/fmwconfig/bienv -Doracle.bi.12c=true -Ddomain.home=/home/biee/Oracle/Middleware/Oracle_Home/user_projects/domains/biee12 -Dfile.encoding=utf-8 -Dem.oracle.home=/home/biee/Oracle/Middleware/Oracle_Home/em -Doracle.bi.12c=true -Doracle.bi.environment.dir=/home/biee/Oracle/Middleware/Oracle_Home/user_projects/domains/biee12/config/fmwconfig/bienv -Doracle.bi.config.dir=/home/biee/Oracle/Middleware/Oracle_Home/user_projects/domains/biee12/config/fmwconfig/biconfig -Doracle.bi.home.dir=/home/biee/Oracle/Middleware/Oracle_Home/bi -Dweblogic.management.server=http://172.31.2.12:9504 -Djava.util.logging.manager=oracle.core.ojdl.logging.ODLLogManager weblogic.Server
+			},
+			key:{
+				biee     219474 219421  1 Jan04 ?        2-02:07:14 /sunline/etl/app/jdk1.8.0_144/bin/java -server -Xms256m -Xmx2048m 
+				-cp /home/biee/Oracle/Middleware/Oracle_Home/wlserver/server/lib/weblogic-launcher.jar 
+				-Dlaunch.use.env.classpath=true -Dweblogic.Name=bi_server1 
+				-Djava.security.policy=/home/biee/Oracle/Middleware/Oracle_Home/wlserver/server/lib/weblogic.policy 
+				-Dweblogic.ProductionModeEnabled=true 
+				-Dweblogic.system.BootIdentityFile=/home/biee/Oracle/Middleware/Oracle_Home/user_projects/domains/biee12/servers/bi_server1/data/nodemanager/boot.properties 
+				-Dweblogic.nodemanager.ServiceEnabled=true 
+				-Dweblogic.nmservice.RotationEnabled=true 
+				-Djava.system.class.loader=com.oracle.classloader.weblogic.LaunchClassLoader 
+				-Djava.protocol.handler.pkgs=oracle.mds.net.protocol -Dopss.version=12.2.1.3 
+				-Digf.arisidbeans.carmlloc=/home/biee/Oracle/Middleware/Oracle_Home/user_projects/domains/biee12/config/fmwconfig/carml 
+				-Digf.arisidstack.home=/home/biee/Oracle/Middleware/Oracle_Home/user_projects/domains/biee12/config/fmwconfig/arisidprovider 
+				-Doracle.security.jps.config=/home/biee/Oracle/Middleware/Oracle_Home/user_projects/domains/biee12/config/fmwconfig/jps-config.xml 
+				-Doracle.deployed.app.dir=/home/biee/Oracle/Middleware/Oracle_Home/user_projects/domains/biee12/servers/bi_server1/tmp/_WL_user 
+				-Doracle.deployed.app.ext=/- 
+				-Dweblogic.alternateTypesDirectory=
+					/home/biee/Oracle/Middleware/Oracle_Home/oracle_common/modules/oracle.ossoiap
+					,/home/biee/Oracle/Middleware/Oracle_Home/oracle_common/modules/oracle.oamprovider
+					,/home/biee/Oracle/Middleware/Oracle_Home/oracle_common/modules/oracle.jps 
+				-Doracle.mds.filestore.preferred= -Dadf.version=12.2.1.3.0 
+				-Dweblogic.jdbc.remoteEnabled=true 
+				-Dcommon.components.home=/home/biee/Oracle/Middleware/Oracle_Home/oracle_common 
+				-Djrf.version=12.2.2 -Dorg.apache.commons.logging.Log=org.apache.commons.logging.impl.Jdk14Logger 
+				-Ddomain.home=/home/biee/Oracle/Middleware/Oracle_Home/user_projects/domains/biee12 
+				-Doracle.server.config.dir=/home/biee/Oracle/Middleware/Oracle_Home/user_projects/domains/biee12/config/fmwconfig/servers/bi_server1 
+				-Doracle.domain.config.dir=/home/biee/Oracle/Middleware/Oracle_Home/user_projects/domains/biee12/config/fmwconfig 
+				-Doracle.maps.config=/home/biee/Oracle/Middleware/Oracle_Home/user_projects/domains/biee12/config/fmwconfig/mapviewer/conf/mapViewerConfig.xml 
+				-Djava.awt.headless=true -javaagent:/home/biee/Oracle/Middleware/Oracle_Home/wlserver/server/lib/debugpatch-agent.jar -da 
+				-Dwls.home=/home/biee/Oracle/Middleware/Oracle_Home/wlserver/server 
+				-Dweblogic.home=/home/biee/Oracle/Middleware/Oracle_Home/wlserver/server 
+				-Djavax.management.builder.initial=weblogic.management.jmx.mbeanserver.WLSMBeanServerBuilder 
+				-DESS_ES_HOME=/home/biee/Oracle/Middleware/Oracle_Home/user_projects/domains/biee12/servers/bi_server1/aps 
+				-Daps.property.file=/home/biee/Oracle/Middleware/Oracle_Home/user_projects/domains/biee12/config/fmwconfig/biconfig/aps/essbase.properties 
+				-DESSBASEPATH=/home/biee/Oracle/Middleware/Oracle_Home/bi/products/Essbase/EssbaseServer 
+				-DCDS_DATASOURCE=BIPlatformDatasource -DEPM_ORACLE_HOME=/home/biee/Oracle/Middleware/Oracle_Home/bi 
+				-DHYPERION_HOME=/home/biee/Oracle/Middleware/Oracle_Home/bi 
+				-DEPM_ORACLE_INSTANCE=novalue 
+				-Dhyperion.home=/home/biee/Oracle/Middleware/Oracle_Home/bi 
+				-DEPM_REG_PROPERTIES_PATH=/home/biee/Oracle/Middleware/Oracle_Home/user_projects/domains/biee12/config/fmwconfig 
+				-Depm.useApplicationContextId=false 
+				-Dxdo.server.config.dir=/home/biee/Oracle/Middleware/Oracle_Home/user_projects/domains/biee12/bidata/components/bipublisher 
+				-DXDO_FONT_DIR=/home/biee/Oracle/Middleware/Oracle_Home/bi/../oracle_common/internal/fonts 
+				-Doracle.bi.home.dir=/home/biee/Oracle/Middleware/Oracle_Home/bi 
+				-Doracle.bi.config.dir=/home/biee/Oracle/Middleware/Oracle_Home/user_projects/domains/biee12/config/fmwconfig/biconfig 
+				-Doracle.bi.environment.dir=/home/biee/Oracle/Middleware/Oracle_Home/user_projects/domains/biee12/config/fmwconfig/bienv 
+				-Doracle.bi.12c=true -Ddomain.home=/home/biee/Oracle/Middleware/Oracle_Home/user_projects/domains/biee12 -Dfile.encoding=utf-8 
+				-Dem.oracle.home=/home/biee/Oracle/Middleware/Oracle_Home/em -Doracle.bi.12c=true 
+				-Doracle.bi.environment.dir=/home/biee/Oracle/Middleware/Oracle_Home/user_projects/domains/biee12/config/fmwconfig/bienv 
+				-Doracle.bi.config.dir=/home/biee/Oracle/Middleware/Oracle_Home/user_projects/domains/biee12/config/fmwconfig/biconfig 
+				-Doracle.bi.home.dir=/home/biee/Oracle/Middleware/Oracle_Home/bi 
+				-Dweblogic.management.server=http://172.31.2.12:9504 
+				-Djava.util.logging.manager=oracle.core.ojdl.logging.ODLLogManager 
+				weblogic.Server
+			}
 		}
 	},
 	pro(172.30.2.11):{

@@ -1,0 +1,1454 @@
+tables:{
+	taa_account-18:{
+		227-select-6*2
+		289-update-3*2:{
+buy 4.00 USD, sell 9000 tzs, 2250;
+242-21941-20084000019-USD-		6904550.73		6904554.73	20210114		
+[SQL  ][14:08:59,711][edsp-thread-60][ ][2101141010012263][300038][40203][?:][73. update taa_account set acct_name='Foreign Exchange(Customer)',gl_ref_code='FCY_EXCHANGE_CUST',double_entry_ind='Y',internal_acct_type='A',bal_type='D',bal_upddate_mode='1',default_ind='Y',bal_check_ind='N',year_end_clean_ind='N',acct_branch='200',ccy_code='USD',acct_bal=6904550.73,prev_date_bal=6904554.73,bal_update_date='20210114',acct_status='1',acct_name_check_ind='N',internal_acct_stop_ind='N',open_acct_channel='999',remark=NULL,open_acct_date='20181130',open_acct_branch='200',open_acct_user='300003',open_acct_seq='1811309990000108',close_acct_branch=NULL,close_acct_user=NULL,close_acct_date=NULL,close_acct_seq=NULL,cash_allow_ind='1',data_create_user='300003',data_create_time='20181129 17:50:53 753',data_update_user='300038',data_update_time='20210519 14:08:59 711',data_version=21941 where acct_no='20084000019' and org_id='99']
+289-21926-20083400017-TZS-	-15555600114.8	-15555609114.8	20210114
+[SQL  ][14:08:59,727][edsp-thread-60][ ][2101141010012263][300038][40203][?:][73. update taa_account set acct_name='Foreign Exchange(Customer)',gl_ref_code='FCY_EXCHANGE_CUST',double_entry_ind='Y',internal_acct_type='A',bal_type='D',bal_upddate_mode='1',default_ind='Y',bal_check_ind='N',year_end_clean_ind='N',acct_branch='200',ccy_code='TZS',acct_bal=-15555600114.80,prev_date_bal=-15555609114.80,bal_update_date='20210114',acct_status='1',acct_name_check_ind='N',internal_acct_stop_ind='N',open_acct_channel='999',remark=NULL,open_acct_date='20181130',open_acct_branch='200',open_acct_user='300003',open_acct_seq='1811309990000108',close_acct_branch=NULL,close_acct_user=NULL,close_acct_date=NULL,close_acct_seq=NULL,cash_allow_ind='1',data_create_user='300003',data_create_time='20181129 17:50:53 520',data_update_user='300038',data_update_time='20210519 14:08:59 727',data_version=21926 where acct_no='20083400017' and org_id='99']
+		}
+	}
+}
+
+
+dp4023-'foreign currency cash exchange'{
+				S-SrvIoCtUser.chkAuthPermission-'null',
+				M-dp4023.checkInputData-'null'{
+					method-BizUtil.fieldNotNull-'null',
+					method-BizUtil.fieldNotNull-'null',
+					method-BizUtil.fieldNotNull-'null'
+					property.setCash_trxn_ind(E_CASHTRXN.CASH);
+					property.setBuy_cash_ind(E_CASHTRXN.CASH);
+					property.setSell_cash_ind(E_CASHTRXN.CASH);
+				},
+				M-dp4023.foreignExchange-'null'{
+					for-input.getList01():{
+						method-dp4023.exchangeMiddle(input, property, true);-'null':{
+							SrvIoFxExchange.forexTrxnMiddleService:{
+								
+							}
+							property.setTrxn_amt(trxnDirection ? fxExchangeOut.getSell_amt() : fxExchangeOut.getBuy_amt());
+							property.setExch_rate(fxExchangeOut.getExch_rate());
+						}
+					}
+					method-dp4023.doMain-'null'{
+						method-dp4023.cashHandling-'null'{
+							cashAccountingIn.setOpp_acct_route(cn.sunline.ltts.sys.type.BusinessType.E_ACCOUTANALY.CASH);
+							localSer-SrvIoCmCash.prcCashAccounting-'null'{
+								return method-CmCashAcct.prcCashAccounting-'现金记账处理'{
+									method-BizUtil.getTrxRunEnvs-'null',
+									method-CmTillQry.qryTellTillInfo-'null'{
+										table-cma_till-select-'Till Information',
+										table-cma_till-select-'Till Information'
+									},
+									method-CmCashCheck.checkCashAccounting-'null'{
+										method-BizUtil.fieldNotNull-'null',
+										method-BizUtil.fieldNotNull-'null',
+										method-BizUtil.fieldNotNull-'null',
+										method-ApDropList.exists-'null'{
+											method-ApDropList.getItem-'null'
+										},
+										method-BizUtil.getTrxRunEnvs-'null',
+										method-CmCashCheck.checkCashBalance-'null'{
+											table-cma_cash_balance-select-'Cash Balance Register',
+											method-CmTillQry.selTillByBoxId-'null'
+										}
+									},
+									method-CmCashAcct.calcCashChangeAmount-'null'{
+										method-ApCurrency.getItem-'null'{
+											table-app_currency-select-'currency define',
+											return method-ApCurrency.getCurrencyInfo-'null'
+										},
+										method-ApBusinessParm.getIntValue-'null'{
+											method-ApBusinessParm.getValue-'null'
+										}
+									},
+									method-CmCashAcct.regCashAcctInfo-'现金分户账处理,包括：现金分户账、现金交易明细、会计事件'{
+										method-BizUtil.getTrxRunEnvs-'null',
+										table-cma_cash_balance-select-'Cash Balance Register',
+										method-CmCashAcct.genCashAcctNo-'null'{
+											method-ApCurrency.getItem-'null',
+											method-ApBuffer.addData-'null',
+											return method-ApSeq.genSeq-'null'
+										},
+										table-cma_cash_balance-insert-'Cash Balance Register',
+										table-cma_cash_balance-update-'Cash Balance Register',
+										method-CmCashAcct.regCashACSerail-'2、会计事件登记':{	'现金变动登记会计事件'
+											localSer-SrvIoTaAccounting.regAccountingEvent-'登记会计事件':{
+												
+											}
+										},
+										localSer-SrvIoCbReconciliation.openReconciliateInd-'null'{
+											method-CbCashReconciliate.openReconciliateInd-'null'
+										},
+										method-ApReversal.register-'null'{
+											method-BizUtil.getTrxRunEnvs-'null',
+											method-ApTrxn.isReversalTrxn-'null',
+											table-app_reversal_event-select-'reversal event define',
+											method-ApTrxn.getSerial-'null',
+											table-apl_reversal_event-insert-'reversal event log'
+										}
+									},
+									localSer-SrvIoTaAccounting.getAcctBaseInfo-'null'{
+										return method-TaAccountMnt.getAcctBaseInfo-'null'{
+											method-BizUtil.fieldNotNull-'null',
+											method-BizUtil.fieldNotNull-'null',
+											BusinessType.E_ACCOUTANALY:{
+												CASH = new E_ACCOUTANALY("CASH", 0, "CASH", "A", "cash");
+												DEPOSIT = new E_ACCOUTANALY("DEPOSIT", 1, "DEPOSIT", "B", "deposit");
+												NOSTRO = new E_ACCOUTANALY("NOSTRO", 2, "NOSTRO", "C", "nostro");
+												INSIDE = new E_ACCOUTANALY("INSIDE", 3, "INSIDE", "D", "internal");
+												SUSPENSE = new E_ACCOUTANALY("SUSPENSE", 4, "SUSPENSE", "E", "suspense");
+												BUSINESE = new E_ACCOUTANALY("BUSINESE", 5, "BUSINESE", "F", "gl reference code");
+												LOAN = new E_ACCOUTANALY("LOAN", 6, "LOAN", "G", "loan");
+												NONE = new E_ACCOUTANALY("NONE", 7, "NONE", "*", "unknown");
+												$VALUES = (new E_ACCOUTANALY[] {
+													CASH, DEPOSIT, NOSTRO, INSIDE, SUSPENSE, BUSINESE, LOAN, NONE
+												});
+											},
+											opp_acct_route().ordinal:{
+												C-nostro-2:{
+													localSer-SrvIoDpQueryAcct.qryAcctBriefInfo-'null',
+												},
+												A-cash-0:{
+													localSer-SrvIoCmCash.qryCashAcctInfo-'null',
+												}
+											}	
+											table-tap_business-select-'the definition of gl reference code',
+											table-taa_account-select-'internal account',
+											method-ApBranch.getItem-'null',
+											method-TaAccountMnt.getInsideAcctName-'null',
+											table-tap_business-select-'the definition of gl reference code',
+											method-TaAccountMnt.getSuspenseName-'null',
+											method-ApBranch.getItem-'null',
+											method-BizUtil.fieldNotNull-'null',
+											method-ApBranch.getItem-'null'
+										}
+									},
+									method-CmCashAcct.regCashBill-'null'{
+										method-BizUtil.getTrxRunEnvs-'null',
+										method-ApSummary.getText-'null'{
+											table-app_summary-select-'summary define'
+										},
+										table-cmb_cash_trxn-insert-'Cash Transaction Details'
+									}
+								}
+							}
+						},
+						method-dp4023.suspenseHandling-'null'{
+							localSer-SrvIoTaAccounting.bookSuspenseWithCheck-'null'{
+								return method-TaAccounting.bookSuspenseWithCheck-'null'{
+									return method-TaAccounting.bookSuspense-'null'{
+										method-TaAccounting.checkSuspense-'null'{
+											method-TaAccounting.checkDataNull-'null',
+											method-TaAccounting.openSuspenseNo-'null',
+											method-TaAccounting.checkExsitSusNo-'null',
+											table-taa_suspense-select-'suspense account',
+											table-taa_account-select-'internal account',
+											method-ApBranch.getItem-'null'
+										},
+										table-taa_suspense-select-'suspense account',
+										method-TaAccounting.updSuspAccBal-'null'{
+											table-taa_suspense-select-'suspense account',
+											method-BizUtil.getTrxRunEnvs-'null',
+											method-BizUtil.getTrxRunEnvs-'null',
+											table-taa_suspense-update-'suspense account'
+										},
+										method-TaAccounting.regSuspenseBill-'null'{
+											method-BizUtil.getTrxRunEnvs-'null',
+											table-taa_account-select-'internal account',
+											method-TaAccountMnt.getAcctBaseInfo-'null',
+											method-ApSummary.getText-'null',
+											table-tas_suspense_trxn-insert-'the detail of suspense account',
+											method-ApReversal.register-'null'
+										},
+										method-TaAccounting.setSusAccountingEventValue-'null',
+										method-TaAccounting.regAccountingEvent-'null'{
+											method-BizUtil.getTrxRunEnvs-'null',
+											method-BizUtil.fieldNotNull-'null',
+											method-BizUtil.fieldNotNull-'null',
+											method-BizUtil.fieldNotNull-'null',
+											method-BizUtil.fieldNotNull-'null',
+											method-BizUtil.fieldNotNull-'null',
+											method-BizUtil.fieldNotNull-'null',
+											method-BizUtil.fieldNotNull-'null',
+											method-BizUtil.fieldNotNull-'null',
+											method-ApBusinessParm.getValue-'null',
+											method-ApBusinessParm.getValue-'null',
+											method-BizUtil.fieldNotNull-'null',
+											method-ApBusinessParm.getValue-'null',
+											table-tap_accountingevent_ctrl-select-'contrl accounting event',
+											method-ApCurrency.chkAmountByCcy-'null',
+											method-ApTrxn.getAccountingEventSerial-'null',
+											method-BizUtil.getGroupHashValue-'null',
+											table-tas_accounting_event-insert-'accounting event'
+										},
+										method-TaAccountMnt.getAcctBaseInfo-'null'{
+											method-BizUtil.fieldNotNull-'null',
+											method-BizUtil.fieldNotNull-'null',
+											localSer-SrvIoDpQueryAcct.qryAcctBriefInfo-'null',
+											table-tap_business-select-'the definition of gl reference code',
+											table-taa_account-select-'internal account',
+											method-ApBranch.getItem-'null',
+											method-TaAccountMnt.getInsideAcctName-'null',
+											table-tap_business-select-'the definition of gl reference code',
+											method-TaAccountMnt.getSuspenseName-'null',
+											method-ApBranch.getItem-'null',
+											method-BizUtil.fieldNotNull-'null',
+											localSer-SrvIoCmCash.qryCashAcctInfo-'null',
+											method-ApBranch.getItem-'null'
+										}
+									}
+								}
+							}
+						},
+						method-dp4023.cashHandling-'null'{
+							localSer-SrvIoCmCash.prcCashAccounting-'null'{
+								return method-CmCashAcct.prcCashAccounting-'null'{
+									method-BizUtil.getTrxRunEnvs-'null',
+									method-CmTillQry.qryTellTillInfo-'null'{
+										table-cma_till-select-'Till Information',
+										table-cma_till-select-'Till Information'
+									},
+									method-CmCashCheck.checkCashAccounting-'null'{
+										method-BizUtil.fieldNotNull-'null',
+										method-BizUtil.fieldNotNull-'null',
+										method-BizUtil.fieldNotNull-'null',
+										method-ApDropList.exists-'null'{
+											method-ApDropList.getItem-'null'
+										},
+										method-BizUtil.getTrxRunEnvs-'null',
+										method-CmCashCheck.checkCashBalance-'null'{
+											table-cma_cash_balance-select-'Cash Balance Register',
+											method-CmTillQry.selTillByBoxId-'null'
+										}
+									},
+									method-CmCashAcct.calcCashChangeAmount-'null'{
+										method-ApCurrency.getItem-'null'{
+											table-app_currency-select-'currency define',
+											return method-ApCurrency.getCurrencyInfo-'null'
+										},
+										method-ApBusinessParm.getIntValue-'null'{
+											method-ApBusinessParm.getValue-'null'
+										}
+									},
+									method-CmCashAcct.regCashAcctInfo-'null'{
+										method-BizUtil.getTrxRunEnvs-'null',
+										table-cma_cash_balance-select-'Cash Balance Register',
+										method-CmCashAcct.genCashAcctNo-'null'{
+											method-ApCurrency.getItem-'null',
+											method-ApBuffer.addData-'null',
+											return method-ApSeq.genSeq-'null'
+										},
+										table-cma_cash_balance-insert-'Cash Balance Register',
+										table-cma_cash_balance-update-'Cash Balance Register',
+										method-CmCashAcct.regCashACSerail-'null'{
+											localSer-SrvIoTaAccounting.regAccountingEvent-'null'
+										},
+										localSer-SrvIoCbReconciliation.openReconciliateInd-'null'{
+											method-CbCashReconciliate.openReconciliateInd-'null'
+										},
+										method-ApReversal.register-'null'{
+											method-BizUtil.getTrxRunEnvs-'null',
+											method-ApTrxn.isReversalTrxn-'null',
+											table-app_reversal_event-select-'reversal event define',
+											method-ApTrxn.getSerial-'null',
+											table-apl_reversal_event-insert-'reversal event log'
+										}
+									},
+									localSer-SrvIoTaAccounting.getAcctBaseInfo-'null'{
+										return method-TaAccountMnt.getAcctBaseInfo-'null'{
+											method-BizUtil.fieldNotNull-'null',
+											method-BizUtil.fieldNotNull-'null',
+											localSer-SrvIoDpQueryAcct.qryAcctBriefInfo-'null',
+											table-tap_business-select-'the definition of gl reference code',
+											table-taa_account-select-'internal account',
+											method-ApBranch.getItem-'null',
+											method-TaAccountMnt.getInsideAcctName-'null',
+											table-tap_business-select-'the definition of gl reference code',
+											method-TaAccountMnt.getSuspenseName-'null',
+											method-ApBranch.getItem-'null',
+											method-BizUtil.fieldNotNull-'null',
+											localSer-SrvIoCmCash.qryCashAcctInfo-'null',
+											method-ApBranch.getItem-'null'
+										}
+									},
+									method-CmCashAcct.regCashBill-'null'{
+										method-BizUtil.getTrxRunEnvs-'null',
+										method-ApSummary.getText-'null'{
+											table-app_summary-select-'summary define'
+										},
+										table-cmb_cash_trxn-insert-'Cash Transaction Details'
+									}
+								}
+							}
+						},
+						method-dp4023.suspenseFirstHandling-'null'{
+							method-BizUtil.getTrxRunEnvs-'null',
+							method-ApBusinessParm.getValue-'null'{
+								table-app_business_parameter-select-'system parameter'
+							},
+							localSer-SrvIoTaAccounting.bookSuspenseWithCheck-'null'{
+								return method-TaAccounting.bookSuspenseWithCheck-'null'{
+									return method-TaAccounting.bookSuspense-'null'{
+										method-TaAccounting.checkSuspense-'null'{
+											method-TaAccounting.checkDataNull-'null',
+											method-TaAccounting.openSuspenseNo-'null',
+											method-TaAccounting.checkExsitSusNo-'null',
+											table-taa_suspense-select-'suspense account',
+											table-taa_account-select-'internal account',
+											method-ApBranch.getItem-'null'
+										},
+										table-taa_suspense-select-'suspense account',
+										method-TaAccounting.updSuspAccBal-'null'{
+											table-taa_suspense-select-'suspense account',
+											method-BizUtil.getTrxRunEnvs-'null',
+											method-BizUtil.getTrxRunEnvs-'null',
+											table-taa_suspense-update-'suspense account'
+										},
+										method-TaAccounting.regSuspenseBill-'null'{
+											method-BizUtil.getTrxRunEnvs-'null',
+											table-taa_account-select-'internal account',
+											method-TaAccountMnt.getAcctBaseInfo-'null',
+											method-ApSummary.getText-'null',
+											table-tas_suspense_trxn-insert-'the detail of suspense account',
+											method-ApReversal.register-'null'
+										},
+										method-TaAccounting.setSusAccountingEventValue-'null',
+										method-TaAccounting.regAccountingEvent-'null'{
+											method-BizUtil.getTrxRunEnvs-'null',
+											method-BizUtil.fieldNotNull-'null',
+											method-BizUtil.fieldNotNull-'null',
+											method-BizUtil.fieldNotNull-'null',
+											method-BizUtil.fieldNotNull-'null',
+											method-BizUtil.fieldNotNull-'null',
+											method-BizUtil.fieldNotNull-'null',
+											method-BizUtil.fieldNotNull-'null',
+											method-BizUtil.fieldNotNull-'null',
+											method-ApBusinessParm.getValue-'null',
+											method-ApBusinessParm.getValue-'null',
+											method-BizUtil.fieldNotNull-'null',
+											method-ApBusinessParm.getValue-'null',
+											table-tap_accountingevent_ctrl-select-'contrl accounting event',
+											method-ApCurrency.chkAmountByCcy-'null',
+											method-ApTrxn.getAccountingEventSerial-'null',
+											method-BizUtil.getGroupHashValue-'null',
+											table-tas_accounting_event-insert-'accounting event'
+										},
+										method-TaAccountMnt.getAcctBaseInfo-'null'{
+											method-BizUtil.fieldNotNull-'null',
+											method-BizUtil.fieldNotNull-'null',
+											localSer-SrvIoDpQueryAcct.qryAcctBriefInfo-'null',
+											table-tap_business-select-'the definition of gl reference code',
+											table-taa_account-select-'internal account',
+											method-ApBranch.getItem-'null',
+											method-TaAccountMnt.getInsideAcctName-'null',
+											table-tap_business-select-'the definition of gl reference code',
+											method-TaAccountMnt.getSuspenseName-'null',
+											method-ApBranch.getItem-'null',
+											method-BizUtil.fieldNotNull-'null',
+											localSer-SrvIoCmCash.qryCashAcctInfo-'null',
+											method-ApBranch.getItem-'null'
+										}
+									}
+								}
+							}
+						},
+						method-dp4023.suspenseHandling-'null'{
+							localSer-SrvIoTaAccounting.bookSuspenseWithCheck-'null'{
+								return method-TaAccounting.bookSuspenseWithCheck-'null'{
+									return method-TaAccounting.bookSuspense-'null'{
+										method-TaAccounting.checkSuspense-'null'{
+											method-TaAccounting.checkDataNull-'null',
+											method-TaAccounting.openSuspenseNo-'null',
+											method-TaAccounting.checkExsitSusNo-'null',
+											table-taa_suspense-select-'suspense account',
+											table-taa_account-select-'internal account',
+											method-ApBranch.getItem-'null'
+										},
+										table-taa_suspense-select-'suspense account',
+										method-TaAccounting.updSuspAccBal-'null'{
+											table-taa_suspense-select-'suspense account',
+											method-BizUtil.getTrxRunEnvs-'null',
+											method-BizUtil.getTrxRunEnvs-'null',
+											table-taa_suspense-update-'suspense account'
+										},
+										method-TaAccounting.regSuspenseBill-'null'{
+											method-BizUtil.getTrxRunEnvs-'null',
+											table-taa_account-select-'internal account',
+											method-TaAccountMnt.getAcctBaseInfo-'null',
+											method-ApSummary.getText-'null',
+											table-tas_suspense_trxn-insert-'the detail of suspense account',
+											method-ApReversal.register-'null'
+										},
+										method-TaAccounting.setSusAccountingEventValue-'null',
+										method-TaAccounting.regAccountingEvent-'null'{
+											method-BizUtil.getTrxRunEnvs-'null',
+											method-BizUtil.fieldNotNull-'null',
+											method-BizUtil.fieldNotNull-'null',
+											method-BizUtil.fieldNotNull-'null',
+											method-BizUtil.fieldNotNull-'null',
+											method-BizUtil.fieldNotNull-'null',
+											method-BizUtil.fieldNotNull-'null',
+											method-BizUtil.fieldNotNull-'null',
+											method-BizUtil.fieldNotNull-'null',
+											method-ApBusinessParm.getValue-'null',
+											method-ApBusinessParm.getValue-'null',
+											method-BizUtil.fieldNotNull-'null',
+											method-ApBusinessParm.getValue-'null',
+											table-tap_accountingevent_ctrl-select-'contrl accounting event',
+											method-ApCurrency.chkAmountByCcy-'null',
+											method-ApTrxn.getAccountingEventSerial-'null',
+											method-BizUtil.getGroupHashValue-'null',
+											table-tas_accounting_event-insert-'accounting event'
+										},
+										method-TaAccountMnt.getAcctBaseInfo-'null'{
+											method-BizUtil.fieldNotNull-'null',
+											method-BizUtil.fieldNotNull-'null',
+											localSer-SrvIoDpQueryAcct.qryAcctBriefInfo-'null',
+											table-tap_business-select-'the definition of gl reference code',
+											table-taa_account-select-'internal account',
+											method-ApBranch.getItem-'null',
+											method-TaAccountMnt.getInsideAcctName-'null',
+											table-tap_business-select-'the definition of gl reference code',
+											method-TaAccountMnt.getSuspenseName-'null',
+											method-ApBranch.getItem-'null',
+											method-BizUtil.fieldNotNull-'null',
+											localSer-SrvIoCmCash.qryCashAcctInfo-'null',
+											method-ApBranch.getItem-'null'
+										}
+									}
+								}
+							}
+						}
+					},
+					method-dp4023.dealChange-'null'{
+						localSer-SrvIoFxExchange.forexTrxnMiddleService-'null'{
+							return method-FxExchange.doMain-'null'{
+								method-FxExchange.checkInputData-'输入接口检查'{
+									method-BizUtil.fieldNotNull-'null',
+									method-BizUtil.fieldNotNull-'null',
+									method-BizUtil.fieldNotNull-'null',
+									method-BizUtil.fieldNotNull-'null',
+									method-BizUtil.fieldNotNull-'null',
+									method-BizUtil.fieldNotNull-'null',
+									method-ApCurrency.chkAmountByCcy-'null',
+									method-ApCurrency.chkAmountByCcy-'null',
+									method-ApSummary.exists-'null'{
+										table-app_summary-select-'summary define'
+									},
+									method-ApRule.mapping-'null'{
+										table-app_rule-select-'rule define',
+										method-ApRule.checkRule-'null'{
+											table-app_rule_data-select-'rule data define',
+											method-ApRule.checkRuleSingle-'null'
+										},
+										method-ApRule.checkRule-'null'{
+											table-app_rule_data-select-'rule data define',
+											method-ApRule.checkRuleSingle-'null'
+										}
+									},
+									table-fxb_agree_price-select-'Foreign Exchange Inquiry Register',
+									method-BizUtil.getTrxRunEnvs-'null',
+									method-BizUtil.getTrxRunEnvs-'null',
+									method-BizUtil.getTrxRunEnvs-'null',
+									localSer-SrvIoCmExch.confirmTasCcyPairPrice-'null'{
+										method-CmExchRate.confirmTasCcyPairPrice-'null'{
+											method-BizUtil.fieldNotNull-'null',
+											method-BizUtil.fieldNotNull-'null',
+											method-BizUtil.getTrxRunEnvs-'null'
+										}
+									},
+									localSer-SrvIoCmExch.qryTasPromoExchRate-'null'{
+										return method-CmExchRate.qryTasPromoExchRate-'null'{
+											method-BizUtil.getTrxRunEnvs-'null',
+											method-BizUtil.fieldNotNull-'null',
+											method-BizUtil.fieldNotNull-'null',
+											method-BizUtil.fieldNotNull-'null',
+											method-ApCurrency.roundAmount-'null',
+											method-ApCurrency.roundAmount-'null'
+										}
+									},
+									method-ApBusinessParm.getValue-'null'{
+										table-app_business_parameter-select-'system parameter'
+									},
+									method-FxExchange.getCashExchPriceFlag-'null'{
+										method-ApAcctRoute.getRouteType-'null'{
+											table-apb_account_route-select-'account route book'
+										},
+										method-DpQueryLocateAccount.locateSubAcct-'null'{
+											method-DpQueryLocateAccount.locateAccount-'null',
+											method-BizUtil.getTrxRunEnvs-'null',
+											nsql-DpCommon.locateSubAcct-S-dpa_account_relate-select-'Locate sub-account'
+										},
+										method-DpProduct.getProdOpenCtrl-'null'{
+											table-dpf_open-select-'Product open account control table'
+										},
+										method-ApAcctRoute.getRouteType-'null'{
+											table-apb_account_route-select-'account route book'
+										},
+										method-DpQueryLocateAccount.locateSubAcct-'null'{
+											method-DpQueryLocateAccount.locateAccount-'null',
+											method-BizUtil.getTrxRunEnvs-'null',
+											nsql-DpCommon.locateSubAcct-S-dpa_account_relate-select-'Locate sub-account'
+										},
+										method-DpProduct.getProdOpenCtrl-'null'{
+											table-dpf_open-select-'Product open account control table'
+										}
+									},
+									localSer-SrvIoFxExchange.getCashExchPriceFlag-'null'{
+										return method-FxExchange.getCashExchPriceFlag-'null'{
+											method-ApAcctRoute.getRouteType-'null',
+											method-DpQueryLocateAccount.locateSubAcct-'null',
+											method-DpProduct.getProdOpenCtrl-'null',
+											method-ApAcctRoute.getRouteType-'null',
+											method-DpQueryLocateAccount.locateSubAcct-'null',
+											method-DpProduct.getProdOpenCtrl-'null'
+										}
+									},
+									method-FxExchange.getCashExchPriceFlag-'null'{
+										method-ApAcctRoute.getRouteType-'null'{
+											table-apb_account_route-select-'account route book'
+										},
+										method-DpQueryLocateAccount.locateSubAcct-'null'{
+											method-DpQueryLocateAccount.locateAccount-'null',
+											method-BizUtil.getTrxRunEnvs-'null',
+											nsql-DpCommon.locateSubAcct-S-dpa_account_relate-select-'Locate sub-account'
+										},
+										method-DpProduct.getProdOpenCtrl-'null'{
+											table-dpf_open-select-'Product open account control table'
+										},
+										method-ApAcctRoute.getRouteType-'null'{
+											table-apb_account_route-select-'account route book'
+										},
+										method-DpQueryLocateAccount.locateSubAcct-'null'{
+											method-DpQueryLocateAccount.locateAccount-'null',
+											method-BizUtil.getTrxRunEnvs-'null',
+											nsql-DpCommon.locateSubAcct-S-dpa_account_relate-select-'Locate sub-account'
+										},
+										method-DpProduct.getProdOpenCtrl-'null'{
+											table-dpf_open-select-'Product open account control table'
+										}
+									},
+									localSer-SrvIoFxExchange.getCashExchPriceFlag-'null'{
+										return method-FxExchange.getCashExchPriceFlag-'null'{
+											method-ApAcctRoute.getRouteType-'null',
+											method-DpQueryLocateAccount.locateSubAcct-'null',
+											method-DpProduct.getProdOpenCtrl-'null',
+											method-ApAcctRoute.getRouteType-'null',
+											method-DpQueryLocateAccount.locateSubAcct-'null',
+											method-DpProduct.getProdOpenCtrl-'null'
+										}
+									},
+									localSer-SrvIoCmExch.calcForexAmount-'null'{
+										return method-CmCalcExchAmount.prcForexAmountCalc-'null'{
+											method-CmCalcExchAmount.checkInputData-'null',
+											method-CmCalcExchAmount.systemExchRateNew-'null',
+											method-CmCalcExchAmount.calcAmountByExch-'null',
+											method-CmCalcExchAmount.calcArbitrageAmountNew-'null',
+											method-CmCalcExchAmount.prcExchDeviation-'null',
+											method-CmExchUtil.getExchType-'null'
+										}
+									},
+									method-FxExchange.fxExchangeAmtCheck-'null'{
+										method-ApBusinessParm.getDecimalValue-'null'{
+											method-ApBusinessParm.getValue-'null'
+										}
+									},
+									method-FxExchange.getCashExchPriceFlag-'null'{
+										method-ApAcctRoute.getRouteType-'null'{
+											table-apb_account_route-select-'account route book'
+										},
+										method-DpQueryLocateAccount.locateSubAcct-'null'{
+											method-DpQueryLocateAccount.locateAccount-'null',
+											method-BizUtil.getTrxRunEnvs-'null',
+											nsql-DpCommon.locateSubAcct-S-dpa_account_relate-select-'Locate sub-account'
+										},
+										method-DpProduct.getProdOpenCtrl-'null'{
+											table-dpf_open-select-'Product open account control table'
+										},
+										method-ApAcctRoute.getRouteType-'null'{
+											table-apb_account_route-select-'account route book'
+										},
+										method-DpQueryLocateAccount.locateSubAcct-'null'{
+											method-DpQueryLocateAccount.locateAccount-'null',
+											method-BizUtil.getTrxRunEnvs-'null',
+											nsql-DpCommon.locateSubAcct-S-dpa_account_relate-select-'Locate sub-account'
+										},
+										method-DpProduct.getProdOpenCtrl-'null'{
+											table-dpf_open-select-'Product open account control table'
+										}
+									},
+									localSer-SrvIoFxExchange.getCashExchPriceFlag-'null'{
+										return method-FxExchange.getCashExchPriceFlag-'null'{
+											method-ApAcctRoute.getRouteType-'null',
+											method-DpQueryLocateAccount.locateSubAcct-'null',
+											method-DpProduct.getProdOpenCtrl-'null',
+											method-ApAcctRoute.getRouteType-'null',
+											method-DpQueryLocateAccount.locateSubAcct-'null',
+											method-DpProduct.getProdOpenCtrl-'null'
+										}
+									},
+									localSer-SrvIoCmExch.calcForexAmount-'null'{
+										return method-CmCalcExchAmount.prcForexAmountCalc-'null'{
+											method-CmCalcExchAmount.checkInputData-'null',
+											method-CmCalcExchAmount.systemExchRateNew-'null',
+											method-CmCalcExchAmount.calcAmountByExch-'null',
+											method-CmCalcExchAmount.calcArbitrageAmountNew-'null',
+											method-CmCalcExchAmount.prcExchDeviation-'null',
+											method-CmExchUtil.getExchType-'null'
+										}
+									},
+									method-FxExchange.fxExchangeAmtCheck-'null'{
+										method-ApBusinessParm.getDecimalValue-'null'{
+											method-ApBusinessParm.getValue-'null'
+										}
+									},
+									method-FxExchange.CalcForexAmount-'null'{
+										localSer-SrvIoCmExch.calcForexAmount-'null'{
+											return method-CmCalcExchAmount.prcForexAmountCalc-'null'
+										}
+									},
+									method-FxExchange.fxExchangeAmtCheck-'null'{
+										method-ApBusinessParm.getDecimalValue-'null'{
+											method-ApBusinessParm.getValue-'null'
+										}
+									},
+									method-FxExchange.CalcForexAmount-'null'{
+										localSer-SrvIoCmExch.calcForexAmount-'null'{
+											return method-CmCalcExchAmount.prcForexAmountCalc-'null'
+										}
+									},
+									method-FxExchange.fxExchangeAmtCheck-'null'{
+										method-ApBusinessParm.getDecimalValue-'null'{
+											method-ApBusinessParm.getValue-'null'
+										}
+									}
+								},
+								method-FxExchange.genExchMiddleData-'生成结售汇中间数据'{	'生成结售汇中间数据'
+									method-ApBuffer.addData-'null'{
+										method-ApDropList.exists-'null'{
+											method-ApDropList.getItem-'null'
+										},
+										method-BizUtil.getTrxRunEnvs-'null'
+									},
+									method-ApCurrency.getItem-'null'{
+										table-app_currency-select-'currency define',
+										return method-ApCurrency.getCurrencyInfo-'null'
+									},
+									method-ApBuffer.addData-'null'{
+										method-ApDropList.exists-'null'{
+											method-ApDropList.getItem-'null'
+										},
+										method-BizUtil.getTrxRunEnvs-'null'
+									},
+									method-ApAcctRoute.getRouteType-'null'{
+										table-apb_account_route-select-'account route book'
+									},
+									table-dpa_account-select-'Deposit account table',
+									method-DpQueryLocateAccount.locateAccount-'null'{
+										table-dpa_account-select-'Deposit account table',
+										table-dpa_card-select-'Card information',
+										table-dpa_card_new-select-'new card and old card register',
+										table-dpa_card-select-'Card information',
+										table-dpa_account-select-'Deposit account table',
+										method-BizUtil.getTrxRunEnvs-'null',
+										nsql-DpCardAcctRelate.locateAcctByCard-S-dpa_card_account-select,dpa_account-select-'Locate the account by card number',
+										nsql-DpCardAcctRelate.existsCard-S-dpa_card-select-'To determine whether the card number exists',
+										table-dpa_card_new-select-'new card and old card register',
+										nsql-DpCardAcctRelate.locateAcctByCard-S-dpa_card_account-select,dpa_account-select-'Locate the account by card number'
+									},
+									method-ApBuffer.addData-'null'{
+										method-ApDropList.exists-'null'{
+											method-ApDropList.getItem-'null'
+										},
+										method-BizUtil.getTrxRunEnvs-'null'
+									},
+									method-DpBuffer.addDataToCustBuffer-'null'{
+										localSer-SrvIoCfCustomer.qryCorporCustInfo-'null'{
+											return method-CfCustInfoQuery.qryCorporCustInfo-'null'
+										},
+										method-ApAttribute.getNewestAttrValue-'null'{
+											method-BizUtil.getTrxRunEnvs-'null',
+											method-ApAttribute.builderData-'null'
+										},
+										method-ApBuffer.addData-'null'{
+											method-ApDropList.exists-'null',
+											method-BizUtil.getTrxRunEnvs-'null'
+										}
+									},
+									table-dpa_account_relate-select-'Depository Account And Sub-account Relations Table',
+									table-dpa_sub_account-select-'Deposit sub-account table',
+									table-dpa_account_relate-select-'Depository Account And Sub-account Relations Table',
+									table-dpa_account_relate-select-'Depository Account And Sub-account Relations Table',
+									table-dpa_sub_account-select-'Deposit sub-account table',
+									table-dpa_sub_account-select-'Deposit sub-account table',
+									table-dpa_sub_account-select-'Deposit sub-account table',
+									method-BizUtil.getTrxRunEnvs-'null',
+									method-ApBuffer.addData-'null'{
+										method-ApDropList.exists-'null'{
+											method-ApDropList.getItem-'null'
+										},
+										method-BizUtil.getTrxRunEnvs-'null'
+									},
+									method-DpProduct.getProdOpenCtrl-'null'{
+										table-dpf_open-select-'Product open account control table'
+									},
+									localSer-SrvIoTaAccounting.getAcctBaseInfo-'null'{
+										return method-TaAccountMnt.getAcctBaseInfo-'null'{
+											method-BizUtil.fieldNotNull-'null',
+											method-BizUtil.fieldNotNull-'null',
+											localSer-SrvIoDpQueryAcct.qryAcctBriefInfo-'null',
+											table-tap_business-select-'the definition of gl reference code',
+											table-taa_account-select-'internal account',
+											method-ApBranch.getItem-'null',
+											method-TaAccountMnt.getInsideAcctName-'null',
+											table-tap_business-select-'the definition of gl reference code',
+											method-TaAccountMnt.getSuspenseName-'null',
+											method-ApBranch.getItem-'null',
+											method-BizUtil.fieldNotNull-'null',
+											localSer-SrvIoCmCash.qryCashAcctInfo-'null',
+											method-ApBranch.getItem-'null'
+										}
+									},
+									method-ApAcctRoute.getRouteType-'null'{
+										table-apb_account_route-select-'account route book'
+									},
+									method-DpPublic.locateSingleAccount-'null'{
+										table-dpa_account-select-'Deposit account table',
+										table-dpa_account-select-'Deposit account table',
+										method-ApBusinessParm.getValue-'null'{
+											table-app_business_parameter-select-'system parameter'
+										},
+										method-BizUtil.getTrxRunEnvs-'null',
+										table-dpa_card-select-'Card information',
+										table-dpa_card_new-select-'new card and old card register',
+										table-dpa_card-select-'Card information',
+										table-dpa_account-select-'Deposit account table',
+										table-dpa_account-select-'Deposit account table',
+										method-BizUtil.getTrxRunEnvs-'null',
+										nsql-DpCardAcctRelate.locateAcctByCard-S-dpa_card_account-select,dpa_account-select-'Locate the account by card number',
+										table-dpa_account-select-'Deposit account table'
+									},
+									method-DpPublic.locateSingleSubAcct-'null'{
+										method-DpPublic.locateSingleAccount-'null'{
+											table-dpa_account-select-'Deposit account table',
+											table-dpa_account-select-'Deposit account table',
+											method-ApBusinessParm.getValue-'null',
+											method-BizUtil.getTrxRunEnvs-'null',
+											table-dpa_card-select-'Card information',
+											table-dpa_card_new-select-'new card and old card register',
+											table-dpa_card-select-'Card information',
+											table-dpa_account-select-'Deposit account table',
+											table-dpa_account-select-'Deposit account table',
+											method-BizUtil.getTrxRunEnvs-'null',
+											nsql-DpCardAcctRelate.locateAcctByCard-S-dpa_card_account-select,dpa_account-select-'Locate the account by card number',
+											table-dpa_account-select-'Deposit account table'
+										},
+										method-BizUtil.getTrxRunEnvs-'null',
+										nsql-DpCommon.locateSubAcct-S-dpa_account_relate-select-'Locate sub-account',
+										method-DpPublic.saveAutoOpenAcctCheck-'null'{
+											method-DpParameter.getAcctTypeInfo-'null',
+											table-dpa_account_relate-select-'Depository Account And Sub-account Relations Table',
+											method-DpProduct.getProdBaseInfo-'null',
+											method-DpParameter.checkProdAdaptAcctType-'null',
+											method-DpProduct.getProdOpenCtrl-'null'
+										}
+									},
+									method-DpProduct.getProdOpenCtrl-'null'{
+										table-dpf_open-select-'Product open account control table'
+									},
+									localSer-SrvIoTaAccounting.getAcctBaseInfo-'null'{
+										return method-TaAccountMnt.getAcctBaseInfo-'null'{
+											method-BizUtil.fieldNotNull-'null',
+											method-BizUtil.fieldNotNull-'null',
+											localSer-SrvIoDpQueryAcct.qryAcctBriefInfo-'null',
+											table-tap_business-select-'the definition of gl reference code',
+											table-taa_account-select-'internal account',
+											method-ApBranch.getItem-'null',
+											method-TaAccountMnt.getInsideAcctName-'null',
+											table-tap_business-select-'the definition of gl reference code',
+											method-TaAccountMnt.getSuspenseName-'null',
+											method-ApBranch.getItem-'null',
+											method-BizUtil.fieldNotNull-'null',
+											localSer-SrvIoCmCash.qryCashAcctInfo-'null',
+											method-ApBranch.getItem-'null'
+										}
+									}
+								},
+								method-FxExchange.CalcForexAmount-'结售汇金额信息计算'{	'计算自动结售汇金额'
+									return localSer-SrvIoCmExch.calcForexAmount-'null'{	'外汇买卖金额计算'
+										return method-CmCalcExchAmount.prcForexAmountCalc-'null'{	'货币兑换试算主处理'
+											method-CmCalcExchAmount.checkInputData-'1、输入要素合法性检查',
+											method-CmCalcExchAmount.systemExchRateNew-'3、获取汇率信息':{
+												through_ccy_ind=N:{
+													method-CmCalcExchAmount.getSimpleExchRate:{	'获取简单汇率' '货币对之间存在直接或间接的汇率'
+														nsql-CmExchRate.selRealExchRate-cmp_exchge_rate-select:{
+															select a.ccy_code          as ccy_code,
+																	a.opp_ccy_code      as opp_ccy_code,
+																	a.exch_rate_type    as exch_rate_type,
+																	a.entry_time        as entry_time,
+																	a.trxn_date         as trxn_date,
+																	a.quotation_method  as quotation_method,
+																	a.forex_quot_unit   as forex_quot_unit,
+																	a.base_buy_price    as base_buy_price,
+																	a.base_sell_price   as base_sell_price,
+																	a.bank_buy_price    as buy_price,
+																	a.bank_sell_price   as sell_price,
+																	a.bank_middle_price as middle_price,
+																 a.denomination as denomination,
+																	a.remark            as remark
+															   from cmp_exchge_rate a
+															  where a.org_id = #org_id#
+																and a.exch_rate_type = #exch_rate_type#
+																and a.ccy_code = #ccy_code#
+																and a.opp_ccy_code = #opp_ccy_code#
+																and a.denomination = #denomination#
+																and a.entry_time =
+																	(select max(b.entry_time)
+																	   from cmp_exchge_rate b
+																	  where b.org_id = a.org_id
+																		and b.exch_rate_type = a.exch_rate_type
+																		and b.ccy_code = a.ccy_code
+																	and  b.denomination  =  a.denomination 
+																		and b.opp_ccy_code = a.opp_ccy_code)
+														},
+														CmCalcExchAmount.getPromoExchRate-'汇率优惠计算(手输汇率不参与优惠)':{	'获取汇率优惠信息'
+															addExchDataMart-'添加数据集':{
+																
+															},
+															nsql-CmExchRate.selValidExchPromoInfo:{
+																select *
+																  from cmp_exch_promo a
+																 where a.ccy_code = #ccy_code#
+																   and a.org_id = #org_id#
+																   and a.exch_rate_type = #exch_rate_type#
+																   and a.expiry_date >= #expiry_date#
+																   and a.effect_date <= #effect_date#
+															},
+															for (cmp_exch_promo exchPromoInfo : exchPromoList) :{
+																exchPromoInfo.getExch_promo_cond_code()-'汇率优惠条件码'
+															},
+															calcPromoExch-'计算汇率优惠值':{}
+														}
+													}
+												}else{CmCalcExchAmount.getCrossExchRate}
+											},
+											through_ccy_code==null-'4、外汇买卖金额计算':{
+												method-CmCalcExchAmount.calcAmountByExch-'结汇/售汇':{	'根据汇率计算买卖金额'
+													calcAmountByHandExch-'手输汇率计算买卖金额',
+													calcAmountBySysExch-'系统汇率计算买卖金额':{
+														cplIn.getBuy_ccy_code()=exchRateInfo.getCcy_code():{
+															
+														},
+														cplIn.getBuy_ccy_code()=exchRateInfo.getOpp_ccy_code():{},
+													}
+												},
+											}else{
+												method-CmCalcExchAmount.calcArbitrageAmountNew-'套汇',
+											}
+											method-CmCalcExchAmount.prcExchDeviation-'5、买卖金额误差处理':{	'币种兑换误差处理'
+												
+											},
+											method-CmExchUtil.getExchType-'6、赋值汇率类型':{	'获取结售汇类型'
+												'查询货币对定义信息'
+												cmp_exchge_ccy_pair ccyPairDef = getCurrencyPairDefine(buyCcy, sellCcy, exchRateType,denomination);:{	'查询货币对定义信息'
+													'ccyCode=USD,oppCcy=TZS,exchRateType=C,denomination=0.00'	->	E_EXCHANGETYPE.BUY
+													cmp_exchge_ccy_pair tabCcyPairBuySell = CmExchUtil.getExchgeCcyPair(ccyCode, oppCcy, exchRateType,denomination);:{
+														nsql-CmExchRate.selExchgeCcyPair-cmp_exchge_ccy_pair-select
+													}
+												}
+											}
+										}
+									}
+								},
+								method-FxExchange.getForexTrxnType-'结售汇外汇买卖种类分析':{	'结售汇分析外汇买卖业务种类'
+									E_FOREXTRXNTYPE
+									buy_cash_ind,sell_cash_ind:{	C-E_CASHTRXN.CASH-'现金'
+										C,C:{
+											E_EXCHANGETYPE.BUY-1-'exchange settlement'-"结汇",-> CASH_BUY-" 外汇现金兑入"
+											E_EXCHANGETYPE.SELL-2-'sales exchange'-"售汇",-> CASH_SELL-" 外汇现金兑出"
+											E_EXCHANGETYPE.ARBITRAGE-3-'arbitrage'-"套汇",-> CASH_ARBITRAGE-" 外币套兑"
+										}
+									}
+								},
+								method-ApBuffer.addData-'null'{
+									method-ApDropList.exists-'null'{
+										method-ApDropList.getItem-'null'{
+											table-app_drop-select-'drop list define',
+											method-ApOrg.getDefaultOrgId-'null',
+											table-app_drop_list-select-'drop list parameter',
+											method-ApOrg.getReferenceOrgId-'null',
+											table-app_drop_list-select-'drop list parameter',
+											method-ApOrg.getDefaultOrgId-'null',
+											table-app_drop_list-select-'drop list parameter'
+										}
+									},
+									method-BizUtil.getTrxRunEnvs-'null'
+								},
+								method-FxExchange.checkForexParmeter-'null'{
+									method-BizUtil.getTrxRunEnvs-'null',
+									method-FxParameterApply.checkFxExchParmeter-'null'{
+										method-FxParameterApply.checkFxpLarge-'null'{
+											method-FxParameter.getFxpLarge-'null'
+										},
+										method-FxParameterApply.checkFxpBranchDroit-'null'{
+											method-FxParameter.getFxpBrchDroit-'null',
+											method-BizUtil.getComputerTime-'null'
+										},
+										method-FxParameterApply.checkFxpRule-'外汇买卖业务规则检查'{
+											method-FxParameter.getFxRuleList-'null':{
+												table-fxp_rule-select,
+											},
+											for:{
+												method-ApRule.mapping-'null'
+											}
+										}
+									}
+								},
+								method-FxExchange.dealAccounting(IoFxExchangeIn, IoCmExchAmtCalcOut, E_FOREXTRXNTYPE)-'自动结售汇处理记账'{	'结售汇中间服务账务处理'
+									cplAccountingIn.setForex_trxn_type(forexTrxnType);
+									method-FxExchange.fxExchAccounting-'结售汇中间服务账务处理'{
+										method-BizUtil.getTrxRunEnvs-'null',
+										forex_trxn_type-'forex trxn type'-"外汇交易类型":{	'BusinessType.E_FOREXTRXNTYPE'
+											enum:{
+												<restrictionType id="E_FOREXTRXNTYPE" longname="foreign sale and buy category" base="string" maxLength="2">
+													<enumeration id="CUST_SELL" value="10" longname="customer sales exchange"/>
+													<enumeration id="SELF_SELL" value="11" longname="self sales exchange"/>
+													<enumeration id="CUST_BUY" value="20" longname="customer exchange settlement"/>
+													<enumeration id="SELF_BUY" value="21" longname="self settlement exchange"/>
+													<enumeration id="CUST_ARBITRAGE" value="30" longname="customer arbitrage"/>
+													<enumeration id="SELF_ARBITRAGE" value="31" longname="internal arbitrarge"/>
+													<enumeration id="CASH_BUY" value="40" longname="cash sales exchange"/>
+													<enumeration id="CASH_SELL" value="41" longname="cash exchange settlement"/>
+													<enumeration id="CASH_ARBITRAGE" value="42" longname="cash arbitrarge"/>
+												</restrictionType>
+											}
+										},
+										fxp_account forexAcct = method-FxParameter.getFxpAccount-'获取外汇买卖业务编号'{
+											table-fxp_account-select-'Foreign exchange trading account parameters table'
+											"FCY_EXCHANGE_CUST"
+										},
+										cplSellDebitIn.setCash_trxn_ind(E_CASHTRXN.TRXN);
+										cplSellDebitIn.setGl_ref_code(forexAcct.getGl_ref_code());
+										localSer-SrvIoTaAccounting.bookAccountList-'null'{
+											method-TaSetAccounting.bookAccountList-'null':{	'记账'
+												TaSetAccounting.accountSetAccountingDo(accountInfoList);:{
+													for(setAccountInfo : setAccountInfoList):{
+														cash_trxn_ind:{
+															T-transfer,
+															C-cash:{}
+														},
+														suspense_no,
+														acct_no,
+														gl_ref_code:{
+															busiCodeAccounting(setAccountInfo);-'业务编码记账':{
+																table-tap_business-select-''-'取业务编码信息':{
+																	where gl_ref_code=''
+																},
+																internal_acct_type:{
+																	'A':{	'内部户记账'
+																		TaAccounting.bookAccountingWithCheck(bookAccoutingIn); :{
+																			return bookAccounting(srvInput, true);
+																		}
+																	},
+																	'B'
+																}
+															}
+														}
+													}
+												}
+											}
+										}
+									}
+								},
+								method-FxExchange.registerAgreePrice-'登记外汇询价登记簿'{
+									table-fxb_agree_price-select-'Foreign Exchange Inquiry Register',
+									method-BizUtil.getTrxRunEnvs-'null',
+									method-BizUtil.getTrxRunEnvs-'null',
+									method-BizUtil.getTrxRunEnvs-'null',
+									method-BizUtil.getTrxRunEnvs-'null',
+									table-fxb_agree_price-insert-'Foreign Exchange Inquiry Register'
+								},
+								method-FxExchange.registerTradeInfo-'null'{
+									method-BizUtil.getTrxRunEnvs-'null',
+									method-BizUtil.getTrxRunEnvs-'null',
+									method-ApSeq.genSeq-'null'{
+										method-ApSeq.getAppSequence-'null'{
+											method-BizUtil.getTrxRunEnvs-'null',
+											table-app_sequence_reference-select-'sequence reference define',
+											table-app_sequence_reference-select-'sequence reference define',
+											table-app_sequence-select-'sequence no define',
+											table-app_sequence-select-'sequence no define'
+										},
+										method-ApSeq.getAppSequence-'null'{
+											method-BizUtil.getTrxRunEnvs-'null',
+											table-app_sequence_reference-select-'sequence reference define',
+											table-app_sequence_reference-select-'sequence reference define',
+											table-app_sequence-select-'sequence no define',
+											table-app_sequence-select-'sequence no define'
+										},
+										method-ApSeq.getSequence-'null'{
+											table-app_sequence-select-'sequence no define'
+										},
+										table-app_sequence_builder-select-'sequence build define',
+										method-ApSeq.buildRecogintion-'null'{
+											method-BizUtil.getTrxRunEnvsValue-'null',
+											method-BizUtil.formatDate-'null'
+										},
+										method-ApSeq.padding-'null',
+										method-ApSeq.padding-'null',
+										method-ApSeq.getSequence-'null'{
+											table-app_sequence-select-'sequence no define'
+										},
+										method-ApSeq.padding-'null',
+										method-BizUtil.genCustnoCheckBit-'null',
+										method-BizUtil.genCardnoCheckBit-'null'{
+											method-BizUtil.fieldNotNull-'null'
+										},
+										method-ApSeq.padding-'null'
+									},
+									method-FxParameter.getLargeAmtFlag-'null'{
+										table-fxp_large-select-'Foreign exchange large starting point parameter table'
+									},
+									method-ApSummary.getText-'null'{
+										table-app_summary-select-'summary define'
+									},
+									table-fxb_trade-insert-'Foreign exchange trading register',
+									method-ApSummary.getText-'null'{
+										table-app_summary-select-'summary define'
+									},
+									table-fxb_trade-insert-'Foreign exchange trading register',
+									method-ApSeq.genSeq-'null'{
+										method-ApSeq.getAppSequence-'null'{
+											method-BizUtil.getTrxRunEnvs-'null',
+											table-app_sequence_reference-select-'sequence reference define',
+											table-app_sequence_reference-select-'sequence reference define',
+											table-app_sequence-select-'sequence no define',
+											table-app_sequence-select-'sequence no define'
+										},
+										method-ApSeq.getAppSequence-'null'{
+											method-BizUtil.getTrxRunEnvs-'null',
+											table-app_sequence_reference-select-'sequence reference define',
+											table-app_sequence_reference-select-'sequence reference define',
+											table-app_sequence-select-'sequence no define',
+											table-app_sequence-select-'sequence no define'
+										},
+										method-ApSeq.getSequence-'null'{
+											table-app_sequence-select-'sequence no define'
+										},
+										table-app_sequence_builder-select-'sequence build define',
+										method-ApSeq.buildRecogintion-'null'{
+											method-BizUtil.getTrxRunEnvsValue-'null',
+											method-BizUtil.formatDate-'null'
+										},
+										method-ApSeq.padding-'null',
+										method-ApSeq.padding-'null',
+										method-ApSeq.getSequence-'null'{
+											table-app_sequence-select-'sequence no define'
+										},
+										method-ApSeq.padding-'null',
+										method-BizUtil.genCustnoCheckBit-'null',
+										method-BizUtil.genCardnoCheckBit-'null'{
+											method-BizUtil.fieldNotNull-'null'
+										},
+										method-ApSeq.padding-'null'
+									},
+									method-ApSummary.getText-'null'{
+										table-app_summary-select-'summary define'
+									},
+									table-fxb_trade-insert-'Foreign exchange trading register'
+								}
+							}
+						},
+						method-BizUtil.getTrxRunEnvs-'null',
+						localSer-SrvIoCmCash.prcCashAccounting-'null'{
+							return method-CmCashAcct.prcCashAccounting-'null'{
+								method-BizUtil.getTrxRunEnvs-'null',
+								method-CmTillQry.qryTellTillInfo-'null'{
+									table-cma_till-select-'Till Information',
+									table-cma_till-select-'Till Information'
+								},
+								method-CmCashCheck.checkCashAccounting-'null'{
+									method-BizUtil.fieldNotNull-'null',
+									method-BizUtil.fieldNotNull-'null',
+									method-BizUtil.fieldNotNull-'null',
+									method-ApDropList.exists-'null'{
+										method-ApDropList.getItem-'null'{
+											table-app_drop-select-'drop list define',
+											method-ApOrg.getDefaultOrgId-'null',
+											table-app_drop_list-select-'drop list parameter',
+											method-ApOrg.getReferenceOrgId-'null',
+											table-app_drop_list-select-'drop list parameter',
+											method-ApOrg.getDefaultOrgId-'null',
+											table-app_drop_list-select-'drop list parameter'
+										}
+									},
+									method-BizUtil.getTrxRunEnvs-'null',
+									method-CmCashCheck.checkCashBalance-'null'{
+										table-cma_cash_balance-select-'Cash Balance Register',
+										method-CmTillQry.selTillByBoxId-'null'{
+											table-cma_till-select-'Till Information'
+										}
+									}
+								},
+								method-CmCashAcct.calcCashChangeAmount-'null'{
+									method-ApCurrency.getItem-'null'{
+										table-app_currency-select-'currency define',
+										return method-ApCurrency.getCurrencyInfo-'null'
+									},
+									method-ApBusinessParm.getIntValue-'null'{
+										method-ApBusinessParm.getValue-'null'{
+											table-app_business_parameter-select-'system parameter'
+										}
+									}
+								},
+								method-CmCashAcct.regCashAcctInfo-'null'{
+									method-BizUtil.getTrxRunEnvs-'null',
+									table-cma_cash_balance-select-'Cash Balance Register',
+									method-CmCashAcct.genCashAcctNo-'null'{
+										method-ApCurrency.getItem-'null'{
+											table-app_currency-select-'currency define',
+											return method-ApCurrency.getCurrencyInfo-'null'
+										},
+										method-ApBuffer.addData-'null'{
+											method-ApDropList.exists-'null',
+											method-BizUtil.getTrxRunEnvs-'null'
+										},
+										return method-ApSeq.genSeq-'null'{
+											method-ApSeq.getAppSequence-'null',
+											method-ApSeq.getAppSequence-'null',
+											method-ApSeq.getSequence-'null',
+											table-app_sequence_builder-select-'sequence build define',
+											method-ApSeq.buildRecogintion-'null',
+											method-ApSeq.padding-'null',
+											method-ApSeq.padding-'null',
+											method-ApSeq.getSequence-'null',
+											method-ApSeq.padding-'null',
+											method-BizUtil.genCustnoCheckBit-'null',
+											method-BizUtil.genCardnoCheckBit-'null',
+											method-ApSeq.padding-'null'
+										}
+									},
+									table-cma_cash_balance-insert-'Cash Balance Register',
+									table-cma_cash_balance-update-'Cash Balance Register',
+									method-CmCashAcct.regCashACSerail-'null'{
+										localSer-SrvIoTaAccounting.regAccountingEvent-'null'{
+											method-TaAccounting.regAccountingEvent-'null'
+										}
+									},
+									localSer-SrvIoCbReconciliation.openReconciliateInd-'null'{
+										method-CbCashReconciliate.openReconciliateInd-'null'{
+											method-CbCashReconciliate.checkInput-'null',
+											table-cbb_reconciliation-select-'reconciliation register',
+											method-ApDataAudit.regLogOnUpdateParameter-'null',
+											table-cbb_reconciliation-update-'reconciliation register'
+										}
+									},
+									method-ApReversal.register-'null'{
+										method-BizUtil.getTrxRunEnvs-'null',
+										method-ApTrxn.isReversalTrxn-'null'{
+											return method-ApSystemParm.exists-'null'
+										},
+										table-app_reversal_event-select-'reversal event define',
+										method-ApTrxn.getSerial-'null'{
+											method-BizUtil.getTrxRunEnvs-'null',
+											method-BizUtil.getTrxRunEnvs-'null'
+										},
+										table-apl_reversal_event-insert-'reversal event log'
+									}
+								},
+								localSer-SrvIoTaAccounting.getAcctBaseInfo-'null'{
+									return method-TaAccountMnt.getAcctBaseInfo-'null'{
+										method-BizUtil.fieldNotNull-'null',
+										method-BizUtil.fieldNotNull-'null',
+										localSer-SrvIoDpQueryAcct.qryAcctBriefInfo-'null'{
+											method-BizUtil.fieldNotNull-'null',
+											method-DpQueryLocateAccount.locateAccount-'null',
+											method-ApBranch.getItem-'null'
+										},
+										table-tap_business-select-'the definition of gl reference code',
+										table-taa_account-select-'internal account',
+										method-ApBranch.getItem-'null'{
+											table-apb_branch-select-'branch infomation'
+										},
+										method-TaAccountMnt.getInsideAcctName-'null'{
+											method-TaAccount.getAccountInfo-'null',
+											method-ApBranch.getItem-'null'
+										},
+										table-tap_business-select-'the definition of gl reference code',
+										method-TaAccountMnt.getSuspenseName-'null'{
+											method-TaSuspense.getSuspenseInfo-'null',
+											method-TaAccount.getAccountInfo-'null',
+											method-ApBranch.getItem-'null'
+										},
+										method-ApBranch.getItem-'null'{
+											table-apb_branch-select-'branch infomation'
+										},
+										method-BizUtil.fieldNotNull-'null',
+										localSer-SrvIoCmCash.qryCashAcctInfo-'null'{
+											return method-CmCashQuery.qryCashAcctInfo-'null'
+										},
+										method-ApBranch.getItem-'null'{
+											table-apb_branch-select-'branch infomation'
+										}
+									}
+								},
+								method-CmCashAcct.regCashBill-'null'{
+									method-BizUtil.getTrxRunEnvs-'null',
+									method-ApSummary.getText-'null'{
+										table-app_summary-select-'summary define'
+									},
+									table-cmb_cash_trxn-insert-'Cash Transaction Details'
+								}
+							}
+						}
+					}
+				},
+				S-SrvDpDemandAccounting.cashListCheck-'null'{
+					method-DpPublicCheck.cashListCheck-'null'{
+						method-BizUtil.fieldNotNull-'null',
+						method-BizUtil.fieldNotNull-'null',
+						method-BizUtil.getTrxRunEnvs-'null',
+						localSer-SrvIoCbReconciliation.addTellerDetnManager-'null'{
+							method-CbCashDenomination.addTellerDetnManager-'null'{
+								method-BizUtil.getTrxRunEnvs-'null',
+								method-CbCommon.getTillInfo-'null'{
+									localSer-SrvIoCmVoucher.qryTellTillInfo-'null'{
+										return method-CmTillQry.qryTellTillInfo-'null'{
+											table-cma_till-select-'Till Information',
+											table-cma_till-select-'Till Information'
+										}
+									}
+								},
+								nsql-CbCash.selRollMaxSeq-S-cbb_cash_store_roll-select-'inquiring roll information max serial number',
+								table-cbb_cash_store_roll-insert-'cash store roll register',
+								table-cbb_cash_roll_manager-select-'cash store roll manager',
+								table-cbb_cash_roll_manager-insert-'cash store roll manager',
+								method-ApDataAudit.regLogOnUpdateBusiness-'null'{
+									return method-ApDataAudit.regLogOnUpdate-'null'{
+										method-ApDataAudit.getAuditSeq-'null'{
+											return method-ApSeq.genSeq-'null'
+										},
+										method-ApDataAudit.regAuditSub-'null'{
+											method-ApDataAudit.getCommField-'null',
+											method-ApDataAudit.compare-'null',
+											method-ApDataAudit.regAuditSubParm-'null',
+											method-ApDataAudit.regAuditSubBusi-'null',
+											table-DaoUtil-insert,
+											table-auditSub, auditSubInfo);批量插入Dao-batchInsert
+										},
+										method-ApDataAudit.regAudit-'null'{
+											method-ApDataAudit.regAuditParm-'null',
+											method-ApDataAudit.regAuditBusi-'null'
+										}
+									}
+								},
+								table-cbb_cash_roll_manager-update-'cash store roll manager'
+							}
+						},
+						localSer-SrvIoCbReconciliation.redTellerDetnManager-'null'{
+							method-CbCashDenomination.redTellerDetnManager-'null'{
+								method-BizUtil.getTrxRunEnvs-'null',
+								method-CbCommon.getTillInfo-'null'{
+									localSer-SrvIoCmVoucher.qryTellTillInfo-'null'{
+										return method-CmTillQry.qryTellTillInfo-'null'{
+											table-cma_till-select-'Till Information',
+											table-cma_till-select-'Till Information'
+										}
+									}
+								},
+								nsql-CbCash.selRollMaxSeq-S-cbb_cash_store_roll-select-'inquiring roll information max serial number',
+								table-cbb_cash_store_roll-insert-'cash store roll register',
+								table-cbb_cash_roll_manager-select-'cash store roll manager',
+								method-ApDataAudit.regLogOnUpdateBusiness-'null'{
+									return method-ApDataAudit.regLogOnUpdate-'null'{
+										method-ApDataAudit.getAuditSeq-'null'{
+											return method-ApSeq.genSeq-'null'
+										},
+										method-ApDataAudit.regAuditSub-'null'{
+											method-ApDataAudit.getCommField-'null',
+											method-ApDataAudit.compare-'null',
+											method-ApDataAudit.regAuditSubParm-'null',
+											method-ApDataAudit.regAuditSubBusi-'null',
+											table-DaoUtil-insert,
+											table-auditSub, auditSubInfo);批量插入Dao-batchInsert
+										},
+										method-ApDataAudit.regAudit-'null'{
+											method-ApDataAudit.regAuditParm-'null',
+											method-ApDataAudit.regAuditBusi-'null'
+										}
+									}
+								},
+								table-cbb_cash_roll_manager-update-'cash store roll manager'
+							}
+						}
+					}
+				},
+				S-SrvDpDemandAccounting.cashListCheck-'null'{
+					method-DpPublicCheck.cashListCheck-'null'{
+						method-BizUtil.fieldNotNull-'null',
+						method-BizUtil.fieldNotNull-'null',
+						method-BizUtil.getTrxRunEnvs-'null',
+						localSer-SrvIoCbReconciliation.addTellerDetnManager-'null'{
+							method-CbCashDenomination.addTellerDetnManager-'null'{
+								method-BizUtil.getTrxRunEnvs-'null',
+								method-CbCommon.getTillInfo-'null'{
+									localSer-SrvIoCmVoucher.qryTellTillInfo-'null'{
+										return method-CmTillQry.qryTellTillInfo-'null'{
+											table-cma_till-select-'Till Information',
+											table-cma_till-select-'Till Information'
+										}
+									}
+								},
+								nsql-CbCash.selRollMaxSeq-S-cbb_cash_store_roll-select-'inquiring roll information max serial number',
+								table-cbb_cash_store_roll-insert-'cash store roll register',
+								table-cbb_cash_roll_manager-select-'cash store roll manager',
+								table-cbb_cash_roll_manager-insert-'cash store roll manager',
+								method-ApDataAudit.regLogOnUpdateBusiness-'null'{
+									return method-ApDataAudit.regLogOnUpdate-'null'{
+										method-ApDataAudit.getAuditSeq-'null'{
+											return method-ApSeq.genSeq-'null'
+										},
+										method-ApDataAudit.regAuditSub-'null'{
+											method-ApDataAudit.getCommField-'null',
+											method-ApDataAudit.compare-'null',
+											method-ApDataAudit.regAuditSubParm-'null',
+											method-ApDataAudit.regAuditSubBusi-'null',
+											table-DaoUtil-insert,
+											table-auditSub, auditSubInfo);批量插入Dao-batchInsert
+										},
+										method-ApDataAudit.regAudit-'null'{
+											method-ApDataAudit.regAuditParm-'null',
+											method-ApDataAudit.regAuditBusi-'null'
+										}
+									}
+								},
+								table-cbb_cash_roll_manager-update-'cash store roll manager'
+							}
+						},
+						localSer-SrvIoCbReconciliation.redTellerDetnManager-'null'{
+							method-CbCashDenomination.redTellerDetnManager-'null'{
+								method-BizUtil.getTrxRunEnvs-'null',
+								method-CbCommon.getTillInfo-'null'{
+									localSer-SrvIoCmVoucher.qryTellTillInfo-'null'{
+										return method-CmTillQry.qryTellTillInfo-'null'{
+											table-cma_till-select-'Till Information',
+											table-cma_till-select-'Till Information'
+										}
+									}
+								},
+								nsql-CbCash.selRollMaxSeq-S-cbb_cash_store_roll-select-'inquiring roll information max serial number',
+								table-cbb_cash_store_roll-insert-'cash store roll register',
+								table-cbb_cash_roll_manager-select-'cash store roll manager',
+								method-ApDataAudit.regLogOnUpdateBusiness-'null'{
+									return method-ApDataAudit.regLogOnUpdate-'null'{
+										method-ApDataAudit.getAuditSeq-'null'{
+											return method-ApSeq.genSeq-'null'
+										},
+										method-ApDataAudit.regAuditSub-'null'{
+											method-ApDataAudit.getCommField-'null',
+											method-ApDataAudit.compare-'null',
+											method-ApDataAudit.regAuditSubParm-'null',
+											method-ApDataAudit.regAuditSubBusi-'null',
+											table-DaoUtil-insert,
+											table-auditSub, auditSubInfo);批量插入Dao-batchInsert
+										},
+										method-ApDataAudit.regAudit-'null'{
+											method-ApDataAudit.regAuditParm-'null',
+											method-ApDataAudit.regAuditBusi-'null'
+										}
+									}
+								},
+								table-cbb_cash_roll_manager-update-'cash store roll manager'
+							}
+						}
+					}
+				},
+				S-SrvDpDemandAccounting.cashListCheck-'null'{
+					method-DpPublicCheck.cashListCheck-'null'{
+						method-BizUtil.fieldNotNull-'null',
+						method-BizUtil.fieldNotNull-'null',
+						method-BizUtil.getTrxRunEnvs-'null',
+						localSer-SrvIoCbReconciliation.addTellerDetnManager-'null'{
+							method-CbCashDenomination.addTellerDetnManager-'null'{
+								method-BizUtil.getTrxRunEnvs-'null',
+								method-CbCommon.getTillInfo-'null'{
+									localSer-SrvIoCmVoucher.qryTellTillInfo-'null'{
+										return method-CmTillQry.qryTellTillInfo-'null'{
+											table-cma_till-select-'Till Information',
+											table-cma_till-select-'Till Information'
+										}
+									}
+								},
+								nsql-CbCash.selRollMaxSeq-S-cbb_cash_store_roll-select-'inquiring roll information max serial number',
+								table-cbb_cash_store_roll-insert-'cash store roll register',
+								table-cbb_cash_roll_manager-select-'cash store roll manager',
+								table-cbb_cash_roll_manager-insert-'cash store roll manager',
+								method-ApDataAudit.regLogOnUpdateBusiness-'null'{
+									return method-ApDataAudit.regLogOnUpdate-'null'{
+										method-ApDataAudit.getAuditSeq-'null'{
+											return method-ApSeq.genSeq-'null'
+										},
+										method-ApDataAudit.regAuditSub-'null'{
+											method-ApDataAudit.getCommField-'null',
+											method-ApDataAudit.compare-'null',
+											method-ApDataAudit.regAuditSubParm-'null',
+											method-ApDataAudit.regAuditSubBusi-'null',
+											table-DaoUtil-insert,
+											table-auditSub, auditSubInfo);批量插入Dao-batchInsert
+										},
+										method-ApDataAudit.regAudit-'null'{
+											method-ApDataAudit.regAuditParm-'null',
+											method-ApDataAudit.regAuditBusi-'null'
+										}
+									}
+								},
+								table-cbb_cash_roll_manager-update-'cash store roll manager'
+							}
+						},
+						localSer-SrvIoCbReconciliation.redTellerDetnManager-'null'{
+							method-CbCashDenomination.redTellerDetnManager-'null'{
+								method-BizUtil.getTrxRunEnvs-'null',
+								method-CbCommon.getTillInfo-'null'{
+									localSer-SrvIoCmVoucher.qryTellTillInfo-'null'{
+										return method-CmTillQry.qryTellTillInfo-'null'{
+											table-cma_till-select-'Till Information',
+											table-cma_till-select-'Till Information'
+										}
+									}
+								},
+								nsql-CbCash.selRollMaxSeq-S-cbb_cash_store_roll-select-'inquiring roll information max serial number',
+								table-cbb_cash_store_roll-insert-'cash store roll register',
+								table-cbb_cash_roll_manager-select-'cash store roll manager',
+								method-ApDataAudit.regLogOnUpdateBusiness-'null'{
+									return method-ApDataAudit.regLogOnUpdate-'null'{
+										method-ApDataAudit.getAuditSeq-'null'{
+											return method-ApSeq.genSeq-'null'
+										},
+										method-ApDataAudit.regAuditSub-'null'{
+											method-ApDataAudit.getCommField-'null',
+											method-ApDataAudit.compare-'null',
+											method-ApDataAudit.regAuditSubParm-'null',
+											method-ApDataAudit.regAuditSubBusi-'null',
+											table-DaoUtil-insert,
+											table-auditSub, auditSubInfo);批量插入Dao-batchInsert
+										},
+										method-ApDataAudit.regAudit-'null'{
+											method-ApDataAudit.regAuditParm-'null',
+											method-ApDataAudit.regAuditBusi-'null'
+										}
+									}
+								},
+								table-cbb_cash_roll_manager-update-'cash store roll manager'
+							}
+						}
+					}
+				},
+				S-SrvApTrxn.registerApsTransaction-'null',
+				M-dp4023.prt4023-'null'{
+					method-BizUtil.getTrxRunEnvs-'null'
+				}
+		},
+		

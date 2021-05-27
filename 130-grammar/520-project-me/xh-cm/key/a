@@ -1,18 +1,91 @@
 
-
-
+account:{
+	vostro,存放在国外同意帐户，往帐，我方帐户，银行往来帐户;来帐;
+	nostro,同业存款，贵行帐，来帐;（国外汇兑）往（来）帐；我方帐户;
+	
+	nostro,往账,我行在其他行开户.通常国外货币开立;
+	vostro,来账,其他行在我行开户.通常本国货币,也可外国货币;
+}
+exchange:{
+	https://max.book118.com/html/2018/1107/7102003026001156.shtm
+	"外汇"-'国际汇兑'-"foreign exchange":{
+		"汇兑":{
+			"汇款人"委托"银行"将其"款项"支付给"收款人"的'结算方式'。
+			电汇/信汇 '汇款人自行选择'
+			单位/个人 '各种款项的结算',均可'使用汇兑结算方式'。
+			'这种方式便于汇款人向'异地'的收款人'主动'付款','适用范围十分广泛'。
+			'简而言之',汇兑'即'"委托""银行"'作为'"付款人"'进行'"付款"
+		}
+		'词语属性':{
+			'动态','把一国货币兑换成另一国货币','借以偿清国际间债权债务关系的行为和活动'。'等同于国际结算';
+			'静态','指外币和以外币表示的''用于''国际结算的各种支付手段'.'例如','各种外国钞票及外币表示的证券或其他支付凭证';
+		},
+		'分类':{
+			'自由兑换':{
+				记账外汇:{'债权债务不逐笔结算','而是通过当事国的中央银行账户相互冲销','不能用来对第三国支付','不能兑换成其他国家的货币'},
+				自由外汇:{'可以自由兑换成其他货币、或向第三者办理支付的货币与支付凭证'}
+			},
+			'来源用途':{贸易外汇:'来源于或用于国际间商品买卖的外汇',非贸易外汇:'除贸易外汇以外,通过其他方面所收付的外汇。如科学技术、文化交流...'},
+			'交割期限':{'即期外汇':"现汇",'在外汇买卖成交后两个营业日内办理交割的外汇','远期外汇':"期汇",'买卖外汇双方先按商定的汇价签订合同,预约到一定期限办理交割的外汇'}
+		},
+		"结汇":{
+			'外汇收入所有者将其外汇收入,出售给外汇指定银行,外汇指定银行按照一定汇率付给等值的'"本币"'行为';
+			'强制结汇','所有外汇收入'"必须"'卖给外汇指定银行,不允许保留外汇';-'主要'
+			'意愿结汇','外汇收入可以卖给外汇指定银行,也可以'"开立外汇账户"'保留,结汇与否由外汇收入所有者自己决定';-'境内居民个人'
+			'限额结汇','外汇收入在国家核定的数额内可不结汇,超过'"限额"'必须卖给外汇指定银行';-'部分企业经批准'
+		},
+		"售汇":{'外汇指定银行将外汇'"卖给"'外汇使用者,并根据交易行为发生之日的人民币汇率'"收取"'等值人民币行为';},
+		"付汇":{'经批准经营外汇业务的金融机构,根据有关售汇以及付汇的管理规定,审核用汇单位和个人提供的规定的有效凭证和商业单据后,从其'"外汇账户"'中或将其购买的'"外汇"'向'"境外"'支付的行为';},
+		"售汇":{'外汇指定银行将外汇'"卖给"'外汇使用者,并根据交易行为发生之日的人民币汇率'"收取"'等值人民币行为';},
+		"套汇":{'利用同一时期'"两个"'或两个以上的外汇市场上现汇'"汇率"'的'"差异"'进行外汇买卖,通过低进高出即贱买贵卖从中套取利润的一种投机活动'},
+	}
+},
+ap:{
+	ApTrxn.getAccountingEventSerial();:{
+		call-1:{
+			TaAccounting.regAccountingEvent(IoTaAccountingEventIn);
+		}
+	},
+	TransactionProcessCallbackImpl.afterProcess(DataArea);:{
+		accounting_event_seq > 1L :{
+			SrvIoTaAccounting.checkBalance();
+		}
+	},
+	ApBusinessParm.getValue:{
+		select * from app_business_parameter where main_key='' and sub_key='*';
+		select * from app_business_parameter where main_key='' and sub_key='';
+	}
+},
 ta:{
-	SrvIoTaAccounting.regAccountingEvent:{	'�Ǽǻ���¼�'
+	accounting:{
+		流水账xx年xx月xx日 当天我有1000块钱。                                                           
+		交易        余额前一天余额                                                         
+		1000 餐费：买早饭                                -10               990
+		交通费：地铁                                     -4                986
+		餐费：买午饭                                     -30               956
+		再学着把流水账分复式账，把备注的用途拆出来错开写，分借贷科目，借正贷负。
+		借：餐费  10       贷：钱   10
+		借：交通费 4       贷：钱   4
+		借：餐费  39       贷：钱  30
+		钱余额  1000-10-4-30=956 做着渐渐就明白了。
+		资产增加就是借记，负债就是贷记
+
+		作者：知乎用户
+		链接：https://www.zhihu.com/question/21222111/answer/267099795
+		来源：知乎
+		著作权归作者所有。商业转载请联系作者获得授权，非商业转载请注明出处。
+	},
+	SrvIoTaAccounting.regAccountingEvent:{	'登记会计事件'
 		field:{
-			acct_no-'�ֽ��˺�'
-			debit_credit-'���˷���'
-			trxn_ccy-'���ױ���'
-			trxn_amt-'���׽��'
-			acct_branch-'�������'
-			accounting_alias-'�������':{
+			acct_no-'现金账号'-Y,
+			debit_credit-'记账方向'
+			trxn_ccy-'交易币种'
+			trxn_amt-'交易金额'
+			acct_branch-'账务机构'
+			accounting_alias-'核算别名':{
 				"CASH",
 			},
-			accounting_subjet-'�������':{
+			accounting_subjet-'会计主体':{
 				enum:{
 					<restrictionType id="E_ACCOUNTINGSUBJECT" longname="accounting subject" base="string" maxLength="1" minLength="0">
 						<enumeration id="DEPOSIT" value="1" longname="deposit"/>
@@ -25,71 +98,71 @@ ta:{
 					</restrictionType>
 				}
 			},
-			bal_attributes-'�������':{
+			bal_attributes-'余额属性':{
 				note:{
 					dp:{
-						"DP01"-"��ծ����"
-						"DP02"-"Ӧ����Ϣ"
-						"DP03"-"��Ϣ˰"
-						"DP04"-"�Ѹ���Ϣ"
-						"DP11"-"�ʲ�����"
-						"DP12"-"Ӧ����Ϣ"
-						"DP13"-"��Ϣ����"
-						"DP14"-"������Ϣ"
-						"DP15"-"����׼����"
+						"DP01"-"负债本金"
+						"DP02"-"应付利息"
+						"DP03"-"利息税"
+						"DP04"-"已付利息"
+						"DP11"-"资产本金"
+						"DP12"-"应收利息"
+						"DP13"-"利息收入"
+						"DP14"-"超额利息"
+						"DP15"-"特殊准备金"
 					},
 					ta:{					
-						"TA01"-"�ڲ�������"
+						"TA01"-"内部户本金"
 					},
 					ln:{
-						"LN01"-"�����ֵ��ʧ"
+						"LN01"-"贷款减值损失"
 					},
 					cs:{
-						"CS01"-"�ֽ����"
-						"CS02"-";���ֽ���"
-						"CS03"-"�ֽ�װ��"
-						"CS04"-";���ֽ�װ��"
-						"CS05"-"һ���ֽ�"
-						"CS06"-"Ư���ֽ�"
-						"CS11"-"�ֽ�䶯����"
-						"CS12"-"�ֽ�䶯��ʧ"
+						"CS01"-"现金存量"
+						"CS02"-"途中现金库存"
+						"CS03"-"现金装置"
+						"CS04"-"途中现金装置"
+						"CS05"-"一般现金"
+						"CS06"-"漂亮现金"
+						"CS11"-"现金变动利润"
+						"CS12"-"现金变动损失"
 					},
 					vc:{
-						"VC01"-"����ȯ���"
+						"VC01"-"代金券库存"
 					},
 					cg:{
-						"CG01"-"�շ�"
-						"CG02"-"̯������"
+						"CG01"-"收费"
+						"CG02"-"摊销费用"
 					},
 					co:{
-						"CO01"-"��Ѻ���ֵ"
+						"CO01"-"抵押物价值"
 					}233,254,275,296,321,434,443,471,505,620,662,682,
 				},
 				enum:{
 					<restrictionType id="E_BALPROPERTY" longname="balance property" base="string" maxLength="4">
-						<enumeration id="DEPOSIT" value="DP01" longname="deposit principal"/>								"DP01"-"��ծ����"
-						<enumeration id="INTEREST_PAYABLE" value="DP02" longname="interest payable"/>                       "DP02"-"Ӧ����Ϣ"
-						<enumeration id="INTEREST_TAX" value="DP03" longname="interest tax"/>                               "DP03"-"��Ϣ˰"
-						<enumeration id="INTEREST_PAY" value="DP04" longname="interest pay"/>                               "DP04"-"�Ѹ���Ϣ"
-						<enumeration id="CAPITAL" value="DP11" longname="asset principal"/>                                 "DP11"-"�ʲ�����"
-						<enumeration id="INTEREST_RECEIVABLE" value="DP12" longname="receivable interest"/>                 "DP12"-"Ӧ����Ϣ"
-						<enumeration id="INTEREST_INCOME" value="DP13" longname="interest income"/>                         "DP13"-"��Ϣ����"
-						<enumeration id="BAD_INTEREST_RECEIVABLE" value="DP14" longname="bad overdraft accrued Interest"/>  "DP14"-"������Ϣ"
-						<enumeration id="SPECIAL_PROVISION_AMT" value="DP15" longname="special provision amtount"/>         "DP15"-"����׼����"
-						<enumeration id="INAC_PRCP" value="TA01" longname="internal account principal"/>                    "TA01"-"�ڲ�������"
-						<enumeration id="LOAN_IMPAIRMENT_LOSS" value="LN01" longname="loan impairment loss"/>               "LN01"-"�����ֵ��ʧ"
-						<enumeration id="CASH_STOCK" value="CS01" longname="cash stock"/>                                   "CS01"-"�ֽ����"
-						<enumeration id="CASH_STOCK_WAY" value="CS02" longname="on the way cash stock"/>                    "CS02"-";���ֽ���"
-						<enumeration id="CASH_DEVICE" value="CS03" longname="cash device"/>                                 "CS03"-"�ֽ�װ��"
-						<enumeration id="CASH_DEVICE_WAY" value="CS04" longname="on the way cash device"/>                  "CS04"-";���ֽ�װ��"
-						<enumeration id="CASH_GENERAL" value="CS05" longname="cash general"/>                               "CS05"-"һ���ֽ�"
-						<enumeration id="CASH_PRETTY" value="CS06" longname="cash pretty"/>                                 "CS06"-"Ư���ֽ�"
-						<enumeration id="CASH_CHANGE_PROFIT" value="CS11" longname="cash change profit"/>                   "CS11"-"�ֽ�䶯����"
-						<enumeration id="CASH_CHANGE_LOSS" value="CS12" longname="cash change loss"/>                       "CS12"-"�ֽ�䶯��ʧ"
-						<enumeration id="VOCH_STOCK" value="VC01" longname="voucher stcok"/>                                "VC01"-"����ȯ���"
-						<enumeration id="CHRG" value="CG01" longname="charge"/>                                             "CG01"-"�շ�"
-						<enumeration id="CHRG_AMORT" value="CG02" longname="amortization charge"/>                          "CG02"-"̯������"
-						<enumeration id="COLLATERAL_VALUE" value="CO01" longname="collateral value"/>                       "CO01"-"��Ѻ���ֵ"
+						<enumeration id="DEPOSIT" value="DP01" longname="deposit principal"/>								"DP01"-"负债本金"
+						<enumeration id="INTEREST_PAYABLE" value="DP02" longname="interest payable"/>                       "DP02"-"应付利息"
+						<enumeration id="INTEREST_TAX" value="DP03" longname="interest tax"/>                               "DP03"-"利息税"
+						<enumeration id="INTEREST_PAY" value="DP04" longname="interest pay"/>                               "DP04"-"已付利息"
+						<enumeration id="CAPITAL" value="DP11" longname="asset principal"/>                                 "DP11"-"资产本金"
+						<enumeration id="INTEREST_RECEIVABLE" value="DP12" longname="receivable interest"/>                 "DP12"-"应收利息"
+						<enumeration id="INTEREST_INCOME" value="DP13" longname="interest income"/>                         "DP13"-"利息收入"
+						<enumeration id="BAD_INTEREST_RECEIVABLE" value="DP14" longname="bad overdraft accrued Interest"/>  "DP14"-"超额利息"
+						<enumeration id="SPECIAL_PROVISION_AMT" value="DP15" longname="special provision amtount"/>         "DP15"-"特殊准备金"
+						<enumeration id="INAC_PRCP" value="TA01" longname="internal account principal"/>                    "TA01"-"内部户本金"
+						<enumeration id="LOAN_IMPAIRMENT_LOSS" value="LN01" longname="loan impairment loss"/>               "LN01"-"贷款减值损失"
+						<enumeration id="CASH_STOCK" value="CS01" longname="cash stock"/>                                   "CS01"-"现金存量"
+						<enumeration id="CASH_STOCK_WAY" value="CS02" longname="on the way cash stock"/>                    "CS02"-"途中现金库存"
+						<enumeration id="CASH_DEVICE" value="CS03" longname="cash device"/>                                 "CS03"-"现金装置"
+						<enumeration id="CASH_DEVICE_WAY" value="CS04" longname="on the way cash device"/>                  "CS04"-"途中现金装置"
+						<enumeration id="CASH_GENERAL" value="CS05" longname="cash general"/>                               "CS05"-"一般现金"
+						<enumeration id="CASH_PRETTY" value="CS06" longname="cash pretty"/>                                 "CS06"-"漂亮现金"
+						<enumeration id="CASH_CHANGE_PROFIT" value="CS11" longname="cash change profit"/>                   "CS11"-"现金变动利润"
+						<enumeration id="CASH_CHANGE_LOSS" value="CS12" longname="cash change loss"/>                       "CS12"-"现金变动损失"
+						<enumeration id="VOCH_STOCK" value="VC01" longname="voucher stcok"/>                                "VC01"-"代金券库存"
+						<enumeration id="CHRG" value="CG01" longname="charge"/>                                             "CG01"-"收费"
+						<enumeration id="CHRG_AMORT" value="CG02" longname="amortization charge"/>                          "CG02"-"摊销费用"
+						<enumeration id="COLLATERAL_VALUE" value="CO01" longname="collateral value"/>                       "CO01"-"抵押物价值"
 						<subenums>
 							<subenum id="E_TA" enums="INAC_PRCP" longname="internal account balance property"/>
 							<subenum id="E_DP" enums="DEPOSIT,INTEREST_PAYABLE,INTEREST_TAX,INTEREST_PAY,CAPITAL,INTEREST_RECEIVABLE,INTEREST_INCOME" longname="loan balance property"/>
@@ -100,32 +173,85 @@ ta:{
 					</restrictionType>
 				}
 			},
-			double_entry_ind-'���Լ��˱�־':{
+			double_entry_ind-'复试记账标志':{
 				baidu:{
-					'��ʽ���˷������ʲ���Ȩ��ƽ���ϵ��Ϊ���˻���������ÿһ�ʾ���ҵ�񣬶�Ҫ����ȵĽ�������������������໥��ϵ���˻��н��еǼǣ�ϵͳ�ط�ӳ�ʽ��˶��仯�����һ�ּ��˷�����'
-					'��ʽ�����Ƕ�ÿһ���ҵ��ͨ�����������������й��˻��໥��ϵ�������еǼǵ�һ��ר�ŷ������κ�һ��û���������ʽ�������䶯�������֧�ı䶯��'
+					'复式记账法是以资产与权益平衡关系作为记账基础，对于每一笔经济业务，都要以相等的金额在两个或两个以上相互联系的账户中进行登记，系统地反映资金运动变化结果的一种记账方法。'
+					'复式记账是对每一项经济业务通过两个或两个以上有关账户相互联系起来进行登记的一种专门方法。任何一项经济活动都会引起资金的增减变动或财务收支的变动。'
 				}
 			}
 		},
 		caogao:{
-			taAccountingEvnetIn.setAcct_no(regACSerailIn.getAcct_no()); 			// �ֽ��˺�
-			taAccountingEvnetIn.setDebit_credit(regACSerailIn.getDebit_credit());	// ���˷���
-			taAccountingEvnetIn.setTrxn_ccy(regACSerailIn.getCcy_code()); 			// ���ױ���
-			taAccountingEvnetIn.setTrxn_amt(regACSerailIn.getTrxn_amt()); 			// ���׽��
-			taAccountingEvnetIn.setAcct_branch(regACSerailIn.getAcct_branch()); 	// �������
-			taAccountingEvnetIn.setAccounting_alias(CmConst.CASH_ACCOUNTING_ALIAS); // �������
-			taAccountingEvnetIn.setAccounting_subject(E_ACCOUNTINGSUBJECT.CASH); 	// �������
-			taAccountingEvnetIn.setBal_attributes(balProperty.toString()); 			// �������
-			taAccountingEvnetIn.setDouble_entry_ind(E_YESORNO.YES);					// ���Լ��˱�־
+			taAccountingEvnetIn.setAcct_no(regACSerailIn.getAcct_no()); 			// 现金账号
+			taAccountingEvnetIn.setDebit_credit(regACSerailIn.getDebit_credit());	// 记账方向
+			taAccountingEvnetIn.setTrxn_ccy(regACSerailIn.getCcy_code()); 			// 交易币种
+			taAccountingEvnetIn.setTrxn_amt(regACSerailIn.getTrxn_amt()); 			// 交易金额
+			taAccountingEvnetIn.setAcct_branch(regACSerailIn.getAcct_branch()); 	// 账务机构
+			taAccountingEvnetIn.setAccounting_alias(CmConst.CASH_ACCOUNTING_ALIAS); // 核算别名
+			taAccountingEvnetIn.setAccounting_subject(E_ACCOUNTINGSUBJECT.CASH); 	// 会计主体
+			taAccountingEvnetIn.setBal_attributes(balProperty.toString()); 			// 余额属性
+			taAccountingEvnetIn.setDouble_entry_ind(E_YESORNO.YES);					// 复试记账标志
 		}
 		logic:{
 			TaAccounting.regAccountingEvent(IoTaAccountingEventIn);:{
-				tables-tap_accountingevent_ctrl-'����¼�����'-select:{
+				tables-tap_accountingevent_ctrl-'会计事件控制'-select:{
 					where accounting_alias='' and bal_attributes=''
 				},
-				tables-tap_accountingevent_ctrl-'����¼���'-insert:{
+				tables-tas_accounting_event-'会计事件表'-insert:{
 					
+				},
+			}
+		}
+	},
+	SrvIoTaAccounting.checkBalance();-'账务平衡检查':{	'账务检查'
+		method-BizUtil.getTrxRunEnvs-'null',
+		method-ApOrg.getReferenceOrgId-'null':{
+			method-BizUtil.getTrxRunEnvs-'null',
+			method-BizUtil.isOrgRelated-'null',
+			table-app_parameter_reference-select-'parameter reference define',
+			table-app_parameter_reference-select-'parameter reference define',
+			method-BizUtil.isParmTable-'null',
+			method-ApOrg.getOrgInfo-'null':{
+				table-app_organization-select-'organization infomation'
+			},
+			method-ApOrg.getOrgInfo-'null':{
+				table-app_organization-select-'organization infomation'
+			}
+		},
+		nsql-TaAccounting.selTrxnNoBalancedData-S-tas_accounting_event-select
+			-'getting the unbalanced records by transaction sequence ':{
+			select
+					a.trxn_ccy, sum(case a.debit_credit when 'D' then a.trxn_amt else - a.trxn_amt end) as trxn_amt 
+			from
+					tas_accounting_event a 
+			where
+					a.trxn_seq = #trxn_seq# 
+				and a.org_id = #org_id# 
+				and a.double_entry_ind = 'Y' 
+			group by
+					a.trxn_ccy
+			having
+					sum(case a.debit_credit when 'D' then a.trxn_amt else - a.trxn_amt end) !=0 
+		},
+		table-tas_accounting_event-select-'accounting event'
+	}
+},
+tables:{
+	ta:{
+		taa_account:{
+			insert-1:{
+				TaAccountMnt.openAcct(TaAcctInfo);-3:{
+					TaAccounting.noExistAccount(IoTaBookAccountingIn)-0;
+					SrvTaAccount.openAcct(TaAcctInfo);-'内部户开户'-1 						<-	ta7201/70006	<-6101
+					TaSuspenseMnt.openSuspense(TaSuspenOpenInfo);-2:{
+						TaAccounting.openSuspenseNo(IoTaBookSuspenseIn)-0;
+						SrvTaSuspens.openSuspense(TaSuspenOpenInfo);-'待销账手工开立'-1 	<-	ta7301
+					}
 				}
+			},
+		},
+		tas_accounting_event:{
+			insert-1:{
+				TaAccounting.regAccountingEvent(IoTaAccountingEventIn);-'登记会计事件'
 			}
 		}
 	}

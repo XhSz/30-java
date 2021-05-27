@@ -8,6 +8,39 @@
 		微服务-总讲-msb-张一明-210109-1-1-0-0:{
 			两天微服务训练营的录播来啦，记得保存 链接: https://pan.baidu.com/s/1skQPJx1IeF95DcedzQgL2A 提取码: rxs3 
 		},
+		ms-架构-msb-210429:{
+			ssm-'all in one',
+			SOA-'面向服务':{
+				CAP:{P,},
+				服务治理:{weservice,dubbo-'DaBou',springcloud},
+			},
+			DDD-'domain driven design'-'领域驱动设计':{
+				'成本高'
+			},
+		x-'成本'	
+			|                  /
+			|                 /                    ________/
+			|				 /              ______/
+			|				/		 ______/
+			|			 __/   _____/
+		20w	|___________/_____/
+			|_______/
+		10w	|_______________________________y-'时间'
+			
+			网约车,55亿,
+			time:{
+				80m-'卖课',
+				157m-'老师履历':{
+					'before'-'草根站长'-'php3 asp',
+					'2007'-'培训',2008-'技术总监',2009-'文思海辉'-'IBM外包'-'程序员',
+					2011-'架构师',2013-'互联网支付'-'联合创始人'-'副总裁',
+					2015-'精致教育'-'联合创始人'-'副总裁',
+					2016-'中国石化'-'盈科'-'架构师',
+					2019-'马士兵教育'-'联合创始人',
+				},
+				164m-'老师简介'
+			}
+		},
 		微服务-实战-图灵-210103-1-0-0-0：{'https://pan.baidu.com/s/1gRBVLO3pTVvauGWE-LsXMg oyhx https://pan.baidu.com/s/1KUyee3oGQ26ah8Ekhn2XGQ t2au https://pan.baidu.com/s/1voIhJe0AW0BjILAAgaMM_w 提取码: ee8v'}
 		安全:{
 			shiro:{
@@ -192,6 +225,215 @@
 		spring-源码设计-msb-msb-200818-预习资料-1-1-0-0:{今晚8：00 超级干货【Spring源码设计训练营】开营哇！预习资料：https://pan.baidu.com/s/1EPcjIZsnLu48e09jhQE2KQ 提取码：rvvi},
 		spring-springboot-msb-200529-预习资料-0-0-0-0:{0.02 springboot 报名链接：https://ke.qq.com/course/2587077?tuin=8f56bbee 这个是预习资料哈 https://pan.baidu.com/s/1o_5wT8QAmldAt2gwZGi_2w 提取码： inss},
 		spring-循环依赖-资料-图灵-201209-1-1-0-0：{'Spring?循环依赖底层原理深度剖析-徐庶课程资料链接:?https://pan.baidu.com/s/1yBysSNwevnDF2TN-RxiHJw?提取码:?nwza'},
+		spring-源码-msb-210119:{
+			note:{
+				注解,xml
+				xml-'IO流'-JSE,
+				加载-'字符串有规则'-document:{dom4j},
+				解析:{
+					bean,AOP,context - "handler"-'处理器',
+				},
+				BeanDefinitaion,
+				容器:{
+					beanDefinitionMap,
+					beanDefinitionNames,
+				}
+				67m41s,AOP/事务;
+				98m11,AOP面试指导;
+				103m36,面试指导;
+				109m36,问题*15;
+				113m18,推荐课程,课程介绍;
+				119m58,行业介绍;
+				124m49,小姐姐微信;
+				155m46,35 岁GG;
+				159m20,时间管理;
+				165m20,end music;
+			},
+			code:{
+				ApplicationContext context = new ClassPathXmlApplicationContext("xx.xml");:{
+					AbstractApplicationContext.java:{
+						static:{
+							ContextClosedEvent.class.getName();
+						}
+						public void refresh() throws BeansException,IllegalStateException{
+							synchronized(this.startupShutdownMonitor){
+								'Prepare this context for refreshing'
+								'前戏,做容器刷新前的准备工作'
+								'1. 设置容器的启动时间'
+								'2. 设置活跃状态为true'
+								'3. 设置关闭状态为false'
+								'4. 获取Environment对象,并加装当前系统的属性值到Environment对象中'
+								'5. 准备监听器和事件的集合对象,默认为空的集合'
+								prepareRefresh();
+							}
+						}
+					},
+					AbstractRefreshableApplicationContext.java:{
+						@Override
+						protected final void refreshBeanFactory() throws BeansException{
+							'如果存在beanFactory,则销毁beanFactory'
+							if(hasBeanFactory()){
+								destroyBeans();
+								closeBeanFactory();
+							}
+							try{
+								'创建DefaultListenableBeanFactory对象'
+								DefaultListableBeanFactory beanFactory = createBeanFactory();
+								'为了序列化指定id,可以从id反序列化到beanFactory对象'
+								beanFactory.setSerializationId(getId());
+								'定制beanFactory,设置相关属性,包括是否允许覆盖同名称的不同定义的对象以及循环依赖'
+								customizeBeanFactory(beanFactory);
+								'初始化documentReader,并进行XML文件读取及解析,默认命名空间的解析,自定义标签的解析'
+								loadBeanDefinitions(beanFactory);
+								synchronized(beanFactoryMonitor)
+								{
+									this.beanFactory = beanFactory;
+								}
+							}
+							catch(IOException ex)
+							{
+								throw new ApplicationContextException((new StringBuilder()).append("I/O error parsing bean definition source for ").append(getDisplayName()).toString(), ex);
+							}
+						}
+					},
+					AbstractXmlApplicationContext.java:{
+						protected void loadBeanDefinitions(DefaultListableBeanFactory beanFactory)throws BeansException, IOException{
+							'创建一个XML的beanDefinitionReader,并通过回调设置到beanFactory'
+							XmlBeanDefinitionReader beanDefinitionReader = new XmlBeanDefinitionReader(beanFactory);
+							'给reader对象设置环境对象'
+							beanDefinitionReader.setEnvironment(getEnvironment());
+							beanDefinitionReader.setResourceLoader(this);
+							beanDefinitionReader.setEntityResolver(new ResourceEntityResolver(this));
+							'初始化beanDefinitionReader对象,此处设置配置文件是否要进行验证'
+							initBeanDefinitionReader(beanDefinitionReader);
+							'开始完成beanDefinition的加载'
+							loadBeanDefinitions(beanDefinitionReader);
+						}
+						protected void loadBeanDefinitions(XmlBeanDefinitionReader reader)throws BeansException, IOException{
+							'以Resource的方式获得配置文件的资源位置'
+							Resource configResources[] = getConfigResources();
+							if(configResources != null)
+								reader.loadBeanDefinitions(configResources);
+							'以String的形式获得配置文件的位置'
+							String configLocations[] = getConfigLocations();
+							if(configLocations != null)
+								reader.loadBeanDefinitions(configLocations);
+						}
+
+					},					
+					public abstract class AbstractBeanDefinitionReader implements EnvironmentCapable, BeanDefinitionReader{					
+						public transient int loadBeanDefinitions(String locations[])throws BeanDefinitionStoreException{
+							Assert.notNull(locations, "Location array must not be null");
+							int counter = 0;
+							String arr$[] = locations;
+							int len$ = arr$.length;
+							for(int i$ = 0; i$ < len$; i$++)
+							{
+								String location = arr$[i$];
+								counter += loadBeanDefinitions(location);
+							}
+							return counter;
+						}
+						public int loadBeanDefinitions(String location, Set actualResources)throws BeanDefinitionStoreException{
+							'此处获取resourceLoader对象'
+							ResourceLoader resourceLoader = getResourceLoader();
+							if(resourceLoader == null)
+								throw new BeanDefinitionStoreException((new StringBuilder()).append("Cannot import bean definitions from location [").append(location).append("]: no ResourceLoader available").toString());
+							int loadCount;
+							if(resourceLoader instanceof ResourcePatternResolver)
+								try
+								{
+									'调用DefaultResourceLoader的getResource完成具体的Resource定位'
+									Resource resources[] = ((ResourcePatternResolver)resourceLoader).getResources(location);
+									loadCount = loadBeanDefinitions(resources);
+									if(actualResources != null)
+									{
+										Resource arr$[] = resources;
+										int len$ = arr$.length;
+										for(int i$ = 0; i$ < len$; i$++)
+										{
+											Resource resource = arr$[i$];
+											actualResources.add(resource);
+										}
+
+									}
+									if(logger.isDebugEnabled())
+										logger.debug((new StringBuilder()).append("Loaded ").append(loadCount).append(" bean definitions from location pattern [").append(location).append("]").toString());
+									return loadCount;
+								}
+								catch(IOException ex)
+								{
+									throw new BeanDefinitionStoreException((new StringBuilder()).append("Could not resolve bean definition resource pattern [").append(location).append("]").toString(), ex);
+								}
+							Resource resource = resourceLoader.getResource(location);
+							loadCount = loadBeanDefinitions(resource);
+							if(actualResources != null)
+								actualResources.add(resource);
+							if(logger.isDebugEnabled())
+								logger.debug((new StringBuilder()).append("Loaded ").append(loadCount).append(" bean definitions from location [").append(location).append("]").toString());
+							return loadCount;
+						}
+					},
+					public class XmlBeanDefinitionReader extends AbstractBeanDefinitionReader{
+						public int loadBeanDefinitions(EncodedResource encodedResource)throws BeanDefinitionStoreException{
+							Set currentResources;
+							Assert.notNull(encodedResource, "EncodedResource must not be null");
+							if(logger.isInfoEnabled())
+								logger.info((new StringBuilder()).append("Loading XML bean definitions from ").append(encodedResource.getResource()).toString());
+							currentResources = (Set)resourcesCurrentlyBeingLoaded.get();
+							if(currentResources == null)
+							{
+								currentResources = new HashSet(4);
+								resourcesCurrentlyBeingLoaded.set(currentResources);
+							}
+							if(!currentResources.add(encodedResource))
+								throw new BeanDefinitionStoreException((new StringBuilder()).append("Detected cyclic loading of ").append(encodedResource).append(" - check your import definitions!").toString());
+							'从encodeResource中获取已经封装的Resource对象并再次从Resource中获取其中inputStream'
+							try(InputStream inputStream = encodedResource.getResource().getInputStream()){
+								int i;
+									InputSource inputSource = new InputSource(inputStream);
+									if(encodedResource.getEncoding() != null)
+										inputSource.setEncoding(encodedResource.getEncoding());
+									'逻辑处理的核心步骤 7m54s'
+									return i = doLoadBeanDefinitions(inputSource, encodedResource.getResource());
+								inputStream.close();
+								currentResources.remove(encodedResource);
+								if(currentResources.isEmpty())
+									resourcesCurrentlyBeingLoaded.remove();
+								return i;
+								Exception exception;
+								exception;
+								inputStream.close();
+								throw exception;
+								IOException ex;
+								ex;
+								throw new BeanDefinitionStoreException((new StringBuilder()).append("IOException parsing XML document from ").append(encodedResource.getResource()).toString(), ex);
+								Exception exception1;
+								exception1;
+								currentResources.remove(encodedResource);
+								if(currentResources.isEmpty())
+									resourcesCurrentlyBeingLoaded.remove();
+								throw exception1;
+							}
+						}
+					}
+					ClassPathXmlApplicationContext.java:{
+						public ClassPathXmlApplicationContext(String configLocation)throws BeansException:{
+							this(new String[]{configLocation},true,null);
+						}
+						public ClassPathXmlApplicationContext(String[] configLocation,boolean refresh,ApplicationContext parent)throws BeansException:{
+							'调用父类构造方法,进行相关的对象创建等操作,包含属性的赋值操作'
+							super(parent);
+							setConfigLocations(configLocations);
+							if(refresh){
+								refresh();
+							}
+						}
+					}
+				}
+				BookService bookService = context.getBean("bookService",BookService.class);
+			}
+		}
 	},
 	70-database:{
 		mybatis-核心源码-图灵-资料-201230-1-0-0-0:{'阿里P7二面题-Spring整合Mybatis核心源码剖析-课程资料 链接:?https://pan.baidu.com/s/1ObNhF21AwIkxFjAY34mCTQ?提取码:? kssp'},

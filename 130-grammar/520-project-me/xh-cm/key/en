@@ -1,7 +1,23 @@
 01:{
 日期		拆分					发音							解释												示例										主题
+0526 	Resident			栾泽登特 		居民
+receive:{
+		receivable				adj. 应收	DUAT-Advance receivable 应收预收息，DUIT-Interest receivable 应收利息								ALAT-Interest received in advance 已收预收息，ACIT-Accrued interest应计利息									
+}					
+
+0524	reimbursement 		[ˌriːɪmˈbɜːrsmənt] 瑞英博斯门特	n.补偿;赔偿;偿付;报销					submit an expense account;apply for reimbursement;
+0521
+		negative			[ˈneɡətɪv] 乃歌提乌				adj.坏的;有害的;消极的;负面的;缺乏热情的;否定的
+															n.否定词;否定;拒绝;底片;负片;属阴性(或否定)的结果
+															v.拒绝;否定;否定…的真实性;证伪
+		hence				[hens] 汉斯						adv.因此;由此
+		regulation			[ˌreɡjuˈleɪʃn] 					n.章程;规章制度;规则;法规;(运用规则条例的)管理，控制
+															adj.规定的;必须穿戴的;必须使用的
+		correspond			[ˌkɔːrəˈspɑːnd]	阔瑞斯邦特		v.相一致;符合;类似于;相当于;通信				
+		quotation			[kwoʊˈteɪʃn] 廓泰逊				n.引语;引文;语录;引用;引述;引证;报价;估价
 0520
 		Retain				[rɪˈteɪn] 瑞忒恩 				v.保持;持有;保留;继续拥有;继续容纳;聘请(律师等)			Retained Earning 留存收益
+		collateral			[kəˈlætərəl] 科莱特罗 			n.抵押物;担保品 adj.附属的;附加的;附带的				co 
 0518
 		director			[dəˈrektər] 德拉科特 			n.董事;理事;经理;(某一活动的)负责人;(公司部门的)主任;(学院的)院长;(电影、戏剧等的)导演
 		Shareholder				歇侯德 							股东;股東;公司的股东;大股东;小股东
@@ -335,8 +351,8 @@ theme:{
 					suspense	su-spen-se		 [səˈspens] 	n .悬念，担心焦虑	SELF-Self payment 自主支付， SUSPENSE-Suspense account 转挂销账，暂记帐户																	
 					temporary	tem-po-rary		[ˈtempəreri] 		INTRUST-Entrusted payment INTRUST-受托支付								TEMP-Temporary freeze 临时冻结									
 					lend			 [lend] 	v. 借出,	SINGLE-Single lending 单次放款								single [ˈsɪŋɡl] adj.单一的  Multiple lendings  [ˈmʌltɪpl]  adj.数量多的,多种多样的									
-					Interval 	inter-val		[ˈɪntərvl] 	n. 间隔	Minimum Disbursement Interval (day) 放款最小间隔（天）																	
-										Periodic Disbursement Indicator 周期性放款标志								Period  [ˈpɪriəd] n.时期，某个时代特征 ；  Indicator  [ˈɪndɪkeɪtər]  n.指示器									
+					Interval 	inter-val		[ˈɪntərvl]因特沃 	n. 间隔					Minimum Disbursement Interval (day) 放款最小间隔（天）																	
+					Periodic Disbursement Indicator 周期性放款标志								Period  [ˈpɪriəd] n.时期，某个时代特征 ；  Indicator  [ˈɪndɪkeɪtər]  n.指示器									
 					Revolve	re-vol-ve		 [rɪˈvɑːlv]	v. 旋转，循环体	Multiple Disbursement Revolved 多次放款是否可循环																	
 					Periodic	peri-odic		 [ˌpɪriˈɑːdɪk] 	adj .周期性的	Periodic Disbursement Method 周期性放款方式  No control不控制 By amount按金额																	
 					repayment	re-pay-ment		 [rɪˈpeɪmənt] 	n. 偿还	Product Repayment Attribute 产品还款属性																	
@@ -381,7 +397,6 @@ theme:{
 					extension	ex-ten-sion		[ɪkˈstenʃn] 	n. 扩大，延伸	EXTEND_TRIM-Loan extension or contraction EXTEND_TRIM-贷款展期或缩期								contraction con-trac-tion [kənˈtrækʃn] n.缩小									
 					impairment	im-pair-ment		 [ɪmˈpermənt] 	n .伤害,缺陷	PROM-Manual impairment provision 人工减值准备，手动减值准备金								provision [prəˈvɪʒn] pro-vi-sion n.准备,提供,供给 vt. 给什么提供									
 					Unamortized	un-amor-tized		 [əˈnæmərˌtaɪzd] 	adj. 未摊销的	AMOT-Unamortized interest 待摊利息								owe [oʊ] v. 欠债,归功于									
-					 receivable				adj. 应收	DUAT-Advance receivable 应收预收息，DUIT-Interest receivable 应收利息								ALAT-Interest received in advance 已收预收息，ACIT-Accrued interest应计利息									
 					loss			[lɔːs] 	adj.亏损，损失	LOSS-Loan impairment loss 贷款减值损失																	
 					Positive			[ˈpɑːzətɪv] 	adj. 积极的 n. 正面	Positive Indicator 是否正数标志																	
 					Pledge			 [pledʒ] 	质押	Pledge Loan Indicator  质押贷款指标																	

@@ -48,6 +48,158 @@
 			
 		}
 	},
+	301-deploy-ant:{
+		java -cp ./lib/ant.jar:./lib/ant-launcher.jar org.apache.tools.ant.Main -f run.xml &
+		ant.jar:{
+			org.apache.tools.ant.Main:{
+				start(args, null, null);:{
+					
+				}
+			}
+		}
+		web:{
+			apache-tomcat-6.0.45/bin/jcm-config.xml:<appPort>8080</appPort>
+			apache-tomcat-6.0.45/bin/jcm-config.xml:<jcm-url>http://localhost:8080/jcmadm</jcm-url>
+
+			http://172.31.2.12:8080/jcmadm/vision/RMIServlet
+			req-body:{
+				className: UserService,
+				methodName: getDefaultDepartment,searchUsersInCurUser,getMatchUsersNumberInCurUser
+				params: '%5B%22ADMIN%22%2C%22DEPARTMENT%22%5D'-'["ADMIN","DEPARTMENT"]','%5B%22admin%22%5D'-'["admin"]'
+			},
+			rep-body:{
+				{"retCode":0,"result":{"alias":"Root Group","departmentCode":"","desc":"System Inner Group","hierarchyNodes":[{"hierarchyId":"DEPARTMENT","id":"DEPARTMENT"}],"id":"DEPARTMENT","name":"Root Group"}}
+			},
+			code:{
+				jcm.framework.rmi.RMIServlet.doPost(RMIServlet.java:113)
+				
+				CheckDataJob.manageSql(IChkComponent);-2{
+					execute(IAgentCallInfo);
+					run(IChkComponent, Connection);
+				}
+			}
+		}
+	},
+	301-deploy-ORACLE-Bussiness Intelligence:{
+		http://172.31.2.12:9518/analytics/saw.dll?ReloadDashboard
+		http://172.31.2.12:9518/analytics/saw.dll?getReportXmlFromSearchID	:{
+			OBIPS11RsfQy6Z+qdA0
+			{t:2}RsfQy6Z+qdA0
+			<saw:report xmlns:saw="com.siebel.analytics.web/report/v1.1" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" 
+			xmlns:sawx="com.siebel.analytics.web/expression/v1.1" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlVersion="201201160">
+			<saw:criteria xsi:type="saw:simpleCriteria" subjectArea="&quot;IDL&quot;" withinHierarchy="true">
+			<saw:columns><saw:column xsi:type="saw:regularColumn" columnID="ca66ef6ecefe211d4">
+			<saw:columnFormula><sawx:expr xsi:type="sawx:sqlExpression">"RPT_LOAN_LIST"."GL"</sawx:expr></saw:columnFormula><saw:displayFormat>
+			<saw:formatSpec suppress="suppress" wrapText="false"/></saw:displayFormat><saw:tableHeading><saw:caption fmt="text">
+			<saw:text>RPT_LOAN_LIST</saw:text></saw:caption></saw:tableHeading><saw:columnHeading><saw:displayFormat><saw:formatSpec/></saw:displayFormat>
+			<saw:caption fmt="text"><saw:text>GL</saw:text></saw:caption></saw:columnHeading></saw:column>
+			<saw:column xsi:type="saw:regularColumn" columnID="cb7ca08d96bf40f1d"><saw:columnFormula><sawx:expr xsi:type="sawx:sqlExpression">"RPT_LOAN_LIST"."CUST_ID"</sawx:expr>
+			</saw:columnFormula><saw:displayFormat><saw:formatSpec suppress="suppress" wrapText="false"/></saw:displayFormat><saw:tableHeading><saw:caption fmt="text">
+			<saw:text>RPT_LOAN_LIST</saw:text></saw:caption></saw:tableHeading><saw:columnHeading><saw:displayFormat><saw:formatSpec/></saw:displayFormat><saw:caption fmt="text">
+			<saw:text>CUSTOMER ID</saw:text></saw:caption></saw:columnHeading></saw:column><saw:column xsi:type="saw:regularColumn" columnID="ca18ec9ddc6d17e94">
+			<saw:columnFormula><sawx:expr xsi:type="sawx:sqlExpression">"RPT_LOAN_LIST"."LOAN_CON_NUM"</sawx:expr></saw:columnFormula><saw:displayFormat>
+			<saw:formatSpec suppress="repeat" wrapText="true"/></saw:displayFormat><saw:tableHeading><saw:caption fmt="text"><saw:text>RPT_LOAN_LIST</saw:text></saw:caption>
+			</saw:tableHeading><saw:columnHeading><saw:displayFormat><saw:formatSpec/></saw:displayFormat><saw:caption fmt="text"><saw:text>LOAN CONTRACT NUMBER</saw:text>
+			</saw:caption></saw:columnHeading></saw:column><saw:column xsi:type="saw:regularColumn" columnID="c493438368be12379"><saw:columnFormula>
+			<sawx:expr xsi:type="sawx:sqlExpression">"RPT_LOAN_LIST"."ACCT_NUM"</sawx:expr></saw:columnFormula><saw:displayFormat>
+			<saw:formatSpec suppress="suppress" wrapText="false"/></saw:displayFormat><saw:tableHeading><saw:caption fmt="text"><saw:text>RPT_LOAN_LIST</saw:text></saw:caption>
+			</saw:tableHeading><saw:columnHeading><saw:displayFormat><saw:formatSpec/></saw:displayFormat><saw:caption fmt="text"><saw:text>ACCOUNT NUMBER</saw:text>
+			</saw:caption></saw:columnHeading></saw:column><saw:column xsi:type="saw:regularColumn" columnID="c8cc5e227f866e7d4"><saw:columnFormula>
+			<sawx:expr xsi:type="sawx:sqlExpression">"RPT_LOAN_LIST"."ACCT_TYPE"</sawx:expr></saw:columnFormula><saw:displayFormat>
+			<saw:formatSpec suppress="suppress" wrapText="false"/></saw:displayFormat><saw:tableHeading><saw:caption fmt="text"><saw:text>RPT_LOAN_LIST</saw:text>
+			</saw:caption></saw:tableHeading><saw:columnHeading><saw:displayFormat><saw:formatSpec/></saw:displayFormat><saw:caption fmt="text"><saw:text>ACCOUNT TYPE</saw:text>
+			</saw:caption></saw:columnHeading></saw:column><saw:column xsi:type="saw:regularColumn" columnID="c4d62d6f44c0f7d51"><saw:columnFormula>
+			<sawx:expr xsi:type="sawx:sqlExpression">"RPT_LOAN_LIST"."CUST_NAME"</sawx:expr></saw:columnFormula><saw:displayFormat>
+			<saw:formatSpec suppress="suppress" wrapText="false"/></saw:displayFormat><saw:tableHeading><saw:caption fmt="text"><saw:text>RPT_LOAN_LIST</saw:text>
+			</saw:caption></saw:tableHeading><saw:columnHeading><saw:displayFormat><saw:formatSpec/></saw:displayFormat><saw:caption fmt="text">
+			<saw:text>CUSTOMER NAME</saw:text></saw:caption></saw:columnHeading></saw:column><saw:column xsi:type="saw:regularColumn" columnID="cc25a1908a2138efc">
+			<saw:columnFormula><sawx:expr xsi:type="sawx:sqlExpression">"RPT_LOAN_LIST"."BRANCH_CODE"</sawx:expr></saw:columnFormula><saw:displayFormat>
+			<saw:formatSpec suppress="suppress" wrapText="false"/></saw:displayFormat><saw:tableHeading><saw:caption fmt="text"><saw:text>RPT_LOAN_LIST</saw:text></saw:caption>
+			</saw:tableHeading><saw:columnHeading><saw:displayFormat><saw:formatSpec/></saw:displayFormat><saw:caption fmt="text"><saw:text>BRANCH CODE</saw:text></saw:caption>
+			</saw:columnHeading></saw:column><saw:column xsi:type="saw:regularColumn" columnID="cd0eaa99560575770">
+			<saw:columnFormula><sawx:expr xsi:type="sawx:sqlExpression">"RPT_LOAN_LIST"."BRANCH_NAME"</sawx:expr></saw:columnFormula><saw:displayFormat>
+			<saw:formatSpec suppress="suppress" wrapText="false"/></saw:displayFormat><saw:tableHeading><saw:caption fmt="text"><saw:text>RPT_LOAN_LIST</saw:text>
+			</saw:caption></saw:tableHeading><saw:columnHeading><saw:displayFormat><saw:formatSpec/></saw:displayFormat><saw:caption fmt="text">
+			<saw:text>BRANCH NAME</saw:text></saw:caption></saw:columnHeading></saw:column><saw:column xsi:type="saw:regularColumn" columnID="c78a6b14ecff651d1">
+			<saw:columnFormula>
+			<sawx:expr xsi:type="sawx:sqlExpression">
+			CASE 
+			WHEN "RPT_LOAN_LIST"."START_DATE" = ' ' THEN ' ' 
+			WHEN "RPT_LOAN_LIST"."START_DATE" is NULL THEN ' ' 
+			ELSE CONCAT(SUBSTRING("RPT_LOAN_LIST"."START_DATE" FROM 5 FOR 2),CONCAT('/', CONCAT(SUBSTRING("RPT_LOAN_LIST"."START_DATE" FROM 7 FOR 2), CONCAT('/', SUBSTRING("RPT_LOAN_LIST"."START_DATE" FROM 1 FOR 4))))) END
+			</sawx:expr></saw:columnFormula><saw:displayFormat><saw:formatSpec suppress="repeat" hAlign="right" wrapText="false"/></saw:displayFormat><saw:tableHeading>
+			<saw:caption fmt="text"><saw:text>RPT_LOAN_LIST</saw:text></saw:caption></saw:tableHeading><saw:columnHeading><saw:displayFormat><saw:formatSpec/></saw:displayFormat
+			><saw:caption fmt="text"><saw:text>START DATE</saw:text></saw:caption></saw:columnHeading></saw:column><saw:column xsi:type="saw:regularColumn" columnID="c71264794ab672c08">
+			<saw:columnFormula>
+			<sawx:expr xsi:type="sawx:sqlExpression">
+			CASE 
+			WHEN "RPT_LOAN_LIST"."MATURITY_DATE" = ' ' THEN ' ' 
+			WHEN "RPT_LOAN_LIST"."MATURITY_DATE" is NULL THEN ' ' 
+			ELSE CONCAT(SUBSTRING("RPT_LOAN_LIST"."MATURITY_DATE" FROM 5 FOR 2),CONCAT('/', CONCAT(SUBSTRING("RPT_LOAN_LIST"."MATURITY_DATE" FROM 7 FOR 2), CONCAT('/', SUBSTRING("RPT_LOAN_LIST"."MATURITY_DATE" FROM 1 FOR 4))))) END
+			</sawx:expr></saw:columnFormula><saw:displayFormat><saw:formatSpec suppress="repeat" hAlign="right" wrapText="false"/></saw:displayFormat><saw:tableHeading>
+			<saw:caption fmt="text"><saw:text>RPT_LOAN_LIST</saw:text></saw:caption></saw:tableHeading><saw:columnHeading><saw:displayFormat><saw:formatSpec/>
+			</saw:displayFormat><saw:caption fmt="text"><saw:text>MATURITY DATE</saw:text></saw:caption></saw:columnHeading></saw:column>
+			<saw:column xsi:type="saw:regularColumn" columnID="ce3c1fc423c1205f7"><saw:columnFormula>
+			<sawx:expr xsi:type="sawx:sqlExpression">"RPT_LOAN_LIST"."INTEREST_RATE"</sawx:expr></saw:columnFormula><saw:displayFormat>
+			<saw:formatSpec suppress="repeat" wrapText="false"><saw:dataFormat minDigits="6" maxDigits="6" commas="true" negativeType="minus" xsi:type="saw:number"/>
+			</saw:formatSpec></saw:displayFormat><saw:tableHeading><saw:caption fmt="text"><saw:text>RPT_LOAN_LIST</saw:text></saw:caption></saw:tableHeading>
+			<saw:columnHeading><saw:displayFormat><saw:formatSpec/></saw:displayFormat><saw:caption fmt="text"><saw:text>INTEREST RATE</saw:text></saw:caption>
+			</saw:columnHeading></saw:column><saw:column xsi:type="saw:regularColumn" columnID="c50f90576a8e4947a"><saw:columnFormula>
+			<sawx:expr xsi:type="sawx:sqlExpression">"RPT_LOAN_LIST"."ACCT_OFFICER"</sawx:expr></saw:columnFormula><saw:displayFormat>
+			<saw:formatSpec suppress="repeat" wrapText="false"/></saw:displayFormat><saw:tableHeading><saw:caption fmt="text"><saw:text>RPT_LOAN_LIST</saw:text>
+			</saw:caption></saw:tableHeading><saw:columnHeading><saw:displayFormat><saw:formatSpec/></saw:displayFormat><saw:caption fmt="text">
+			<saw:text>ACCOUNT OFFICER</saw:text></saw:caption></saw:columnHeading></saw:column><saw:column xsi:type="saw:regularColumn" columnID="c87576ff16c2a54ad">
+			<saw:columnFormula><sawx:expr xsi:type="sawx:sqlExpression">"RPT_LOAN_LIST"."AO_NAME"</sawx:expr></saw:columnFormula><saw:displayFormat>
+			<saw:formatSpec suppress="repeat" wrapText="false"/></saw:displayFormat><saw:tableHeading><saw:caption fmt="text"><saw:text>RPT_LOAN_LIST</saw:text>
+			</saw:caption></saw:tableHeading><saw:columnHeading><saw:displayFormat><saw:formatSpec/></saw:displayFormat><saw:caption fmt="text">
+			<saw:text>AO NAME</saw:text></saw:caption></saw:columnHeading></saw:column><saw:column xsi:type="saw:regularColumn" columnID="cef1eac19b694897d">
+			<saw:columnFormula><sawx:expr xsi:type="sawx:sqlExpression">"RPT_LOAN_LIST"."SECTOR_CODE"</sawx:expr></saw:columnFormula><saw:displayFormat>
+			<saw:formatSpec suppress="repeat" wrapText="false"/></saw:displayFormat><saw:tableHeading><saw:caption fmt="text"><saw:text>RPT_LOAN_LIST</saw:text></saw:caption>
+			</saw:tableHeading><saw:columnHeading><saw:displayFormat><saw:formatSpec/></saw:displayFormat><saw:caption fmt="text"><saw:text>SECTOR CODE</saw:text></saw:caption>
+			</saw:columnHeading></saw:column><saw:column xsi:type="saw:regularColumn" columnID="ca8137d30d9614fe2"><saw:columnFormula>
+			<sawx:expr xsi:type="sawx:sqlExpression">"RPT_LOAN_LIST"."SECTOR"</sawx:expr></saw:columnFormula><saw:displayFormat><saw:formatSpec suppress="repeat" wrapText="false"/>
+			</saw:displayFormat><saw:tableHeading><saw:caption fmt="text"><saw:text>RPT_LOAN_LIST</saw:text></saw:caption></saw:tableHeading><saw:columnHeading>
+			<saw:displayFormat><saw:formatSpec/></saw:displayFormat><saw:caption fmt="text"><saw:text>SECTOR</saw:text></saw:caption></saw:columnHeading></saw:column>
+			<saw:column xsi:type="saw:regularColumn" columnID="c2a28f105f8653f56"><saw:columnFormula>
+			<sawx:expr xsi:type="sawx:sqlExpression">"RPT_LOAN_LIST"."RESIDENTIAL_STAT"</sawx:expr></saw:columnFormula><saw:displayFormat>
+			<saw:formatSpec suppress="repeat" wrapText="false"/></saw:displayFormat><saw:tableHeading><saw:caption fmt="text"><saw:text>RPT_LOAN_LIST</saw:text></saw:caption>
+			</saw:tableHeading><saw:columnHeading><saw:displayFormat><saw:formatSpec/></saw:displayFormat><saw:caption fmt="text"><saw:text>RESIDENTIAL STATUS</saw:text>
+			</saw:caption></saw:columnHeading></saw:column><saw:column xsi:type="saw:regularColumn" columnID="c5877599d74e33b99"><saw:columnFormula>
+			<sawx:expr xsi:type="sawx:sqlExpression">"RPT_LOAN_LIST"."CCY"</sawx:expr></saw:columnFormula><saw:displayFormat><saw:formatSpec suppress="repeat" wrapText="false"/>
+			</saw:displayFormat><saw:tableHeading><saw:caption fmt="text"><saw:text>RPT_LOAN_LIST</saw:text></saw:caption></saw:tableHeading><saw:columnHeading>
+			<saw:displayFormat><saw:formatSpec/></saw:displayFormat><saw:caption fmt="text"><saw:text>CURRENCY</saw:text></saw:caption></saw:columnHeading></saw:column>
+			<saw:column xsi:type="saw:regularColumn" columnID="c7dc7c680e3e49270"><saw:columnFormula><sawx:expr xsi:type="sawx:sqlExpression">"RPT_LOAN_LIST"."RATE"</sawx:expr>
+			</saw:columnFormula><saw:displayFormat><saw:formatSpec suppress="repeat" wrapText="false">
+			<saw:dataFormat xsi:type="saw:number" minDigits="6" maxDigits="6" commas="true" negativeType="minus"/></saw:formatSpec></saw:displayFormat><saw:tableHeading>
+			<saw:caption fmt="text"><saw:text>RPT_LOAN_LIST</saw:text></saw:caption></saw:tableHeading><saw:columnHeading><saw:displayFormat><saw:formatSpec/></saw:displayFormat>
+			<saw:caption fmt="text"><saw:text>RATE 31</saw:text></saw:caption></saw:columnHeading></saw:column><saw:column xsi:type="saw:regularColumn" columnID="cd34cf12b5b059d87">
+			<saw:columnFormula><sawx:expr xsi:type="sawx:sqlExpression">"RPT_LOAN_LIST"."BAL"</sawx:expr></saw:columnFormula><saw:displayFormat>
+			<saw:formatSpec suppress="repeat" wrapText="false"><saw:dataFormat minDigits="6" maxDigits="6" commas="true" negativeType="minus" xsi:type="saw:number"/></saw:formatSpec>
+			</saw:displayFormat><saw:tableHeading><saw:caption fmt="text"><saw:text>RPT_LOAN_LIST</saw:text></saw:caption></saw:tableHeading><saw:columnHeading><saw:displayFormat>
+			<saw:formatSpec/></saw:displayFormat><saw:caption fmt="text"><saw:text>BALANCE 31</saw:text></saw:caption></saw:columnHeading></saw:column>
+			<saw:column xsi:type="saw:regularColumn" columnID="c2e1814c6fe7f9fae"><saw:columnFormula><sawx:expr xsi:type="sawx:sqlExpression">"RPT_LOAN_LIST"."ACCRU_INTERE"</sawx:expr>
+			</saw:columnFormula><saw:displayFormat><saw:formatSpec suppress="repeat" wrapText="true">
+			<saw:dataFormat minDigits="2" maxDigits="2" commas="true" negativeType="minus" xsi:type="saw:number"/></saw:formatSpec></saw:displayFormat><saw:tableHeading>
+			<saw:caption fmt="text"><saw:text>RPT_LOAN_LIST</saw:text></saw:caption></saw:tableHeading><saw:columnHeading><saw:displayFormat><saw:formatSpec/></saw:displayFormat>
+			<saw:caption fmt="text"><saw:text>ACCRUED INTEREST</saw:text></saw:caption></saw:columnHeading></saw:column>
+			<saw:column xsi:type="saw:regularColumn" columnID="cac6cde2ce3bf69fa"><saw:columnFormula><sawx:expr xsi:type="sawx:sqlExpression">"RPT_LOAN_LIST"."PENAL_ACCRU"</sawx:expr>
+			</saw:columnFormula><saw:displayFormat><saw:formatSpec suppress="repeat" wrapText="true">
+			<saw:dataFormat minDigits="2" maxDigits="2" commas="true" negativeType="minus" xsi:type="saw:number"/></saw:formatSpec></saw:displayFormat><saw:tableHeading>
+			<saw:caption fmt="text"><saw:text>RPT_LOAN_LIST</saw:text></saw:caption></saw:tableHeading><saw:columnHeading><saw:displayFormat><saw:formatSpec/></saw:displayFormat>
+			<saw:caption fmt="text"><saw:text>PENALTY ACCRUAL</saw:text></saw:caption></saw:columnHeading></saw:column>
+			<saw:column xsi:type="saw:regularColumn" columnID="c2da69d3442a1078a"><saw:columnFormula><sawx:expr xsi:type="sawx:sqlExpression">"RPT_LOAN_LIST"."COMPO_INTERE"</sawx:expr>
+			</saw:columnFormula><saw:displayFormat><saw:formatSpec suppress="repeat" wrapText="true">
+			<saw:dataFormat minDigits="2" maxDigits="2" commas="true" negativeType="minus" xsi:type="saw:number"/></saw:formatSpec></saw:displayFormat><saw:tableHeading>
+			<saw:caption fmt="text"><saw:text>RPT_LOAN_LIST</saw:text></saw:caption></saw:tableHeading><saw:columnHeading><saw:displayFormat><saw:formatSpec/></saw:displayFormat>
+			<saw:caption fmt="text"><saw:text>COMPOUND INTEREST</saw:text></saw:caption></saw:columnHeading></saw:column>
+			<saw:column xsi:type="saw:regularColumn" columnID="cbbb5e617c07f585f"><saw:columnFormula><sawx:expr xsi:type="sawx:sqlExpression">"RPT_LOAN_LIST"."INTERE_RECEIV"</sawx:expr>
+			</saw:columnFormula><saw:displayFormat><saw:formatSpec suppress="repeat" wrapText="true">
+			<saw:dataFormat minDigits="2" maxDigits="2" commas="true" negativeType="minus" xsi:type="saw:number"/></saw:formatSpec></saw:displayFormat><saw:tableHeading>
+			<saw:caption fmt="text"><saw:text>RPT_LOAN_LIST</saw:text></saw:caption></saw:tableHeading><saw:columnHeading><saw:displayFormat><saw:formatSpec/></saw:displayFormat>
+			<saw:caption fmt="text"><saw:text>INTEREST RECEIVABLE</saw:text></saw:caption></saw:columnHeading></saw:column></saw:columns><saw:filter>
+			<sawx:expr xsi:type="sawx:sql">"RPT_LOAN_LIST"."ETL_DT" IN (@{p_date}{date '1900-01-01'})</sawx:expr></saw:filter><saw:columnOrder><saw:columnOrderRef columnID="ca66ef6ecefe211d4" direction="ascending"/></saw:columnOrder></saw:criteria><saw:views currentView="0"><saw:view xsi:type="saw:compoundView" name="compoundView!1"><saw:cvTable><saw:cvRow><saw:cvCell viewName="tableView!1"><saw:displayFormat><saw:formatSpec/></saw:displayFormat></saw:cvCell></saw:cvRow></saw:cvTable></saw:view><saw:view xsi:type="saw:titleView" name="titleView!1"/><saw:view xsi:type="saw:tableView" name="tableView!1" rowsPerPage="1000" scrollingEnabled="false" repeat="false"><saw:edges><saw:edge showColumnHeader="true" axis="page"/><saw:edge axis="section" insertPageBreak="false" showBlankRows="false" headings="none"><saw:displayFormat><saw:formatSpec wrapText="true"/></saw:displayFormat></saw:edge><saw:edge showColumnHeader="true" axis="row"><saw:edgeLayers><saw:edgeLayer type="column" columnID="ca66ef6ecefe211d4"><saw:headerFormat><saw:displayFormat><saw:formatSpec wrapText="false" hAlign="left" vAlign="middle"/></saw:displayFormat></saw:headerFormat><saw:memberFormat><saw:displayFormat><saw:formatSpec hAlign="left" vAlign="middle" wrapText="false"/></saw:displayFormat></saw:memberFormat></saw:edgeLayer><saw:edgeLayer type="column" columnID="cb7ca08d96bf40f1d"><saw:memberFormat><saw:displayFormat><saw:formatSpec hAlign="left" vAlign="middle" wrapText="false"/></saw:displayFormat></saw:memberFormat><saw:headerFormat><saw:displayFormat><saw:formatSpec wrapText="false" hAlign="left" vAlign="middle"/></saw:displayFormat></saw:headerFormat></saw:edgeLayer><saw:edgeLayer type="column" columnID="ca18ec9ddc6d17e94"><saw:headerFormat><saw:displayFormat><saw:formatSpec hAlign="left" vAlign="middle" wrapText="false"/></saw:displayFormat></saw:headerFormat><saw:memberFormat><saw:displayFormat><saw:formatSpec hAlign="right" vAlign="middle" wrapText="false"/></saw:displayFormat></saw:memberFormat></saw:edgeLayer><saw:edgeLayer type="column" columnID="c493438368be12379"><saw:headerFormat><saw:displayFormat><saw:formatSpec wrapText="false" hAlign="left" vAlign="middle"/></saw:displayFormat></saw:headerFormat><saw:memberFormat><saw:displayFormat><saw:formatSpec hAlign="right" vAlign="middle" wrapText="false"/></saw:displayFormat></saw:memberFormat></saw:edgeLayer><saw:edgeLayer type="column" columnID="c8cc5e227f866e7d4"><saw:headerFormat><saw:displayFormat><saw:formatSpec wrapText="false" hAlign="left" vAlign="middle"/></saw:displayFormat></saw:headerFormat><saw:memberFormat><saw:displayFormat><saw:formatSpec hAlign="left" vAlign="middle" wrapText="false"/></saw:displayFormat></saw:memberFormat></saw:edgeLayer><saw:edgeLayer type="column" columnID="c4d62d6f44c0f7d51"><saw:memberFormat><saw:displayFormat><saw:formatSpec wrapText="false" hAlign="left" vAlign="middle"/></saw:displayFormat></saw:memberFormat><saw:headerFormat><saw:displayFormat><saw:formatSpec wrapText="false" hAlign="left" vAlign="middle"/></saw:displayFormat></saw:headerFormat></saw:edgeLayer><saw:edgeLayer type="column" columnID="cc25a1908a2138efc"><saw:headerFormat><saw:displayFormat><saw:formatSpec wrapText="false" hAlign="left" vAlign="middle"/></saw:displayFormat></saw:headerFormat><saw:memberFormat><saw:displayFormat><saw:formatSpec hAlign="left" vAlign="middle" wrapText="false"/></saw:displayFormat></saw:memberFormat></saw:edgeLayer><saw:edgeLayer type="column" columnID="cd0eaa99560575770"><saw:headerFormat><saw:displayFormat><saw:formatSpec wrapText="false" hAlign="left" vAlign="middle"/></saw:displayFormat></saw:headerFormat><saw:memberFormat><saw:displayFormat><saw:formatSpec hAlign="left" vAlign="middle" wrapText="false"/></saw:displayFormat></saw:memberFormat></saw:edgeLayer><saw:edgeLayer type="column" columnID="c78a6b14ecff651d1"><saw:headerFormat><saw:displayFormat><saw:formatSpec wrapText="false" hAlign="left" vAlign="middle"/></saw:displayFormat></saw:headerFormat><saw:memberFormat><saw:displayFormat><saw:formatSpec hAlign="right" vAlign="middle" wrapText="false"/></saw:displayFormat></saw:memberFormat></saw:edgeLayer><saw:edgeLayer type="column" columnID="c71264794ab672c08"><saw:headerFormat><saw:displayFormat><saw:formatSpec wrapText="false" hAlign="left" vAlign="middle"/></saw:displayFormat></saw:headerFormat><saw:memberFormat><saw:displayFormat><saw:formatSpec hAlign="right" vAlign="middle" wrapText="false"/></saw:displayFormat></saw:memberFormat></saw:edgeLayer><saw:edgeLayer type="column" columnID="ce3c1fc423c1205f7"><saw:headerFormat><saw:displayFormat><saw:formatSpec wrapText="false" hAlign="left" vAlign="middle"/></saw:displayFormat></saw:headerFormat><saw:memberFormat><saw:displayFormat><saw:formatSpec hAlign="right" vAlign="middle" wrapText="false"/></saw:displayFormat></saw:memberFormat></saw:edgeLayer><saw:edgeLayer type="column" columnID="c50f90576a8e4947a"><saw:headerFormat><saw:displayFormat><saw:formatSpec wrapText="false" hAlign="left" vAlign="middle"/></saw:displayFormat></saw:headerFormat><saw:memberFormat><saw:displayFormat><saw:formatSpec hAlign="left" vAlign="middle" wrapText="false"/></saw:displayFormat></saw:memberFormat></saw:edgeLayer><saw:edgeLayer type="column" columnID="c87576ff16c2a54ad"><saw:headerFormat><saw:displayFormat><saw:formatSpec wrapText="false" hAlign="left" vAlign="middle"/></saw:displayFormat></saw:headerFormat><saw:memberFormat><saw:displayFormat><saw:formatSpec hAlign="left" vAlign="middle" wrapText="false"/></saw:displayFormat></saw:memberFormat></saw:edgeLayer><saw:edgeLayer type="column" columnID="cef1eac19b694897d"><saw:headerFormat><saw:displayFormat><saw:formatSpec wrapText="false" hAlign="left" vAlign="middle"/></saw:displayFormat></saw:headerFormat><saw:memberFormat><saw:displayFormat><saw:formatSpec hAlign="left" vAlign="middle" wrapText="false"/></saw:displayFormat></saw:memberFormat></saw:edgeLayer><saw:edgeLayer type="column" columnID="ca8137d30d9614fe2"><saw:headerFormat><saw:displayFormat><saw:formatSpec wrapText="false" hAlign="left" vAlign="middle"/></saw:displayFormat></saw:headerFormat><saw:memberFormat><saw:displayFormat><saw:formatSpec hAlign="left" vAlign="middle" wrapText="false"/></saw:displayFormat></saw:memberFormat></saw:edgeLayer><saw:edgeLayer type="column" columnID="c2a28f105f8653f56"><saw:headerFormat><saw:displayFormat><saw:formatSpec wrapText="false" hAlign="left" vAlign="middle"/></saw:displayFormat></saw:headerFormat><saw:memberFormat><saw:displayFormat><saw:formatSpec hAlign="left" vAlign="middle" wrapText="false"/></saw:displayFormat></saw:memberFormat></saw:edgeLayer><saw:edgeLayer type="column" columnID="c5877599d74e33b99"><saw:headerFormat><saw:displayFormat><saw:formatSpec wrapText="false" hAlign="left" vAlign="middle"/></saw:displayFormat></saw:headerFormat><saw:memberFormat><saw:displayFormat><saw:formatSpec hAlign="left" vAlign="middle" wrapText="false"/></saw:displayFormat></saw:memberFormat></saw:edgeLayer><saw:edgeLayer type="column" columnID="c7dc7c680e3e49270"><saw:headerFormat><saw:displayFormat><saw:formatSpec wrapText="false" hAlign="left" vAlign="middle"/></saw:displayFormat></saw:headerFormat><saw:memberFormat><saw:displayFormat><saw:formatSpec hAlign="right" vAlign="middle" wrapText="false"/></saw:displayFormat></saw:memberFormat></saw:edgeLayer><saw:edgeLayer type="column" columnID="cd34cf12b5b059d87"><saw:headerFormat><saw:displayFormat><saw:formatSpec wrapText="false" hAlign="left" vAlign="middle"/></saw:displayFormat></saw:headerFormat><saw:memberFormat><saw:displayFormat><saw:formatSpec hAlign="right" vAlign="middle" wrapText="false"/></saw:displayFormat></saw:memberFormat></saw:edgeLayer><saw:edgeLayer type="column" columnID="c2e1814c6fe7f9fae"><saw:headerFormat><saw:displayFormat><saw:formatSpec hAlign="left" vAlign="middle" wrapText="false"/></saw:displayFormat></saw:headerFormat><saw:memberFormat><saw:displayFormat><saw:formatSpec hAlign="right" vAlign="middle" wrapText="false"/></saw:displayFormat></saw:memberFormat></saw:edgeLayer><saw:edgeLayer type="column" columnID="cac6cde2ce3bf69fa"><saw:headerFormat><saw:displayFormat><saw:formatSpec hAlign="center" vAlign="middle" wrapText="false"/></saw:displayFormat></saw:headerFormat><saw:memberFormat><saw:displayFormat><saw:formatSpec hAlign="right" vAlign="middle" wrapText="false"/></saw:displayFormat></saw:memberFormat></saw:edgeLayer><saw:edgeLayer type="column" columnID="c2da69d3442a1078a"><saw:headerFormat><saw:displayFormat><saw:formatSpec hAlign="center" vAlign="middle" wrapText="false"/></saw:displayFormat></saw:headerFormat><saw:memberFormat><saw:displayFormat><saw:formatSpec hAlign="right" vAlign="middle" wrapText="false"/></saw:displayFormat></saw:memberFormat></saw:edgeLayer><saw:edgeLayer type="column" columnID="cbbb5e617c07f585f"><saw:headerFormat><saw:displayFormat><saw:formatSpec hAlign="left" vAlign="middle" wrapText="false"/></saw:displayFormat></saw:headerFormat><saw:memberFormat><saw:displayFormat><saw:formatSpec hAlign="right" vAlign="middle" wrapText="false"/></saw:displayFormat></saw:memberFormat></saw:edgeLayer></saw:edgeLayers></saw:edge><saw:edge showColumnHeader="rollover" axis="column"/></saw:edges><saw:sectionContent><saw:displayFormat><saw:formatSpec/></saw:displayFormat></saw:sectionContent></saw:view></saw:views><saw:prompts scope="report" subjectArea="&quot;IDL&quot;"/></saw:report>
+		}
+	},
 	302-deploy-nacos:{
 		concept:{
 			https://www.jianshu.com/p/39ade28c150d
@@ -184,3 +336,95 @@
 		}
 	}
 }
+70-db:{
+	70-db-common:{
+		40-grammar:{common},
+		44-grammar-table,
+		45-grammar-curd,
+	},
+	71-db-oracle:{
+		21-install-version,
+		30-connect,
+		43-grammar-db:{
+			init:{	
+				db:{
+					create:{
+						-- create database file
+						CREATE TABLESPACE mcb LOGGING DATAFILE 'D:\03-sl\224-mcb-gl\24-dev\00-init\32-db-file\mcb.dbf' SIZE 100M AUTOEXTEND ON NEXT 32M MAXSIZE 500M EXTENT MANAGEMENT LOCAL;
+						-- create database temporary file
+						create temporary TABLESPACE mcb_temp tempfile 'D:\03-sl\224-mcb-gl\24-dev\00-init\32-db-file\mcb_temp.dbf' SIZE 100M AUTOEXTEND ON NEXT 32M MAXSIZE 500M EXTENT MANAGEMENT LOCAL;
+					},
+					del:{
+						conn sys/dwh as sysdba;
+						-- MyDataBase
+						drop tablespace MyDataBase including contents and datafiles;
+						drop tablespace MyDataBase_temp including contents and datafiles;
+						-- mcb
+						drop tablespace mcb including contents and datafiles;
+						drop tablespace mcb_temp including contents and datafiles;
+					}
+				},
+				user:{
+					create:{
+						CREATE USER mcb_admin IDENTIFIED BY mcb_admin DEFAULT TABLESPACE mcb TEMPORARY TABLESPACE mcb_temp;
+					},
+					del:{
+						drop user mcb_uat_cbs cascade;
+					}
+				},
+				auth:{
+					grant connect,resource,dba to mcb_admin;
+					grant create session to mcb_admin;
+				}		
+			}
+		},
+		45-grammar-curd:{
+			read-select:{
+				!=:{^=,<>}
+			}
+		},
+		46-grammar-function:{
+			string:{
+				||	
+				CONCAT()
+			}
+		},
+		50-exception:{
+			ora-12537:tns:连接关闭:{
+				cdb-1.3-uat-esb-过一段时间自己好了..?
+				listener.log:{
+					echo $ORACLE_HOME;
+					$ORACLE_HOME/network/log/
+					itpub :{	http://blog.itpub.net/23169974/viewspace-1067401/
+						metlink上说是网络问题，让设置sqlnet.ora跟listener.ora，或者是DNS问题，但这个案例这方面都没问题，最后发现，是listener.log 达到了4G，无法写入了。清除后就好了。
+					}
+				},
+				chmod 6751 ORACLE_HOME/bin/oracle:{
+					https://www.cnblogs.com/renzmin/p/12144617.html	
+					ORA-12537: TNS:connection closed问题解决
+					环境：oracle redhat7.7  + oracle 11g  rac 
+					问题描述：客户端无法连接数据库，并报错：ORA-12537: TNS:connection closed
+					lsnrctl status 监听正常，lsnrclt stop/start 能正常启动，尝试连接，依然报同样的错，再查看监听日志，没发现明显的错误信息，然后在网上查找到解决办法（链接：http://blog.itpub.net/post/38575/530168）：
+							修改$ORACLE_HOME/bin 下的oracle文件的权限
+					  具体操作过程：
+									   [oracle@rac1 ~][Math Processing Error]ORACLE_HOME/bin/
+									   [oracle@rac1 bin]$ ls -l oracle
+										-r-xr-sr-x 1 oracle asmadmin 173515905 Dec 21 16:46 oracle
+									   [oracle@rac1 bin]$ chmod 6751 oracle
+									   [oracle@rac1 bin]$ ls -l oracle
+										-rwsr-s--x 1 oracle asmadmin 173515905 Dec 21 16:46 oracle
+						重新连接，OK！
+				},
+				connections max:{检查下是不是连接数达到上限了}
+			},
+			ora-12518:tns:监听程序无法分发客户机连接:{}
+		}
+	},
+	72-db-mysql:{
+		46-grammar-function:{
+			null:{
+				ifnull:{}
+			}
+		},
+	}
+},

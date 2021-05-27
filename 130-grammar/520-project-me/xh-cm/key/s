@@ -6,6 +6,7 @@ select count(*) from table_name;--
 select * from table_name limit 1; -- 
 select * from table_name limit 100;
 select * from table_name where rownum <101;
+SELECT * FROM table_name WHERE ROWNUM <101;
 select * from table_name order by data_create_time desc limit 100;
 select * from(
 	select * from table_name order by data_create_time desc 
@@ -40,7 +41,7 @@ ALTER TABLE table_name DROP INDEX index_name;
 ALTER TABLE table_name DROP PRIMARY KEY;
 -- oracle
 SELECT A.* FROM USER_CONS_COLUMNS A INNER JOIN USER_CONSTRAINTS B 
-ON A.CONSTRAINT_NAME = B.CONSTRAINT_NAME AND B.CONSTRAINT_TYPE = 'P' AND B.TABLE_NAME = 'CTB_USER_ROLE';
+ON A.CONSTRAINT_NAME = B.CONSTRAINT_NAME AND B.CONSTRAINT_TYPE = 'P' AND B.TABLE_NAME = 'table_name';
 
 -- 6.0-busi
 
