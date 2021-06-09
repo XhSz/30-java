@@ -1,4 +1,19 @@
 {
+ex:{
+	fat:{
+		icore(10.22.62.89):{
+			bin:{
+				/home/exim/icore/bin/ltts status
+			},
+			log-onl:{
+				cd /logs/exim/icore/onlApp/sys/boot;tail -500 ltts_boot_all.log;
+			}
+		},
+		ct(10.22.62.88):{
+			
+		},
+	}
+},
 tz:{
 	fix:{
 		cbs(10.22.60.132 tzr1cbs/tzr1cbs):{
@@ -173,8 +188,10 @@ tz:{
 				部署步骤：{
 					 upload pkg；
 				 1） unzip cbs-ltts-busi-full-1.3.2.87-RELEASE.zip;
-				 2） vi  /sunline/v7base/conf/version/ltts.cbs.version
-				 3）/sunline/v7base/user/bin/mantools/appctl cbs-ltts-onl restart;
+				 2） 
+					vi  /sunline/v7base/conf/version/ltts.cbs.version
+				 3）
+					/sunline/v7base/user/bin/mantools/appctl cbs-ltts-onl restart;
 					/sunline/v7base/user/bin/mantools/appctl cbs-ltts-bat restart;
 				},
 				exe:{				
@@ -221,9 +238,32 @@ tz:{
 					clear;cd /sunline/v7base/logs/cbs-ltts-onl/busi/20210110/44060/;cp 44060.log 44060.210505-1436.log;cp /dev/null 44060.log;	
 					clear;cd /sunline/v7base/logs/cbs-ltts-onl/busi/20210114/60001/;cp 60001.log 60001.210510-2130.log;cp /dev/null 60001.log;	
 					clear;cd /sunline/v7base/logs/cbs-ltts-onl/busi/20210114/60056/;cp 60056.log 60056.210517-2245.log;cp /dev/null 60056.log;	
+					clear;cd /sunline/v7base/logs/cbs-ltts-onl/busi/20210114/70600/;cp 70600.log 70600.210528-1822.log;cp /dev/null 70600.log;	
+					dp4020-40200 转账/cf3015-30150-个人客户简单信息查询/ too much log  
+					D:\03-sl\212-tz\33-uat\172.31.2.12\sunline\v7base\logs\cbs-ltts-bat\sys\default
+				},
+				bat:{
+					clear;cd /sunline/v7base/logs/cbs-ltts-bat/sys/default/;cp ltts_default.log ltts_default.210603-1518.log;cp /dev/null ltts_default.log;	
+					clear;cd /sunline/v7base/logs/cbs-ltts-bat/sys/default/;cp ltts_default.log ltts_default.210604-2025.log;cp /dev/null ltts_default.log;	
+					
 				}
+			},
+			cof:{
+				vi /sunline/v7base/apps/cbs/etc/setting.cbs-ltts-bat.properties
+				vi /sunline/v7base/apps/cbs/etc/setting.cbs-ltts-onl.properties
 			}
 		},
+		gl:{
+			bin:{
+				/sunline/glbase/user/bin/mantools/appctl gl-ltts-onl restart
+				/sunline/glbase/user/bin/mantools/appctl gl-ltts-bat restart
+				clear;cd /sunline/glbase/logs/gl-ltts-bat/sys/boot/;cp ltts_boot_all.log ltts_boot_all-210608-0043.log;cp /dev/null ltts_boot_all.log;	
+				clear;cd /sunline/glbase/logs/gl-ltts-bat/sys/default/;cp ltts_default.log ltts_default.210608-0120.log;cp /dev/null ltts_default.log;	
+			},
+			etc:{
+				vi  /sunline/glbase/conf/version/ltts.cbs.version
+			}
+		}
 		zookeeper,rdpbase*2,ops*2,v7base*2,glbase*2,etluser*8,glrdpbase,glrdpbase*3,biee*4,esbbase*2,
 		esbbase:{
 			bin:{
@@ -273,6 +313,10 @@ tz:{
 		rdp:{
 			bin:{
 				ps -ef | grep java	:{
+					exe:{
+						/sunline/rdpbase/apps/cbs/shutdown.sh
+						/sunline/rdpbase/apps/cbs/start.sh
+					},
 					ori:{
 						/*
 						rdpbase  156857      1  0 Mar16 ?        01:26:18 /usr/java/java7/bin/java -Djava.util.logging.config.file=/sunline/rdpbase/apps/cbs/conf/logging.properties -Djava.util.logging.manager=org.apache.juli.ClassLoaderLogManager -Djdk.tls.ephemeralDHKeySize=2048 -Djava.endorsed.dirs=/sunline/rdpbase/user/app/apache-tomcat-7.0.70/endorsed -classpath /sunline/rdpbase/user/app/apache-tomcat-7.0.70/bin/bootstrap.jar:/sunline/rdpbase/user/app/apache-tomcat-7.0.70/bin/tomcat-juli.jar -Dcatalina.base=/sunline/rdpbase/apps/cbs -Dcatalina.home=/sunline/rdpbase/user/app/apache-tomcat-7.0.70 -Djava.io.tmpdir=/sunline/rdpbase/apps/cbs/temp org.apache.catalina.startup.Bootstrap start
@@ -425,9 +469,39 @@ tz:{
 				ls /edsp/30004/providers
 				http%3A%2F%2F172.31.2.12%3A29000%2F40601%3FappId%3DCBS%26codec%3Dhttp%26group%3D800%26pid%3D100238%26serializer%3Dstring%26version%3D1.0
 				http://172.31.2.12:29000/40601?appId=CBS&codec=http&group=800&pid=100238&serializer=string&version=1.0
-				ls /edsp/44060/providers
+				ls /edsp/44060/providers/
+				ap0901:{ls /edsp/ap0901/providers
+					http%3A%2F%2F192.168.122.1%3A28000%2Fap0901%3FappId%3DGL%26codec%3Dhttp%26group%3D810%26pid%3D68222%26serializer%3Dstring%26version%3D1.0, 
+					http://192.168.122.1:28000/ap0901?appId=GL&codec=http&group=810&pid=68222&serializer=string&version=1.0,
+					http%3A%2F%2F172.31.2.12%3A29000%2Fap0901%3FappId%3DCBS%26codec%3Dhttp%26group%3D800%26pid%3D75908%26serializer%3Dstring%26version%3D1.0
+					http://172.31.2.12:29000/ap0901?appId=CBS&codec=http&group=800&pid=75908&serializer=string&version=1.0
+				},
+				X00004:{	ls /edsp/X00004/providers
+					edsp%3A%2F%2F192.168.122.1%3A28001%2FX00004%3FappId%3DGL%26codec%3Dedsp%26group%3D02%26pid%3D68912%26serializer%3Dstring%26version%3D1.0
+					edsp://192.168.122.1:28001/X00004?appId=GL&codec=edsp&group=02&pid=68912&serializer=string&version=1.0
+					run bat,
+					edsp://192.168.122.1:29001/X00004?appId=CBS&codec=edsp&group=01&pid=256139&serializer=string&version=1.0, 
+					edsp://192.168.122.1:28001/X00004?appId=GL&codec=edsp&group=02&pid=68912&serializer=string&version=1.0]
+					
+					edsp://192.168.122.1:29001/X00004?appId=CBS&codec=edsp&group=01&pid=260036&serializer=string&version=1.0, 
+					edsp://192.168.122.1:28001/X00004?appId=GL&codec=edsp&group=02&pid=68912&serializer=string&version=1.0]
+				},
+				X00001:{	ls /edsp/X00001/providers
+					http%3A%2F%2F172.31.2.12%3A25000%2FX00001%3FappId%3Dops%26codec%3Dhttp%26group%3D01%26pid%3D63983%26serializer%3Dstring%26version%3D0.1, 
+					http%3A%2F%2F172.31.2.12%3A27000%2FX00001%3FappId%3Dops%26codec%3Dhttp%26group%3D01%26pid%3D180059%26serializer%3Dstring%26version%3D0.1
+					http://172.31.2.12:25000/X00001?appId=ops&codec=http&group=01&pid=63983&serializer=string&version=0.1, 
+					http://172.31.2.12:27000/X00001?appId=ops&codec=http&group=01&pid=180059&serializer=string&version=0.1
+				},
+				05:{
+					http%3A%2F%2F172.31.2.12%3A27000%2FX00005%3FappId%3Dops%26codec%3Dhttp%26group%3D01%26pid%3D180059%26serializer%3Dstring%26version%3D0.1, 
+					http%3A%2F%2F172.31.2.12%3A25000%2FX00005%3FappId%3Dops%26codec%3Dhttp%26group%3D01%26pid%3D63983%26serializer%3Dstring%26version%3D0.1
+				}
 		}
 		biee:{	biee/biee
+			/home/biee/Oracle/Middleware/Oracle_Home
+			web:{
+				call sapurgeallcache()
+			},
 			ori:{
 				biee     219474 219421  1 Jan04 ?        2-02:07:14 /sunline/etl/app/jdk1.8.0_144/bin/java -server -Xms256m -Xmx2048m -cp /home/biee/Oracle/Middleware/Oracle_Home/wlserver/server/lib/weblogic-launcher.jar -Dlaunch.use.env.classpath=true -Dweblogic.Name=bi_server1 -Djava.security.policy=/home/biee/Oracle/Middleware/Oracle_Home/wlserver/server/lib/weblogic.policy -Dweblogic.ProductionModeEnabled=true -Dweblogic.system.BootIdentityFile=/home/biee/Oracle/Middleware/Oracle_Home/user_projects/domains/biee12/servers/bi_server1/data/nodemanager/boot.properties -Dweblogic.nodemanager.ServiceEnabled=true -Dweblogic.nmservice.RotationEnabled=true -Djava.system.class.loader=com.oracle.classloader.weblogic.LaunchClassLoader -Djava.protocol.handler.pkgs=oracle.mds.net.protocol -Dopss.version=12.2.1.3 -Digf.arisidbeans.carmlloc=/home/biee/Oracle/Middleware/Oracle_Home/user_projects/domains/biee12/config/fmwconfig/carml -Digf.arisidstack.home=/home/biee/Oracle/Middleware/Oracle_Home/user_projects/domains/biee12/config/fmwconfig/arisidprovider -Doracle.security.jps.config=/home/biee/Oracle/Middleware/Oracle_Home/user_projects/domains/biee12/config/fmwconfig/jps-config.xml -Doracle.deployed.app.dir=/home/biee/Oracle/Middleware/Oracle_Home/user_projects/domains/biee12/servers/bi_server1/tmp/_WL_user -Doracle.deployed.app.ext=/- -Dweblogic.alternateTypesDirectory=/home/biee/Oracle/Middleware/Oracle_Home/oracle_common/modules/oracle.ossoiap,/home/biee/Oracle/Middleware/Oracle_Home/oracle_common/modules/oracle.oamprovider,/home/biee/Oracle/Middleware/Oracle_Home/oracle_common/modules/oracle.jps -Doracle.mds.filestore.preferred= -Dadf.version=12.2.1.3.0 -Dweblogic.jdbc.remoteEnabled=true -Dcommon.components.home=/home/biee/Oracle/Middleware/Oracle_Home/oracle_common -Djrf.version=12.2.2 -Dorg.apache.commons.logging.Log=org.apache.commons.logging.impl.Jdk14Logger -Ddomain.home=/home/biee/Oracle/Middleware/Oracle_Home/user_projects/domains/biee12 -Doracle.server.config.dir=/home/biee/Oracle/Middleware/Oracle_Home/user_projects/domains/biee12/config/fmwconfig/servers/bi_server1 -Doracle.domain.config.dir=/home/biee/Oracle/Middleware/Oracle_Home/user_projects/domains/biee12/config/fmwconfig -Doracle.maps.config=/home/biee/Oracle/Middleware/Oracle_Home/user_projects/domains/biee12/config/fmwconfig/mapviewer/conf/mapViewerConfig.xml -Djava.awt.headless=true -javaagent:/home/biee/Oracle/Middleware/Oracle_Home/wlserver/server/lib/debugpatch-agent.jar -da -Dwls.home=/home/biee/Oracle/Middleware/Oracle_Home/wlserver/server -Dweblogic.home=/home/biee/Oracle/Middleware/Oracle_Home/wlserver/server -Djavax.management.builder.initial=weblogic.management.jmx.mbeanserver.WLSMBeanServerBuilder -DESS_ES_HOME=/home/biee/Oracle/Middleware/Oracle_Home/user_projects/domains/biee12/servers/bi_server1/aps -Daps.property.file=/home/biee/Oracle/Middleware/Oracle_Home/user_projects/domains/biee12/config/fmwconfig/biconfig/aps/essbase.properties -DESSBASEPATH=/home/biee/Oracle/Middleware/Oracle_Home/bi/products/Essbase/EssbaseServer -DCDS_DATASOURCE=BIPlatformDatasource -DEPM_ORACLE_HOME=/home/biee/Oracle/Middleware/Oracle_Home/bi -DHYPERION_HOME=/home/biee/Oracle/Middleware/Oracle_Home/bi -DEPM_ORACLE_INSTANCE=novalue -Dhyperion.home=/home/biee/Oracle/Middleware/Oracle_Home/bi -DEPM_REG_PROPERTIES_PATH=/home/biee/Oracle/Middleware/Oracle_Home/user_projects/domains/biee12/config/fmwconfig -Depm.useApplicationContextId=false -Dxdo.server.config.dir=/home/biee/Oracle/Middleware/Oracle_Home/user_projects/domains/biee12/bidata/components/bipublisher -DXDO_FONT_DIR=/home/biee/Oracle/Middleware/Oracle_Home/bi/../oracle_common/internal/fonts -Doracle.bi.home.dir=/home/biee/Oracle/Middleware/Oracle_Home/bi -Doracle.bi.config.dir=/home/biee/Oracle/Middleware/Oracle_Home/user_projects/domains/biee12/config/fmwconfig/biconfig -Doracle.bi.environment.dir=/home/biee/Oracle/Middleware/Oracle_Home/user_projects/domains/biee12/config/fmwconfig/bienv -Doracle.bi.12c=true -Ddomain.home=/home/biee/Oracle/Middleware/Oracle_Home/user_projects/domains/biee12 -Dfile.encoding=utf-8 -Dem.oracle.home=/home/biee/Oracle/Middleware/Oracle_Home/em -Doracle.bi.12c=true -Doracle.bi.environment.dir=/home/biee/Oracle/Middleware/Oracle_Home/user_projects/domains/biee12/config/fmwconfig/bienv -Doracle.bi.config.dir=/home/biee/Oracle/Middleware/Oracle_Home/user_projects/domains/biee12/config/fmwconfig/biconfig -Doracle.bi.home.dir=/home/biee/Oracle/Middleware/Oracle_Home/bi -Dweblogic.management.server=http://172.31.2.12:9504 -Djava.util.logging.manager=oracle.core.ojdl.logging.ODLLogManager weblogic.Server
 			},
@@ -485,6 +559,41 @@ tz:{
 				-Dweblogic.management.server=http://172.31.2.12:9504 
 				-Djava.util.logging.manager=oracle.core.ojdl.logging.ODLLogManager 
 				weblogic.Server
+			}
+			rpd:{
+				oper:{
+					--rdp 路径
+					/home/biee/Oracle/Middleware/Oracle_Home/user_projects/domains/biee12/bidata/service_instances/ssi/metadata/datamodel/customizations
+					cd D:\03-sl\212-tz\33-uat\172.31.2.12\home\biee\Oracle\Middleware\Oracle_Home\user_projects\domains\biee12\tmp\ssi\datamodel\customizations
+					----上传下载rpd 
+					/home/biee/Oracle/Middleware/Oracle_Home/user_projects/domains/biee12/bitools/bin/datamodel.sh downloadrpd -u weblogic -p weblogic123 -o liverpd.rpd -w Admin123 -S odsetl01 -SI ssi
+					/home/biee/Oracle/Middleware/Oracle_Home/user_projects/domains/biee12/bitools/bin/datamodel.sh uploadrpd -u weblogic -p weblogic123 -i liverpd.rpd -w Admin123 -S odsetl01 -SI ssi
+
+					
+				},
+				path:{
+					/home/biee/Oracle/Middleware/Oracle_Home/bi/bifoundation/server/empty.rpd
+					/home/biee/Oracle/Middleware/Oracle_Home/user_projects/domains/biee12/bidata/service_instances/ssi/metadata/datamodel/customizations/liverpd.rpd
+					/home/biee/Oracle/Middleware/Oracle_Home/user_projects/domains/biee12/tmp/ssi/datamodel/customizations/liverpd.rpd
+					/home/biee/Oracle/Middleware/Oracle_Home/user_projects/domains/biee12/servers/obisch1/tmp/obis_temp/NQTransMgrTemp.rpd
+					/home/biee/Oracle/Middleware/Oracle_Home/user_projects/domains/biee_not_working/bidata/service_instances/ssi/metadata/datamodel/customizations/liverpd.rpd
+					/home/biee/Oracle/Middleware/Oracle_Home/user_projects/domains/biee_not_working/tmp/ssi/datamodel/customizations/liverpd.rpd
+					/home/biee/Oracle/Middleware/Oracle_Home/user_projects/domains/biee_not_working/servers/obisch1/tmp/obis_temp/NQTransMgrTemp.rpd	
+				},
+				bin:{
+					sh /home/biee/Oracle/Middleware/Oracle_Home/user_projects/domains/biee12/bitools/bin/stop.sh
+					sh /home/biee/Oracle/Middleware/Oracle_Home/user_projects/domains/biee12/bitools/bin/start.sh
+				}
+			}
+		}
+		ops:{
+			bin:{
+				/sunline/ops/ops-TZ/bin/ltts restart 1.3-ops
+				/sunline/ops/ops-TZ/bin/ltts stop 1.3-ops
+				/sunline/ops/ops-TZ/bin/ltts start 1.3-ops
+			},
+			log:{
+				/sunline/ops/ops-TZ/log/1.3-ops
 			}
 		}
 	},
@@ -741,7 +850,7 @@ gs:{
 			},
 			sql:{
 				d: &cd D:\03-sl\102-word\10.22.10.10\svn\iCore-product\001-%E5%8D%B0%E5%B0%BC%E9%87%91%E5%85%89%E9%A1%B9%E7%9B%AE\12 打版版本\R3;
-				findstr /s /i "usb_person_base" *.sql ;
+				findstr /s /i "100001058521" *.sql ;
 			},
 			file:{
 				

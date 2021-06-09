@@ -1,0 +1,104 @@
+fat1-'读取及处理会计事件流水文件':{
+			getBatchDataWalker:{
+					method-BizUtil.getTrxRunEnvs-'null',
+					nsql-FaFile.selFileHashInfo-S-apb_batch_request-select,apb_batch_receive-select-'selecting hash value of file':{
+						select
+								distinct a.hash_value 
+						from
+								apb_batch_request a 
+						join
+								apb_batch_receive b 
+						on      a.request_file_id = b.file_id
+						where
+							  a.org_id = #org_id#
+						  and a.busi_batch_type = 'D' 
+						  and a.file_handling_status = 'A'
+						  and b.receive_ind = 'Y' 
+					}
+			},
+			getJobBatchDataWalker:{
+					method-BizUtil.getTrxRunEnvs-'null',
+					nsql-FaFile.selFileDownInfo-S-apb_batch_request-select,apb_batch_receive-select-'selecting file download information'
+			},
+			process:{
+					method-FaFile.doAccountingEventFile-'null':{
+						method-FaSysService.getSysStatus-'null':{
+							table-fap_sys_define-select-'system definition'
+						},
+						table-apb_batch_request-select-'文件批量请求薄',
+						method-ApFile.getFileFullPath-'null':{
+							method-ApFile.getFullPath-'null':{
+								method-ApFile.exists-'null':{
+									method-ApDropList.exists-'null':{
+										method-ApDropList.getItem-'null':{
+											table-app_drop-select-'字典声明表',
+											method-ApOrg.getDefaultOrgId-'null',
+											table-app_drop_list-select-'下拉字典参数',
+											method-ApOrg.getReferenceOrgId-'null',
+											table-app_drop_list-select-'下拉字典参数',
+											method-ApOrg.getDefaultOrgId-'null',
+											table-app_drop_list-select-'下拉字典参数'
+										}
+									},
+									table-app_directory-select-'文件目录配置'
+								},
+								method-ApFile.genFileName-'null':{
+									table-app_directory-select-'文件目录配置',
+									method-BizUtil.getTrxRunEnvsValue-'null':{
+										method-BizUtil.getTrxRunEnvs-'null',
+										method-BizUtil.getTrxRunEnvs-'null',
+										method-BizUtil.invoke-'null':{
+											table-app_service-select-'内部服务控制定义',
+											return method-BizUtil.callServiceDirect-'null',
+											return method-BizUtil.callService-'null'
+										}
+									}
+								}
+							}
+						},
+						method-ApFile.getLocalHome-'null':{
+							return method-BizUtil.convertParmString-'null',
+							return method-ApSystemParm.getValue-'null':{
+								table-app_system_parameter-select-'系统杂项参数'
+							}
+						},
+						method-ApFile.readFile-'null',
+						method-ApBatch.setFormatErrorByImport-'null':{
+							table-apb_batch_request-select-'文件批量请求薄',
+							table-apb_batch_request-update-'文件批量请求薄'
+						},
+						method-ApSystemParm.getIntValue-'null':{
+							method-ApSystemParm.getValue-'null':{
+								table-app_system_parameter-select-'系统杂项参数'
+							}
+						},
+						method-ApSystemParm.getValue-'null':{
+							table-app_system_parameter-select-'系统杂项参数'
+						},
+						table-fap_accounting_event_parm-select-'business accounting event parameter',
+						table-fab_accounting_seqDao-batchInsert,
+						table-fab_original_vochDao-batchInsert,
+						method-DBUtil.rollBack-'null',
+						method-ApBatch.setInsertErrorByImport-'null':{
+							table-apb_batch_request-select-'文件批量请求薄',
+							table-apb_batch_request-update-'文件批量请求薄'
+						},
+						table-fab_accounting_seqDao-batchInsert,
+						table-fab_original_vochDao-batchInsert,
+						method-DBUtil.rollBack-'null',
+						method-ApBatch.setInsertErrorByImport-'null':{
+							table-apb_batch_request-select-'文件批量请求薄',
+							table-apb_batch_request-update-'文件批量请求薄'
+						},
+						method-ApBatch.setStatusByImport-'null':{
+							table-apb_batch_request-select-'文件批量请求薄',
+							table-apb_batch_request-update-'文件批量请求薄'
+						},
+						method-ApBatch.setbatchReqStatus-'null':{
+							table-apb_batch_request-select-'文件批量请求薄',
+							table-apb_batch_request-update-'文件批量请求薄'
+						}
+					}
+			},
+		},
+		

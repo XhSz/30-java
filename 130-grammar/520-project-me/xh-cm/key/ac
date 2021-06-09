@@ -1,167 +1,732 @@
 
 co:{
+	accounting:{
+		流水账xx年xx月xx日 当天我有1000块钱。                                                           
+		交易        余额前一天余额                                                         
+		1000 餐费：买早饭                                -10               990
+		交通费：地铁                                     -4                986
+		餐费：买午饭                                     -30               956
+		再学着把流水账分复式账，把备注的用途拆出来错开写，分借贷科目，借正贷负。
+		借：餐费  10       贷：钱   10
+		借：交通费 4       贷：钱   4
+		借：餐费  39       贷：钱  30
+		钱余额  1000-10-4-30=956 做着渐渐就明白了。
+		资产增加就是借记，负债就是贷记
+
+		作者：知乎用户
+		链接：https://www.zhihu.com/question/21222111/answer/267099795
+		来源：知乎
+		著作权归作者所有。商业转载请联系作者获得授权，非商业转载请注明出处。
+	},
 	"借记"-'debit' & "贷记"-'credit':{
+		self:{
+			借 -> in , 贷 -> out ×;  "贷记",'明明少了,结果却+,同负增长';
+			"账户" ->	"账簿"'(双方)'
+			'客户存款账户',"负债",'我欠客户多少钱':{
+				客户存钱, '现金账户'"资产",+100,借记, '客户账户'"负债"+100,贷记,;
+				A转账给B, 'A客户账户'"负债"-100,借记,'B客户账户'"负债"+100,贷记,;
+			};
+			
+		},
 		zhihu:{	'https://www.zhihu.com/question/21222111'
 			'入门':{
 				'借贷'是"符号":{
-					"资产"、"费用"-'越借越多',"借方+","贷方-";
-					"负债"、"权益"、"收入"-'越借越少',"借方-","贷方+";
+					"资产"、"费用"				-'越借越多',"借方+","贷方-";
+					"负债"、"权益"、"收入"		-'越借越少',"借方-","贷方+";
 				},
 			},
 			'提高':{
 				
 			}
+		},
+		zhihui-2:{	'https://www.zhihu.com/question/20718557'
+			01:{
+				"资产"+"费用"="负债"+"所有者权益"+"收入",
+				"资产"-'Asset'"+" "费用"-'Expense' "=" "负债"-'Liability' "+" "所有者权益"-'Equity' "+" "收入"-'Income',
+				'仔细观察一下这个公式，会发现等式'
+				左边'表示钱/东西到哪里去了（要么还在公司手上，要么被公司花了）'；'而'
+				右边'表示钱/东西从哪里来的。'
+				'当'左侧'增加，则记为'Debit，'减少的话记为'Credit；
+					右侧'增加的话记为'Credit',减少则记为'Debit。'相反'
+				'公司的任何一笔涉及钱物的交易，分解到最基本的单元，都会记录为对两个Entry（会计科目）的影响'
+				'（注意，譬如现金和固定资产虽然都是Asset类型，但是是两个不同的科目），'
+				'其中一个必定是Debit ，另一个是 Credit，因此这样的记账方法叫做Double Entry Bookkeeping，也就是复式记账法。'
+				'我用扇贝网的经营活动来举几个例子（当然，以下数字都是虚构的）：'
+				1. '创始人共同投资了100万人民币，创建扇贝网影响了Asset 和 Equity，'	公司现金资产增加100万，Debit	所有者权益增加100万，Credit
+				2. '扇贝网购买了5万元的服务器'										Asset中的现金减少，Credit 		Asset中的固定资产增加, Debit
+				3. '扇贝网给员工发了1万元工资' 										Asset中的现金减少，Credit		Expense 增加，Debit
+				4. '用户给扇贝网充值1000元' 										Asset中现金增加，  Debit		Income 增加，Credit
+			},
+			03:{
+				'上面大家的解释已经很形象很具体了，我就只补充一下当年学财务的体会。'
+				'我觉得，要想理解复式记账法，就必须建立一个'“主体观”，'要明白记账的'“主体”'是什么？'
+				'记账的主体是'“公司”，'不是股东，也不是债权人（这就是公司的法人独立性）'。
+				'所以资源流入的时候，公司资产增加。'
+				'但是'“公司” '是属于股东的，公司有一部分资产也是属于债权人的，所以每一笔资源流入，必然对应'"股东权益"'增加，或者'"债权人债权"'增加（不考虑资产内部互转等情况）；流出亦然。'
+				'也就是说，公司每一笔业务导致的资源（财、物）流动，复式记账法不仅给'“主体”'做了登记，还给资源的'归属'做了登记。为什么要这么复杂？'
+				'因为公司法人独立，公司资产与股东财产分离，才能做到公司债务与股东责任分离。'
+				'公司可以破产，因为经营的主体是'“公司”'而非股东个人，所以股东不必“卖房卖车卖儿卖女”的去还债；所以股东虽然是公司所有者，但是非法挪用公司财产照样是犯罪。'
+				'这个'“主体观”'，不仅可以帮助理解复式记账法，还是以后学习更复杂的'企业合并、报表合并、股权投资核算'的有力工具。以前我考CPA的时候，就因为能把握住合并“主体”，才能攻下股权投资企业合并等难题，题主不妨体会一下。'
+			}
+		},
+		iask.sina:{	'https://iask.sina.com.cn/b/5362603.html'
+			01:{
+				借记,在账簿的借方登记;
+				贷记,在账簿的贷方登记;
+				"资产"、"成本"、"损益类的支出"		-'越借越多',"借方+","贷方-";
+				"负债"、"所有者权益"、"损益类的收入"-'越借越少',"借方-","贷方+";
+				'借贷记账法,'"借"'和'"贷"'作为记账符号,以有借必有贷,借贷必相等为记账原则的一种复式记账方法'
+			},
+			02:{
+				1. '复式记账法的'"记账符号",
+				2· 	"借":'一般指'"资产"'类账户发生额增加'，"负债"'类账户发生额减少'，
+					"所有者权益"'类账户发生额减少（其中：费用成本类账户发生额增加记借方，减少记借方负数）'。 
+				3·	"贷":'一般指'"资产"'类账户发生额减少'，"负债"'类帐户发生额增加'，
+					"所有者权益"'类账户发生额增加，收入类账户发生额增加。'
+				4·	'每一笔分录，都是有借必有贷，借贷必相等（借方金额合计和贷方金额合计必然相等）。'
+			},
+			03:{
+				'会计中'"借","贷"'两字来记录货币资金的借贷，财产物资、经营损益和经营资本等的增减变化。或增减变动情况。'
+				'这样，“借”、“贷”两字逐渐失去了原来的含义，只作为纯粹的'"记账符号"'使用，用以标明'"记账方向"
+				'在账户的借、贷两方中，究竟用哪一方来记录金额的增加，用哪一方来记录金额的减少，是由每个账户所反映的'"会计要素"'的性质决定的 。 '
+				1。 "资产"'类账户 资产类账户借方记录企业各项资产的增加额，贷方记录各项资产的减少额，余额一般出现在记录增加额的借方，表示期末某一时点企业实际拥有的资产数额。'
+					'资产类账户期末余额的计算公式如下'： 资产类账户期末余额 = 借方期初余额   借方本期发生额 – 贷方本期发生额 
+				2。"负债"'及'"所有者权益"'类账户' '负债及所有者权益类账户的具体结构完全一致，这两类账户借方记录相关会计要素项目的减少额，贷方记录其增加额，余额一般出现在贷方，反映企业所承担的债务及所有者拥有企业净资产的实际数额。'
+					'负债及所有者权益类账户期末余额的计算公式如下：' 负债及所有者权益贷方期末余额 = 贷方期初余额   贷方本期发生额 - 借方本期发生额 
+				3。 "成本"'类账户 成本类账户的基本结构与资产类账户的基本结构大体一致。' 
+				4。 "损益类"'账户' '损益类账户按照性质的不同可以分为收入类账户和费用类账户。'
+					'收入类账户 收入类账户的账户结构与负债及所有者权益类账户结构大体一致。'
+					'实际上“借”和“贷”两个字没有实际的意义，与我们日常理解的借、贷意思是不同的。'
+					'它是由意大利人卢卡·巴其阿勒最早阐述出来的，即现代会计使用的“复式记账法”，即有借必有贷，借贷必相等。'
+					'也就是说，复式记账法是可以同时反映资产的流进或流出的，也就是双向反映。'
+			},
+			04:{
+				"借"'和'"贷"'作为记帐符号，用'"借"'表示资金占用的增加和资金来源的减少，用'"贷"'表示资金来源的增加和资金占用的减少。'
+				'会计学中'"借记"'和'"贷记"'没有实际意义，仅作为记账的符号；'
+				'一般情况下，'"借"'在账户的左边；'"贷"'在账户的右边。  借贷记账法是复式记账法的一种。'
+				'它是以“借”、“贷”为记账符号，以'"资产"＝"负债" "所有者权益"'的会计等式为理论依据，以“有借必有贷，借贷必相等”为记账规则的一种科学复式记账法。'  
+				'借方表示资产的增加,资产的期初、期末余额,负债的减少,所有者权益的减少,费用的增加,收入的减少.'
+				'贷方表示负债的增加，负债的期初、期末余额,所有者权益的增加，所有者权益的期初、期末余额,资产的减少，费用的减少，收入的增加。'
+			}
+		},
+		360doc:{	'http://www.360doc.com/content/17/0908/23/835753_685634739.shtml'
+			企业账:{
+				借记 银行存款, 贷记 应收账款	(资产)
+				增加 银行存款, 减少 应收账款	:公司把一笔应收账款的钱收回来了.
+			}
 		}
 	}
-}
-
-file:{
-	LEDGERBAL-taf03:{
-		TaFile.writeLedgerBalDataMain()	<-	taf03.process	<-	tas_ledger_bal
+},
+process:{
+	gl_code:{	'which defined in gl'
+		fap_accounting_subject:{
+			values:{
+				LI20102:{
+					99	LI2010201	Current Account - Resident			LI20102	2	3	Y	LI201020100	2	Y	Y	N	N	N			Y	N			20991231	S####	0	S####	0	0
+				},
+				OE40403:{
+					99	OE40403		Retained Earning - Other			OE404	4	2	Y	OE404030000	2	Y	Y	N	Y	Y			Y	N			20991231	S####	0	S####	0	0
+				},
+				AS1130701:{
+					99	AS1130701	Interest Receivable - Staff Loan	AS11307	1	3	Y	AS113070100	1	Y	Y	N	N	N			Y	N			20991231	S####	0	S####	0	0
+				}
+			}
+		},
+		faa_account:{
+			values:{
+																					acct_branch									acct_bal		previous_acct_bal bal_actt_update
+				LI2010201:{
+					99	800	840LI20102010020000001	Current Account - Resident			200	LI2010201	USD	00001	1	C	2	80994.55		C	80997.15		20210601	N	Y	N	N	1		200	S####	20181127	20181127999990000011275					S####	20181127 09:57:00 361	S####	20210531 18:02:00 354	2441
+					99	800	834LI20102010020000001	Current Account - Resident			200	LI2010201	TZS	00001	1	C	2	782438885.44	C	782444197.44	20210601	N	Y	N	N	1		200	S####	20181127	20181127999990000011708					S####	20181127 10:27:00 321	S####	20210531 18:02:00 401	8426
+					99	800	156LI20102010020000001	Current Account - Resident			200	LI2010201	CNY	00001	1	C	2	11820.92		C	11856.96		20210531	N	Y	N	N	1		200	S####	20210421	20210421999990000015818					S####	20210421 14:38:00 370	2101	20210531 17:59:34 853	48
+				},
+				AS1130701:{
+					99	800	834AS11307010020000001	Interest Receivable - Staff Loan	200	AS1130701	TZS	00001	1	D	1	5713065.57		D	5527788.76		20210531	N	Y	N	N	1		2101	2101	20190307	20190307999990000021953					2101	20190307 19:44:04 613	2101	20210531 17:59:35 012	2653
+				},
+				AS1070301:{
+					99	800	840AS10703010020000001	Term Loan - Resident				200	AS1070301	USD	00001	1	D	1	6585279.19		D	6585279.19		20210531	N	Y	N	N	1		200		S####	20181227	20181227999990000003079					S####	20181227 13:08:00 344	2101	20210531 17:59:35 490	931
+					99	800	834AS10703010020000001	Term Loan - Resident				200	AS1070301	TZS	00001	1	D	1	4457933407.84	D	4457933407.84	20210531	N	Y	N	N	1		200		S####	20190115	20190115999990000019847					S####	20190115 17:33:00 421	2101	20210531 17:59:34 945	947
+				},
+				OE40403:{
+					99	810	834OE40403000010100001	Retained Earning - Other	101	OE40403		TZS	00001	1	C	2	-3430504669.18	C	-3461540676.55	20210528	N	Y	Y	Y	1		2101	2101	20181126	20181126999990000050662					2101	20181126 20:52:03 067	2101	20210528 22:21:17 893	641
+					99	810	834OE40403000020000001	Retained Earning - Other	200	OE40403		TZS	00001	1	C	2	21195465097.84	C	21226501105.21	20210528	N	Y	Y	Y	1		2101	2101	20181126	20181126999990000050662					2101	20181126 20:52:03 095	2101	20210528 22:21:17 914	666
+					99	810	840OE40403000010100001	Retained Earning - Other	101	OE40403		USD	00001	1	C	2	-8566045.96		C	-8566185.96		20210528	N	Y	Y	Y	1		2101	2101	20181126	20181126999990000050662					2101	20181126 20:52:03 105	2101	20210528 22:21:17 924	381
+					99	810	840OE40403000020000001	Retained Earning - Other	200	OE40403		USD	00001	1	C	2	9499879.25		C	9500019.25		20210528	N	Y	Y	Y	1		2101	2101	20181126	20181126999990000050662					2101	20181126 20:52:03 115	2101	20210528 22:21:17 933	430
+					99	810	834OE40403000000000001	Retained Earning - Other	000	OE40403		TZS	00001	1	C	2	-17765738758.16	C	-15800170983.81	20201231	N	Y	Y	Y	1		2101	2101	20181231	20181231999990000020714					2101	20190101 23:35:20 991	2101	20210101 12:30:55 813	4
+					99	810	840OE40403000000000001	Retained Earning - Other	000	OE40403		USD	00001	1	C	2	-934879.93		C	-540917.95		20201231	N	Y	Y	Y	1		2101	2101	20181231	20181231999990000020714					2101	20190101 23:35:21 011	2101	20210101 12:30:55 827	4
+					99	810	834OE40403000010300001	Retained Earning - Other	103	OE40403		TZS	00001	1	C	2	0				C	20000000		20210504	N	Y	Y	Y	1		2101	2101	20190619	20190619999990000019980					2101	20190619 17:28:06 871	2101	20210504 18:05:21 024	64
+					99	810	840OE40403000010300001	Retained Earning - Other	103	OE40403		USD	00001	1	C	2	1000			C	0				20210527	N	Y	Y	Y	1		2101	2101	20190619	20190619999990000019980					2101	20190619 17:28:06 888	2101	20210527 18:34:47 459	58
+					99	810	978OE40403000010100001	Retained Earning - Other	101	OE40403		EUR	00001	1	C	2	43651.36		C	43636.36		20201022	N	Y	Y	Y	1		2101	2101	20190318	20190318999990000016277					2101	20190318 18:02:34 476	2101	20201022 16:29:19 563	117
+					99	810	978OE40403000020000001	Retained Earning - Other	200	OE40403		EUR	00001	1	C	2	-43651.36		C	-43636.36		20201022	N	Y	Y	Y	1		2101	2101	20190318	20190318999990000016277					2101	20190318 18:02:34 490	2101	20201022 16:29:19 571	117
+				}
+			}
+		},
+		fap_accounting_event_parm:{
+			value:{
+								accounting_alias																			bal_attributes
+				AS1130701:{
+					99	800	2	NL_STAFF_RES						Staff Loan(Interest Receivable Accrued)						LNIA01	AS1130701	IN6010801	S####	0						S####	0	1
+					99	800	2	NL_STAFF_RES						Staff Loan(Interest Receivable)								LNID01	AS1130701	IN6010801	S####	0						S####	0	1
+					99	800	2	NL_STAFF_RES						Staff Loan(Overdue Interest Receivable Accrued)				LNOA01	AS1130701	IN6010801	S####	0						S####	0	1
+					99	800	2	NL_STAFF_RES						Staff Loan(Overdue Interest Receivable)						LNOD01	AS1130701	IN6010801	S####	0						S####	0	1
+					99	800	2	NL_STAFF_RES						Staff Loan(Compound Interest Receivable Accrued)			LNCA01	AS1130701	IN6010801	S####	0						S####	0	1
+					99	800	2	NL_STAFF_RES						Staff Loan(Compound Interest Receivable)					LNCD01	AS1130701	IN6010801	S####	0						S####	0	1
+					99	800	2	NL_STAFF_RES						Staff Loan(Subsidy Interest Receivable Accrued)				LNRA01	AS1130701	IN6010801	S####	0						S####	0	1
+					99	800	2	NL_STAFF_RES						Staff Loan(Subsidy Interest Receivable)						LNRD01	AS1130701	IN6010801	S####	0						S####	0	1
+				},
+				OE:{
+					99	800	2	NL_SYDICATION_NONRES				Sydication Loan of non-Resident(Provision on Normal Loan)	LNPV01	OE40401		OE4020202	S####	0						S####	0	1
+					99	800	2	NL_STUDY_RES						Study Loan of Resident(Provision on Normal Loan)			LNPV01	OE40401		OE4020202	S####	0						S####	0	1
+					99	800	2	NL_STUDY_NONRES						Study Loan of non-Resident(Provision on Normal Loan)		LNPV01	OE40401		OE4020202	S####	0						S####	0	1
+					99	800	2	NL_TERM_NONRES						Term Loan of non-Resident(Provision on Normal Loan)			LNPV01	OE40401		OE4020202	S####	0						S####	0	1
+					99	800	2	NL_SYDICATION_RES					Sydication Loan of Resident(Provision on Normal Loan)		LNPV01	OE40401		OE4020202	S####	0						S####	0	1
+					99	800	2	PROVISIONACCRUAL					Provision Accrued On Loans(Provision on Normal Loan)		LNPV01	OE40401		OE4020202	S####	0						S####	0	1
+					99	800	2	PROVISIONACCRUAL					Provision Accrued On Loans(Loss on Normal Loan)				LNLS01	OE4020202				S####	0						S####	0	1
+					99	800	2	NL_MORTGAGE_RES						Mortgage Loan of Resident(Provision on Normal Loan)			LNPV01	OE40401		OE4020202	S####	0						S####	0	1
+					99	800	2	NL_MORTGAGE_NONRES					Mortgage Loan of non-Resident(Provision on Normal Loan)		LNPV01	OE40401		OE4020202	S####	0						S####	0	1
+					99	800	2	NL_PERSONAL_RES						Personal Loan of Resident(Provision on Normal Loan)			LNPV01	OE40401		OE4020202	S####	0						S####	0	1
+					99	800	2	NL_PERSONAL_NONRES					Personal Loan of non-Resident(Provision on Normal Loan)		LNPV01	OE40401		OE4020202	S####	0						S####	0	1
+					99	800	2	NL_TERM_RES							Term Loan of Resident(Provision on Normal Loan)				LNPV01	OE40401		OE4020202	S####	0						S####	0	1
+					99	800	2	NL_CAR_RES							Car Loan of Resident(Provision on Normal Loan)				LNPV01	OE40401		OE4020202	S####	0						S####	0	1
+					99	800	2	NL_CAR_NONRES						Car Loan of non-Resident(Provision on Normal Loan)			LNPV01	OE40401		OE4020202	S####	0						S####	0	1
+					99	800	2	NL_BUILDING_RES						Building Loan of Resident(Provision on Normal Loan)			LNPV01	OE40401		OE4020202	S####	0						S####	0	1
+					99	800	2	NL_BUILDING_NONRES					Building Loan of non-Resident(Provision on Normal Loan)		LNPV01	OE40401		OE4020202	S####	0						S####	0	1
+					99	800	2	NL_STAFF_RES						Staff Loan(Provision on Normal Loan)						LNPV01	OE40401		OE4020202	S####	0						S####	0	1
+					99	800	6	Current Year Profit/Loss			Year end													TA01	OE403					300006	20190116 17:25:36 669			1
+					99	800	2	NL_STAFF_NONRES						Staff Loan of non-Resident (Provision on Normal Loan)		LNPV01	OE40401		OE4020202	S####	0						S####	0	1
+					99	800	6	Capital Reserves - General Reser	Capital Reserves - General Reserves							TA01	OE4020202				300006	20190620 16:10:10 135			1
+					99	800	6	Retained Earning - Normal Loan		Retained Earning - Normal Loan								TA01	OE40401					300006	20190620 16:10:57 234			1
+					99	800	2	NL_ASSET_FINANCE_RES				Asset Finance(Provision on Normal Loan)						LNPV01	OE40401		OE4020202	S####	0						S####	0	1
+					99	800	6	Paid Up Capital - Ordinary Share	Ordinary Share Capital										TA01	OE40101					300006	20181203 17:00:00 127			1
+					99	800	6	R_E- Accumulated profit&loss		RE ACC PROFIT& LOSS											TA01	OE40402					300006	20181203 17:01:34 475			1
+					99	800	2	NL_ASSET_FINANCE_NONRES				Asset Finance of non-Resident(Provision on Normal Loan)		LNPV01	OE40401		OE4020202	S####	0						S####	0	1
+				}
+			}
+		},
+		tap_accountingevent_ctrl:{
+			values:{
+				NL_STAFF_RES:{
+					99	NL_STAFF_RES	LNCA01	员工贷款（应计复利）					N	S####	0	S####	0	0            interest	*
+					99	NL_STAFF_RES	LNCC01	员工贷款（复利收入）					N	S####	0	S####	0	0            
+					99	NL_STAFF_RES	LNCD01	员工贷款（应收复利）					N	S####	0	S####	0	0            interest
+					99	NL_STAFF_RES	LNIA01	员工贷款（应计利息）					N	S####	0	S####	0	0			 interest	*
+					99	NL_STAFF_RES	LNIC01	员工贷款（利息收入）					N	S####	0	S####	0	0            
+					99	NL_STAFF_RES	LNID01	员工贷款（应收利息）					N	S####	0	S####	0	0			 interest
+					99	NL_STAFF_RES	LNIU01	员工贷款（待摊利息）					Y	S####	0	S####	0	0            
+					99	NL_STAFF_RES	LNLI01	员工贷款（贷款减值损失核销应收利息）	N	S####	0	S####	0	0            
+					99	NL_STAFF_RES	LNLP01	员工贷款（贷款减值损失核销本金）		N	S####	0	S####	0	0            
+					99	NL_STAFF_RES	LNLS01	员工贷款（贷款减值损失）				N	S####	0	S####	0	0            
+					99	NL_STAFF_RES	LNLS02	员工贷款（贷款减值损失）				N	S####	0	S####	0	0            
+					99	NL_STAFF_RES	LNOA01	员工贷款（应计罚息）					N	S####	0	S####	0	0  			 interest   *	       
+					99	NL_STAFF_RES	LNOC01	员工贷款（罚息收入）					N	S####	0	S####	0	0            
+					99	NL_STAFF_RES	LNOD01	员工贷款（应收罚息）					N	S####	0	S####	0	0            interest
+					99	NL_STAFF_RES	LNPR01	员工贷款（本金）						Y	S####	0	S####	0	0            
+					99	NL_STAFF_RES	LNPV01	员工贷款（一般减值准备金）				N	S####	0	S####	0	0            
+					99	NL_STAFF_RES	LNPV02	员工贷款（特殊减值准备金）				N	S####	0	S####	0	0            
+					99	NL_STAFF_RES	LNRA01	员工贷款（应计贴息）					N	S####	0	S####	0	0            interest
+					99	NL_STAFF_RES	LNRC01	员工贷款（贴息收入）					N	S####	0	S####	0	0            
+					99	NL_STAFF_RES	LNRD01	员工贷款（应收贴息）					N	S####	0	S####	0	0            interest
+					99	NL_STAFF_RES	LNWI01	员工贷款（核销利息）					Y	S####	0	S####	0	0            
+					99	NL_STAFF_RES	LNWP01	员工贷款（核销本金）					Y	S####	0	S####	0	0            
+				}
+			}
+		},
+		tap_bussiness:{
+			col:{gl_ref_code,gl_ref_desc,identifier_code-'gl_code'},
+			values:{
+				OE:{
+					Paid Up Capital - Ordinary Share	Ordinary Share Capital				OE40101		Y	A	Y	C	1	N	N	4	300024	20181203 18:27:59 980			1
+					R_E- Accumulated profit&loss		RE ACC PROFIT& LOSS					OE40402		Y	A	Y	C	1	N	N	4	300024	20181203 18:28:12 608			1
+					Current Year Profit/Loss			Year end							OE403		Y	A	Y	C	1	N	N	4	300024	20190116 18:42:19 883			1
+					Capital Reserves - General Reser	Capital Reserves - General Reserves	OE4020202	Y	A	Y	C	1	N	N	4	300024	20190621 14:59:28 159			1
+					Retained Earning - Normal Loan		Retained Earning - Normal Loan		OE40401		Y	A	Y	C	1	N	N	4	300024	20190621 14:59:36 178			1
+				}
+			}
+		},
+		taa_account:{
+			values:{
+				OE:{
+					Paid Up Capital - Ordinary Share	Ordinary Share Capital				OE40101		Y	A	Y	C	1	N	N	4	300024	20181203 18:27:59 980			1
+					R_E- Accumulated profit&loss		RE ACC PROFIT& LOSS					OE40402		Y	A	Y	C	1	N	N	4	300024	20181203 18:28:12 608			1
+					Current Year Profit/Loss			Year end							OE403		Y	A	Y	C	1	N	N	4	300024	20190116 18:42:19 883			1
+					Capital Reserves - General Reser	Capital Reserves - General Reserves	OE4020202	Y	A	Y	C	1	N	N	4	300024	20190621 14:59:28 159			1
+					Retained Earning - Normal Loan		Retained Earning - Normal Loan		OE40401		Y	A	Y	C	1	N	N	4	300024	20190621 14:59:36 178			1
+				}
+			}
+		},
 	}
-}
-
-tables:{
-	tas_ledger_bal-'分户账余额':{
-		1-insert:{
-			TaAccounting.regLedgerBal(IoTaRegLedgerBal);-2:{
-				SrvIoTaAccountingImpl.regLedgerBal();-5:{
-					at-IoClient4Gl.regLedgerBal(AccountBalance);
-					co-IoClient4Gl.regLedgerBal(AccountBalance);
-					cm-cm03.process:{accounting_alias:"VOUCHER"};
-					cm-cm05.process:{accounting_alias:"CASH"};
-					lt-DpAcctVerifyData.regLedgerBalance();-1:{
-						dp05-'Dept account balance of the previous day collect':{
-							process:{
-									method-DpAcctVerifyData.regLedgerBalance-'null':{
-										List listAcctBal = nsql-DpDayEnd.selLastBalanceExtractRecord-S-dpa_sub_account-select-'Statistical dept balance data for the previous day':{
-											
-										},
-										for(listAcctBal){
-											localSer-SrvIoTaAccounting.regLedgerBal-'null':{
-												method-TaAccounting.regLedgerBal-'null':{
-													method-ApBusinessParm.getValue-'null':{
-														table-app_business_parameter-select-'system parameter'
-													},
-													table-tap_accountingevent_ctrl-select-'contrl accounting event',
-													method-BizUtil.getTrxRunEnvs-'null',
-													table-tas_ledger_bal-insert-' the balance of ledger account'
-												}
-											}
-										}
-									}
-							},
-						},
-					}
-				},
-				taa9-'内部账入分户账余额流水'	<-	taa_account:{
-					getBatchDataWalker:{
-							method-ApOrg.getReferenceOrgId-'null':{
-								method-BizUtil.getTrxRunEnvs-'null',
-								method-BizUtil.isOrgRelated-'null',
-								table-app_parameter_reference-select-'parameter reference define',
-								table-app_parameter_reference-select-'parameter reference define',
-								method-BizUtil.isParmTable-'null',
-								method-ApOrg.getOrgInfo-'null':{
-									table-app_organization-select-'organization infomation'
-								},
-								method-ApOrg.getOrgInfo-'null':{
-									table-app_organization-select-'organization infomation'
-								}
-							},
-							nsql-ApBranch.selBranchList-S-apb_branch-select-'branch infomation list inquire':{
-								SELECT * from apb_branch where real_branch_ind = Y
-							}
-					},
-					process:{
-							method-BizUtil.getTrxRunEnvs-'null',
-							method-ApOrg.getReferenceOrgId-'null':{},
-							List acctBalList = nsql-TaAccounting.selAccountBal-S-taa_account-select-'inquering internal account balance':{
-								a.gl_ref_code
-							},
-							method-ApOrg.getReferenceOrgId-'null':{},
-							nsql-TaAccounting.selSuspensBal-S-(select-select-'the ledger  balance of suspense accounts',
-							for(acctBal:acctBalList){
-								regBal.setAccounting_alias(acctBal.getGl_ref_code());
-								method-TaAccounting.regLedgerBal-'null':{
-									method-BizUtil.fieldNotNull-'null',
-									method-ApBusinessParm.getValue-'null':{
-										table-app_business_parameter-select-'system parameter'
-									},
-									table-tap_accountingevent_ctrl-select-'contrl accounting event',
-									method-BizUtil.getTrxRunEnvs-'null',
-									table-tas_ledger_bal-insert-' the balance of ledger account'
-								}
-							}
-					},
-				},
-			}	
+	trans:{
+		fab_teller_seq:{
+		
+		},
+	}
+},
+file:{
+	key-mcb:{
+		No.	BUSI_BATCH_TYPE		PARESE_BATCH_ID	BUSI_BATCH_ID	'BUSI_BATCH_TYPE'	'FILE_PATH_KEY		FILE_NAME_KEY					DATA_TABLE																		BODY_KEY
+			批量业务类型		解析文件跑批	生成文件跑批	'批量业务类型'		
+			EnumType.E_BATCHTYPE							'EnumType.E_BATCHTYPE'		
+		0	"N-原始系统发生额"		glt00			fin01			N			"FINANCEAMT-金融金额"	Gli_Item_Sm.txt		"fab_org_sys_occurr-原始系统发生登记表"										
+		1	"O-原始系统余额"		glt01			fin02			O			"FINANCEBAL-金融余额"	Gli_Item_Re.txt		"fab_org_sys_bal-原始系统资产负债登记表"									
+		2	"F-应计数据存储"		glt02			taf02			F			"ACCURE-精确"			ACCURE_.txt					"fab_accrue-计提登记表"				{"trxn_date","accrue_type","acct_branch","accounting_alias","ccy_code","bal_attributes","budget_inst_amt"}	{"trxn_date":"20201222","accrue_type":"A","acct_branch":"0100105","accounting_alias":"FITIMESAVINGACCT_NRA","ccy_code":"HKD","bal_attributes":"DP02","budget_inst_amt":0.00}										
+		3	"H-已存储分类帐余额"	glt03			taf03			H			"LEDGERBAL-领导余额"	LEDGERBAL_.txt		"fab_ledger_check_seq-工厂分类帐检查"										
+		4	"J-已存储对帐文件"		glt06			tab7			J			"CHECK-核对"			CHECKRECORD_.txt												
+		5	"D-会计事件"			fat1			taf01			D			"ACCOUNTING-记账"		ACCOUNTING_.txt		
+	},
+	enum:{
+		EnumType.E_BATCHTYPE:{
+			<restrictionType id="E_BATCHTYPE" longname="file bacth type" base="string" maxLength="1">
+				<enumeration id="TRANBYONE" value="A" longname="one to one transfer"/>
+				<enumeration id="FROZETYPE" value="B" longname="frozen"/>
+				<enumeration id="ACCOUNTINGEVENT_WRITE" value="C" longname="accounting event write file"/>
+				<enumeration id="ACCOUNTINGEVENT_DOWN" value="D" longname="accounting event stored"/>
+				<enumeration id="ACCRUE_WRITE" value="E" longname="accrued data write file"/>
+				<enumeration id="ACCRUE_DOWN" value="F" longname="accrued data stored"/>
+				<enumeration id="LEDGER_WRITE" value="G" longname="ledger balance write file"/>
+				<enumeration id="LEDGER_DOWN" value="H" longname="ledger balance stored"/>
+				<enumeration id="CHECK_WRITE" value="I" longname="reconciliation file write"/>
+				<enumeration id="CHECK_DOWN" value="J" longname="reconciliation file stored"/>
+				<enumeration id="CBTwoGoTrade" value="K" longname="CB File TwoGoTrade"/>
+				<enumeration id="CBTwoGoTrades" value="L" longname="CB File TwoGoTrade Too"/>
+				<enumeration id="CBTwoGoTradeSend" value="M" longname="CB Send File TwoGoTrade"/>
+				<enumeration id="OrgSysOccurr" value="N" longname="original system occurrence"/>
+				<enumeration id="OrgSysBalance" value="O" longname="original system balance"/>
+				<enumeration id="EXCHANGE_RATE" value="P" longname="excahnge rate file"/>
+				<enumeration id="EXCHANGE_RATE_DOWN" value="Q" longname="excahnge rate stored file"/>
+			</restrictionType>
+		},
+		EnumType.E_FILEDEALSTATUS:{
+			<restrictionType id="E_FILEDEALSTATUS" longname="file handling status" base="string" maxLength="1" minLength="0">
+				<enumeration id="UNCHECK" value="A" longname="pending to check"/>
+				<enumeration id="CHECKED" value="B" longname="checked"/>
+				<enumeration id="SUCCESS" value="C" longname="success"/>
+				<enumeration id="FAILCHECK_OTHER" value="Q" longname="check fail - others"/>
+				<enumeration id="FAILCHECK_INSERT" value="X" longname="check fail - schedule imported abnormal"/>
+				<enumeration id="FAILCHECK_FORMAT" value="Y" longname="check fail - format error"/>
+				<enumeration id="FAILCHECK_UNEQUAL" value="Z" longname="check fail - unmatch"/>
+			</restrictionType>
 		}
 	},
-	taa_account-'内部户':{
-		1-insert:{
-			TaAccountMnt.openAcct(TaAcctInfo):{
-				openInterAccounts(IoTaOpenAccountIn);-1:{
-					SrvIoTaAccountingImpl.openInterAccounts(IoTaOpenAccountIn);:{
-						AgUntil.openInterAccountInfo(IoTaOpenAccountIn);-1:{
-							AgBatchMnt.AddBatchContract(AgBatchContractInfo);-1:{
-								SrvAgBatchBusinessImpl.AddBatchContract(AgBatchContractInfo);-1:{
-									ag2192
+	LEDGERBAL-taf03:{
+		TaFile.writeLedgerBalDataMain()	<-	taf03.process	<-	tas_ledger_bal
+	},
+	ACCOUNTING*.txt:{
+		create:{
+			
+		},
+		parse-fat1:{
+			file_body	->	fab_accounting_seq,fab_original_voch
+			fab_accounting_seq{sys_no-'800',accounting_alias,bal_attributes}	->	fap_accounting_event_parm
+								{'FCY_EXCHANGE_CUST','TA01'}					->	'FX30101'
+		}
+	},
+	TEMPLATE*.txt:{
+		create:{
+			
+		},
+		parse:{
+			
+		}
+	}
+},
+ta:{
+	code:{
+		SrvIoTaAccounting.regAccountingEvent:{	'登记会计事件'
+			field:{
+				acct_no-'现金账号'-Y,
+				debit_credit-'记账方向'
+				trxn_ccy-'交易币种'
+				trxn_amt-'交易金额'
+				acct_branch-'账务机构'
+				accounting_alias-'核算别名':{
+					"CASH",
+				},
+				accounting_subjet-'会计主体':{
+					enum:{
+						<restrictionType id="E_ACCOUNTINGSUBJECT" longname="accounting subject" base="string" maxLength="1" minLength="0">
+							<enumeration id="DEPOSIT" value="1" longname="deposit"/>
+							<enumeration id="LOAN" value="2" longname="loan"/>
+							<enumeration id="CASH" value="3" longname="cash"/>
+							<enumeration id="VOUCHER" value="4" longname="voucher"/>
+							<enumeration id="FEE" value="5" longname="fees"/>
+							<enumeration id="INSIDE" value="6" longname="internal account"/>
+							<enumeration id="CREDIT" value="7" longname="credit card"/>
+						</restrictionType>
+					}
+				},
+				bal_attributes-'余额属性':{
+					note:{
+						dp:{
+							"DP01"-"负债本金"
+							"DP02"-"应付利息"
+							"DP03"-"利息税"
+							"DP04"-"已付利息"
+							"DP11"-"资产本金"
+							"DP12"-"应收利息"
+							"DP13"-"利息收入"
+							"DP14"-"超额利息"
+							"DP15"-"特殊准备金"
+						},
+						ta:{					
+							"TA01"-"内部户本金"
+						},
+						ln:{
+							"LN01"-"贷款减值损失"
+						},
+						cs:{
+							"CS01"-"现金存量"
+							"CS02"-"途中现金库存"
+							"CS03"-"现金装置"
+							"CS04"-"途中现金装置"
+							"CS05"-"一般现金"
+							"CS06"-"漂亮现金"
+							"CS11"-"现金变动利润"
+							"CS12"-"现金变动损失"
+						},
+						vc:{
+							"VC01"-"代金券库存"
+						},
+						cg:{
+							"CG01"-"收费"
+							"CG02"-"摊销费用"
+						},
+						co:{
+							"CO01"-"抵押物价值"
+						}233,254,275,296,321,434,443,471,505,620,662,682,
+					},
+					enum:{
+						<restrictionType id="E_BALPROPERTY" longname="balance property" base="string" maxLength="4">
+							<enumeration id="DEPOSIT" value="DP01" longname="deposit principal"/>								"DP01"-"负债本金"
+							<enumeration id="INTEREST_PAYABLE" value="DP02" longname="interest payable"/>                       "DP02"-"应付利息"
+							<enumeration id="INTEREST_TAX" value="DP03" longname="interest tax"/>                               "DP03"-"利息税"
+							<enumeration id="INTEREST_PAY" value="DP04" longname="interest pay"/>                               "DP04"-"已付利息"
+							<enumeration id="CAPITAL" value="DP11" longname="asset principal"/>                                 "DP11"-"资产本金"
+							<enumeration id="INTEREST_RECEIVABLE" value="DP12" longname="receivable interest"/>                 "DP12"-"应收利息"
+							<enumeration id="INTEREST_INCOME" value="DP13" longname="interest income"/>                         "DP13"-"利息收入"
+							<enumeration id="BAD_INTEREST_RECEIVABLE" value="DP14" longname="bad overdraft accrued Interest"/>  "DP14"-"超额利息"
+							<enumeration id="SPECIAL_PROVISION_AMT" value="DP15" longname="special provision amtount"/>         "DP15"-"特殊准备金"
+							<enumeration id="INAC_PRCP" value="TA01" longname="internal account principal"/>                    "TA01"-"内部户本金"
+							<enumeration id="LOAN_IMPAIRMENT_LOSS" value="LN01" longname="loan impairment loss"/>               "LN01"-"贷款减值损失"
+							<enumeration id="CASH_STOCK" value="CS01" longname="cash stock"/>                                   "CS01"-"现金存量"
+							<enumeration id="CASH_STOCK_WAY" value="CS02" longname="on the way cash stock"/>                    "CS02"-"途中现金库存"
+							<enumeration id="CASH_DEVICE" value="CS03" longname="cash device"/>                                 "CS03"-"现金装置"
+							<enumeration id="CASH_DEVICE_WAY" value="CS04" longname="on the way cash device"/>                  "CS04"-"途中现金装置"
+							<enumeration id="CASH_GENERAL" value="CS05" longname="cash general"/>                               "CS05"-"一般现金"
+							<enumeration id="CASH_PRETTY" value="CS06" longname="cash pretty"/>                                 "CS06"-"漂亮现金"
+							<enumeration id="CASH_CHANGE_PROFIT" value="CS11" longname="cash change profit"/>                   "CS11"-"现金变动利润"
+							<enumeration id="CASH_CHANGE_LOSS" value="CS12" longname="cash change loss"/>                       "CS12"-"现金变动损失"
+							<enumeration id="VOCH_STOCK" value="VC01" longname="voucher stcok"/>                                "VC01"-"代金券库存"
+							<enumeration id="CHRG" value="CG01" longname="charge"/>                                             "CG01"-"收费"
+							<enumeration id="CHRG_AMORT" value="CG02" longname="amortization charge"/>                          "CG02"-"摊销费用"
+							<enumeration id="COLLATERAL_VALUE" value="CO01" longname="collateral value"/>                       "CO01"-"抵押物价值"
+							<subenums>
+								<subenum id="E_TA" enums="INAC_PRCP" longname="internal account balance property"/>
+								<subenum id="E_DP" enums="DEPOSIT,INTEREST_PAYABLE,INTEREST_TAX,INTEREST_PAY,CAPITAL,INTEREST_RECEIVABLE,INTEREST_INCOME" longname="loan balance property"/>
+								<subenum id="E_CS" enums="CASH_STOCK,CASH_STOCK_WAY,CASH_DEVICE,CASH_DEVICE_WAY" longname="cash balance property"/>
+								<subenum id="E_VC" enums="VOCH_STOCK" longname="voucher stock balance property"/>
+								<subenum id="E_CG" enums="CHRG,CHRG_AMORT" longname="charge balance property"/>
+							</subenums>
+						</restrictionType>
+					}
+				},
+				double_entry_ind-'复试记账标志':{
+					baidu:{
+						'复式记账法是以资产与权益平衡关系作为记账基础，对于每一笔经济业务，都要以相等的金额在两个或两个以上相互联系的账户中进行登记，系统地反映资金运动变化结果的一种记账方法。'
+						'复式记账是对每一项经济业务通过两个或两个以上有关账户相互联系起来进行登记的一种专门方法。任何一项经济活动都会引起资金的增减变动或财务收支的变动。'
+					}
+				}
+			},
+			caogao:{
+				taAccountingEvnetIn.setAcct_no(regACSerailIn.getAcct_no()); 			// 现金账号
+				taAccountingEvnetIn.setDebit_credit(regACSerailIn.getDebit_credit());	// 记账方向
+				taAccountingEvnetIn.setTrxn_ccy(regACSerailIn.getCcy_code()); 			// 交易币种
+				taAccountingEvnetIn.setTrxn_amt(regACSerailIn.getTrxn_amt()); 			// 交易金额
+				taAccountingEvnetIn.setAcct_branch(regACSerailIn.getAcct_branch()); 	// 账务机构
+				taAccountingEvnetIn.setAccounting_alias(CmConst.CASH_ACCOUNTING_ALIAS); // 核算别名
+				taAccountingEvnetIn.setAccounting_subject(E_ACCOUNTINGSUBJECT.CASH); 	// 会计主体
+				taAccountingEvnetIn.setBal_attributes(balProperty.toString()); 			// 余额属性
+				taAccountingEvnetIn.setDouble_entry_ind(E_YESORNO.YES);					// 复试记账标志
+			}
+			logic:{
+				TaAccounting.regAccountingEvent(IoTaAccountingEventIn);:{
+					tables-tap_accountingevent_ctrl-'会计事件控制'-select:{
+						where accounting_alias='' and bal_attributes=''
+					},
+					tables-tas_accounting_event-'会计事件表'-insert:{
+						
+					},
+				}
+			}
+		},
+		SrvIoTaAccounting.checkBalance();-'账务平衡检查':{	'账务检查'
+			method-BizUtil.getTrxRunEnvs-'null',
+			method-ApOrg.getReferenceOrgId-'null':{
+				method-BizUtil.getTrxRunEnvs-'null',
+				method-BizUtil.isOrgRelated-'null',
+				table-app_parameter_reference-select-'parameter reference define',
+				table-app_parameter_reference-select-'parameter reference define',
+				method-BizUtil.isParmTable-'null',
+				method-ApOrg.getOrgInfo-'null':{
+					table-app_organization-select-'organization infomation'
+				},
+				method-ApOrg.getOrgInfo-'null':{
+					table-app_organization-select-'organization infomation'
+				}
+			},
+			nsql-TaAccounting.selTrxnNoBalancedData-S-tas_accounting_event-select
+				-'getting the unbalanced records by transaction sequence ':{
+				select
+						a.trxn_ccy, sum(case a.debit_credit when 'D' then a.trxn_amt else - a.trxn_amt end) as trxn_amt 
+				from
+						tas_accounting_event a 
+				where
+						a.trxn_seq = #trxn_seq# 
+					and a.org_id = #org_id# 
+					and a.double_entry_ind = 'Y' 
+				group by
+						a.trxn_ccy
+				having
+						sum(case a.debit_credit when 'D' then a.trxn_amt else - a.trxn_amt end) !=0 
+			},
+			table-tas_accounting_event-select-'accounting event'
+		}
+	},
+	tables:{
+		tap_business-TAP_BUSINESS:{
+			insert-1:{
+				TaBusinessMnt.addBusiness(TaBusiInfo, Options);-1:{
+					SrvTaBusiness.addBusiness-1,	<-		ta7101-'新增业务编码'
+				}
+			}
+		},
+		taa_account-'内部户':{
+			insert-1:{
+				TaAccountMnt.openAcct(TaAcctInfo);-3:{
+					TaAccounting.noExistAccount(IoTaBookAccountingIn)-0;
+					SrvTaAccount.openAcct(TaAcctInfo);-'内部户开户'-1 						<-	ta7201/70006	<-6101
+					TaSuspenseMnt.openSuspense(TaSuspenOpenInfo);-2:{
+						TaAccounting.openSuspenseNo(IoTaBookSuspenseIn)-0;
+						SrvTaSuspens.openSuspense(TaSuspenOpenInfo);-'待销账手工开立'-1 	<-	ta7301
+					}
+				}
+			},
+			1-insert:{
+				TaAccountMnt.openAcct(TaAcctInfo):{
+					openInterAccounts(IoTaOpenAccountIn);-1:{
+						SrvIoTaAccountingImpl.openInterAccounts(IoTaOpenAccountIn);:{
+							AgUntil.openInterAccountInfo(IoTaOpenAccountIn);-1:{
+								AgBatchMnt.AddBatchContract(AgBatchContractInfo);-1:{
+									SrvAgBatchBusinessImpl.AddBatchContract(AgBatchContractInfo);-1:{
+										ag2192
+									}
 								}
 							}
 						}
+					}
+				}
+			},
+			10-update:{
+				1-TaAccountMnt.modifyAcct(TaAcctInfo, Options, Options);
+				1-TaAccountMnt.closeAcct(String, Long);
+				1-TaAccountMnt.stopOrStartAccount(String, E_YESORNO, Long)
+				2-TaAccounting.updAccBal(TaAcctBalUpadatingIn, taa_account);-2:{
+					TaAccounting.onlineAccounting(IoTaBookAccountingIn, taa_account);:{
+						bookAccounting(IoTaBookAccountingIn, boolean);-2:{
+							bookAccountingWithNoCheck(IoTaBookAccountingIn);
+							bookAccountingWithCheck(IoTaBookAccountingIn);		-7:{
+			*					1-TaSetAccounting.busiCodeAccounting(IoTaAccountListIn);
+								1-TaSetAccounting.insideAccounting(IoTaAccountListIn);
+								2-SrvIoTaAccountingImpl.bookAccountingWith..;:{
+									1-at-IoClient4Gl.ioBookAccounting(BusiCodeIn);
+									1-cb-CbCashOutInStock.regAccounting(CbCashPrettyIn);
+									1-cb-CbCashOverShort.bookInsideAcct(CbCashOverShortDoneIn, RunEnvs, E_DEBITCREDIT, String);
+									4-cb-note;
+									1-cb-IoClient4Inside.bookAccountingWithCheck(CbBookAccountingIn);
+									1-cm-CmChrgAccounting.chrgDebit(CmChrgDeAccounting, BigDecimal, Boolean);:{
+										chrgDebitAccounting(CmChrgDeAccounting)-2:{
+											prcChrgAccounting(CmChrgInfo)-2:{
+												CmChrgMain.prcAutoChrgAccounting(AutoChrgInfo)-1:{
+													SrvIoCmChrgImpl.prcAutoChrgAccounting(AutoChrgInfo);-5
+												}
+												CmChrgMain.prcManualChrgAccounting(IoCmChrgManualIn)
+											}
+											prcChrgOwe(IoCmTakeChrgOweIn)
+										}
+									}
+									1-cm-CmChrgAccounting.prcChrgReturn(CmChrgReimburse);
+									1-cm-CmReveralAccounting.chrgDebit(CmChrgDeAccounting, BigDecimal, Boolean);
+									1-cm-CmReveralAccounting.prcChrgReturn(CmChrgReimburse);
+									lt-10,
+									lttran-2,
+									py-1,
+									st-1,
+									ts-2,
+								}
+								2-TaSuspenseMnt.closeSuspense(String, String, String);
+								1-AgUntil.insideAccounting(agb_batch_request, E_DEBITCREDIT, String, BigDecimal);
+							}
+						}
+					}
+					ta01.process
+				}
+				2-TaAccounting.reverslUpdAccBal(TaAcctBalUpadatingIn, taa_account);
+				1-TaReversal.openInsiAcctReversal(TaOpenInsiAcctReversalIn);
+				1-TaReversal.closeAcctReversal(TaCloseInsiAcctReversal);
+				1-taa3.process(String, int, String, Input, Property);
+			}
+		},
+		tas_accounting_event:{
+			insert-1:{
+				TaAccounting.regAccountingEvent(IoTaAccountingEventIn);-'登记会计事件'
+			}
+		},
+		tas_ledger_bal-'分户账余额':{
+			insert-1:{
+				TaAccounting.regLedgerBal(IoTaRegLedgerBal);-2:{
+					SrvIoTaAccounting.regLedgerBal-3:{
+						cm03.process,
+						cm05.process,
+						at-IoClient4Gl
+					},
+					taa9.process
+				}
+			},
+			1-insert:{
+				TaAccounting.regLedgerBal(IoTaRegLedgerBal);-2:{
+					SrvIoTaAccountingImpl.regLedgerBal();-5:{
+						at-IoClient4Gl.regLedgerBal(AccountBalance);
+						co-IoClient4Gl.regLedgerBal(AccountBalance);
+						cm-cm03.process:{accounting_alias:"VOUCHER"};
+						cm-cm05.process:{accounting_alias:"CASH"};
+						lt-DpAcctVerifyData.regLedgerBalance();-1:{
+							dp05-'Dept account balance of the previous day collect':{
+								process:{
+										method-DpAcctVerifyData.regLedgerBalance-'null':{
+											List listAcctBal = nsql-DpDayEnd.selLastBalanceExtractRecord-S-dpa_sub_account-select-'Statistical dept balance data for the previous day':{
+												
+											},
+											for(listAcctBal){
+												localSer-SrvIoTaAccounting.regLedgerBal-'null':{
+													method-TaAccounting.regLedgerBal-'null':{
+														method-ApBusinessParm.getValue-'null':{
+															table-app_business_parameter-select-'system parameter'
+														},
+														table-tap_accountingevent_ctrl-select-'contrl accounting event',
+														method-BizUtil.getTrxRunEnvs-'null',
+														table-tas_ledger_bal-insert-' the balance of ledger account'
+													}
+												}
+											}
+										}
+								},
+							},
+						}
+					},
+					taa9-'内部账入分户账余额流水'	<-	taa_account:{
+						getBatchDataWalker:{
+								method-ApOrg.getReferenceOrgId-'null':{
+									method-BizUtil.getTrxRunEnvs-'null',
+									method-BizUtil.isOrgRelated-'null',
+									table-app_parameter_reference-select-'parameter reference define',
+									table-app_parameter_reference-select-'parameter reference define',
+									method-BizUtil.isParmTable-'null',
+									method-ApOrg.getOrgInfo-'null':{
+										table-app_organization-select-'organization infomation'
+									},
+									method-ApOrg.getOrgInfo-'null':{
+										table-app_organization-select-'organization infomation'
+									}
+								},
+								nsql-ApBranch.selBranchList-S-apb_branch-select-'branch infomation list inquire':{
+									SELECT * from apb_branch where real_branch_ind = Y
+								}
+						},
+						process:{
+								method-BizUtil.getTrxRunEnvs-'null',
+								method-ApOrg.getReferenceOrgId-'null':{},
+								List acctBalList = nsql-TaAccounting.selAccountBal-S-taa_account-select-'inquering internal account balance':{
+									a.gl_ref_code
+								},
+								method-ApOrg.getReferenceOrgId-'null':{},
+								nsql-TaAccounting.selSuspensBal-S-(select-select-'the ledger  balance of suspense accounts',
+								for(acctBal:acctBalList){
+									regBal.setAccounting_alias(acctBal.getGl_ref_code());
+									method-TaAccounting.regLedgerBal-'null':{
+										method-BizUtil.fieldNotNull-'null',
+										method-ApBusinessParm.getValue-'null':{
+											table-app_business_parameter-select-'system parameter'
+										},
+										table-tap_accountingevent_ctrl-select-'contrl accounting event',
+										method-BizUtil.getTrxRunEnvs-'null',
+										table-tas_ledger_bal-insert-' the balance of ledger account'
+									}
+								}
+						},
+					},
+				}	
+			}
+		},
+	},
+},
+gl:{
+	tables:{
+		fap_accounting_event_parm-:{
+			insert-1:{
+				FaAccountingEventMnt.addAccountingEvent(FaAccountingEventInfo);	-1:{
+					FaAccountingEventMnt.mntAccountingEvent(Options);-1:{
+						SrvFaAccountingEvent.mntAccountingEvent(Options);-0
 					}
 				}
 			}
 		},
-		10-update:{
-			1-TaAccountMnt.modifyAcct(TaAcctInfo, Options, Options);
-			1-TaAccountMnt.closeAcct(String, Long);
-			1-TaAccountMnt.stopOrStartAccount(String, E_YESORNO, Long)
-			2-TaAccounting.updAccBal(TaAcctBalUpadatingIn, taa_account);-2:{
-				TaAccounting.onlineAccounting(IoTaBookAccountingIn, taa_account);:{
-					bookAccounting(IoTaBookAccountingIn, boolean);-2:{
-						bookAccountingWithNoCheck(IoTaBookAccountingIn);
-						bookAccountingWithCheck(IoTaBookAccountingIn);		-7:{
-		*					1-TaSetAccounting.busiCodeAccounting(IoTaAccountListIn);
-							1-TaSetAccounting.insideAccounting(IoTaAccountListIn);
-							2-SrvIoTaAccountingImpl.bookAccountingWith..;:{
-								1-at-IoClient4Gl.ioBookAccounting(BusiCodeIn);
-								1-cb-CbCashOutInStock.regAccounting(CbCashPrettyIn);
-								1-cb-CbCashOverShort.bookInsideAcct(CbCashOverShortDoneIn, RunEnvs, E_DEBITCREDIT, String);
-								4-cb-note;
-								1-cb-IoClient4Inside.bookAccountingWithCheck(CbBookAccountingIn);
-								1-cm-CmChrgAccounting.chrgDebit(CmChrgDeAccounting, BigDecimal, Boolean);:{
-									chrgDebitAccounting(CmChrgDeAccounting)-2:{
-										prcChrgAccounting(CmChrgInfo)-2:{
-											CmChrgMain.prcAutoChrgAccounting(AutoChrgInfo)-1:{
-												SrvIoCmChrgImpl.prcAutoChrgAccounting(AutoChrgInfo);-5
-											}
-											CmChrgMain.prcManualChrgAccounting(IoCmChrgManualIn)
-										}
-										prcChrgOwe(IoCmTakeChrgOweIn)
-									}
-								}
-								1-cm-CmChrgAccounting.prcChrgReturn(CmChrgReimburse);
-								1-cm-CmReveralAccounting.chrgDebit(CmChrgDeAccounting, BigDecimal, Boolean);
-								1-cm-CmReveralAccounting.prcChrgReturn(CmChrgReimburse);
-								lt-10,
-								lttran-2,
-								py-1,
-								st-1,
-								ts-2,
-							}
-							2-TaSuspenseMnt.closeSuspense(String, String, String);
-							1-AgUntil.insideAccounting(agb_batch_request, E_DEBITCREDIT, String, BigDecimal);
-						}
+		faa_account:{
+			update-5:{
+				FaCloseAccount.closeAccount(String, String, Long),
+				FaModifyAccount.modifyAcct(FaAcctInfo),
+				FaAccounting.updateBalance(FaUpdateBalanceIn)-1:{
+					FaAccounting.singleAccountingDo(FaSingleAccountingDoIn, String, long)-2:{
+						FaAccounting.singleAccounting(FaSingleAccountingCheckIn, String, Long)-4:{
+							1-FaAccounting.bookMultiAccounting(List, String, Long, String, String, boolean)-14,
+							1-GlSettle.prcKeep(String, String, BigDecimal, String, String, String, String, String);
+							2-GlSettleFlat.prcSettleFlatAccounting(String, BigDecimal, BigDecimal, String, String);	
+						},
+						FaAccounting.bookOffBalanceAccounting(FaOffBanlceAccountingIn)
+					}
+				},
+				FaAccountingSubjectMnt.modifySubject(FaSubjectInfo)-2:{
+					FaAccountingSubjectMnt.modifySubjectList(List)-0,
+					SrvFaAccoutingSubject.modifySubjectInfo		<-		fa8104
+				}
+				gl65-'posting the gl accounts'-previous_acct_bal,
+			}
+		},
+		fab_teller_seq:{
+			insert-4:{
+				FaAccounting.regTellerSeq(FaRegTellerSeq)-23,
+				FaAccountingEventMnt.regTellerSeq(FaRegTellerSeq)-1:{
+					FaAccountingEventMnt.RegTeller(FaAccountingEventInfo)
+				},
+				FaAccountingSubjectMnt.regTellerSeq(FaRegTellerSeq)-1:{
+					FaAccountingSubjectMnt.RegTeller(FaSubjectInfo)
+				},
+				ExchangeRate.regTellerSeq(FaRegTellerSeq)-1:{
+					ExchangeRate.RegTeller(GlExchangeRate)
+				},
+			}
+		},
+		fab_accounting_voch:{
+			insert-1:{
+				FaAccounting.regAccountingVoch(FaRegAccountingVoch-1:{
+					FaAccounting.singleAccountingDo(FaSingleAccountingDoIn, String, long)-2:{
+						FaAccounting.singleAccounting(FaSingleAccountingCheckIn, String, Long)-4:{
+							1-FaAccounting.bookMultiAccounting(List, String, Long, String, String, boolean)-14,
+							1-GlSettle.prcKeep(String, String, BigDecimal, String, String, String, String, String);
+							2-GlSettleFlat.prcSettleFlatAccounting(String, BigDecimal, BigDecimal, String, String);	
+						},
+						FaAccounting.bookOffBalanceAccounting(FaOffBanlceAccountingIn)
 					}
 				}
-				ta01.process
 			}
-			2-TaAccounting.reverslUpdAccBal(TaAcctBalUpadatingIn, taa_account);
-			1-TaReversal.openInsiAcctReversal(TaOpenInsiAcctReversalIn);
-			1-TaReversal.closeAcctReversal(TaCloseInsiAcctReversal);
-			1-taa3.process(String, int, String, Input, Property);
 		}
 	}
 },

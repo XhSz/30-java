@@ -81,6 +81,10 @@
 		}
 	},
 	301-deploy-ORACLE-Bussiness Intelligence:{
+		Oracle BIEE 12c 安装配置手册
+			https://wenku.baidu.com/view/3bc946049ec3d5bbfc0a748a.html
+		什么是主题区域和列:
+			https://docs.oracle.com/middleware/12211help/biee/zh_CN/bi.12211/e73394/GUID-A26B1EB4-7782-4BD8-91A5-63638A215D08.htm#BIEUG1023
 		http://172.31.2.12:9518/analytics/saw.dll?ReloadDashboard
 		http://172.31.2.12:9518/analytics/saw.dll?getReportXmlFromSearchID	:{
 			OBIPS11RsfQy6Z+qdA0
@@ -344,7 +348,21 @@
 	},
 	71-db-oracle:{
 		21-install-version,
-		30-connect,
+		30-connect:{
+			cmd:{	'结尾不要带;,ORA-12514: TNS: 监听程序当前无法识别连接描述符中请求的服务'
+				sqlplus sys/123456 as sysdba;
+				sqlplus scott/scott@192.168.11.111:1521/orcl 
+				sqlplus cbsbase/cbsbase@172.31.5.12:1521/BASEDB				#service name  
+				sqlplus cbsbase/cbsbase@172.31.5.12:1521/BASEDB	as sysdba	#ORA-01017: invalid username/password; logon denied	
+				sqlplus oracle/oracle@172.31.5.12:1521/BASEDB	
+				sqlplus ocl/ocl@172.31.5.12:1521/BASEDB		
+				sqlplus ocl/ocl@172.31.5.12:1521/BASEDB	
+				sqlplus cbsbase/cbsbase@172.31.5.12:1521/BASEDB	
+				sqlplus oracleuser/oracle@172.31.5.12:1521/BASEDB	
+				'直接以管理员登录'
+				sqlplus "/as sysdba"
+			}
+		},
 		43-grammar-db:{
 			init:{	
 				db:{
@@ -364,6 +382,7 @@
 						drop tablespace mcb_temp including contents and datafiles;
 					}
 				},
+				tablespace
 				user:{
 					create:{
 						CREATE USER mcb_admin IDENTIFIED BY mcb_admin DEFAULT TABLESPACE mcb TEMPORARY TABLESPACE mcb_temp;
@@ -376,7 +395,15 @@
 					grant connect,resource,dba to mcb_admin;
 					grant create session to mcb_admin;
 				}		
+			},
+			restart:{
+				shutdown immediate
+				startup
+				startup mount;
 			}
+		},
+		44-grammar-table:{
+			alter table table_name add (name varchar(20) default '');
 		},
 		45-grammar-curd:{
 			read-select:{
@@ -385,11 +412,51 @@
 		},
 		46-grammar-function:{
 			string:{
-				||	
-				CONCAT()
+				add:{
+					||	
+					CONCAT():{
+						concat('aa','bb');
+						concat('aa','bb','cc'),0RA-00909:invalid number of arguments;
+						concat(concat('aa','bb'),'cc');
+					}
+				},
+				search:{
+					1 select instr('helloworld','l') from dual; --返回结果：3    默认第一次出现“l”的位置
+					2 select instr('helloworld','lo') from dual; --返回结果：4    即“lo”同时出现，第一个字母“l”出现的位置
+					3 select instr('helloworld','wo') from dual; --返回结果：6    即“wo”同时出现，第一个字母“w”出现的位置
+					格式二
+
+					复制代码
+					1 select instr('helloworld','l',2,2) from dual;  --返回结果：4    也就是说：在"helloworld"的第2(e)号位置开始，查找第二次出现的“l”的位置
+					2 select instr('helloworld','l',3,2) from dual;  --返回结果：4    也就是说：在"helloworld"的第3(l)号位置开始，查找第二次出现的“l”的位置
+					3 select instr('helloworld','l',4,2) from dual;  --返回结果：9    也就是说：在"helloworld"的第4(l)号位置开始，查找第二次出现的“l”的位置
+					4 select instr('helloworld','l',-1,1) from dual;  --返回结果：9    也就是说：在"helloworld"的倒数第1(d)号位置开始，往回查找第一次出现的“l”的位置
+					5 select instr('helloworld','l',-2,2) from dual;  --返回结果：4    也就是说：在"helloworld"的倒数第2(l)号位置开始，往回查找第二次出现的“l”的位置
+					6 select instr('helloworld','l',2,3) from dual;  --返回结果：9    也就是说：在"helloworld"的第2(e)号位置开始，查找第三次出现的“l”的位置
+					7 select instr('helloworld','l',-2,3) from dual; --返回结果：3    也就是说：在"helloworld"的倒数第2(l)号位置开始，往回查找第三次出现的“l”的位置
+				}
 			}
 		},
 		50-exception:{
+			ora-01033:ORACLE initialization or shutdown in progress:{
+			},
+			ora-01658: 无法为表空间 GL_UAT 中的段创建 INITIAL 区:{
+				-- 表空间使用情况查询
+				SELECT a.tablespace_name "表空间名",total/1024/1024  "表空间大小单位M",free/1024/1024 "表空间剩余大小单位M",(total - free)/1024/1024 "表空间使用大小单位M",Round((total - free) / total, 4) * 100 "使用率   [[%]]"FROM (SELECT tablespace_name,Sum(bytes) free FROM DBA_FREE_SPACE GROUP BY tablespace_name) a,(SELECT tablespace_name,Sum(bytes) total FROM DBA_DATA_FILES GROUP BY tablespace_name) b WHERE a.tablespace_name = b.tablespace_name;
+				view:{
+					SELECT 
+						a.tablespace_name "表空间名",
+						total/1024/1024  "表空间大小单位M",
+						free/1024/1024 "表空间剩余大小单位M",
+						(total - free)/1024/1024 "表空间使用大小单位M",
+						Round((total - free) / total, 4) * 100 "使用率   [[%]]"
+					FROM 
+						(SELECT tablespace_name,Sum(bytes) free FROM DBA_FREE_SPACE GROUP BY tablespace_name) a,
+						(SELECT tablespace_name,Sum(bytes) total FROM DBA_DATA_FILES GROUP BY tablespace_name) b
+					WHERE 
+						a.tablespace_name = b.tablespace_name;
+				}
+			},
 			ora-12537:tns:连接关闭:{
 				cdb-1.3-uat-esb-过一段时间自己好了..?
 				listener.log:{
@@ -421,6 +488,11 @@
 		}
 	},
 	72-db-mysql:{
+		30-connect:{
+			cmd:{	'mysql  -h 端口号  -h  主机名\ip -u用户  -p 密码	,#注意都是小写'
+				mysql -p3306 -hlocalhost  -uroot -proot
+			}
+		},
 		46-grammar-function:{
 			null:{
 				ifnull:{}
@@ -428,3 +500,14 @@
 		},
 	}
 },
+83-micro-office:{
+	01-word:{
+		30-content:{
+			10-characters,
+			20-format,
+			30-symbol:{
+				插入->符号->其他符号:{字体}
+			},
+		}
+	}
+}

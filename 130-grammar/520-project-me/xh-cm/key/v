@@ -166,7 +166,47 @@
 			09.高并发系统架构-服务降级;
 			11.应用层技术架构-常用中间件服务核心解密与技术选型;
 		高并发-redis-图灵-201220-1-0-0-0：{'秒杀系统后端Redis高并发架构实战 链接：https://pan.baidu.com/s/1kgZQ4L_RLhJxymwMhGNqqA 9vii 亿级流量新浪微博与微信Redis架构实战 链接：https://pan.baidu.com/s/10WpN3A2k45KBnfyYScpzqg t96b'}
+		高并发-架构-msb-210121:{
+			17.23,01,高并发 系统架构-理论与技术介绍:{
+				商场项目技术架构图:{},
+				高并发电商系统瓶颈分析,
+				秒杀系统多级"读、写"分离:{
+					20.20-27.28,静态请求&动态请求分割开:{
+						用户-服务间的缓存,'浏览器缓存','App缓存':{
+							内存缓存,浏览器缓存
+						},
+						ngnix反向代理,'index.html','main.css':{
+							proxypass-'反向代理',upstream-'负载均衡'
+						},
+						tomcat,
+						'单机搞定'
+					};
+					28.51,瓶颈-{
+						IO瓶颈:{
+							网络:{
+								lvs-DR模型-'隧道':{
+									IP伪装,mac地址欺骗
+								},
+								4-层网络负载:{
+									rpc,tcp转发,web-socket,ftp
+								}
+							},
+							硬盘
+						},
+						计算瓶颈-'服务器美颜,p图',
+						内存瓶颈
+					}
+				},
+				48.36-神一样的CAP定理以及BASE理论:{
+					CP,AP
+					2-'同步',服务治理,'重试''降级''熔断',
+					P,'机房感知策略','机架感知策略',
+					63.04,,eureka/nacos:{AP},服务保护机制,
+					75.09,redis,aof,单线程,同时一个用户访问,
+				}
+			},
 			
+		}	
 	},
 	30-110-jvm:{
 		1m1s,60,
@@ -214,6 +254,40 @@
 		多线程-高并发-msb-191223-1-1-0-0:{'https://pan.baidu.com/s/1xgFDXQboe5-DhmpNfLewkA 提取码: ganv'},
 		多线程-训练营-msb-201217-1-1-0-0：{'https://pan.baidu.com/s/1DZq4LNu-lR8XwsSqDBUqLA 提取码: eg3q '},
 		多线程-msb-msb-201201-1-0-0-0:{'https://pan.baidu.com/s/1xUEQD4N8T5oi3vq1H6IOEA 8888 https://pan.baidu.com/s/16zWt8vN4l6mH1q6WJ27Wcg 8888'},
+		jvm-线程-msb-210428:{
+			time:{
+				9m19,content;
+				10.26,程序真的是按顺序执行的吗?
+				11.28,100 thread, add 1*1w次;
+				13.13,大纲;
+					并发编程{有序,可见,原子};
+				14.20,可见;
+				15.23,计算机底层,汇编;
+				15.26,进程调度,选修;
+				15.40,计算机组成;
+				20.18,存储器的层次结构;
+				21.14,从CPU的计算单元(ALU)到membery;
+				21.16,多核CPU;
+				23.52,volatile;
+				29.46,设计思路;
+				32.06,cache line概念 缓存行对齐 伪共享'工业设计',64bytes;
+				34.20,缓存一致性;
+				34.52,缓存行;
+				34.58,MESI Cache一致性协议;
+				35.13,MESI type;
+				39.51,line exist;
+				49.43,ring buffer;
+				51.19,@Contender;
+				57.50,保持可见性,禁止重排序;
+				59.32,jdk源码;
+				61.10,volatile实现;
+				64.07,lock指令,'汇编';
+				65.59,lock实现,'锁总线/锁缓存/关中断';
+				67.38,有序性;
+				83.05,new 对象;
+				91.02,DCL要不要加voliate;
+			}
+		}
 		源码学习-concurrenthashmap-msb-连鹏举-201107-1-0-0-0:{'https://pan.baidu.com/s/1LGJkcRmXD1puYIyLKWUbSQ 8888'}
 	},
 	34-spring:{

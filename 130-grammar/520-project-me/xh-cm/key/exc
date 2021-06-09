@@ -147,6 +147,22 @@ server:{
 				loader	loader	loaderdb	loader/loader
 				ops	ops	opsdb	ops/ops
 			}
+		},
+		fat:{
+			server:{
+				icore(10.22.62.89):{
+					
+				},
+				ct(10.22.62.88),
+			},
+			deploy:{
+				etc,http://e-proxy.yfb.sunline.cn/nexus-prod/content/repositories/clht-dev-release/cn/sunline/icore/cfg/edsp-cfg/1.1.1-BETA-63-exim-3/edsp-cfg-1.1.1-BETA-63-exim-3.zip
+				po,http://e-proxy.yfb.sunline.cn/nexus-prod/content/repositories/clht-package-releases/cn/sunline/icore/dist/po-dist/3.2.0.0-EXIM-ALPHA_2/po-dist-3.2.0.0-EXIM-ALPHA_2-linux.tar.gz
+				pl,http://e-proxy.yfb.sunline.cn/nexus-prod/content/repositories/clht-package-releases/cn/sunline/icore/dist/pl-dist/3.2.0.0-EXIM-ALPHA-3/pl-dist-3.2.0.0-EXIM-ALPHA-3-linux.tar.gz
+				vue,http://e-proxy.yfb.sunline.cn/nexus-prod/content/repositories/clht-dev-release/cn/sunline/rdp/solution/sump-vue-package/3.2.0.3-EXIM-ALPHA/sump-vue-package-3.2.0.3-EXIM-ALPHA.war
+				ct,http://e-proxy.yfb.sunline.cn/nexus-prod/content/repositories/clht-package-releases/cn/sunline/icore/dist/ct-dist/3.2.1.3-EXIM-ALPHA/ct-dist-3.2.1.3-EXIM-ALPHA-linux.tar.gz
+				icore,http://e-proxy.yfb.sunline.cn/nexus-prod/content/repositories/clht-package-releases/cn/sunline/icore/dist/core-dist/3.2.1.1-EXIM-ALPHA-7/core-dist-3.2.1.1-EXIM-ALPHA-7-linux.tar.gz
+			}
 		}
 	}
 }

@@ -96,6 +96,20 @@ yus:{
 				
 			}
 		}
+	},
+	ccy:{
+		210528:{
+			1 TZS= 0.0004322 USD,1 USD ≈   2,314 TZS, 2,314*800= 185w1200;
+			1 TZS= 0.002754  CNY,1 CNY ≈ 363.373 TZS, 
+			100w TZS=  2754  CNY,1 CNY ≈ 363.043 TZS,  37w->1k,3.7w->100;
+			1 CNY= 0.1569    USD,1 USD ≈  6.3739 CNY,
+		},
+		210527:{
+			1 TZS= 0.0004322 USD,1 USD ≈   2,314 TZS, 2,314*800= 185w1200;
+			1 TZS= 0.002754  CNY,1 CNY ≈ 363.043 TZS, 
+			100w TZS=  2754  CNY,1 CNY ≈ 363.043 TZS,  37w->1k,3.7w->100;
+			1 CNY= 0.1569    USD,1 USD ≈  6.3739 CNY,
+		}
 	}
 },
 中华大盛银行-CHINA DASHENG BANK LTD-CDB:{
@@ -342,7 +356,7 @@ server:{
 				Xie Hao:{
 					cust_no:9100000329,
 					sub_acct_no:1000006302, 
-					acct_no:1050002702,			160,000.00
+					acct_no:1050002702,			160,000.00			TZS
 					loan_no:{
 						-- 8341210114003	
 						-- 8341210114009
@@ -440,6 +454,9 @@ server:{
 			ops:http://172.31.2.12:6199/ batch01/123456,
 			jcm:http://172.31.2.12:8080/jcmadm/vision/index.jsp	admin/admin
 		},
+		gl:{
+			ops:http://172.31.2.12:7199/ batch01/123456,
+		}
 	},
 	pro:{
 		core		http://172.30.2.11:6100/
@@ -502,6 +519,95 @@ BI Statement:{
 
 
 log:{
+	051-sql-start:{
+		14.24,2.31 MB,548:{
+			start-82:{
+				ksys_tabctl,
+				ksys_csbbxx,
+				clp_product,
+				app_organization,
+				app_parameter_reference,
+				app_system_parameter,
+				app_transaction,
+				app_channel,
+				app_data_clean,
+				app_system,
+				app_service,
+				app_attribute,
+				app_attribute_mutex,
+				app_limit,
+				app_limit_drive,
+				app_mail_template,
+				app_business_parameter,
+				app_drop,
+				app_drop_list,
+				app_sequence_reference,
+				app_sequence,
+				app_sequence_builder,
+				app_identity,
+				app_currency,
+				app_summary,
+				app_reversal_event,
+				app_holiday,
+				app_rule,
+				app_rule_data,
+				app_trxn_control,
+				app_scene_auth,
+				app_sms_template,
+				app_sms_element,
+				app_sms_send,
+				app_sms_language,
+				app_branch_relation,
+				tap_business,
+				tap_currency,
+				tap_account_set,
+				cmp_chrg_code,
+				cmp_chrg_form,
+				cmp_chrg_form_details,
+				cmp_chrg_float,
+				cmp_chrg_promo,
+				cmp_chrg_return,
+				cmp_chrg_code_form,
+				cmp_inrt_promo,
+				cmp_role_inrt_float,
+				cmp_exchge_ccy_pair,
+				cmp_exch_promo,
+				cmp_voch_type,
+				cmp_voch_no_rule,
+				lnp_repayment_order,
+				lnp_classification,
+				lnp_bal_attributes,
+				lnf_basic,
+				lnf_drawdown,
+				lnf_repayment,
+				lnf_maturity,
+				lnf_accrual,
+				lnf_field_control,
+				lnf_fee,
+				dpp_account_type,
+				dpp_account_prod,
+				dpp_account_condition,
+				dpp_account_voucher,
+				dpp_subacct_voucher,
+				dpp_froze_type,
+				dpp_froze_mutex,
+				dpp_froze_channel,
+				dpf_base,
+				dpf_open,
+				dpf_save,
+				dpf_draw,
+				dpf_interest,
+				dpf_form_move,
+				dpp_condition_feature,
+				ksys_named_svc,
+				ksys_jyzkzq,
+				ksys_pllcdy,
+				ksys_pllcbz,
+				ksys_rwzhxy,
+				ksys_fwcjxx,
+			}
+		};
+	},
 	111-价值重估:{	'两个需求签约,下周三'
 		pro.sql:{
 			cbs-db:{
@@ -543,22 +649,115 @@ log:{
 		}
 		FCY_EXCHANGE_CUST
 	},
+	112-报表:{		EV"."APB_BATCH_RECEIVE_IDX2
+		2.1:{
+			RPT_LOAN_LIST,
+			RPT_AC_BAL_LCY_FCY-AS1130701:{
+				t2.term_begin_debit_bal AS OPEN_DEBIT_BAL           -- 期初借方余额
+				gl_bal_sum t2 sum(term_begin_debit_bal)
+				AS1130701:{
+					faa_acctoun
+				}
+			}
+		},
+		2.7:{
+			prd.sql:{
+				ods-db:{
+					ALTER TABLE RPT_LOAN_LIST ADD (LOAN_AMT NUMBER(21,2));
+				},
+				gl-db:{},
+				cbs-db-bk:{
+				},
+				gl-db-bk:{},
+			}
+		},
+		2.10:{
+			RPT_LOANS_EX_OVERDRAFT:{
+				Loan Balance,Outstanding Balance
+			}
+		}
+	},
 	000-pro-bug:{
 		002-xml-bug-tradeName->customer:{
 			行方 说今天想投产一个ln25生成 xml的，UAT已经改好验证成功了，只需要投产一个class，但是反编译生成这个class..
 		}
 	},
-	wecodee:{
+	121-wecodee:{
 		网银API:{},
 		mobilebanking,atm&api;
+		prd.sql:{
+			cbs-esb:{
+				INSERT INTO CH_PRCS("PRCSCD", "OPTETG", "PRCSNA", "PERSYS", "SUBPRC", "SUPSYS", "PRCSTG", "PRCSST", "DEALTM", "SUBSYS", "EXTED1", "EXTED2", "EXTED3") VALUES ('40601', '*', '账户信息查询', '200|100', '40601', '800', '0', '0', '20210428', 'CORE', NULL, NULL, NULL);
+				INSERT INTO CH_PRCS("PRCSCD", "OPTETG", "PRCSNA", "PERSYS", "SUBPRC", "SUPSYS", "PRCSTG", "PRCSST", "DEALTM", "SUBSYS", "EXTED1", "EXTED2", "EXTED3") VALUES ('40901', '*', '存款产品查询', '100|106', '40901', '800', '0', '0', '20210428', 'CORE', NULL, NULL, NULL);
+				INSERT INTO CH_PRCS("PRCSCD", "OPTETG", "PRCSNA", "PERSYS", "SUBPRC", "SUPSYS", "PRCSTG", "PRCSST", "DEALTM", "SUBSYS", "EXTED1", "EXTED2", "EXTED3") VALUES ('20203', '*', '支票号查询', '100|106', '20203', '800', '0', '0', '20210428', 'CORE', NULL, NULL, NULL);
+				INSERT INTO CH_PRCS("PRCSCD", "OPTETG", "PRCSNA", "PERSYS", "SUBPRC", "SUPSYS", "PRCSTG", "PRCSST", "DEALTM", "SUBSYS", "EXTED1", "EXTED2", "EXTED3") VALUES ('40100', '*', '活期开户', '100|106', '40100', '800', '0', '0', '20210428', 'CORE', NULL, NULL, NULL);
+				INSERT INTO CH_PRCS("PRCSCD", "OPTETG", "PRCSNA", "PERSYS", "SUBPRC", "SUPSYS", "PRCSTG", "PRCSST", "DEALTM", "SUBSYS", "EXTED1", "EXTED2", "EXTED3") VALUES ('45110', '*', '账号摘要列表查询', '100|106', '45110', '800', '0', '0', '20210428', 'CORE', NULL, NULL, NULL);
+				INSERT INTO CH_PRCS("PRCSCD", "OPTETG", "PRCSNA", "PERSYS", "SUBPRC", "SUPSYS", "PRCSTG", "PRCSST", "DEALTM", "SUBSYS", "EXTED1", "EXTED2", "EXTED3") VALUES ('40610', '*', '账单查询', '100|106', '40610', '800', '0', '0', '20210428', 'CORE', NULL, NULL, NULL);
+				INSERT INTO CH_PRCS("PRCSCD", "OPTETG", "PRCSNA", "PERSYS", "SUBPRC", "SUPSYS", "PRCSTG", "PRCSST", "DEALTM", "SUBSYS", "EXTED1", "EXTED2", "EXTED3") VALUES ('40200', '*', '转账', '100|106', '40200', '800', '0', '0', '20210428', 'CORE', NULL, NULL, NULL);
+				INSERT INTO CH_PRCS("PRCSCD", "OPTETG", "PRCSNA", "PERSYS", "SUBPRC", "SUPSYS", "PRCSTG", "PRCSST", "DEALTM", "SUBSYS", "EXTED1", "EXTED2", "EXTED3") VALUES ('20204', '*', '支票停用', '100|106', '20204', '800', '0', '0', '20210428', 'CORE', NULL, NULL, NULL);
+				INSERT INTO CH_PRCS("PRCSCD", "OPTETG", "PRCSNA", "PERSYS", "SUBPRC", "SUPSYS", "PRCSTG", "PRCSST", "DEALTM", "SUBSYS", "EXTED1", "EXTED2", "EXTED3") VALUES ('40806', '*', '约定转账签约', '100|106', '40806', '800', '0', '0', '20210428', 'CORE', NULL, NULL, NULL);
+				INSERT INTO CH_PRCS("PRCSCD", "OPTETG", "PRCSNA", "PERSYS", "SUBPRC", "SUPSYS", "PRCSTG", "PRCSST", "DEALTM", "SUBSYS", "EXTED1", "EXTED2", "EXTED3") VALUES ('40080', '*', '绑卡', '100|106', '40080', '800', '0', '0', '20210428', 'CORE', NULL, NULL, NULL);
+				INSERT INTO CH_PRCS("PRCSCD", "OPTETG", "PRCSNA", "PERSYS", "SUBPRC", "SUPSYS", "PRCSTG", "PRCSST", "DEALTM", "SUBSYS", "EXTED1", "EXTED2", "EXTED3") VALUES ('45080', '*', '卡列表查询', '100|106', '45080', '800', '0', '0', '20210428', 'CORE', NULL, NULL, NULL);
+				INSERT INTO CH_PRCS("PRCSCD", "OPTETG", "PRCSNA", "PERSYS", "SUBPRC", "SUPSYS", "PRCSTG", "PRCSST", "DEALTM", "SUBSYS", "EXTED1", "EXTED2", "EXTED3") VALUES ('20312', '*', '汇率查询', '100|106', '20312', '800', '0', '0', '20210428', 'CORE', NULL, NULL, NULL);
+				INSERT INTO CH_PRCS("PRCSCD", "OPTETG", "PRCSNA", "PERSYS", "SUBPRC", "SUPSYS", "PRCSTG", "PRCSST", "DEALTM", "SUBSYS", "EXTED1", "EXTED2", "EXTED3") VALUES ('40101', '*', '定期开户', '100|106', '40101', '800', '0', '0', '20210428', 'CORE', NULL, NULL, NULL);
+				INSERT INTO CH_PRCS("PRCSCD", "OPTETG", "PRCSNA", "PERSYS", "SUBPRC", "SUPSYS", "PRCSTG", "PRCSST", "DEALTM", "SUBSYS", "EXTED1", "EXTED2", "EXTED3") VALUES ('30004', '*', '个人客户信息查询', '100|106', '30004', '800', '0', '0', '20210428', 'CORE', NULL, NULL, NULL);
+				INSERT INTO CH_PRCS("PRCSCD", "OPTETG", "PRCSNA", "PERSYS", "SUBPRC", "SUPSYS", "PRCSTG", "PRCSST", "DEALTM", "SUBSYS", "EXTED1", "EXTED2", "EXTED3") VALUES ('30003', '*', '个人客户详细信息查询', '100|106', '30003', '800', '0', '0', '20210428', 'CORE', NULL, NULL, NULL);
+				INSERT INTO CH_PRCS("PRCSCD", "OPTETG", "PRCSNA", "PERSYS", "SUBPRC", "SUPSYS", "PRCSTG", "PRCSST", "DEALTM", "SUBSYS", "EXTED1", "EXTED2", "EXTED3") VALUES ('40603', '*', '账户列表查询', '100|106', '40603', '800', '0', '0', '20210503', 'CORE', NULL, NULL, NULL);
+				INSERT INTO CH_PRCS("PRCSCD", "OPTETG", "PRCSNA", "PERSYS", "SUBPRC", "SUPSYS", "PRCSTG", "PRCSST", "DEALTM", "SUBSYS", "EXTED1", "EXTED2", "EXTED3") VALUES ('30150', '*', '个人客户简单信息查询', '100|106', '30150', '800', '0', '0', '20210503', 'CORE', NULL, NULL, NULL);
+				INSERT INTO CH_PRCS("PRCSCD", "OPTETG", "PRCSNA", "PERSYS", "SUBPRC", "SUPSYS", "PRCSTG", "PRCSST", "DEALTM", "SUBSYS", "EXTED1", "EXTED2", "EXTED3") VALUES ('44060', '*', '多客户账户列表查询', '100|106', '44060', '800', '0', '0', '20210504', 'CORE', NULL, NULL, NULL);
+				INSERT INTO CH_PRCS("PRCSCD", "OPTETG", "PRCSNA", "PERSYS", "SUBPRC", "SUPSYS", "PRCSTG", "PRCSST", "DEALTM", "SUBSYS", "EXTED1", "EXTED2", "EXTED3") VALUES ('30008', '*', '公司客户信息查询', '100|106', '30008', '800', '0', '0', '20210505', 'CORE', NULL, NULL, NULL);
+				INSERT INTO CH_PRCS("PRCSCD", "OPTETG", "PRCSNA", "PERSYS", "SUBPRC", "SUPSYS", "PRCSTG", "PRCSST", "DEALTM", "SUBSYS", "EXTED1", "EXTED2", "EXTED3") VALUES ('30111', '*', '联名客户查询', '100|106', '30111', '800', '0', '0', '20210505', 'CORE', NULL, NULL, NULL);
+				INSERT INTO CH_PRCS("PRCSCD", "OPTETG", "PRCSNA", "PERSYS", "SUBPRC", "SUPSYS", "PRCSTG", "PRCSST", "DEALTM", "SUBSYS", "EXTED1", "EXTED2", "EXTED3") VALUES ('40614', '*', '存放同业账户信息查询', '100|106', '40614', '800', '0', '0', '20210511', 'CORE', NULL, NULL, NULL);
+				INSERT INTO CH_PRCS("PRCSCD", "OPTETG", "PRCSNA", "PERSYS", "SUBPRC", "SUPSYS", "PRCSTG", "PRCSST", "DEALTM", "SUBSYS", "EXTED1", "EXTED2", "EXTED3") VALUES ('40808', '*', '约定转账查询', '100|106', '40808', '800', '0', '0', '20210511', 'CORE', NULL, NULL, NULL);
+			},
+			cbs-db:{
+				
+				INSERT INTO APP_CHANNEL("CHANNEL_ID", "CHANNEL_DESC", "COUNTER_IND", "REG_REVERSAL_EVENT_IND", "REG_RECEIPT_IND", "AUTO_CHRG_METHOD", "DATA_CREATE_USER", "DATA_CREATE_TIME", "DATA_UPDATE_USER", "DATA_UPDATE_TIME", "DATA_VERSION") VALUES ('106', 'Weecode Application ', 'N', 'Y', 'Y', '1', 'S####', '20210428', 'S####', '20210428', '1');
+				INSERT INTO APP_CHANNEL("CHANNEL_ID", "CHANNEL_DESC", "COUNTER_IND", "REG_REVERSAL_EVENT_IND", "REG_RECEIPT_IND", "AUTO_CHRG_METHOD", "DATA_CREATE_USER", "DATA_CREATE_TIME", "DATA_UPDATE_USER", "DATA_UPDATE_TIME", "DATA_VERSION") VALUES ('107', 'Visa Application ', 'N', 'Y', 'Y', '1', 'S####', '20210518', 'S####', '20210518', '1');
+				INSERT INTO APP_SYSTEM("SYSTEM_ID", "SYSTEM_NAME", "TRXN_SEQ_MODE", "SYSTEM_SEGMENT", "DATA_CREATE_USER", "DATA_CREATE_TIME", "DATA_UPDATE_USER", "DATA_UPDATE_TIME", "DATA_VERSION") VALUES ('106', 'Weecode Application ', 'A', '106', 'S####', '20210428', 'S####', '20210428', '1');
+				INSERT INTO APP_SYSTEM("SYSTEM_ID", "SYSTEM_NAME", "TRXN_SEQ_MODE", "SYSTEM_SEGMENT", "DATA_CREATE_USER", "DATA_CREATE_TIME", "DATA_UPDATE_USER", "DATA_UPDATE_TIME", "DATA_VERSION") VALUES ('107', 'Visa Application ', 'A', '107', 'S####', '20210518', 'S####', '20210518', '1');
+				
+				INSERT INTO KSYS_FWCJXX("ZXTONGBH", "WAIBFWMA", "WAIBCJMA", "YWFWBDID", "FUWUMOSH", "YUNXZXBZ", "NEIBFWMA", "MIAOSXXI", "FUWULEIX", "TXXYBZHI") VALUES ('onl', '3015', '800', 'cf3015', 'S', '1', '3015', 'Personal Info Simple Inquiry', 'T', 'defaultProtocol');
+				-- INSERT INTO KSYS_FWCJXX("ZXTONGBH", "WAIBFWMA", "WAIBCJMA", "YWFWBDID", "FUWUMOSH", "YUNXZXBZ", "NEIBFWMA", "MIAOSXXI", "FUWULEIX", "TXXYBZHI") VALUES ('onl', '30004', '800', '3016', 'S', '1', '30004', 'Individual Information List Inquiry', 'T', 'defaultProtocol');
+				INSERT INTO KSYS_FWCJXX("ZXTONGBH", "WAIBFWMA", "WAIBCJMA", "YWFWBDID", "FUWUMOSH", "YUNXZXBZ", "NEIBFWMA", "MIAOSXXI", "FUWULEIX", "TXXYBZHI") VALUES ('onl', '30150', '800', '3015', 'S', '1', '30150', 'Personal Info Simple Inquiry', 'T', 'defaultProtocol');
+				INSERT INTO KSYS_FWCJXX("ZXTONGBH", "WAIBFWMA", "WAIBCJMA", "YWFWBDID", "FUWUMOSH", "YUNXZXBZ", "NEIBFWMA", "MIAOSXXI", "FUWULEIX", "TXXYBZHI") VALUES ('onl', '4406', '800', 'cf3015', 'S', '1', '4406', 'account list query for multiple cifs', 'T', 'defaultProtocol');
+				INSERT INTO KSYS_FWCJXX("ZXTONGBH", "WAIBFWMA", "WAIBCJMA", "YWFWBDID", "FUWUMOSH", "YUNXZXBZ", "NEIBFWMA", "MIAOSXXI", "FUWULEIX", "TXXYBZHI") VALUES ('onl', '44060', '800', '4406', 'S', '1', '44060', 'account list query for multiple cifs', 'T', 'defaultProtocol');
+				INSERT INTO CTP_TRXN_MAPPING("CT_TRXN_CODE", "TRXN_CODE_NAME", "BACKEND_TRXN_CODE", "TRXN_CONTROL_IND", "DATA_CREATE_USER", "DATA_CREATE_TIME", "DATA_UPDATE_USER", "DATA_UPDATE_TIME", "DATA_VERSION") VALUES ('30150', 'personal customer info inquiry simple', '3015', 'N', 'S####', '20210503 20:33:56 611', 'S####', '20210503 20:33:56 611', '1');
+				INSERT INTO CTP_TRXN_MAPPING("CT_TRXN_CODE", "TRXN_CODE_NAME", "BACKEND_TRXN_CODE", "TRXN_CONTROL_IND", "DATA_CREATE_USER", "DATA_CREATE_TIME", "DATA_UPDATE_USER", "DATA_UPDATE_TIME", "DATA_VERSION") VALUES ('44060', 'personal customer info inquiry simple', '4406', 'N', 'S####', '20210504 19:32:56 611', 'S####', '20210504 19:32:56 611', '1');
+				INSERT INTO APP_TRANSACTION("TRXN_CODE", "TRXN_TYPE", "TRXN_DESC", "ALLOW_REVERSAL", "FLOW_TRXN_ID", "REGISTER_PACKET_IND", "OVER_TIME", "LOG_LEVEL", "ENABLE_IND", "GLOBAL_PARM_MNTN_IND", "DATA_CREATE_USER", "DATA_CREATE_TIME", "DATA_UPDATE_USER", "DATA_UPDATE_TIME", "DATA_VERSION") VALUES ('3015', 'Q', 'Personal Info Simple Inquiry', 'N', 'cf3015', 'Y', NULL, 'error', 'Y', 'N', 'S####', '20210503', 'S####', '20210503', '1');
+				INSERT INTO APP_TRANSACTION("TRXN_CODE", "TRXN_TYPE", "TRXN_DESC", "ALLOW_REVERSAL", "FLOW_TRXN_ID", "REGISTER_PACKET_IND", "OVER_TIME", "LOG_LEVEL", "ENABLE_IND", "GLOBAL_PARM_MNTN_IND", "DATA_CREATE_USER", "DATA_CREATE_TIME", "DATA_UPDATE_USER", "DATA_UPDATE_TIME", "DATA_VERSION") VALUES ('4406', 'Q', 'account list query for multiple cifs', 'N', 'dp4406', 'Y', NULL, 'error', 'Y', 'N', 'S####', '20210504', 'S####', '20210504', '1');
+				COMMIT;
+			},
+			cbs-esb-bk:{
+				DELETE FROM APP_CHANNEL WHERE CHANNEL_ID IN ('106','107');
+				DELETE FROM APP_SYSTEM WHERE SYSTEM_ID IN ('106','107');
+				DELETE FROM CH_PRCS WHERE PRCSCD IN ('40601','40901','20203','40100','45110','40610','40200','20204','40806','40080','20312','40101','30004','30003','40603','30150','44060','30008','30111','40614','40808');
+			},
+			cbs-db-bk:{
+				DELETE FROM KSYS_FWCJXX WHERE WAIBFWMA IN ('3015','30004','30150','4406','44060');
+				DELETE FROM CTP_TRXN_MAPPING WHERE CT_TRXN_CODE IN ('30150','44060');
+				DELETE FROM APP_TRANSACTION WHERE CT_TRXN_CODE IN ('3015','4406');
+				COMMIT;
+			},
+		}
 	},
+	011-sql-template:{
+		prd.sql:{
+			cbs-db:{
+			},
+			gl-db:{},
+			cbs-db-bk:{
+			},
+			gl-db-bk:{},
+		}
+	}
 	'其实是形同陌路的两个人,我非要让他们相交.'
 	now:{
-				210524: 外汇记账编码;
-				210525: 外汇记账编码调整,jcm报表熟悉;
-				210526: vpn?提交部署;演示报表;2602;
-				210527: ;
-				210528: ;
+				210607: ;
+				210608: ;
+				210609: ;
+				210610: ;
+				210611: ;
 	},
 	history:{
 		大盛银行项目周报,210607-210613:{
@@ -574,24 +773,42 @@ log:{
 		},
 		大盛银行项目周报,210531-210606:{
 			George:{
+				210531: 1.Assist obiee report changes on production
+						2.Update overall progress to ict head;
+				210601: 1. Solve obiee report excel file date sorting issues from mr.karatta
+						2. API inquiries from gepg team;
+				210602: GePG issues follow up on fund transfer API;
+				210603: 1.atm-visa weekly meeting catch up, mobile banking integration discussion
+						2.Discussion with finance manager on obiee report regarding interest receivables difference;
+				210604: 1. Mobile banking meeting to clarify on overall scope of mobile banking and the requirement for each API provided
+						2. Weekly task recap report preparing for ict department reporting purpose;
 			},
 			Hardi:{
-				210531: ;
-				210601: ;
-				210602: ;
-				210603: ;
-				210604: ;
+				210531: obiee展示层修改,熟悉;
+				210601: obiee安装,rpd编辑添加字段;
+				210602: rpd更新;OE科目记账梳理;
+				210603: uat,FX记账问题处理;
+				210604: 价值重估UAT跑批排查;
 			}
 		},
 		大盛银行项目周报,210524-210530:{
 			George:{
+				210524: 1. Compile and send out mobile banking api specification to bcx mb team 
+						2. Translate ods requirement into chinese for easier intepreting ;
+				210525: 1. Network establishent between postilion test environment and cbs uat, vpn tunneling setup;
+				210526: 1. Follow up port opening issues on esb uat environment 
+						2.Add on information for Obiee report issues document;
+				210527: 1. ATM integration network establish between postilion test env and cds bank uat environment. Handshake and sending message success
+						2. Credit department requirement confirmation;
+				210528: 1. Revaluation testing issue follow up with finance department
+						2. Outward transfer details confirmation on charges with operation team;
 			},
 			Hardi:{
-				210524: ;
-				210525: ;
-				210526: ;
-				210527: ;
-				210528: ;
+				210524: 外汇记账编码关系梳理;
+				210525: 外汇记账编码调整,jcm报表熟悉;
+				210526: obiee熟悉;
+				210527: 收益记账复式记账改为单边账;
+				210528: wecodee,对外转账、对外签约接口调通;行方查询账号SQL提供;
 			}
 		},
 		大盛银行项目周报,210517-210523:{
@@ -718,8 +935,8 @@ git:{
 		/cn/sunline/ltts/cbs/sys/dict/DpDict.java								dp4406,add cust_str;dp4020,add branch_name
 	},
 	cf-tran:{
-		/trans/base/cf3015.flowtrans.xml
-		/cn/sunline/ltts/busi/cftran/trans/base/intf/Cf3015.java
+		/trans/base/cf3015.flowtrans.xml                                        dp4406,add cust_str;
+		/cn/sunline/ltts/busi/cftran/trans/base/intf/Cf3015.java                dp4406,add cust_str;
 	},
 	lt-tran:{
 		/trans/query/dp4406.flowtrans.xml				refer ap1044			dp4406,add cust_str,usable_bal;dp4020,add branch_name
@@ -743,7 +960,7 @@ git:{
 		/type/dept/ComDpInstruct.c_schema.xml									dp4241,add sign_seq
 		/cn/sunline/ltts/cbs/lt/type/dept/ComDpQueryAcct.java					dp4406,add cust_str;dp4401,add usable_bal;
 		/cn/sunline/ltts/cbs/lt/type/dept/ComDpInstruct.java					dp4241,add sign_seq
-		/src/main/resources/servicetype/dept/SrvDpQueryAcct.serviceType.xml
+		/servicetype/dept/SrvDpQueryAcct.serviceType.xml
 		/cn/sunline/ltts/cbs/lt/servicetype/dept/SrvDpQueryAcct.java
 		/cn/sunline/ltts/cbs/lt/serviceimpl/dept/SrvDpQueryAcctImpl.java
 		/cn/sunline/ltts/cbs/lt/dept/query/DpAcctQuery.java						dp4406,add cust_str;dp4401,add usable_bal;
@@ -940,7 +1157,7 @@ code:{
 }
 vue:{
 	ap:{
-		1000	10001	ap1000In	7201	当日冲账
+		1000	10001	ap1000In	7201	当日冲账				ap1000/10001
 		1001	10002	ap1004In	7202	隔日冲账
 		1042	10012	ap1042In	A101	机构信息查询
 		1042	10033	ap1042In	A101	机构信息查询
@@ -1112,7 +1329,7 @@ vue:{
 		4002	40104	dp4003In	2911	存放同业活期开户
 		4003	40105	dp4004In	2912	存放同业定期开户
 		4011	40111	dp4011In	2102	活期销户
-		4012	40112	dp4012In	2913	存放同业活期销户
+		4012	40112	dp4012In	2913	存放同业活期销户		dp4012
 		4200	40210	dp4040In	2402	定期续存信息维护
 		4041	40211	dp4041In	2204	定期支取
 		4042	40212	dp4042In	2915	存放同业定期支取
@@ -1128,13 +1345,13 @@ vue:{
 		4029	40205	dp4205In	2918	存放同业活期转账
 	#	4066	40206	dp4210In	2211	外币兑换手动汇率		dp4023/40206
 		4220	40500	dp4220In	2501	活期账户利率维护
-		4247	40247	dp4247In	2821	约定转账签约
+		4247	40247	dp4247In	2821	约定转账签约-'他行账户'	dp4247/40247
 		4248	40248	dp4248In	2822	约定转账维护
 		4030	40300	dp4300In	2301	冻结
 		4032	40301	dp4301In	2302	解冻
 		4033	40303	dp4303In	2303	强制扣划
 		4420	40320	dp4320In	2304	冻结信息查询
-		4330	40340	dp4330In	2931	同业拆入账户开立
+		4330	40340	dp4330In	2931	同业拆入账户开立		dp4330/40340
 		4331	40341	dp4331In	2932	同业拆入账户还款:{
 			ApErr.E0068
 		}
@@ -1223,7 +1440,7 @@ vue:{
 		7559	70559	py7559In	B403	账户行信息查询
 		7559	70559	py7559In	B403	账户行信息查询
 		7559	70559	py7559In	A703	账户行信息查询
-		7600	70600	py7600In	3101	汇出汇款
+		7600	70600	py7600In	3101	汇出汇款				
 		7602	70602	py7602In	3102	汇出止付
 		7603	70603	py7603In	3103	汇出汇款查询
 		7604	70604	py7604In	9202	失败电文重发
@@ -1280,7 +1497,7 @@ vue:{
 	ta:{
 		7103	70003	ta7102In	B301	业务编码维护
 		7103	70003	ta7103In	A501	业务编码查询			ta7103/70003
-		4022	70019	ta7107In	6301	一对一内部户转账
+		4022	70019	ta7107In	6301	一对一内部户转账		ta4022/70019
 		4021	70021	ta7109In	6302	多对多内部户转账
 		7106	70025	ta7111In	A502	多对多业务场景查询
 		7106	70025	ta7112In	B302	多对多业务场景码维护
@@ -1549,6 +1766,31 @@ tables:{
 			}
 		}
 	},
+	lna_balance:{
+		insert-1:{
+			LnBalance.updateBalanceSingle(String, LnLoanGLType, boolean);-1:{
+				LnBalance.updateLoanBalanceInner(LnBalanceGLType, boolean);-1:{
+					LnBalance.updateLoanBalance(LnBalanceGLType)-3:{
+						LnAccounting.loanAccounting(String, LnBalanceGLType)-5:{
+							ln6009-'Loan repayment schedule maintenance',
+							ln04-'loan interest amortization',
+							ln08-'loan transfer',
+							ln11-'loan due interest',
+						},
+						LnAccounting.balanceUpdateAndRegister(LnBalanceGLType)-1:{
+							ln14-'loan loss provision calculation'
+						},
+						LnAccountingAccrual.accrual(LnBalanceGLType, String)-1:{
+							ln09-'loan accrual interest'
+						}
+					}
+				}
+			}
+		},
+		col:{
+			balance_amount-'余额金额'
+		}
+	},
 	LNA_PHASE:{
 		insert-15:{
 			10:{
@@ -1768,26 +2010,55 @@ esb:{
 	com.sunline.flowbank.cr.core.CRMain start ibps	
 },
 etl:{
-	RMIServlet:{
-		<servlet>
-			<servlet-name>RMIServlet</servlet-name>
-			<servlet-class>jcm.framework.rmi.RMIServlet</servlet-class>
-		</servlet>
-		
-		<servlet-mapping>
-			<servlet-name>RMIServlet</servlet-name>
-			<url-pattern>/vision/RMIServlet</url-pattern>
-		</servlet-mapping>
-		
-		<servlet-mapping>
-			<servlet-name>RMIServlet</servlet-name>
-			<url-pattern>/version/RMIServlet</url-pattern>
-		</servlet-mapping>
+	jcm:{
+		RMIServlet:{
+			<servlet>
+				<servlet-name>RMIServlet</servlet-name>
+				<servlet-class>jcm.framework.rmi.RMIServlet</servlet-class>
+			</servlet>
 			
-		<servlet-mapping>
-			<servlet-name>RMIServlet</servlet-name>
-			<url-pattern>*.stub</url-pattern>
-		</servlet-mapping>
+			<servlet-mapping>
+				<servlet-name>RMIServlet</servlet-name>
+				<url-pattern>/vision/RMIServlet</url-pattern>
+			</servlet-mapping>
+			
+			<servlet-mapping>
+				<servlet-name>RMIServlet</servlet-name>
+				<url-pattern>/version/RMIServlet</url-pattern>
+			</servlet-mapping>
+				
+			<servlet-mapping>
+				<servlet-name>RMIServlet</servlet-name>
+				<url-pattern>*.stub</url-pattern>
+			</servlet-mapping>
+		}
+	},
+	ods:{
+		$ETL_HOME:	/app/etlscript/,
+		sql:{
+			autocode
+				├── ddl
+				│	├── ...
+				│	├── iol
+				│	└── itl
+				├── dml
+				│	├── icl
+				│	│	└── icl_icl_table_test.sql
+				│	├── idl
+				│	│	└── idl_idl_table_test.sql
+				│	├── iel
+				│	│	├── iel_iml_cust_basic_info.sql
+				│	├── iml
+				│	│	├── iml_cust_basic_info_j01.sql
+				│	├── iol
+				│	│	└── iol_cbs_user_info.sql
+				│	└── itl
+				│	└── itl_cbs_user_info.sql
+				└── ext
+				├── cbs_if_mark.conf
+				└── xml
+				└── cbs_user_info.xml
+		}
 	}
 },
 common:{

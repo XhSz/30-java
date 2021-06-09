@@ -40,7 +40,200 @@ exchange:{
 		"套汇":{'利用同一时期'"两个"'或两个以上的外汇市场上现汇'"汇率"'的'"差异"'进行外汇买卖,通过低进高出即贱买贵卖从中套取利润的一种投机活动'},
 	}
 },
+edsp:{
+	11-ksys_rwzhxy-'批量任务执行域':{
+					jyzxybzh								fenbsjql		kezxlclb		kezxjyzl	zhixyzht	zxtongbh
+				批量交易执行域标识	分布式环境下,worker集群列表,格式ip1:port1;ip2:port2	可执行批量交易组列表
+																	可执行批量交易流程列表				执行域状态	子系统编号
+		values:{
+			GL	99	GL			5	10	10	5	10	20	172.31.2.12:7493		;				*		RUNNING		bat
+			GL	99	gl_dayend	1	1	5	5	10	20	;					gl_dayend			;		RUNNING		bat
+			GL	99	gl_yearend	1	1	5	5	10	20	;					gl_yearend			;		RUNNING		bat
+		}
+	},	
+	12-ksys_pllcbz-'批量流程步骤控制器':{
+					pljylcbs	lcbuzmch			liucbuzh	zhixxuha	pljyzbsh		shifzhix
+				批量交易流程ID	流程步骤名称		流程步骤号	执行序号	批量交易组ID	是否执行
+		values:{
+			GL	99	gl_dayend	GL EOD check			1			10			900				1
+			GL	99	gl_dayend	gl date switch before	2			10			910				1
+			GL	99	gl_dayend	gl date switch			3			10			920				1
+			GL	99	gl_dayend	gl date switch after	4			10			930				1
+			GL	99	gl_yearend	gl year end trail		1			10			940				1
+		}
+	},
+	13-ksys_jyzkzq-'交易组控制器':{
+					pljyzbsh	zubiezwm					rwyxxktj				rwyxhdfw
+				批量交易组ID	交易组别中文描述	批量任务运行许可条件	批量任务运行回调服务
+		values:{
+			GL	99	100			File Operation		
+			GL	99	110			Timing Task		
+			GL	99	900			GL EOD check		
+			GL	99	910			gl date switch before		
+			GL	99	920			gl date switch		
+			GL	99	930			gl date switch after		
+			GL	99	940			gl year end trail		
+		}
+	},
+	21-ksys_plrenw-'批量任务表':{
+		insert-1:{
+			DBBatchTaskInfoManager.registBatchTaskInfo(BatchTaskInfo, boolean);-3:{
+				2-BatchUtil:{
+					BatchUtil.submitAndRunTask(BatchTaskSubmitInfo, boolean);
+					BatchUtil.submitAndRunTaskForAdmWeb(String, String, int, E_BATCHTASKEXECUTORMODE, DataArea)
+				},
+				1-DBBatchTaskInfoManager.registBatchTaskInfo(BatchTaskInfo)-1:{
+				};
+			}
+		},
+		col:{
+			plrwzxpc-'批量任务执行批次号':{
+				set-1:{
+					DBBatchTaskExecuteInfo.setBatchTaskExecuteId(String);-7:{
+						
+					}
+				}
+			}
+		},
+		bean-interface-"BatchTaskInfo":{
+			implements:{
+				DBBatchTaskInfo:{
+					ksys_plrenw info;:{
+						
+					},
+					DBBatchTaskInfo();:{info=new ksys_plrenw},
+					DBBatchTaskInfo(ksys_plrenw):{info=ksys_plrenw},
+				}
+			}
+		}
+	},
+	ksys_plrwyx-'批量任务运行表':{
+		insert-2:{
+			DBBatchTaskExecuteInfoManager.registBatchTaskInfo(BatchTaskExecuteInfo, boolean);
+			DBBatchTaskExecuteInfoManager.modifyBatchTaskInfo(BatchTaskExecuteInfo, boolean);
+		},
+		values:{
+			
+		}
+	}
+},
+ltts:{
+	batch:{
+		EngineBatchPluginErrorDef-'批量调度引擎插件错误码定义':{
+			SP_EB-'批量调度引擎插件':{
+				E133-'任务执行域${domainId}作业服务器列表属性配置错误':{
+					call-1:{
+						RemoteJobExecutorThreadPoll.RemoteJobExecutorThreadPoll(BatchTaskDomainInfo, ThreadPoolExecutor);:{
+							logic:{
+								getSocketCliendConfig(BatchTaskDomainInfo):{
+									for(config.getWorkers()):{
+										new SocketClientConfig(ipAndPort, (String)items.get(0), Integer.parseInt((String)items.get(1)))
+									}
+								},
+							},
+							call-1:{
+								BatchTaskExecutorRouterByServerMode.getBatchJobExecutor(BatchStep):{
+									logic:{
+										
+									},
+									BatchTaskDomainInfo domainInfo -set-1:{
+										BatchTaskExecutorRouterByServerMode(ThreadPoolExecutor, ThreadPoolExecutor, BatchTaskDomainInfo domainInfo);:{
+											call-1:{
+												LocalBatchTaskDomainServer.BatchTaskCallable.execute():{
+													config-set-2:{
+														LocalBatchTaskDomainServer(BatchTaskDomainInfo);-1:{
+															LocalBatchTaskDomainServerManager.domainStart(BatchTaskDomainInfo);-2:{
+																LocalBatchTaskDomainServerManager.domainLoad();-logic:{
+																	BatchResources.get().getBatchServerDataManager().getAllRunnableDomainInfo(subSystemId);-call-2:{
+																		DBBatchServerDataManager.getAllRunnableDomainInfo(String);-logic:{
+																			getGroupDomainInfos(SysBatchDao.selectAllRunnableTaskDomain(subSystemId, CoreUtil.getSystemId(), false));:{
+																				nsql-SysBatch.selectAllRunnableTaskDomain:{
+																					select * from ksys_rwzhxy
+																					where zhixyzht in ('START', 'RUNNING') and zxtongbh='bat' and xitongbs='CBS'
+																				},
+																				new DBBatchTaskDomainInfo(domain-'ksys_rwzhxy');:{
+																					domain_id:"xitongbs-Farendma-Jyzxybzh"; 'CBS-99-Core_EOD'
+																					workers:Fenbsjql; ';'
+																				}
+																			}
+																		}
+																		XmlBatchServerDataManager.getAllRunnableDomainInfo(String);:{return null;}
+																	}
+																},
+																LocalBatchTaskDomainServerManager.domainReload();-logic:{
+																	BatchResources.get().getBatchServerDataManager().getAllStartDomainInfo(subSystemId);-call-2:{
+																		DBBatchServerDataManager.getAllStartDomainInfo(String);-logic:{
+																			getGroupDomainInfos(Ksys_rwzhxyDao.selectAll_odb_2(subSystemId, KBaseEnumType.E_ZHIXYZHT.START, false));:{}
+																		}
+																		XmlBatchServerDataManager.getAllStartDomainInfo(String);:{return null;}
+																	}
+																}
+															}
+														}
+														LocalBatchTaskDomainServer.reload(BatchTaskDomainInfo);
+													},
+													batchTaskInfo-BatchTaskCallable.BatchTaskInfo-set:{
+														BatchTaskCallable(BatchTaskInfo, BatchTaskExecuteInfoManager);
+														LocalBatchTaskDomainServer.submit(BatchTaskInfo, boolean);
+													}
+												}
+											}
+										}
+									}
+								}
+							}
+						}
+					} 
+				}
+			}	
+		}
+	}
+},
 ap:{
+	ap0901-'获取需要执行的日终流程':{
+		S-CustomBatchManager.getFlowIdsBySystemId-'获取需要执行的日终流程服务':{
+			IBatchTranCustomManager.getFlowIdsForSystemId(String xitongbs)-'batch_trans_custom.batchTransCustomManager':{
+				BsapBatchTranCustomManagerImpl.getFlowIdsForSystemId(String):{
+					nsql-ApDayEnd.selBatchTranDef:{
+						select
+								a.pljylcbs,a.zhongwmc 
+						from
+								ksys_pllcdy a 
+						where
+								a.xitongbs = #system_id#
+					}
+				}
+			}
+		}
+	},
+	ap0800-'多法人日终状态全量信息查询':{
+		S-CustomBatchManager.selMultiCorpnoStatusInfo-'多法人日终状态信息查询':{
+			IBatchTranCustomManager.getMultiCorpnoDayEndStu(systcd, flowId, dayEndDate);-'batch_trans_custom.batchTransCustomManager':{
+				BsapBatchTranCustomManagerImpl.getMultiCorpnoDayEndStu(String):{
+					table-aps_dayend_info-select:{}
+				}
+			}
+			table-aps_dayend_info-insert;
+		}
+	},
+	ap0801-X00006'bat'-X00005'ops'eb0801-:{
+		S-CustomBatchManager.submitMultiCorpnoDayEnd:{
+			
+		}
+	},
+	ap0810-'单法人多DCN日终状态查询服务':{
+		S-CustomBatchManager.selMultiDcnStatusInfo-'获取需要执行的日终流程服务':{
+			shifddcn:{
+				!N:{
+					CustomDRSUtil.findAllDcnNosWithAdmin();:{
+						getIDRSClient().getDCN();:{
+							
+						}
+					}
+				}
+			}
+		}
+	},
 	ApTrxn.getAccountingEventSerial();:{
 		call-1:{
 			TaAccounting.regAccountingEvent(IoTaAccountingEventIn);
@@ -54,205 +247,12 @@ ap:{
 	ApBusinessParm.getValue:{
 		select * from app_business_parameter where main_key='' and sub_key='*';
 		select * from app_business_parameter where main_key='' and sub_key='';
+	},
+	ApFile.getFullPath：{
+		select * from app_directory;
+	},
+	ApSystemParm.getValue:{
+		select * from app_system_parameter where main_key='' and sub_key='*';
+		select * from app_system_parameter where main_key='' and sub_key='';
 	}
 },
-ta:{
-	accounting:{
-		流水账xx年xx月xx日 当天我有1000块钱。                                                           
-		交易        余额前一天余额                                                         
-		1000 餐费：买早饭                                -10               990
-		交通费：地铁                                     -4                986
-		餐费：买午饭                                     -30               956
-		再学着把流水账分复式账，把备注的用途拆出来错开写，分借贷科目，借正贷负。
-		借：餐费  10       贷：钱   10
-		借：交通费 4       贷：钱   4
-		借：餐费  39       贷：钱  30
-		钱余额  1000-10-4-30=956 做着渐渐就明白了。
-		资产增加就是借记，负债就是贷记
-
-		作者：知乎用户
-		链接：https://www.zhihu.com/question/21222111/answer/267099795
-		来源：知乎
-		著作权归作者所有。商业转载请联系作者获得授权，非商业转载请注明出处。
-	},
-	SrvIoTaAccounting.regAccountingEvent:{	'登记会计事件'
-		field:{
-			acct_no-'现金账号'-Y,
-			debit_credit-'记账方向'
-			trxn_ccy-'交易币种'
-			trxn_amt-'交易金额'
-			acct_branch-'账务机构'
-			accounting_alias-'核算别名':{
-				"CASH",
-			},
-			accounting_subjet-'会计主体':{
-				enum:{
-					<restrictionType id="E_ACCOUNTINGSUBJECT" longname="accounting subject" base="string" maxLength="1" minLength="0">
-						<enumeration id="DEPOSIT" value="1" longname="deposit"/>
-						<enumeration id="LOAN" value="2" longname="loan"/>
-						<enumeration id="CASH" value="3" longname="cash"/>
-						<enumeration id="VOUCHER" value="4" longname="voucher"/>
-						<enumeration id="FEE" value="5" longname="fees"/>
-						<enumeration id="INSIDE" value="6" longname="internal account"/>
-						<enumeration id="CREDIT" value="7" longname="credit card"/>
-					</restrictionType>
-				}
-			},
-			bal_attributes-'余额属性':{
-				note:{
-					dp:{
-						"DP01"-"负债本金"
-						"DP02"-"应付利息"
-						"DP03"-"利息税"
-						"DP04"-"已付利息"
-						"DP11"-"资产本金"
-						"DP12"-"应收利息"
-						"DP13"-"利息收入"
-						"DP14"-"超额利息"
-						"DP15"-"特殊准备金"
-					},
-					ta:{					
-						"TA01"-"内部户本金"
-					},
-					ln:{
-						"LN01"-"贷款减值损失"
-					},
-					cs:{
-						"CS01"-"现金存量"
-						"CS02"-"途中现金库存"
-						"CS03"-"现金装置"
-						"CS04"-"途中现金装置"
-						"CS05"-"一般现金"
-						"CS06"-"漂亮现金"
-						"CS11"-"现金变动利润"
-						"CS12"-"现金变动损失"
-					},
-					vc:{
-						"VC01"-"代金券库存"
-					},
-					cg:{
-						"CG01"-"收费"
-						"CG02"-"摊销费用"
-					},
-					co:{
-						"CO01"-"抵押物价值"
-					}233,254,275,296,321,434,443,471,505,620,662,682,
-				},
-				enum:{
-					<restrictionType id="E_BALPROPERTY" longname="balance property" base="string" maxLength="4">
-						<enumeration id="DEPOSIT" value="DP01" longname="deposit principal"/>								"DP01"-"负债本金"
-						<enumeration id="INTEREST_PAYABLE" value="DP02" longname="interest payable"/>                       "DP02"-"应付利息"
-						<enumeration id="INTEREST_TAX" value="DP03" longname="interest tax"/>                               "DP03"-"利息税"
-						<enumeration id="INTEREST_PAY" value="DP04" longname="interest pay"/>                               "DP04"-"已付利息"
-						<enumeration id="CAPITAL" value="DP11" longname="asset principal"/>                                 "DP11"-"资产本金"
-						<enumeration id="INTEREST_RECEIVABLE" value="DP12" longname="receivable interest"/>                 "DP12"-"应收利息"
-						<enumeration id="INTEREST_INCOME" value="DP13" longname="interest income"/>                         "DP13"-"利息收入"
-						<enumeration id="BAD_INTEREST_RECEIVABLE" value="DP14" longname="bad overdraft accrued Interest"/>  "DP14"-"超额利息"
-						<enumeration id="SPECIAL_PROVISION_AMT" value="DP15" longname="special provision amtount"/>         "DP15"-"特殊准备金"
-						<enumeration id="INAC_PRCP" value="TA01" longname="internal account principal"/>                    "TA01"-"内部户本金"
-						<enumeration id="LOAN_IMPAIRMENT_LOSS" value="LN01" longname="loan impairment loss"/>               "LN01"-"贷款减值损失"
-						<enumeration id="CASH_STOCK" value="CS01" longname="cash stock"/>                                   "CS01"-"现金存量"
-						<enumeration id="CASH_STOCK_WAY" value="CS02" longname="on the way cash stock"/>                    "CS02"-"途中现金库存"
-						<enumeration id="CASH_DEVICE" value="CS03" longname="cash device"/>                                 "CS03"-"现金装置"
-						<enumeration id="CASH_DEVICE_WAY" value="CS04" longname="on the way cash device"/>                  "CS04"-"途中现金装置"
-						<enumeration id="CASH_GENERAL" value="CS05" longname="cash general"/>                               "CS05"-"一般现金"
-						<enumeration id="CASH_PRETTY" value="CS06" longname="cash pretty"/>                                 "CS06"-"漂亮现金"
-						<enumeration id="CASH_CHANGE_PROFIT" value="CS11" longname="cash change profit"/>                   "CS11"-"现金变动利润"
-						<enumeration id="CASH_CHANGE_LOSS" value="CS12" longname="cash change loss"/>                       "CS12"-"现金变动损失"
-						<enumeration id="VOCH_STOCK" value="VC01" longname="voucher stcok"/>                                "VC01"-"代金券库存"
-						<enumeration id="CHRG" value="CG01" longname="charge"/>                                             "CG01"-"收费"
-						<enumeration id="CHRG_AMORT" value="CG02" longname="amortization charge"/>                          "CG02"-"摊销费用"
-						<enumeration id="COLLATERAL_VALUE" value="CO01" longname="collateral value"/>                       "CO01"-"抵押物价值"
-						<subenums>
-							<subenum id="E_TA" enums="INAC_PRCP" longname="internal account balance property"/>
-							<subenum id="E_DP" enums="DEPOSIT,INTEREST_PAYABLE,INTEREST_TAX,INTEREST_PAY,CAPITAL,INTEREST_RECEIVABLE,INTEREST_INCOME" longname="loan balance property"/>
-							<subenum id="E_CS" enums="CASH_STOCK,CASH_STOCK_WAY,CASH_DEVICE,CASH_DEVICE_WAY" longname="cash balance property"/>
-							<subenum id="E_VC" enums="VOCH_STOCK" longname="voucher stock balance property"/>
-							<subenum id="E_CG" enums="CHRG,CHRG_AMORT" longname="charge balance property"/>
-						</subenums>
-					</restrictionType>
-				}
-			},
-			double_entry_ind-'复试记账标志':{
-				baidu:{
-					'复式记账法是以资产与权益平衡关系作为记账基础，对于每一笔经济业务，都要以相等的金额在两个或两个以上相互联系的账户中进行登记，系统地反映资金运动变化结果的一种记账方法。'
-					'复式记账是对每一项经济业务通过两个或两个以上有关账户相互联系起来进行登记的一种专门方法。任何一项经济活动都会引起资金的增减变动或财务收支的变动。'
-				}
-			}
-		},
-		caogao:{
-			taAccountingEvnetIn.setAcct_no(regACSerailIn.getAcct_no()); 			// 现金账号
-			taAccountingEvnetIn.setDebit_credit(regACSerailIn.getDebit_credit());	// 记账方向
-			taAccountingEvnetIn.setTrxn_ccy(regACSerailIn.getCcy_code()); 			// 交易币种
-			taAccountingEvnetIn.setTrxn_amt(regACSerailIn.getTrxn_amt()); 			// 交易金额
-			taAccountingEvnetIn.setAcct_branch(regACSerailIn.getAcct_branch()); 	// 账务机构
-			taAccountingEvnetIn.setAccounting_alias(CmConst.CASH_ACCOUNTING_ALIAS); // 核算别名
-			taAccountingEvnetIn.setAccounting_subject(E_ACCOUNTINGSUBJECT.CASH); 	// 会计主体
-			taAccountingEvnetIn.setBal_attributes(balProperty.toString()); 			// 余额属性
-			taAccountingEvnetIn.setDouble_entry_ind(E_YESORNO.YES);					// 复试记账标志
-		}
-		logic:{
-			TaAccounting.regAccountingEvent(IoTaAccountingEventIn);:{
-				tables-tap_accountingevent_ctrl-'会计事件控制'-select:{
-					where accounting_alias='' and bal_attributes=''
-				},
-				tables-tas_accounting_event-'会计事件表'-insert:{
-					
-				},
-			}
-		}
-	},
-	SrvIoTaAccounting.checkBalance();-'账务平衡检查':{	'账务检查'
-		method-BizUtil.getTrxRunEnvs-'null',
-		method-ApOrg.getReferenceOrgId-'null':{
-			method-BizUtil.getTrxRunEnvs-'null',
-			method-BizUtil.isOrgRelated-'null',
-			table-app_parameter_reference-select-'parameter reference define',
-			table-app_parameter_reference-select-'parameter reference define',
-			method-BizUtil.isParmTable-'null',
-			method-ApOrg.getOrgInfo-'null':{
-				table-app_organization-select-'organization infomation'
-			},
-			method-ApOrg.getOrgInfo-'null':{
-				table-app_organization-select-'organization infomation'
-			}
-		},
-		nsql-TaAccounting.selTrxnNoBalancedData-S-tas_accounting_event-select
-			-'getting the unbalanced records by transaction sequence ':{
-			select
-					a.trxn_ccy, sum(case a.debit_credit when 'D' then a.trxn_amt else - a.trxn_amt end) as trxn_amt 
-			from
-					tas_accounting_event a 
-			where
-					a.trxn_seq = #trxn_seq# 
-				and a.org_id = #org_id# 
-				and a.double_entry_ind = 'Y' 
-			group by
-					a.trxn_ccy
-			having
-					sum(case a.debit_credit when 'D' then a.trxn_amt else - a.trxn_amt end) !=0 
-		},
-		table-tas_accounting_event-select-'accounting event'
-	}
-},
-tables:{
-	ta:{
-		taa_account:{
-			insert-1:{
-				TaAccountMnt.openAcct(TaAcctInfo);-3:{
-					TaAccounting.noExistAccount(IoTaBookAccountingIn)-0;
-					SrvTaAccount.openAcct(TaAcctInfo);-'内部户开户'-1 						<-	ta7201/70006	<-6101
-					TaSuspenseMnt.openSuspense(TaSuspenOpenInfo);-2:{
-						TaAccounting.openSuspenseNo(IoTaBookSuspenseIn)-0;
-						SrvTaSuspens.openSuspense(TaSuspenOpenInfo);-'待销账手工开立'-1 	<-	ta7301
-					}
-				}
-			},
-		},
-		tas_accounting_event:{
-			insert-1:{
-				TaAccounting.regAccountingEvent(IoTaAccountingEventIn);-'登记会计事件'
-			}
-		}
-	}
-}

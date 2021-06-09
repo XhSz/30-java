@@ -7,6 +7,7 @@ select * from table_name limit 1; --
 select * from table_name limit 100;
 select * from table_name where rownum <101;
 SELECT * FROM table_name WHERE ROWNUM <101;
+SELECT * FROM table_name WHERE ROWNUM <11;
 select * from table_name order by data_create_time desc limit 100;
 select * from(
 	select * from table_name order by data_create_time desc 

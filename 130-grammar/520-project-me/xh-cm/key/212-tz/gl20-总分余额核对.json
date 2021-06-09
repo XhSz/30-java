@@ -1,0 +1,100 @@
+gl20-'总分余额核对':{
+			process:{
+					method-ApOrg.getReferenceOrgId-'null':{
+						method-BizUtil.getTrxRunEnvs-'null',
+						method-BizUtil.isOrgRelated-'null',
+						table-app_parameter_reference-select-'参数引用定义',
+						table-app_parameter_reference-select-'参数引用定义',
+						method-BizUtil.isParmTable-'null',
+						method-ApOrg.getOrgInfo-'null':{
+							table-app_organization-select-'法人信息'
+						},
+						method-ApOrg.getOrgInfo-'null':{
+							table-app_organization-select-'法人信息'
+						}
+					},
+					method-BizUtil.getTrxRunEnvs-'null',
+					# 	nsql-FaAccounting.delLedgerCheckResult-D-fab_ledger_check_result-delete-'delete ledger check result by date',
+					method-ApSystemParm.getValue-'null':{
+						table-app_system_parameter-select-'系统杂项参数',	'LEDGERC_CHECK_NO_GL_CODE'-'800':{
+							IN601,IN602,IN603,IN604,IN605,EX606,EX607,EX608,EX610,LI2070301,EX609,LI2070201,OF901,IN6010301,IN6011001,IN6020111,EX6050101,OE403
+						}
+					},
+					nsql-FaAccounting.selLedgerNoCheckGlCode-S-fap_accounting_subject-select-'query no check gl code':{
+						select * from fap_accounting_subject where org_id=#org_id# and gl_code like concat(#gl_code#,'%')
+					},
+					nsql-FaAccounting.insLedger-I-fab_ledger_check_result-insert-'inserting ledger balance data of external system':{
+						insert 
+						into
+						fab_ledger_check_result
+						(
+								org_id, sys_no, trxn_date, acct_branch, ccy_code, gl_code, ledger_bal_direction , ledger_acct_bal, gl_bal_direction, gl_acct_bal, ledger_check_result 
+						) 
+								select
+										org_id, sys_no,trxn_date,acct_branch,ccy_code,
+										gl_code, bal_type ,sum(acct_bal) as acct_bal, bal_type, 0.00 as gl_acct_bal,0 as ledger_check_result
+								from
+										fab_ledger_check_seq a
+								where
+										trxn_date=#trxn_date# and org_id=#org_id# 
+										and analysis_state='2' and a.accounting_subject<>'6'
+										and instr(#parm_value#||',', a.gl_code||',')<=0 
+								group by
+										org_id,sys_no,trxn_date, acct_branch, ccy_code,
+										gl_code,bal_type 
+								union all
+								select
+										org_id, sys_no,trxn_date,acct_branch,ccy_code,
+										gl_code, 'D' as bal_type ,sum(case when bal_type='D' then acct_bal else -acct_bal end) as acct_bal, 
+										'D' as bal_type, 0.00 as gl_acct_bal,0 as ledger_check_result
+								from
+										fab_ledger_check_seq a
+								where
+										trxn_date=#trxn_date# and org_id=#org_id# 
+										and analysis_state='2' and a.accounting_subject='6'
+										and instr(#parm_value#||',', a.gl_code||',')<=0 
+								group by
+										org_id,sys_no,trxn_date, acct_branch, ccy_code,
+										gl_code 
+					},
+					nsql-FaAccounting.updLedgerFromGL-U-fab_ledger_check_result-update-'updating ledger balance data of external system',
+					nsql-FaAccounting.updLedgeResult-U-fab_ledger_check_result-update-'updating the checking result',
+					nsql-FaAccounting.updLedgerSeqStatus-U-fab_ledger_check_seq-update-'updating the status',
+					nsql-FaAccounting.selLedgerFailure-S-fab_ledger_check_result-select-'selecting the record of checking failed',
+					nsql-FaAccounting.selSubjectFromLedger-S-fab_ledger_check_seq-select-'selecting accounting subject from ledger check',
+					nsql-FaAccounting.updLedgerSubject-U-fab_ledger_check_result-update-'updating Ledger check accounting subject',
+					method-ApSystemParm.getValue-'null':{
+						table-app_system_parameter-select-'系统杂项参数'
+					},
+					method-ApDropList.getItems-'null':{
+						table-app_drop-select-'字典声明表',
+						method-ApOrg.getDefaultOrgId-'null':{
+							table-app_organization-select-'法人信息'
+						},
+						table-app_drop_list-select-'下拉字典参数',
+						method-ApOrg.getReferenceOrgId-'null':{
+							method-BizUtil.getTrxRunEnvs-'null',
+							method-BizUtil.isOrgRelated-'null',
+							table-app_parameter_reference-select-'参数引用定义',
+							table-app_parameter_reference-select-'参数引用定义',
+							method-BizUtil.isParmTable-'null',
+							method-ApOrg.getOrgInfo-'null':{
+								table-app_organization-select-'法人信息'
+							},
+							method-ApOrg.getOrgInfo-'null':{
+								table-app_organization-select-'法人信息'
+							}
+						},
+						table-app_drop_list-select-'下拉字典参数',
+						method-ApOrg.getDefaultOrgId-'null':{
+							table-app_organization-select-'法人信息'
+						},
+						table-app_drop_list-select-'下拉字典参数'
+					},
+					method-ApSystemParm.exists-'null':{
+						table-app_system_parameter-select-'系统杂项参数'
+					},
+					nsql-FaAccounting.selLedgerFailureBySubject-S-fab_ledger_check_result-select-'selecting the record of checking failed by Accounting Subject'
+			},
+		},
+		
