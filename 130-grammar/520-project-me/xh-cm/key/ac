@@ -848,6 +848,123 @@ ln:{	''
 		}
 	}
 	tables:{
+		lnp_bal_attributes-"贷款余额属性定义表"-'Loan balance attributes define table':{
+			values:{
+					bal_attributes		bal_attributes_name									  double_entry_ind bal_code				bal_attributes_gl_name
+								                                                                      debit_credit  bal_attributes_gl
+				ACCC-"应计复利收入"-'accrual compound interest income':{
+					99	ACCC1	Compound Interest Income Accrued(Current)								Y	C	ACCC	LNCC01	Compound Interest Income Accrued					1
+					99	ACCC2	Compound Interest Income Accrued(Especially Mentioned)					Y	C	ACCC	LNCC01	Compound Interest Income Accrued					1
+					99	ACCC3	Compound Interest Income Accrued(Substandard)							Y	C	ACCC	LNCC01	Compound Interest Income Accrued					1
+					99	ACCC4	Compound Interest Income Accrued(Doubtful)								Y	C	ACCC	LNCC01	Compound Interest Income Accrued					1
+					99	ACCC5	Compound Interest Income Accrued(LOSS)									Y	C	ACCC	LNCC01	Compound Interest Income Accrued					1
+				},
+				:{
+					99	ACCT1	Compound Interest Receivable Accrued(Current)							N	D	ACCT	LNCA01	Compound Interest Receivable Accrued					1
+					99	ACCT2	Compound Interest Receivable Accrued(Especially Mentioned)				N	D	ACCT	LNCA01	Compound Interest Receivable Accrued					1
+					99	ACCT3	Compound Interest Receivable Accrued(Substandard)						N	D	ACCT	LNCA01	Compound Interest Receivable Accrued					1
+					99	ACCT4	Compound Interest Receivable Accrued(Doubtful)							N	D	ACCT	LNCA01	Compound Interest Receivable Accrued					1
+					99	ACCT5	Compound Interest Receivable Accrued(LOSS)								N	D	ACCT	LNCA01	Compound Interest Receivable Accrued					1
+					99	ACIC1	Interest Income Accrued(Current)										Y	C	ACIC	LNIC01	Interest Income Accrued					1
+					99	ACIC2	Interest Income Accrued(Especially Mentioned)							Y	C	ACIC	LNIC01	Interest Income Accrued					1
+					99	ACIC3	Interest Income Accrued(Substandard)									Y	C	ACIC	LNIC01	Interest Income Accrued					1
+					99	ACIC4	Interest Income Accrued(Doubtful)										Y	C	ACIC	LNIC01	Interest Income Accrued					1
+					99	ACIC5	Interest Income Accrued(LOSS)											Y	C	ACIC	LNIC01	Interest Income Accrued					1
+					99	ACIT1	Interest Receivable Accrued(Current)									Y	D	ACIT	LNIA01	Interest Receivable Accrued					1
+					99	ACIT2	Interest Receivable Accrued(Especially Mentioned)						Y	D	ACIT	LNIA01	Interest Receivable Accrued					1
+					99	ACIT3	Interest Receivable Accrued(Substandard)								Y	D	ACIT	LNIA01	Interest Receivable Accrued					1
+					99	ACIT4	Interest Receivable Accrued(Doubtful)									Y	D	ACIT	LNIA01	Interest Receivable Accrued					1
+					99	ACIT5	Interest Receivable Accrued(LOSS)										Y	D	ACIT	LNIA01	Interest Receivable Accrued					1
+					99	ACOC1	Overdue Interest Income Accrued(Current)								Y	C	ACOC	LNOC01	Overdue Interest Income Accrued					1
+					99	ACOC2	Overdue Interest Income Accrued(Especially Mentioned)					Y	C	ACOC	LNOC01	Overdue Interest Income Accrued					1
+					99	ACOC3	Overdue Interest Income Accrued(Substandard)							Y	C	ACOC	LNOC01	Overdue Interest Income Accrued					1
+					99	ACOC4	Overdue Interest Income Accrued(Doubtful)								Y	C	ACOC	LNOC01	Overdue Interest Income Accrued					1
+					99	ACOC5	Overdue Interest Income Accrued(LOSS)									Y	C	ACOC	LNOC01	Overdue Interest Income Accrued					1
+					99	ACOT1	Overdue Interest Receivable Accrued(Current)							Y	D	ACOT	LNOA01	Overdue Interest Receivable Accrued					1
+					99	ACOT2	Overdue Interest Receivable Accrued(Especially Mentioned)				Y	D	ACOT	LNOA01	Overdue Interest Receivable Accrued					1
+					99	ACOT3	Overdue Interest Receivable Accrued(Substandard)						Y	D	ACOT	LNOA01	Overdue Interest Receivable Accrued					1
+					99	ACOT4	Overdue Interest Receivable Accrued(Doubtful)							Y	D	ACOT	LNOA01	Overdue Interest Receivable Accrued					1
+					99	ACOT5	Overdue Interest Receivable Accrued(LOSS)								Y	D	ACOT	LNOA01	Overdue Interest Receivable Accrued					1
+					99	ACRC	Subsidy Interest Income Accrued											Y	C	ACRC	LNRC01	(应计)贴息收入					1
+					99	ACRT	Subsidy Interest Receivable Accrued										Y	D	ACRT	LNRA01	应计贴息					1
+					99	AMOT	Deferred Interest														Y	C	AMOT	LNIU01	待摊利息					1
+					99	DUCC1	Compound Interest Income(Current)										Y	C	DUCC	LNCC01	Compound Interest Income					1
+					99	DUCC2	Compound Interest Income(Especially Mentioned)							Y	C	DUCC	LNCC01	Compound Interest Income					1
+					99	DUCC3	Compound Interest Income(Substandard)									Y	C	DUCC	LNCC01	Compound Interest Income					1
+					99	DUCC4	Compound Interest Income(Doubtful)										Y	C	DUCC	LNCC01	Compound Interest Income					1
+					99	DUCC5	Compound Interest Income(LOSS)											Y	C	DUCC	LNCC01	Compound Interest Income					1
+					99	DUCT1	Compound Interest Receivable(Current)									N	D	DUCT	LNCD01	Compound Interest Receivable					1
+					99	DUCT2	Compound Interest Receivable(Especially Mentioned)						N	D	DUCT	LNCD01	Compound Interest Receivable					1
+					99	DUCT3	Compound Interest Receivable(Substandard)								N	D	DUCT	LNCD01	Compound Interest Receivable					1
+					99	DUCT4	Compound Interest Receivable(Doubtful)									N	D	DUCT	LNCD01	Compound Interest Receivable					1
+					99	DUCT5	Compound Interest Receivable(LOSS)										N	D	DUCT	LNCD01	Compound Interest Receivable					1
+					99	DUIC1	Interest Income(Current)												Y	C	DUIC	LNIC01	Interest Income					1
+					99	DUIC2	Interest Income(Especially Mentioned)									Y	C	DUIC	LNIC01	Interest Income					1
+					99	DUIC3	Interest Income(Substandard)											Y	C	DUIC	LNIC01	Interest Income					1
+					99	DUIC4	Interest Income(Doubtful)												Y	C	DUIC	LNIC01	Interest Income					1
+					99	DUIC5	Interest Income(LOSS)													Y	C	DUIC	LNIC01	Interest Income					1
+					99	DUIT1	Interest Receivable(Current)											Y	D	DUIT	LNID01	Interest Receivable					1
+					99	DUIT2	Interest Receivable(Especially Mentioned)								Y	D	DUIT	LNID01	Interest Receivable					1
+					99	DUIT3	Interest ReceivableSubstandard)											Y	D	DUIT	LNID01	Interest Receivable					1
+					99	DUIT4	Interest Receivable(Doubtful)											Y	D	DUIT	LNID01	Interest Receivable					1
+					99	DUIT5	Interest Receivable(LOSS)												Y	D	DUIT	LNID01	Interest Receivable					1
+					99	DUOC1	Overdue Interest Income(Current)										Y	C	DUOC	LNOC01	Overdue Interest Income					1
+					99	DUOC2	Overdue Interest Income(Especially Mentioned)							Y	C	DUOC	LNOC01	Overdue Interest Income					1
+					99	DUOC3	Overdue Interest Income(Substandard)									Y	C	DUOC	LNOC01	Overdue Interest Income					1
+					99	DUOC4	Overdue Interest Income(Doubtful)										Y	C	DUOC	LNOC01	Overdue Interest Income					1
+					99	DUOC5	Overdue Interest Income(LOSS)											Y	C	DUOC	LNOC01	Mortgage Loan of non-Resident					1
+					99	DUOT1	Overdue Interest Receivable(Current)									Y	D	DUOT	LNOD01	Overdue Interest Receivable					1
+					99	DUOT2	Overdue Interest Receivable(Especially Mentioned)						Y	D	DUOT	LNOD01	Overdue Interest Receivable					1
+					99	DUOT3	Overdue Interest Receivable(Substandard)								Y	D	DUOT	LNOD01	Overdue Interest Receivable					1
+					99	DUOT4	Overdue Interest Receivable(Doubtful)									Y	D	DUOT	LNOD01	Overdue Interest Receivable					1
+					99	DUOT5	Overdue Interest Receivable(LOSS)										Y	D	DUOT	LNOD01	Overdue Interest Receivable					1
+					99	DURC	Subsidy Interest Income													Y	C	DURC	LNRC01	(应收)贴息收入					1
+					99	DURT	Subsidy Interest Receivable												Y	D	DURT	LNRD01	应收贴息					1
+					99	LOSI	Bad Debts Written Off-Interest											Y	D	LOSI	LNLI01	贷款损失利息					1
+					99	LOSP	Bad Debts Written Off-Principal											Y	D	LOSP	LNLP01	贷款损失本金					1
+					99	LOSS1	Loss on Loan(Normal)													Y	D	LOSS	LNLS01	贷款减值损失					1
+					99	LOSS2	Loss on Loan(Overdue)													Y	D	LOSS	LNLS02	贷款减值损失					1
+				},
+				PRCP-"本金"-'principal':{
+					99	PRCP1	Principle(Current)	当前本金?											Y	D	PRCP	LNPR01	Principle					1
+					99	PRCP2	Principle(Especially Mentioned)	特别提到								Y	D	PRCP	LNPR01	Principle					1
+					99	PRCP3	Principle(Substandard)	不标准的										Y	D	PRCP	LNPR01	Principle					1
+					99	PRCP4	Principle(Doubtful)	可疑												Y	D	PRCP	LNPR01	Principle					1
+					99	PRCP5	Principle(LOSS)	丢失													Y	D	PRCP	LNPR01	Principle					1
+				},
+				:{
+					99	PROA1	Auto Provision on Loan(Normal)											Y	C	PROA	LNPV01	一般减值准备金					1
+					99	PROA2	Auto Provision on Loan(Overdue)											Y	C	PROA	LNPV02	特殊减值准备金					1
+					99	PROM1	Manual Provision on Loan(Normal)										Y	C	PROM	LNPV01	一般减值准备金					1
+					99	PROM2	Manual Provision on Loan(Overdue)										Y	C	PROM	LNPV02	特殊减值准备金					1
+					99	WOFI	Written-Off Interest													N	D	WOFI	LNWI01	核销利息					1
+					99	WOFP	Written-Off Principle													N	D	WOFP	LNWP01	核销本金					1
+				}
+			}
+		},
+		lna_balance:{
+			insert-1:{
+				LnBalance.updateBalanceSingle(String, LnLoanGLType, boolean)-1:{
+					updateLoanBalanceInner(LnBalanceGLType, boolean);-1:{
+						updateLoanBalance(LnBalanceGLType)-3:{
+							LnAccounting.loanAccounting(String, LnBalanceGLType)-1:{
+								loanAccounting(LnBalanceGLType)-13:{
+									LnAccountingWriteOff.writeOffGl(String, LnBalanceGLType)
+								}
+							},
+							LnAccounting.balanceUpdateAndRegister(LnBalanceGLType)
+							LnAccountingAccrual.accrual(LnBalanceGLType, String)-2:{
+								LnAccrual.singleLoanInterestCalculation(String, String)
+								LnAccrual.ExtendInterestCalculation(String, String, lna_repayment_schedule)
+							}
+						}
+					}
+				}
+			},
+			columns:{
+				
+			}
+		},
 		lna_accrual:{
 			value:{
 				

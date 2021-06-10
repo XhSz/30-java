@@ -170,13 +170,13 @@ tz:{
 			lsof -i:端口号					#lsof -i 用以显示符合条件的进程情况，lsof(list open files)是一个列出当前系统打开文件的工具
 			lsof -i
 			netstat -tunpl |grep 端口号
-			netstat -tunpl |grep 6100		rdpbase 	156857
+			netstat -tunpl |grep 6100		rdpbase 	81571
 			netstat -tunpl |grep 8123		esbbase		127776 
 			netstat -tunpl |grep 8228		esbbase		127776 
 			netstat -tunpl |grep 6199		ops 		40837/nginx: master		
 			netstat -tunpl |grep 8080		etluser 	141986
 			netstat -tunpl |grep 9518		biee 		219474/java    
-			ps -ef|grep 156857
+			ps -ef|grep 81571
 			ps -ef|grep 128616
 			ps -ef|grep 127776
 			ps -ef|grep 40837
@@ -238,7 +238,8 @@ tz:{
 					clear;cd /sunline/v7base/logs/cbs-ltts-onl/busi/20210110/44060/;cp 44060.log 44060.210505-1436.log;cp /dev/null 44060.log;	
 					clear;cd /sunline/v7base/logs/cbs-ltts-onl/busi/20210114/60001/;cp 60001.log 60001.210510-2130.log;cp /dev/null 60001.log;	
 					clear;cd /sunline/v7base/logs/cbs-ltts-onl/busi/20210114/60056/;cp 60056.log 60056.210517-2245.log;cp /dev/null 60056.log;	
-					clear;cd /sunline/v7base/logs/cbs-ltts-onl/busi/20210114/70600/;cp 70600.log 70600.210528-1822.log;cp /dev/null 70600.log;	
+					clear;cd /sunline/v7base/logs/cbs-ltts-onl/busi/20210114/70600/;cp 70600.log 70600.210528-1822.log;cp /dev/null 70600.log;
+					clear;cd /sunline/v7base/logs/cbs-ltts-onl/busi/20210601/10047/;cp 10047.log 10047.210609-2058.log;cp /dev/null 10047.log;		
 					dp4020-40200 转账/cf3015-30150-个人客户简单信息查询/ too much log  
 					D:\03-sl\212-tz\33-uat\172.31.2.12\sunline\v7base\logs\cbs-ltts-bat\sys\default
 				},
@@ -314,8 +315,12 @@ tz:{
 			bin:{
 				ps -ef | grep java	:{
 					exe:{
+						/sunline/rdpbase/user/app/apache-tomcat-7.0.70/bin/shutdown.sh
+						/sunline/rdpbase/user/app/apache-tomcat-7.0.70/bin/startup.sh
 						/sunline/rdpbase/apps/cbs/shutdown.sh
 						/sunline/rdpbase/apps/cbs/start.sh
+						/sunline/rdpbase/user/app/apache-tomcat-7.0.70/bin/catalina.sh start 
+						/sunline/rdpbase/user/app/apache-tomcat-7.0.70/bin/catalina.sh stop 
 					},
 					ori:{
 						/*
@@ -333,6 +338,9 @@ tz:{
 					}
 				}
 			},
+			mv /sunline/rdpbase/apps/cbs/webapps/ROOT/ /sunline/rdpbase/user/app/apache-tomcat-7.0.70/webapps/
+			mv /sunline/rdpbase/user/app/apache-tomcat-7.0.70/webapps/ROOT/  /sunline/rdpbase/apps/cbs/webapps/
+			tar -zxvf 
 			log:{	
 				cp catalina.out catalina.2021-04-27-1647.out;cp /dev/null catalina.out;	
 				mv catalina.out catalina.2021-04-27-1647.out;vi catalina.out;	
