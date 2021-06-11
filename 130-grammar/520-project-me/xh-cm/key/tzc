@@ -660,12 +660,48 @@ log:{
 				}
 			}
 		},
+		2.2:{
+			4410	40610	dp4610In	2602	活期交易明细查询			dp4410/40610
+			2000001004,
+		},
 		2.5:{
 			1201,:{
 				<iframe id="coreWindow" width="100%" height="100%" src="/window/core/rdpdocoretran.html"></iframe>
 				/tran/cf3020In/cf3020In.html
 				data-listid="E_INDUSTYPE"
 				app_system_parameter.DYNAMIC_DROP_LIST 动态SQL下拉
+				
+				plat-play.js:{
+					       LIST_RESOURCE_DATA[listid]
+					w.PAGE_LIST_RESOURCE_DATA[listid];
+				},
+				'INDUS_CODE':{
+					base: "string"
+					dataparams: "{'drop_list_type':'INDUS_CODE'}"
+					displayfield: ""
+					id: "E_D_INDUS_CODE"
+					items: []
+					name: "行业代码"
+					nullflag: "1"
+					sql: ""
+					sqlid: "AP0006"
+					type: "D"
+					valuedisplayflag: "1"
+					valuefield: ""
+				},
+				'E_INDUSTYPE':{
+					{id: "E_INDUSTYPE", type: "C", name: "行业类别", base: "string", nullflag: "1", …}
+					base: "string"
+					displayfield: ""
+					id: "E_INDUSTYPE"
+					items: (14) [{…}, {…}, {…}, {…}, {…}, {…}, {…}, {…}, {…}, {…}, {…}, {…}, {…}, {…}]
+					name: "行业类别"
+					nullflag: "1"
+					sql: ""
+					type: "C"
+					valuedisplayflag: "1"
+					valuefield: ""
+				}
 			},
 			prd.sql:{
 				cbs-db:{
@@ -712,6 +748,48 @@ log:{
 					INSERT INTO APP_DROP_LIST("DICT_ORG_ID", "DROP_LIST_TYPE", "DROP_LIST_VALUE", "DROP_LIST_DESC", "DATA_SORT", "DATA_CREATE_USER", "DATA_CREATE_TIME", "DATA_UPDATE_USER", "DATA_UPDATE_TIME", "DATA_VERSION") VALUES ('99', 'INDUS_TYPE', 'K', 'Convention and Exhibition', '12', 'S####', '20991231', 'S####', '20991231', '1');
 					INSERT INTO APP_DROP_LIST("DICT_ORG_ID", "DROP_LIST_TYPE", "DROP_LIST_VALUE", "DROP_LIST_DESC", "DATA_SORT", "DATA_CREATE_USER", "DATA_CREATE_TIME", "DATA_UPDATE_USER", "DATA_UPDATE_TIME", "DATA_VERSION") VALUES ('99', 'INDUS_TYPE', 'J', 'Gambling', '13', 'S####', '20991231', 'S####', '20991231', '1');
 					INSERT INTO APP_DROP_LIST("DICT_ORG_ID", "DROP_LIST_TYPE", "DROP_LIST_VALUE", "DROP_LIST_DESC", "DATA_SORT", "DATA_CREATE_USER", "DATA_CREATE_TIME", "DATA_UPDATE_USER", "DATA_UPDATE_TIME", "DATA_VERSION") VALUES ('99', 'INDUS_TYPE', 'M', 'Information Technology', '14', 'S####', '20991231', 'S####', '20991231', '1');
+					
+					
+					INSERT INTO APP_DROP_LIST("DICT_ORG_ID", "DROP_LIST_TYPE", "DROP_LIST_VALUE", "DROP_LIST_DESC", "DATA_SORT", "DATA_CREATE_USER", "DATA_CREATE_TIME", "DATA_UPDATE_USER", "DATA_UPDATE_TIME", "DATA_VERSION") VALUES ('99', 'INDUS_CODE', 'C04', 'Leather Articles22', '4', 'S####', '20991231', 'S####', '20991231', '1');
+					INSERT INTO APP_DROP_LIST("DICT_ORG_ID", "DROP_LIST_TYPE", "DROP_LIST_VALUE", "DROP_LIST_DESC", "DATA_SORT", "DATA_CREATE_USER", "DATA_CREATE_TIME", "DATA_UPDATE_USER", "DATA_UPDATE_TIME", "DATA_VERSION") VALUES ('99', 'INDUS_CODE', 'C05', 'Wood and Furniture', '5', 'S####', '20991231', 'S####', '20991231', '1');
+					INSERT INTO APP_DROP_LIST("DICT_ORG_ID", "DROP_LIST_TYPE", "DROP_LIST_VALUE", "DROP_LIST_DESC", "DATA_SORT", "DATA_CREATE_USER", "DATA_CREATE_TIME", "DATA_UPDATE_USER", "DATA_UPDATE_TIME", "DATA_VERSION") VALUES ('99', 'INDUS_CODE', 'C06', 'Ceramics', '6', 'S####', '20991231', 'S####', '20991231', '1');
+					INSERT INTO APP_DROP_LIST("DICT_ORG_ID", "DROP_LIST_TYPE", "DROP_LIST_VALUE", "DROP_LIST_DESC", "DATA_SORT", "DATA_CREATE_USER", "DATA_CREATE_TIME", "DATA_UPDATE_USER", "DATA_UPDATE_TIME", "DATA_VERSION") VALUES ('99', 'INDUS_CODE', 'C07', 'Paper, Printing and Publishing', '7', 'S####', '20991231', 'S####', '20991231', '1');
+					INSERT INTO APP_DROP_LIST("DICT_ORG_ID", "DROP_LIST_TYPE", "DROP_LIST_VALUE", "DROP_LIST_DESC", "DATA_SORT", "DATA_CREATE_USER", "DATA_CREATE_TIME", "DATA_UPDATE_USER", "DATA_UPDATE_TIME", "DATA_VERSION") VALUES ('99', 'INDUS_CODE', 'C08', 'Machinery and Other Electrical and Electronic Goods', '8', 'S####', '20991231', 'S####', '20991231', '1');
+					INSERT INTO APP_DROP_LIST("DICT_ORG_ID", "DROP_LIST_TYPE", "DROP_LIST_VALUE", "DROP_LIST_DESC", "DATA_SORT", "DATA_CREATE_USER", "DATA_CREATE_TIME", "DATA_UPDATE_USER", "DATA_UPDATE_TIME", "DATA_VERSION") VALUES ('99', 'INDUS_CODE', 'C09', 'Artificial Flowers', '9', 'S####', '20991231', 'S####', '20991231', '1');
+					INSERT INTO APP_DROP_LIST("DICT_ORG_ID", "DROP_LIST_TYPE", "DROP_LIST_VALUE", "DROP_LIST_DESC", "DATA_SORT", "DATA_CREATE_USER", "DATA_CREATE_TIME", "DATA_UPDATE_USER", "DATA_UPDATE_TIME", "DATA_VERSION") VALUES ('99', 'INDUS_CODE', 'C10', 'Toys', '9', 'S####', '20991231', 'S####', '20991231', '1');
+					INSERT INTO APP_DROP_LIST("DICT_ORG_ID", "DROP_LIST_TYPE", "DROP_LIST_VALUE", "DROP_LIST_DESC", "DATA_SORT", "DATA_CREATE_USER", "DATA_CREATE_TIME", "DATA_UPDATE_USER", "DATA_UPDATE_TIME", "DATA_VERSION") VALUES ('99', 'INDUS_CODE', 'C99', 'Other Manufacturing Industries (Not Mentioned Above)', '10', 'S####', '20991231', 'S####', '20991231', '1');
+					INSERT INTO APP_DROP_LIST("DICT_ORG_ID", "DROP_LIST_TYPE", "DROP_LIST_VALUE", "DROP_LIST_DESC", "DATA_SORT", "DATA_CREATE_USER", "DATA_CREATE_TIME", "DATA_UPDATE_USER", "DATA_UPDATE_TIME", "DATA_VERSION") VALUES ('99', 'INDUS_CODE', 'E01', 'Private Construction', '11', 'S####', '20991231', 'S####', '20991231', '1');
+					INSERT INTO APP_DROP_LIST("DICT_ORG_ID", "DROP_LIST_TYPE", "DROP_LIST_VALUE", "DROP_LIST_DESC", "DATA_SORT", "DATA_CREATE_USER", "DATA_CREATE_TIME", "DATA_UPDATE_USER", "DATA_UPDATE_TIME", "DATA_VERSION") VALUES ('99', 'INDUS_CODE', 'C01', 'Foodstuffs and Beverages', '1', 'S####', '20991231', 'S####', '20991231', '1');
+					INSERT INTO APP_DROP_LIST("DICT_ORG_ID", "DROP_LIST_TYPE", "DROP_LIST_VALUE", "DROP_LIST_DESC", "DATA_SORT", "DATA_CREATE_USER", "DATA_CREATE_TIME", "DATA_UPDATE_USER", "DATA_UPDATE_TIME", "DATA_VERSION") VALUES ('99', 'INDUS_CODE', 'C02', 'Clothing', '2', 'S####', '20991231', 'S####', '20991231', '1');
+					INSERT INTO APP_DROP_LIST("DICT_ORG_ID", "DROP_LIST_TYPE", "DROP_LIST_VALUE", "DROP_LIST_DESC", "DATA_SORT", "DATA_CREATE_USER", "DATA_CREATE_TIME", "DATA_UPDATE_USER", "DATA_UPDATE_TIME", "DATA_VERSION") VALUES ('99', 'INDUS_CODE', 'C03', 'Other Textile Production', '3', 'S####', '20991231', 'S####', '20991231', '1');
+					INSERT INTO APP_DROP_LIST("DICT_ORG_ID", "DROP_LIST_TYPE", "DROP_LIST_VALUE", "DROP_LIST_DESC", "DATA_SORT", "DATA_CREATE_USER", "DATA_CREATE_TIME", "DATA_UPDATE_USER", "DATA_UPDATE_TIME", "DATA_VERSION") VALUES ('99', 'INDUS_CODE', 'E02', 'Public Construction', '12', 'S####', '20991231', 'S####', '20991231', '1');
+					INSERT INTO APP_DROP_LIST("DICT_ORG_ID", "DROP_LIST_TYPE", "DROP_LIST_VALUE", "DROP_LIST_DESC", "DATA_SORT", "DATA_CREATE_USER", "DATA_CREATE_TIME", "DATA_UPDATE_USER", "DATA_UPDATE_TIME", "DATA_VERSION") VALUES ('99', 'INDUS_CODE', 'F01', 'Sale, Maintenance and Repair of Motor Vehicles and Motorcycles; Retail Sale of Automotive Fuel', '13', 'S####', '20991231', 'S####', '20991231', '1');
+					INSERT INTO APP_DROP_LIST("DICT_ORG_ID", "DROP_LIST_TYPE", "DROP_LIST_VALUE", "DROP_LIST_DESC", "DATA_SORT", "DATA_CREATE_USER", "DATA_CREATE_TIME", "DATA_UPDATE_USER", "DATA_UPDATE_TIME", "DATA_VERSION") VALUES ('99', 'INDUS_CODE', 'F02', 'Wholesale Trade (Except for Motor Vehicles) and Agency', '14', 'S####', '20991231', 'S####', '20991231', '1');
+					INSERT INTO APP_DROP_LIST("DICT_ORG_ID", "DROP_LIST_TYPE", "DROP_LIST_VALUE", "DROP_LIST_DESC", "DATA_SORT", "DATA_CREATE_USER", "DATA_CREATE_TIME", "DATA_UPDATE_USER", "DATA_UPDATE_TIME", "DATA_VERSION") VALUES ('99', 'INDUS_CODE', 'F03', 'Retail Trade (Except for Motor Vehicles and Motorcycles); Repair of Personal', '15', 'S####', '20991231', 'S####', '20991231', '1');
+					INSERT INTO APP_DROP_LIST("DICT_ORG_ID", "DROP_LIST_TYPE", "DROP_LIST_VALUE", "DROP_LIST_DESC", "DATA_SORT", "DATA_CREATE_USER", "DATA_CREATE_TIME", "DATA_UPDATE_USER", "DATA_UPDATE_TIME", "DATA_VERSION") VALUES ('99', 'INDUS_CODE', 'G01', 'Hotels and Other Provisions of Short-Stay Accommodation', '16', 'S####', '20991231', 'S####', '20991231', '1');
+					INSERT INTO APP_DROP_LIST("DICT_ORG_ID", "DROP_LIST_TYPE", "DROP_LIST_VALUE", "DROP_LIST_DESC", "DATA_SORT", "DATA_CREATE_USER", "DATA_CREATE_TIME", "DATA_UPDATE_USER", "DATA_UPDATE_TIME", "DATA_VERSION") VALUES ('99', 'INDUS_CODE', 'G02', 'Restaurants, Bars, Canteens and Similar Activities', '17', 'S####', '20991231', 'S####', '20991231', '1');
+					INSERT INTO APP_DROP_LIST("DICT_ORG_ID", "DROP_LIST_TYPE", "DROP_LIST_VALUE", "DROP_LIST_DESC", "DATA_SORT", "DATA_CREATE_USER", "DATA_CREATE_TIME", "DATA_UPDATE_USER", "DATA_UPDATE_TIME", "DATA_VERSION") VALUES ('99', 'INDUS_CODE', 'H01', 'Transport, Warehousing and Related Activities', '18', 'S####', '20991231', 'S####', '20991231', '1');
+					INSERT INTO APP_DROP_LIST("DICT_ORG_ID", "DROP_LIST_TYPE", "DROP_LIST_VALUE", "DROP_LIST_DESC", "DATA_SORT", "DATA_CREATE_USER", "DATA_CREATE_TIME", "DATA_UPDATE_USER", "DATA_UPDATE_TIME", "DATA_VERSION") VALUES ('99', 'INDUS_CODE', 'H02', 'Postal and Telecommunications', '19', 'S####', '20991231', 'S####', '20991231', '1');
+					INSERT INTO APP_DROP_LIST("DICT_ORG_ID", "DROP_LIST_TYPE", "DROP_LIST_VALUE", "DROP_LIST_DESC", "DATA_SORT", "DATA_CREATE_USER", "DATA_CREATE_TIME", "DATA_UPDATE_USER", "DATA_UPDATE_TIME", "DATA_VERSION") VALUES ('99', 'INDUS_CODE', 'Z05', 'Medicine and Medical Products', '24', 'S####', '20991231', 'S####', '20991231', '1');
+					INSERT INTO APP_DROP_LIST("DICT_ORG_ID", "DROP_LIST_TYPE", "DROP_LIST_VALUE", "DROP_LIST_DESC", "DATA_SORT", "DATA_CREATE_USER", "DATA_CREATE_TIME", "DATA_UPDATE_USER", "DATA_UPDATE_TIME", "DATA_VERSION") VALUES ('99', 'INDUS_CODE', 'Z06', 'plastic Products Industry', '25', 'S####', '20991231', 'S####', '20991231', '1');
+					INSERT INTO APP_DROP_LIST("DICT_ORG_ID", "DROP_LIST_TYPE", "DROP_LIST_VALUE", "DROP_LIST_DESC", "DATA_SORT", "DATA_CREATE_USER", "DATA_CREATE_TIME", "DATA_UPDATE_USER", "DATA_UPDATE_TIME", "DATA_VERSION") VALUES ('99', 'INDUS_CODE', 'Z07', 'Metal Products', '26', 'S####', '20991231', 'S####', '20991231', '1');
+					INSERT INTO APP_DROP_LIST("DICT_ORG_ID", "DROP_LIST_TYPE", "DROP_LIST_VALUE", "DROP_LIST_DESC", "DATA_SORT", "DATA_CREATE_USER", "DATA_CREATE_TIME", "DATA_UPDATE_USER", "DATA_UPDATE_TIME", "DATA_VERSION") VALUES ('99', 'INDUS_CODE', 'Z08', 'Communication Equipment, Computer and Electronic Equipment Manufacturing Industry', '27', 'S####', '20991231', 'S####', '20991231', '1');
+					INSERT INTO APP_DROP_LIST("DICT_ORG_ID", "DROP_LIST_TYPE", "DROP_LIST_VALUE", "DROP_LIST_DESC", "DATA_SORT", "DATA_CREATE_USER", "DATA_CREATE_TIME", "DATA_UPDATE_USER", "DATA_UPDATE_TIME", "DATA_VERSION") VALUES ('99', 'INDUS_CODE', 'Z09', 'Real Estate Development', '28', 'S####', '20991231', 'S####', '20991231', '1');
+					INSERT INTO APP_DROP_LIST("DICT_ORG_ID", "DROP_LIST_TYPE", "DROP_LIST_VALUE", "DROP_LIST_DESC", "DATA_SORT", "DATA_CREATE_USER", "DATA_CREATE_TIME", "DATA_UPDATE_USER", "DATA_UPDATE_TIME", "DATA_VERSION") VALUES ('99', 'INDUS_CODE', 'Z10', 'Real Estate Agency', '29', 'S####', '20991231', 'S####', '20991231', '1');
+					INSERT INTO APP_DROP_LIST("DICT_ORG_ID", "DROP_LIST_TYPE", "DROP_LIST_VALUE", "DROP_LIST_DESC", "DATA_SORT", "DATA_CREATE_USER", "DATA_CREATE_TIME", "DATA_UPDATE_USER", "DATA_UPDATE_TIME", "DATA_VERSION") VALUES ('99', 'INDUS_CODE', 'Z11', 'Resident Services and Other Services', '30', 'S####', '20991231', 'S####', '20991231', '1');
+					INSERT INTO APP_DROP_LIST("DICT_ORG_ID", "DROP_LIST_TYPE", "DROP_LIST_VALUE", "DROP_LIST_DESC", "DATA_SORT", "DATA_CREATE_USER", "DATA_CREATE_TIME", "DATA_UPDATE_USER", "DATA_UPDATE_TIME", "DATA_VERSION") VALUES ('99', 'INDUS_CODE', 'Z12', 'Public Administration and Social Organization', '31', 'S####', '20991231', 'S####', '20991231', '1');
+					INSERT INTO APP_DROP_LIST("DICT_ORG_ID", "DROP_LIST_TYPE", "DROP_LIST_VALUE", "DROP_LIST_DESC", "DATA_SORT", "DATA_CREATE_USER", "DATA_CREATE_TIME", "DATA_UPDATE_USER", "DATA_UPDATE_TIME", "DATA_VERSION") VALUES ('99', 'INDUS_CODE', 'Z13', 'Tourism', '32', 'S####', '20991231', 'S####', '20991231', '1');
+					INSERT INTO APP_DROP_LIST("DICT_ORG_ID", "DROP_LIST_TYPE", "DROP_LIST_VALUE", "DROP_LIST_DESC", "DATA_SORT", "DATA_CREATE_USER", "DATA_CREATE_TIME", "DATA_UPDATE_USER", "DATA_UPDATE_TIME", "DATA_VERSION") VALUES ('99', 'INDUS_CODE', 'Z14', 'Gambling', '33', 'S####', '20991231', 'S####', '20991231', '1');
+					INSERT INTO APP_DROP_LIST("DICT_ORG_ID", "DROP_LIST_TYPE", "DROP_LIST_VALUE", "DROP_LIST_DESC", "DATA_SORT", "DATA_CREATE_USER", "DATA_CREATE_TIME", "DATA_UPDATE_USER", "DATA_UPDATE_TIME", "DATA_VERSION") VALUES ('99', 'INDUS_CODE', 'Z15', 'Sauna', '34', 'S####', '20991231', 'S####', '20991231', '1');
+					INSERT INTO APP_DROP_LIST("DICT_ORG_ID", "DROP_LIST_TYPE", "DROP_LIST_VALUE", "DROP_LIST_DESC", "DATA_SORT", "DATA_CREATE_USER", "DATA_CREATE_TIME", "DATA_UPDATE_USER", "DATA_UPDATE_TIME", "DATA_VERSION") VALUES ('99', 'INDUS_CODE', 'Z16', 'Exchange Shop', '35', 'S####', '20991231', 'S####', '20991231', '1');
+					INSERT INTO APP_DROP_LIST("DICT_ORG_ID", "DROP_LIST_TYPE", "DROP_LIST_VALUE", "DROP_LIST_DESC", "DATA_SORT", "DATA_CREATE_USER", "DATA_CREATE_TIME", "DATA_UPDATE_USER", "DATA_UPDATE_TIME", "DATA_VERSION") VALUES ('99', 'INDUS_CODE', 'Z17', 'Car Dealer', '36', 'S####', '20991231', 'S####', '20991231', '1');
+					INSERT INTO APP_DROP_LIST("DICT_ORG_ID", "DROP_LIST_TYPE", "DROP_LIST_VALUE", "DROP_LIST_DESC", "DATA_SORT", "DATA_CREATE_USER", "DATA_CREATE_TIME", "DATA_UPDATE_USER", "DATA_UPDATE_TIME", "DATA_VERSION") VALUES ('99', 'INDUS_CODE', 'Z18', 'Jewelry', '37', 'S####', '20991231', 'S####', '20991231', '1');
+					INSERT INTO APP_DROP_LIST("DICT_ORG_ID", "DROP_LIST_TYPE", "DROP_LIST_VALUE", "DROP_LIST_DESC", "DATA_SORT", "DATA_CREATE_USER", "DATA_CREATE_TIME", "DATA_UPDATE_USER", "DATA_UPDATE_TIME", "DATA_VERSION") VALUES ('99', 'INDUS_CODE', 'Z19', 'Antique and Precious Metal Dealers', '38', 'S####', '20991231', 'S####', '20991231', '1');
+					INSERT INTO APP_DROP_LIST("DICT_ORG_ID", "DROP_LIST_TYPE", "DROP_LIST_VALUE", "DROP_LIST_DESC", "DATA_SORT", "DATA_CREATE_USER", "DATA_CREATE_TIME", "DATA_UPDATE_USER", "DATA_UPDATE_TIME", "DATA_VERSION") VALUES ('99', 'INDUS_CODE', 'Z20', 'Pawn', '39', 'S####', '20991231', 'S####', '20991231', '1');
+					INSERT INTO APP_DROP_LIST("DICT_ORG_ID", "DROP_LIST_TYPE", "DROP_LIST_VALUE", "DROP_LIST_DESC", "DATA_SORT", "DATA_CREATE_USER", "DATA_CREATE_TIME", "DATA_UPDATE_USER", "DATA_UPDATE_TIME", "DATA_VERSION") VALUES ('99', 'INDUS_CODE', 'Z21', 'Auction House', '40', 'S####', '20991231', 'S####', '20991231', '1');
+					INSERT INTO APP_DROP_LIST("DICT_ORG_ID", "DROP_LIST_TYPE", "DROP_LIST_VALUE", "DROP_LIST_DESC", "DATA_SORT", "DATA_CREATE_USER", "DATA_CREATE_TIME", "DATA_UPDATE_USER", "DATA_UPDATE_TIME", "DATA_VERSION") VALUES ('99', 'INDUS_CODE', 'Z22', 'Import and Export Company', '41', 'S####', '20991231', 'S####', '20991231', '1');
+					INSERT INTO APP_DROP_LIST("DICT_ORG_ID", "DROP_LIST_TYPE", "DROP_LIST_VALUE", "DROP_LIST_DESC", "DATA_SORT", "DATA_CREATE_USER", "DATA_CREATE_TIME", "DATA_UPDATE_USER", "DATA_UPDATE_TIME", "DATA_VERSION") VALUES ('99', 'INDUS_CODE', 'Z23', 'Other', '42', 'S####', '20991231', 'S####', '20991231', '1');
+
 					COMMIT;
 				},
 				gl-db-bk:{},
@@ -2369,4 +2447,276 @@ ISO8583 ISO8583_1993[] =
   127, "Reserved for Private Use                          ", "保留给民间使用        ", "LLLVAR        ", 3, FT_ANS , 999,
   128, "Message Authentication Code Field                 ", "报文鉴别代码字段      ", "              ", 0, FT_B   , 8,
 };
+}
+
+
+out:{
+	证件:{
+		护照:{
+			证件号码:E05528260
+			签发日期:2012-10-29
+			截止日期:2022-10-28
+		}	
+	},
+	国家:{	
+		坦桑尼亚:{
+			路线:{
+				深圳->坦桑尼亚.达累斯萨拉姆.朱利叶斯尼雷尔机场:{
+					深圳(SZX 宝安机场T3)-肯尼亚.内罗毕(NBO 焦莫肯雅塔 T1A)-坦桑尼亚：{
+						210416	￥5917
+						210430	￥5917
+						210507	￥5917
+					},
+						-卢旺达.基加利(首)
+						-法兰克福-
+							-埃塞俄比亚.亚的斯亚贝巴(首)-坦桑尼亚.达累斯萨拉姆.朱利叶斯尼雷尔机场:{
+								埃塞俄比亚航空	博莱 T2	10:30-13:20 ：{
+									210416	￥2451
+								}
+							}
+						-坦桑尼亚.桑给巴尔-
+						-卡塔尔.多哈(首)-
+						-伊斯坦布尔-
+						-开罗-
+						-乞力马-
+						-DXB 迪拜机场T3-
+						-阿布扎比.阿布扎比-
+						阿提哈德航空在 阿布扎比 转机，或是qR在 多哈 转机或是肯尼亚航空在 内罗毕 转机或者是埃塞尔比亚航空在 埃塞尔比亚 转机
+					深圳-香港 T1-埃塞俄比亚.亚的斯亚贝巴(首).博莱 T2-
+						￥4213 + ￥2451 = ￥6664
+					深圳-香港-阿联酋.迪拜-坦桑尼亚.达累斯萨拉姆.朱利叶斯尼雷尔机场:{
+						深圳-香港,香港-迪拜机场T3:{EK385},迪拜-坦桑尼亚.达累斯萨拉姆.朱利叶斯尼雷尔机场:{EK725},
+					}
+				}
+				坦桑尼亚.达累斯萨拉姆.朱利叶斯尼雷尔机场T3->上海:{
+					16:45-	 2h40m-19:25 	ET804 埃塞俄比亚航空	亚的斯亚贝巴.博莱机场T2		06-14
+					4h30m
+					23:55-	11h35m-16:30	ET684 埃塞俄比亚航空 	浦东机场T2					06-15
+					上海入境提醒:{
+						210516,00:00,14 天隔离,7 天社区健康检测:{
+							每天早晚两次自测体温,
+						}
+					}
+				}
+			},
+			疫苗:{
+				黄热病:{
+					黄热病是由黄热病毒引起，主要通过"伊蚊叮咬"传播的急性传染病。临床以"高热"、"头痛"、黄疸、蛋白尿、相对缓脉和出血等为主要表现。
+					本病在非洲和南美洲的热带和亚热带呈地方性流行，亚洲尚无本病报告。
+					由于黄热病的死亡率高及传染性强，已纳入世界卫生组织规定之检疫传染病之一。
+					3. 中毒期:{
+						发热与症状复现，且更加重。此期毒血症消退，出现肝、肾、心血管功能损害以及出血症状。血清胆红素明显升高，凝血酶原时间延长，蛋白尿、少尿与氮质血症的程度和病情成正比。本期突出症状为严重的出血如齿龈出血、鼻出血、皮肤黏膜淤斑、胃肠道、尿道和子宫出血等。心脏常扩大，心搏徐缓，心音变弱，血压降低。常伴有脱水、酸中毒，严重者出现谵妄、昏迷、尿闭、顽固性呃逆、大量呕血、休克等。本期持续3～4天或2周。常在第7～10天发生死亡。
+					}
+					预防:{
+						3. 保护易感人群
+						17D 黄热病减毒活疫苗。一次皮内接种0.5 ml，7～9天即可产生有效的免疫力并可持续达10年以上。在进入疫区、已知或预测有黄热病疫情活动的区域，对9个月以上的儿童应常规进行预防接种。但不宜用于4个月以下的婴儿，因接种后发生神经系统的并发症几乎均为小于4个月的婴儿。
+						接种疫苗冲突:{
+							新冠疫苗跟黄热疫苗是不可以一起打的。新冠疫苗属于灭活疫苗，原则上是和其他的疫苗没有冲突的。
+							但是由于新冠疫苗研发的时间比较短，稳定性不能够确定，所以不建议和其他的疫苗一起打，需要间隔一个月的时间。目前新冠疫苗已经开始大范围接种，但是接种的范围，主要是一些高危人群，主要是一些冷链工作者、医务人员、船舶人员、酒店、机场等高危人群。
+						},
+						提前10天打:{
+							疫苗都会在注射后两周才产生抗体作用，所以想要让黄热疫苗发挥作用，必须提前10天打。如果没有提前打，到了黄热病疫区后，一定要注意防蚊防蝇，避免蚊虫叮咬，可以在晚上睡觉的时候盖上毯子，用上驱蚊的香，以免被感染。
+						},
+						价格:{
+							黄热疫苗价格大约在100～200元左右，地域不同价格上存在差异，具有要以当地为准。黄热病已被世卫组织列为检疫传染病之一。如果要去黄热病高发地区工作或者旅行，需要接种该疫苗，可以起到一定的防护作用。可以去当地接种机构进行接种预防，同时要避免感冒症状
+						}
+						攻略:{
+							https://bbs.qyer.com/thread-3058982-1.html
+							坦桑尼亚
+						},
+						接种:{				
+							网传接种黄热病疫苗需要70块钱，但是据广州的小伙伴说是免费接种，但是需要的材料比较复杂。
+							广州地区接种黄热病疫苗的机构：广东国际旅行卫生保健中心 （据说是广州唯一一家打黄热病疫苗的地方）
+							地址：天河龙口西路207号，在柏高商务酒店旁。
+							电话：020-87537322	(0751-广东韶关)	1:00-3:00
+							网址：http://www.gdwbzx.com/gdglww/index.aspx
+								逢周二，周四下午13：00-16：00 之间注射疫苗 ，但申请者需要上午11点到达那里申请。
+							所需资料：2寸白底彩照1张(大1寸,底照不限)、前往黄热病区的机票、签证（或说明）、身份证、护照。
+							// 深 圳 //
+							攻略:http://www.mafengwo.cn/i/15443415.html
+							我是从深圳打的疫苗，和广州一样，准备了材料，收费48元。
+							深圳地区接种黄热病疫苗的机构：深圳国际旅行卫生保健中心（深圳口岸医院）
+							地址：福田区滨河大道3203号皇岗口岸生活区1号综合楼
+							电话：0755-83774005		25572534(疫苗)	83774013(出入境体检)	坦桑尼亚  
+							网址：http://sz.ithc.cn/
+							所需资料：2寸白底彩照1张、前往黄热病区的机票、签证（因为我去的是秘鲁）、身份证原件及复印件、护照原件及复印件。
+							经历:{
+								打电话去口岸医院咨询，被告知无需预约，准备好上述材料后，直接来院打针就好了。
+								第二天我酱顶着台风来到了口岸医院，打针的地方在二楼，找不到的话，可以问一下工作人员。
+								上二楼后先去领表，填写《出入境人员健康检查申请表》、《黄热病/其它疫苗申请书》，取号等待叫号办理。
+								然后向工作人员提交申请材料，确认接种项目，然后工作人员会问你一些问题，确认身体可以接种疫苗，然后去缴费窗口缴了48元，回到注射室进行接种。
+								接种后30分钟需在医院等待，观察接种情况，没有太大反应，就可以拿着小黄本回家了。
+							}
+							深圳出入境检验检疫局下属的国际旅行保健中心，在深圳口岸医院，只有那里可以打疫苗，并办理“国际旅行健康证书”和“国际疫苗接种证书”。
+							深圳罗湖成人疫苗接种门诊电话:{约苗
+								电话：0755-25506929
+								名称：广东省深圳市罗湖区中医院成人预防接种门诊
+								地址：罗湖区文锦北路1016号建贸大厦1楼
+								该号码也写作(0755)25506929、0755-25506929、755-25506929、0086-755-25506929、+86-755-25506929、008675525506929、+8675525506929、0086-0755-25506929、+86-0755-25506929 等形式。
+							},
+							深圳市罗湖成人疫苗接种门诊电话:{
+							　　深圳的姐妹们，
+							　　今后在家门口就能打HPV疫苗啦!下面介绍以下深圳市罗湖成人疫苗接种门诊电话，供大家参考
+							　　10月23日下午，深圳首针HPV疫苗，已在罗湖中医院成人预防接种门诊成功接种。据了解，该门诊也是广东省首家成人接种门诊。
+							　　宫颈癌，号称妇科癌症的“第二杀手”，但也是目前唯一能通过疫苗预防的癌症。HPV是人乳头状瘤病毒的简称。由于 99.7% 的宫颈癌患者都可检测到高危HPV的DNA，因此人们习惯把HPV疫苗称为宫颈癌疫苗。
+							　　在深圳，可以打哪些HPV疫苗?应该怎么打?马上来看看!
+							　　01 深圳上市的是哪种HPV疫苗?:{
+								　　是我国引进并在全国范围接种的2价、4价HPV疫苗。其中——
+								　　2价疫苗已开始接种。该疫苗是属美国葛兰素史克公司生产的16、18亚型2价疫苗，这两个高危亚型与我国近80%的宫颈癌患病相关。
+								　　4价疫苗将在今年年底前后开始接种。该疫苗由默沙东公司生产。
+								　　这两种疫苗的接种程序都是3针次，整个疗程将持续半年——
+								　　第 1 针可以随时打
+								　　第 2 针在第 1 针后的 1 个月之后注射(4价是2个月之后注射)
+								　　第 3 针在第 1 针 6 个月之后注射
+								},
+							　　02 可以到哪里接种?{
+								　　目前，深圳第一家HPV疫苗供应点是罗湖区中医院成人预防接种门诊，市民可以通过电话预约。
+								　　深圳市罗湖成人疫苗接种门诊电话是0755-25506929
+								　　? 地址：
+								　　罗湖区文锦北路1016号一楼
+								　　以后深圳各区(新区)都会安排部分社康中心提供HPV疫苗接种。
+								},
+							　　03 什么人可以接种?:{
+									深圳9～45岁的女性可以根据自身年龄选择打下面2种HPV疫苗：
+								　　9～25岁以下：适用于2价疫苗
+								　　20～45岁：适用于4价疫苗
+								　　从成本 - 收益比来看，年龄小的时候接种疫苗，获益时间更长;年龄越大，花费相同的钱，获益时间明显缩短，不划算。
+								　　年龄较大的女性也不用太担心，毕竟宫颈癌是可以筛查的。
+								　　按照宫颈癌的筛查策略，有很大机会在还没发展到宫颈癌的时候，在癌前病变时就发现问题，然后尽早解决，同样可以预防宫颈癌。
+								　　以上是深圳市罗湖成人疫苗接种门诊电话，仅供参考
+								}
+							}
+						}
+					},
+					概况:{
+						准备去坦桑尼亚途经卢旺达，今天咨询海关，说因为卢旺达和坦桑尼亚都不属于疫区，所以不给打黄热疫苗。请问大家有遇到类似问题，怎么解决？谢谢！
+						我去卢旺达，途径坦桑尼亚，今天早上刚刚打的，在上海的国际旅行卫生保健中心接种黄热病疫苗, 因为是落地签，带上护照，机票和照片去那里接种就可以了，免费的。医生还推荐你买长效驱蚊霜。	2020-01-03 10:24
+						黄热病地区的国家名单:{
+							世卫组织认定的43个黄热病流行国家或地区名单如下：　　
+							非洲33个国家
+							贝宁、乍得、刚果、几内亚、赤道几内亚、埃塞哦比亚、加纳、象牙海岸、尼日利亚、塞拉利昂、
+							苏丹、乌干达、扎伊尔、佛得角、布隆迪、厄立特立亚、岗比亚、几内亚(比绍)、卢旺达、圣多美和普林比西、
+							索马里、坦桑尼亚、喀麦隆、肯尼亚、利比里亚、马里、安哥拉、布基纳法索、加蓬、毛里塔尼亚、塞内加尔、多哥、中非共和国
+						}
+						坦桑尼亚贴吧: 	{	https://tieba.baidu.com/p/6237363623
+							早晨去了 国际旅行卫生保健中心 打算接种黄热病育苗，但是坦桑尼亚不在44个接种国家列中，不给接种，到坦桑尼亚下机还会被抽查小黄本，这个很矛盾呀;	2019-08-26 16:32
+							没有小黄本，机场入境时被查到，强制注射疫苗，50美金
+						}
+					}
+				}
+				黄皮书:{
+					http://www.mafengwo.cn/gonglve/ziyouxing/286760.html 
+					国际上，世界卫生组织，没有将坦桑划入疫区（但划入了Countries requiring yellow fever vaccination，即需要接种黄热病疫苗的国家 ），而在国内，根据目前能查到的最新信息，坦桑尼亚仍被认为是黄热病疫区国家。
+					但实际上，现在很多省市，已按照国际划分标准，不把坦桑算在疫区国家了，像广东等对疫苗管控严格的地区，也不再给去坦桑的旅客打黄热病疫苗了 ；国内的其他地方，即便可以给去坦桑的旅客打黄热病疫苗，基本上也都会收费（非疫区，不给免费疫苗）。
+					Tips：
+						黄热病疫苗（可管10年），在初次注射10天后才会生效，所以最晚一定！一定！！！要在出行前11天注射完毕，否则即便有黄皮书，也会被视为无效。另外，也可选霍乱疫苗（可管3年），分三次口服（0、7、28天），霍乱疫苗不在坦桑入境的硬性规定范围，可自行选择是否服用。
+					穷游网:{ https://ask.qyer.com/question/4313246.html
+						根据联合国卫生组织的报告https://www.who.int/ith/ITH2017-CountryList-ch.pdf ，坦桑尼亚其实不是黄热病国家，但坦桑尼亚有要求对来自有黄热病疫情的国家包括在那个国家有转机超过12小时的都必须出示小黄本，
+						其实上面说的坦桑尼亚“必查”也是因为在短时间内去过肯尼亚才检查的（他是从肯尼亚陆路去坦桑尼亚的），
+						如果你不去肯尼亚、埃塞俄比亚等这些地方的话坦桑尼亚应该是不会查，此外在这个问答中也已经有案例分享了 https://ask.qyer.com/question/3578425.html
+						
+						需要，我肯尼亚和坦桑都去了，肯尼亚不查小黄本，坦桑必查。
+						你可以参考我的肯坦游记，还没写完，但是最有用的攻略部分已经完成了。
+						《14岁，去乞力马扎罗，拥吻非洲之巅》——威士忌路线，含旅行社的选择攻略，续肯尼亚+坦桑尼亚游猎
+						https://bbs.qyer.com/thread-3268591-1.html
+						
+						国内问了3个城市打疫苗的地方，都说坦桑尼亚不属于疫区，不用打黄热病疫苗。后来我提供的机票是从埃塞俄比亚转机，才同意给打黄热病疫苗。看到有人没打黄热病疫苗在乞力马扎罗机场被查的，最后据理力争也让过了。实在不行到坦桑也可以打的，就价格贵了点。
+					},
+					马蜂窝问答:{ http://www.mafengwo.cn/wenda/detail-8158371.html 
+						疫苗需要打吗？黄皮书需要带吗？
+							其实这个问题坦桑尼亚小地球旅行作为目的地专家，已经回答了非常多次，答案是坦桑尼亚官方并没有强制要求一定要打疫苗。
+							如果大家搭乘QR卡塔尔航空，中途不经过其他非洲国家其实是无需担心的。
+						但是为什么会有一些朋友建议去打疫苗呢？
+							因为很多朋友去非洲，并不只是去往坦桑尼亚一国，而是多国连游的情况。例如坦桑的邻国 肯尼亚 就需要黄皮书。偶尔也有抽查的情况。
+						去坦桑签证好办吗？麻烦嘛？
+							坦桑尼亚目前已经是落地签。简单说，带好有效护照（6个月以上有效期）+50 美金现金落地之后办理就好啦～
+							如果还有其他对于坦桑尼亚目的地感性的点，可以私信小窗我哟，提供当地最为准确和便捷的反馈哦～
+						入境是必须坚持黄皮书的，黄热病疫苗需要提前至少10天打才生效，另外建议额外服用霍乱疫苗，带抗疟疾的药，都是在各省份的出入境检验检疫局国际旅行卫生保健中心打针拿药。
+					}
+				}
+			}
+			生活用品:{
+				手机:{
+					传音(波导)-Tecno:{Phantom8},
+				}
+			}
+		}
+	}
+	飞行:{
+		禁止托运:{
+			枪支弹药、管制刀具、警械、易燃易爆物品(如打火机气、酒精、漂白水、油漆、烟花爆竹、>160 wh的锂电池)、腐蚀性物品、剧毒物品以及其他危险品
+		},
+		随身携带:{
+			液态物品(可托运),
+			不超过100wh的锂电池,100~160 wh,航空批准,不超过两个,>160 wh禁止携带和托运,
+			棒球棍
+		},
+		允许托运:{
+			蚊帐、面条、饮料
+		},
+		违禁物品:{
+			危害:{
+				毒害品,
+				放射性物品,
+				易燃易爆物品:{
+					"酒水","打火机",化妆品:{每种限制一件,不超过100ml}
+					液体、凝胶及喷雾类物品：
+						旅客可随身携带总量不超过100ml的该类物品,
+						液态物品经开瓶检查确认无疑后，方可携带。
+						对于部分配备足够数量液态物品安全检查设备的机场，液态物品经设备检查无疑后，可不再执行开瓶检查要求。其它超出部分需要办理"交运"。
+						旅客携带的婴儿奶粉/牛奶/母乳等液态奶制品(需有婴儿随行)，糖尿病或其它疾病患者必需的液态药品(凭医生处方或者医院证明，在药店购买的除外)，经安全检查确认无疑后，可"适量"随身携带。
+						发胶、衣领净、摩丝、发亮剂、杀虫剂、空气清新剂分别限带1 瓶（350毫升），香水限带500毫升，这几种限带的生活用品累计不得超过1000毫升或1 公斤。包装完好的白酒限带2公斤，气体打火机5个，安全火柴5小盒。 高压缩罐装包装之气体禁止携带上机。
+					像常见的肥料也是在管辖范围之类，肥料当中含有氮化物的成分，可能会有爆炸的风险。
+				},
+				枪支,
+				管制刀具:{
+					"水果刀",手术刀、屠刀、雕刻刀等专业刀具，文艺单位表演用的刀、矛、剑、戟等，以及斧、凿、锤、锥、加重或有尖钉的手杖、铁头登山杖可作为行李"托运",
+					以随身携带的生活用刀刃长不超过"4厘米",水果刀、剪刀、男士的剃须刀片等生活用刀都必需放在"托运"行李中，或者交机场安检部门暂存
+				,
+				警用器械,
+				腐蚀性物品:{老干妈\臭豆腐\榴莲},
+				凝胶,
+				喷雾类物品
+			},
+			运输:{
+				禁止携带入境,
+				禁止运输
+			}
+		},
+		},
+		托运管制:{
+			免费: 持成人或儿童的头等舱旅客为40公斤,公务舱旅客为30公斤,经济舱旅客为"20公斤"。持婴儿票的旅客,无免费行李额
+		}
+		过境注意:{
+			境外旅客携带入境免税液态物品，应置于袋体完好无损且封口的透明塑料袋内。
+		}
+		现场购汇,卡,二类户,
+		城市服务-深圳专区-线上柜台-外币预约,自助,
+		华润城支行,
+	},
+	log:{
+		back-210614:{
+			ITINERARY:{
+				________________________________________ITINERARY
+
+				AIRLINE PNR:	1E PNR:
+				NAME:XIE/HAO	ETKT NBR: 0714856904024
+				ID NUMBER:PPE05528260	CONJ NBR:
+				　	
+				ISSUING AIRLINE: ETHIOPIAN AIRLINES 	DATE OF ISSUE:10JUN21
+				　	
+				ISSUING AGENT:	IATA CODE:08300165
+				AGENCY ADDRESS:xxxx
+				________________________________________
+					
+				ORIGIN/DES	FLIGHT	CLASS	DATE	TIME	ARRTIME	PERIOD	STATUS	ALLOW	TERMINAL								Takeoff	Arrival
+				________________________________________
+				DAR--DAR ES SALAAM	ET804	Y	14JUN	1645	1925	14JUN21/14JUN21	OK	46KG	3	2
+				ADD--ADDIS ABABA	ET684	Y	14JUN	2355	1630+1	14JUN21/15JUN21	OK	46KG	2	2
+				PVG--SHANGHAIPUDONG										
+				________________________________________
+			}
+		}
+
+	}
 }

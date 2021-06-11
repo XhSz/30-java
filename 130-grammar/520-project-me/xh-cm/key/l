@@ -171,6 +171,7 @@ tz:{
 			lsof -i
 			netstat -tunpl |grep 端口号
 			netstat -tunpl |grep 6100		rdpbase 	81571
+			netstat -tunpl |grep 7100		glrdpbase	67185
 			netstat -tunpl |grep 8123		esbbase		127776 
 			netstat -tunpl |grep 8228		esbbase		127776 
 			netstat -tunpl |grep 6199		ops 		40837/nginx: master		
@@ -181,6 +182,7 @@ tz:{
 			ps -ef|grep 127776
 			ps -ef|grep 40837
 			ps -ef|grep 219474
+			ps -ef|grep 67185
 			
 		},
 		cbs(172.31.2.12 v7base/v7base):{
@@ -258,6 +260,7 @@ tz:{
 			bin:{
 				/sunline/glbase/user/bin/mantools/appctl gl-ltts-onl restart
 				/sunline/glbase/user/bin/mantools/appctl gl-ltts-bat restart
+				/sunline/glbase/user/bin/mantools/appctl gl-ltts-bat start
 				clear;cd /sunline/glbase/logs/gl-ltts-bat/sys/boot/;cp ltts_boot_all.log ltts_boot_all-210608-0043.log;cp /dev/null ltts_boot_all.log;	
 				clear;cd /sunline/glbase/logs/gl-ltts-bat/sys/default/;cp ltts_default.log ltts_default.210608-0120.log;cp /dev/null ltts_default.log;	
 			},
@@ -313,15 +316,17 @@ tz:{
 		},
 		rdp:{
 			bin:{
+				exe:{
+					$TOMCAT_HOME
+					/sunline/rdpbase/user/app/apache-tomcat-7.0.70
+					/sunline/rdpbase/user/app/apache-tomcat-7.0.70/bin/shutdown.sh
+					/sunline/rdpbase/user/app/apache-tomcat-7.0.70/bin/startup.sh
+					cd /sunline/rdpbase/apps/gl/;./shutdown.sh
+					cd /sunline/rdpbase/apps/gl/;./start.sh
+					/sunline/rdpbase/user/app/apache-tomcat-7.0.70/bin/catalina.sh start 
+					/sunline/rdpbase/user/app/apache-tomcat-7.0.70/bin/catalina.sh stop 
+				},
 				ps -ef | grep java	:{
-					exe:{
-						/sunline/rdpbase/user/app/apache-tomcat-7.0.70/bin/shutdown.sh
-						/sunline/rdpbase/user/app/apache-tomcat-7.0.70/bin/startup.sh
-						/sunline/rdpbase/apps/cbs/shutdown.sh
-						/sunline/rdpbase/apps/cbs/start.sh
-						/sunline/rdpbase/user/app/apache-tomcat-7.0.70/bin/catalina.sh start 
-						/sunline/rdpbase/user/app/apache-tomcat-7.0.70/bin/catalina.sh stop 
-					},
 					ori:{
 						/*
 						rdpbase  156857      1  0 Mar16 ?        01:26:18 /usr/java/java7/bin/java -Djava.util.logging.config.file=/sunline/rdpbase/apps/cbs/conf/logging.properties -Djava.util.logging.manager=org.apache.juli.ClassLoaderLogManager -Djdk.tls.ephemeralDHKeySize=2048 -Djava.endorsed.dirs=/sunline/rdpbase/user/app/apache-tomcat-7.0.70/endorsed -classpath /sunline/rdpbase/user/app/apache-tomcat-7.0.70/bin/bootstrap.jar:/sunline/rdpbase/user/app/apache-tomcat-7.0.70/bin/tomcat-juli.jar -Dcatalina.base=/sunline/rdpbase/apps/cbs -Dcatalina.home=/sunline/rdpbase/user/app/apache-tomcat-7.0.70 -Djava.io.tmpdir=/sunline/rdpbase/apps/cbs/temp org.apache.catalina.startup.Bootstrap start
@@ -329,12 +334,36 @@ tz:{
 						
 						rdpbase  156857      1  0 Mar16 ?        01:26:21 /usr/java/java7/bin/java -Djava.util.logging.config.file=/sunline/rdpbase/apps/cbs/conf/logging.properties -Djava.util.logging.manager=org.apache.juli.ClassLoaderLogManager -Djdk.tls.ephemeralDHKeySize=2048 -Djava.endorsed.dirs=/sunline/rdpbase/user/app/apache-tomcat-7.0.70/endorsed -classpath /sunline/rdpbase/user/app/apache-tomcat-7.0.70/bin/bootstrap.jar:/sunline/rdpbase/user/app/apache-tomcat-7.0.70/bin/tomcat-juli.jar -Dcatalina.base=/sunline/rdpbase/apps/cbs -Dcatalina.home=/sunline/rdpbase/user/app/apache-tomcat-7.0.70 -Djava.io.tmpdir=/sunline/rdpbase/apps/cbs/temp org.apache.catalina.startup.Bootstrap start
 						*/
+						rdpbase   41243      1  0 11:06 pts/2    00:00:01 /usr/java/java7/bin/java -Dnop -Djava.util.logging.manager=org.apache.juli.ClassLoaderLogManager -Djdk.tls.ephemeralDHKeySize=2048 -Djava.endorsed.dirs=/sunline/rdpbase/user/app/apache-tomcat-7.0.70/endorsed -classpath /sunline/rdpbase/user/app/apache-tomcat-7.0.70/bin/bootstrap.jar:/sunline/rdpbase/user/app/apache-tomcat-7.0.70/bin/tomcat-juli.jar -Dcatalina.base=/sunline/rdpbase -Dcatalina.home=/sunline/rdpbase/user/app/apache-tomcat-7.0.70 -Djava.io.tmpdir=/sunline/rdpbase/temp org.apache.catalina.startup.Bootstrap start
+
 					},
 					key:{
 						/*
 							/sunline/rdpbase/user/app/apache-tomcat-7.0.70/endorsed 
 						-classpath /sunline/rdpbase/user/app/apache-tomcat-7.0.70
 						*/
+					}
+					err:{
+						rdpbase   41243      1  0 11:06 pts/2    00:00:01 
+						/usr/java/java7/bin/java -Dnop 
+							-Djava.util.logging.manager=org.apache.juli.ClassLoaderLogManager
+							-Djdk.tls.ephemeralDHKeySize=2048 
+							-Djava.endorsed.dirs=/sunline/rdpbase/user/app/apache-tomcat-7.0.70/endorsed 
+							-classpath 
+								/sunline/rdpbase/user/app/apache-tomcat-7.0.70/bin/bootstrap.jar:
+								/sunline/rdpbase/user/app/apache-tomcat-7.0.70/bin/tomcat-juli.jar 
+							-Dcatalina.base=/sunline/rdpbase 
+							-Dcatalina.home=/sunline/rdpbase/user/app/apache-tomcat-7.0.70 
+							-Djava.io.tmpdir=/sunline/rdpbase/temp 
+							org.apache.catalina.startup.Bootstrap start
+					},
+					search:{
+						Djava.util.logging.config.file:{
+							user/app/apache-tomcat-7.0.70/bin/catalina.sh:    LOGGING_CONFIG="-Djava.util.logging.config.file=$CATALINA_BASE/conf/logging.properties"
+						},
+						Dnop:{
+							user/app/apache-tomcat-7.0.70/bin/catalina.sh:    LOGGING_CONFIG="-Dnop"
+						}
 					}
 				}
 			},
@@ -345,8 +374,82 @@ tz:{
 				cp catalina.out catalina.2021-04-27-1647.out;cp /dev/null catalina.out;	
 				mv catalina.out catalina.2021-04-27-1647.out;vi catalina.out;	
 				ll catalina*;
+				平台初始化出错:{
+					ROOT/business/plat/runconfig/plat.cn.lang.xml:	<item id="PLATERROR" mutiltext="平台初始化出错！"  description=""/>
+					ROOT/business/plat/utility/RdpUtilityDomNode.js:        			  "   showBaseMessage('平台初始化出错! '+e.message);\n" +
+					apache-tomcat-7.0.70/webapps/ROOT/business/plat/utility/RdpUtilityDomNode.js:        			  "   showBaseMessage('平台初始化出错! '+e.message);\n" +
+					apps/cbs/webapps/ROOT/plat/runconfig/plat.cn.lang.xml:	<item id="PLATERROR" mutiltext="平台初始化出错！"  description=""/>
+					apps/cbs/webapps/ROOT/business/plat/runconfig/plat.cn.lang.xml:	<item id="PLATERROR" mutiltext="平台初始化出错！"  description=""/>
+					apps/cbs/webapps/ROOT/business/plat/utility/RdpUtilityDomNode.js:        			  "   showBaseMessage('平台初始化出错! '+e.message);\n" +
+				}
 			}
 		},
+		glrdpbase:{
+			bin:{
+				exe:{
+					$TOMCAT_HOME
+					/sunline/glrdpbase/user/app/apache-tomcat-7.0.70
+					/sunline/glrdpbase/user/app/apache-tomcat-7.0.70/bin/shutdown.sh
+					/sunline/glrdpbase/user/app/apache-tomcat-7.0.70/bin/startup.sh
+					cd /sunline/glrdpbase/apps/gl/;./shutdown.sh
+					cd /sunline/glrdpbase/apps/gl/;./start.sh
+					/sunline/glrdpbase/user/app/apache-tomcat-7.0.70/bin/catalina.sh start 
+					/sunline/glrdpbase/user/app/apache-tomcat-7.0.70/bin/catalina.sh stop 
+				},
+				ps:{
+					ori::{
+						/usr/java/java7/bin/java -Djava.util.logging.config.file=/sunline/glrdpbase/apps/gl/conf/logging.properties -Djava.util.logging.manager=org.apache.juli.ClassLoaderLogManager -Djdk.tls.ephemeralDHKeySize=2048 -Djava.endorsed.dirs=/sunline/glrdpbase/user/app/apache-tomcat-7.0.70/endorsed -classpath /sunline/glrdpbase/user/app/apache-tomcat-7.0.70/bin/bootstrap.jar:/sunline/glrdpbase/user/app/apache-tomcat-7.0.70/bin/tomcat-juli.jar -Dcatalina.base=/sunline/glrdpbase/apps/gl -Dcatalina.home=/sunline/glrdpbase/user/app/apache-tomcat-7.0.70 -Djava.io.tmpdir=/sunline/glrdpbase/apps/gl/temp org.apache.catalina.startup.Bootstrap start
+					},
+					key:{
+						/usr/java/java7/bin/java 
+							-Djava.util.logging.config.file=/sunline/glrdpbase/apps/gl/conf/logging.properties 
+							-Djava.util.logging.manager=org.apache.juli.ClassLoaderLogManager 
+							-Djdk.tls.ephemeralDHKeySize=2048 
+							-Djava.endorsed.dirs=/sunline/glrdpbase/user/app/apache-tomcat-7.0.70/endorsed 
+							-classpath 
+								/sunline/glrdpbase/user/app/apache-tomcat-7.0.70/bin/bootstrap.jar:
+								/sunline/glrdpbase/user/app/apache-tomcat-7.0.70/bin/tomcat-juli.jar 
+							-Dcatalina.base=/sunline/glrdpbase/apps/gl 
+							-Dcatalina.home=/sunline/glrdpbase/user/app/apache-tomcat-7.0.70 
+							-Djava.io.tmpdir=/sunline/glrdpbase/apps/gl/temp 
+							org.apache.catalina.startup.Bootstrap start
+					},
+					search:{
+						Bootstrap:{
+							apps/gl/conf/catalina.properties:# - Tomcat Bootstrap JARs
+							apps/gl/logs/catalina.out:	at org.apache.catalina.startup.Bootstrap.start(Bootstrap.java:294)
+							apps/gl/logs/catalina.out:	at org.apache.catalina.startup.Bootstrap.main(Bootstrap.java:428)
+							user/app/apache-tomcat-7.0.70/bin/daemon.sh:test ".$CATALINA_MAIN" = . && CATALINA_MAIN=org.apache.catalina.startup.Bootstrap
+							user/app/apache-tomcat-7.0.70/bin/catalina.bat:set MAINCLASS=org.apache.catalina.startup.Bootstrap
+							user/app/apache-tomcat-7.0.70/bin/catalina.sh:        org.apache.catalina.startup.Bootstrap "$@" start
+
+						},
+						Dcatalina:{
+							user/app/apache-tomcat-7.0.70/bin/catalina.sh:      -Dcatalina.base="\"$CATALINA_BASE\"" \
+							user/app/apache-tomcat-7.0.70/bin/catalina.sh:      -Dcatalina.home="\"$CATALINA_HOME\"" \
+						},
+						Djava.util.logging.config.file:{
+							user/app/apache-tomcat-7.0.70/bin/catalina.sh:    LOGGING_CONFIG="-Djava.util.logging.config.file=$CATALINA_BASE/conf/logging.properties"
+						}
+					}
+				},
+				command:{
+					$TOMCAT_HOME:/sunline/glrdpbase/user/app/apache-tomcat-7.0.70
+					/sunline/glrdpbase/apps/gl/shutdown.sh:{
+						#!/bin/sh
+						export CATALINA_HOME=$TOMCAT_HOME
+						export CATALINA_BASE=`pwd`
+						sh $CATALINA_HOME/bin/catalina.sh stop
+					},
+					/sunline/glrdpbase/apps/gl/start.sh:{
+						#!/bin/sh
+						export CATALINA_HOME=$TOMCAT_HOME
+						export CATALINA_BASE=`pwd`
+						sh $CATALINA_HOME/bin/catalina.sh start
+					},	
+				}
+			}
+		}
 		etl:{	etluser/etluser
 			bin:{
 				ps -ef | grep etl	:{

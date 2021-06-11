@@ -256,3 +256,15 @@ ap:{
 		select * from app_system_parameter where main_key='' and sub_key='';
 	}
 },
+tables:{
+	dp:{
+		dps_bill:{
+			col:{
+				host_date:{runEnvs.getComputer_date()}
+			},
+			insert-7:{
+				
+			}
+		}
+	}
+}
