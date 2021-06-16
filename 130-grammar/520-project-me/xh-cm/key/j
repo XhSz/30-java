@@ -338,7 +338,70 @@
 				/etc/profile	->	/etc/profile.d和/etc/inputrc 		->		~/.bash_profile	->	~/.bash_login	->	~/.profile			->		~/.bashrc
 			}
 		}
+	},
+	161-run-clean,
+	162-run-qry:{
+		ps:{
+			grammar:{
+				single:{
+					-A,'显示所有进程';
+					-e,'同A';
+					-f,'显示UID,PPID,C与STIME栏位';
+				},
+				group:{
+					-ef
+				}
+			}
+		},
+		time:{	'查看命令执行时间'
+			example:{	
+				time ll;
+				real —— '指的是命令或程序所花费的总时间'
+				user —— '指的是在用户模式下程序所花费的时间'
+				sys —— '指的是在内核模式下程序所花费的时间'
+			}
+		},
 	}
+	select * from props$ where name='TimeZone';
+	NAME							VALUE$								COMMENT$
+	DBTIMEZONE						00:00								DB time zone
+	DEFAULT_EDITION					ORA$BASE							Name of the database default edition
+	DEFAULT_PERMANENT_TABLESPACE	USERS								Name of default permanent tablespace
+	DEFAULT_TBS_TYPE				SMALLFILE							Default tablespace type
+	DEFAULT_TEMP_TABLESPACE			TEMP								Name of default temporary tablespace
+	DICT.BASE						2									dictionary base tables version #
+	DST_PRIMARY_TT_VERSION			14									Version of primary timezone data file
+	DST_SECONDARY_TT_VERSION		0									Version of secondary timezone data file
+	DST_UPGRADE_STATE				NONE								State of Day Light Saving Time Upgrade
+	EXPORT_VIEWS_VERSION			8									Export views revision #
+	'Flashback Timestamp 			TimeZone							GMT		Flashback timestamp created in GMT'
+	GLOBAL_DB_NAME					BASEDB								Global database name
+	NLS_CALENDAR					GREGORIAN							Calendar system
+	NLS_CHARACTERSET				AL32UTF8							Character set
+	NLS_COMP						BINARY								NLS comparison
+	NLS_CURRENCY					$									Local currency
+	NLS_DATE_FORMAT					DD-MON-RR							Date format
+	NLS_DATE_LANGUAGE				AMERICAN							Date language
+	NLS_DUAL_CURRENCY				$									Dual currency symbol
+	NLS_ISO_CURRENCY				AMERICA								ISO currency
+	NLS_LANGUAGE					AMERICAN							Language
+	NLS_LENGTH_SEMANTICS			BYTE								NLS length semantics
+	NLS_NCHAR_CHARACTERSET			UTF8								NCHAR Character set
+	NLS_NCHAR_CONV_EXCP	FALSE		NLS 								conversion exception
+	NLS_NUMERIC_CHARACTERS			.,									Numeric characters
+	NLS_RDBMS_VERSION				11.2.0.4.0							RDBMS version for NLS parameters
+	NLS_SORT						BINARY								Linguistic definition
+	NLS_TERRITORY					AMERICA								Territory
+	NLS_TIMESTAMP_FORMAT			DD-MON-RR HH.MI.SSXFF AM			Time stamp format
+	NLS_TIMESTAMP_TZ_FORMAT			DD-MON-RR HH.MI.SSXFF AM TZR		Timestamp with timezone format
+	NLS_TIME_FORMAT					HH.MI.SSXFF AM						Time format
+	NLS_TIME_TZ_FORMAT				HH.MI.SSXFF AM TZR					Time with timezone format
+	NO_USERID_VERIFIER_SALT			61FE9A498A8FB6995B77028E02D6C276		
+	TDE_MASTER_KEY_ID			
+	WORKLOAD_CAPTURE_MODE												CAPTURE implies workload capture is in progress
+	WORKLOAD_REPLAY_MODE												PREPARE implies external replay clients can connect; REPLAY implies workload replay is in progress
+
+
 }
 70-db:{
 	70-db-common:{
@@ -353,6 +416,7 @@
 				sqlplus sys/123456 as sysdba;
 				sqlplus scott/scott@192.168.11.111:1521/orcl 
 				sqlplus cbsbase/cbsbase@172.31.5.12:1521/BASEDB				#service name  
+				sqlplus cbsbasedev/cbsbase@172.31.5.12:1521/BASEDB				
 				sqlplus cbsbase/cbsbase@172.31.5.12:1521/BASEDB	as sysdba	#ORA-01017: invalid username/password; logon denied	
 				sqlplus oracle/oracle@172.31.5.12:1521/BASEDB	
 				sqlplus ocl/ocl@172.31.5.12:1521/BASEDB		
@@ -400,12 +464,36 @@
 				shutdown immediate
 				startup
 				startup mount;
+			},
+			autocommit:{	'无论AUTOCOMMIT设置为何值，当退出SQL*Plus时，当前会话所有的DML操作所改变的数据都会被提交'
+				事务隔离级别,	提交读（Read Committed）'默认';	提交数据类型,显式提交、隐式提交及自动提交;
+				显式:{COMMIT;}-'COMMIT命令直接完成的提交为显式提交',
+				隐式:{ALTER，AUDIT，COMMENT，CONNECT，CREATE，DISCONNECT，DROP，EXIT，GRANT，NOAUDIT，QUIT，REVOKE，RENAME;}-'SQL命令间接完成的提交为隐式提交',
+				自动:{	-'把AUTOCOMMIT设置为ON，则在插入、修改、删除语句执行后，系统将自动进行提交，这就是自动提交',
+					grammar:{	"SET AUTO[COMMIT] { OFF | ON | IMM[EDIATE] | n }"	
+						show autocommit		'sqlplus命令'	'autocommit IMMEDIATE'	-'ON和IMM都表示打开自动提交，二者没有区别'
+						OFF为默认值，表示关闭自动提交,
+						n,n表示成功执行n条DML操作后再自动提交。n不能小于0，也不能大于20亿（ 2,000,000,000 ） '不是一个DML语句所影响的行数，而是DML语句的个数',
+						SET AUTOCOMMIT ON;
+					},
+				}
+			}
+			exp/imp:{
+				characters:{
+					https://www.linuxidc.com/Linux/2018-01/150043.htm
+					see:{
+						cat '/home/soft/scott.dmp' |od -x|head -1|awk '{print $2 $3}'|cut -c 3-6
+						cat 'basedb_after_20210616.dmp' |od -x|head -1|awk '{print $2 $3}'|cut -c 3-6
+						0345
+						select nls_charset_name(to_number('0345','xxxx')) from dual;
+					},
+				},
 			}
 		},
 		44-grammar-table:{
 			alter table table_name add (name varchar(20) default '');
 			count:{
-				code:{
+				code-01:{
 					declare
 					  v_sql varchar2(200);
 					  v_cnt number(10);
@@ -414,6 +502,20 @@
 						v_sql := 'select count(*) from '|| v_tab.table_name;
 						execute immediate v_sql into v_cnt;
 						dbms_output.put_line(v_tab.table_name||':'||v_cnt);
+					  end loop;
+					end;
+				},
+				code-02:{
+					declare
+					  v_sql varchar2(200);
+					  v_cnt number(10);
+					begin
+					  for v_tab in (select table_name from user_tables t where TABLESPACE_NAME ='CBS_DATA' ORDER BY table_name) loop
+						v_sql := 'select count(*) from '|| v_tab.table_name;
+						execute immediate v_sql into v_cnt;
+						if v_cnt>10000 then 
+							dbms_output.put_line(v_tab.table_name||':'||v_cnt);
+						end if;
 					  end loop;
 					end;
 				},
@@ -517,6 +619,26 @@
 				}
 			}
 		},
+		48-grammar-coding:{
+			if:{
+				example-01:{
+					if V_TEST = 1 then
+					dbms_output.put_line('1----');
+					end if;
+				},
+				example-02:{
+					if V_TEST = 1 then
+				? ? ? ? dbms_output.put_line('1----');
+				? ? ?else if V_TEST = 2 then
+				? ? ? ? dbms_output.put_line('2----');
+				? ? ?else if V_TEST = 3 then
+				? ? ? ? dbms_output.put_line('3----');
+				? ? ?end if;
+				? ? ?end if;
+				? ? ?end if;
+				}
+			}
+		},
 		50-exception:{
 			ora-01033:ORACLE initialization or shutdown in progress:{
 			},
@@ -571,6 +693,185 @@
 		30-connect:{
 			cmd:{	'mysql  -h 端口号  -h  主机名\ip -u用户  -p 密码	,#注意都是小写'
 				mysql -p3306 -hlocalhost  -uroot -proot
+			}
+		},
+		43-grammar-db:{
+			version:{
+				select version(); 					pro-5.7.22-enterprise-commercial-advanced-log
+				show variables like '%version%';	:{
+													5.7.22
+													5.7.22-enterprise-commercial-advanced-log
+													MySQL Enterprise Server - Advanced Edition (Commercial)
+				},
+				status  							'只能在mysql命令行使用'
+				mysql -v 							'只能在mysql服务器使用'
+			},
+			autocommit:{	'https://www.jianshu.com/p/b13ec76117c4'
+				show variables like '%autocommit%';
+				set @@session.autocommit=0;
+				set @@global.autocommit=0;
+				vi /etc/my.cnf						init_connect='set autocommit=0'    
+			},
+			information_schema:{
+				tables:{
+					columns:{
+						table_name-表名,
+						data_length-数据所占容量(B),
+							truncate(data_length/1024/1024, 2) as '数据容量(MB)'
+						index_length-索引所占容量(B),
+							truncate(index_length/1024/1024, 2) as '索引容量(MB)'
+						table_rows-总记录数:{
+							count(*):{
+								与select count(*) from 不一样
+								那是因为：
+								（1）默认情况下 mysql 对表进行增删操作时，是不会自动更新 information_schema 库中 tables 表的 table_rows 字段的，在网上搜索一下发现说：只有10%的行数发生变化才会自动收集（没有亲自验证过！）；
+								（2）执行 Analyze table tableName; 会统计所有表数据（在生产环境中不建议使用，因为会锁表！）；
+								https://blog.csdn.net/David_jiahuan/article/details/98478740
+								（3）备注：
+								num_rows 是对表做 statistics analysis 后填充，表和索引的统计分析工作，在9i是要手工做的，10i是可以自动做的。但肯定要有延迟。dba_tables显示的表的记录数是对表进行分析以后才与表的真正记录数同步一次的
+								（4）同步
+								exec dbms_stats.gather_table_stats(OWNNAME =>'CSID', TABNAME => 'dba_extents',METHOD_OPT => 'FOR ALL');
+								http://blog.sina.com.cn/s/blog_713978a50100rccd.html
+							}
+						},
+						table_schema-表名所属库名,
+					},
+					common-use:{
+						all db size:{
+							1. 查看所有数据库容量大小:{
+								-- 9G
+								select 
+								table_schema as '数据库',
+								sum(table_rows) as '记录数',
+								sum(truncate(data_length/1024/1024, 2)) as '数据容量(MB)',
+								sum(truncate(index_length/1024/1024, 2)) as '索引容量(MB)'
+								from information_schema.tables
+								group by table_schema
+								order by sum(data_length) desc, sum(index_length) desc;
+								all tables size by db
+							},
+							2. 查看所有数据库各表容量大小:{
+								-- 7.09s
+								select 
+								table_schema as '数据库',
+								table_name as '表名',
+								table_rows as '记录数',
+								truncate(data_length/1024/1024, 2) as '数据容量(MB)',
+								truncate(index_length/1024/1024, 2) as '索引容量(MB)'
+								from information_schema.tables
+								order by data_length desc, index_length desc;
+								the db size
+							},
+							3. 查看指定数据库容量大小:{
+								select 
+								table_schema as '数据库',
+								sum(table_rows) as '记录数',
+								sum(truncate(data_length/1024/1024, 2)) as '数据容量(MB)',
+								sum(truncate(index_length/1024/1024, 2)) as '索引容量(MB)'
+								from information_schema.tables
+								where table_schema='mysql';
+								tables size of the db
+							},
+							4. 查看指定数据库各表容量大小:{
+								select 
+								table_schema as '数据库',
+								table_name as '表名',
+								table_rows as '记录数',
+								truncate(data_length/1024/1024, 2) as '数据容量(MB)',
+								truncate(index_length/1024/1024, 2) as '索引容量(MB)'
+								from information_schema.tables
+								where table_schema='mysql'
+								order by data_length desc, index_length desc;
+								the table
+							},
+							5. 查看指定表容量大小:{
+								select table_rows as '记录数',
+								truncate(data_length/1024/1024, 2) as '数据容量(MB)',
+								truncate(index_length/1024/1024, 2) as '索引容量(MB)'
+								from information_schema.tables where table_name='cfb_person_base';
+
+								select table_rows as 'c',
+								truncate(data_length/1024/1024, 2) as 'ds',
+								truncate(index_length/1024/1024, 2) as 'is'
+								from information_schema.tables where table_name='cfb_person_base';
+							}
+						}
+					},
+					others:{
+						获取所有表结构(TABLES)
+						SELECT  *  FROM information_schema.TABLES WHERE  TABLE_SCHEMA='数据库名';  
+						TABLES表：提供了关于数据库中的表的信息（包括视图）。详细表述了某个表属于哪个schema，表类型，表引擎，创建时间等信息。
+						各字段说明如下:{
+								字段			含义
+							Table_catalog	数据表登记目录
+							Table_schema	数据表所属的数据库名
+							Table_name		表名称
+							Table_type		表类型[system view|base table]
+							Engine			使用的数据库引擎[MyISAM|CSV|InnoDB]
+							Version			版本，默认值10
+							Row_format		行格式[Compact|Dynamic|Fixed]
+							Table_rows		表里所存多少行数据
+							Avg_row_length	平均行长度
+							Data_length		数据长度
+							Max_data_length	最大数据长度
+							Index_length	索引长度
+							Data_free		空间碎片
+							Auto_increment	做自增主键的自动增量当前值
+							Create_time		表的创建时间
+							Update_time		表的更新时间
+							Check_time		表的检查时间
+							Table_collation	表的字符校验编码集
+							Checksum		校验和
+							Create_options	创建选项
+							Table_comment	表的注释、备注
+						},
+						详细说明:
+						row_format:{
+							若一张表里面不存在varchar、text以及其变形、blob以及其变形的字段的话，那么张这个表其实也叫静态表，即该表的row_format是fixed，就是说每条记录所占用的字节一样。其优点读取快，缺点浪费额外一部分空间。
+							若一张表里面存在varchar、text以及其变形、blob以及其变形的字段的话，那么张这个表其实也叫动态表，即该表的row_format是dynamic，就是说每条记录所占用的字节是动态的。其优点节省空间，缺点增加读取的时间开销。
+							所以，做搜索查询量大的表一般都以空间来换取时间，设计成静态表。
+							 row_format还有其他一些值：
+							DEFAULT | FIXED | DYNAMIC | COMPRESSED | REDUNDANT | COMPACT
+							修改行格式
+							ALTER TABLE table_name ROW_FORMAT = DEFAULT
+							修改过程导致：
+							fixed--->dynamic: 这会导致CHAR变成VARCHAR
+							dynamic--->fixed: 这会导致VARCHAR变成CHAR
+						},
+						data_free:{
+							每当MySQL从你的列表中删除了一行内容，该段空间就会被留空。而在一段时间内的大量删除操作，会使这种留空的空间变得比存储列表内容所使用的空间更大。
+							当MySQL对数据进行扫描时，它扫描的对象实际是列表的容量需求上限，也就是数据被写入的区域中处于峰值位置的部分。如果进行新的插入操作，MySQL将尝试利用这些留空的区域，但仍然无法将其彻底占用。
+							1. 查询数据库空间碎片：
+							select table_name,data_free,engine from information_schema.tables where table_schema='yourdatabase';
+							2. 对数据表优化：
+							optimeze table `table_name`;
+						}
+						参考：
+						http://wenku.baidu.com/link?url=MtPZrab7kbciXsBAjia4w0JUE3aFCtOj9fu_2zXVE5JW6k8UHaFCl6ppGE89HPMUFmLSMTjmp2rqbIMcSXBIJ11LIlxzDYJH1qLHZpNdqYu
+						http://blog.sina.com.cn/s/blog_70b9a0e90101cmdz.html
+						http://www.2cto.com/database/201208/144994.html
+					}
+				},
+				optimizer_trace:{
+					variables
+					open:{
+						show variables like 'optimizer_trace'; -- enabled=off,one_line=off
+						set optimizer_trace='enabled=on';
+						show variables like 'optimizer_trace'; -- enabled=on,one_line=off
+					},
+					columns:{
+						1、 query :查询语句
+						2、 trace :查询的追踪信息
+					}
+				},
+				information_schema+:{
+					https://www.cnblogs.com/shengdimaya/p/6916554.html
+					INNODB_FT_CONFIG-全文索引信息
+				}
+			},
+			performance_schema.events_statements_current:{
+				 select THREAD_ID,EVENT_ID,END_EVENT_ID,TIMER_START,TIMER_END,TIMER_WAIT,LOCK_TIME,SQL_TEXT 
+				 from performance_schema.events_statements_current where SQL_TEXT like'%cfb_person_base%';
 			}
 		},
 		46-grammar-function:{

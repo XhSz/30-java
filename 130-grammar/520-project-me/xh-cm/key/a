@@ -244,6 +244,7 @@ ap:{
 			SrvIoTaAccounting.checkBalance();
 		}
 	},
+	ApOrg.getReferenceOrgId:{},
 	ApBusinessParm.getValue:{
 		select * from app_business_parameter where main_key='' and sub_key='*';
 		select * from app_business_parameter where main_key='' and sub_key='';
@@ -254,6 +255,12 @@ ap:{
 	ApSystemParm.getValue:{
 		select * from app_system_parameter where main_key='' and sub_key='*';
 		select * from app_system_parameter where main_key='' and sub_key='';
+	},
+	ApFile.createClient(String dirCode)-tz:{
+		table-app_root_directory-select,
+		new FileClientImpl("AbstractComponent.SFTPFileTransfer");:{
+			SysUtil.getInstance(cn/sunline/ltts/aplt/component/ApBaseComp$FileTransfer, "AbstractComponent.SFTPFileTransfer")；
+		}
 	}
 },
 tables:{
@@ -265,6 +272,57 @@ tables:{
 			insert-7:{
 				
 			}
+		},
+		dpb_overdraft-'账户透支协议':{
+			
+		},
+		dpb_overdraft_fiche:{
+			insert-1-'登记账户透支卡片':{
+				'登记账户透支卡片'
+				DpOverdraftAgree.regoverdraftFiche(DpOverdraftSignIn, dpb_overdraft, dpa_sub_account, E_OVERDRAFTINSTTYPE):{
+					'透支协议签约'		1912200000002
+					overdraftSign(DpOverdraftSignIn);:{	'透支协议签约'
+						
+					}
+				}
+			},
+			update-7:{
+				process-12:{
+					dp4011-'current close account':{145707,147473},
+					167388-dp4012-'close inter-bank deposits account',
+					221448-dp4052-'Fixed Maturity After Renew Instruct maintenance',
+							-dp4021-'multi to multi transfer'-175883-177407,
+					235067-dp4235-'overdraft signed',
+						  -dp4236-'overdraft agreement maintenance',
+					237492-dp4237-'overdraft interest settlement',
+					239978-dp4239-'single overdraft interest settlement',
+					358461-dp01-'Deposit interest rate process',
+					dp07-'Overdraft interest settlement'-362640,363441-5:{363074,363336,363358,363397,363419},
+					372086-dp13-'Overdraft occupancy adjustment',
+				},
+				DpOverDraftDayEnd.overDraftSettlementInst(dpa_sub_account, dpb_overdraft, List<dpb_overdraft_fiche> listODFiche):{	'透支账户还息账务处理'
+					
+				},
+				DpOverDraftDayEnd.overdueAddInst(dpb_overdraft, List<dpb_overdraft_fiche>):{	'单个协议额度逾期加息处理,方法外判断是否逾期'
+					
+				},
+				DpOverDraftSettle.clearOdAgree(List<DpOverDraftSettleAmount>):{		'透支卡片清零及协议信息关闭'
+					
+				},
+				DpOverDraftSettle.clearSingleOdAgree(String, E_YESORNO):{	'透支卡片清零及协议信息关闭'
+					
+				}
+			}
+		}
+		fiche_no-'卡片号':{
+			dpa_fiche_interest-'卡片利息表'-'Fiche interest table',
+			dpa_fiche_interest_rate-'卡片利率表'-,
+			dps_fiche_accrued-'卡片核算利息明细表'-'Fiche accrued interest details',
+			dps_fiche_payed_interest-'卡片已付利息表'-'Fiche interest payment details',
+			dpb_fiche_rate_hist-'卡片历史利率登记簿'-'Fiche Historical Interest Rate Register Book',
+			dpb_fiche_balance_hist-'卡片历史余额登记簿'-'Fiche History Balance Register Book',
+			dps_fiche_trxn-'卡片交易明细流水'-'Fiche trxn detail table',
+			dpb_overdraft_fiche-'账户透支卡片'-'Account overdraft fiche',
 		}
 	}
 }

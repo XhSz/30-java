@@ -117,7 +117,41 @@ co:{
 		}
 	}
 },
-process:{
+process-table-value:{
+	ap-file:{
+		app_batch-文件批量业务定义:{
+			values:{
+									 A,one to one transfer
+									 B,frozen
+									'C,accounting event write file'
+									"D,accounting event stored"		'会计事件'
+									 E,accrued data write file		'应计数据存储'
+									"F,accrued data stored"
+									 G,ledger balance write file
+									"H,ledger balance stored"		'已存储分类帐余额'
+									 I,reconciliation file write
+									"J,reconciliation file stored"	'已存储对帐文件'
+									 K,CB File TwoGoTrade
+									 L,CB File TwoGoTrade Too
+									 M,CB Send File TwoGoTrade
+									 N,original system occurrence
+									 O,original system balance
+									 P,excahnge rate file
+									"Q,excahnge rate stored file"	'已存储汇率文件'			
+					BaseType.U_SHORTDESC	"1,online interface2,aggrement directory"
+			BaseType.U_BYTE10	"A,request acceptanceB,send data"	BaseType.U_BYTE32			BaseType.U_BYTE32
+		busi_batch_id				busi_batch_type		file_recv_way							remote_dir_code
+						busi_batch_desc			file_proc_type	local_dir_code										'busi_org_id'
+		'batch business id'		'batch business type'	'file receive way'					'remote directory code'			'trxn_date'
+				'batch business describe'	'file process type'	'local directory code'								/cbs/99/20210601/
+				tab7	對帳文件同步			J	A	2	CORE_CHECK_RECORD_LOCAL			CORE_CHECK_RECORD_REMOTE		'CHECK'			S####	20991231	S####	20991231	1
+				taf01	會計事件同步			D	A	2	TA_ACCOUNTING_LOCAL				TA_ACCOUNTING_REMOTE			'ACCOUNTING'	S####	20991231	S####	20991231	1
+				taf02	計提文件同步			F	A	2	TA_ACCURE_LOCAL					TA_ACCURE_REMOTE				'ACCURE'		S####	20991231	S####	20991231	1
+				taf03	核心分護帳余額文件同步	H	A	2	CORE_LEDGER_BAL_LOCAL			CORE_LEDGER_BAL_REMOTE			'LEDGERBAL'		S####	20991231	S####	20991231	1
+				taf04	汇率文件同步			Q	A	2	TA_EXCHANGE_RATE_RECORD_LOCAL	TA_EXCHANGE_RATE_RECORD_REMOTE	'EXCHANGE_RATE'	S####	20991231	S####	20991231	1
+			}
+		}
+	},
 	gl_code:{	'which defined in gl'
 		fap_accounting_subject:{
 			values:{
@@ -261,19 +295,68 @@ process:{
 		},
 	}
 },
-file:{
-	key-mcb:{
-		No.	BUSI_BATCH_TYPE		PARESE_BATCH_ID	BUSI_BATCH_ID	'BUSI_BATCH_TYPE'	'FILE_PATH_KEY		FILE_NAME_KEY					DATA_TABLE																		BODY_KEY
-			批量业务类型		解析文件跑批	生成文件跑批	'批量业务类型'		
-			EnumType.E_BATCHTYPE							'EnumType.E_BATCHTYPE'		
-		0	"N-原始系统发生额"		glt00			fin01			N			"FINANCEAMT-金融金额"	Gli_Item_Sm.txt		"fab_org_sys_occurr-原始系统发生登记表"										
-		1	"O-原始系统余额"		glt01			fin02			O			"FINANCEBAL-金融余额"	Gli_Item_Re.txt		"fab_org_sys_bal-原始系统资产负债登记表"									
-		2	"F-应计数据存储"		glt02			taf02			F			"ACCURE-精确"			ACCURE_.txt					"fab_accrue-计提登记表"				{"trxn_date","accrue_type","acct_branch","accounting_alias","ccy_code","bal_attributes","budget_inst_amt"}	{"trxn_date":"20201222","accrue_type":"A","acct_branch":"0100105","accounting_alias":"FITIMESAVINGACCT_NRA","ccy_code":"HKD","bal_attributes":"DP02","budget_inst_amt":0.00}										
-		3	"H-已存储分类帐余额"	glt03			taf03			H			"LEDGERBAL-领导余额"	LEDGERBAL_.txt		"fab_ledger_check_seq-工厂分类帐检查"										
-		4	"J-已存储对帐文件"		glt06			tab7			J			"CHECK-核对"			CHECKRECORD_.txt												
-		5	"D-会计事件"			fat1			taf01			D			"ACCOUNTING-记账"		ACCOUNTING_.txt		
+process-file:{
+	common:{
+		key:{
+			No.	BUSI_BATCH_TYPE		PARESE_BATCH_ID	BUSI_BATCH_ID	'BUSI_BATCH_TYPE'	'FILE_PATH_KEY		FILE_NAME_KEY					DATA_TABLE																		BODY_KEY
+				批量业务类型		解析文件跑批	生成文件跑批	'批量业务类型'		
+				EnumType.E_BATCHTYPE							'EnumType.E_BATCHTYPE'		
+			0	"N-原始系统发生额"		glt00			fin01			N			"FINANCEAMT-金融金额"	Gli_Item_Sm.txt		"fab_org_sys_occurr-原始系统发生登记表"										
+			1	"O-原始系统余额"		glt01			fin02			O			"FINANCEBAL-金融余额"	Gli_Item_Re.txt		"fab_org_sys_bal-原始系统资产负债登记表"									
+			2	"F-应计数据存储"		glt02			taf02			F			"ACCURE-精确"			ACCURE_.txt					"fab_accrue-计提登记表"				{"trxn_date","accrue_type","acct_branch","accounting_alias","ccy_code","bal_attributes","budget_inst_amt"}	{"trxn_date":"20201222","accrue_type":"A","acct_branch":"0100105","accounting_alias":"FITIMESAVINGACCT_NRA","ccy_code":"HKD","bal_attributes":"DP02","budget_inst_amt":0.00}										
+			3	"H-已存储分类帐余额"	glt03			taf03			H			"LEDGERBAL-领导余额"	LEDGERBAL_.txt		"fab_ledger_check_seq-工厂分类帐检查"										
+			4	"J-已存储对帐文件"		glt06			tab7			J			"CHECK-核对"			CHECKRECORD_.txt												
+			5	"D-会计事件"			fat1			taf01			D			"ACCOUNTING-记账"		ACCOUNTING_.txt		
+		},
+		file:{
+			temp/99/20201222/
+			"ACCOUNTING"-'记账':{},
+			"ACCURE"-'精确':{},
+			"CHECK"-'核对':{},
+			"FINANCEAMT"-'金融金额':{},
+			"FINANCEBAL"-'金融余额':{},
+			"LEDGERBAL"-'分算余额':{},
+		},
+		faa_account	-- "总账账户表"	glt01
+			"org_id":"99",sys_no,acct_branch,ccy_code,acct_type
 	},
+	1:{
+		init:{
+			apb_batch_request a,apb_batch_receive c	-- "文件批量请求薄"
+				a.busi_batch_type	-- "批量业务类型-batch business type"
+			glt00-"财务系统发生额导入":{"N--原始系统发生额",fab_org_sys_occurr"原始系统发生登记表"},
+			glt01-"财务系统余额导入":{"O-original system balance-原始系统余额",faa_account"总账账户表",fab_org_sys_bal"原始系统资产负债登记表-original system balance registration sheet"},
+			glt02-"計提數據檔導入":{"F-ACCRUE_DOWN-accrued data stored-应计数据存储",fab_accrue"accrue registration sheet-计提登记表",fab_original_voch"外部原始会计人员-external original accounting vocher"},
+			glt03-"核心分户账余额数据文件导入":{"H-ledger balance stored-已存储分类帐余额",fab_ledger_check_seq"工厂分类帐检查"},
+			glt06-"对账文件导入及检查":{"J-reconciliation file stored-已存储对帐文件",update apb_batch_request.file_handling_status"文件批量请求薄"."文件处理状态"="C - success"}	
+		},
+		do:{
+			nsql-GlRegBook.selAccureBookGroup
+				fab_accrue a	-- "计提登记表-accrue registration sheet"
+					a.analysis_state='A' 	-- "分析状态-analysis state"	"2-AYNASIED-已解析"
+					a.accrue_type = 'B' 	--	"计提种类-accrue type"	
+			insert into fab_accounting_voch b; 	-- "会计凭证-accounting voucher"
+				b.total_count
+			glt16-"貸款差額計提":{"B-贷款应收利息计提",remark-"loanAccure",total_count-"1l"}
+			glt17-"貸款損失準備差額計提":{"C - 贷款损失准备计提",remark-"loanAccure",total_count-"2l"}
+		},
+		parse:{
+			fat1-"读取及处理会计事件流水文件":{}
+		}
+	}
 	enum:{
+		EnumType.E_FILEPROCTYPE:{
+			<restrictionType id="E_FILEPROCTYPE" longname="file process type" base="string" maxLength="1">
+				<enumeration id="RECV_REQUEST" value="A" longname="request acceptance"/>
+				<enumeration id="SEND_DATA" value="B" longname="send data"/>
+			</restrictionType>
+		},
+		EnumType.E_FILERECVWAY:{
+			<restrictionType id="E_FILERECVWAY" longname="file receive method" base="string" maxLength="1">
+				<enumeration id="ONLINE_INTERFACE" value="1" longname="online interface"/>
+				<enumeration id="APPOINT_DIURECTORY" value="2" longname="aggrement directory"/>
+			</restrictionType>
+		},
 		EnumType.E_BATCHTYPE:{
 			<restrictionType id="E_BATCHTYPE" longname="file bacth type" base="string" maxLength="1">
 				<enumeration id="TRANBYONE" value="A" longname="one to one transfer"/>
@@ -670,6 +753,16 @@ ta:{
 },
 gl:{
 	tables:{
+		apb_batch_request:{
+			isnert-1:{
+				ApBatch.fileBatchApply(ApFileIn);-2:{
+					ApFile.syncRemoteFile2Local(String);-1:{
+						ap04.process
+					},
+					SrvApBatchFile.fileBatchApply(ApFileIn);-0
+				}
+			}
+		},
 		fap_accounting_event_parm-:{
 			insert-1:{
 				FaAccountingEventMnt.addAccountingEvent(FaAccountingEventInfo);	-1:{
@@ -991,3 +1084,2642 @@ ln:{	''
 		}
 	}
 }
+
+
+
+bat-define:{
+	0-icore-day:{
+													FARENDMA	BUZHOUHA
+		PLJIOYMA	PLJYZWMC				XITONGBS	PLJYZBSH	PLJIOYMA	PLJYZWMC				ZHIXBZHI	YLPLJYLB	JYYXXKTJ	CHLCISHU	SHBZHDBZ	SHIWTJJG	SHUJCFMS	SHUJCFZJ	PLZYZXMS	ZUIDZYBF	RIZHIJIB	ZUOYCFTJ	PLJYYXMS	NGFTIAOG	SFWENJPL	JIAOYILX
+												'法人代码'	 '步骤号'
+		'批量交易码'	'批量交易ZW描述'	'系统标识'	'批量交易ZBSH' '批量交易码'	'批量交易ZW描述'
+		810:{
+			ct01	机构关机检查					CBS	99	810	4	ct01	机构关机检查					0			0	1	1	9		0	0	3		0	1	0	
+			st02	到期自動釋放票據浮動額			CBS	99	810	5	st02	到期自動釋放票據浮動額			1			0	1	1	9		0		3		0	0	0	
+			ln01	貸款欠款收取(日末)				CBS	99	810	10	ln01	貸款欠款收取(日末)				1			0	1	1	1		1		3		0	0	0	
+			cm01	欠費收取(日末)					CBS	99	810	20	cm01	欠費收取(日末)					1			0	1	1	1		1		3		0	0	0	
+			cf05	更新個人證件、KYC資訊			CBS	99	810	30	cf05	更新個人證件、KYC資訊			1			0	1	1	1		1	0	3		0	0	0	
+			cf06	更新公司證件、KYC資訊			CBS	99	810	40	cf06	更新公司證件、KYC資訊			1			0	1	1	1		1	0	3		0	0	0	
+			cf07	更新同業證件、KYC資訊			CBS	99	810	50	cf07	更新同業證件、KYC資訊			1			0	1	1	1		1	0	3		0	0	0	
+			st05	同城票据内部户与同业账号的清算	CBS	99	810	60	st05	同城票据内部户与同业账号的清算	1			0	1	1	1		0		3		0	0	0	
+			ag16	DSF签约信息返回给财政局			CBS	99	810	61	ag16	DSF签约信息返回给财政局			1			0	1	1	1		0		3		0	0	0	
+			dp13	额度调整对应超额占用调整		CBS	99	810	70	dp13	额度调整对应超额占用调整		1			0	1	500	1		1		3		0	0	0	
+			dp11	定期到期續存					CBS	99	810	90	dp11	定期到期續存i					1			0	1	1	1		1		3		0	0	0	
+			dp33	账户基本信息上传				CBS	99	810	100	dp33	账户基本信息上传				1			0	1	1	1		2	0	3		0	0	0	
+			cf02	写客户基础信息					CBS	99	810	110	cf02	写客户基础信息					1			0	1	1	1		2		3		0	0	0	
+			cf03	写客户证件信息					CBS	99	810	115	cf03	写客户证件信息					1			0	1	1	1		2		3		0	0	0	
+			cf04	写客户雇主信息					CBS	99	810	120	cf04	写客户雇主信息					1			0	1	1	1		2		3		0	0	0	
+			cf01	写客户黑名单信息				CBS	99	810	125	cf01	写客户黑名单信息				1			0	1	1	1		2		3		0	0	0	
+			cf10	客户资料上传					CBS	99	810	730	cf10	客户资料上传					1			0	1	1	1		2		3		0	0	0	
+			cf11	客户资料上传					CBS	99	810	740	cf11	客户资料上传					1			0	1	1	1		2		3		0	0	0	
+			ag07	代理批量匯總簽約信息			CBS	99	810	757	ag07	代理批量匯總簽約信息			1			0	1	1	9		0		3		0	0	0	
+			ag09	櫃檯收費文件處理				CBS	99	810	759	ag09	櫃檯收費文件處理				1			0	1	1	9		0		3		0	0	0	
+			ag08	Fss生成報表						CBS	99	810	760	ag08	Fss生成報表						1			0	1	1	9		0		3		0	0	0	
+			ag15	Fss福利金生成報表				CBS	99	810	780	ag15	Fss福利金生成報表				1			0	1	1	9		0		3		0	0	0	
+		},
+		820:{
+			ap05	核心日切						CBS	99	820	10	ap05	核心日切						1			0	1	1	9		0		3		0	0	0	
+		},
+		830:{
+			cl01	額度到期處理					CBS	99	830	80	cl01	額度到期處理					1			0	1	1	9		0		3		0	0	0	
+			cl03	額度實際可用餘額更新			CBS	99	830	84	cl03	額度實際可用餘額更新			1			0	1	1	9		0		3		0	0	0	
+			co01	押品評估比例更新				CBS	99	830	86	co01	押品評估比例更新				1			0	1	1	9		0		3		0	0	0	
+			cl04	額度未分攤押品金額更新			CBS	99	830	88	cl04	額度未分攤押品金額更新			1			0	1	1	9		0		3		0	0	0	
+			dp02	凍結到期解除					CBS	99	830	100	dp02	凍結到期解除					1			0	1	1	1		1		3		0	0	0	
+			dp01	存款利息利率處理				CBS	99	830	110	dp01	存款利息利率處理				1			0	1	50	1		1		3		0	0	0	
+			dp07	存款透支結息					CBS	99	830	115	dp07	存款透支結息					1			0	1	50	1		0		3		0	0	0	
+			ln05	全額放款還款方式轉變			CBS	99	830	120	ln05	全額放款還款方式轉變			1			0	1	1	1		1		3		0	0	0	
+			ln21	貸款利率調整					CBS	99	830	123	ln21	貸款利率調整					1			0	1	50	1		1		3		0	0	0	
+			ln09	貸款計息						CBS	99	830	125	ln09	貸款計息						1			0	1	50	1		1		3		0	0	0	
+			ln04	貸款利息攤銷					CBS	99	830	130	ln04	貸款利息攤銷					1			0	1	1	1		1		3		0	0	0	
+			ln23	貸款節假日更新計劃表			CBS	99	830	131	ln23	貸款節假日更新計劃表			1		runcondition	0	1	50	1		1		3		0	0	0	
+			ln16	貸款還款計劃變更				CBS	99	830	133	ln16	貸款還款計劃變更				1			0	1	1	1		1		3		0	0	0	
+			ln12	借據信息更新					CBS	99	830	135	ln12	借據信息更新					1			0	1	50	1		1		3		0	0	0	
+			ln13	貸款費用收取					CBS	99	830	137	ln13	貸款費用收取					1			0	1	50	1		1		3		0	0	0	
+			ln08	貸款形態轉移					CBS	99	830	140	ln08	貸款形態轉移					1			0	1	1	1		1		3		0	0	0	
+			ln14	貸款減值準備金計算				CBS	99	830	150	ln14	貸款減值準備金計算				1			0	1	50	1		0		3		0	0	0	
+			ln06	貸款展期						CBS	99	830	160	ln06	貸款展期						1			0	1	1	1		1		3		0	0	0	
+			cm04	憑證掛失自動解掛				CBS	99	830	210	cm04	憑證掛失自動解掛				1			0	1	1	1		1		3		0	0	0	
+			cm02	費用攤銷						CBS	99	830	220	cm02	費用攤銷						1			0	1	1	1		4		3		0	0	0	
+			dp12	定期到期處理					CBS	99	830	320	dp12	定期到期處理					1			0	1	1	1		1		3		0	0	0	
+			dpr01	自動續存報表					CBS	99	830	330	dpr01	自動續存報表					1			0	1	1	1		0		3		0	0	0	
+			dp44	月结单生成						CBS	99	830	340	dp44	月结单生成						1			0	1	1	1		0	0	3		0	0	0	
+			ln11	貸款結息						CBS	99	830	410	ln11	貸款結息						1			0	1	1	1		1		3		0	0	0	
+			ln22	貸款自動放款					CBS	99	830	420	ln22	貸款自動放款					1			0	1	1	1		1		3		0	0	0	
+			ln24	貸款受託支付自動支付			CBS	99	830	430	ln24	貸款受託支付自動支付			1			0	1	1	1		1		3		0	0	0	
+			ln01	貸款欠款收取(日初)				CBS	99	830	450	ln01	貸款欠款收取(日初)				1			0	1	1	1		1		3		0	0	0	
+			ln02	批量貼息歸還					CBS	99	830	460	ln02	批量貼息歸還					1			0	1	1	9		0		3		0	0	0	
+			ln03	批量質押還貸					CBS	99	830	470	ln03	批量質押還貸					1			0	1	1	1		1		3		0	0	0	
+			ln07	客戶信貸信息更新				CBS	99	830	495	ln07	客戶信貸信息更新				1			0	1	50	1		0		3		0	0	0	
+			ln17	自动还款邮件登记				CBS	99	830	497	ln17	自动还款邮件登记				1			0	1	1	1		0		3		0	0	0	
+			ln18	贷款到期提醒短信发送			CBS	99	830	498	ln18	贷款到期提醒短信发送			1			0	1	1	9		0		3		0	0	0	
+			cm01	欠費收取(日初)					CBS	99	830	500	cm01	欠費收取(日初)					1			0	1	1	1		1		3		0	0	0	
+			dp21	正常戶轉不動戶					CBS	99	830	510	dp21	正常戶轉不動戶					1			0	1	1	1		1		3		0	0	0	
+			dp10	零整續存						CBS	99	830	560	dp10	零整續存						1			0	1	1	1		1		3		0	0	0	
+			dp32	定期自动存入					CBS	99	830	570	dp32	定期自动存入					1			0	1	1	1		1		3		0	0	0	
+			dp04	存款計提數據匯總				CBS	99	830	610	dp04	存款計提數據匯總				1			0	1	1	9		0		3		0	0	0	
+			dp14	透支撥備						CBS	99	830	615	dp14	透支撥備						1			0	1	1	9		0		3		0	0	0	
+			ln10	貸款利息計提匯總				CBS	99	830	620	ln10	貸款利息計提匯總				1			0	1	1	9		0		3		0	0	0	
+			ln15	貸款減值準備金計提登記			CBS	99	830	630	ln15	貸款減值準備金計提登記			1			0	1	1	9		0		3		0	0	0	
+			taa7	生成內部賬戶歷史餘額			CBS	99	830	720	taa7	生成內部賬戶歷史餘額			1			0	1	1	1		1		3		0	0	0	
+			taa9	內部賬戶上日餘額匯總			CBS	99	830	810	taa9	內部賬戶上日餘額匯總			1			0	1	1	1		1		3		0	0	0	
+			cm03	空白憑證上日餘額匯總			CBS	99	830	820	cm03	空白憑證上日餘額匯總			1			0	1	1	1		1		3		0	0	0	
+			cm05	現金台賬上日餘額匯總			CBS	99	830	830	cm05	現金台賬上日餘額匯總			1			0	1	1	1		1		3		0	0	0	
+			dp05	存款台賬上日餘額匯總			CBS	99	830	840	dp05	存款台賬上日餘額匯總			1			0	1	1	9		0		3		0	0	0	
+			ln29	貸款台賬上日餘額匯總			CBS	99	830	850	ln29	貸款台賬上日餘額匯總			1			0	1	1	9		0		3		0	0	0	
+			co29	押品台賬上日餘額匯總			CBS	99	830	855	co29	押品台賬上日餘額匯總			1			0	1	1	9		0		3		0	0	0	
+			fx01	生成外匯交易文件				CBS	99	830	860	fx01	生成外匯交易文件				1			0	1	1	1		0		3		0	0	0	
+			tab5	總分核對檢查					CBS	99	830	905	tab5	總分核對檢查					1			0	1	1	9		0		3		0	0	0	
+			taf02	核心計提數據寫文件				CBS	99	830	910	taf02	核心計提數據寫文件				1			0	1	1	9		0		3		0	0	0	
+			taf03	核心台賬上日餘額寫文件			CBS	99	830	920	taf03	核心台賬上日餘額寫文件			1			0	1	1	9		0		3		0	0	0	
+			taf04	核心匯率寫文件					CBS	99	830	925	taf04	核心匯率寫文件					1			0	1	1	9		0		3		0	0	0	
+			tab7	核心對賬數據寫文件				CBS	99	830	930	tab7	核心對賬數據寫文件				1			0	1	1	9		0		3		0	0	0	
+			taa3	損益性質內部賬戶清零(年初)		CBS	99	830	935	taa3	損益性質內部賬戶清零(年初)		1			0	1	1	1		1		3		0	0	0	
+			dp27	產品失效檢查					CBS	99	830	940	dp27	產品失效檢查					1			0	1	1	9		0		3		0	0	0	
+			ap99	連續跑批處理					CBS	99	830	1000 ap99	連續跑批處理					1			0	1	1	9		0		3		0	0	0	
+		}
+	},
+	1-gl-year:{
+													FARENDMA	BUZHOUHA
+		PLJIOYMA	PLJYZWMC				XITONGBS	PLJYZBSH	PLJIOYMA	PLJYZWMC				ZHIXBZHI	YLPLJYLB	JYYXXKTJ	CHLCISHU	SHBZHDBZ	SHIWTJJG	SHUJCFMS	SHUJCFZJ	PLZYZXMS	ZUIDZYBF	RIZHIJIB	ZUOYCFTJ	PLJYYXMS	NGFTIAOG	SFWENJPL	JIAOYILX
+												'法人代码'	 '步骤号'
+		'批量交易码'	'批量交易ZW描述'	'系统标识'	'批量交易ZBSH' '批量交易码'	'批量交易ZW描述'
+		940-總賬年終試算:{
+			glt00	财务系统发生额导入				GL	99	940	3	glt00	财务系统发生额导入				1			1	1	1	9		0	0	3		0	0	0	
+			glt01	财务系统余额导入				GL	99	940	6	glt01	财务系统余额导入				1			1	1	1	9		0	0	3		0	0	0	
+			glt02	計提數據檔導入					GL	99	940	10	glt02	計提數據檔導入					1			1	1	1	9		0		3		0	0	0	
+			glt03	核心分户账余额数据文件导入		GL	99	940	12	glt03	核心分户账余额数据文件导入		1			1	1	1	9		0	0	3		0	0	0	
+			glt06	对账文件导入及检查				GL	99	940	14	glt06	对账文件导入及检查				1			1	1	1	9		0	0	3		0	0	0	
+			glt08	试算前检查						GL	99	940	16	glt08	试算前检查						1			1	1	1	9		0	0	3		0	0	0	
+			glt15	存款差額計提					GL	99	940	20	glt15	存款差額計提					1			1	1	1	9		0		3		0	0	0	
+			glt16	貸款差額計提					GL	99	940	30	glt16	貸款差額計提					1			1	1	1	9		0		3		0	0	0	
+			glt17	貸款損失準備差額計提			GL	99	940	40	glt17	貸款損失準備差額計提			1			1	1	1	9		0		3		0	0	0	
+			glt18	應收應付利息紅字補計提			GL	99	940	50	glt18	應收應付利息紅字補計提			1			1	1	1	9		0		3		0	0	0	
+			glt20	总分核对						GL	99	940	55	glt20	总分核对						1			1	1	1	9		0	0	3		0	0	0	
+			gl21	年末外币损益科目兑换			GL	99	940	56	gl21	年末外币损益科目兑换			1			1	1	1	9		4		3		0	0	0	
+					系统上线日余额处理		                                 系统上线日余额处理
+			gl22	年末外币损益科目兑换			GL	99	940	57	gl22	年末外币损益科目兑换			1			1	1	1	9		4		3		0	0	0	
+			glt23	年末试算汇兑损益处理			GL	99	940	58	glt23	年末试算汇兑损益处理			1			1	1	1	9		0		3		0	0	0	
+			glt30	生成總賬前統一清算				GL	99	940	60	glt30	生成總賬前統一清算				1			1	1	1	9		0		3		0	0	0	
+			glt35	生成機構總賬					GL	99	940	70	glt35	生成機構總賬					1			1	1	1	9		0		3		0	0	0	
+			glt40	生成折幣憑證					GL	99	940	80	glt40	生成折幣憑證					1			1	1	1	9		0		3		0	0	0	
+			glt41	折幣四捨五入誤差補平			GL	99	940	90	glt41	折幣四捨五入誤差補平			1			1	1	1	9		0		3		0	0	0	
+			glt45	生成折幣總賬					GL	99	940	100	glt45	生成折幣總賬					1			1	1	1	9		0		3		0	0	0	
+			glt50	業務總賬生成前處理				GL	99	940	110	glt50	業務總賬生成前處理				1			1	1	1	9		0		3		0	0	0	
+			glt51	生成業務總賬-賬務機構			GL	99	940	120	glt51	生成業務總賬-賬務機構			1			1	1	1	9		0		3		0	0	0	
+			glt52	生成業務總賬-報表機構			GL	99	940	130	glt52	生成業務總賬-報表機構			1			1	1	1	9		0		3		0	0	0	
+			glt55	生成三大報表數據-賬務機構		GL	99	940	140	glt55	生成三大報表數據-賬務機構		0			1	1	1	9		0		3		0	0	0	
+			glt56	生成三大報表數據-報表機構		GL	99	940	150	glt56	生成三大報表數據-報表機構		0			1	1	1	9		0		3		0	0	0	
+			gl85	總賬報表生成（資產負債表）		GL	99	940	160	gl85	總賬報表生成（資產負債表）		0			1	1	1	9		0		3		0	0	0	
+			gl86	總賬報表生成					GL	99	940	170	gl86	總賬報表生成					0			1	1	1	9		0		3		0	0	0	
+					（表內表外營業狀況表）                                   （表內表外營業狀況表）
+			gl87	總賬報表生成（損益明細表）		GL	99	940	180	gl87	總賬報表生成（損益明細表）		0			1	1	1	9		0		3		0	0	0	
+			gl88	表內營業狀況表					GL	99	940	190	gl88	表內營業狀況表					0			1	1	1	9		0		3		0	0	0	
+			gl89	表外營業狀況表					GL	99	940	200	gl89	表外營業狀況表					0			1	1	1	9		0		3		0	0	0	
+			gl90	折算過程表						GL	99	940	210	gl90	折算過程表						0			1	1	1	9		0		3		0	0	0	
+		}
+	},
+	2-gl-day:{		
+													FARENDMA	BUZHOUHA
+		PLJIOYMA	PLJYZWMC				XITONGBS	PLJYZBSH	PLJIOYMA	PLJYZWMC				ZHIXBZHI	YLPLJYLB	JYYXXKTJ	CHLCISHU	SHBZHDBZ	SHIWTJJG	SHUJCFMS	SHUJCFZJ	PLZYZXMS	ZUIDZYBF	RIZHIJIB	ZUOYCFTJ	PLJYYXMS	NGFTIAOG	SFWENJPL	JIAOYILX
+												'法人代码'	 '步骤号'
+		'批量交易码'	'批量交易ZW描述'	'系统标识'	'批量交易ZBSH' '批量交易码'	'批量交易ZW描述'
+		900-總賬日終檢查:{
+			gl00	发生额文件导入及记账			GL	99	900	5	gl00	发生额文件导入及记账			0			1	1	1	9		0		3		0	0	0	
+			gl01	余额汇总文件导入及对账			GL	99	900	6	gl01	余额汇总文件导入及对账			0			1	1	1	9		0		3		0	0	0	
+			gl02	計提數據檔導入					GL	99	900	10	gl02	計提數據檔導入					1			1	1	1	9		0		3		0	0	0	
+			gl03	總分餘額核對流水數據檔導入		GL	99	900	20	gl03	總分餘額核對流水數據檔導入		1			1	1	1	9		0		3		0	0	0	
+			gl04	匯率數據檔導入					GL	99	900	30	gl04	匯率數據檔導入					0			1	1	1	9		0		3		0	0	0	
+			gl06	對賬檔導入及檢查				GL	99	900	40	gl06	對賬檔導入及檢查				0			1	1	1	9		0		3		0	0	0	
+			gl08	GL EOD before check				GL	99	900	50	gl08	GL EOD before check				1			1	1	1	9		0		3		0	0	0	
+		},
+		910-總賬日終日切前處理:{
+			gl10	關閉總賬系統					GL	99	910	60	gl10	關閉總賬系統					1			1	1	1	9		0		3		0	0	0	
+			gl15	存款差額計提					GL	99	910	70	gl15	存款差額計提					1			1	1	1	9		0		3		0	0	0	
+			gl16	貸款差額計提					GL	99	910	80	gl16	貸款差額計提					1			1	1	1	9		0		3		0	0	0	
+			gl17	貸款損失準備差額計提			GL	99	910	90	gl17	貸款損失準備差額計提			1			1	1	1	9		0		3		0	0	0	
+			gl18	應收應付利息紅字補計提			GL	99	910	100	gl18	應收應付利息紅字補計提			1			1	1	1	9		0		3		0	0	0	
+			gl20	總分餘額核對					GL	99	910	110	gl20	總分餘額核對					0			1	1	1	9		0		3		0	1	0	
+			gl23	汇兑损益						GL	99	910	115	gl23	汇兑损益						1			1	1	1	9		0	0	3		0	1	0	
+			gl25	損益結轉						GL	99	910	120	gl25	損益結轉						1			1	1	1	9		0		3		0	0	0	
+			gl26	利潤劃轉						GL	99	910	130	gl26	利潤劃轉						1			1	1	1	9		0		3		0	0	0	
+			gl27	外系统本年利润转总账系统		GL	99	910	132	gl27	外系统本年利润转总账系统		1			1	1	1	9		0	0	3		0	0	0	
+			gl28	本年利润转未分配利润			GL	99	910	135	gl28	本年利润转未分配利润			1			1	1	1	9		0	0	3		0	0	0	
+			gl29	未分配利润外币折本				GL	99	910	138	gl29	未分配利润外币折本				0			1	1	1	9		0	0	3		0	0	0	
+			gl30	生成總賬前統一清算				GL	99	910	140	gl30	生成總賬前統一清算				1			1	1	1	9		0		3		0	0	0	
+			gl35	生成機構總賬					GL	99	910	150	gl35	生成機構總賬					1			1	1	1	9		0		3		0	0	0	
+			gl40	生成折幣憑證					GL	99	910	160	gl40	生成折幣憑證					1			1	1	1	9		0		3		0	0	0	
+			gl41	折幣四捨五入誤差補平			GL	99	910	170	gl41	折幣四捨五入誤差補平			1			1	1	1	9		0		3		0	0	0	
+			gl45	生成折幣總賬					GL	99	910	180	gl45	生成折幣總賬					1			1	1	1	9		0		3		0	0	0	
+			gl46	年終決算折算損益科目結轉上劃	GL	99	910	190	gl46	年終決算折算損益科目結轉上劃	1			1	1	1	9		0		3		0	0	0	
+			gl50	業務總賬生成前處理				GL	99	910	200	gl50	業務總賬生成前處理				1			1	1	1	9		0		3		0	0	0	
+			gl51	生成業務總賬-賬務機構			GL	99	910	210	gl51	生成業務總賬-賬務機構			1			1	1	1	9		0		3		0	0	0	
+			gl52	生成業務總賬-報表機構			GL	99	910	220	gl52	生成業務總賬-報表機構			1			1	1	1	9		0		3		0	0	0	
+			gl55	生成三大報表數據-賬務機構		GL	99	910	230	gl55	生成三大報表數據-賬務機構		0			1	1	1	9		0		3		0	0	0	
+			gl56	生成三大報表數據-報表機構		GL	99	910	300	gl56	生成三大報表數據-報表機構		0			1	1	1	9		0		3		0	0	0	
+		},
+		920-總賬日終日切:{
+			gl60	總賬換日						GL	99	920	400	gl60	總賬換日						1			1	1	1	9		0		3		0	0	0	
+		},
+		930-總賬日終日切後處理:{
+			gl61	換日後檢查						GL	99	930	410	gl61	換日後檢查						1			1	1	1	9		0		3		0	0	0	
+			gl65	總賬過賬						GL	99	930	420	gl65	總賬過賬						1			1	1	1	9		0		3		0	0	0	
+			gl70	總賬服務啟用					GL	99	930	430	gl70	總賬服務啟用					1			1	1	1	9		0		3		0	0	0	
+			gl80	準備金處理						GL	99	930	450	gl80	準備金處理						0			1	1	1	9		0		3		0	0	0	
+			gl85	總賬報表生成（資產負債表）		GL	99	930	460	gl85	總賬報表生成（資產負債表）		0			1	1	1	9		0		3		0	0	0	
+			gl86	總賬報表生成（利潤表）			GL	99	930	470	gl86	總賬報表生成（利潤表）			0			1	1	1	9		0		3		0	0	0	
+			gl87	總賬報表生成（損益明細表）		GL	99	930	480	gl87	總賬報表生成（損益明細表）		0			1	1	1	9		0		3		0	0	0	
+			gl88	表內營業狀況表					GL	99	930	490	gl88	表內營業狀況表					0			1	1	1	9		0		3		0	0	0	
+			gl89	表外營業狀況表					GL	99	930	495	gl89	表外營業狀況表					0			1	1	1	9		0		3		0	0	0	
+			gl90	折算過程表						GL	99	930	500	gl90	折算過程表						0			1	1	1	9		0		3		0	0	0	
+		}
+	},
+	3-gl-time:{		
+													FARENDMA	BUZHOUHA
+		PLJIOYMA	PLJYZWMC				XITONGBS	PLJYZBSH	PLJIOYMA	PLJYZWMC				ZHIXBZHI	YLPLJYLB	JYYXXKTJ	CHLCISHU	SHBZHDBZ	SHIWTJJG	SHUJCFMS	SHUJCFZJ	PLZYZXMS	ZUIDZYBF	RIZHIJIB	ZUOYCFTJ	PLJYYXMS	NGFTIAOG	SFWENJPL	JIAOYILX
+												'法人代码'	 '步骤号'
+		100-文件批量組:{	
+			ap02	download file					GL	99	100	20	ap02	download file					1			1	1	1	9		0		3		0	0	0	
+			ap03	upload file						GL	99	100	30	ap03	upload file						1			1	1	1	9		0		3		0	0	0	
+			ap04	synchronize romote folder		GL	99	100	40	ap04	synchronize romote folder		1			1	1	1	9		0		3		0	0	0	
+			fat1	'read accounting event'			GL	99	100	10	fat1	'read accounting event'			1			1	1	1	9		0		3		0	0	0	
+		},
+		110-定時批量組:{
+			fat2	'accounting event posting'		GL	99	110	10	fat2	'accounting event posting'		1			1	1	1	9		0		3		0	0	0	
+		}
+			PILJYBSS
+			FENZHONG	MIAO
+			ap02	*	*/30	GL	99	onTimeFileDownload			100	ap02	{"input":{},"sys":{"prcscd":"ap02","error_id":null,"groupId":"100"},"comm_req":{"initiator_system":"999","sponsor_system":"999","busi_teller_id":"S####","session_id":null,"busi_org_id":"99","ip_address":null,"busi_branch_id":"200","channel_id":"999","over_time":null}}							?	*	*	*	*	*/30	0	0	1	SCHEDULING		read accounting event	onTimeFileDownloadOR01355520210601	bat
+			ap03	*/6		0	GL	99	onTimeFileUpload			100	ap03	{"input":{},"sys":{"prcscd":"ap03","error_id":null,"groupId":"100"},"comm_req":{"initiator_system":"999","sponsor_system":"999","busi_teller_id":"S####","session_id":null,"busi_org_id":"99","ip_address":null,"busi_branch_id":"200","channel_id":"999","over_time":null}}							?	*	*	*	*/6		0	0	0	1	SCHEDULING		accounting event posting	onTimeFileUploadOR01353820210601	bat
+			ap04	*	*/30	GL	99	onTimeSyscRemoteDirectory	100	ap04	{"input":{},"sys":{"prcscd":"ap04","error_id":null,"groupId":"100"},"comm_req":{"initiator_system":"999","sponsor_system":"999","busi_teller_id":"S####","session_id":null,"busi_org_id":"99","ip_address":null,"busi_branch_id":"200","channel_id":"999","over_time":null}}							?	*	*	*	*	*/30	0	0	1	SCHEDULING		accounting event posting	onTimeSyscRemoteDirectoryOR01355620210601	bat
+			fat1	*/1		0	GL	99	onTimeReadAccoutingEvent	100	fat1	{"input":{},"sys":{"prcscd":"fat1","error_id":null,"groupId":"100"},"comm_req":{"caller_system":"999","initiator_system":"999","sponsor_system":"999","busi_teller_id":"S####","session_id":null,"busi_org_id":"99","ip_address":null,"busi_branch_id":"200","channel_id":"999","over_time":null}}		?	*	*	*	*/1		0	0	0	1	SCHEDULING		read accounting event	onTimeReadAccoutingEventOR01355720210601	bat
+			fat2	*/1		0	GL	99	onTimeAccoutingEventPosting	110	fat2	{"input":{},"sys":{"prcscd":"fat2","error_id":null,"groupId":"110"},"comm_req":{"caller_system":"999","initiator_system":"999","sponsor_system":"999","busi_teller_id":"S####","session_id":null,"busi_org_id":"99","ip_address":null,"busi_branch_id":"200","channel_id":"999","over_time":null}}		?	*	*	*	*/1		0	0	0	1	SCHEDULING		accounting event posting	onTimeAccoutingEventPostingOR01355420210601	bat
+	}
+
+}
+
+bat-code:{
+	0-icore-day:{
+		in:{
+			taa9:{	"内部账入分户账余额流水"
+				getBatchDataWalker:{
+					nsql-ApBranch.selBranchList:{
+						
+					}
+				},
+				process:{
+						"data flow":{	
+							from 	
+							insert 	
+							update 	
+						},
+						"key code":{
+							"1.":{
+								acctBalList = nsql-TaAccounting.selAccountBal:{
+									select
+										b.gl_ref_code,
+										b.ccy_code,
+										case when amt >= 0.00 THEN 'D' ELSE 'C' END as bal_type,
+										case when amt >= 0.00 THEN b.amt else 0 - amt end as acct_bal  
+									from 
+										(select 
+											a.gl_ref_code,
+											a.ccy_code,
+											sum(case when a.bal_type = 'D' THEN
+													( case when #trxn_date# = a.bal_update_date THEN a.prev_date_bal else a.acct_bal end)
+												ELSE
+													0.00 - ( case when #trxn_date# = a.bal_update_date THEN a.prev_date_bal else a.acct_bal end)
+												END) as amt
+										from
+											taa_account a
+										where 
+											a.org_id = #org_id# 
+										and	a.acct_branch = #acct_branch#
+										and a.internal_acct_type = 'A'
+										group by a.gl_ref_code, a.ccy_code ) b
+									order by b.gl_ref_code, b.ccy_code
+								},
+								nsql-TaAccounting.selAccountBal:{	
+									select
+									  b.gl_ref_code,
+									  b.ccy_code,
+									  case when amt >= 0.00 THEN 'D' ELSE 'C' END as bal_type,
+									  case when amt >= 0.00 THEN b.amt else 0 - amt end as acct_bal  
+									from 
+									  (select 
+										a.gl_ref_code,
+										a.ccy_code,
+										sum(case when a.bal_type = 'D' THEN
+											( case when #trxn_date# = a.bal_update_date THEN a.prev_date_bal else a.acct_bal end)
+										  ELSE
+											0.00 - ( case when #trxn_date# = a.bal_update_date THEN a.prev_date_bal else a.acct_bal end)
+										  END) as amt
+									  from
+										taa_suspense a
+									  where 
+										a.org_id = #org_id# 
+									  and  a.acct_branch = #acct_branch#
+									  group by a.gl_ref_code, a.ccy_code ) b
+									order by b.gl_ref_code, b.ccy_code
+								}
+							},
+						}
+				}
+			},
+			mgta08:{ "将内部帐户信息写入分类科目"
+				
+			},
+			cm03:{	"凭证核算余额"	//voucher accounting balance
+				getBatchDataWalker:{
+					nsql-CmVochEndDay.selVochAcctBrch:{
+						select distinct acct_branch from cma_voch_acct where org_id=#org_id#
+					}
+				},
+				getJobBatchDataWalker:{
+					nsql-CmVochEndDay.selVochAcctBalByBrch:{
+						select acct_branch,
+							   voch_type,
+							   sum(case
+									 when bal_update_date = #trxn_date# then
+									  prev_date_bal
+									 else
+									  stock_bal
+								   end) prev_date_bal
+						  from cma_voch_acct
+						 where org_id = #org_id#
+						   and acct_branch = #acct_branch#
+						 group by voch_type, acct_branch
+					}
+				},
+				process:{}
+			},
+			cm05:{	"凭证核算余额"	//voucher accounting balance
+				getBatchDataWalker:{
+					nsql-CmVochEndDay.selVochAcctBrch:{
+						select distinct acct_branch from cma_voch_acct where org_id=#org_id#
+					}
+				},
+				getJobBatchDataWalker:{
+					nsql-CmCashEndDay.selCashAcctBalByBrch:{
+						select acct_branch,
+							   voch_type,
+							   sum(case
+									 when bal_update_date = #trxn_date# then
+									  prev_date_bal
+									 else
+									  stock_bal
+								   end) prev_date_bal
+						  from cma_voch_acct
+						 where org_id = #org_id#
+						   and acct_branch = #acct_branch#
+						 group by voch_type, acct_branch
+					}
+				},
+				process:{}
+			}
+			
+		},
+		export:{
+			taf03:{	"分户账余额流水文件生成"
+				getBatchDataWalker:{},
+				process:{
+					TaFile.writeLedgerBalDataMain();:{
+						"data flow":{	
+							from 	
+							insert 	
+							update 	
+						},
+						"key code":{
+							"2.body":{
+								nsql-TaFile.selLedgerBal:{
+									select 
+											* 
+									from
+											tas_ledger_bal a 	-- "分类科目余额"
+									where
+											a.trxn_date=#last_date# and a.org_id=#org_id# 
+								}
+							},
+						}
+					}
+				}
+			}
+		},
+		execute:{
+			ap04:{	"批量同步远程目录文件"
+				call:{
+					ksys_dsrwdd		{"miaooooo:":"*/30"}
+				},
+				getBatchDataWalker:{
+					nsql-ApFile.selSyscBatchIdList:{	"获取批量同步文件清单"
+						select
+								* 
+						from
+								app_batch 
+						where
+								file_proc_type = 'A' and file_recv_way = '2'	
+								-- 	"E_FILEPROCTYPE.RECV_REQUEST"		"A-request acceptance"
+								--	"E_FILERECVWAY.APPOINT_DIURECTORY"	"2-aggrement directory"
+						select * from app_batch where file_proc_type = 'A' and file_recv_way = '2';
+					}
+				},
+				process:{
+					ApFile.syncRemoteFile2Local(dataItem.getBusi_batch_id());:{	"同步远程文件到本地"
+						"data flow":{	
+							from 	
+							insert 	
+							update 	
+						},
+						"key code":{
+							"1.":{
+							},
+							"3.":{
+								ApBatch.fileBatchApply(apFileIn);
+							}
+						}
+					}
+				},
+				exe-log:{
+					201224:{
+						ACCOUNTING2020122499000001.txt 	11:33:00
+					}
+				}
+			},
+			ap02:{	"文件接收"
+				call:{
+					ksys_dsrwdd		{"fenzhong:":"*/1"}
+				},
+				getBatchDataWalker:{
+					nsql-ApFile.selGroupIdForRecv:{	//获取文件接收的散列值
+						select
+						distinct a.hash_value
+						from
+								apb_batch_receive a 
+						where    	    	 
+							  a.receive_ind = 'N' 
+					}
+				},
+				getJobBatchDataWalker:{
+					nsql-ApFile.selFileReceiveData:{
+						select
+								a.file_id ,a.file_name,a.file_server_path,a.file_local_path
+						from
+								apb_batch_receive a 
+						where
+							  a.hash_value = #hash_value#        
+							  and a.receive_ind = 'N' 
+					   order by  a.recevice_count asc
+					}
+				},
+				process:{
+					ApFile.syncRemoteFile2Local(dataItem.getBusi_batch_id());:{	"同步远程文件到本地"
+						"data flow":{	
+							from 	
+							insert 	
+							update 	
+						},
+						"key code":{
+							"1.":{
+							},
+							"3.":{
+								ApBatch.fileBatchApply(apFileIn);
+							}
+						}
+					}
+				},
+				exe-log:{
+					201224:{
+						ACCOUNTING2020122499000001.txt 	11:33:00
+					}
+				}
+			}
+		},
+		parse:{
+			fat1:{	"读取及处理会计事件流水文件"
+				call:{
+					ksys_dsrwdd		{"fenzhong:":"*/1"}
+				},
+				getBatchDataWalker:{
+					nsql-FaFile.selFileHashInfo:{
+						select
+								distinct a.hash_value 
+						from
+								apb_batch_request a 
+						join
+								apb_batch_receive b 
+						on      a.request_file_id = b.file_id
+						where
+							  a.org_id = '99'
+						  and a.busi_batch_type = 'D' 					-- 	"E_BATCHTYPE.ACCOUNTINGEVENT_DOWN"	"D-accounting event stored"
+						  and a.file_handling_status = 'A'				-- 	"E_FILEDEALSTATUS.UNCHECK"	"A-pending to check"
+						  and b.receive_ind = 'Y' 
+					}
+				},
+				getJobBatchDataWalker:{
+					nsql-FaFile.selFileDownInfo:{
+						
+					}
+				},
+				process:{
+					FaFile.doAccountingEventFile(dataItem);:{
+						"data flow":{	
+							from 	
+							insert 	
+							update 	
+						},
+						"key code":{
+							"1.":{
+								FaSysService.getSysStatus();
+									select * from fap_sys_define where sys_no='810';
+							},
+							"2.body":{
+								fab_accounting_seq "会计序列"
+								fab_original_voch "外部原始会计人员"
+							},
+						}
+					}
+				},
+				exe-log:{
+					parse file,fat1-201224:{
+						11:32:00,706,11:34:01,864; -- 201201
+						distinct a.hash_value-4:{
+							 80-11:32:00,807-0,
+							255-11:33:00,603-0,
+							428-11:34:00,680-0,
+							442-11:34:00,686-5*hash_value-13*file:{
+								hash_value-20:{
+									2: 26-11:34:00,832-1=hash_value,
+									2:132-11:34:01,211-1=hash_value,rownum_ <= 3+20000 and rownum_ > 3,count=3
+									2:179-11:34:01,283-2=hash_value,rownum <= 20000
+									2:291-11:34:01,477-2=hash_value,rownum_ <= 3+20000 and rownum_ > 3,count=3
+									2:446-11:34:01,592-3=hash_value,rownum_ <= 3+20000 and rownum_ > 3,count=3
+									2:291-11:34:01,477-4=hash_value,rownum_ <= 2+20000 and rownum_ > 2,count=2
+									2:291-11:34:01,477-5=hash_value,rownum_ <= 2+20000 and rownum_ > 2,count=2
+								}
+							}
+						}	
+						download file finished,update time:0201201 11:33:06 332,
+						close fap_sys_define.system_service_status=0 11:33:27,455,	gl10
+						switch 										 11:34:11,991	gl60
+						open  fap_sys_define.system_service_status=1 11:35:09,675,	gl70
+						fab_accounting_seq 20201201 11:38:01 805
+					},
+					201226:{
+						11:37:00,801,11:39:00,559; -- 201201
+						fab_accounting_seq 20201201 11:38:01 805
+						
+					}
+				}
+			},
+			fat2:{	"会计事件流水汇总及入账"
+				ref:{
+					FaConst.BAT_ACCOUNTING_TRXN_CODE;
+				},
+				call:{
+					ksys_dsrwdd		{"fenzhong:":"*/1"}
+				},
+				getBatchDataWalker:{
+					nsql-FaAccounting.selHashValueFromAccounting:{
+						select
+								distinct a.hash_value 
+						from
+								fab_accounting_seq a 	-- "会计序列"
+						where
+								a.trxn_date='20201231' and a.org_id='99' 
+								and a.trxn_seq_status='2'		-- "2-已解析"
+					}
+				},
+				process:{
+					FaBookAccountingSeq.bookAccountingSeq(dataItem.getHash_value(), batchNo);:{
+						"data flow":{	
+							from 	
+							insert 	
+							update 	
+						},
+						"key code":{
+							"1.update batch_no":{
+								nsql-FaAccounting.updTotalBatchNo:{
+									update
+											fab_accounting_seq a -- "会计序列"
+									set
+											a.total_batch_no=#total_batch_no# ,a.trxn_seq_status='3' 
+									where
+											a.trxn_date=#trxn_date# and a.org_id=#org_id# 
+											and a.hash_value = #hash_value#
+											and a.trxn_seq_status=#trxn_seq_status# and rownum<= #total_count# 
+								}
+							},
+							"2.get sys_no":{
+								nsql-FaAccounting.selAccountingDataBySys:{
+									select
+										   distinct a.sys_no
+									  from
+											fab_accounting_seq a -- "会计序列"
+									  where
+											a.trxn_date = #trxn_date# and a.total_batch_no=#total_batch_no# and a.org_id=#org_id# 
+								}
+							},
+							"3.get data":{
+								nsql-FaAccounting.selAccountingData:{
+									select
+										   count(1) as total_count,a.acct_branch,a.trxn_ccy,a.gl_code, a.debit_credit ,a.sys_no ,nvl(sum(a.trxn_amt),0.00) as total_amt
+									  from
+											fab_accounting_seq a -- "会计序列"
+									  where
+											a.trxn_date = #trxn_date# and a.total_batch_no=#total_batch_no#  
+											and a.org_id=#org_id# and a.sys_no=#sys_no#      
+									  group by
+											a.sys_no, a.acct_branch,a.trxn_ccy,a.gl_code, a.debit_credit
+									  order by a.sys_no, a.acct_branch,a.trxn_ccy,a.gl_code, a.debit_credit
+								}
+							},
+						}
+					}
+				}
+			}
+		}
+	},
+	1-gl-process:{
+		init:{
+			glt5:{	""
+				getBatchDataWalker:{},
+				process:{
+					GlFile.doOrgSysOccurrFile();:{
+						"data flow":{	
+							from 	
+							insert 	
+							update 	
+						},
+						"key code":{
+							"1.":{
+								nsql-GlFile.selFileLoanDown:{
+									select
+											a.busi_batch_code, b.file_id ,b.file_name ,b.file_local_path 
+									from
+											apb_batch_request a 
+									join
+											apb_batch_receive b 	
+									on      a.request_file_id = b.file_id
+									where
+											a.org_id = #org_id# 
+											and a.busi_batch_type = 'N' 	"N-original system occurrence-原始系统发生" 
+											and a.file_handling_status = #file_handling_status#
+											and b.receive_ind = #receive_ind# 
+								}
+							},
+						}
+					}
+				}
+			},
+			glt01:{	"财务系统余额导入"
+				getBatchDataWalker:{},
+				process:{
+					GlFile.doOrgSysBalFile();// 年终试算，财务系统余额导入
+						"data flow":{
+							from 	apb_batch_request,apb_batch_receive,	-- "文件批量请求薄"
+									ksys_jyyxrz,fap_sys_define	--"批量交易运行日志","系统定义"
+							insert 	fab_org_sys_bal	-- "原始系统资产负债登记表-original system balance registration sheet"
+							update 	apb_batch_request
+						},
+						"key code":{
+							"1. get file":{
+								nsql-GlFile.selFileLoanDown:{// 从平台登记的表中取出已下载文件的信息
+									select
+											a.busi_batch_code, b.file_id ,b.file_name ,b.file_local_path -- "批量业务代码"
+									from
+											apb_batch_request a -- "文件批量请求薄"
+									join
+											apb_batch_receive b 
+									on      a.request_file_id = b.file_id
+									where
+											a.org_id = 'org_id' 
+											and a.busi_batch_type = 'O' 		-- "批量业务类型-batch business type"	"O-original system balance-原始系统平衡"
+											and a.file_handling_status = 'A'	-- "文件处理状态" 	"A-UNCHECK-pending to check-等待检查"
+											and b.receive_ind = 'Y'
+								},
+								if (sleepTime > waitTime) {	//
+									nsql-GlBranch.selJyyxrzInfo:{
+										select
+												* 
+										from
+												ksys_jyyxrz c --"批量交易运行日志"
+										where
+										c.jiaoyirq=to_date(#trxn_date#=runEnvs.getBal_sheet_date(),'yyyyMMdd') and c.piljybss='glt01' -- "批量交易ID"
+											and c.zuoyzxzt='success' 
+									}
+									selJyyxrzInfo != null return;
+								}
+							},
+							"2. fap_sys_define check":{
+								nsql-GlFile.selCountOfOcrrFile:{
+									select
+											count(*) 
+									from
+											fap_sys_define a  -- "系统定义"
+									where
+											a.org_id=#org_id# and  a.busi_seq_format=#busi_seq_format# and a.sys_no!='810' -- "业务流水组织形式" "4-并账" ,"系统编号" "GL_SYSTEM"
+								}
+							},
+							"3. parse":{
+								"3.1 get file",
+								"3.2 head check":{
+									ApBatch.setFormatErrorByImport(fileLoad.getBusi_batch_code());// 更新文件请求登记薄文件处理状态
+										update apb_batch_request set file_handling_status = 'Y' where busi_batch_code = 'batchCode';-- "文件处理状态" "Y - check fail - format error"
+								},
+								nsql-FaAccounting.selGLBalance:{	//获取系统分户账对应总账系统的余额
+									select
+										case when b.bal_update_date>#trxn_date# then b.previous_bal_direction else b.bal_direction end as bal_direction,
+										case when b.bal_update_date>#trxn_date# then b.previous_acct_bal else b.acct_bal end as acct_bal
+									  from
+											faa_account b 
+									  where
+										  b.org_id=#org_id# and
+										  b.sys_no=#sys_no# and 
+										  b.acct_branch=#acct_branch# and 
+										  b.ccy_code=#ccy_code# and 
+										  b.gl_code=#gl_code# and 
+										  b.acct_type='1'
+								},
+								sysBalance.setLedger_check_result -- "分类帐检查结果-ledger check result",
+								DaoUtil.insertBatch(fab_org_sys_bal.class, sysBalanceList);
+							},
+							"4. amount sum check"{
+								nsql-GlFile.selFileHeadInfofromSysBal:{	// 获取文件汇总的文件头信息
+									select
+											count(1) as head_total_count, nvl(sum(a.acct_bal), 0.00) as head_total_amt 
+									from
+											fab_org_sys_bal a	-- "原始系统资产负债登记表-original system balance registration sheet"
+									where
+											a.org_id=#org_id# and
+											a.trxn_date=#trxn_date#
+								},
+								method-ApBatch.returnStatusByImport:{
+									batchReq = select * from apb_batch_request where busi_batch_code = 'batchCode';	 -- "文件批量请求薄"
+									batchReq.setFile_handling_status(E_FILEDEALSTATUS.CHECKED);-- "文件处理状态" 	"B 	CHECKED 	checked		已检测"
+									batchReq.setFile_handling_status(E_FILEDEALSTATUS.FAILCHECK_UNEQUAL);-- "文件处理状态" 	"Z 	FAILCHECK_UNEQUAL 	check fail - unmatch	检查失败-不匹配"
+									Apb_batch_requestDao.updateOne_odb1(batchReq);
+								}
+							}
+						}
+				}
+			},
+			glt02:{	"計提數據檔導入"
+				getBatchDataWalker:{},
+				process:{
+					GlFile.doAccureFileAtYearTril();// 年终试算，处理计提文件	//导入计提数据文件，解析到数据库表中，日终步骤
+						"data flow":{	
+							from 	apb_batch_request,apb_batch_receive,	-- "文件批量请求薄"
+									app_system_parameter,
+									fap_accounting_event_parm		-- "会计核算参数表"
+							insert 	fab_accrue,fab_original_voch	-- "fab_accrue-accrue registration sheet-计提登记表","外部原始会计人员-external original accounting vocher"
+							update 	apb_batch_request
+						},
+						"key code":{
+							"1. get files":{
+								nsql-GlFile.selFileLoanDown:{// 从平台登记的表中取出已下载文件的信息
+									select
+											a.busi_batch_code, b.file_id ,b.file_name ,b.file_local_path -- "批量业务代码"
+									from
+											apb_batch_request a -- "文件批量请求薄"
+									join
+											apb_batch_receive b 
+									on      a.request_file_id = b.file_id
+									where
+											a.org_id = 'org_id' 
+											and a.busi_batch_type = 'F' 		-- "批量业务类型-batch business type"	"F-ACCRUE_DOWN-accrued data stored-应计数据存储"
+											and a.file_handling_status = 'A'	-- "文件处理状态" 	"A-UNCHECK-pending to check-等待检查"
+											and b.receive_ind = 'Y'
+								},
+							},
+							"2. get par":{
+								select parm_value from app_system_parameter where main_key='GL_CODE_ANALYSIS_ERROR' and sub_key='*'; -- 1
+							}
+							"3. parse":{
+								"3.1 get file",
+								"3.2 head check":{
+									ApBatch.setFormatErrorByImport(fileLoad.getBusi_batch_code());// 更新文件请求登记薄文件处理状态
+										update apb_batch_request set file_handling_status = 'Y' where busi_batch_code = 'batchCode';-- "文件处理状态" "Y - check fail - format error"
+								},
+								sys_no = 800;"CORE_SYSTEM"
+								init accureData:fileBodys	-- "fab_accrue-accrue registration sheet-计提登记表"
+									select * from fap_accounting_event_parm where sys_no = '800' and accounting_alias = '' and bal_attributes='' ;-- "会计核算参数表"// 查询会计核算参数表，获得相应科目 
+								GlRegBook.regOriginalaVochFromAccrue(accureData, vochRecordNo, headInfo.getHead_total_count());// 登记记外系统凭证
+									DaoUtil.insertBatch(fab_original_voch.class, vochList);
+										fab_original_voch	-- "外部原始会计人员-external original accounting vocher"
+								DaoUtil.insertBatch(fab_accrue.class, accureDataList);
+							}
+							"4. amount sum check"{
+								nsql-GlFile.selFileHeadInfoFromAccure:{	// 获取文件汇总的文件头信息
+									select
+											count(1) as head_total_count, nvl(sum(a.budget_inst_amt), 0.00) as head_total_amt 
+									from
+											fab_accrue a	-- "fab_accrue-accrue registration sheet-计提登记表"
+									where
+											a.org_id = #org_id# and a.accrue_date=#trxn_date# 
+								},
+								method-ApBatch.returnStatusByImport:{
+									batchReq = select * from apb_batch_request where busi_batch_code = 'batchCode';	 -- "文件批量请求薄"
+									batchReq.setFile_handling_status(E_FILEDEALSTATUS.CHECKED);-- "文件处理状态" 	"B 	CHECKED 	checked		已检测"
+									batchReq.setFile_handling_status(E_FILEDEALSTATUS.FAILCHECK_UNEQUAL);-- "文件处理状态" 	"Z 	FAILCHECK_UNEQUAL 	check fail - unmatch	检查失败-不匹配"
+									Apb_batch_requestDao.updateOne_odb1(batchReq);
+								}
+							}
+						}
+				}
+			}
+			glt03:{	"核心分户账余额数据文件导入"
+				getBatchDataWalker:{},
+				process:{
+					GlFile.doLedgerBalFile();// 年终试算，分户账余额文件导入	
+						"data flow":{
+							from 	apb_batch_request,apb_batch_receive,	-- "文件批量请求薄"
+									ksys_jyyxrz,app_system_parameter,fap_accounting_event_parm,fap_accounting_subject	--"批量交易运行日志","","会计核算参数表","会计科目表"
+							insert 	fab_ledger_check_seq	-- "fab_ledger_check_seq-工厂分类帐检查"
+							update 	apb_batch_request
+						},
+						"key code":{
+							"1. get file":{
+								nsql-GlFile.selFileLoanDown:{// 从平台登记的表中取出已下载文件的信息
+									select
+											a.busi_batch_code, b.file_id ,b.file_name ,b.file_local_path -- "批量业务代码"
+									from
+											apb_batch_request a -- "文件批量请求薄"
+									join
+											apb_batch_receive b 
+									on      a.request_file_id = b.file_id
+									where
+											a.org_id = 'org_id' 
+											and a.busi_batch_type = 'H' 		-- "批量业务类型-batch business type"	"H-ledger balance stored-已存储分类帐余额"
+											and a.file_handling_status = 'A'	-- "文件处理状态" 	"A-UNCHECK-pending to check-等待检查"
+											and b.receive_ind = 'Y'
+								},
+								if (sleepTime > waitTime) {	//
+									nsql-GlBranch.selJyyxrzInfo:{
+										select
+												* 
+										from
+												ksys_jyyxrz c --"批量交易运行日志"
+										where
+										c.jiaoyirq=to_date(#trxn_date#=runEnvs.getBal_sheet_date(),'yyyyMMdd') and c.piljybss='glt03' -- "批量交易ID"
+											and c.zuoyzxzt='success' 
+									}
+									selJyyxrzInfo != null return;
+								}
+							},
+							"2. get par":{
+								select parm_value from app_system_parameter where main_key='GL_CODE_ANALYSIS_ERROR' and sub_key='*'; -- 1 
+							}
+							"3. parse":{
+								"3.1 get file",
+								"3.2 head check":{
+									ApBatch.setFormatErrorByImport(fileLoad.getBusi_batch_code());// 更新文件请求登记薄文件处理状态
+										update apb_batch_request set file_handling_status = 'Y' where busi_batch_code = 'batchCode';-- "文件处理状态" "Y - check fail - format error"
+								},
+								sys_no = 800;"CORE_SYSTEM"
+								init lederData:fileBodys	-- "fab_ledger_check_seq-工厂分类帐检查"
+									select * from fap_accounting_event_parm where sys_no = '800' and accounting_alias = '' and bal_attributes='' ;-- "会计核算参数表"// 查询会计核算参数表，获得相应科目 
+									select * from fap_accounting_subject where gl_code='' ;-- "会计科目表"// 查询科目
+								DaoUtil.insertBatch(fab_ledger_check_seq.class, ledgerDataList); // 文件明细信息批量插入表
+							},
+							"4. amount sum check"{
+								nsql-GlFile.selFileHeadInfoFromLedger:{	// 获取文件汇总的文件头信息
+									select
+											count(1) as head_total_count, nvl(sum(a.acct_bal), 0.00) as head_total_amt 
+									from
+											fab_ledger_check_seq a	-- "fab_ledger_check_seq-工厂分类帐检查"
+									where
+											a.org_id = #org_id# and a.trxn_date=#trxn_date#
+								},
+								method-ApBatch.returnStatusByImport:{
+									batchReq = select * from apb_batch_request where busi_batch_code = 'batchCode';	 -- "文件批量请求薄"
+									batchReq.setFile_handling_status(E_FILEDEALSTATUS.CHECKED);-- "文件处理状态" 	"B 	CHECKED 	checked		已检测"
+									batchReq.setFile_handling_status(E_FILEDEALSTATUS.FAILCHECK_UNEQUAL);-- "文件处理状态" 	"Z 	FAILCHECK_UNEQUAL 	check fail - unmatch	检查失败-不匹配"
+									Apb_batch_requestDao.updateOne_odb1(batchReq);
+								}
+							}
+						}
+				}
+			},
+			glt06:{	"对账文件导入及检查"
+				getBatchDataWalker:{},
+				process:{
+					GlFile.doCheckAccountingFile();// 对账文件导入及检查
+						"data flow":{
+							from 	apb_batch_request,apb_batch_receive,	-- "文件批量请求薄"
+									ksys_jyyxrz	--"批量交易运行日志"
+							update 	apb_batch_request
+						},
+						"key code":{
+							"1. get file":{
+								nsql-GlFile.selFileLoanDown:{// 从平台登记的表中取出已下载文件的信息
+									select
+											a.busi_batch_code, b.file_id ,b.file_name ,b.file_local_path -- "批量业务代码"
+									from
+											apb_batch_request a -- "文件批量请求薄"
+									join
+											apb_batch_receive b 
+									on      a.request_file_id = b.file_id
+									where
+											a.org_id = 'org_id' 
+											and a.busi_batch_type = 'J' 		-- "批量业务类型-batch business type-EnumType.E_BATCHTYPE"	"J-reconciliation file stored-已存储对帐文件"
+											and a.file_handling_status = 'A'	-- "文件处理状态" 	"A-UNCHECK-pending to check-等待检查"
+											and b.receive_ind = 'Y'
+								},
+								if (sleepTime > waitTime) {	//
+									nsql-GlBranch.selJyyxrzInfo:{
+										select
+												* 
+										from
+												ksys_jyyxrz c --"批量交易运行日志"
+										where
+										c.jiaoyirq=to_date(#trxn_date#=runEnvs.getBal_sheet_date(),'yyyyMMdd') and c.piljybss='glt06' -- "批量交易ID"
+											and c.zuoyzxzt='success' 
+									}
+									selJyyxrzInfo != null return;
+								}
+							},
+							"2. get par"-null:{
+							}
+							"3. parse":{
+								"3.1 get file",
+								"3.2 head check":{},
+								sys_no = 800;"CORE_SYSTEM"
+								init lederData:fileBodys	-- "GlCheckRecord-核心对账文件复合类型":{"交易日期","文件类型","会计主体","记录笔数","总金额"}
+								"3.5 计算落地数据":{
+									nsql-GlFile.selCheckDataFromAccountingSeq:{// 会计事件的落地数据
+										select
+												nvl(sum(a.trxn_amt), 0.00) as total_amt, count(1) as record_number, a.trxn_date,
+												'C' as file_type, a.accounting_subject 
+										from
+												fab_accounting_seq a 		-- "会计序列-accounting sequence"
+										where
+												a.org_id = #org_id# and a.trxn_date = #trxn_date# 
+												and a.sys_no='800' 
+										group by
+												a.accounting_subject , a.trxn_date 
+									},
+									nsql-GlFile.selCheckDataFromAccure:{// 计提的落地数据
+										select
+												nvl(sum(a.budget_inst_amt),0.00) as total_amt, count(1) as record_number, a.accrue_date as trxn_date, 'E' as file_type,
+												'6' AS accounting_subject 
+										from
+												fab_accrue a 		-- "fab_accrue-accrue registration sheet-计提登记表"
+										where
+												a.org_id=#org_id# and a.accrue_date=#trxn_date# 
+												and a.sys_no=#sys_no# 
+										group by
+												a.accrue_date
+									},
+									nsql-GlFile.selCheckDataFromLeger:{// 分户账余额的落地数据
+										
+									}
+								}
+							},
+							"4. end"{
+								update apb_batch_request set file_handling_status = 'C' where busi_batch_code = 'batchCode';	 -- "文件批量请求薄", "C - success"
+								fap_sys_define.setSystem_date(BizUtil.getTrxRunEnvs().getNext_date());//800 
+							}
+						}
+				}
+			},
+		},
+		check:{
+			glt08:{	"试算前检查"
+				getBatchDataWalker:{},
+				process:{
+					GlCheck.prcEodBeforeYear:{
+						"data flow":{	
+							from 	
+							insert 	
+							update 	
+						},
+						"key code":{
+							"1.date check":{
+								select * from app_date where busi_org_id='';
+							},
+							"2.settType check":{
+								settType = select parm_value from app_system_parameter where main_key='SETT_TYPE' and sub_key='*';
+								!=1-SETT_SINGLE_POINT && !=2-SETT_MULTI_LEVEL
+								if(settType==2){
+									nsql-GlSettle.selCountBranchSettle:{
+										select
+												count(*) 
+										from
+												fap_branch_settlement -- "清算关系组织结构"
+										where
+												org_id=#org_id# 
+									}
+								}
+							},
+							"3. 系统原始凭证科目号为空 check":{
+								waitTimeDown = select parm_value from app_system_parameter where main_key='EOD_SLEEP_TIME' and sub_key='WAIT_FILE_DOWN';
+								nsql-GlRegBook.selCountOriginalVoch:{// 当日有 外系统原始凭证科目号为空的总笔数
+									select
+											count(trxn_date) 
+									from
+											fab_original_voch 		-- "外部原始会计人员-external original accounting vocher"
+									where
+											org_id=#org_id# and trxn_date =#trxn_date# and (gl_code is null or gl_code = '')
+								},
+							},
+							"4. 会计序列 check":{
+								waitTimeBook = select parm_value from app_system_parameter where main_key='EOD_SLEEP_TIME' and sub_key='CHECKING';
+								nsql-GlRegBook.selAccountedSeq:{// 当日是否有已汇总的会计流水
+									select
+											count(*) 
+									from
+											fab_accounting_seq 	-- "会计序列-accounting sequence"
+									where
+											org_id=#org_id# and trxn_date=#trxn_date# and trxn_seq_status <> '3'
+								},
+							},	
+							"5. 计提登记 check"-null:{
+								nsql-GlRegBook.selCountAccrue:{// 当日贷款计提登记总数,ABC三种类型必须都存在,否则报错
+									select
+											count(accrue_type) 
+									from
+											fab_accrue 		-- "accrue registration sheet-计提登记表"
+									where
+											org_id=#org_id# and accrue_type=#accrue_type# and accrue_date=#accrue_date# and analysis_state<>'3'
+								},
+							},	
+							"8. 分类科目 check"-null:{
+								nsql-GlRegBook.selCountAccrue:{
+									select
+											count(*) 
+									from
+											fab_ledger_check_result 	-- "分类科目检查结果-ledger account check result"
+									where
+											org_id=#org_id# and trxn_date =#trxn_date# and ledger_check_result <> '1'
+								},
+								select parm_value from app_system_parameter where main_key='LEDGERC_CHECK_ERROR' and sub_key='*';
+							},
+							"9. 分类科目 check"-null:{
+								checkExchangeRate():{// 检查折算汇率是否已录入
+									exchangeRateMode = select parm_value from app_system_parameter where main_key='EXCHANGE_RATE_MODE' and sub_key='*'; //2
+									select * from app_drop where drop_list_type='EXCHANGE_CCY_CODE';
+									ccyCode = select drop_list_value from app_drop_list  where drop_list_type = 'EXCHANGE_CCY_CODE';
+									if(exchangeRateMode=1-EXCHANGE_RATE_MODE_MANUAL){
+										nsql-GlExchange.selAllExchangeCcy:{
+											SELECT
+													count(*) 
+											FROM
+													glb_exchange_rate 	-- "折算汇率（外管每日中间价）"
+											WHERE
+													org_id = #org_id# AND exchange_ccy_code=#exchange_ccy_code# 
+													and trxn_date <= #trxn_date#
+										}
+									}else{
+										nsql-GlExchange.selExchangeCurrencyCode-null:{
+											
+										}
+									}
+								}
+							}
+						}
+					}
+				}
+			},
+		},
+		do:{
+			glt15:{	"存款差額計提"
+				getBatchDataWalker:{
+					nsql-GlRegBook.selAccureBookGroup:{
+						select
+								a.accrue_type, a.sys_no, a.accrue_date, a.acct_branch, a.accrue_gl_code,	"accrue_gl_code-计提科目"
+								a.offset_gl_code, a.ccy_code, sum(a.budget_inst_amt) as budget_inst_amt
+						   
+						from
+								fab_accrue a 	-- "accrue registration sheet-计提登记表"
+						where
+								a.org_id = #org_id# and a.accrue_type = 'A' 	--	"计提种类-accrue type"	"A-DEPOSIT_INTEREST_PAYBLE-存款应付利息计提"
+								and a.accrue_date=#accrue_date# and a.analysis_state='A' 	-- "分析状态-analysis state"	"2-AYNASIED-已解析"
+						group by
+								a.accrue_type, a.sys_no, a.accrue_date,
+								a.acct_branch, a.accrue_gl_code, a.offset_gl_code, a.ccy_code 
+					}
+				},
+				process:{
+					GlRegBook.depositAccure(dataItem);:{"存款计提"
+						"data flow":{	
+							from 	
+							insert 	
+							update 	
+						},
+						"key code":{
+							"1.1取出计提账号信息":{
+								accureAcct = FaOpenAccount.getAcctBySubject	// 取出计提账号信息	//根据科目号取基本账户信息
+									select parm_value from app_system_parameter where main_key='ACCT_SEQ' and sub_key='BASE_ACCOUNT';
+									acctTable = FaOpenAccount.openBaseAccount(openIn);//开基本户
+										E_ACCTTYPE.BASE_ACCOUNT	"1-基准账户"
+										Faa_accountDao.selectOne_odb3 //判断是否已开户
+											select * from faa_account where sys_no=#sys_no# and acct_branch=#acct_branch# and gl_code=#gl_code# and ccy_code=#ccy_code# and acct_seq=#acct_seq# and org_id=#org_id#
+										if(){
+											restartAcct(accountTable);
+										}else{
+											setSumitActt(openBaseacctIn);	->	acct_status "1-NORMAL-正常"
+											accountTable = submitAcct(submitAcct);
+												String acctNo = geneAcctNo(ccyInfo, subjectInfo, submitAcct);	//生成总账账号
+													String accountNo = ApSeq.genSeq("GL_ACCOUNT_NO"); // 生成内部账号
+												Faa_accountDao.insert(acctTable); // 插入数据库
+													insert into faa_account	values();	-- "总账账户表-gl accounts"
+												ApDataAudit.regLogOnInsertParameter(acctTable);	// 登记审计
+										}
+							},
+							"1.2.计提账号记账复合类型":{
+								FaAccounting.getAccountingCheckByAcct	"depositAccure"
+							},
+							"2.对方信息初始化":{
+								"2.1取出对方账号信息",
+								"2.2对方账户记账复合类型"
+							},
+							"3.套账记账":{
+								FaAccounting.regTellerSeq(regTellerSeq);// 登记柜员流水
+									Fab_teller_seqDao.insert(tellerSeq);
+										insert into fab_teller_seq values();
+								FaAccounting.bookMultiAccounting	//套账记账（含科目）
+									FaAccounting.regTellerSeq(regTellerSeq);
+									for(:accountingList){
+										singleAccounting(accountingInfo, tellerSeq, totalCount);	// 单笔记账
+									}
+									FaAcctingVochDao.selAllAcctingVoch(tellerSeq, false);	//测试，查询总账凭证里数据是否正确。
+									checkBalance(tellerSeq);//检查借贷平衡
+										noBalanceCount = FaAccountingDao.selNoBalanceCount
+										if (noBalanceCount.size() > 0)throw GlErr.GL.E0052();
+							},
+							"4.登记计提记账登记簿":{
+								Fab_accrue_accountingDao.insert(accureAccountingTable);
+									insert into fab_accrue_accounting values();	-- "计提会计登记表-accrue accounting registration sheet"
+								GlRegBookDao.updAccureBook();
+									nsql-GlRegBook.updAccureBook:{
+										  UPDATE
+												fab_accrue a 	-- "计提登记表-accrue registration sheet"
+										  SET
+												a.analysis_state = '3' 	-- "分析状态-analysis state"	"3-SUMMARY-已处理"
+										  WHERE
+												a.org_id = #org_id# AND a.sys_no = #sys_no# 
+												AND a.accrue_date = #accrue_date# AND a.accrue_type = #accrue_type#  AND a.acct_branch = #acct_branch# 
+												AND a.accrue_gl_code = #accrue_gl_code# AND a.analysis_state = '2' and a.ccy_code  = #ccy_code#
+									}
+							}
+						}
+					}
+				}
+			},
+			glt16:{	"貸款差額計提"
+				getBatchDataWalker:{
+					nsql-GlRegBook.selAccureBookGroup:{
+						select
+								a.accrue_type, a.sys_no, a.accrue_date, a.acct_branch, a.accrue_gl_code,	"accrue_gl_code-计提科目"
+								a.offset_gl_code, a.ccy_code, sum(a.budget_inst_amt) as budget_inst_amt
+						   
+						from
+								fab_accrue a 	-- "accrue registration sheet-计提登记表"
+						where
+								a.org_id = #org_id# and a.accrue_type = 'B' 	--	"计提种类-accrue type"	"B-贷款应收利息计提"
+								and a.accrue_date=#accrue_date# and a.analysis_state='A' 	-- "分析状态-analysis state"	"2-AYNASIED-已解析"
+						group by
+								a.accrue_type, a.sys_no, a.accrue_date,
+						
+					}
+				},
+				process:{
+					GlRegBook.loanAccure(dataItem);:{"贷款计提"
+						"data flow":{	
+							from 	
+							insert 	
+							update 	
+						},
+						"key code":{
+							"1.1取出计提账号信息":{
+								accureAcct = FaOpenAccount.getAcctBySubject	// 取出计提账号信息	//根据科目号取基本账户信息
+									select parm_value from app_system_parameter where main_key='ACCT_SEQ' and sub_key='BASE_ACCOUNT';
+									acctTable = FaOpenAccount.openBaseAccount(openIn);//开基本户
+										E_ACCTTYPE.BASE_ACCOUNT	"1-基准账户"
+										Faa_accountDao.selectOne_odb3 //判断是否已开户
+											select * from faa_account where sys_no=#sys_no# and acct_branch=#acct_branch# and gl_code=#gl_code# and ccy_code=#ccy_code# and acct_seq=#acct_seq# and org_id=#org_id#
+										if(){
+											restartAcct(accountTable);
+										}else{
+											setSumitActt(openBaseacctIn);	->	acct_status "1-NORMAL-正常"
+											accountTable = submitAcct(submitAcct);
+												String acctNo = geneAcctNo(ccyInfo, subjectInfo, submitAcct);	//生成总账账号
+													String accountNo = ApSeq.genSeq("GL_ACCOUNT_NO"); // 生成内部账号
+												Faa_accountDao.insert(acctTable); // 插入数据库
+													insert into faa_account	values();	-- "总账账户表-gl accounts"
+												ApDataAudit.regLogOnInsertParameter(acctTable);	// 登记审计
+										}
+							},
+							"1.2.计提账号记账复合类型":{
+								FaAccounting.getAccountingCheckByAcct	"loanAccure"
+							},
+							"2.对方信息初始化":{
+								"2.1取出对方账号信息",
+								"2.2对方账户记账复合类型"
+							},
+							"3.套账记账":{
+								FaAccounting.regTellerSeq(regTellerSeq);// 登记柜员流水
+									Fab_teller_seqDao.insert(tellerSeq);
+										insert into fab_teller_seq values();
+								FaAccounting.bookMultiAccounting	//套账记账（含科目）
+									FaAccounting.regTellerSeq(regTellerSeq);
+									for(:accountingList){
+										singleAccounting(accountingInfo, tellerSeq, totalCount);	// 单笔记账
+									}
+									FaAcctingVochDao.selAllAcctingVoch(tellerSeq, false);	//测试，查询总账凭证里数据是否正确。
+									checkBalance(tellerSeq);//检查借贷平衡
+										noBalanceCount = FaAccountingDao.selNoBalanceCount
+										if (noBalanceCount.size() > 0)throw GlErr.GL.E0052();
+							},
+							"4.登记计提记账登记簿":{
+								Fab_accrue_accountingDao.insert(accureAccountingTable);
+									insert into fab_accrue_accounting values();	-- "计提会计登记表-accrue accounting registration sheet"
+								GlRegBookDao.updAccureBook();
+									nsql-GlRegBook.updAccureBook
+										  UPDATE
+												fab_accrue a 	-- "计提登记表-accrue registration sheet"
+										  SET
+												a.analysis_state = '3' 	-- "分析状态-analysis state"	"3-SUMMARY-已处理"
+										  WHERE
+												a.org_id = #org_id# AND a.sys_no = #sys_no# 
+												AND a.accrue_date = #accrue_date# AND a.accrue_type = #accrue_type#  AND a.acct_branch = #acct_branch# 
+												AND a.accrue_gl_code = #accrue_gl_code# AND a.analysis_state = '2' and a.ccy_code  = #ccy_code#
+							}
+						}
+					}
+				}
+			},
+			glt17:{	"貸款損失準備差額計提"
+				getBatchDataWalker:{
+					nsql-GlRegBook.selAccureBookGroup:{
+						select
+								a.accrue_type, a.sys_no, a.accrue_date, a.acct_branch, a.accrue_gl_code,	"accrue_gl_code-计提科目"
+								a.offset_gl_code, a.ccy_code, sum(a.budget_inst_amt) as budget_inst_amt
+						   
+						from
+								fab_accrue a 	-- "计提登记表-accrue registration sheet"
+						where
+								a.org_id = #org_id# and a.accrue_type = 'C' 	--	"计提种类-accrue type"	"C-贷款损失准备计提"
+								and a.accrue_date=#accrue_date# and a.analysis_state='A' 	-- "分析状态-analysis state"	"2-AYNASIED-已解析"
+						group by
+								a.accrue_type, a.sys_no, a.accrue_date,
+						
+					}
+				},
+				process:{
+					GlRegBook.loanLostProvision(dataItem);:{"贷款损失准备"
+						"data flow":{	
+							from 	
+							insert 	
+							update 	
+						},
+						"key code":{
+							"1.1取出计提账号信息":{
+								accureAcct = FaOpenAccount.getAcctBySubject	// 取出计提账号信息	//根据科目号取基本账户信息
+									select parm_value from app_system_parameter where main_key='ACCT_SEQ' and sub_key='BASE_ACCOUNT';
+									acctTable = FaOpenAccount.openBaseAccount(openIn);//开基本户
+										E_ACCTTYPE.BASE_ACCOUNT	"1-基准账户"
+										Faa_accountDao.selectOne_odb3 //判断是否已开户
+											select * from faa_account where sys_no=#sys_no# and acct_branch=#acct_branch# and gl_code=#gl_code# and ccy_code=#ccy_code# and acct_seq=#acct_seq# and org_id=#org_id#
+										if(){
+											restartAcct(accountTable);
+										}else{
+											setSumitActt(openBaseacctIn);	->	acct_status "1-NORMAL-正常"
+											accountTable = submitAcct(submitAcct);
+												String acctNo = geneAcctNo(ccyInfo, subjectInfo, submitAcct);	//生成总账账号
+													String accountNo = ApSeq.genSeq("GL_ACCOUNT_NO"); // 生成内部账号
+												Faa_accountDao.insert(acctTable); // 插入数据库
+													insert into faa_account	values();	-- "总账账户表-gl accounts"
+												ApDataAudit.regLogOnInsertParameter(acctTable);	// 登记审计
+										}
+							},
+							"1.2.计提账号记账复合类型":{
+								FaAccounting.getAccountingCheckByAcct	"loanAccure"
+							},
+							"2.对方信息初始化":{
+								"2.1取出对方账号信息",
+								"2.2对方账户记账复合类型"
+							},
+							"3.套账记账":{
+								FaAccounting.regTellerSeq(regTellerSeq);// 登记柜员流水
+									Fab_teller_seqDao.insert(tellerSeq);
+										insert into fab_teller_seq values();
+								FaAccounting.bookMultiAccounting	//套账记账（含科目）
+									FaAccounting.regTellerSeq(regTellerSeq);
+									for(:accountingList){
+										singleAccounting(accountingInfo, tellerSeq, totalCount);	// 单笔记账
+									}
+									FaAcctingVochDao.selAllAcctingVoch(tellerSeq, false);	//测试，查询总账凭证里数据是否正确。
+									checkBalance(tellerSeq);//检查借贷平衡
+										noBalanceCount = FaAccountingDao.selNoBalanceCount
+										if (noBalanceCount.size() > 0)throw GlErr.GL.E0052();
+							},
+							"4.登记计提记账登记簿":{
+								Fab_accrue_accountingDao.insert(accureAccountingTable);
+									insert into fab_accrue_accounting values();	-- "计提会计登记表-accrue accounting registration sheet"
+								GlRegBookDao.updAccureBook();
+									nsql-GlRegBook.updAccureBook
+										  UPDATE
+												fab_accrue a 	-- "计提登记表-accrue registration sheet"
+										  SET
+												a.analysis_state = '3' 	-- "分析状态-analysis state"	"3-SUMMARY-已处理"
+										  WHERE
+												a.org_id = #org_id# AND a.sys_no = #sys_no# 
+												AND a.accrue_date = #accrue_date# AND a.accrue_type = #accrue_type#  AND a.acct_branch = #acct_branch# 
+												AND a.accrue_gl_code = #accrue_gl_code# AND a.analysis_state = '2' and a.ccy_code  = #ccy_code#
+							}
+						}
+					}
+				}
+			}
+			
+		},
+			glt18:{	"應收應付利息紅字補計提"
+				getBatchDataWalker:{
+					nsql-ApBranch.selBranchList:{ "查询机构所有信息列表"
+						SELECT * from apb_branch	-- "机构信息"
+						where org_id = '' and real_branch_ind = 'Y';	-- "实体机构标识"
+					}
+				},
+				process:{
+					GlRegBook.redInkAccure(dataItem.getBranch_id());:{	"红字补计提"
+						"data flow":{	
+							from 	
+							insert 	
+							update 	
+						},
+						"key code":{
+							"1.":{
+								subjectList = nsql-GlRegBook.selAccureSubject:{	"从应计注册表获取总账代码-acquiring gl code from accrue regbook"
+									select
+											distinct a.accrue_gl_code ,a.accrue_offset_gl_code, a.sys_no
+									  from
+											fab_accrue_accounting a 	-- "计提会计登记表-accrue accounting registration sheet"
+									  where
+											a.accrue_branch=#accrue_branch# and a.accrue_date=#accrue_date# 
+											and a.org_id=#org_id# and a.accrue_type in ('A','B')	-- "计提种类-应计项目类型-accrue type"	
+											
+											"A-DEPOSIT_INTEREST_PAYBLE-存款应付利息计提"	"B-贷款应收利息计提-LOAN_INTEREST_RECEIVABLE"
+								},
+								for(subjectInfo:subjectList):{	// 根据科目，开始红字计提
+									acctList=nsql-FaAccount.selAcctByAccureSubject:{	"查询要重新链接的帐户-inquiring account that be redink"
+										select
+												* 
+										from
+												faa_account a 	-- "总账账户表-gl accounts"
+										where
+												a.gl_code='subjectInfo.getAccrue_gl_code()' and a.bal_update_date=#bal_update_date# 
+												and a.org_id=#org_id# and a.sys_no='subjectInfo.getSys_no()' and a.acct_bal< 0
+									},
+									for(acctTable:acctList):{	// 循环所有的账户
+										balDirect-"余额方向",
+										accountingDirect-"计提方向",
+										oppDirect-"对手方向"
+										FaAccounting.getAccountingCheckByAcct	"记账复合类型"	"redInkAccure"
+										FaAccounting.bookMultiAccounting	"记账"	"redInkAccure"
+									}
+								}
+							}
+						}
+					}
+				}
+			},
+			glt20:{	"总分核对"
+				getBatchDataWalker:{},
+				process:{
+					"data flow":{	
+						from 	
+						insert 	
+						update 	
+					},
+					"key code":{
+						"1.":{
+							ledgerCheckNoGlCode = select parm_value from app_system_parameter where main_key='LEDGERC_CHECK_NO_GL_CODE' and sub_key='800';	-- "FaConst.CORE_SYSTEM"
+							{
+								,60010101,60010102,60010201,60010202,60010301,60010302,60010401,60010402,60010501,
+								60010502,60010601,60010602,60010701,60010702,60012901,60012902,60013001,60013002,
+								60014001,60014002,60014101,60014102,60014201,60014202,60015001,60015002,60015101,
+								60015102,60015201,60015202,60015301,60015302,60016901,60016902,67010102,60012001,
+								60012002,600501,600510,60051101,60051102,60051201,60051210,64010101,64010102,
+								64010201,64010202,64011001,64011002,64011101,64011102,64011301,64011302,64053001,
+								64053002,60101003,60101004,60101005,60101008,60101009,60101098,60101099,60103004,
+								60104001,60104005,60107001,60107002,60107099,602030,602031,602099,60103005,603001,24010102,22400105,30500102,300099
+							}
+							nsql-FaAccounting.delLedgerCheckResult:{	"按日期删除分类帐检查结果-delete ledger check result by date"
+								delete 
+								from
+										fab_ledger_check_result 	-- "分类科目检查结果-ledger account check result"
+								where
+										org_id = #org_id#
+										and trxn_date = #trxn_date#
+							},
+							nsql-FaAccounting.updLedgerSeqStatus:{
+								update
+										fab_ledger_check_seq a 	-- "fab_ledger_check_seq-工厂分类帐检查"
+								set
+										a.analysis_state=#analysis_state# 	-- "2-已解析"
+								where
+										trxn_date=#trxn_date# and org_id=#org_id# and instr(#parm_value#||',', a.gl_code||',')<=0 
+							},
+							nsql-FaAccounting.insLedger:{	"插入外部系统的分类帐余额数据-inserting ledger balance data of external system"	//插入外系统分户账数据
+								insert 
+								into
+										fab_ledger_check_result		-- "分类科目检查结果-ledger account check result"
+										(
+												org_id, sys_no, trxn_date, acct_branch, ccy_code, gl_code, ledger_bal_direction , ledger_acct_bal, gl_bal_direction, gl_acct_bal, ledger_check_result 
+										) 
+										select
+												org_id, sys_no,	trxn_date,	acct_branch,ccy_code, gl_code, bal_type 		,sum(acct_bal) as acct_bal, bal_type, 0.00 as gl_acct_bal,0 as ledger_check_result
+										from
+												fab_ledger_check_seq a	-- "fab_ledger_check_seq-工厂分类帐检查"
+										where
+												trxn_date=#trxn_date# and org_id=#org_id# 
+												and analysis_state='2' and a.accounting_subject<>'6'
+												and instr(#parm_value#||',', a.gl_code||',')<=0 
+										group by
+												org_id,sys_no,trxn_date, acct_branch, ccy_code,
+												gl_code,bal_type 
+										union all
+										select
+												org_id, sys_no,trxn_date,acct_branch,ccy_code,
+												gl_code, 'D' as bal_type ,sum(case when bal_type='D' then acct_bal else -acct_bal end) as acct_bal, 
+												'D' as bal_type, 0.00 as gl_acct_bal,0 as ledger_check_result
+										from
+												fab_ledger_check_seq a	-- "fab_ledger_check_seq-工厂分类帐检查"
+										where
+												trxn_date=#trxn_date# and org_id=#org_id# 
+												and analysis_state='2' and a.accounting_subject='6'
+												and instr(#parm_value#||',', a.gl_code||',')<=0 
+										group by
+												org_id,sys_no,trxn_date, acct_branch, ccy_code,
+												gl_code 
+							},
+							nsql-FaAccounting.updLedgerFromGL:{	"更新外部系统的分类帐余额数据-updating ledger balance data of external system"	//更新外系统分户账数据对应的总账余额
+							},
+							nsql-FaAccounting.updLedgeResult:{	"更新检查结果-updating the checking result"	//更新对账结果 
+							},
+							nsql-FaAccounting.updLedgerSeqStatus:{	"更新总分核对流水处理状态"	},
+							resultList = nsql-FaAccounting.selLedgerFailure:{},
+							for(cpl:resultList):{
+								accountingSubjectList = nsql-FaAccounting.selSubjectFromLedger:{	"从会计科目检查中选择会计科目-selecting accounting subject from ledger check"	},
+								nsql-FaAccounting.updLedgerSubject:{}
+							},
+							ledgerCheckError = select parm_value from app_system_parameter where main_key='LEDGERC_CHECK_ERROR' and sub_key='*';
+							if(null==ledgerCheckError||1=ledgerCheckError){
+								select * from app_drop_list where dict_org_id = '' and drop_list_type='ACCOUNTING_SUBJECT';
+								for(){
+									select parm_value from app_system_parameter where main_key='LEDGERC_CHECK_ERROR' and sub_key='#drop_list_type#';
+								}
+								nsql-FaAccounting.selLedgerFailureBySubject:{ "选择会计科目审核失败记录-selecting the record of checking failed by Accounting Subject"	
+									select
+											sys_no,trxn_date,acct_branch,ccy_code,ledger_bal_direction,
+											ledger_acct_bal,gl_code,gl_bal_direction,gl_acct_bal,ledger_check_result 
+									from
+											Fab_ledger_check_result a 
+									where
+											a.trxn_date=#trxn_date# and a.org_id=#org_id# 
+											and a.ledger_check_result='0' and exists(
+													select
+															b.parm_value
+													from
+															app_system_parameter b 
+													where
+															b.main_key='LEDGERC_CHECK_ERROR' 
+															and b.parm_value='1' and instr(a.accounting_alias, b.sub_key||',')>0 
+											) 
+								}
+							}
+						}
+					}
+				}
+			},
+			gl21:{	"年末外币损益科目兑换系统上线日余额处理"
+				getBatchDataWalker:{
+					nsql-GlExchange.selGLvochCount:{
+						select
+								count(*) 
+						from
+								fab_teller_seq a 
+						where
+								a.trxn_code='gl21' and a.org_id=#org_id# and a.trxn_date=#trxn_date#
+					},
+					nsql-ApBasic.selCurrencyList:{	"查询货币参数列表"
+						select * from app_currency where org_id='';
+					}
+				},
+				process:{
+					"data flow":{	
+						from 	
+						insert 	
+						update 	
+					},
+					"key code":{
+						"1.":{
+							exchSuject = select parm_value from app_system_parameter where main_key='SETTLEMENT_SUBJECT' and sub_key='*';	"外币兑换科目"
+							onlineDate = select parm_value from app_system_parameter where main_key='ONLINE_DATE' and sub_key='*';	"系统上线日期"
+							GlYearEndTransProfit.exchangeSCY:{
+								glb_exchange_rate exchangeRate = nsql-GlExchange.selExchRateOne:{	"查询汇率"	// 币种+日期查询汇率
+								};
+								// 外币损益类科目号的（借-贷）发生额轧差额
+								selGlbranchBal = nsql-GlExchange.selGlbranchBal:{
+									
+								},
+								for(glBal:selYearEndVochBal){
+									FaAccounting.getAccountingCheckByAcct 	"Foreigncurrencyexchange"
+								}
+							}
+						},
+					}
+				}
+			},
+			gl22:{	"年末外币损益科目兑换"
+				getBatchDataWalker:{
+					nsql-ApBasic.selCurrencyList:{	"查询货币参数列表"
+						select * from app_currency where org_id='';
+					}
+				},
+				process:{
+						"data flow":{	
+							from 	
+							insert 	
+							update 	
+						},
+						"key code":{
+							"1.":{
+								GlYearEndTransProfit.exchangeSCY(exchSuject, trxnDate, lastDate,dataItem.getCcy_code(),false);
+								nsql-GlExchange.updateAccountingVoch:{
+									update
+											fab_accounting_voch 	-- "会计凭证-accounting voucher"
+									set
+											valid_ind='Y' 	-- "有效标志"
+									where
+											trxn_date=#trxn_date# and trxn_ccy=#trxn_ccy#
+								}
+							},
+						}
+				}
+			},
+			glt23:{	"年末试算汇兑损益处理"
+				getBatchDataWalker:{
+					nsql-:{
+						
+					}
+				},
+				process:{
+						"data flow":{	
+							from 	
+							insert 	
+							update 	
+						},
+						"key code":{
+							"1.":{
+								nsql-FaAccount.selExchangeSubject:{
+									select
+											* 
+									from
+											fap_accounting_subject 	-- "会计科目表"
+									where
+											org_id = #org_id# and end_gl_code_ind = 'Y' and gl_code like concat('3050' , '%')
+								},
+								for():{
+									nsql-FaAccount.selConversionExchangePositionAmt:{
+									},
+									GlYearEndTransProfit.exchangeProfitAndLoss:{	"汇兑损益"	//将轧差的金额进行记账，一边记到原科目的发生，一边记到6030
+										
+									}
+								}
+							},
+						}
+				}
+			},
+			glt30:{	"生成總賬前統一清算"
+				getBatchDataWalker:{},
+				process:{
+					GlSettle.prcSettlement();:{
+						"data flow":{	
+							from 	
+							insert 	
+							update 	
+						},
+						"key code":{
+							"1.":{
+								lstPrepData = getSettlementData(trxnDate, settBatchNo, orgId);:{	/* 数据准备 */
+									nsql-GlSettle.updGatherBatchNo:{
+										UPDATE
+												fab_teller_seq a 	-- "出纳员序列-teller sequence"
+										SET
+												a.sett_batch_no = #sett_batch_no# 	--	"settlement batch no"
+										WHERE
+												a.org_id= #org_id# AND a.trxn_date = #trxn_date# 
+												AND a.sett_status = '2'		-- "清算状态-settlement status-BusinessType.E_SETTSTATE"	"2-NO_LIQUIDATION-未清算"
+									},
+									lstPrepData = nsql-GlSettle.selSettBatchNoList:{
+										SELECT
+												a.trxn_ccy as ccy_code, a.acct_branch, nvl(sum(case when a.debit_credit = 'D' then a.accounting_amt else - a.accounting_amt end ), 0) as accounting_amt 
+										FROM
+												fab_teller_seq b 	-- "出纳员序列-teller sequence"
+										JOIN
+												fab_accounting_voch a 		-- "会计凭证-accounting voucher"
+														ON a.trxn_date = b.trxn_date AND a.trxn_seq = b.trxn_seq 
+														AND a.org_id = b.org_id 
+										WHERE
+												b.org_id = #org_id# and b.trxn_date = #trxn_date# 
+												and b.sett_batch_no = #sett_batch_no# AND a.on_bal_sheet_ind = 'Y' 	-- "资产负债表内指标-on balance sheet indicator"
+												and b.sett_status='2' 		-- "清算状态-settlement status-BusinessType.E_SETTSTATE"	"2-NO_LIQUIDATION-未清算"
+										GROUP BY
+												a.trxn_ccy, a.acct_branch 
+										ORDER BY
+												a.trxn_ccy,
+												a.acct_branch
+									}
+									if(settType=1){	//单点清算
+										prcSinglePointSettle:{
+											for(){
+												prcSettlerBranch(settType, orgId, settBatchNo, cplData, settSubjectNo);{
+													prcKeep:{	//记账
+														FaAccounting.getAccountingCheckByAcct 	"branch settle"
+													},
+													regSettleBook(){
+														insert into fab_settlement 	-- "结算登记表-settlement registration sheet"
+													},
+													nsql-GlSettle.updSettleBatchNo:{
+														UPDATE
+																fab_teller_seq a 	-- "出纳员序列-teller sequence"
+														SET
+																a.sett_batch_no = #sett_batch_no# 
+														WHERE
+																a.org_id = #org_id# AND a.trxn_date = #trxn_date# 
+																AND a.trxn_seq = #trxn_seq#
+													}
+												}
+											}
+										}
+									}else{	
+										prcMultiLevelSettle:{	//多级清算
+											cplSettleData = genLevelData(lstData);:{	// 分解成层级清算数据
+												for():{
+													fap_branch_settlement	tabBranchSettlement	;	-- "清算关系组织结构"
+												}
+											},
+											prcLevelSettle:{	"逐层清算"
+												prcSettlerBranch(settType, orgId, settBatchNo, cplData);:{
+													prcSettlerBranch(settType, orgId, settBatchNo, cplData, null);
+												}
+												addNewBranch():{
+													cplOldBr.setAccounting_amt(cplOldBr.getAccounting_amt().add(amt));
+												}
+											}
+											//零层机构不平衡 
+										}	
+									}
+								}
+							}
+						}
+					}
+				}
+			},
+	*		glt35:{	"生成機構總賬"
+				getBatchDataWalker:{
+					nsql-ApBranch.selBranchList:{
+						
+					}
+				},
+	*			process:{
+					"data flow":{	
+						from 	
+						insert 	
+						update 	
+					},
+	*				"key code":{
+						"1. "-GlBranch.prcBefore(orgId, trxnDate, dataItem.getBranch_id(), reportType);:{
+							"1.1 总账清算检查"-checkSettleExistsByState(orgId, trxnDate);:{ //检查总账凭证是否已清算
+								GlSettle.checkSettleExistsByState:{
+									nsql-GlSettle.selSettleCountByState:{
+										select
+												count(*) 
+										from
+												fab_teller_seq 	 	-- "出纳员序列-teller sequence"
+										where
+												org_id = #org_id# and trxn_date = #trxn_date# 
+												and sett_status = #sett_status# 	-- "2-NO_LIQUIDATION-未清算"
+									}
+									//日期[%s]存在有未清算的总账柜员流水
+								},
+								settFlatFlag = select parm_value from app_system_parameter where main_key='SETT_FLAT_FLAG' and sub_key='*';	//Y补平,N不补平
+								// 是否补平标志为补平
+								nsql-GlSettle.selSettleCountByStateNonExists:{
+									select
+											count(*) 
+									from
+											fab_teller_seq  	 	-- "出纳员序列-teller sequence"
+									where
+											org_id = #org_id# and trxn_date = #trxn_date# 
+											and sett_status != #sett_status# and sett_status != '1'		
+												Y:"4-已清算补平-LIGUIDATED_AND_FLATED"	// 是否存在清算状态不为'已清算补平'的数据
+												N:"3-已清算待补平-LIGUIDATED_WAIT_FLAT"	// 是否存在清算状态不为'清算待补平'的数据
+								}
+								
+							},
+							"1.2 总账凭证平衡检查"-checkkVoucher(orgId, trxnDate, branchId);:{	//检查总账凭证是否平衡
+								settFlatFlag = select parm_value from app_system_parameter where main_key='SETT_FLAT_FLAG' and sub_key='*';
+								lstVochBalData = GlBranchDao.selVoucherNotBalList(orgId, trxnDate, settstatus, false);
+								nsql-GlBranch.selVoucherNotBalList:{
+									select
+											b.trxn_ccy as ccy_code, 
+											sum(case when b.debit_credit = 'D' then b.accounting_amt else 0.00 end ) as debit_amt, 
+											sum(case when b.debit_credit = 'C' then b.accounting_amt else 0.00 end ) as credit_amt, 
+											sum(case when b.debit_credit = 'D' then b.accounting_amt else 0 - b.accounting_amt end ) as accounting_amt 
+									from
+											fab_teller_seq a  	 	-- "出纳员序列-teller sequence"
+									join
+											fab_accounting_voch b  	-- "会计凭证-accounting voucher"
+													on a.trxn_date = b.trxn_date and a.trxn_seq = b.trxn_seq 
+													and a.org_id = b.org_id 
+									where
+											a.trxn_date = #trxn_date# and a.org_id = #org_id# 
+											and a.sett_status = #sett_status# and b.on_bal_sheet_ind = 'Y' 
+									group by
+											b.trxn_ccy 
+									having
+											sum(case when b.debit_credit = 'D' then b.accounting_amt else 0 - b.accounting_amt end ) <> 0.00 
+								}
+							},
+							"1.3 总账删除"-GlBranchDao.delBranchGl(orgId, trxnDate, branchId, reportType);:{	// 先删除（支持重复处理）
+								nsql-GlBranch.delBranchGl:{
+									delete 
+									from
+											gla_branch_gl 	--	"机构日总账"
+									where
+											trxn_date = #trxn_date# and org_id = #org_id# and branch_id = #branch_id#
+											and report_type = '2'		-- "报表类型-BusinessType.E_REPORTTYPE"		"2-TRIAL_TYPE-试算表"
+								}
+							}
+						},
+	*					"2. "-GlBranch.genBranchGl(orgId, trxnDate, dataItem.getBranch_id(), reportType);:{
+							GlBranchDao.insInitData(orgId, trxnDate, branchId, lastDate , report_type);:{	// 生成初始数据
+								nsql-GlBranch.insInitData:{
+									insert 
+									into
+									gla_branch_gl	--	"机构日总账"
+									(
+											org_id, report_type,trxn_date, branch_id, ccy_code, gl_code, on_bal_sheet_ind, prev_debit_bal, prev_credit_bal, 
+											current_debit_amt, current_credit_amt, current_debit_bal, current_credit_bal, 
+											data_create_user, data_create_time 
+									) select
+												a.org_id, '2', #trxn_date#, a.branch_id, a.ccy_code,	-- "报表类型-BusinessType.E_REPORTTYPE"		"2-TRIAL_TYPE-试算表"
+												a.gl_code, a.on_bal_sheet_ind, a.current_debit_bal, a.current_credit_bal, 0.00,
+												0.00, a.current_debit_bal, a.current_credit_bal, a.data_create_user, to_char(sysdate,
+												'yyyyMMdd HH:mm:ss') 
+										from
+												gla_branch_gl a 	--	"机构日总账"
+										where
+												a.trxn_date = #last_date# and a.org_id = #org_id# and a.report_type = '1'	-- "报表类型-BusinessType.E_REPORTTYPE"		"1-BUSINETT_TYPE-业务报表"
+												and a.branch_id = #branch_id# and a.current_debit_bal <> a.current_credit_bal
+								},
+								settFlatFlag = select parm_value from app_system_parameter where main_key='SETT_FLAT_FLAG' and sub_key='*';	//Y补平,N不补平
+								lstTranData = GlBranchDao.selTranData(orgId, trxnDate, branchId, settState,  false);:{
+									nsql-GlBranch.selTranData:{
+										select
+												b.trxn_ccy as ccy_code, b.gl_code, 
+												sum(case when b.debit_credit = 'D' then b.accounting_amt else 0.00 end ) as debit_amt, 
+												sum(case when b.debit_credit = 'C' then b.accounting_amt else 0.00 end ) as credit_amt 
+										from
+												fab_teller_seq a 		-- "出纳员序列-teller sequence"
+										join
+												fab_accounting_voch b   -- "会计凭证-accounting voucher"
+														on a.trxn_date = b.trxn_date and a.trxn_seq = b.trxn_seq 
+														and a.org_id = b.org_id 
+										where
+												a.trxn_date = #trxn_date# and a.org_id = #org_id# 
+												and a.sett_status = #sett_status# and b.acct_branch = #branch_id# 
+										group by
+												b.trxn_ccy, b.gl_code
+									}
+								},
+	*							for (GlTranData cplTran : lstTranData) {
+									cplBal  = calSubjectBal(){	// 余额计算
+										// 逻辑余额 = 上期借方 - 上期贷方 + 本期借方发生 - 本期贷方发生
+									}
+									insert/update gla_branch_gl;	--	"机构日总账"	
+								},
+								chkGlBal(orgId, report_type, trxnDate, branchId );:{	// 平衡检查
+									nsql-GlBranch.selErrorBalData:{		"从指定日期获取不平衡数据-getting imbalance data from appointed date"	// 横向平衡检查，返回不平衡的总账信息 ,前三 条
+										select  trxn_date, branch_id, ccy_code , gl_code,
+										   prev_debit_bal, prev_credit_bal, current_debit_amt, current_credit_amt, current_debit_bal, current_credit_bal
+										from gla_branch_gl a
+									   where a.org_id = #org_id#
+										 and a.report_type = '2'	-- "报表类型-BusinessType.E_REPORTTYPE"		"2-TRIAL_TYPE-试算表"
+										 and a.trxn_date = #trxn_date#
+										 and a.branch_id = #branch_id#
+										 and a.prev_debit_bal - a.prev_credit_bal + a.current_debit_amt - a.current_credit_amt <> a.current_debit_bal - a.current_credit_bal
+									}
+								}
+							}
+						}
+					}
+				}
+			},
+		exchange:{	
+			glt40:{	"生成折幣憑證"		"折币"
+				getBatchDataWalker:{
+					nsql-ApBranch.selBranchList:{
+						
+					}
+				},
+				process:{
+					GlExchange.prcExchange(orgId, trxnDate, reportType, dataItem.getBranch_id());:{
+						"data flow":{	
+							from 	
+							insert 	
+							update 	
+						},
+						"key code":{
+							"1."-GlExchangeDao.insInitDataProcess(orgId, trxnDate, branchId, lastDate, report_type );:{	//从上日折合总账装载期初数据到折算过程表glb_exchange_process
+								nsql-GlExchange.insInitDataProcess:{
+									INSERT 
+									INTO
+											glb_exchange_process		-- "折算过程"
+											(
+													org_id, report_type, trxn_date, branch_id, report_branch_id, gl_code, 
+													exchange_ccy_code, on_bal_sheet_ind, prev_debit_bal, prev_credit_bal,current_debit_amt,
+													current_credit_amt, current_debit_bal,current_credit_bal, debit_adj_amt, credit_adj_amt, 
+													debit_adj_err_amt,credit_adj_err_amt 
+											) SELECT
+													a.org_id, '2', #trxn_date#, a.branch_id, a.branch_id, a.gl_code,	-- "2-TRIAL_TYPE-试算表"
+													a.exchange_ccy_code, b.on_bal_sheet_ind, a.current_debit_bal, a.current_credit_bal, 0.00,
+													0.00, 0.00, 0.00, 0.00, 0.00,
+													0.00, 0.00 
+											FROM
+													gla_exchange_gl a 		-- "折币总账"	
+											JOIN
+													fap_accounting_subject b 
+															ON a.org_id = b.org_id AND a.gl_code = b.gl_code 
+											WHERE
+													a.org_id = #org_id# 
+													AND a.trxn_date = #last_date# AND a.branch_id = #branch_id# 
+													AND a.report_type = '1' AND b.valid_ind = 'Y'
+								}
+							},
+							"2. "-prcExchangeBook(orgId, trxnDate, branchId, report_type);:{	// 按项目对折算过程表进行加工处理
+								nsql-GlExchange.delDetailBuffer:{	// 先删除中间数据gla_exchange_ledger
+									delete 
+									from
+											gla_exchange_ledger 	-- "折币明细账"
+									where
+											org_id = #org_id# and trxn_date = #trxn_date# 
+											and branch_id = #branch_id# and report_type = '2'	-- "2-TRIAL_TYPE-试算表"
+								},
+								exchangeRateMode = select parm_value from app_system_parameter where main_key='EXCHANGE_RATE_MODE' and sub_key='*';	 -- default:"2-EXCHANGE_RATE_MODE_CORE"
+								nsql-GlExchange.insDetailFromGL:{
+									INSERT 
+									INTO
+											gla_exchange_ledger		-- "折币明细账"
+											(
+													org_id, report_type, trxn_date, branch_id, ccy_code, exchange_ccy_code, gl_code, on_bal_sheet_ind, exchange_rate, exchange_debit_amt, exchange_credit_amt, exchange_debit_bal, exchange_credit_bal
+											) SELECT
+													a.org_id, a.report_type, a.trxn_date, a.branch_id, a.ccy_code,
+													b.exchange_ccy_code, a.gl_code, c.on_bal_sheet_ind, b.exchange_rate, 
+													round(a.current_debit_amt * b.exchange_rate/b.exchange_rate_unit,2) as exchange_debit_amt, 
+													round(a.current_credit_amt * b.exchange_rate/b.exchange_rate_unit, 2) as exchange_credit_amt, 
+													round(a.current_debit_bal * b.exchange_rate/b.exchange_rate_unit, 2) as exchange_debit_bal,
+													round(a.current_credit_bal * b.exchange_rate/b.exchange_rate_unit, 2) as exchange_credit_bal 
+											FROM
+													gla_branch_gl a 	--	"机构日总账"
+											JOIN
+													glb_exchange_rate b 	-- "折算汇率（外管每日中间价）"
+															ON b.org_id = a.org_id AND b.trxn_date = a.trxn_date 
+															AND b.ccy_code = a.ccy_code 
+											JOIN
+													fap_accounting_subject c 
+															ON c.gl_code = a.gl_code 
+											WHERE
+													a.org_id = #org_id# AND a.trxn_date = #trxn_date# 
+													AND a.branch_id = #branch_id# AND a.report_type = '2' 	-- "2-TRIAL_TYPE-试算表"
+													AND c.valid_ind = 'Y'
+								},
+								nsql-GlExchange.insDetailFromGL2:{
+									INSERT 
+									INTO
+											gla_exchange_ledger		-- "折币明细账"
+											(
+													org_id, report_type, trxn_date, branch_id, ccy_code, exchange_ccy_code, gl_code, on_bal_sheet_ind, exchange_rate, exchange_debit_amt, exchange_credit_amt, exchange_debit_bal, exchange_credit_bal 
+											) SELECT
+													a.org_id, a.report_type, a.trxn_date, a.branch_id, a.ccy_code,
+													b.exchange_ccy_code, a.gl_code, c.on_bal_sheet_ind, b.exchange_rate, 
+													round(a.current_debit_amt * b.exchange_rate/b.exchange_rate_unit,2) as exchange_debit_amt, 
+													round(a.current_credit_amt * b.exchange_rate/b.exchange_rate_unit, 2) as exchange_credit_amt, 
+													round(a.current_debit_bal * b.exchange_rate/b.exchange_rate_unit, 2) as exchange_debit_bal,
+													round(a.current_credit_bal * b.exchange_rate/b.exchange_rate_unit, 2) as exchange_credit_bal 
+											FROM
+													gla_branch_gl a 	--	"机构日总账" 
+											JOIN
+													glb_exchange_rate b  	-- "折算汇率（外管每日中间价）"
+															ON b.org_id = a.org_id 
+															AND b.ccy_code = a.ccy_code 
+											JOIN
+													fap_accounting_subject c 
+															ON c.gl_code = a.gl_code 
+											WHERE
+													a.org_id = #org_id# AND a.trxn_date = #trxn_date# 
+													AND a.branch_id = #branch_id# AND a.report_type = '2' 	-- "2-TRIAL_TYPE-试算表" 
+													AND c.valid_ind = 'Y' 
+													and b.trxn_date = (
+															select
+																	max(trxn_date) 
+															from
+																	glb_exchange_rate d 	-- "折算汇率（外管每日中间价）"
+															where
+																	d.ccy_code=b.ccy_code 
+																	and d.exchange_ccy_code=b.exchange_ccy_code and d.org_Id = b.org_id 
+																	and d.trxn_date<=#trxn_date#
+													) 
+								},
+								lstExchangeGL = nsql-GlExchange.selExchangeData:{	// 将gla_exchange_ledger 做汇总，开始折算处理
+									SELECT
+											gl_code, exchange_ccy_code, on_bal_sheet_ind, sum(exchange_debit_amt) as exchange_debit_amt, sum(exchange_credit_amt) as exchange_credit_amt,
+											sum(exchange_debit_bal) as exchange_debit_bal, sum(exchange_credit_bal) as exchange_credit_bal 
+									FROM
+											gla_exchange_ledger a 
+									WHERE
+											org_id = #org_id# AND trxn_date = #trxn_date# 
+											AND branch_id = #branch_id# AND report_type = '2'	-- "2-TRIAL_TYPE-试算表" 
+									GROUP BY
+											gl_code, exchange_ccy_code, on_bal_sheet_ind 
+								},
+								for (GlExchangeGL cplInfo : lstExchangeGL) {
+									prcExchangeProfitLoss(orgId, trxnDate, branchId, cplInfo, report_type);:{	/* 更新折合过程登记簿 */
+										exchangeFlatSubject = select parm_value from app_system_parameter where main_key='EXCHANGE_FLAT_SUBJECT' and sub_key='*';	//折算补平科目参数
+										setAmountToZero(tabExchangeProcess);:
+										insert/update glb_exchange_process;		-- "折算过程"
+									}
+								}
+							}
+						}
+					}
+				}
+			},
+	*-cal	glt41:{	"折幣四捨五入誤差補平"
+				getBatchDataWalker:{},
+				process:{
+					GlExchange.prcFillBal(orgId, trxnDate, reportType);:{
+						"data flow":{	
+							from 	
+							insert 	
+							update 	
+						},
+						"key code":{
+							"1.":{
+								exchangeFlatErrorSubject = select parm_value from app_system_parameter where main_key='EXCHANGE_ERROR_FLAT_SUBJECT' and sub_key='*';	//获取折算差额科目
+								exCcyList = ApDropList.getItems(FaConst.EX_CCY_CODE);
+									select * from app_drop_list where dict_org_id = '' and drop_list_type='EXCHANGE_CCY_CODE';
+								for{
+									prcMultiFillBal(orgId, trxnDate, report_type, cplInfo.getDrop_list_value(), exchangeFlatErrorSubject);:{	//逐层补平
+										for{
+											prcFillBalBranch(orgId, trxnDate, cplInfo.getBranch_id(), report_type, exchangeCcyCode, exchangeFlatErrorSubject);:{
+	*-cal										bigErrorAmt = nsql-GlExchange.selFillAmount:{	// 扎差金额（总借减去总贷）
+													SELECT
+															nvl(sum(a.current_debit_amt + a.debit_adj_amt - a.current_credit_amt - a.credit_adj_amt), 0.00) as debit_adj_err_amt 
+													FROM
+															glb_exchange_process a 		-- "折算过程"
+													WHERE
+															a.org_id = #org_id# AND a.trxn_date = #trxn_date# 
+															AND a.exchange_ccy_code = #exchange_ccy_code# AND a.branch_id = #branch_id# 
+															AND a.report_type = #report_type# AND a.on_bal_sheet_ind = 'Y'
+												}
+												insert/update glb_exchange_process;		-- "折算过程"
+											}
+										}
+									},
+									GlExchangeDao.insExchangeVochByFill(orgId, trxnDate, report_type, cplInfo.getDrop_list_value() );:{	// 将平补数据转化成传票
+										nsql-GlExchange.insExchangeVochByFill:{
+											INSERT 
+											INTO
+													glb_exchange_voch	-- "折币种凭证"
+													(
+															org_id, report_type, trxn_date, reg_no, exchange_ccy_code, 
+															branch_id, gl_code, debit_credit, accounting_amt, remark, on_bal_sheet_ind 
+													) SELECT
+															a.org_id, a.report_type, a.trxn_date, 17, a.exchange_ccy_code,
+															a.branch_id, a.gl_code, 'D', a.debit_adj_err_amt, 'rounding rate exchange' ,
+															a.on_bal_sheet_ind 
+													from
+															glb_exchange_process a 	-- "折算过程"
+													WHERE
+															a.org_id = #org_id# AND a.trxn_date = #trxn_date# 
+															AND a.exchange_ccy_code = #exchange_ccy_code# AND a.report_type = #report_type# 
+															AND a.debit_adj_err_amt <> 0.00 
+													UNION
+													ALL SELECT
+															a.org_id, a.report_type, a.trxn_date, 18, a.exchange_ccy_code,
+															a.branch_id, a.gl_code, 'C', a.credit_adj_err_amt, 'rounding rate exchange',
+															a.on_bal_sheet_ind 
+													from
+															glb_exchange_process a -- "折算过程"
+													WHERE
+															a.org_id = #org_id# AND a.trxn_date = #trxn_date# 
+															AND a.exchange_ccy_code = #exchange_ccy_code# AND a.report_type = #report_type# 
+															AND a.credit_adj_err_amt <> 0.00
+										}
+									}
+								},
+								checkVoucher(orgId, trxnDate, report_type);:{	// 对折合传票做平衡性检查
+									lstVochBalData = GlExchange.selVoucherNotBalList:{
+	*-cal								SELECT
+												a.exchange_ccy_code as ccy_code, 
+												sum(case when a.debit_credit = 'D' then a.accounting_amt else 0.00 end ) as debit_amt, 
+												sum(case when a.debit_credit = 'C' then a.accounting_amt else 0.00 end ) as credit_amt, 
+												sum(case when a.debit_credit = 'D' then a.accounting_amt else 0 - a.accounting_amt end ) as accounting_amt 
+										FROM
+												glb_exchange_voch a 	-- "折币种凭证"
+										WHERE
+												a.org_id = #org_id# AND a.trxn_date = #trxn_date# 
+												AND a.report_type = #report_type# And a.on_bal_sheet_ind = 'Y' 
+										GROUP BY
+												a.exchange_ccy_code 
+										HAVING
+												sum(case when a.debit_credit = 'D' then a.accounting_amt else 0 - a.accounting_amt end ) <> 0.00
+									},
+									throw GlErr.GL.E0075(trxnDate, ccyCode);  //
+								}
+							}
+						}
+					}
+				}
+			},
+			glt45:{	"生成折幣總賬"
+				getBatchDataWalker:{
+					GlExchange.prcExchangeGlBefore(orgId, trxnDate, report_type);:{
+						checkVoucher(orgId, trxnDate, report_type);	// 对折合传票做平衡性检查
+						nsql-GlExchange.delExchangeGL:{
+							delete 
+							from
+									gla_exchange_gl 	-- "折币总账"
+							where
+									trxn_date = #trxn_date# and org_id = #org_id# 
+									and report_type = '2'		-- "2-TRIAL_TYPE-试算表"
+						}
+					},
+					nsql-ApBranch.selBranchList:{
+						
+					}
+				},
+				process:{
+					GlExchange.genExchangeGl(orgId, trxnDate, dataItem.getBranch_id(), reportType);:{
+						"data flow":{	
+							from 	
+							insert 	
+							update 	
+						},
+						"key code":{
+							"1.":{
+								GlExchangeDao.insInitDataGl(orgId, trxnDate, branchId, lastDate, report_type);:{	// 生成初始数据
+									nsql-GlExchange.insInitDataGl:{
+										insert 
+										into
+										gla_exchange_gl	-- "折币总账"
+												( org_id, report_type, trxn_date, branch_id, exchange_ccy_code, gl_code, 
+													prev_debit_bal, prev_credit_bal, current_debit_amt, 
+													current_credit_amt, current_debit_bal,current_credit_bal ) 
+												select
+														a.org_id, #report_type#, #trxn_date#, a.branch_id, a.exchange_ccy_code, a.gl_code, 		-- "2-TRIAL_TYPE-试算表" 
+														a.current_debit_bal, a.current_credit_bal, 0.00, 
+														0.00, a.current_debit_bal, a.current_credit_bal 
+												from
+														gla_exchange_gl a 	-- "折币总账"
+												where
+														a.trxn_date = #last_date# and a.org_id = #org_id# 
+														and a.branch_id = #branch_id# and a.report_type = '1' 
+														and a.current_debit_bal <> a.current_credit_bal 
+									}
+								},
+								lstTranData = GlExchangeDao.selGlTranData(orgId, trxnDate, branchId, report_type, false);:{
+									select
+											a.exchange_ccy_code as ccy_code, a.gl_code, 
+											sum(case when a.debit_credit = 'D' then a.accounting_amt else 0.00 end ) as debit_amt, 
+											sum(case when a.debit_credit = 'C' then a.accounting_amt else 0.00 end ) as credit_amt 
+									from
+											glb_exchange_voch a 	-- "折币种凭证"
+									where
+											a.trxn_date = #trxn_date# and a.org_id = #org_id# 
+											and a.branch_id = #branch_id# and a.report_type = #report_type# 	-- "2-TRIAL_TYPE-试算表" 
+									group by
+											a.exchange_ccy_code, a.gl_code 
+								},
+								GlBranch.calSubjectBal();{}
+								chkExchangeGlBal(orgId, report_type, trxnDate, branchId );:{
+									// 平衡检查
+								}
+							},
+						}
+					}
+				}
+			},
+		},
+		report:{
+			glt50:{	"業務總賬生成前處理"
+				getBatchDataWalker:{},
+				process:{
+					GlGeneralLedger.prcBusiGlBefore(orgId, trxnDate, report_type);;:{
+						"data flow":{	
+							from 	
+							insert 	
+							update 	
+						},
+						"key code":{
+							"1.":{
+								GlGeneralLedgerDao.delReportGl(orgId, report_type, trxnDate);:{
+									nsql-GlGeneralLedger.delReportGl:{
+										delete 
+										from
+												glb_gl_report 	-- "总账报表-general ledger report"
+										where
+												org_id = #org_id# and report_type = '2'		-- "2-试算表" 
+												and trxn_date = #trxn_date# 
+									}
+								}
+							}
+						}
+					}
+				}
+			},
+			glt51:{	"生成業務總賬-賬務機構"
+				getBatchDataWalker:{
+					nsql-ApBranch.selBranchList:{
+						
+					}
+				},
+				process:{
+					GlGeneralLedger.genBusiGL(orgId, reportType, trxnDate, dataItem.getBranch_id());:{
+						"data flow":{	
+							from 	
+							insert 	
+							update 	
+						},
+						"key code":{
+							"1.总账日报"-genReport(orgId, trxnDate, branchId, E_GLDATEINTERVAL.DAILY, report_type);:{	// 生成总账日报数据
+								loadBuisGlInit(orgId, trxnDate, branchId, dateInterval, report_type);:{	// 将上日总账初始化到总账表
+									switch(1){	"1-DAILY-日总账"}
+									nsql-GlGeneralLedger.insInitReportData:{
+										insert into glb_gl_report(	-- "总账报表-general ledger report"
+											  org_id, report_type, trxn_date, branch_id, gl_date_interval, ccy_code, 
+											  gl_code, on_bal_sheet_ind, gl_code_level, gl_code_desc, simple_list_display_ind, end_gl_code_ind, 
+											  prev_debit_bal, prev_credit_bal, current_debit_amt, current_credit_amt, current_debit_bal, current_credit_bal 
+											   )
+									   select a.org_id, #report_type#, #trxn_date#, a.branch_id, #gl_date_interval#, a.ccy_code,
+											  a.gl_code, a.on_bal_sheet_ind, a.gl_code_level, b.gl_code_desc, b.simple_list_display_ind, b.end_gl_code_ind,
+											  a.current_debit_bal, a.current_credit_bal, 0.00, 0.00, a.current_debit_bal, a.current_credit_bal
+										 from glb_gl_report a	-- "总账报表-general ledger report"
+											  JOIN fap_accounting_subject b
+												ON a.gl_code = b.gl_code and a.org_id=b.org_id
+										where a.trxn_date = #last_date#
+										  AND a.org_id = #org_id#
+										  AND a.gl_date_interval = '1'
+										  AND a.branch_id = #branch_id#
+										  AND a.report_type = '1'
+										  AND a.current_debit_bal <> a.current_credit_bal
+										  AND b.end_gl_code_ind = 'Y'
+										  AND b.valid_ind = 'Y'
+									}
+								}
+							},
+							"2.总账日报特殊日期"-genInterval(orgId, trxnDate, branchId, report_type);：{	// 生成特殊日期总账
+								genReport(orgId, trxnDate, branchId, E_GLDATEINTERVAL.MONTHLY, report_type);
+							}
+						}
+					}
+				}
+			},
+			glt52:{	"生成業務總賬-報表機構"
+				getBatchDataWalker:{},
+				process:{
+					GlGeneralLedger.genReportGL(orgId, reportType, trxnDate);：{	//逐级向上统计
+						"data flow":{	
+							from 	
+							insert 	
+							update 	
+						},
+						"key code":{
+							"1.":{
+								reportRelation = select parm_value from app_system_parameter where main_key='REPORT_RELATION' and sub_key='*';	// 报表关系代码参数
+								tabRelations = nsql-GlBranch.selReportBrch:{
+									select
+											* 
+									from
+											app_branch_relation a 	-- "机构关系声明"
+									where
+											a.brch_relation_code like concat(concat('%',#brch_relation_code#),'%')
+								},
+								for(:tabRelations):{
+									select parm_value from app_system_parameter where main_key='BANK_BASE_CCY' and sub_key='*';
+									nsql-ApBranch.selBranchRoot:{
+										select
+												branch_id 
+										from
+												apb_branch_relation 	-- "机构关系数据"
+										where
+												org_id=#org_id# and brch_relation_code=#brch_relation_code# 
+												and ccy_code=#ccy_code# and parent_brch_id is null
+									},
+									for(i--){
+										brchList = nsql-ApBranch.selBranchListByLevel:{
+											select
+													b.parent_brch_id,a.child_brch_id 
+											from
+													apb_branch_junior a 	-- "机构下级数据一览"
+											join
+													apb_branch_relation b 	-- "机构关系数据"
+															on a.org_id=b.org_id and a.child_brch_id=b.branch_id 
+															and a.brch_relation_code=b.brch_relation_code and a.ccy_code=b.ccy_code 
+											where
+													a.org_id=#org_id# 
+													and a.brch_relation_code=#brch_relation_code# and a.branch_id=#branch_id# 
+													and a.ccy_code=#ccy_code# and a.brch_level=#brch_level# 
+										},
+										for (ApBranchSeniorJunior cplInfo : brchList) {
+											nsql-GlGeneralLedger.insReportGlData:{
+												insert 
+												into
+														glb_gl_report	-- "总账报表-general ledger report"
+														( org_id, report_type, trxn_date, branch_id, gl_date_interval, ccy_code, gl_code, 
+															on_bal_sheet_ind, gl_code_level, gl_code_desc, simple_list_display_ind, end_gl_code_ind, 
+															prev_debit_bal, prev_credit_bal, current_debit_amt, 
+															current_credit_amt, current_debit_bal, current_credit_bal ) 
+														select
+																#org_id# as org_id, #report_type# as report_type , #trxn_date# as trxn_date, #parent_brch_id# as branch_id, a.gl_date_interval, a.ccy_code, a.gl_code, 
+																a.on_bal_sheet_ind, a.gl_code_level, a.gl_code_desc,a.simple_list_display_ind, a.end_gl_code_ind, 
+																sum(a.prev_debit_bal) as prev_debit_bal, sum(a.prev_credit_bal) as prev_credit_bal, sum(a.current_debit_amt) as current_debit_amt,
+																sum(a.current_credit_amt) as current_credit_amt, sum(a.current_debit_bal) as current_debit_bal, sum(a.current_credit_bal) as current_credit_bal 
+														from
+																glb_gl_report a 	-- "总账报表-general ledger report"
+														join
+																apb_branch_senior b 
+																		on a.org_id = b.org_id and a.branch_id = b.branch_id 
+														where
+																a.org_id = #org_id# 
+																and a.trxn_date = #trxn_date# and a.report_type = #report_type# 
+																and b.parent_brch_id = #parent_brch_id# and b.brch_relation_code = #brch_relation_code# 
+																and b.ccy_code = #ccy_code# 
+														group by
+																a.gl_date_interval,a.ccy_code,a.gl_code,
+																a.on_bal_sheet_ind,a.gl_code_level,a.gl_code_desc,a.simple_list_display_ind,a.end_gl_code_ind
+											}
+										}
+									}
+								}
+							}
+						}
+					}
+				}
+			},
+			glt55:{	"生成三大報表數據-賬務機構"
+				getBatchDataWalker:{
+					nsql-ApBranch.selBranchList:{
+						
+					}
+				},
+				process:{
+					GlReports.genThreeReportsMain(orgId, E_REPORTTYPE.TRIAL_TYPE, reportNameList, trxnDate, dataItem.getBranch_id());:{ //生成三大报表，资产负债表，损益明细表，利润表
+						"data flow":{	
+							from 	
+							insert 	
+							update 	
+						},
+						"key code":{
+							"1. init data":{	// 计算把各个报表数据，将计算结果插入 报表计算结果 表中
+								for(){	"BusinessType.E_REPORTNAME"	{"1-资产负债表-THE_BALANCE_SHEET","2-损益明细表-INCOME_STATEMENT","3-利润表-PROFIT_SHEET"}
+									genReport(reportName, orgId, reportType, trxnDate, branchId);:{
+										nsql-GlReport.delReportCalResult:{	// 删除T日数据
+											delete 
+											from
+													glb_report_calc_result a 	-- "总账报表计算结果-general ledger report calculation result"
+											where
+													a.report_name=#report_name# and a.report_type=#report_type# 
+													and a.trxn_date=#trxn_date# and a.branch_id=#branch_id# 
+													and a.org_id = #org_id#
+										},
+										nsql-ApBasic.selCurrencyList:{
+											select * from app_currency
+										},
+										select * from app_drop_list where dict_org_id = '' and drop_list_type='EXCHANGE_CCY_CODE';
+										for (String ccyCode : ccyCodeList) {
+											nsql-GlReport.selCountsFromReport:{
+												select
+														count(*) 
+												from
+														dual 
+												where
+														exists(
+																select
+																		1 
+																from
+																		glb_gl_report a		-- "总账报表-general ledger report" 
+																where
+																		a.org_id=#org_id# and a.report_type=#report_type# 
+																		and a.trxn_date=#trxn_date# and a.branch_id=#branch_id# 
+																		and a.ccy_code=#ccy_code# 
+																and a.gl_date_interval in ('1','2')	-- "总账日期间隔-general ledger date interval-BusinessType.E_GLDATEINTERVAL"
+																	"1-日总账-DAILY"	"2-月总账-MONTHLY"
+																and( current_debit_amt<>0.00 or
+																current_credit_amt<>0.00 or
+																current_debit_bal<>0.00 or
+																current_credit_bal<>0.00
+																)
+														)
+											},
+											reportDefines = nsql-GlReport.selReprotDefine:{
+												select
+														* 
+												from
+														glp_report_define a 	-- "总账报表数据定义-general ledger report data define"
+												where
+														a.report_name=#report_name# and a.org_id=#org_id# 
+														and a.item_data_type in (	"BusinessType.E_ITEMDATATYPE"
+																'2','3'		"2-DATA_ELEMENT-数据项"	"3-CACULATE-计算项"
+														) 
+												order by
+														a.report_item_calc_level ,a.report_item_column,a.report_item_line
+											},
+											for(){
+												genReportDetail(reportDefine, yearEndInd, reportDetailCalIn);:{
+													insert glb_report_calc_result ;
+												}
+											}
+										}
+									}
+								}
+							},
+						}
+					}
+				}
+			},
+		}
+		glt55	生成三大報表數據-賬務機構
+		glt56	生成三大報表數據-報表機構
+		gl85	總賬報表生成（資產負債表）
+		gl86	總賬報表生成（表內表外營業狀況表）
+		gl87	總賬報表生成（損益明細表）
+		gl88	表內營業狀況表
+		gl89	表外營業狀況表
+		gl90	折算過程表
+
+	},
+	2-gl-day:{
+		check0:{
+			gl02-'计提数据文件导入':{
+				process:{
+						method-GlFile.doAccureFile-'null':{
+							method-ApSystemParm.getIntValue-'null':{	"EOD_SLEEP_TIME"	"WAIT_FILE_DOWN"
+								method-ApSystemParm.getValue-'null':{	
+									table-app_system_parameter-select-'系统杂项参数'
+								}
+							},
+							method-ApOrg.getReferenceOrgId-'null':{		"TabApFile.apb_batch_receive.class"		
+								method-BizUtil.getTrxRunEnvs-'null',
+								method-BizUtil.isOrgRelated-'null',
+								table-app_parameter_reference-select-'参数引用定义',
+								table-app_parameter_reference-select-'参数引用定义',
+								method-BizUtil.isParmTable-'null',
+								method-ApOrg.getOrgInfo-'null':{
+									table-app_organization-select-'法人信息'
+								},
+								method-ApOrg.getOrgInfo-'null':{
+									table-app_organization-select-'法人信息'
+								}
+							},
+							nsql-GlFile.selFileLoanDown-S-apb_batch_request-select,apb_batch_receive-select-'file download':{
+								"E_BATCHTYPE.ACCRUE_DOWN"	"E_FILEDEALSTATUS.UNCHECK"	"E_YESORNO.YES"	
+								select
+										a.busi_batch_code, b.file_id ,b.file_name ,b.file_local_path 
+								from
+										apb_batch_request a 
+								join
+										apb_batch_receive b 
+								on      a.request_file_id = b.file_id
+								where
+										a.org_id = '99'
+										and a.busi_batch_type = 'F' 
+										and a.file_handling_status = 'A'
+										and b.receive_ind = 'Y' 
+							},
+							method-BizUtil.getTrxRunEnvs-'null',
+							method-BizUtil.getTrxRunEnvs-'null',
+							method-BizUtil.getTrxRunEnvs-'null',
+							method-ApSystemParm.getValue-'null':{
+								table-app_system_parameter-select-'系统杂项参数'
+							},
+							table-apb_batch_request-select-'文件批量请求薄',
+							method-ApFile.getFileFullPath-'null':{
+								method-ApFile.getFullPath-'null':{
+									method-ApFile.exists-'null':{
+										method-ApDropList.exists-'null':{
+											method-ApDropList.getItem-'null':{
+												table-app_drop-select-'字典声明表',
+												method-ApOrg.getDefaultOrgId-'null',
+												table-app_drop_list-select-'下拉字典参数',
+												method-ApOrg.getReferenceOrgId-'null',
+												table-app_drop_list-select-'下拉字典参数',
+												method-ApOrg.getDefaultOrgId-'null',
+												table-app_drop_list-select-'下拉字典参数'
+											}
+										},
+										table-app_directory-select-'文件目录配置'
+									},
+									method-ApFile.genFileName-'null':{
+										table-app_directory-select-'文件目录配置',
+										method-BizUtil.getTrxRunEnvsValue-'null':{
+											method-BizUtil.getTrxRunEnvs-'null',
+											method-BizUtil.getTrxRunEnvs-'null',
+											method-BizUtil.invoke-'null':{
+												table-app_service-select-'内部服务控制定义',
+												return method-BizUtil.callServiceDirect-'null',
+												return method-BizUtil.callService-'null'
+											}
+										}
+									}
+								}
+							},
+							method-ApFile.getFileFullPath-'null':{
+								method-ApFile.getFullPath-'null':{
+									method-ApFile.exists-'null':{
+										method-ApDropList.exists-'null':{
+											method-ApDropList.getItem-'null':{
+												table-app_drop-select-'字典声明表',
+												method-ApOrg.getDefaultOrgId-'null',
+												table-app_drop_list-select-'下拉字典参数',
+												method-ApOrg.getReferenceOrgId-'null',
+												table-app_drop_list-select-'下拉字典参数',
+												method-ApOrg.getDefaultOrgId-'null',
+												table-app_drop_list-select-'下拉字典参数'
+											}
+										},
+										table-app_directory-select-'文件目录配置'
+									},
+									method-ApFile.genFileName-'null':{
+										table-app_directory-select-'文件目录配置',
+										method-BizUtil.getTrxRunEnvsValue-'null':{
+											method-BizUtil.getTrxRunEnvs-'null',
+											method-BizUtil.getTrxRunEnvs-'null',
+											method-BizUtil.invoke-'null':{
+												table-app_service-select-'内部服务控制定义',
+												return method-BizUtil.callServiceDirect-'null',
+												return method-BizUtil.callService-'null'
+											}
+										}
+									}
+								}
+							},
+							method-ApFile.getLocalHome-'null':{
+								return method-BizUtil.convertParmString-'null',
+								return method-ApSystemParm.getValue-'null':{
+									table-app_system_parameter-select-'系统杂项参数'
+								}
+							},
+							method-ApFile.readFile-'null',
+							method-ApBatch.setFormatErrorByImport-'null':{
+								table-apb_batch_request-select-'文件批量请求薄',
+								table-apb_batch_request-update-'文件批量请求薄'
+							},
+							method-BizUtil.getTrxRunEnvs-'null',
+							method-ApTrxn.getSerial-'null':{
+								method-BizUtil.getTrxRunEnvs-'null',
+								method-BizUtil.getTrxRunEnvs-'null'
+							},
+							table-fap_accounting_event_parm-select-'business accounting event parameter',
+							method-GlRegBook.regOriginalaVochFromAccrue-'null':{
+								method-BizUtil.getTrxRunEnvs-'null',
+								table-fab_original_vochDao-batchInsert
+							},
+							table-fab_accrueDao-batchInsert,
+							method-DBUtil.rollBack-'null',
+							method-ApBatch.setInsertErrorByImport-'null':{
+								table-apb_batch_request-select-'文件批量请求薄',
+								table-apb_batch_request-update-'文件批量请求薄'
+							},
+							table-fab_accrueDao-batchInsert,
+							method-DBUtil.rollBack-'null',
+							method-ApBatch.setInsertErrorByImport-'null':{
+								table-apb_batch_request-select-'文件批量请求薄',
+								table-apb_batch_request-update-'文件批量请求薄'
+							},
+							method-ApOrg.getReferenceOrgId-'null':{
+								method-BizUtil.getTrxRunEnvs-'null',
+								method-BizUtil.isOrgRelated-'null',
+								table-app_parameter_reference-select-'参数引用定义',
+								table-app_parameter_reference-select-'参数引用定义',
+								method-BizUtil.isParmTable-'null',
+								method-ApOrg.getOrgInfo-'null':{
+									table-app_organization-select-'法人信息'
+								},
+								method-ApOrg.getOrgInfo-'null':{
+									table-app_organization-select-'法人信息'
+								}
+							},
+							method-BizUtil.getTrxRunEnvs-'null',
+							nsql-GlFile.selFileHeadInfoFromAccure-S-fab_accrue-select-'getting file head from accrued table',
+							method-ApBatch.returnStatusByImport-'null':{
+								table-apb_batch_request-select-'文件批量请求薄',
+								table-apb_batch_request-select-'文件批量请求薄',
+								table-apb_batch_request-update-'文件批量请求薄',
+								table-apb_batch_request-update-'文件批量请求薄'
+							}
+						}
+				},
+			},
+			gl08:{	"总账日终前检查" "GL EOD before check"
+				getBatchDataWalker:{},
+				process:{
+					GlCheck.prcEodBefore(ApOrg.getReferenceOrgId(app_date.class), false);
+						"data flow":{	
+							from 	
+							insert 	
+							update 	
+						},
+						"key code":{
+							"1.":{
+							},
+							"3.check":{
+								nsql-GlRegBook.selCountLedgerCheckSeq:{	"获取汇总分类帐科目检查序列的数量" "getting the amount of summarized ledger account check sequence"
+									select
+											count(*) 
+									from
+											fab_ledger_check_seq 
+									where
+											org_id=#org_id# and trxn_date =#trxn_date# and analysis_state <> '2'
+									
+								},
+								nsql-GlRegBook.selCountLedgerCheckResult:{	""
+									select
+											count(*) 
+									from
+											fab_ledger_check_result 
+									where
+											org_id=#org_id# and trxn_date =#trxn_date# and ledger_check_result <> '1'
+								}
+							}
+						}
+				}
+			}
+		},
+		check1:{
+			glt61:{	"換日後檢查"
+				getBatchDataWalker:{},
+				process:{
+					"key code":{
+						day check;
+					}
+				}
+			}
+		}
+	}
+	3-gl-time:{
+		ap04-'批量同步远程目录文件':{
+			getLocalHome():{
+				select * from APP_SYSTEM_PARAMETER where MAIN_KEY='LOCAL_FILE_ROOT_DIR';
+					'${HOME}/temp/${ltts.app.name}/'
+			},
+			getBatchDataWalker:{
+					method-BizUtil.getTrxRunEnvs-'null',
+					nsql-ApFile.selSyscBatchIdList-S-app_batch-select-'获取批量同步文件清单':{
+						"E_FILEPROCTYPE.RECV_REQUEST"	"E_FILERECVWAY.APPOINT_DIURECTORY"
+						select * from app_batch where file_proc_type = 'A' and file_recv_way = '2';
+					}
+			},
+			process:{
+					method-BizUtil.getTrxRunEnvs-'null',
+					method-ApFile.syncRemoteFile2Local-'null':{
+						table-app_batch-select-'文件批量业务定义',
+						method-ApFile.getFullPath-'null':{},
+						method-ApFile.getFullPath-'null':{},
+						method-ApFile.getLocalHome-'null':{
+							return method-BizUtil.convertParmString-'null',
+							return method-ApSystemParm.getValue-'null':{
+								table-app_system_parameter-select-'系统杂项参数'
+							}
+						},
+						method-ApFile.exists-'null':{},
+						method-ApFile.exists-'null':{},
+						method-ApFile.createClient-'null':{
+							table-app_root_directory-select-'file root directory define'
+						},
+						method-ApFile.createClient-'null':{
+							table-app_root_directory-select-'file root directory define'
+						},
+						method-ApFile.createClient-'null':{
+							table-app_root_directory-select-'file root directory define'
+						},
+						method-ApFile.getFileFullPath-'null':{},
+						method-ApFile.exists-'null':{},
+						table-apb_batch_receive-select-'文件接收薄',
+						method-ApSeq.genSeq-'null':{},
+						method-ApBatch.fileBatchApply-'null':{
+							method-BizUtil.fieldNotNull-'null',
+							method-BizUtil.fieldNotNull-'null',
+							method-BizUtil.fieldNotNull-'null',
+							method-BizUtil.fieldNotNull-'null',
+							method-BizUtil.fieldNotNull-'null',
+							method-BizUtil.fieldNotNull-'null',
+							method-BizUtil.isDateString-'null':{
+								method-BizUtil.toDate-'null'
+							},
+							method-BizUtil.getTrxRunEnvs-'null',
+							table-app_batch-select-'文件批量业务定义',
+							table-apb_batch_request-select-'文件批量请求薄',
+							table-app_batch_channel-select-'文件批量业务渠道许可定义',
+							method-ApFileRecv.register-'null':{
+								method-ApSeq.genSeq-'null':{},
+								method-ApFile.getFullPath-'null':{},
+								method-ApFile.getFullPath-'null':{},
+								method-BizUtil.getGroupHashValue-'null':{},
+								table-apb_batch_receive-insert-'文件接收薄'
+							},
+							method-BizUtil.getGroupHashValue-'null':{},
+							table-apb_batch_request-insert-'文件批量请求薄'
+						}
+					},
+					method-DBUtil.rollBack-'null',
+					method-DBUtil.beginTransation-'null'
+			},
+		},
+	}
+	template:{
+			,
+			glt5:{	""
+				getBatchDataWalker:{
+					nsql-ApBranch.selBranchList:{
+						
+					}
+				},
+				process:{
+						"data flow":{	
+							from 	
+							insert 	
+							update 	
+						},
+						"key code":{
+							"1.":{
+							},
+						}
+				}
+			},
+			glt5:{	""
+				getBatchDataWalker:{},
+				getJobBatchDataWalker:{},
+				process:{
+						"data flow":{	
+							from 	
+							insert 	
+							update 	
+						},
+						"key code":{
+							"1.":{
+							},
+						}
+				}
+			}
+	},
+
+}
+
+
+
+

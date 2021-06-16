@@ -1,0 +1,197 @@
+dp13-'Overdraft occupancy adjustment':{
+			process:{
+					nsql-DpDayEnd.selAllOverdraftType-S-dpp_overdraft_type-select-'query all overdraft type',
+					method-BizUtil.getTrxRunEnvs-'null',
+					nsql-DpInstruct.selOverdraftInfoByLimtCode-S-dpb_overdraft-select-'query overdraft agreement by limit code',
+					method-DpPublic.locateSingleAccount-'null':{
+						table-dpa_account-select-'Deposit account table',
+						table-dpa_account-select-'Deposit account table',
+						method-ApBusinessParm.getValue-'null':{
+							table-app_business_parameter-select-'system parameter'
+						},
+						method-BizUtil.getTrxRunEnvs-'null',
+						table-dpa_card-select-'Card information',
+						table-dpa_card_new-select-'new card and old card register',
+						table-dpa_card-select-'Card information',
+						table-dpa_account-select-'Deposit account table',
+						table-dpa_account-select-'Deposit account table',
+						method-BizUtil.getTrxRunEnvs-'null',
+						nsql-DpCardAcctRelate.locateAcctByCard-S-dpa_card_account-select,dpa_account-select-'Locate the account by card number',
+						table-dpa_account-select-'Deposit account table'
+					},
+					method-DpPublic.locateSingleSubAcct-'null':{
+						method-DpPublic.locateSingleAccount-'null':{
+							table-dpa_account-select-'Deposit account table',
+							table-dpa_account-select-'Deposit account table',
+							method-ApBusinessParm.getValue-'null':{
+								table-app_business_parameter-select-'system parameter'
+							},
+							method-BizUtil.getTrxRunEnvs-'null',
+							table-dpa_card-select-'Card information',
+							table-dpa_card_new-select-'new card and old card register',
+							table-dpa_card-select-'Card information',
+							table-dpa_account-select-'Deposit account table',
+							table-dpa_account-select-'Deposit account table',
+							method-BizUtil.getTrxRunEnvs-'null',
+							nsql-DpCardAcctRelate.locateAcctByCard-S-dpa_card_account-select,dpa_account-select-'Locate the account by card number',
+							table-dpa_account-select-'Deposit account table'
+						},
+						method-BizUtil.getTrxRunEnvs-'null',
+						nsql-DpCommon.locateSubAcct-S-dpa_account_relate-select-'Locate sub-account',
+						method-DpPublic.saveAutoOpenAcctCheck-'null':{
+							method-DpParameter.getAcctTypeInfo-'null':{
+								table-dpp_account_type-select-'Account Type Definition Table'
+							},
+							table-dpa_account_relate-select-'Depository Account And Sub-account Relations Table',
+							method-DpProduct.getProdBaseInfo-'null':{
+								table-dpf_base-select-'Product base attribute table'
+							},
+							method-DpParameter.checkProdAdaptAcctType-'null':{
+								table-dpp_account_prod-select-'Account associated product control'
+							},
+							method-DpProduct.getProdOpenCtrl-'null':{
+								table-dpf_open-select-'Product open account control table'
+							}
+						}
+					},
+					table-dpa_sub_account-select-'Deposit sub-account table',
+					table-dpb_overdraft_fiche-select-'Account overdraft fiche',
+					table-dpa_fiche_interest-select-'Fiche interest table',
+					table-dpb_overdraft_fiche-select-'Account overdraft fiche',
+					table-dpa_fiche_interest-select-'Fiche interest table',
+					method-DpOverDraw.mdyOdAgreeFiche-'null':{
+						table-dpb_overdraft_fiche-select-'Account overdraft fiche',
+						table-dpb_overdraft_fiche-update-'Account overdraft fiche'
+					},
+					method-DpFicheInterestDefine.regFicheTrxnDetail-'null':{
+						method-BizUtil.getTrxRunEnvs-'null',
+						table-dpa_fiche_interest-update-'Fiche interest table',
+						table-dps_fiche_trxn-insert-'Fiche trxn detail table',
+						method-BizUtil.getTrxRunEnvs-'null',
+						method-BizUtil.getTrxRunEnvs-'null',
+						method-ApReversal.register-'null':{
+							method-BizUtil.getTrxRunEnvs-'null',
+							method-ApTrxn.isReversalTrxn-'null':{
+								return method-ApSystemParm.exists-'null':{
+									table-app_system_parameter-select-'system parameter'
+								}
+							},
+							table-app_reversal_event-select-'reversal event define',
+							method-ApTrxn.getSerial-'null':{
+								method-BizUtil.getTrxRunEnvs-'null',
+								method-BizUtil.getTrxRunEnvs-'null'
+							},
+							table-apl_reversal_event-insert-'reversal event log'
+						}
+					},
+					method-DpOverDraw.mdyOdAgreeFiche-'null':{
+						table-dpb_overdraft_fiche-select-'Account overdraft fiche',
+						table-dpb_overdraft_fiche-update-'Account overdraft fiche'
+					},
+					method-DpFicheInterestDefine.regFicheTrxnDetail-'null':{
+						method-BizUtil.getTrxRunEnvs-'null',
+						table-dpa_fiche_interest-update-'Fiche interest table',
+						table-dps_fiche_trxn-insert-'Fiche trxn detail table',
+						method-BizUtil.getTrxRunEnvs-'null',
+						method-BizUtil.getTrxRunEnvs-'null',
+						method-ApReversal.register-'null':{
+							method-BizUtil.getTrxRunEnvs-'null',
+							method-ApTrxn.isReversalTrxn-'null':{
+								return method-ApSystemParm.exists-'null':{
+									table-app_system_parameter-select-'system parameter'
+								}
+							},
+							table-app_reversal_event-select-'reversal event define',
+							method-ApTrxn.getSerial-'null':{
+								method-BizUtil.getTrxRunEnvs-'null',
+								method-BizUtil.getTrxRunEnvs-'null'
+							},
+							table-apl_reversal_event-insert-'reversal event log'
+						}
+					},
+					method-BizUtil.resetTrxnSequence-'null':{
+						method-BizUtil.getTrxRunEnvs-'null',
+						method-BizUtil.genTrxnSequence-'null':{
+							table-app_system-select-'system define',
+							method-ApBuffer.addData-'null':{
+								method-ApDropList.exists-'null':{
+									method-ApDropList.getItem-'null':{
+										table-app_drop-select-'drop list define',
+										method-ApOrg.getDefaultOrgId-'null':{
+											table-app_organization-select-'organization infomation'
+										},
+										table-app_drop_list-select-'drop list parameter',
+										method-ApOrg.getReferenceOrgId-'null':{
+											method-BizUtil.getTrxRunEnvs-'null',
+											method-BizUtil.isOrgRelated-'null',
+											table-app_parameter_reference-select-'parameter reference define',
+											table-app_parameter_reference-select-'parameter reference define',
+											method-BizUtil.isParmTable-'null',
+											method-ApOrg.getOrgInfo-'null',
+											method-ApOrg.getOrgInfo-'null'
+										},
+										table-app_drop_list-select-'drop list parameter',
+										method-ApOrg.getDefaultOrgId-'null':{
+											table-app_organization-select-'organization infomation'
+										},
+										table-app_drop_list-select-'drop list parameter'
+									}
+								},
+								method-BizUtil.getTrxRunEnvs-'null'
+							},
+							return method-ApSeq.genSeq-'null':{
+								method-ApSeq.getAppSequence-'null':{
+									method-BizUtil.getTrxRunEnvs-'null',
+									table-app_sequence_reference-select-'sequence reference define',
+									table-app_sequence_reference-select-'sequence reference define',
+									table-app_sequence-select-'sequence no define',
+									table-app_sequence-select-'sequence no define'
+								},
+								method-ApSeq.getAppSequence-'null':{
+									method-BizUtil.getTrxRunEnvs-'null',
+									table-app_sequence_reference-select-'sequence reference define',
+									table-app_sequence_reference-select-'sequence reference define',
+									table-app_sequence-select-'sequence no define',
+									table-app_sequence-select-'sequence no define'
+								},
+								method-ApSeq.getSequence-'null':{
+									table-app_sequence-select-'sequence no define'
+								},
+								table-app_sequence_builder-select-'sequence build define',
+								method-ApSeq.buildRecogintion-'null':{
+									method-BizUtil.getTrxRunEnvsValue-'null':{
+										method-BizUtil.getTrxRunEnvs-'null',
+										method-BizUtil.getTrxRunEnvs-'null',
+										method-BizUtil.invoke-'null':{
+											table-app_service-select-'service Define',
+											return method-BizUtil.callServiceDirect-'null',
+											return method-BizUtil.callService-'null'
+										}
+									},
+									method-BizUtil.formatDate-'null'
+								},
+								method-ApSeq.padding-'null',
+								method-ApSeq.padding-'null',
+								method-ApSeq.getSequence-'null':{
+									table-app_sequence-select-'sequence no define'
+								},
+								method-ApSeq.padding-'null',
+								method-BizUtil.genCustnoCheckBit-'null',
+								method-BizUtil.genCardnoCheckBit-'null':{
+									method-BizUtil.fieldNotNull-'null'
+								},
+								method-ApSeq.padding-'null'
+							}
+						},
+						method-BizUtil.getComputerDate-'null',
+						method-BizUtil.getComputerDate-'null',
+						method-BizUtil.getComputerTime-'null',
+						method-BizUtil.getComputerTime-'null',
+						method-BizUtil.Object>-'null':{
+							method-BizUtil.getSrvFullId-'null',
+							method-BizUtil.getSrvFullId-'null'
+						}
+					}
+			},
+		},
+		
