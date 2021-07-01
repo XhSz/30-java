@@ -176,7 +176,8 @@ tz:{
 			netstat -tunpl |grep 8228		esbbase		127776 
 			netstat -tunpl |grep 6199		ops 		40837/nginx: master		
 			netstat -tunpl |grep 8080		etluser 	141986
-			netstat -tunpl |grep 9518		biee 		219474/java    
+			netstat -tunpl |grep 9518		biee 		219474/java   
+			netstat -tunpl |grep 1521		biee 		219474/java   
 			ps -ef|grep 81571
 			ps -ef|grep 128616
 			ps -ef|grep 127776
@@ -185,7 +186,7 @@ tz:{
 			ps -ef|grep 67185
 			
 		},
-		basedb-restore:{
+		orcl:{
 			content:{
 				cbs{onl,bat},rdp{}
 				gl{onl,bat},glrdp{}
@@ -193,21 +194,55 @@ tz:{
 				zk;
 			}
 			command:{
-				TRXN_DATE=20210601;HOST_DATE=20210617;HOST_TIME=0200;
+				TRXN_DATE=20210619;HOST_DATE=20210619;HOST_TIME=2246;
+				serv-IP:{
+					172.31.2.12
+					start:{
+						zookeeper/zookeeper;
+							sh /sunline/zookeeper/zookeeper01/bin/zkServer.sh start;
+						v7base/v7base,
+							/sunline/v7base/user/bin/mantools/appctl cbs-ltts-onl start;
+							/sunline/v7base/user/bin/mantools/appctl cbs-ltts-bat start;
+						glbase/glbase;
+							/sunline/glbase/user/bin/mantools/appctl gl-ltts-onl start;
+							/sunline/glbase/user/bin/mantools/appctl gl-ltts-bat start;
+						rdpbase/rdpbase;
+							cd /sunline/rdpbase/apps/cbs/;./start.sh
+						glrdpbase/glrdpbase;
+							cd /sunline/glrdpbase/apps/gl/;./start.sh
+						ops/ops;
+							/sunline/ops/ops-TZ/bin/ltts start 1.3-ops;
+							/sunline/ops/ops-TZ/bin/ltts start gl-ops;
+					},
+					stop:{
+						zookeeper/zookeeper;
+							sh /sunline/zookeeper/zookeeper01/bin/zkServer.sh stop;
+						v7base/v7base,
+							/sunline/v7base/user/bin/mantools/appctl cbs-ltts-onl stop;
+							/sunline/v7base/user/bin/mantools/appctl cbs-ltts-bat stop;
+						glbase/glbase;
+							/sunline/glbase/user/bin/mantools/appctl gl-ltts-onl stop;
+							/sunline/glbase/user/bin/mantools/appctl gl-ltts-bat stop;
+						rdpbase/rdpbase;
+							cd /sunline/rdpbase/apps/cbs/;./shutdown.sh
+						glrdpbase/glrdpbase;
+							cd /sunline/glrdpbase/apps/gl/;./shutdown.sh
+						ops/ops;
+							/sunline/ops/ops-TZ/bin/ltts stop 1.3-ops;
+							/sunline/ops/ops-TZ/bin/ltts stop gl-ops;
+					}
+				},
 				stop-serv:{
 					login with v7base,
-						/sunline/v7base/user/bin/mantools/appctl cbs-ltts-bat stop;
-						/sunline/v7base/user/bin/mantools/appctl cbs-ltts-onl stop;
+						/sunline/v7base/user/bin/mantools/appctl cbs-ltts-bat stop;/sunline/v7base/user/bin/mantools/appctl cbs-ltts-onl stop;
 					su glbase;
-						/sunline/glbase/user/bin/mantools/appctl gl-ltts-bat stop;
-						/sunline/glbase/user/bin/mantools/appctl gl-ltts-onl stop;
+						/sunline/glbase/user/bin/mantools/appctl gl-ltts-bat stop;/sunline/glbase/user/bin/mantools/appctl gl-ltts-onl stop;
 					su rdpbase;
 						cd /sunline/rdpbase/apps/cbs/;./shutdown.sh
 					su glrdpbase;
 						cd /sunline/glrdpbase/apps/gl/;./shutdown.sh
 					su ops;
-						/sunline/ops/ops-TZ/bin/ltts stop 1.3-ops;
-						/sunline/ops/ops-TZ/bin/ltts stop gl-ops;
+						/sunline/ops/ops-TZ/bin/ltts stop 1.3-ops;/sunline/ops/ops-TZ/bin/ltts stop gl-ops;
 					su zookeeper;
 						sh /sunline/zookeeper/zookeeper01/bin/zkServer.sh stop;
 				},
@@ -215,7 +250,7 @@ tz:{
 					command:{
 						TRXN_DATE=20210601...
 						cd /home/oracle/tools/backup;ll;
-						mv 20210615 20210615-$HOST_DATE-$HOST_TIME;sh after_eod;
+						mv 20210619 20210619-$HOST_DATE-$HOST_TIME;sh after_eod;
 						sh after_eod;
 					},
 					log:{
@@ -237,8 +272,9 @@ tz:{
 						@/home/oracle/tools/backup/create_uat_users.sql;
 					exit
 					imp cbsbase/cbsbase@basedb file=basedb_after_20210531.dmp log=basedb_after_20210531_import.log TABLES=(dpb_overdraft_fiche)
-					imp cbsbase/cbsbase@basedb file=basedb_after_20210401.dmp log=basedb_after_20210401_import.log FULL=Y
-					imp cbsbase/cbsbase@basedb file=basedb_after_20210616.dmp log=basedb_after_20210616_import.log TABLES=dpb_overdraft_fiche show=Y
+					imp cbsbase/cbsbase@basedb file=basedb_before_20210228.dmp log=bbasedb_before_20210228_import.log FULL=Y
+					imp cbsbase/cbsbase@basedb file=basedb_after_20210624.dmp log=basedb_after_20210624_import.log FULL=Y
+					imp cbsbase/cbsbase@basedb file=basedb_after_20210619.dmp log=basedb_after_20210619_import.log TABLES=dpb_overdraft_fiche show=Y
 					imp cbsbase/cbsbase@basedb file=basedb_after_20210616.dmp log=basedb_after_20210616_import.log FULL=Y show=Y
 					update props$ set value$='ZHS16GBK' where name='NLS_CHARACTERSET';
 					select * from props$ where name='NLS_CHARACTERSET';-- 
@@ -254,7 +290,7 @@ tz:{
 					select * from props$ where name='NLS_CHARACTERSET';
 					select count(*) from props$;-- 36
 					select * from props$ order by name;
-					
+					basedb_after_20210616,1437,
 				},
 				import:{
 					1. drop the below users.:{
@@ -263,28 +299,28 @@ tz:{
 						col default_tablespace a30
 
 						SQL> select username,default_tablespace from dba_users where username in ('CBSBASE','GLBASE','RDPBASE','GLRDPBASE','OPSBASE','GLOPSBASE');
+						result:{
+							USERNAME                  DEFAULT_TABLESPACE
+							------------------------- ------------------------------
+							CBSBASE                   CBS_DATA
+							RDPBASE                   RDP_DATA
+							GLRDPBASE                 RDP_DATA
+							OPSBASE                   OPS_DATA
+							GLOPSBASE                 OPS_DATA
+							GLBASE                    GL_DATA
 
-						USERNAME                  DEFAULT_TABLESPACE
-						------------------------- ------------------------------
-						CBSBASE                   CBS_DATA
-						RDPBASE                   RDP_DATA
-						GLRDPBASE                 RDP_DATA
-						OPSBASE                   OPS_DATA
-						GLOPSBASE                 OPS_DATA
-						GLBASE                    GL_DATA
+							select owner,count(1) from dba_objects where owner in ('CBSBASE','GLBASE','RDPBASE','GLRDPBASE','OPSBASE','GLOPSBASE')
+							group by owner;
 
-						select owner,count(1) from dba_objects where owner in ('CBSBASE','GLBASE','RDPBASE','GLRDPBASE','OPSBASE','GLOPSBASE')
-						group by owner;
-
-						OWNER                            COUNT(1)
-						------------------------------ ----------
-						GLOPSBASE                              50
-						RDPBASE                                44
-						CBSBASE                              1373
-						GLBASE                                404
-						OPSBASE                                50
-						GLRDPBASE                              45
-
+							OWNER                            COUNT(1)
+							------------------------------ ----------
+							GLOPSBASE                              50
+							RDPBASE                                44
+							CBSBASE                              1373
+							GLBASE                                404
+							OPSBASE                                50
+							GLRDPBASE                              45
+						},
 						DROP user GLOPSBASE cascade;
 						DROP user RDPBASE cascade;
 						DROP user CBSBASE cascade;
@@ -295,7 +331,6 @@ tz:{
 						-- if above users failed to DROP (sessions might be connected) , replace the schema below and kill the sessions then DROP the user again
 						set lines 400 pages 999
 						select 'alter system kill session '''||sid||','||serial#||''' immediate;' as script from v$session where username='CBSBASE';
-						select 'alter system kill session '''||sid||','||serial#||''' immediate;' as script from v$session where username='GLBASE';
 						spool /tmp/kill.sql
 						/
 						spool off
@@ -410,9 +445,51 @@ tz:{
 					su zookeeper;
 						sh /sunline/zookeeper/zookeeper01/bin/zkServer.sh start;
 					login with v7base,
+						/sunline/v7base/user/bin/mantools/appctl cbs-ltts-onl start;/sunline/v7base/user/bin/mantools/appctl cbs-ltts-bat start;
+					su glbase;
+						/sunline/glbase/user/bin/mantools/appctl gl-ltts-onl start;/sunline/glbase/user/bin/mantools/appctl gl-ltts-bat start;
+					su rdpbase;
+						cd /sunline/rdpbase/apps/cbs/;./start.sh
+					su glrdpbase;
+						cd /sunline/glrdpbase/apps/gl/;./start.sh
+					su ops;
+						/sunline/ops/ops-TZ/bin/ltts start 1.3-ops;/sunline/ops/ops-TZ/bin/ltts start gl-ops;
+				},
+				start-serv-clean-log-file:{
+					TRXN_DATE=20210131;HOST_DATE=20210621;HOST_TIME=2336;
+					su ftpuser;
+						TRXN_DATE=20210601...
+						cd /sunline/ftp/uat/cbs/99/;ll;
+						mv $TRXN_DATE $TRXN_DATE-$HOST_DATE-$HOST_TIME;
+						TRXN_DATE=20210201;mv $TRXN_DATE $TRXN_DATE-$HOST_DATE-$HOST_TIME;
+					su zookeeper;
+						sh /sunline/zookeeper/zookeeper01/bin/zkServer.sh start;
+					login with v7base,
+						TRXN_DATE=20210601...
+						cd /sunline/v7base/logs/cbs-ltts-onl/busi/;ll
+						mv $TRXN_DATE $TRXN_DATE-$HOST_DATE-$HOST_TIME;
+						cd /sunline/v7base/logs/cbs-ltts-bat/busi/;ll
+						mv $TRXN_DATE $TRXN_DATE-$HOST_DATE-$HOST_TIME;
+						cd /sunline/v7base/temp/cbs-ltts-onl/cbs/99/;ll
+						mv $TRXN_DATE $TRXN_DATE-$HOST_DATE-$HOST_TIME;
+						cd /sunline/v7base/temp/cbs-ltts-bat/cbs/99/;ll
+						mv $TRXN_DATE $TRXN_DATE-$HOST_DATE-$HOST_TIME;
+						TRXN_DATE=20210621;
+						cd /sunline/v7base/logs/cbs-ltts-onl/busi/;mv $TRXN_DATE $TRXN_DATE-$HOST_DATE-$HOST_TIME;
+						cd /sunline/v7base/logs/cbs-ltts-bat/busi/;mv $TRXN_DATE $TRXN_DATE-$HOST_DATE-$HOST_TIME;
+						cd /sunline/v7base/temp/cbs-ltts-onl/cbs/99/;mv $TRXN_DATE $TRXN_DATE-$HOST_DATE-$HOST_TIME;
+						cd /sunline/v7base/temp/cbs-ltts-bat/cbs/99/;;mv $TRXN_DATE $TRXN_DATE-$HOST_DATE-$HOST_TIME;
 						/sunline/v7base/user/bin/mantools/appctl cbs-ltts-onl start;
 						/sunline/v7base/user/bin/mantools/appctl cbs-ltts-bat start;
 					su glbase;
+						TRXN_DATE=20210601...
+						cd /sunline/glbase/temp/gl/cbs/99/;ll;
+						mv $TRXN_DATE $TRXN_DATE-$HOST_DATE-$HOST_TIME;
+						cd /sunline/glbase/logs/gl-ltts-bat/busi/;ll
+						mv $TRXN_DATE $TRXN_DATE-$HOST_DATE-$HOST_TIME;
+						cd /sunline/glbase/logs/gl-ltts-onl/busi/;ll
+						mv $TRXN_DATE $TRXN_DATE-$HOST_DATE-$HOST_TIME;
+						TRXN_DATE=20210602;
 						/sunline/glbase/user/bin/mantools/appctl gl-ltts-onl start;
 						/sunline/glbase/user/bin/mantools/appctl gl-ltts-bat start;
 					su rdpbase;
@@ -423,42 +500,28 @@ tz:{
 						/sunline/ops/ops-TZ/bin/ltts start 1.3-ops;
 						/sunline/ops/ops-TZ/bin/ltts start gl-ops;
 				},
-				start-serv-clean-log-file:{
-					TRXN_DATE=20210601;HOST_DATE=20210617;HOST_TIME=0200;
+				clean-log-file:{
+					HIS_NAME=history-210701-1600;
 					su ftpuser;
-						TRXN_DATE=20210601...
-						cd /sunline/ftp/uat/cbs/99/;mv $TRXN_DATE $TRXN_DATE-$HOST_DATE-$HOST_TIME;
-						TRXN_DATE=20210602;mv $TRXN_DATE $TRXN_DATE-$HOST_DATE-$HOST_TIME;
-					su zookeeper;
-						sh /sunline/zookeeper/zookeeper01/bin/zkServer.sh start;
+						...
+						HIS_NAME=history-210701-1630;cd /sunline/ftp/uat/cbs/99/;mkdir $HIS_NAME;mv 2* $HIS_NAME;ll;
 					login with v7base,
-						TRXN_DATE=20210601...
-						cd /sunline/v7base/logs/cbs-ltts-onl/busi/;mv $TRXN_DATE $TRXN_DATE-$HOST_DATE-$HOST_TIME;
-						cd /sunline/v7base/logs/cbs-ltts-bat/busi/;mv $TRXN_DATE $TRXN_DATE-$HOST_DATE-$HOST_TIME;
-						cd /sunline/v7base/temp/cbs-ltts-onl/cbs/99/;mv $TRXN_DATE $TRXN_DATE-$HOST_DATE-$HOST_TIME;
-						cd /sunline/v7base/temp/cbs-ltts-bat/cbs/99/;mv $TRXN_DATE $TRXN_DATE-$HOST_DATE-$HOST_TIME;
-						TRXN_DATE=20210602;
-						cd /sunline/v7base/logs/cbs-ltts-onl/busi/;mv $TRXN_DATE $TRXN_DATE-$HOST_DATE-$HOST_TIME;
-						cd /sunline/v7base/logs/cbs-ltts-bat/busi/;mv $TRXN_DATE $TRXN_DATE-$HOST_DATE-$HOST_TIME;
-						cd /sunline/v7base/temp/cbs-ltts-onl/cbs/99/;mv $TRXN_DATE $TRXN_DATE-$HOST_DATE-$HOST_TIME;
-						cd /sunline/v7base/temp/cbs-ltts-bat/cbs/99/;;mv $TRXN_DATE $TRXN_DATE-$HOST_DATE-$HOST_TIME;
-						/sunline/v7base/user/bin/mantools/appctl cbs-ltts-onl start;
-						/sunline/v7base/user/bin/mantools/appctl cbs-ltts-bat start;
+						...
+						HIS_NAME=history-210701-1630;cd /sunline/v7base/logs/cbs-ltts-onl/busi/;mkdir $HIS_NAME;mv 2* $HIS_NAME;ll;cd /sunline/v7base/logs/cbs-ltts-bat/busi/;mkdir $HIS_NAME;mv 2* $HIS_NAME;ll;cd /sunline/v7base/temp/cbs-ltts-bat/cbs/99/;mkdir $HIS_NAME;mv 2* $HIS_NAME;ll
 					su glbase;
-						TRXN_DATE=20210601...
-						cd /sunline/glbase/temp/gl/cbs/99/;mv $TRXN_DATE $TRXN_DATE-$HOST_DATE-$HOST_TIME;
-						cd /sunline/glbase/logs/gl-ltts-bat/busi/;mv $TRXN_DATE $TRXN_DATE-$HOST_DATE-$HOST_TIME;
-						cd /sunline/glbase/logs/gl-ltts-onl/busi/;mv $TRXN_DATE $TRXN_DATE-$HOST_DATE-$HOST_TIME;
-						TRXN_DATE=20210602;
-						/sunline/glbase/user/bin/mantools/appctl gl-ltts-onl start;
-						/sunline/glbase/user/bin/mantools/appctl gl-ltts-bat start;
-					su rdpbase;
-						cd /sunline/rdpbase/apps/cbs/;./start.sh
-					su glrdpbase;
-						cd /sunline/glrdpbase/apps/gl/;./start.sh
-					su ops;
-						/sunline/ops/ops-TZ/bin/ltts start 1.3-ops;
-						/sunline/ops/ops-TZ/bin/ltts start gl-ops;
+						...
+						HIS_NAME=history-210701-1630;cd /sunline/glbase/temp/gl/cbs/99/;mkdir $HIS_NAME;mv 2* $HIS_NAME;ll;cd /sunline/glbase/logs/gl-ltts-onl/busi/;mkdir $HIS_NAME;mv 2* $HIS_NAME;ll;cd /sunline/glbase/logs/gl-ltts-bat/busi/;mkdir $HIS_NAME;mv 2* $HIS_NAME;ll
+				},
+				clean-file:{
+					HIS_NAME=history-210701-1600;
+					su ftpuser;
+						...
+						cd /sunline/ftp/uat/cbs/99/;mkdir $HIS_NAME;mv 2* $HIS_NAME;ll;
+					su v7base,
+						...
+						cd /sunline/v7base/temp/cbs-ltts-bat/cbs/99/;mkdir $HIS_NAME;mv 2* $HIS_NAME;ll
+					su glbase;
+						cd /sunline/glbase/temp/gl/cbs/99/;mkdir $HIS_NAME;mv 2* $HIS_NAME;ll
 				}
 			}
 			tablespace:{
@@ -602,14 +665,15 @@ tz:{
 				clear;cd /sunline/glbase/logs/gl-ltts-bat/sys/default/;cp ltts_default.log ltts_default.210608-0120.log;cp /dev/null ltts_default.log;	
 			},
 			etc:{
-				vi  /sunline/glbase/conf/version/ltts.cbs.version
+				vi  /sunline/glbase/conf/version/ltts.gl.version
 			}
 		}
 		zookeeper,rdpbase*2,ops*2,v7base*2,glbase*2,etluser*8,glrdpbase,glrdpbase*3,biee*4,esbbase*2,
-		esbbase:{
+		esbbase/esbbase:{
 			bin:{
 				run:{
-					/sunline/esbbase/sunesb
+					cd /sunline/esbbase/sunesb;./stop ibps;
+					cd /sunline/esbbase/sunesb;./run ibps;
 					./stop ibps  停止
 					./run ibps 	启动
 				},
@@ -789,6 +853,12 @@ tz:{
 		}
 		etl:{	etluser/etluser
 			bin:{
+				start/stop:{
+					cd /sunline/etl/app/apache-tomcat-6.0.45/bin/;sh shutdown.sh
+					cd /sunline/etl/app/apache-tomcat-6.0.45/bin/;sh startup.sh
+					cd /sunline/etl/app/jcmAgent/;sh start.sh			8381
+					cd /sunline/etl/app/jcmAgent/;sh stop.sh			8381
+				},
 				ps -ef | grep etl	:{
 					ori:{
 						/*
@@ -1045,8 +1115,19 @@ tz:{
 				/sunline/ops/ops-TZ/log/1.3-ops
 			}
 		},
-		orcl:{
-			
+		
+	},
+	uat2(172.31.2.16):{
+		root:{
+			hardware:{
+				cpu:{
+					'#个数'
+					grep 'physical id' /proc/cpuinfo | sort -u | wc -l					=		2
+					'#每个核心数量'
+					grep 'core id' /proc/cpuinfo | sort -u | wc -l						=		2
+				},
+				mem:{	free -h		16+8G		},
+			}
 		}
 	},
 	pro(172.30.2.11):{
@@ -1302,7 +1383,7 @@ gs:{
 			},
 			sql:{
 				d: &cd D:\03-sl\102-word\10.22.10.10\svn\iCore-product\001-%E5%8D%B0%E5%B0%BC%E9%87%91%E5%85%89%E9%A1%B9%E7%9B%AE\12 打版版本\R3;
-				findstr /s /i "100001058521" *.sql ;
+				findstr /s /i "update cls_txn" *.sql ;
 			},
 			file:{
 				

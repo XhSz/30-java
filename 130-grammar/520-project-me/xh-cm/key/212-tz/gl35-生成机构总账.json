@@ -1,0 +1,96 @@
+
+		gl35-'生成机构总账':{
+			getBatchDataWalker:{
+					method-ApOrg.getReferenceOrgId-'null':{
+						method-BizUtil.getTrxRunEnvs-'null',
+						method-BizUtil.isOrgRelated-'null',
+						table-app_parameter_reference-select-'参数引用定义',
+						table-app_parameter_reference-select-'参数引用定义',
+						method-BizUtil.isParmTable-'null',
+						method-ApOrg.getOrgInfo-'null':{
+							table-app_organization-select-'法人信息'
+						},
+						method-ApOrg.getOrgInfo-'null':{
+							table-app_organization-select-'法人信息'
+						}
+					},
+					nsql-ApBranch.selBranchList-S-apb_branch-select-'查询机构所有信息列表'
+			},
+			process:{
+					method-ApOrg.getReferenceOrgId-'null':{
+						method-BizUtil.getTrxRunEnvs-'null',
+						method-BizUtil.isOrgRelated-'null',
+						table-app_parameter_reference-select-'参数引用定义',
+						table-app_parameter_reference-select-'参数引用定义',
+						method-BizUtil.isParmTable-'null',
+						method-ApOrg.getOrgInfo-'null':{
+							table-app_organization-select-'法人信息'
+						},
+						method-ApOrg.getOrgInfo-'null':{
+							table-app_organization-select-'法人信息'
+						}
+					},
+					method-BizUtil.getTrxRunEnvs-'null',
+					method-BizUtil.isLastDay-'null':{
+						return method-BizUtil.lastDay-'null'
+					},
+					method-GlBranch.prcBefore-'null':{
+						method-GlBranch.checkSettleExistsByState-'null':{
+							method-GlSettle.checkSettleExistsByState-'null':{
+								nsql-GlSettle.selSettleCountByState-S-fab_teller_seq-select-'get the counts by settlement state'
+							},
+							method-ApSystemParm.getValue-'null':{
+								table-app_system_parameter-select-'系统杂项参数'
+							},
+							nsql-GlSettle.selSettleCountByStateNonExists-S-fab_teller_seq-select-'get the counts by date and default state',
+							nsql-GlSettle.selSettleCountByStateNonExists-S-fab_teller_seq-select-'get the counts by date and default state'
+						},
+						method-GlBranch.checkkVoucher-'null':{
+							method-ApSystemParm.getValue-'null':{
+								table-app_system_parameter-select-'系统杂项参数'
+							},
+							nsql-GlBranch.selVoucherNotBalList-S-fab_teller_seq-select,fab_accounting_voch-select-'inquiring imbalance data of gl '
+						},
+						nsql-GlBranch.delBranchGl-D-gla_branch_gl-delete-'deleting daily gl in branch in appointed day'
+					},
+					method-GlBranch.genBranchGl(String, String, String, E_REPORTTYPE 1-'业务报表'-'E_REPORTTYPE.BUSINETT_TYPE')-'null':{
+						method-BizUtil.getTrxRunEnvs-'null',
+						method-ApSystemParm.getValue-'null':{
+							table-app_system_parameter-select-'系统杂项参数'
+						},
+						List<GlTranData> lstTranData = GlBranchDao.selTranData(orgId, trxnDate, branchId, settState,  false);
+							nsql-GlBranch.selTranData-S-fab_teller_seq-select,fab_accounting_voch-select-'inquiring transaction data':{
+								select
+										b.trxn_ccy as ccy_code, b.gl_code, 
+										sum(case when b.debit_credit = 'D' then b.accounting_amt else 0.00 end ) as debit_amt, 
+										sum(case when b.debit_credit = 'C' then b.accounting_amt else 0.00 end ) as credit_amt 
+								from
+										fab_teller_seq a 
+								join
+										fab_accounting_voch b 
+												on a.trxn_date = b.trxn_date and a.trxn_seq = b.trxn_seq 
+												and a.org_id = b.org_id 
+								where
+										a.trxn_date = #trxn_date# and a.org_id = #org_id# 
+										and a.sett_status = #sett_status# and b.acct_branch = #branch_id# 
+								group by
+										b.trxn_ccy, b.gl_code 
+							},
+						for (GlTranData cplTran : lstTranData) {
+							table-fap_accounting_subject-select-'accounting subject define',
+							table-gla_branch_gl-select-'机构日总账',
+							method-GlBranch.calSubjectBal-'null',
+							'发生额处理'
+							tabGL.setCurrent_debit_amt(cplTran.getDebit_amt());
+							'贷方余额处理'
+							tabGL.setCurrent_debit_bal(cplBal.getCurrent_debit_bal());
+							table-gla_branch_gl-insert-'机构日总账',
+							table-gla_branch_gl-update-'机构日总账',
+						}
+						method-GlBranch.chkGlBal-'null':{
+							nsql-GlBranch.selErrorBalData-S-gla_branch_gl-select-'getting imbalance data from appointed date'
+						}
+					}
+			},
+		},
+		

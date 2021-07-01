@@ -1,0 +1,111 @@
+
+		taf02-'计提文件生成':{
+			process:{
+					method-TaFile.writeAccureDataMain-'null':{
+						method-BizUtil.getTrxRunEnvs-'null',
+						method-ApOrg.getReferenceOrgId-'null':{
+							method-BizUtil.getTrxRunEnvs-'null',
+							method-BizUtil.isOrgRelated-'null',
+							table-app_parameter_reference-select-'parameter reference define',
+							table-app_parameter_reference-select-'parameter reference define',
+							method-BizUtil.isParmTable-'null',
+							method-ApOrg.getOrgInfo-'null':{
+								table-app_organization-select-'organization infomation'
+							},
+							method-ApOrg.getOrgInfo-'null':{
+								table-app_organization-select-'organization infomation'
+							}
+						},
+						nsql-TaFile.selMaxDateFromAccure-S-tas_accrue_record-select-'从计提表中计算最大日期',
+						method-ApOrg.getReferenceOrgId-'null':{
+							method-BizUtil.getTrxRunEnvs-'null',
+							method-BizUtil.isOrgRelated-'null',
+							table-app_parameter_reference-select-'parameter reference define',
+							table-app_parameter_reference-select-'parameter reference define',
+							method-BizUtil.isParmTable-'null',
+							method-ApOrg.getOrgInfo-'null':{
+								table-app_organization-select-'organization infomation'
+							},
+							method-ApOrg.getOrgInfo-'null':{
+								table-app_organization-select-'organization infomation'
+							}
+						},
+						method-ApFile.getFullPath-'null':{
+							method-ApFile.exists-'null':{
+								method-ApDropList.exists-'null':{
+									method-ApDropList.getItem-'null':{
+										table-app_drop-select-'drop list define',
+										method-ApOrg.getDefaultOrgId-'null':{
+											table-app_organization-select-'organization infomation'
+										},
+										table-app_drop_list-select-'drop list parameter',
+										method-ApOrg.getReferenceOrgId-'null':{
+											method-BizUtil.getTrxRunEnvs-'null',
+											method-BizUtil.isOrgRelated-'null',
+											table-app_parameter_reference-select-'parameter reference define',
+											table-app_parameter_reference-select-'parameter reference define',
+											method-BizUtil.isParmTable-'null',
+											method-ApOrg.getOrgInfo-'null',
+											method-ApOrg.getOrgInfo-'null'
+										},
+										table-app_drop_list-select-'drop list parameter',
+										method-ApOrg.getDefaultOrgId-'null':{
+											table-app_organization-select-'organization infomation'
+										},
+										table-app_drop_list-select-'drop list parameter'
+									}
+								},
+								table-app_directory-select-'file directory'
+							},
+							method-ApFile.genFileName-'null':{
+								table-app_directory-select-'file directory',
+								method-BizUtil.getTrxRunEnvsValue-'null':{
+									method-BizUtil.getTrxRunEnvs-'null',
+									method-BizUtil.getTrxRunEnvs-'null',
+									method-BizUtil.invoke-'null':{
+										table-app_service-select-'service Define',
+										return method-BizUtil.callServiceDirect-'null':{
+											method-BizUtil.invoke-'null',
+											method-BizUtil.getExceptionCause-'null'
+										},
+										return method-BizUtil.callService-'null':{
+											method-BizUtil.getSrvFullId-'null'
+										}
+									}
+								}
+							}
+						},
+						method-ApOrg.getReferenceOrgId-'null':{
+							method-BizUtil.getTrxRunEnvs-'null',
+							method-BizUtil.isOrgRelated-'null',
+							table-app_parameter_reference-select-'parameter reference define',
+							table-app_parameter_reference-select-'parameter reference define',
+							method-BizUtil.isParmTable-'null',
+							method-ApOrg.getOrgInfo-'null':{
+								table-app_organization-select-'organization infomation'
+							},
+							method-ApOrg.getOrgInfo-'null':{
+								table-app_organization-select-'organization infomation'
+							}
+						},
+						nsql-TaFile.selFileHeadFromAccure-S-tas_accrue_record-select-'从计提表中计算文件头数据',
+						method-BizUtil.toJson-'null',
+						method-ApOrg.getReferenceOrgId-'null':{
+							method-BizUtil.getTrxRunEnvs-'null',
+							method-BizUtil.isOrgRelated-'null',
+							table-app_parameter_reference-select-'parameter reference define',
+							table-app_parameter_reference-select-'parameter reference define',
+							method-BizUtil.isParmTable-'null',
+							method-ApOrg.getOrgInfo-'null':{
+								table-app_organization-select-'organization infomation'
+							},
+							method-ApOrg.getOrgInfo-'null':{
+								table-app_organization-select-'organization infomation'
+							}
+						},
+						table-DaoUtil-select
+					},
+					method-DBUtil.rollBack-'null'
+			},
+		},
+		

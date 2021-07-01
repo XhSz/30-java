@@ -1,0 +1,37 @@
+gl52-'生成业务总账-报表机构':{
+			process:{
+					method-ApOrg.getReferenceOrgId-'null':{
+						method-BizUtil.getTrxRunEnvs-'null',
+						method-BizUtil.isOrgRelated-'null',
+						table-app_parameter_reference-select-'参数引用定义',
+						table-app_parameter_reference-select-'参数引用定义',
+						method-BizUtil.isParmTable-'null',
+						method-ApOrg.getOrgInfo-'null':{
+							table-app_organization-select-'法人信息'
+						},
+						method-ApOrg.getOrgInfo-'null':{
+							table-app_organization-select-'法人信息'
+						}
+					},
+					method-BizUtil.getTrxRunEnvs-'null',
+					method-GlGeneralLedger.genReportGL(String, E_REPORTTYPE 1-'业务报表'-'E_REPORTTYPE.BUSINETT_TYPE', String)-'逐级向上统计':{
+						method-ApSystemParm.getValue-'null':{
+							table-app_system_parameter-select-'系统杂项参数'
+						},
+						table-app_branch_relation-select-'机构关系声明',
+						nsql-GlBranch.selReportBrch-S-app_branch_relation-select-'select report branch',
+						method-ApCurrency.getBankBase-'null':{
+							return method-ApBusinessParm.getValue-'null':{
+								table-app_business_parameter-select-'业务杂项参数'
+							}
+						},
+						method-ApBranch.getRoot-'null':{
+							return method-BizUtil.getTrxRunEnvs-'null',
+							nsql-ApBranch.selBranchRoot-S-apb_branch_relation-select-'查询根机构'
+						},
+						nsql-ApBranch.selBranchMaxLevel-S-apb_branch_junior-select-'用某机构的某种机构关系下最大级数',
+						nsql-ApBranch.selBranchListByLevel-S-apb_branch_junior-select,apb_branch_relation-select-'根据机构关系代码及级数获取机构清单'
+					}
+			},
+		},
+		

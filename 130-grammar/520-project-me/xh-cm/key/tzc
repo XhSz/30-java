@@ -321,6 +321,11 @@ server:{
 		gl-code:	http://svn.odc.sunline.cn/repos/GL_Release/branches/v1.3/modules
 		OPS运维地址：http://10.22.60.42:9013
 		登录用户：batch01/123456
+		
+		jekins:{
+			https://jenkins.odc.sunline.cn/job/PROJECTS/job/1.3-TZ/job/GL-V1.3-DIT-RELEASE/configure
+			http://svn.odc.sunline.cn/repos/GL_Release/branches/v1.3
+		}
 	},
 	fix:{
 		vue:{
@@ -456,9 +461,19 @@ server:{
 		},
 		gl:{
 			ops:http://172.31.2.12:7199/ batch01/123456,
+		},
+		db:{
+			version,Oracle Database 11g Enterprise Edition Release 11.2.0.4.0 - 64bit Production With the Partitioning, OLAP, Data Mining and Real Application Testing option
+
 		}
 	},
-	pro:{
+	uat2(172.31.2.17):{
+		db(172.31.5.15):{},
+		root:{
+			
+		}
+	},
+	pro(172.30.2.11):{
 		core		http://172.30.2.11:6100/
 		core ops	http://172.30.2.11:6199/		batch01/123456
 		gl 			http://172.30.2.11:7100/
@@ -610,13 +625,26 @@ plog:{
 		};
 	},
 	111-价值重估:{	'两个需求签约,下周三'
+		pro.code:{
+			gl-gltran-1.3.2.19-RELEASE.jar:{
+				\cn\sunline\ltts\busi\gltran\batchtran	\gl50DataProcessor.class
+			},
+			gl-gl-1.3.2.19-RELEASE.jar:{	svn-dit-gl-210625\busi\gl\target\classes
+				\namedsql							\GlExchangeRate.nsql.xml
+				\cn\sunline\ltts\busi\gl\namedsql	
+				\cn\sunline\ltts\busi\gl\item		\
+			}
+		},
 		pro.sql:{
 			cbs-db:{
 				update fxp_account set gl_ref_code='FCY_EXCHANGE_MARK' where forex_trxn_type in('11','21','31');
+				update taa_account set gl_ref_code='FCY_EXCHANGE_MARK' where gl_ref_code='FCY_EXCHANGE_CUST';
+				update TAA_ACCOUNT set DOUBLE_ENTRY_IND ='N' where GL_REF_CODE = 'Market Exchange Profit';
 				UPDATE TAP_BUSINESS SET DOUBLE_ENTRY_IND = 'N' WHERE IDENTIFIER_CODE = 'IN6030403';
 				-- 'IN6030403'
 				-- INSERT INTO APP_BUSINESS_PARAMETER("ORG_ID", "MAIN_KEY", "SUB_KEY", "PARM_DESC", "PARM_VALUE", "PARM_REMARK", "MODULE", "DATA_CREATE_USER", "DATA_CREATE_TIME", "DATA_UPDATE_USER", "DATA_UPDATE_TIME", "DATA_VERSION") VALUES ('99', 'GL_CODE', 'EXCHANGE_PROFIT', '外汇买卖收益总账科目', 'IN6030403', '外汇买卖收益总账科目', 'LT', 'S####', '20210525', 'S####', '20210525', '1');
-				INSERT INTO APP_BUSINESS_PARAMETER("ORG_ID", "MAIN_KEY", "SUB_KEY", "PARM_DESC", "PARM_VALUE", "PARM_REMARK", "MODULE", "DATA_CREATE_USER", "DATA_CREATE_TIME", "DATA_UPDATE_USER", "DATA_UPDATE_TIME", "DATA_VERSION") VALUES ('99', 'GL_CODE', 'EXCHANGE_PROFIT', '外汇买卖收益总账科目', 'Market Exchange Profit', '外汇买卖收益总账科目', 'LT', 'S####', '20210525', 'S####', '20210525', '1');
+				INSERT INTO APP_BUSINESS_PARAMETER("ORG_ID", "MAIN_KEY", "SUB_KEY", "PARM_DESC", "PARM_VALUE", "PARM_REMARK", "MODULE", "DATA_CREATE_USER", "DATA_CREATE_TIME", "DATA_UPDATE_USER", "DATA_UPDATE_TIME", "DATA_VERSION") VALUES ('99', 'GL_CODE', 'EXCHANGE_PROFIT', '外汇买卖收益总账科目', 'Customer Exchange Profit', '外汇买卖收益总账科目', 'LT', 'S####', '20210525', 'S####', '20210525', '1');
+				INSERT INTO APP_BUSINESS_PARAMETER("ORG_ID", "MAIN_KEY", "SUB_KEY", "PARM_DESC", "PARM_VALUE", "PARM_REMARK", "MODULE", "DATA_CREATE_USER", "DATA_CREATE_TIME", "DATA_UPDATE_USER", "DATA_UPDATE_TIME", "DATA_VERSION") VALUES ('*', 'GL_CODE', 'EXCHANGE_PROFIT', '外汇买卖收益总账科目', 'Customer Exchange Profit', '外汇买卖收益总账科目', 'LT', 'S####', '20210525', 'S####', '20210525', '1');
 				COMMIT;
 			},
 			gl-db:{
@@ -629,16 +657,27 @@ plog:{
 				delete from fap_accounting_event_parm where gl_code in ('FX30101','FX30102');
 				INSERT INTO FAP_ACCOUNTING_EVENT_PARM("ORG_ID", "SYS_NO", "ACCOUNTING_SUBJECT", "ACCOUNTING_ALIAS", "REMARK", "BAL_ATTRIBUTES", "GL_CODE", "OFFSET_GL_CODE", "DATA_CREATE_USER", "DATA_CREATE_TIME", "DATA_UPDATE_USER", "DATA_UPDATE_TIME", "DATA_VERSION") VALUES ('99', '800', '6', 'FCY_EXCHANGE_MARK', 'Foreign Exchange(Market)', 'TA01', 'FX30101', NULL, 'S####', '0', 'S####', '0', '1');
 				INSERT INTO FAP_ACCOUNTING_EVENT_PARM("ORG_ID", "SYS_NO", "ACCOUNTING_SUBJECT", "ACCOUNTING_ALIAS", "REMARK", "BAL_ATTRIBUTES", "GL_CODE", "OFFSET_GL_CODE", "DATA_CREATE_USER", "DATA_CREATE_TIME", "DATA_UPDATE_USER", "DATA_UPDATE_TIME", "DATA_VERSION") VALUES ('99', '800', '6', 'FCY_EXCHANGE_CUST', 'Foreign Exchange(Customer)', 'TA01', 'FX30102', NULL, 'S####', '0', 'S####', '0', '1');
+				INSERT INTO APP_BUSINESS_PARAMETER("ORG_ID", "MAIN_KEY", "SUB_KEY", "PARM_DESC", "PARM_VALUE", "PARM_REMARK", "MODULE", "DATA_CREATE_USER", "DATA_CREATE_TIME", "DATA_UPDATE_USER", "DATA_UPDATE_TIME", "DATA_VERSION") VALUES ('99', 'GL_CODE', 'EXCHANGE_REVALUATION_PROFIT', '外币价值重估收益总账科目', 'IN6030401', '外币价值重估收益总账科目', 'LT', 'S####', '20210630', 'S####', '20210630', '1');
+				INSERT INTO APP_BUSINESS_PARAMETER("ORG_ID", "MAIN_KEY", "SUB_KEY", "PARM_DESC", "PARM_VALUE", "PARM_REMARK", "MODULE", "DATA_CREATE_USER", "DATA_CREATE_TIME", "DATA_UPDATE_USER", "DATA_UPDATE_TIME", "DATA_VERSION") VALUES ('*', 'GL_CODE', 'EXCHANGE_REVALUATION_PROFIT', '外币价值重估收益总账科目', 'IN6030401', '外币价值重估收益总账科目', 'LT', 'S####', '20210630', 'S####', '20210630', '1');
+				INSERT INTO APP_BUSINESS_PARAMETER("ORG_ID", "MAIN_KEY", "SUB_KEY", "PARM_DESC", "PARM_VALUE", "PARM_REMARK", "MODULE", "DATA_CREATE_USER", "DATA_CREATE_TIME", "DATA_UPDATE_USER", "DATA_UPDATE_TIME", "DATA_VERSION") VALUES ('99', 'GL_CODE', 'EXCHANGE_REVALUATION_PROFIT_CCY', '外币价值重估收益计算币种', 'TZS', '外币价值重估收益计算币种', 'LT', 'S####', '20210630', 'S####', '20210630', '1');
+				INSERT INTO APP_BUSINESS_PARAMETER("ORG_ID", "MAIN_KEY", "SUB_KEY", "PARM_DESC", "PARM_VALUE", "PARM_REMARK", "MODULE", "DATA_CREATE_USER", "DATA_CREATE_TIME", "DATA_UPDATE_USER", "DATA_UPDATE_TIME", "DATA_VERSION") VALUES ('*', 'GL_CODE', 'EXCHANGE_REVALUATION_PROFIT_CCY', '外币价值重估收益计算币种', 'TZS', '外币价值重估收益计算币种', 'LT', 'S####', '20210630', 'S####', '20210630', '1');
+				INSERT INTO GLB_GL_REPORT (ORG_ID,REPORT_TYPE,TRXN_DATE,BRANCH_ID,GL_DATE_INTERVAL,CCY_CODE,GL_CODE,ON_BAL_SHEET_IND,GL_CODE_LEVEL,GL_CODE_DESC,END_GL_CODE_IND,SIMPLE_LIST_DISPLAY_IND,PREV_DEBIT_BAL,PREV_CREDIT_BAL,CURRENT_DEBIT_AMT,CURRENT_CREDIT_AMT,CURRENT_DEBIT_BAL,CURRENT_CREDIT_BAL,DATA_CREATE_USER,DATA_CREATE_TIME,DATA_UPDATE_USER,DATA_UPDATE_TIME,DATA_VERSION) VALUES 
+				('99','1','20210212','200','1','TZS','IN6030401','Y',3,'Other Income - Exchange - Exchange Revaluation','Y','Y',300.00,600.00,0,0,300.00,600.00,NULL,NULL,NULL,NULL,1)
+				;
+				INSERT INTO gla_branch_gl (ORG_ID,REPORT_TYPE,TRXN_DATE,BRANCH_ID,CCY_CODE,GL_CODE,ON_BAL_SHEET_IND,PREV_DEBIT_BAL,PREV_CREDIT_BAL,CURRENT_DEBIT_AMT,CURRENT_CREDIT_AMT,CURRENT_DEBIT_BAL,CURRENT_CREDIT_BAL,DATA_CREATE_USER,DATA_CREATE_TIME,DATA_UPDATE_USER,DATA_UPDATE_TIME,DATA_VERSION) VALUES 
+				('99','1','20210213','200','TZS','IN6030401','Y',300,600,0,0,300,600,'2101','20210630 01:06:07','2101','20210630 13:19:04 869',1)
+				;
 				COMMIT;
 			},
 			cbs-db-bk:{
 				update fxp_account set gl_ref_code='FCY_EXCHANGE_CUST' where forex_trxn_type in('11','21','31');
+				update taa_account set gl_ref_code='FCY_EXCHANGE_CUST' where gl_ref_code='FCY_EXCHANGE_MARK';
 				UPDATE TAP_BUSINESS SET DOUBLE_ENTRY_IND = 'Y' WHERE IDENTIFIER_CODE = 'IN6030403';
 				DELETE FROM APP_BUSINESS_PARAMETER WHERE MAIN_KEY='GL_CODE' AND SUB_KEY='EXCHANGE_PROFIT';
 				COMMIT;
 			},
 			gl-db-bk:{
-				update faa_account set acct_name='Foreign Exchange-Customer' where gl_code = 'FX30101';
+				update faa_account set acct_name='Foreign Exchange-Customer' where gl_code = 'FX30102';
 				update faa_account set acct_name='Other Income - Exchange - Market Exchange Profit' where gl_code = 'IN6030403';
 				update fap_accounting_subject set gl_code_desc='Foreign Exchange-Customer' where gl_code = 'FX30101';
 				update fap_accounting_subject set gl_code_desc='Foreign Exchange-Bank Self' where gl_code = 'FX30102';
@@ -649,9 +688,26 @@ plog:{
 			},
 		}
 		FCY_EXCHANGE_CUST
+		log-uat:{
+			process-data:{
+				idl.<-	icl.gl_bal_sum	<-	iol.GLS_GLB_GL_REPORT	<-	itl.gls_glb_gl_report	<-	
+					gls_glb_gl_report_dr as 	<-	'/data/input/${batch_date}/gls/';
+			},
+			0401:{
+			PARENT_GL	GL_CODE			DESCR				CCY	'OPEN DEBIT BALANCE'	'OPEN CREDIT BALANCE'	'DEBIT MOVEMENT'	'CREDIT MOVEMENT'	'DEBIT BALANCE'		'CREDTI BALANCE'
+
+						FX301	Foreign Exchange			FCY		14650157644.69			18312959607.71		490621156.60		18127400.00			15122651401.29		18312959607.71
+						FX301	Foreign Exchange			LCY		17654170536.43			14002257971.49		18024400.00			489456100.00		17654170536.43		14473689671.49
+				FX301	FX30101	Foreign Exchange-Bank Self	FCY		14650157644.69			18312959607.71		490621156.60		18127400.00			15122651401.29		18312959607.71
+				FX301	FX30101	Foreign Exchange-Bank Self	LCY		17654170536.43			14002257971.49		18024400.00			489456100.00		17654170536.43		14473689671.49
+				FX301	FX30102	Foreign Exchange-Customer	FCY		0.00	0.00			0.00	0.00		0.00	0.00
+				FX301	FX30102	Foreign Exchange-Customer	LCY		0.00	0.00			0.00	0.00		0.00	0.00
+
+			}
+		}
 	},
 	112-报表:{		EV"."APB_BATCH_RECEIVE_IDX2
-		2.1:{
+		2.1-'6个科目,3个科目':{
 			RPT_LOAN_LIST,
 			RPT_AC_BAL_LCY_FCY-AS1130701:{
 				t2.term_begin_debit_bal AS OPEN_DEBIT_BAL           -- 期初借方余额
@@ -660,12 +716,24 @@ plog:{
 					faa_acctoun
 				}
 			}
+			prd.code:{
+				/sunline/etl/app/etlscript/autocode/dml/idl/idl_rpt_loan_list.sql
+				
+			},
+			prd.sql:{
+				odsdb:{
+					alter table rpt_loan_list add (rece_intere number(21,2));
+					alter table rpt_loan_list add (rece_penal number(21,2));
+					alter table rpt_loan_list add (rece_compo number(21,2));
+					alter table rpt_loan_list add (intere_accru number(21,2));
+				}
+			}
 		},
-		2.2:{
+		2.2-AS1131001:{
 			4410	40610	dp4610In	2602	活期交易明细查询			dp4410/40610
 			2000001004,
 		},
-		2.5:{
+		2.5-'行业'-indus:{
 			1201,:{
 				<iframe id="coreWindow" width="100%" height="100%" src="/window/core/rdpdocoretran.html"></iframe>
 				/tran/cf3020In/cf3020In.html
@@ -704,6 +772,15 @@ plog:{
 					valuefield: ""
 				}
 			},
+			prd.code:{
+				rdp:{
+					/sunline/rdpbase/apps/cbs/webapps/ROOT/tran/cf3020In/cf3020In.html
+					/sunline/rdpbase/apps/cbs/webapps/ROOT/tran/cf3022In/cf3022In.html
+					/sunline/rdpbase/apps/cbs/webapps/ROOT/business/resources/commonlist.cn.js
+					/sunline/rdpbase/apps/cbs/webapps/ROOT/business/resources/commonlist.en.js
+					/sunline/rdpbase/apps/cbs/webapps/ROOT/business/resources/commonlist.zh-tw.js
+				}
+			},
 			prd.sql:{
 				cbs-db:{
 					DELETE FROM APP_DROP_LIST WHERE DROP_LIST_TYPE = 'INDUS_TYPE';
@@ -730,6 +807,23 @@ plog:{
 					INSERT INTO APP_DROP_LIST("DICT_ORG_ID", "DROP_LIST_TYPE", "DROP_LIST_VALUE", "DROP_LIST_DESC", "DATA_SORT", "DATA_CREATE_USER", "DATA_CREATE_TIME", "DATA_UPDATE_USER", "DATA_UPDATE_TIME", "DATA_VERSION") VALUES ('99', 'INDUS_TYPE', '21', 'Health'                     ,'21', 'S####', '20210609', 'S####', '20210609', '1');
 					INSERT INTO APP_DROP_LIST("DICT_ORG_ID", "DROP_LIST_TYPE", "DROP_LIST_VALUE", "DROP_LIST_DESC", "DATA_SORT", "DATA_CREATE_USER", "DATA_CREATE_TIME", "DATA_UPDATE_USER", "DATA_UPDATE_TIME", "DATA_VERSION") VALUES ('99', 'INDUS_TYPE', '22', 'Other Services'             ,'22', 'S####', '20210609', 'S####', '20210609', '1');
 					INSERT INTO APP_DROP_LIST("DICT_ORG_ID", "DROP_LIST_TYPE", "DROP_LIST_VALUE", "DROP_LIST_DESC", "DATA_SORT", "DATA_CREATE_USER", "DATA_CREATE_TIME", "DATA_UPDATE_USER", "DATA_UPDATE_TIME", "DATA_VERSION") VALUES ('99', 'INDUS_TYPE', '23', 'Personal (Private)'         ,'23', 'S####', '20210609', 'S####', '20210609', '1');
+					UPDATE cfb_corpor_base SET indus_type = (CASE indus_type 
+						WHEN 'A' THEN '1' 
+						WHEN 'B' THEN '6' 
+						WHEN 'C' THEN '7' 
+						WHEN 'D' THEN '17' 
+						WHEN 'E' THEN '8' 
+						WHEN 'F' THEN '13' 
+						WHEN 'G' THEN '15' 
+						WHEN 'H' THEN '12' 
+						WHEN 'I' THEN '5' 
+						WHEN 'J' THEN '22' 
+						WHEN 'K' THEN '22' 
+						WHEN 'L' THEN '20' 
+						WHEN 'M' THEN '22' 
+						WHEN 'Z' THEN '22' 
+						ELSE 		  '22' END 
+					);
 					COMMIT;
 				},
 				gl-db:{},
@@ -790,13 +884,64 @@ plog:{
 					INSERT INTO APP_DROP_LIST("DICT_ORG_ID", "DROP_LIST_TYPE", "DROP_LIST_VALUE", "DROP_LIST_DESC", "DATA_SORT", "DATA_CREATE_USER", "DATA_CREATE_TIME", "DATA_UPDATE_USER", "DATA_UPDATE_TIME", "DATA_VERSION") VALUES ('99', 'INDUS_CODE', 'Z21', 'Auction House', '40', 'S####', '20991231', 'S####', '20991231', '1');
 					INSERT INTO APP_DROP_LIST("DICT_ORG_ID", "DROP_LIST_TYPE", "DROP_LIST_VALUE", "DROP_LIST_DESC", "DATA_SORT", "DATA_CREATE_USER", "DATA_CREATE_TIME", "DATA_UPDATE_USER", "DATA_UPDATE_TIME", "DATA_VERSION") VALUES ('99', 'INDUS_CODE', 'Z22', 'Import and Export Company', '41', 'S####', '20991231', 'S####', '20991231', '1');
 					INSERT INTO APP_DROP_LIST("DICT_ORG_ID", "DROP_LIST_TYPE", "DROP_LIST_VALUE", "DROP_LIST_DESC", "DATA_SORT", "DATA_CREATE_USER", "DATA_CREATE_TIME", "DATA_UPDATE_USER", "DATA_UPDATE_TIME", "DATA_VERSION") VALUES ('99', 'INDUS_CODE', 'Z23', 'Other', '42', 'S####', '20991231', 'S####', '20991231', '1');
-
+					UPDATE CFB_CORPOR_BASE SET INDUS_TYPE='22' WHERE  CUST_NO='9600000055' ;
+					UPDATE CFB_CORPOR_BASE SET INDUS_TYPE='7' WHERE   CUST_NO='9600000043';
+					UPDATE CFB_CORPOR_BASE SET INDUS_TYPE='8' WHERE   CUST_NO='9600000049';
+					UPDATE CFB_CORPOR_BASE SET INDUS_TYPE='13' WHERE  CUST_NO='9600000053' ;
+					UPDATE CFB_CORPOR_BASE SET INDUS_TYPE='7' WHERE   CUST_NO='9600000039';
+					UPDATE CFB_CORPOR_BASE SET INDUS_TYPE='22' WHERE  CUST_NO='9600000042' ;
+					UPDATE CFB_CORPOR_BASE SET INDUS_TYPE='12' WHERE  CUST_NO='9600000041' ;
+					UPDATE CFB_CORPOR_BASE SET INDUS_TYPE='22' WHERE  CUST_NO='9600000010' ;
+					UPDATE CFB_CORPOR_BASE SET INDUS_TYPE='22' WHERE  CUST_NO='9600000011' ;
+					UPDATE CFB_CORPOR_BASE SET INDUS_TYPE='8' WHERE   CUST_NO='9600000006';
+					UPDATE CFB_CORPOR_BASE SET INDUS_TYPE='8' WHERE   CUST_NO='9600000007';
+					UPDATE CFB_CORPOR_BASE SET INDUS_TYPE='8' WHERE   CUST_NO='9600000008';
+					UPDATE CFB_CORPOR_BASE SET INDUS_TYPE='7' WHERE   CUST_NO='9600000009';
+					UPDATE CFB_CORPOR_BASE SET INDUS_TYPE='13' WHERE  CUST_NO='9600000003' ;
+					UPDATE CFB_CORPOR_BASE SET INDUS_TYPE='22' WHERE  CUST_NO='9600000005' ;
+					UPDATE CFB_CORPOR_BASE SET INDUS_TYPE='12' WHERE  CUST_NO='9600000014' ;
+					UPDATE CFB_CORPOR_BASE SET INDUS_TYPE='12' WHERE  CUST_NO='9600000019' ;
+					UPDATE CFB_CORPOR_BASE SET INDUS_TYPE='12' WHERE  CUST_NO='9600000013' ;
+					UPDATE CFB_CORPOR_BASE SET INDUS_TYPE='22' WHERE  CUST_NO='9600000016' ;
+					UPDATE CFB_CORPOR_BASE SET INDUS_TYPE='12' WHERE  CUST_NO='9600000017' ;
+					UPDATE CFB_CORPOR_BASE SET INDUS_TYPE='7' WHERE   CUST_NO='9600000018';
+					UPDATE CFB_CORPOR_BASE SET INDUS_TYPE='13' WHERE  CUST_NO='9600000020' ;
+					UPDATE CFB_CORPOR_BASE SET INDUS_TYPE='1' WHERE   CUST_NO='9600000021';
+					UPDATE CFB_CORPOR_BASE SET INDUS_TYPE='7' WHERE   CUST_NO='9600000012';
+					UPDATE CFB_CORPOR_BASE SET INDUS_TYPE='1' WHERE   CUST_NO='9600000015';
+					UPDATE CFB_CORPOR_BASE SET INDUS_TYPE='7' WHERE   CUST_NO='9600000022';
+					UPDATE CFB_CORPOR_BASE SET INDUS_TYPE='22' WHERE  CUST_NO='9600000024' ;
+					UPDATE CFB_CORPOR_BASE SET INDUS_TYPE='22' WHERE  CUST_NO='9600000025' ;
+					UPDATE CFB_CORPOR_BASE SET INDUS_TYPE='1' WHERE   CUST_NO='9600000023';
+					UPDATE CFB_CORPOR_BASE SET INDUS_TYPE='7' WHERE   CUST_NO='9600000026';
+					UPDATE CFB_CORPOR_BASE SET INDUS_TYPE='6' WHERE   CUST_NO='9600000027';
+					UPDATE CFB_CORPOR_BASE SET INDUS_TYPE='22' WHERE  CUST_NO='9600000030' ;
+					UPDATE CFB_CORPOR_BASE SET INDUS_TYPE='22' WHERE  CUST_NO='9600000031' ;
+					UPDATE CFB_CORPOR_BASE SET INDUS_TYPE='13' WHERE  CUST_NO='9600000028' ;
+					UPDATE CFB_CORPOR_BASE SET INDUS_TYPE='22' WHERE  CUST_NO='9600000029' ;
+					UPDATE CFB_CORPOR_BASE SET INDUS_TYPE='8' WHERE   CUST_NO='9600000032';
+					UPDATE CFB_CORPOR_BASE SET INDUS_TYPE='22' WHERE  CUST_NO='9600000033' ;
+					UPDATE CFB_CORPOR_BASE SET INDUS_TYPE='13' WHERE  CUST_NO='9600000034' ;
+					UPDATE CFB_CORPOR_BASE SET INDUS_TYPE='22' WHERE  CUST_NO='9600000035' ;
+					UPDATE CFB_CORPOR_BASE SET INDUS_TYPE='13' WHERE  CUST_NO='9600000036' ;
+					UPDATE CFB_CORPOR_BASE SET INDUS_TYPE='7' WHERE   CUST_NO='9600000037';
+					UPDATE CFB_CORPOR_BASE SET INDUS_TYPE='7' WHERE   CUST_NO='9600000038';
+					UPDATE CFB_CORPOR_BASE SET INDUS_TYPE='8' WHERE   CUST_NO='9600000040';
+					UPDATE CFB_CORPOR_BASE SET INDUS_TYPE='22' WHERE  CUST_NO='9600000044' ;
+					UPDATE CFB_CORPOR_BASE SET INDUS_TYPE='6' WHERE   CUST_NO='9600000045';
+					UPDATE CFB_CORPOR_BASE SET INDUS_TYPE='6' WHERE   CUST_NO='9600000046';
+					UPDATE CFB_CORPOR_BASE SET INDUS_TYPE='7' WHERE   CUST_NO='9600000048';
+					UPDATE CFB_CORPOR_BASE SET INDUS_TYPE='8' WHERE   CUST_NO='9600000050';
+					UPDATE CFB_CORPOR_BASE SET INDUS_TYPE='7' WHERE   CUST_NO='9600000051';
+					UPDATE CFB_CORPOR_BASE SET INDUS_TYPE='13' WHERE  CUST_NO='9600000052' ;
+					UPDATE CFB_CORPOR_BASE SET INDUS_TYPE='15' WHERE  CUST_NO='9600000047' ;
+					UPDATE CFB_CORPOR_BASE SET INDUS_TYPE='22' WHERE  CUST_NO='9600000054' ;
 					COMMIT;
 				},
 				gl-db-bk:{},
 			}
 		},
-		2.7:{
+		2.7-'loan_amt':{
 			prd.sql:{
 				ods-db:{
 					ALTER TABLE RPT_LOAN_LIST ADD (LOAN_AMT NUMBER(21,2));
@@ -824,6 +969,27 @@ plog:{
 			行方 说今天想投产一个ln25生成 xml的，UAT已经改好验证成功了，只需要投产一个class，但是反编译生成这个class..
 		},
 		003:{
+			data:{
+				-- 2000001004,1000002604,1000000203,
+				dpa_sub_account where sub_acct_no='1000002604' and acct_no='2000001004', -- sub,'1,5个0,2604', acct,'2,5个0,1004'
+				dpb_overdraft_fiche where fiche_no='1000000203', -- '1,6个0,203'
+				from cls_txn where limit_code='1900122'
+				-- 
+				dpa_sub_account where sub_acct_no='*' and acct_no='2070000108',
+				agree_no='192310000002'
+				dpb_overdraft_fiche where fiche_no='1000000207',
+				limit_code='1900139'
+				
+				-- table 
+				cls_txn
+				cla_account,
+				dps_fiche_trxn,
+				dpa_fiche_interest,
+				dpb_overdraft_fiche,
+				dps_bill,
+				dpa_sub_account,
+				
+			},
 			select * from dpa_sub_account where acct_no='2000001004';
 			select * from dpa_fiche_interest where sub_acct_no='';
 			select * from dpb_overdraft_fiche where fiche_no in ('1000000203','1000000204');
@@ -852,13 +1018,270 @@ plog:{
 				basedb_before_20200531:{
 					INSERT INTO cla_account("ORG_ID", "LIMIT_CODE", "LIMIT_CODE_DESC", "LIMIT_TYPE", "PARENT_LIMIT_CODE", "PROD_ID", "LEAF_NODE_IND", "RECOLVING_IND", "EXC_SHR_FLAG", "MOUNT_COLLATERAL_IND", "CUST_NO", "CUST_NAME", "EFFECT_DATE", "DUE_DATE", "LIMIT_USABLE_DATE", "CCY_CODE", "INIT_LIMIT_AMT", "EXCHANGE_RATE", "ADJUST_AMT", "OCCUPIED_AMT", "USED_BAL", "FROZEN_AMT", "OVERDRAW_WAY", "OVERDRAW_VALUE", "LIMIT_HIERARCHY", "ROOT_LIMIT_CODE", "LIMIT_BAL", "AVAILABLE_BAL", "RISK_EXPOSURE", "BAL_UPDATE_DATE", "PREV_DATE_BAL", "LAST_RISK_EXPOSURE", "STATUS", "OPEN_ACCT_DATE", "OPEN_ACCT_SEQ", "LIMIT_REMARK", "LIMIT_DRAFT_SEQ", "CLOSE_ACCT_DATE", "CLOSE_ACCT_SEQ", "UNAPPORTIONED_COLLATERAL_AMT", "UNAPPORTIONED_COLLATERAL_CCY", "DATA_CREATE_USER", "DATA_CREATE_TIME", "DATA_UPDATE_USER", "DATA_UPDATE_TIME", "DATA_VERSION") VALUES ('99', '1900122', NULL, 'I', NULL, '20000003', 'B', 'Y', 'A', 'Y', '9600000018', 'H&J FIBRE INVESTMENT (TANZANIA) COMPANY LIMITED', '20191220', '20201218', NULL, 'TZS', '2300000000', '1', '0', '1065114405.65', '1065114405.65', '0', NULL, NULL, '1', NULL, '1234885594.35', '1234885594.35', '0', '20200531', '1234889488.35', '0', '1', '20191220', '1912201010004881', 'OVERDRAFT FACILITY, INITIAL LIMIT OF THE TZS 6.9 BIL', NULL, NULL, NULL, '0', 'TZS', '300040', '20191220 12:31:52 828', 'S####', '20200530 14:12:03 278', '404');
 					INSERT INTO dpb_overdraft_fiche("ORG_ID", "AGREE_NO", "OVERDRAFT_INST_TYPE", "FICHE_NO", "OCCUPIED_AMT", "OVERDUE_INTEREST", "LAST_PROV_OVERDUE_INST", "DATA_CREATE_USER", "DATA_CREATE_TIME", "DATA_UPDATE_USER", "DATA_UPDATE_TIME", "DATA_VERSION") VALUES ('99', '1912200000002', 'N', '1000000203', '1065114405.65', '0', '0', '300022', '20191220 14:59:56 360', 'S####', '20200530 14:12:03 285', '241');
+				},
+				-- '生产数据' '超额排查'
+				select cla_account where limit_code = '1900122';
+				-- '占额排查'
+				select * from dpa_fiche_intetest ;--'not exist'
+				select * from dpa_fiche_intetest 
+			},
+			log-anlysis:{
+				dpa_sub_account.Entity.selectByIndexWithLock_odb1-28:{
+					458,1000002604,
+					477,1000002604,
+					479,1000002604,
+					566,1000002604,
+					568,1000002604,
+					
+					821,1000005006,
+					823,1000005006,
+					842,1000005006,
+					844,1000005006,
+					931,1000005006,
+					933,1000005006,
+					
+					  65,1000000507,
+					  67,1000000507,
+					  
+					1187,1000005007,
+					1189,1000005007,
+					1208,1000005007,
+					1210,1000005007,
+					1297,1000005007,
+					1299,1000005007,
+					
+					83,1000000512,
+					
+				}
+				itemS-03:{
+						dpa_sub_account.selectByIndexWithLock_odb1,
+						dpb_overdraft.selectByIndex_odb5,
+						'循环处理账户下透支协议'
+						for(dpb_overdraft ODAgree : listODAgree){
+							dpb_overdraft_fiche,selectByIndex_odb3,
+							method-DpOverDraftDayEnd.overDraftSettlementInst(dpa_sub_account, dpb_overdraft, List<dpb_overdraft_fiche> listODFiche)
+								-'单个透支协议结息: 一定是周期性结息':{	'透支账户还息账务处理'-'zhoumy'
+								for (dpb_overdraft_fiche ODFiche : listODFiche) {
+									dpa_fiche_interest.selectByIndex_odb1*2,
+								}
+								method-DpOverDraftDayEnd.incomeODInst-'透支利息收息处理':{
+									server-SrvIoClLimitQry.queryLimitInfo-'查询额度信息':{	???
+										cla_account.selectByIndex_odb1,
+										cla_collateral.selectByIndex_odb2,
+									},
+									localSer-SrvDpDemandAccounting.demandDrawCheck-'活期支取检查，无数据库操作，不能回滚':{	
+										'活期支取服务检查'
+										return method-DpDemandDrawCheck.checkMain-'null':{	'活期支取主检查程序'
+											method-DpPublic.locateSingleAccount-'获取账户信息，带锁防止并发解冻':{	'账户定位'
+												'先尝试查询账户信息，若未查询到则认为账号字段是卡号'
+												dpa_account.selectByIndexWithLock_odb1,
+												'获取存款子账户信息'
+												method-DpPublic.locateSingleSubAcct-'null':{
+													'定位子账户信息'
+													DpCommon.locateSubAcct,
+												}
+											}
+											'子账户信息，上锁'
+											dpa_sub_account.selectByIndexWithLock_odb1,
+											method-DpBuffer.refreshAttrValue-'属性到期自动刷新: 不提交数据库':{	'更新各数据域最新属性值'
+												DpBuffer.getNewestAttrValue:{	'获取各数据域最新属性值'
+													ApAttribute.getNewestAttrValue:{	'获取刷新后的属性值'
+														ApAttribute.builderData-'将原始形态转换为外部形态':{
+															ApAttribute.getOwnerDueDate-'获取属性位到期数据':{
+																'1 获取最新子账户属性值'
+																app_attribute_due.selectByIndex_odb2,
+																'2 获取最新账户属性值'
+																app_attribute_due.selectByIndex_odb2,
+																'3.1 加载客户数据集'
+																'3.2 获取客户最新账户属性值'
+																app_attribute_due.selectByIndex_odb2,
+																'4. 获取最新卡属性值'
+															}
+														}
+													}
+													'3.1 加载客户数据集'
+													DpBuffer.addDataToCustBuffer(custNo,custType);:{	'加载客户信息数据'-'HongBiao'
+														custType:{
+															2-CORPORATE:{
+																SrvIoCfCustomerImpl.qryCorporCustInfo(IoCfPersonBaseIn):{
+																	CfCustInfoQuery.qryCorporCustInfo(IoCfPersonBaseIn);:{
+																		CfCustInfoQuery.qryOtherCustTable(String, E_CUSTOMERTYPE):{
+																			cfb_cust_auxiliary.selectByIndex_odb1,
+																		}
+																	}
+																}
+															}
+														}
+													}
+												}
+											},
+											method-DpDemandDrawCheck.checkMainMethod-'活期支取主调检查':{
+												
+											},
+											method-DpDemandDraw.doMainMethod-'null':{	'活期支取主处理程序'-'HongBiao'
+												method-DpDemandDraw.cancleFroze-'null',
+												method-BizUtil.getTrxRunEnvs-'null',
+												method-DpSettleVoucherTrxn.settleVochVerifyCancellation-'null',
+												method-DpDemandDraw.cancleFroze-'null',
+												method-DpDrawPublic.modifyDrawCtrl-'null',
+												method-BizUtil.dateAdd-'null',
+												method-DpInterestAdjust.adjustInstForBackvalue-'null',
+												method-DpDemandDraw.accountingTally-'记账处理':{
+													DpAccounting.online(DpUpdAccBalIn):{
+														DpAccounting.prcMain(DpUpdAccBalIn, boolean);:{
+															DpAccounting.updAccBal(DpUpdAccBalIn, boolean);:{
+																DpOverDraw.overdraftDeal(dpa_sub_account, BigDecimal, BigDecimal, E_DEBITCREDIT):{
+																	DpOverDraw.overdraftUse(dpa_sub_account subAccount, BigDecimal beforeBl, BigDecimal trxn_amt):{	
+																		'透支额度占用'-'yangdl'-'modify by zhoumy: 按透支协议的利率高低计算使用顺序'
+																		dpb_overdraft_fiche.updateByIndex_odb1,
+																	}
+																}
+															}
+														}
+													}
+												},
+											}
+										}
+									},
+									'贷： 应收利息'
+									method-DpInterestAccounting.receivableInterestAccounting-'null':{
+										method-DpInterestAccounting.interestAccounting-'应收利息类处理：主要用于透支卡片计息，兼容资产类账户结息':{
+											localSer-SrvIoTaAccounting.regAccountingEvent-'null':{
+												method-TaAccounting.regAccountingEvent-'null':{
+													tas_accounting_event.insert,
+												}
+											}
+										}
+									},
+								}
+							
+								'TODO:暂不用考虑余额不足部分结息的情况'
+								for (dpb_overdraft_fiche ODFiche : listODFiche) {
+									'更新卡片信息'
+									table-dpa_fiche_interest-update-'Fiche interest table',
+									'查询最新的透支卡片'
+									table-dpb_overdraft_fiche-select-'Account overdraft fiche',
+									if(newODFiche.getOverdue_interest()>0){
+										'table-dpb_overdraft_fiche-update'-'Account overdraft fiche'
+										dpb_overdraft_fiche.updateByIndex_odb1,
+									}
+								}
+							}
+						}
+					
+					
+					cfb_corpor_base.selectByIndex_odb2,
+					{	①
+						cfb_corpor_doc.selectByIndex_odb3,
+						cfb_siger_agent.selectByIndex_odb2,1/2
+						cfb_corpor_address.selectByIndex_odb2,
+						cfb_corpor_contact.selectByIndex_odb2,
+						CfCustomerBase.selCustRelationList*2,
+						cfb_cust_overseas_tax.selectByIndex_odb1,
+						'cfb_cust_auxiliary.selectByIndex_odb1,'
+						cfb_cust_manager.selectByIndex_odb1,
+						'app_attribute_due.selectByIndex_odb2,'
+						CfCustomerBase.selCustStatement,
+						app_attribute_due.selectByIndex_odb2*2,
+						DpFroze.selWholeBalFrozeSource,
+						DpFroze.selSubAcctAmoutFrozeInfo,
+						DpFundPool.selOverdraftAgreeByAcct,
+					},
+					{	②
+						cla_account.selectByIndexWithLock_odb1,
+						dpb_overdraft_fiche.selectByIndex_odb3,
+						dpa_fiche_interest.selectByIndex_odb1,
+						dpa_fiche_interest_rate.selectByIndex_odb1
+						dpa_fiche_interest.selectByIndex_odb1,
+						dpa_fiche_interest_rate.selectByIndex_odb1,
+						dpb_withdrawl_protect.selectByIndex_odb4,1/2,
+					},
+					apb_branch.selectByIndex_odb1,
+					dpa_account.selectByIndexWithLock_odb1,
+					dpa_sub_account.selectByIndexWithLock_odb1,
+					app_attribute_due.selectByIndex_odb2*2,
+					{	①	}
+					{	②	},
+					DpFundPool.selOverdraftAgreeByAcct,
+					
+					
+					cla_account.selectByIndexWithLock_odb1,
+					dpb_overdraft_fiche.selectByIndex_odb3,
+					dpa_fiche_interest.selectByIndex_odb1,
+					dpa_fiche_interest_rate.selectByIndex_odb1
+					dpa_fiche_interest.selectByIndex_odb1,
+					dpa_fiche_interest_rate.selectByIndex_odb1,
+					
+					cla_account.selectByIndex_odb1,
+					cla_account.selectByIndexWithLock_odb1,
+					cla_account.selectByIndex_odb3
+					ClLimitBase.selMaxOcpSerialNo,
+					clb_ocpbook.insert,
+					ClLimitBase.selMaxOcpSerialNo,
+					clb_ocpbook.insert,
+					cla_account.selectByIndex_odb1,
+					apl_business_audit_sub.insert*5,
+					apl_business_audit.insert,
+					cla_account.updateByIndex_odb1,
+					cfb_person_base.selectByIndex_odb2,
+					{	③
+						cfb_corpor_address.selectByIndex_odb2,
+						cfb_siger_agent.selectByIndex_odb2,
+						cfb_person_base.selectByIndex_odb2*2,
+						cfb_siger_agent.selectByIndex_odb2,
+						cfb_corpor_doc.selectByIndex_odb3,
+						cfb_corpor_contact.selectByIndex_odb2,
+					},
+					cls_txn.insert,
+					cla_account.selectByIndex_odb3,
+					dpb_overdraft_fiche.selectByIndex_odb2,
+					dpb_overdraft_fiche.selectByIndexWithLock_odb1,
+					'dpb_overdraft_fiche.updateByIndex_odb1,'
+					dpa_fiche_interest.selectByIndex_odb1,
+					dpa_fiche_interest.selectByIndexWithLock_odb1,
+					dpa_fiche_interest.updateByIndex_odb1,
+					dps_fiche_trxn.insert,
+					dpa_sub_account.updateByIndex_odb1,
+					dps_bill.insert,
+					tap_accountingevent_ctrl.selectByIndex_odb1,
+					'tas_accounting_event.insert,'
+					apb_account_route.selectByIndex_odb1,
+					DpCommon.locateSubAcct,
+					CmChrg.selEffeChrgCodeList,
+					{	③	},
+					tap_accountingevent_ctrl.selectByIndex_odb1,
+					tas_accounting_event.insert,
+					dpb_overdraft.selectByIndexWithLock_odb1,
+					dpb_overdraft.updateByIndex_odb1,
+					dpa_fiche_interest.selectByIndex_odb1,
+					dps_fiche_accrued.selectByIndex_odb2,
+					dps_fiche_accrued.selectByIndex_odb2,
+					dps_fiche_accrued.deleteByIndex_odb2,
+					dpa_fiche_interest.selectByIndexWithLock_odb1,
+					dpa_fiche_interest.updateByIndex_odb1,
+					ERROR*2:{
+						.DpOverDraftDayEnd:447][overDraftSettlementInst.clear overdue_interest ODFiche==[dpb
+						.DpOverDraftDayEnd:449][overDraftSettlementInst.clear overdue_interest newODFiche==[
+					},
+					dpb_overdraft_fiche.selectByIndexWithLock_odb1,
+					'dpb_overdraft_fiche.updateByIndex_odb1,'
+					dpa_fiche_interest.selectByIndex_odb1,
+					dpa_fiche_interest.selectByIndexWithLock_odb1,
+					dpa_fiche_interest.updateByIndex_odb1,
+					dpb_overdraft_fiche.selectByIndex_odb2,
+					dpb_overdraft.selectByIndex_odb5
 				}
 			}
+		}
+	},
 		}
 	},
 	121-wecodee:{
 		网银API:{},
 		mobilebanking,atm&api;
+		item:{
+			40808,add new interface,'约定转账查询',dp4462;
+		},
 		prd.sql:{
 			cbs-esb:{
 				INSERT INTO CH_PRCS("PRCSCD", "OPTETG", "PRCSNA", "PERSYS", "SUBPRC", "SUPSYS", "PRCSTG", "PRCSST", "DEALTM", "SUBSYS", "EXTED1", "EXTED2", "EXTED3") VALUES ('40601', '*', '账户信息查询', '200|100', '40601', '800', '0', '0', '20210428', 'CORE', NULL, NULL, NULL);
@@ -927,13 +1350,114 @@ plog:{
 	}
 	'其实是形同陌路的两个人,我非要让他们相交.'
 	now:{
-				210607: ;
-				210608: ;
-				210609: ;
-				210610: ;
-				210611: ;
+			价值重估,80%,待完成:重估收益记账;已验证:科目变更、客户外汇记账、外汇收益记账;
+			obiee(含ods),85%,待完成:2.1, 2.2;已验证:其余8项(行方已邮件确认);
+			George:{
+				Follow up and clarification on user inquiries on internet banking issues;
+				Remaining obiee report issue report followup, changes on obiee production environment for rpt_loans_ex_overdraft;
+				Liaise with credit and finance team for uat validation on obiee report issues, coordinate revaluation testing;
+				Assist on uat testing for obiee report, gathering feedback for further modification;
+				UAT validation for revaluation, perform transaction and running eod for validation purpose;
+				UAT2 environment esb service issue follow up;
+			},
+			盛凯军:{
+				使用postman调用子系统该服务，可以正常插入数据到数据库表中；
+				使用postman调用子系统该服务，进行修改查询数据库表操作；
+			},
+			刘炫君:{
+				完成vine开发工具一个小demo的开发;
+				学习项目相关开发文档;
+				尝试联合vine与mysql一起开发，学习数据库开发文档;
+				项目本为使用oracle数据库，尝试换成mysql进行开发，调试各种bug，有暂时无法解决的bug，可能放弃mysql进行开发;
+				尝试开发外调服务;
+				安装配置Oracle;
+				学习开发文档，进行数据库开发，外调接出开发;
+			},
+			Hardi:{
+				价值重估更改内容uat验证,调整;
+				obiee反馈问题修复;
+				uat2环境配置维护;
+			},
+			
+						
 	},
 	history:{
+		项目周报,210621-210627:{
+			价值重估,80%,待完成:重估收益记账;已验证:科目变更、客户外汇记账、外汇收益记账;
+			obiee(含ods),85%,待完成:2.1, 2.2;已验证:其余8项(行方已邮件确认);
+			George:{
+				Follow up and clarification on user inquiries on internet banking issues;
+				Remaining obiee report issue report followup, changes on obiee production environment for rpt_loans_ex_overdraft;
+				Liaise with credit and finance team for uat validation on obiee report issues, coordinate revaluation testing;
+				Assist on uat testing for obiee report, gathering feedback for further modification;
+				UAT validation for revaluation, perform transaction and running eod for validation purpose;
+				UAT2 environment esb service issue follow up;
+			},
+			盛凯军:{
+				使用postman调用子系统该服务，可以正常插入数据到数据库表中，进行修改查询数据库表操作；
+				了解流程平台任务调度设计
+			},
+			刘炫君:{
+				完成vine开发工具一个小demo的开发;
+				学习项目相关开发文档;
+				尝试联合vine与mysql一起开发，学习数据库开发文档;
+				项目本为使用oracle数据库，尝试换成mysql进行开发，调试各种bug，有暂时无法解决的bug，可能放弃mysql进行开发;
+				尝试开发外调服务;
+				安装配置Oracle;
+				学习开发文档，进行数据库开发，外调接出开发;
+			},
+			Hardi:{
+				价值重估更改内容uat验证,调整;
+				obiee反馈问题修复;
+				uat2环境配置维护;
+			},
+			上周:
+				价值重估更改内容uat验证,调整;
+				obiee反馈问题修复;
+				uat2环境配置维护;
+			本周:
+				重估收益记账;
+				obiee增加属性显示,账务核对;
+		},
+		大盛银行项目周报,210614-210620:{
+			总进度:
+			生产透支账户额度bug,80%,行方关注账号数据层修复已投产,其他账号排查和代码层每月月末跑批dp07计划本周修复;
+			价值重估,70%,跑批环境数据已准备好,本周定位具体问题;
+			obiee报表(包含ods部分),75%,进度与上周一致,等待行方确认解释无误,本周继续跟进,让行方回复邮件确认;
+			George:{
+				210614: Production issue follow up with credit team and developer
+				210615: Internet banking api requirement discussion, production issue explanation
+				210616: Production limit release misbehave issue follow up and discuss with bank PIC
+				210617: Atm integration development status update with bcx team. Reversa api added and utility payment clarification
+				210618: Attend bank risk committee meeting, assist on mobile
+				210619: Clarification on H&J fibre investment limit issue to bank's personnel, email preparation on issue's patches
+				210620: 周末公休
+						
+			},
+			刘炫君:{
+				210615:	1. 学习坦桑项目相关文档。 2. 前往坦桑项目驻场开发地学习
+			    210616:	参加入职培训
+			    210617:	参加入职培训，核酸检测
+			    210618:	参加入职培训
+				210619: 周末公休
+				210620: 周末公休
+			},
+			周明易:{
+				210615:	协助分析透支还款，额度少释放生产缺陷
+			    210618:	分析额度释放缺陷，编写修复方案邮件
+			},
+			Hardi:{
+				210614: uat导数据熟悉,透支额度bug初步排查;
+				210615: 透支额度bug讨论,代码熟悉;
+				210616: 生产数据导入uat流程熟悉,透支额度bug比对生产历史数据;
+				210617: 透支额度bug数据流整理;网银接口改造,dp4402增加首次存入对手信息;
+				210618: 透支额度bug具体出错交易dp07具体分析;
+				210619: 透支bug取210131还原uat复现bug,提供修复脚本并uat验证,整理bug流程图向行方说明;
+						准备价值重估跑批数据;
+				210620: 周末公休
+			}
+		},
+		},
 		大盛银行项目周报,210607-210613:{
 			总进度-价值重估,65%,代码和脚本已部署uat,验证失败;阻碍原因:需要打通uat跑批可逆测试环境,不然调整后再验证失败又需要重新刷数据;
 			总进度-obiee报表(包含ods部分),75%,10 个问题均已在uat修改好且验证成功,非bug部分也给出行方解释,部分解释问题等待行方确认解释无误;
@@ -1387,7 +1911,7 @@ vue:{
 		3010	30001	cf3010In	1101	个人客户信息建立
 		3012	30002	cf3012In	1102	个人客户信息维护
 		3016	30004	cf3016In	1103	个人客户信息查询
-		3020	30005	cf3020In	1201	公司客户信息建立
+		3020	30005	cf3020In	1201	公司客户信息建立	cf3020/30005
 		3022	30006	cf3022In	1202	公司客户信息维护
 		3026	30008	cf3026In	1203	公司客户信息查询	cf3026  
 		3030	30009	cf3030In	1301	同业客户信息建立	cf3030	cfb_fi_base,cfb_fi_doc,cfb_fi_address,cfb_fi_contact
@@ -1413,7 +1937,7 @@ vue:{
 		2302	20303	cm2302In	8303	尾箱列表信息查询
 		2304	20315	cm2304In	8415	现金余额列表查询
 		2305	20316	cm2305In	8416	现金交易明细查询
-		2306	21000	cm2306In	8304	尾箱现金面额查询	cm2306/21000
+		2306	21000	cm2306In	8304	尾箱现金面额查询	cm2306/21000			cbb_cash_roll_manager
 		2500	20308	cm2500In	A411	当前利率查询
 		2500	20308	cm2500In	B211	当前利率查询
 		2500	20308	cm2500In	A411	当前利率查询
@@ -1431,7 +1955,7 @@ vue:{
 		2517	20999	cm2517In	A414	账户层浮动授权维护
 		2519	20519	cm2521In	B214	利率导入
 		2601	20312	cm2601In	A421	当前汇率查询
-		2602	20313	cm2602In	B221	汇率录入
+		2602	20313	cm2602In	B221	汇率录入		cm2602/20313				cmp_exchge_rate
 		2603	20325	cm2603In	A423	货币对查询
 		2605	20321	cm2605In	A424	外币兑换试算
 		2610	20358	cm2614In	B222	汇率优惠查询

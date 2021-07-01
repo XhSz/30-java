@@ -116,6 +116,8 @@ co:{
 			}
 		}
 	}
+	SUS-'外币折美元',
+	SCY-'外币折本币'
 },
 process-table-value:{
 	ap-file:{
@@ -143,7 +145,7 @@ process-table-value:{
 		busi_batch_id				busi_batch_type		file_recv_way							remote_dir_code
 						busi_batch_desc			file_proc_type	local_dir_code										'busi_org_id'
 		'batch business id'		'batch business type'	'file receive way'					'remote directory code'			'trxn_date'
-				'batch business describe'	'file process type'	'local directory code'								/cbs/99/20210601/
+				'batch business describe'	'file process type'	'local directory code'		'${HOME}/temp/${ltts.app.name}/'cbs/99/20210601/
 				tab7	對帳文件同步			J	A	2	CORE_CHECK_RECORD_LOCAL			CORE_CHECK_RECORD_REMOTE		'CHECK'			S####	20991231	S####	20991231	1
 				taf01	會計事件同步			D	A	2	TA_ACCOUNTING_LOCAL				TA_ACCOUNTING_REMOTE			'ACCOUNTING'	S####	20991231	S####	20991231	1
 				taf02	計提文件同步			F	A	2	TA_ACCURE_LOCAL					TA_ACCURE_REMOTE				'ACCURE'		S####	20991231	S####	20991231	1
@@ -153,51 +155,70 @@ process-table-value:{
 		}
 	},
 	gl_code:{	'which defined in gl'
-		fap_accounting_subject:{
+		fap_accounting_subject:{	'select * from fap_accounting_subject where gl_code='AS1131001''
 			values:{
 				LI20102:{
-					99	LI2010201	Current Account - Resident			LI20102	2	3	Y	LI201020100	2	Y	Y	N	N	N			Y	N			20991231	S####	0	S####	0	0
+					99	LI2010201	Current Account - Resident					LI20102	2	3	Y	LI201020100	2	Y	Y	N	N	N			Y	N			20991231	S####	0	S####	0	0
+				},		
+				OE40403:{		
+					99	OE40403		Retained Earning - Other					OE404	4	2	Y	OE404030000	2	Y	Y	N	Y	Y			Y	N			20991231	S####	0	S####	0	0
+				},		
+				AS1070801:{		
+					99	AS1070801	Staff Loan									AS10708	1	3	Y	AS107080100	1	Y	Y	N	N	N			Y	N			20991231	S####	0	S####	0	0
+				},		
+				AS1130701:{		
+					99	AS1130701	Interest Receivable - Staff Loan			AS11307	1	3	Y	AS113070100	1	Y	Y	N	N	N			Y	N			20991231	S####	0	S####	0	0
 				},
-				OE40403:{
-					99	OE40403		Retained Earning - Other			OE404	4	2	Y	OE404030000	2	Y	Y	N	Y	Y			Y	N			20991231	S####	0	S####	0	0
+				AS1131001:{
+					99	AS1131001	Interest Receivable - Overdraft - Resident	AS11310	1	3	Y	AS113100100	1	Y	Y	N	N	N			Y	N			20991231	S####	0	S####	0	0
+																	n.居民,住户
 				},
-				AS1130701:{
-					99	AS1130701	Interest Receivable - Staff Loan	AS11307	1	3	Y	AS113070100	1	Y	Y	N	N	N			Y	N			20991231	S####	0	S####	0	0
-				}
+				IN6030401-'Other Income - Exchange - Exchange Revaluation':{
+					99	IN6030401	Other Income - Exchange - Exchange Revaluation	
+																				IN60304	6	3	Y	IN603040100	2	Y	Y	N	Y	Y			Y	N			20991231	S####	0	S####	0	0
+				},
 			}
 		},
-		faa_account:{
+		faa_account:{	'select * from faa_account where gl_code='AS1131001''
 			values:{
-																					acct_branch									acct_bal		previous_acct_bal bal_actt_update
+																							acct_branch									acct_bal		previous_acct_bal bal_actt_update
 				LI2010201:{
-					99	800	840LI20102010020000001	Current Account - Resident			200	LI2010201	USD	00001	1	C	2	80994.55		C	80997.15		20210601	N	Y	N	N	1		200	S####	20181127	20181127999990000011275					S####	20181127 09:57:00 361	S####	20210531 18:02:00 354	2441
-					99	800	834LI20102010020000001	Current Account - Resident			200	LI2010201	TZS	00001	1	C	2	782438885.44	C	782444197.44	20210601	N	Y	N	N	1		200	S####	20181127	20181127999990000011708					S####	20181127 10:27:00 321	S####	20210531 18:02:00 401	8426
-					99	800	156LI20102010020000001	Current Account - Resident			200	LI2010201	CNY	00001	1	C	2	11820.92		C	11856.96		20210531	N	Y	N	N	1		200	S####	20210421	20210421999990000015818					S####	20210421 14:38:00 370	2101	20210531 17:59:34 853	48
-				},
-				AS1130701:{
-					99	800	834AS11307010020000001	Interest Receivable - Staff Loan	200	AS1130701	TZS	00001	1	D	1	5713065.57		D	5527788.76		20210531	N	Y	N	N	1		2101	2101	20190307	20190307999990000021953					2101	20190307 19:44:04 613	2101	20210531 17:59:35 012	2653
-				},
+					99	800	840LI20102010020000001	Current Account - Resident					200	LI2010201	USD	00001	1	C	2	80994.55		C	80997.15		20210601	N	Y	N	N	1		200	S####	20181127	20181127999990000011275					S####	20181127 09:57:00 361	S####	20210531 18:02:00 354	2441
+					99	800	834LI20102010020000001	Current Account - Resident					200	LI2010201	TZS	00001	1	C	2	782438885.44	C	782444197.44	20210601	N	Y	N	N	1		200	S####	20181127	20181127999990000011708					S####	20181127 10:27:00 321	S####	20210531 18:02:00 401	8426
+					99	800	156LI20102010020000001	Current Account - Resident					200	LI2010201	CNY	00001	1	C	2	11820.92		C	11856.96		20210531	N	Y	N	N	1		200	S####	20210421	20210421999990000015818					S####	20210421 14:38:00 370	2101	20210531 17:59:34 853	48
+				},		
 				AS1070301:{
-					99	800	840AS10703010020000001	Term Loan - Resident				200	AS1070301	USD	00001	1	D	1	6585279.19		D	6585279.19		20210531	N	Y	N	N	1		200		S####	20181227	20181227999990000003079					S####	20181227 13:08:00 344	2101	20210531 17:59:35 490	931
-					99	800	834AS10703010020000001	Term Loan - Resident				200	AS1070301	TZS	00001	1	D	1	4457933407.84	D	4457933407.84	20210531	N	Y	N	N	1		200		S####	20190115	20190115999990000019847					S####	20190115 17:33:00 421	2101	20210531 17:59:34 945	947
+					99	800	840AS10703010020000001	Term Loan - Resident						200	AS1070301	USD	00001	1	D	1	6585279.19		D	6585279.19		20210531	N	Y	N	N	1		200		S####	20181227	20181227999990000003079					S####	20181227 13:08:00 344	2101	20210531 17:59:35 490	931
+					99	800	834AS10703010020000001	Term Loan - Resident						200	AS1070301	TZS	00001	1	D	1	4457933407.84	D	4457933407.84	20210531	N	Y	N	N	1		200		S####	20190115	20190115999990000019847					S####	20190115 17:33:00 421	2101	20210531 17:59:34 945	947
+				},
+				AS1130701:{		
+					99	800	834AS11307010020000001	Interest Receivable - Staff Loan			200	AS1130701	TZS	00001	1	D	1	5713065.57		D	5527788.76		20210531	N	Y	N	N	1		2101	2101	20190307	20190307999990000021953					2101	20190307 19:44:04 613	2101	20210531 17:59:35 012	2653
+				},
+				AS1131001-'本地逾期应收利息'-'Interest Receivable - Overdraft - Resident':{
+					99	800	840AS11310010020000001	Interest Receivable - Overdraft - Resident	200	AS1131001	USD	00001	1	D	1		    6601.74	D		    6601.74	20210207	N	Y	N	N	1		2101	2101	20181231	20181231999990000020545					2101	20190101 23:28:37 905	2101	20210629 14:20:23 486	1557
+					99	800	840AS11310010010100001	Interest Receivable - Overdraft - Resident	101	AS1131001	USD	00001	1	D	1		   -6601.74	D		   -6601.74	20210207	N	Y	N	N	1		200		S####	20200507	20200507999990000026906					S####	20200507 13:38:00 319	2101	20210629 14:20:22 390	282
+					99	800	834AS11310010020000001	Interest Receivable - Overdraft - Resident	200	AS1131001	TZS	00001	1	D	1		40139489.2	D		38453388.31	20210207	N	Y	N	N	1		2101	2101	20191101	20191101999990000042169					2101	20191101 17:32:32 797	2101	20210629 14:20:22 805	945
 				},
 				OE40403:{
-					99	810	834OE40403000010100001	Retained Earning - Other	101	OE40403		TZS	00001	1	C	2	-3430504669.18	C	-3461540676.55	20210528	N	Y	Y	Y	1		2101	2101	20181126	20181126999990000050662					2101	20181126 20:52:03 067	2101	20210528 22:21:17 893	641
-					99	810	834OE40403000020000001	Retained Earning - Other	200	OE40403		TZS	00001	1	C	2	21195465097.84	C	21226501105.21	20210528	N	Y	Y	Y	1		2101	2101	20181126	20181126999990000050662					2101	20181126 20:52:03 095	2101	20210528 22:21:17 914	666
-					99	810	840OE40403000010100001	Retained Earning - Other	101	OE40403		USD	00001	1	C	2	-8566045.96		C	-8566185.96		20210528	N	Y	Y	Y	1		2101	2101	20181126	20181126999990000050662					2101	20181126 20:52:03 105	2101	20210528 22:21:17 924	381
-					99	810	840OE40403000020000001	Retained Earning - Other	200	OE40403		USD	00001	1	C	2	9499879.25		C	9500019.25		20210528	N	Y	Y	Y	1		2101	2101	20181126	20181126999990000050662					2101	20181126 20:52:03 115	2101	20210528 22:21:17 933	430
-					99	810	834OE40403000000000001	Retained Earning - Other	000	OE40403		TZS	00001	1	C	2	-17765738758.16	C	-15800170983.81	20201231	N	Y	Y	Y	1		2101	2101	20181231	20181231999990000020714					2101	20190101 23:35:20 991	2101	20210101 12:30:55 813	4
-					99	810	840OE40403000000000001	Retained Earning - Other	000	OE40403		USD	00001	1	C	2	-934879.93		C	-540917.95		20201231	N	Y	Y	Y	1		2101	2101	20181231	20181231999990000020714					2101	20190101 23:35:21 011	2101	20210101 12:30:55 827	4
-					99	810	834OE40403000010300001	Retained Earning - Other	103	OE40403		TZS	00001	1	C	2	0				C	20000000		20210504	N	Y	Y	Y	1		2101	2101	20190619	20190619999990000019980					2101	20190619 17:28:06 871	2101	20210504 18:05:21 024	64
-					99	810	840OE40403000010300001	Retained Earning - Other	103	OE40403		USD	00001	1	C	2	1000			C	0				20210527	N	Y	Y	Y	1		2101	2101	20190619	20190619999990000019980					2101	20190619 17:28:06 888	2101	20210527 18:34:47 459	58
-					99	810	978OE40403000010100001	Retained Earning - Other	101	OE40403		EUR	00001	1	C	2	43651.36		C	43636.36		20201022	N	Y	Y	Y	1		2101	2101	20190318	20190318999990000016277					2101	20190318 18:02:34 476	2101	20201022 16:29:19 563	117
-					99	810	978OE40403000020000001	Retained Earning - Other	200	OE40403		EUR	00001	1	C	2	-43651.36		C	-43636.36		20201022	N	Y	Y	Y	1		2101	2101	20190318	20190318999990000016277					2101	20190318 18:02:34 490	2101	20201022 16:29:19 571	117
+					99	810	834OE40403000010100001	Retained Earning - Other					101	OE40403		TZS	00001	1	C	2	-3430504669.18	C	-3461540676.55	20210528	N	Y	Y	Y	1		2101	2101	20181126	20181126999990000050662					2101	20181126 20:52:03 067	2101	20210528 22:21:17 893	641
+					99	810	834OE40403000020000001	Retained Earning - Other					200	OE40403		TZS	00001	1	C	2	21195465097.84	C	21226501105.21	20210528	N	Y	Y	Y	1		2101	2101	20181126	20181126999990000050662					2101	20181126 20:52:03 095	2101	20210528 22:21:17 914	666
+					99	810	840OE40403000010100001	Retained Earning - Other					101	OE40403		USD	00001	1	C	2	-8566045.96		C	-8566185.96		20210528	N	Y	Y	Y	1		2101	2101	20181126	20181126999990000050662					2101	20181126 20:52:03 105	2101	20210528 22:21:17 924	381
+					99	810	840OE40403000020000001	Retained Earning - Other					200	OE40403		USD	00001	1	C	2	9499879.25		C	9500019.25		20210528	N	Y	Y	Y	1		2101	2101	20181126	20181126999990000050662					2101	20181126 20:52:03 115	2101	20210528 22:21:17 933	430
+					99	810	834OE40403000000000001	Retained Earning - Other					000	OE40403		TZS	00001	1	C	2	-17765738758.16	C	-15800170983.81	20201231	N	Y	Y	Y	1		2101	2101	20181231	20181231999990000020714					2101	20190101 23:35:20 991	2101	20210101 12:30:55 813	4
+					99	810	840OE40403000000000001	Retained Earning - Other					000	OE40403		USD	00001	1	C	2	-934879.93		C	-540917.95		20201231	N	Y	Y	Y	1		2101	2101	20181231	20181231999990000020714					2101	20190101 23:35:21 011	2101	20210101 12:30:55 827	4
+					99	810	834OE40403000010300001	Retained Earning - Other					103	OE40403		TZS	00001	1	C	2	0				C	20000000		20210504	N	Y	Y	Y	1		2101	2101	20190619	20190619999990000019980					2101	20190619 17:28:06 871	2101	20210504 18:05:21 024	64
+					99	810	840OE40403000010300001	Retained Earning - Other					103	OE40403		USD	00001	1	C	2	1000			C	0				20210527	N	Y	Y	Y	1		2101	2101	20190619	20190619999990000019980					2101	20190619 17:28:06 888	2101	20210527 18:34:47 459	58
+					99	810	978OE40403000010100001	Retained Earning - Other					101	OE40403		EUR	00001	1	C	2	43651.36		C	43636.36		20201022	N	Y	Y	Y	1		2101	2101	20190318	20190318999990000016277					2101	20190318 18:02:34 476	2101	20201022 16:29:19 563	117
+					99	810	978OE40403000020000001	Retained Earning - Other					200	OE40403		EUR	00001	1	C	2	-43651.36		C	-43636.36		20201022	N	Y	Y	Y	1		2101	2101	20190318	20190318999990000016277					2101	20190318 18:02:34 490	2101	20201022 16:29:19 571	117
 				}
 			}
 		},
-		fap_accounting_event_parm:{
+		fap_accounting_event_parm:{		'select * from fap_accounting_event_parm where gl_code='AS1131001''
 			value:{
 								accounting_alias																			bal_attributes
+				AS1070801{
+					99	800	2	NL_STAFF_RES						Staff Loan(Principle)										LNPR01	AS1070801				S####	0						S####	0	1
+				},
 				AS1130701:{
 					99	800	2	NL_STAFF_RES						Staff Loan(Interest Receivable Accrued)						LNIA01	AS1130701	IN6010801	S####	0						S####	0	1
 					99	800	2	NL_STAFF_RES						Staff Loan(Interest Receivable)								LNID01	AS1130701	IN6010801	S####	0						S####	0	1
@@ -207,6 +228,15 @@ process-table-value:{
 					99	800	2	NL_STAFF_RES						Staff Loan(Compound Interest Receivable)					LNCD01	AS1130701	IN6010801	S####	0						S####	0	1
 					99	800	2	NL_STAFF_RES						Staff Loan(Subsidy Interest Receivable Accrued)				LNRA01	AS1130701	IN6010801	S####	0						S####	0	1
 					99	800	2	NL_STAFF_RES						Staff Loan(Subsidy Interest Receivable)						LNRD01	AS1130701	IN6010801	S####	0						S####	0	1
+				},
+				AS1131001-'本地逾期应收利息'-'Interest Receivable - Overdraft - Resident':{
+					99	800	1	PERSONALCURRENTACCT					Individual Current Deposit(Interest Receivable)				DP12	AS1131001	IN6011001	S####	0						S####	0	1
+					99	800	1	CORPORATECURRENTACCT				Corporate Current Deposit(Interest Receivable)				DP12	AS1131001	IN6011001	S####	0						S####	0	1
+					99	800	1	PUBLICSAVINGACCT					Public Institution Deposits(Interest Receivable)			DP12	AS1131001	IN6011001	S####	0						S####	0	1
+					99	800	6	Interest Receivable - Overdraft		Interest Receivable - Overdraft - Resident					TA01	AS1131001				300006	20190225 12:52:09 139				1
+				},
+				LI20102:{
+				
 				},
 				OE:{
 					99	800	2	NL_SYDICATION_NONRES				Sydication Loan of non-Resident(Provision on Normal Loan)	LNPV01	OE40401		OE4020202	S####	0						S####	0	1
@@ -239,52 +269,60 @@ process-table-value:{
 		},
 		tap_accountingevent_ctrl:{
 			values:{
-				NL_STAFF_RES:{
-					99	NL_STAFF_RES	LNCA01	员工贷款（应计复利）					N	S####	0	S####	0	0            interest	*
-					99	NL_STAFF_RES	LNCC01	员工贷款（复利收入）					N	S####	0	S####	0	0            
-					99	NL_STAFF_RES	LNCD01	员工贷款（应收复利）					N	S####	0	S####	0	0            interest
-					99	NL_STAFF_RES	LNIA01	员工贷款（应计利息）					N	S####	0	S####	0	0			 interest	*
-					99	NL_STAFF_RES	LNIC01	员工贷款（利息收入）					N	S####	0	S####	0	0            
-					99	NL_STAFF_RES	LNID01	员工贷款（应收利息）					N	S####	0	S####	0	0			 interest
-					99	NL_STAFF_RES	LNIU01	员工贷款（待摊利息）					Y	S####	0	S####	0	0            
-					99	NL_STAFF_RES	LNLI01	员工贷款（贷款减值损失核销应收利息）	N	S####	0	S####	0	0            
-					99	NL_STAFF_RES	LNLP01	员工贷款（贷款减值损失核销本金）		N	S####	0	S####	0	0            
-					99	NL_STAFF_RES	LNLS01	员工贷款（贷款减值损失）				N	S####	0	S####	0	0            
-					99	NL_STAFF_RES	LNLS02	员工贷款（贷款减值损失）				N	S####	0	S####	0	0            
-					99	NL_STAFF_RES	LNOA01	员工贷款（应计罚息）					N	S####	0	S####	0	0  			 interest   *	       
-					99	NL_STAFF_RES	LNOC01	员工贷款（罚息收入）					N	S####	0	S####	0	0            
-					99	NL_STAFF_RES	LNOD01	员工贷款（应收罚息）					N	S####	0	S####	0	0            interest
-					99	NL_STAFF_RES	LNPR01	员工贷款（本金）						Y	S####	0	S####	0	0            
-					99	NL_STAFF_RES	LNPV01	员工贷款（一般减值准备金）				N	S####	0	S####	0	0            
-					99	NL_STAFF_RES	LNPV02	员工贷款（特殊减值准备金）				N	S####	0	S####	0	0            
-					99	NL_STAFF_RES	LNRA01	员工贷款（应计贴息）					N	S####	0	S####	0	0            interest
-					99	NL_STAFF_RES	LNRC01	员工贷款（贴息收入）					N	S####	0	S####	0	0            
-					99	NL_STAFF_RES	LNRD01	员工贷款（应收贴息）					N	S####	0	S####	0	0            interest
-					99	NL_STAFF_RES	LNWI01	员工贷款（核销利息）					Y	S####	0	S####	0	0            
-					99	NL_STAFF_RES	LNWP01	员工贷款（核销本金）					Y	S####	0	S####	0	0            
+				NL_STAFF_RES-'员工贷款':{
+					99	NL_STAFF_RES		LNCA01	员工贷款（应计复利）					N	S####	0	S####	0	0            interest	*
+					99	NL_STAFF_RES		LNCC01	员工贷款（复利收入）					N	S####	0	S####	0	0            
+					99	NL_STAFF_RES		LNCD01	员工贷款（应收复利）					N	S####	0	S####	0	0            interest
+					99	NL_STAFF_RES		LNIA01	员工贷款（应计利息）					N	S####	0	S####	0	0			 interest	*
+					99	NL_STAFF_RES		LNIC01	员工贷款（利息收入）					N	S####	0	S####	0	0            
+					99	NL_STAFF_RES		LNID01	员工贷款（应收利息）					N	S####	0	S####	0	0			 interest
+					99	NL_STAFF_RES		LNIU01	员工贷款（待摊利息）					Y	S####	0	S####	0	0            
+					99	NL_STAFF_RES		LNLI01	员工贷款（贷款减值损失核销应收利息）	N	S####	0	S####	0	0            
+					99	NL_STAFF_RES		LNLP01	员工贷款（贷款减值损失核销本金）		N	S####	0	S####	0	0            
+					99	NL_STAFF_RES		LNLS01	员工贷款（贷款减值损失）				N	S####	0	S####	0	0            
+					99	NL_STAFF_RES		LNLS02	员工贷款（贷款减值损失）				N	S####	0	S####	0	0            
+					99	NL_STAFF_RES		LNOA01	员工贷款（应计罚息）					N	S####	0	S####	0	0  			 interest   *	       
+					99	NL_STAFF_RES		LNOC01	员工贷款（罚息收入）					N	S####	0	S####	0	0            
+					99	NL_STAFF_RES		LNOD01	员工贷款（应收罚息）					N	S####	0	S####	0	0            interest
+					99	NL_STAFF_RES		LNPR01	员工贷款（本金）						Y	S####	0	S####	0	0            
+					99	NL_STAFF_RES		LNPV01	员工贷款（一般减值准备金）				N	S####	0	S####	0	0            
+					99	NL_STAFF_RES		LNPV02	员工贷款（特殊减值准备金）				N	S####	0	S####	0	0            
+					99	NL_STAFF_RES		LNRA01	员工贷款（应计贴息）					N	S####	0	S####	0	0            interest
+					99	NL_STAFF_RES		LNRC01	员工贷款（贴息收入）					N	S####	0	S####	0	0            
+					99	NL_STAFF_RES		LNRD01	员工贷款（应收贴息）					N	S####	0	S####	0	0            interest
+					99	NL_STAFF_RES		LNWI01	员工贷款（核销利息）					Y	S####	0	S####	0	0            
+					99	NL_STAFF_RES		LNWP01	员工贷款（核销本金）					Y	S####	0	S####	0	0            
+				},
+				PERSONALCURRENTACCT-'个人活期存款':{
+					99	PERSONALCURRENTACCT	DP01	个人活期存款-负债本金					Y	S####	0	S####	0	0
+					99	PERSONALCURRENTACCT	DP11	个人活期存款-资产本金					N	S####	0	S####	0	0
+					99	PERSONALCURRENTACCT	DP12	个人活期存款-应收利息					N	S####	0	S####	0	0
 				}
 			}
 		},
-		tap_bussiness:{
+		tap_bussiness:{	'select * from TAP_BUSINESS where IDENTIFIER_CODE IN ('AS1131001','')'
 			col:{gl_ref_code,gl_ref_desc,identifier_code-'gl_code'},
-			values:{
+			values:{																					double_entry_ind	bal_type		year_end_clean_ind
+						gl_ref_code							gl_ref_desc							identifier_code	multi_instance_ind	bal_upddate_mode	cash_allow_ind																	AC1																												
+																											internal_acct_type		bal_check_ind
 				OE:{
-					Paid Up Capital - Ordinary Share	Ordinary Share Capital				OE40101		Y	A	Y	C	1	N	N	4	300024	20181203 18:27:59 980			1
-					R_E- Accumulated profit&loss		RE ACC PROFIT& LOSS					OE40402		Y	A	Y	C	1	N	N	4	300024	20181203 18:28:12 608			1
-					Current Year Profit/Loss			Year end							OE403		Y	A	Y	C	1	N	N	4	300024	20190116 18:42:19 883			1
-					Capital Reserves - General Reser	Capital Reserves - General Reserves	OE4020202	Y	A	Y	C	1	N	N	4	300024	20190621 14:59:28 159			1
-					Retained Earning - Normal Loan		Retained Earning - Normal Loan		OE40401		Y	A	Y	C	1	N	N	4	300024	20190621 14:59:36 178			1
+					Paid Up Capital - Ordinary Share	Ordinary Share Capital						OE40101		Y	A	Y		C		1	N	N			4	300024	20181203 18:27:59 980			1
+					R_E- Accumulated profit&loss		RE ACC PROFIT& LOSS							OE40402		Y	A	Y		C		1	N	N			4	300024	20181203 18:28:12 608			1
+					Current Year Profit/Loss			Year end									OE403		Y	A	Y		C		1	N	N			4	300024	20190116 18:42:19 883			1
+					Capital Reserves - General Reser	Capital Reserves - General Reserves			OE4020202	Y	A	Y		C		1	N	N			4	300024	20190621 14:59:28 159			1
+					Retained Earning - Normal Loan		Retained Earning - Normal Loan				OE40401		Y	A	Y		C		1	N	N			4	300024	20190621 14:59:36 178			1
+				}				
+				AS1131001:{				
+					Interest Receivable - Overdraft		Interest Receivable - Overdraft - Resident	AS1131001	Y	A	Y		D		1	N	N			4	300024	20190225 15:54:15 363			1
 				}
 			}
 		},
 		taa_account:{
 			values:{
-				OE:{
-					Paid Up Capital - Ordinary Share	Ordinary Share Capital				OE40101		Y	A	Y	C	1	N	N	4	300024	20181203 18:27:59 980			1
-					R_E- Accumulated profit&loss		RE ACC PROFIT& LOSS					OE40402		Y	A	Y	C	1	N	N	4	300024	20181203 18:28:12 608			1
-					Current Year Profit/Loss			Year end							OE403		Y	A	Y	C	1	N	N	4	300024	20190116 18:42:19 883			1
-					Capital Reserves - General Reser	Capital Reserves - General Reserves	OE4020202	Y	A	Y	C	1	N	N	4	300024	20190621 14:59:28 159			1
-					Retained Earning - Normal Loan		Retained Earning - Normal Loan		OE40401		Y	A	Y	C	1	N	N	4	300024	20190621 14:59:36 178			1
+							acct_no					acct_name						gl_ref_code				double_entry_ind	internal_acct_type	bal_type	bal_upddate_mode	default_ind	bal_check_ind	year_end_clean_ind	acct_branch	ccy_code	acct_bal	prev_date_bal	bal_update_date	acct_status	acct_name_check_ind	internal_acct_stop_ind	open_acct_channel	remark								open_acct_date	open_acct_branch	open_acct_user	open_acct_seq	close_acct_branch	close_acct_user	close_acct_date	close_acct_seq	cash_allow_ind
+				OE:{}
+				AS1131001-'Interest Receivable - Overdraft':{
+					99	10184005041	Interest Receivable - Overdraft - Resident	Interest Receivable - Overdraft		Y					A				D				1				Y			N				N					101			USD		-6601.74		-4246.52		20200519		1				N					N						101		Interest Receivable - Overdraft - Resident	20190225		101					300006		1902251010001790																		4	300006	20190225 16:46:36 717	300006	20200519 14:59:59 775	5
 				}
 			}
 		},
@@ -316,6 +354,64 @@ process-file:{
 			"FINANCEAMT"-'金融金额':{},
 			"FINANCEBAL"-'金融余额':{},
 			"LEDGERBAL"-'分算余额':{},
+			tz-pro:{		
+				cbs:{	210621a		'/sunline/v7base/cbs-ltts-bat/cbs/99'
+					210621 	210621-1916:{
+						ACCOUNTING 				210621-1905:{210621,0930-1905}.ok
+						ACCURE 					210621-1855:{210621-1855}.ok
+						CHECK 					210621-1916:{210621-1916}.ok
+						CORE_LOAN_XML_LOCAL		210621-1916:{210621-1916}
+						EXCHANGE_RATE 			210621-1855:{210621-1855}.ok
+						LEDGERABL				210621-1855:{210621-1855}.ok
+						SWIFT					210621-1105:{
+							IN 					210620-1520:{null}
+							OUT					210621-1200:{null}
+							OUTBAK				210621-1200:{210621,1105-1200}.fin
+						}
+					},
+					210622	210621-1905:{
+						ACCOUNTING 				210621-1905:{210621,1905}
+						SWIFT					210621-1105:{
+							IN 					210621-1900:{null}
+						}
+					}
+				},		
+				ftp:{	210621a		'/sunline/ftp/uat/cbs/99'
+					210621 	210621-1916:{
+						ACCOUNTING 				210621-1905:{210621,0930-1905}.ok
+						ACCURE 					210621-1855:{210621-1855}.ok
+						CHECK 					210621-1916:{210621-1916}.ok
+						CORE_LOAN_XML_LOCAL		210621-1916:{210621-1916}
+						EXCHANGE_RATE 			210621-1855:{210621-1855}.ok
+						LEDGERABL				210621-1855:{210621-1855}.ok
+						LTBILL					210621-1233:{210620,1538-210621,1233}.pdf
+					},
+					210622	210621-1936:{
+						ACCOUNTING 				210621-1905:{210621,1905}.ok
+						ACCURE 					210621-1936:{null}
+						CHECK 					210621-1936:{null}
+						EXCHANGE_RATE 			210621-1936:{null}
+						LEDGERABL				210621-1936:{null}
+					}
+				},	
+				gl:{	210621a		'/sunline/glbase/temp/gl/cbs/99'
+					210621 	210621-1916:{
+						ACCOUNTING 				210621-1906:{210621,0931-1906}.txt
+						ACCURE 					210621-1856:{210621-1856}.txt
+						CHECK 					210621-1917:{210621-1917}.txt
+						EXCHANGE_RATE 			210621-1856:{210621-1856}.txt
+						LEDGERABL				210621-1856:{210621-1856}.txt
+					},
+					210622	210621-1936:{
+						ACCOUNTING 				210621-1935:{210621,1935}.txt
+						ACCURE 					210621-1936:{null}
+						CHECK 					210621-1936:{null}
+						EXCHANGE_RATE 			210621-1936:{null}
+						LEDGERABL				210621-1936:{null}
+					}
+				},
+				
+			}
 		},
 		faa_account	-- "总账账户表"	glt01
 			"org_id":"99",sys_no,acct_branch,ccy_code,acct_type
@@ -409,6 +505,19 @@ process-file:{
 		},
 		parse:{
 			
+		}
+	}
+	tz-uat-path:{
+		210131:{
+			ftp:{
+				/sunline/ftp/uat/cbs/99/20210131/ACCOUNTING:{
+					0 
+				},
+				/sunline/ftp/uat/cbs/99/20210131/ACCURE:{
+					-rw-r--r-- 1 ftpuser sunline 6852 Jun 21 17:36 ACCURE20210131.txt
+					-rw-r--r-- 1 ftpuser sunline    0 Jun 21 17:36 ACCURE20210131.txt.ok
+				}
+			}
 		}
 	}
 },
@@ -749,6 +858,19 @@ ta:{
 				}	
 			}
 		},
+		tas_accrue_record:{
+			insert-1:{
+				TaAccounting.regAccure(IoTaRecordAccure)-1:{	'登记计提'
+					SrvIoTaAccounting.regAccure(IoTaRecordAccure)-3:{
+						DpOverDraftDayEnd.regAccrualExtract(String),
+						DpDayEndInterest.regAccrualExtract(String),
+						IoClient4Gl.regAccure(AccountGl)-2:{
+							
+						}
+					}
+				}
+			}
+		}
 	},
 },
 gl:{
@@ -817,6 +939,200 @@ gl:{
 							2-GlSettleFlat.prcSettleFlatAccounting(String, BigDecimal, BigDecimal, String, String);	
 						},
 						FaAccounting.bookOffBalanceAccounting(FaOffBanlceAccountingIn)
+					}
+				}
+			},
+			from:{
+				gl16,from ACCURE/ACCURE20210207.txt,
+				from tas_accrue_record taf02,
+				dp04:{
+					insert into tas_accrue_record(trxn_date, accrue_type, acct_branch, accounting_alias, ccy_code, bal_attributes, budget_inst_amt, org_id, data_create_user, data_create_time, data_update_user, data_update_time, data_version) values ('20210207', 'B', '200', 'CORPORATECURRENTACCT', 'TZS', 'DP12', 40139489.2000000, '99', 'S####', '20210629 14:18:50 679', NULL, NULL, 1);
+				}
+			}
+			search:{
+				gl16:{
+					insert into fab_accounting_voch(trxn_date, trxn_seq, data_sort, sys_no, acct_branch, trxn_ccy, gl_code, acct_seq, acct_no, debit_credit, accounting_amt, total_count, exchg_method, exchg_org_ccy_amt, exchg_dol_ccy_amt, on_bal_sheet_ind, bal_direction, acct_bal, summary_code, summary_desc, host_date, trxn_time, remark, org_id, data_create_user, data_create_time, data_update_user, data_update_time, data_version) values ('20210207', '202102079999900000000014', 13, '800', '200', 'TZS', 'AS1131001', '00001', '834AS11310010020000001', 'D',1686100.89, 1, '1', 0, 0, 'Y', 'D', 40139489.20, NULL, NULL, '20210629', '14:19:50 092', 'loanAccure', '99', '2101', '20210629 14:19:50 282', NULL, NULL, 1)
+					insert into fab_accounting_voch(trxn_date, trxn_seq, data_sort, sys_no, acct_branch, trxn_ccy, gl_code, acct_seq, acct_no, debit_credit, accounting_amt, total_count, exchg_method, exchg_org_ccy_amt, exchg_dol_ccy_amt, on_bal_sheet_ind, bal_direction, acct_bal, summary_code, summary_desc, host_date, trxn_time, remark, org_id, data_create_user, data_create_time, data_update_user, data_update_time, data_version) values ('20210207', '202102079999900000000014', 14, '800', '200', 'TZS', 'IN6011001', '00001', '834IN60110010020000001', 'C',1686100.89, 1, '1', 0, 0, 'Y', 'C', 92368975.18, NULL, NULL, '20210629', '14:19:50 092', 'loanAccure', '99', '2101', '20210629 14:19:50 286', NULL, NULL, 1)
+					insert into fab_accrue_accounting(sys_no, accrue_date, accrue_branch, ccy_code, accrue_type, accrue_gl_code, accrue_offset_gl_code, accrue_inst_total_amt, accrued_amt, current_accrue_amt, accounting_date, accounting_seq, accrue_acct_no, accrue_opp_acct_no, org_id, data_create_user, data_create_time, data_update_user, data_update_time, data_version) values ('800', '20210207', '200', 'TZS', 'B', 'AS1131001', 'IN6011001', 40139489.20, 38453388.31, 1686100.89, '20210207', '202102079999900000000014', '834AS11310010020000001', '834IN60110010020000001', '99', '2101', '20210629 14:19:50 287', NULL, NULL, 1)
+				},
+				gl35:{
+					gla_branch_gl.selectByIndexWithLock_odb1,
+					gla_branch_gl.updateByIndex_odb1,
+						current_debit_amt=1686100.89
+						update gla_branch_gl where report_type='1' and trxn_date='20210207' and branch_id='200' and ccy_code='TZS' and gl_code='AS1131001' and org_id='99'
+						current_credit_amt=1686100.89					 
+											 where report_type='1' and trxn_date='20210207' and branch_id='200' and ccy_code='TZS' and gl_code='IN6011001' and org_id='99'
+				},
+				gl40:{
+					glb_exchange_process.selectByIndexWithLock_odb1,
+					glb_exchange_process.updateByIndex_odb1,
+						current_debit_amt=1686100.89
+						where report_type='1' and trxn_date='20210207' and branch_id='200' and exchange_ccy_code='SCY' and gl_code='AS1131001' and org_id='99'
+						where report_type='1' and trxn_date='20210207' and branch_id='200' and exchange_ccy_code='SUS' and gl_code='AS1131001' and org_id='99'
+						current_credit_amt=1686100.89
+						where report_type='1' and trxn_date='20210207' and branch_id='200' and exchange_ccy_code='SCY' and gl_code='IN6011001' and org_id='99'
+						where report_type='1' and trxn_date='20210207' and branch_id='200' and exchange_ccy_code='SUS' and gl_code='IN6011001' and org_id='99'
+				},
+				gl45:{
+					gla_exchange_gl.selectByIndexWithLock_odb1,
+					gla_exchange_gl.updateByIndex_odb1
+						current_debit_amt=1686100.89
+						where report_type='1' and trxn_date='20210207' and branch_id='200' and exchange_ccy_code='SUS' and gl_code='AS1131001' and org_id='99'
+						where report_type='1' and trxn_date='20210207' and branch_id='200' and exchange_ccy_code='SCY' and gl_code='AS1131001' and org_id='99'
+						current_credit_amt=1686100.89
+						where report_type='1' and trxn_date='20210207' and branch_id='200' and exchange_ccy_code='SCY' and gl_code='IN6011001' and org_id='99'
+						where report_type='1' and trxn_date='20210207' and branch_id='200' and exchange_ccy_code='SUS' and gl_code='IN6011001' and org_id='99'
+				},
+				gl51:{
+					glb_gl_report.selectByIndexWithLock_odb1,
+					glb_gl_report.updateByIndex_odb1
+						current_debit_amt=1686100.89
+						where report_type='1' and trxn_date='20210207' and branch_id='200' and gl_date_interval='1' and ccy_code='TZS' and gl_code='AS1131001' and org_id='99'
+						where report_type='1' and trxn_date='20210207' and branch_id='200' and gl_date_interval='1' and ccy_code='SCY' and gl_code='AS1131001' and org_id='99'
+						where report_type='1' and trxn_date='20210207' and branch_id='200' and gl_date_interval='1' and ccy_code='SUS' and gl_code='AS1131001' and org_id='99'
+						current_credit_amt=1686100.89
+						where report_type='1' and trxn_date='20210207' and branch_id='200' and gl_date_interval='1' and ccy_code='TZS' and gl_code='IN6011001' and org_id='99'
+						where report_type='1' and trxn_date='20210207' and branch_id='200' and gl_date_interval='1' and ccy_code='SCY' and gl_code='IN6011001' and org_id='99'
+						where report_type='1' and trxn_date='20210207' and branch_id='200' and gl_date_interval='1' and ccy_code='SUS' and gl_code='IN6011001' and org_id='99'
+					glb_gl_report.insert
+						insert into glb_gl_report(report_type, trxn_date, branch_id, gl_date_interval, ccy_code, gl_code, on_bal_sheet_ind, gl_code_level, gl_code_desc, end_gl_code_ind, simple_list_display_ind, prev_debit_bal, prev_credit_bal, current_debit_amt, current_credit_amt, current_debit_bal, current_credit_bal, org_id, data_create_user, data_create_time, data_update_user, data_update_time, data_version) values ('1', '20210207', '200', '1', 'SCY', 'AS11310', 'Y', 2, 'Interest Receivable - Overdraft', 'N', 'Y', 53835442.51, 0, 1686100.89, 0.00, 55521543.40, 0, '99', '2101', '20210629 14:19:54 991', NULL, NULL, 1);
+						insert into glb_gl_report(report_type, trxn_date, branch_id, gl_date_interval, ccy_code, gl_code, on_bal_sheet_ind, gl_code_level, gl_code_desc, end_gl_code_ind, simple_list_display_ind, prev_debit_bal, prev_credit_bal, current_debit_amt, current_credit_amt, current_debit_bal, current_credit_bal, org_id, data_create_user, data_create_time, data_update_user, data_update_time, data_version) values ('1', '20210207', '200', '1', 'SUS', 'AS11310', 'Y', 2, 'Interest Receivable - Overdraft', 'N', 'Y', 38459990.05, 0, 1686100.89, 0.00, 40146090.94, 0, '99', '2101', '20210629 14:19:54 995', NULL, NULL, 1);
+						insert into glb_gl_report(report_type, trxn_date, branch_id, gl_date_interval, ccy_code, gl_code, on_bal_sheet_ind, gl_code_level, gl_code_desc, end_gl_code_ind, simple_list_display_ind, prev_debit_bal, prev_credit_bal, current_debit_amt, current_credit_amt, current_debit_bal, current_credit_bal, org_id, data_create_user, data_create_time, data_update_user, data_update_time, data_version) values ('1', '20210207', '200', '1', 'TZS', 'AS11310', 'Y', 2, 'Interest Receivable - Overdraft', 'N', 'Y', 38453388.31, 0, 1686100.89, 0.00, 40139489.20, 0, '99', '2101', '20210629 14:19:55 028', NULL, NULL, 1)
+						insert into glb_gl_report(report_type, trxn_date, branch_id, gl_date_interval, ccy_code, gl_code, on_bal_sheet_ind, gl_code_level, gl_code_desc, end_gl_code_ind, simple_list_display_ind, prev_debit_bal, prev_credit_bal, current_debit_amt, current_credit_amt, current_debit_bal, current_credit_bal, org_id, data_create_user, data_create_time, data_update_user, data_update_time, data_version) values ('1', '20210207', '200', '1', 'SUS', 'IN60110', 'Y', 2, 'Interest Income - Overdraft', 'N', 'Y', 0, 90454174.29, 0.00, 1686100.89, 0, 92140275.18, '99', '2101', '20210629 14:19:55 013', NULL, NULL, 1)
+						insert into glb_gl_report(report_type, trxn_date, branch_id, gl_date_interval, ccy_code, gl_code, on_bal_sheet_ind, gl_code_level, gl_code_desc, end_gl_code_ind, simple_list_display_ind, prev_debit_bal, prev_credit_bal, current_debit_amt, current_credit_amt, current_debit_bal, current_credit_bal, org_id, data_create_user, data_create_time, data_update_user, data_update_time, data_version) values ('1', '20210207', '200', '1', 'TZS', 'IN60110', 'Y', 2, 'Interest Income - Overdraft', 'N', 'Y', 0, 90682874.29, 0.00, 1686100.89, 0, 92368975.18, '99', '2101', '20210629 14:19:55 016', NULL, NULL, 1)
+						insert into glb_gl_report(report_type, trxn_date, branch_id, gl_date_interval, ccy_code, gl_code, on_bal_sheet_ind, gl_code_level, gl_code_desc, end_gl_code_ind, simple_list_display_ind, prev_debit_bal, prev_credit_bal, current_debit_amt, current_credit_amt, current_debit_bal, current_credit_bal, org_id, data_create_user, data_create_time, data_update_user, data_update_time, data_version) values ('1', '20210207', '200', '1', 'SCY', 'IN60110', 'Y', 2, 'Interest Income - Overdraft', 'N', 'Y', 0, 88125174.29, 0.00, 1686100.89, 0, 89811275.18, '99', '2101', '20210629 14:19:55 032', NULL, NULL, 1);
+				}
+			}
+		},
+		glb_exchange_rate-'折算汇率':{
+			insert-2{
+				1-ExchangeRate.addExchangeRateInfo(GlExchangeRate)-2:{
+					ExchangeRate.getExchangeRateList(Options<GlExchangeRate>)-1:{
+						SrvGlExchangeRate.modifyExchangeRateList(Options)-1:{
+							gl8601
+						}
+					},
+					SrvGlExchangeRate.addGlExchangeRate(GlExchangeRate)-'添加一条折算汇率信息';-1:{
+						gl8603
+					}
+				},
+				1-insertBatch-GlFile.doCoreExchangeRateFile()-2:{		'折算汇率文件导入'
+					gl04,
+					glt04
+				}
+			},
+			nsql:{
+				
+			}
+		},
+		glb_exchange_voch:{
+			insert-7:{
+				2-prcExchangeIncomeToZeroByBranch(String, E_REPORTTYPE, String, String);-1:{
+					prcExchangeIncomeToZero(String, E_REPORTTYPE, String)-1:{
+						gl46-'年终决算折算损益科目结转上划'
+					}
+				},
+				2-prcExchangeProfitUpSettle(String, E_REPORTTYPE, String, String, String, String, E_DEBITCREDIT, String, BigDecimal, long);-1:{
+					prcExchangeProfitUpByBranch(String, E_REPORTTYPE, String, String, String, String)-0-down
+				},
+				2-prcExchangeProfitUpByBranch(String, E_REPORTTYPE, String, String, String, String);-1:{
+					prcExchangeProfitUp(String, E_REPORTTYPE, String)-1:{
+						gl46-'年终决算折算损益科目结转上划'
+					}
+				}
+			}
+			
+		},
+		gla_exchange_gl:{
+			insert-5:{
+				1-genExchangeGl(String, String, String, E_REPORTTYPE);-2:{
+					gl45,
+					glt45
+				},
+				1-prcExchangeIncomeToZeroByBranch(String, E_REPORTTYPE, String, String);-1:{
+					prcExchangeIncomeToZero(String, E_REPORTTYPE, String)-1:{
+						gl46-'年终决算折算损益科目结转上划'
+					}
+				},
+				2-prcExchangeProfitUpSettle(String, E_REPORTTYPE, String, String, String, String, E_DEBITCREDIT, String, BigDecimal, long);-1:{
+					prcExchangeProfitUpByBranch(String, E_REPORTTYPE, String, String, String, String)-0-down
+				},
+				1-prcExchangeProfitUpByBranch(String, E_REPORTTYPE, String, String, String, String);-1:{
+					prcExchangeProfitUp(String, E_REPORTTYPE, String)-1:{
+						gl46-'年终决算折算损益科目结转上划'
+					}
+				}
+			}
+		},
+		gla_branch_gl:{
+			insert-single-1:{
+				GlBranch.genBranchGl(String, String, String, E_REPORTTYPE):{
+					gl35,from fab_accounting_voch
+					glt35
+				}
+			},
+			delete-nsql:{
+				GlBranch.delBranchGl:{
+					prcBefore(String, String, String)-2:{
+						gl35,
+						glt35,
+					}
+				},
+				
+			}
+		},
+		glb_gl_report:{
+			insert-4:{
+				2-GlGeneralLedger.genReport(String, String, String, E_GLDATEINTERVAL, E_REPORTTYPE):{
+					4- genInterval(String, String, String, E_REPORTTYPE)-1:{},
+					1- genBusiGL(String, E_REPORTTYPE, String, String)-2:{
+						gl51-'生成业务总账-账务机构',from gla_branch_gl-'TZS',gla_exchange_gl-'SUS''SCY'
+						glt51
+					}
+				},
+				2-gl24.process-0	
+			},
+			insert-batch-0,
+			insert-nsql-2:{
+				GlGeneralLedger.insInitReportData-1:{
+					code:{
+						insert into glb_gl_report from glb_gl_report a
+					  JOIN fap_accounting_subject b
+						ON a.gl_code = b.gl_code and a.org_id=b.org_id
+						current_debit_amt=0.00,
+						prev_debit_bal=a.current_debit_bal
+						where a.trxn_date = #last_date#
+						  AND a.org_id = #org_id#
+						  AND a.gl_date_interval = '1'
+						  AND a.branch_id = #branch_id#
+						  AND a.report_type = '1'
+						  AND a.current_debit_bal <> a.current_credit_bal
+						  AND b.end_gl_code_ind = 'Y'
+						  AND b.valid_ind = 'Y'
+					},
+					GlGeneralLedger.loadBuisGlInit(String, String, String, E_GLDATEINTERVAL, E_REPORTTYPE)-1
+						GlGeneralLedger.genReport(String, String, String, E_GLDATEINTERVAL, E_REPORTTYPE)-same,
+				},
+				GlGeneralLedger.insReportGlData-1:{
+					code:{
+						insert into glb_gl_report from glb_gl_report a
+						sum(a.current_credit_amt) as current_credit_amt,
+    	    	    	and a.trxn_date = #trxn_date# 
+					},
+					GlGeneralLedger.genReportGL(String, E_REPORTTYPE, String)-2:{
+						gl52-'生成业务总账-报表机构',
+						glt52
+					}
+				}
+			},
+			update-single-1:{
+				GlGeneralLedger.genReport(String, String, String, E_GLDATEINTERVAL, E_REPORTTYPE)
+			},
+			delete-nsql:{
+				GlGeneralLedger.delReportGl-1:{
+					GlGeneralLedger.prcBusiGlBefore(String, String, E_REPORTTYPE):{
+						gl50,
+						glt50
 					}
 				}
 			}
@@ -1084,7 +1400,148 @@ ln:{	''
 		}
 	}
 }
-
+obiee:{
+	RPT_AC_BAL_LCY_FCY-'各科目余额表':{
+		2.1-'LCY'  AS CCY,'1-End of Day' AS REPORT_TYPE-'业务类型'	:{
+			,t1.gl_code_type                    AS CATEGORY              -- 科目类别
+			${iol_schema}.gls_fap_accounting_subject t1 left join ${icl_schema}.gl_bal_sum t2 on t1.gl_code = t2.subj_id
+			
+			t2.term_begin_debit_bal		AS OPEN_DEBIT_BAL  '期初借方余额',
+			t2.term_begin_crdt_bal		AS OPEN_CREDIT_BAL	'期初贷方余额',
+			t2.th_term_debit_evt_amt	AS DEBIT_MOV		'本期借方发生额',
+			t2.th_term_crdt_evt_amt		AS CREDIT_MOV		'本期贷方发生额',
+			t2.term_end_debit_bal		AS DEBIT_BAL		'期末借方余额',
+			t2.term_end_crdt_bal		AS CREDIT_BAL		'期末贷方余额',
+			"gl_bal_sum":{
+					 ,sum(term_begin_debit_bal)  AS term_begin_debit_bal  -- 期初借方余额
+					 ,sum(term_begin_crdt_bal)   AS term_begin_crdt_bal   -- 期初贷方余额
+					 ,sum(th_term_debit_evt_amt) AS th_term_debit_evt_amt -- 本期借方发生额
+					 ,sum(th_term_crdt_evt_amt)  AS th_term_crdt_evt_amt  -- 本期贷方发生额
+					 ,sum(term_end_debit_bal)    AS term_end_debit_bal    -- 期末借方余额
+					 ,sum(term_end_crdt_bal)     AS term_end_crdt_bal     -- 期末贷方余额
+			   from ${icl_schema}.gl_bal_sum                              -- 总账表处理后模型
+			   where  org_id = '000' and curr_cd = 'TZS'  and report_type = '1'
+			   -- 只取总行记录
+			   -- 只取坦先令的记录
+			   -- 只取业务类型数据
+		   }
+		},
+		2.2-'FCY' AS CCY,'1-End of Day' AS REPORT_TYPE-'业务类型'	:{
+            t4.term_begin_debit_bal	AS OPEN_DEBIT_BAL       '期初借方余额  '
+            t4.term_begin_crdt_bal	AS OPEN_CREDIT_BAL      '期初贷方余额  '
+            t4.th_term_debit_evt_amt	AS DEBIT_MOV        '本期借方发生额'
+            t4.th_term_crdt_evt_amt	AS CREDIT_MOV           '本期贷方发生额'
+            t4.term_end_debit_bal	AS DEBIT_BAL            '期末借方余额  '
+            t4.term_end_crdt_bal	AS CREDIT_BAL           '期末贷方余额  '
+			"gl_bal_sum" t2,"gls_glb_exchange_rate" t3:{
+                  ,sum(case when t3.exchange_rate_unit = 0 then 0
+                            else t2.term_begin_debit_bal * t3.exchange_rate / t3.exchange_rate_unit
+                             end)         AS term_begin_debit_bal  -- 期初借方余额
+                  ,sum(case when t3.exchange_rate_unit = 0 then 0
+                            else t2.term_begin_crdt_bal * t3.exchange_rate / t3.exchange_rate_unit
+                             end)         AS term_begin_crdt_bal   -- 期初贷方余额
+                  ,sum(case when t3.exchange_rate_unit = 0 then 0
+                            else t2.th_term_debit_evt_amt * t3.exchange_rate / t3.exchange_rate_unit
+                             end)         AS th_term_debit_evt_amt -- 本期借方发生额
+                  ,sum(case when t3.exchange_rate_unit = 0 then 0
+                            else t2.th_term_crdt_evt_amt * t3.exchange_rate / t3.exchange_rate_unit
+                             end)         AS th_term_crdt_evt_amt  -- 本期贷方发生额
+                  ,sum(case when t3.exchange_rate_unit = 0 then 0
+                            else t2.term_end_debit_bal * t3.exchange_rate / t3.exchange_rate_unit
+                             end)         AS term_end_debit_bal    -- 期末借方余额
+                  ,sum(case when t3.exchange_rate_unit = 0 then 0
+                            else t2.term_end_crdt_bal * t3.exchange_rate / t3.exchange_rate_unit
+                             end)         AS term_end_crdt_bal     -- 期末贷方余额
+					 from ${icl_schema}.gl_bal_sum t2                      -- 总账表处理后模型
+				left join ${iol_schema}.gls_glb_exchange_rate t3           -- 折算汇率（外管每日中间价）表
+					   on t2.curr_cd = t3.ccy_code
+					  and t3.exchange_ccy_code = 'SCY'                     -- 取外币与本币兑换汇率记录
+			}
+            where t2.org_id = '000'                                -- 只取总行记录
+              and t2.curr_cd not in ('TZS','SCY','SUS')            -- 过滤非国标币种代码和坦先令代码的记录
+              and t2.report_type = '1'                             -- 只取业务类型数据
+		}
+		2.3-			 '2-End of Year' AS REPORT_TYPE-'年结类型':{
+			
+		},
+		2.4-'插入外币年结数据'			 '2-End of Year' AS REPORT_TYPE-'年结类型':{
+			
+		}
+	}
+	gl_bal_sum-'iol':{
+		'取当前余额'：
+		create table ${icl_schema}.gl_bal_sum_temp04
+       ,t1.prev_debit_bal                   as term_begin_debit_bal
+       ,t1.current_debit_amt                as th_term_debit_evt_amt
+	   from ${iol_schema}.GLS_GLB_GL_REPORT t1 
+		${icl_schema}.gl_bal_sum_temp05-'合并数据'：{
+			create table ${icl_schema}.gl_bal_sum_temp05
+			,t4.term_begin_debit_bal
+		   ,t4.th_term_debit_evt_amt
+			from   ${icl_schema}.gl_bal_sum_temp04   t4
+		},
+		${icl_schema}.gl_bal_sum_temp06-''：{
+			create table ${icl_schema}.gl_bal_sum_temp06
+			,t5.term_begin_debit_bal
+		   ,t5.th_term_debit_evt_amt
+			from ${icl_schema}.gl_bal_sum_temp05   t5
+		},
+		${icl_schema}.gl_bal_sum_temp07-''：{
+			create table ${icl_schema}.gl_bal_sum_temp07
+			,t6.term_begin_debit_bal
+		   ,t6.th_term_debit_evt_amt
+			from ${icl_schema}.gl_bal_sum_temp06 t6 
+		},
+		${icl_schema}.gl_bal_sum-'分机构数据'：{
+			insert into  ${icl_schema}.gl_bal_sum         
+			,term_begin_debit_bal                               --期初借方余额         
+			,th_term_debit_evt_amt                              --本期借方发生额 
+			from ${icl_schema}.gl_bal_sum_temp07
+		}
+	},
+	GLS_GLB_GL_REPORT-'iol':{
+			 ${iol_schema}.GLS_GLB_GL_REPORT，
+		from ${itl_schema}.gls_glb_gl_report
+		from ${itl_schema}.gls_glb_gl_report_et
+		create table ${itl_schema}.gls_glb_gl_report_et from gls_glb_gl_report_dr
+		create or replace directory gls_glb_gl_report_dr as '/data/input/${batch_date}/gls/';
+			gls_glb_gl_report_dr:'gls_glb_gl_report_i.${batch_date}.dat'
+	},
+	GLB_GL_REPORT-'gl':{
+		
+	},
+	idl_rpt_loan_list-'欠款账户金额信息表':{
+		3.1:{
+			${iol_schema}.cbs_lna_loan t1,
+		},
+		3.2-'插入对公数据':{
+			${idl_schema}.rpt_loan_list,
+		},
+		3.3-'插入对私存款账户透支数据':{
+			${iol_schema}.cbs_dpa_sub_account t1
+		},
+		3.4-'插入对公存款账户透支数据':{
+			${iol_schema}.cbs_dpa_sub_account t1  
+			inner join ${iol_schema}.cbs_cfb_corpor_base t2 
+				,(case when t10.accrual_inst is null
+					   then 0
+					   else t10.accrual_inst
+						end) * (case when t1.ccy_code = 'TZS'
+									 then 1
+									 when t8.exchange_rate is null
+									   or t8.exchange_rate_unit is null
+									   or t8.exchange_rate_unit = 0
+									 then 0
+									 else t8.exchange_rate / t8.exchange_rate_unit
+									  end)             as accru_intere              --应收利息
+			left join ${iol_schema}.cbs_dpa_fiche_interest t10                      --账户计息定义表
+				   on t1.sub_acct_no = t10.sub_acct_no
+				  and t10.fiche_type = 'B'
+				  and t10.accrual_inst > 0
+		}
+		
+	}
+}
 
 
 bat-define:{
@@ -3599,6 +4056,192 @@ bat-code:{
 						}
 				}
 			}
+			gl20:{	"总分核对"
+				getBatchDataWalker:{},
+				process:{
+					"data flow":{	
+						from 	
+						insert 	
+						update 	
+					},
+					"key code":{
+						"1.":{	'获得需要核算的gl_code'
+							ledgerCheckNoGlCode = select parm_value from app_system_parameter where main_key='LEDGERC_CHECK_NO_GL_CODE' and sub_key='800';	-- "FaConst.CORE_SYSTEM"
+							{
+								,60010101,60010102,60010201,60010202,60010301,60010302,60010401,60010402,60010501,
+								60010502,60010601,60010602,60010701,60010702,60012901,60012902,60013001,60013002,
+								60014001,60014002,60014101,60014102,60014201,60014202,60015001,60015002,60015101,
+								60015102,60015201,60015202,60015301,60015302,60016901,60016902,67010102,60012001,
+								60012002,600501,600510,60051101,60051102,60051201,60051210,64010101,64010102,
+								64010201,64010202,64011001,64011002,64011101,64011102,64011301,64011302,64053001,
+								64053002,60101003,60101004,60101005,60101008,60101009,60101098,60101099,60103004,
+								60104001,60104005,60107001,60107002,60107099,602030,602031,602099,60103005,603001,24010102,22400105,30500102,300099
+							}
+							for(String strGlcode:ledgerCheckNoGlCode){		'把每一个gl_code对应的子科目信息查出来,重新拼接'
+								ledgerCheckNoGlCode/parm_value
+								nsql-FaAccounting.selLedgerNoCheckGlCode:{
+									select
+											* 
+									from
+											fap_accounting_subject 
+									where
+											org_id=#org_id# and gl_code like concat(#gl_code#,'%')
+								}
+							}
+							'nsql-FaAccounting.delLedgerCheckResul':{	"按日期删除分类帐检查结果-delete ledger check result by date"
+								delete 
+								from
+										fab_ledger_check_result 	-- "分类科目检查结果-ledger account check result"
+								where
+										org_id = #org_id#
+										and trxn_date = #trxn_date#
+							},
+							'nsql-FaAccounting.updLedgerSeqStatus':{
+								update
+										fab_ledger_check_seq a 	-- "fab_ledger_check_seq-工厂分类帐检查"
+								set
+										a.analysis_state=#analysis_state# 	-- "2-已解析"
+								where
+										trxn_date=#trxn_date# and org_id=#org_id# and instr(#parm_value#||',', a.gl_code||',')<=0 
+							},
+							nsql-FaAccounting.insLedger:{	"插入外部系统的分类帐余额数据-inserting ledger balance data of external system"	//插入外系统分户账数据
+								insert 
+								into
+										fab_ledger_check_result		-- "分类科目检查结果-ledger account check result"
+										(
+												org_id, sys_no, trxn_date, acct_branch, ccy_code, gl_code, ledger_bal_direction , ledger_acct_bal, gl_bal_direction, gl_acct_bal, ledger_check_result 
+										) 
+										select
+												org_id, sys_no,	trxn_date,	acct_branch,ccy_code, gl_code, bal_type 		,sum(acct_bal) as acct_bal, bal_type, 0.00 as gl_acct_bal,0 as ledger_check_result
+										from
+												fab_ledger_check_seq a	-- "fab_ledger_check_seq-工厂分类帐检查"
+										where
+												trxn_date=#trxn_date# and org_id=#org_id# 
+												and analysis_state='2' and a.accounting_subject<>'6'
+												and instr(#parm_value#||',', a.gl_code||',')<=0 
+										group by
+												org_id,sys_no,trxn_date, acct_branch, ccy_code,
+												gl_code,bal_type 
+										union all
+										select
+												org_id, sys_no,trxn_date,acct_branch,ccy_code,
+												gl_code, 'D' as bal_type ,sum(case when bal_type='D' then acct_bal else -acct_bal end) as acct_bal, 
+												'D' as bal_type, 0.00 as gl_acct_bal,0 as ledger_check_result
+										from
+												fab_ledger_check_seq a	-- "fab_ledger_check_seq-工厂分类帐检查"
+										where
+												trxn_date=#trxn_date# and org_id=#org_id# 
+												and analysis_state='2' and a.accounting_subject='6'
+												and instr(#parm_value#||',', a.gl_code||',')<=0 
+										group by
+												org_id,sys_no,trxn_date, acct_branch, ccy_code,
+												gl_code 
+							},
+							nsql-FaAccounting.updLedgerFromGL:{	"更新外部系统的分类帐余额数据-updating ledger balance data of external system"	//更新外系统分户账数据对应的总账余额
+									update
+											Fab_ledger_check_result a 
+									set
+											a.gl_bal_direction=(select
+														case when b.bal_update_date>#trxn_date# then b.previous_bal_direction else b.bal_direction end
+												from
+														faa_account b 
+												where
+														a.org_id=b.org_id and a.sys_no=b.sys_no 
+														and a.acct_branch=b.acct_branch and a.ccy_code=b.ccy_code 
+														and a.gl_code=b.gl_code and b.acct_type='1' ), 
+											a.gl_acct_bal=(select 
+														case when b.bal_update_date>#trxn_date# then b.previous_acct_bal else b.acct_bal end
+												from
+														faa_account b 
+												where
+														a.org_id=b.org_id 
+														and a.sys_no=b.sys_no and a.acct_branch=b.acct_branch 
+														and a.ccy_code=b.ccy_code and a.gl_code=b.gl_code 
+														and b.acct_type='1' ) 
+									where
+											a.org_id=#org_id# and a.trxn_date=#trxn_date# and exists(
+													select
+															1 
+													from
+															faa_account b 
+													where
+															a.org_id=b.org_id 
+															and a.sys_no=b.sys_no and a.acct_branch=b.acct_branch 
+															and a.ccy_code=b.ccy_code and a.gl_code=b.gl_code 
+															and b.acct_type='1' 
+											) 
+							},
+							nsql-FaAccounting.updLedgeResult:{	"更新检查结果-updating the checking result"	//更新对账结果 
+							    	update
+											Fab_ledger_check_result a 
+									set
+											a.ledger_check_result='1'
+									where
+											a.trxn_date=#trxn_date# and a.org_id=#org_id# 
+											and (
+												(
+													a.ledger_bal_direction=a.gl_bal_direction and a.ledger_acct_bal=a.gl_acct_bal 
+													or 
+													a.ledger_acct_bal=a.gl_acct_bal and a.ledger_acct_bal=0.00
+												)or (
+													(case when a.ledger_bal_direction='D' then a.ledger_acct_bal else -a.ledger_acct_bal end) 
+													= 
+													(case when a.gl_bal_direction='D' then a.gl_acct_bal else -a.gl_acct_bal end)  
+												)
+											)
+							},
+							nsql-FaAccounting.updLedgerSeqStatus:{	"更新总分核对流水处理状态"	},
+							resultList = nsql-FaAccounting.selLedgerFailureBySubject:{	'selecting the record of checking failed by Accounting Subject'
+								select
+										sys_no,trxn_date,acct_branch,ccy_code,ledger_bal_direction,
+										ledger_acct_bal,gl_code,gl_bal_direction,gl_acct_bal,ledger_check_result 
+								from
+										Fab_ledger_check_result a 
+								where
+										a.trxn_date='20210620' and a.org_id='99' 
+										and a.ledger_check_result='0' and exists(
+												select
+														b.parm_value
+												from
+														app_system_parameter b 
+												where
+														b.main_key='LEDGERC_CHECK_ERROR' 
+														and b.parm_value='1' and instr(a.accounting_alias, b.sub_key||',')>0 
+										) 
+							},
+							for(cpl:resultList):{
+								accountingSubjectList = nsql-FaAccounting.selSubjectFromLedger:{	"从会计科目检查中选择会计科目-selecting accounting subject from ledger check"	},
+								nsql-FaAccounting.updLedgerSubject:{}
+							},
+							ledgerCheckError = select parm_value from app_system_parameter where main_key='LEDGERC_CHECK_ERROR' and sub_key='*';
+							if(null==ledgerCheckError||1=ledgerCheckError){
+								select * from app_drop_list where dict_org_id = '' and drop_list_type='ACCOUNTING_SUBJECT';
+								for(){
+									select parm_value from app_system_parameter where main_key='LEDGERC_CHECK_ERROR' and sub_key='#drop_list_type#';
+								}
+								nsql-FaAccounting.selLedgerFailureBySubject:{ "选择会计科目审核失败记录-selecting the record of checking failed by Accounting Subject"	
+									select
+											sys_no,trxn_date,acct_branch,ccy_code,ledger_bal_direction,
+											ledger_acct_bal,gl_code,gl_bal_direction,gl_acct_bal,ledger_check_result 
+									from
+											Fab_ledger_check_result a 
+									where
+											a.trxn_date=#trxn_date# and a.org_id=#org_id# 
+											and a.ledger_check_result='0' and exists(
+													select
+															b.parm_value
+													from
+															app_system_parameter b 
+													where
+															b.main_key='LEDGERC_CHECK_ERROR' 
+															and b.parm_value='1' and instr(a.accounting_alias, b.sub_key||',')>0 
+											) 
+								}
+							}
+						}
+					}
+				}
+			},
 		},
 		check1:{
 			glt61:{	"換日後檢查"

@@ -1,0 +1,86 @@
+
+		taa9-'内部账入分户账余额流水':{
+			getBatchDataWalker:{
+					method-ApOrg.getReferenceOrgId-'null':{
+						method-BizUtil.getTrxRunEnvs-'null',
+						method-BizUtil.isOrgRelated-'null',
+						table-app_parameter_reference-select-'parameter reference define',
+						table-app_parameter_reference-select-'parameter reference define',
+						method-BizUtil.isParmTable-'null',
+						method-ApOrg.getOrgInfo-'null':{
+							table-app_organization-select-'organization infomation'
+						},
+						method-ApOrg.getOrgInfo-'null':{
+							table-app_organization-select-'organization infomation'
+						}
+					},
+					nsql-ApBranch.selBranchList-S-apb_branch-select-'branch infomation list inquire'
+			},
+			process:{
+					method-BizUtil.getTrxRunEnvs-'null',
+					method-ApOrg.getReferenceOrgId-'null':{
+						method-BizUtil.getTrxRunEnvs-'null',
+						method-BizUtil.isOrgRelated-'null',
+						table-app_parameter_reference-select-'parameter reference define',
+						table-app_parameter_reference-select-'parameter reference define',
+						method-BizUtil.isParmTable-'null',
+						method-ApOrg.getOrgInfo-'null':{
+							table-app_organization-select-'organization infomation'
+						},
+						method-ApOrg.getOrgInfo-'null':{
+							table-app_organization-select-'organization infomation'
+						}
+					},
+					nsql-TaAccounting.selAccountBal-S-(select-select-'inquering internal account balance',
+					method-ApOrg.getReferenceOrgId-'null':{
+						method-BizUtil.getTrxRunEnvs-'null',
+						method-BizUtil.isOrgRelated-'null',
+						table-app_parameter_reference-select-'parameter reference define',
+						table-app_parameter_reference-select-'parameter reference define',
+						method-BizUtil.isParmTable-'null',
+						method-ApOrg.getOrgInfo-'null':{
+							table-app_organization-select-'organization infomation'
+						},
+						method-ApOrg.getOrgInfo-'null':{
+							table-app_organization-select-'organization infomation'
+						}
+					},
+					nsql-TaAccounting.selSuspensBal-S-(select-select-'the ledger  balance of suspense accounts':{					
+						select
+						  b.gl_ref_code,
+						  b.ccy_code,
+						  case when amt >= 0.00 THEN 'D' ELSE 'C' END as bal_type,
+						  case when amt >= 0.00 THEN b.amt else 0 - amt end as acct_bal  
+						from 
+						  (select 
+							a.gl_ref_code,
+							a.ccy_code,
+							sum(case when a.bal_type = 'D' THEN
+								( case when #trxn_date# = a.bal_update_date THEN a.prev_date_bal else a.acct_bal end)
+							  ELSE
+								0.00 - ( case when #trxn_date# = a.bal_update_date THEN a.prev_date_bal else a.acct_bal end)
+							  END) as amt
+						  from
+							taa_suspense a
+						  where 
+							a.org_id = #org_id# 
+						  and  a.acct_branch = #acct_branch#
+						  group by a.gl_ref_code, a.ccy_code ) b
+						order by b.gl_ref_code, b.ccy_code
+					},
+					method-TaAccounting.regLedgerBal-'null':{
+						method-BizUtil.fieldNotNull-'null',
+						method-BizUtil.fieldNotNull-'null',
+						method-BizUtil.fieldNotNull-'null',
+						method-BizUtil.fieldNotNull-'null',
+						method-BizUtil.fieldNotNull-'null',
+						method-BizUtil.fieldNotNull-'null',
+						method-ApBusinessParm.getValue-'null':{
+							table-app_business_parameter-select-'system parameter'
+						},
+						table-tap_accountingevent_ctrl-select-'contrl accounting event',
+						method-BizUtil.getTrxRunEnvs-'null',
+						table-tas_ledger_bal-insert-' the balance of ledger account'
+					}
+			},
+		

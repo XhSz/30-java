@@ -1,0 +1,88 @@
+
+		gl45-'生成折币总账':{
+			getBatchDataWalker:{
+					method-ApOrg.getReferenceOrgId-'null':{
+						method-BizUtil.getTrxRunEnvs-'null',
+						method-BizUtil.isOrgRelated-'null',
+						table-app_parameter_reference-select-'参数引用定义',
+						table-app_parameter_reference-select-'参数引用定义',
+						method-BizUtil.isParmTable-'null',
+						method-ApOrg.getOrgInfo-'null':{
+							table-app_organization-select-'法人信息'
+						},
+						method-ApOrg.getOrgInfo-'null':{
+							table-app_organization-select-'法人信息'
+						}
+					},
+					method-BizUtil.getTrxRunEnvs-'null',
+					method-GlExchange.prcExchangeGlBefore(String, String, E_REPORTTYPE 1-'业务报表'-'E_REPORTTYPE.BUSINETT_TYPE')-'null':{
+						method-GlExchange.checkVoucher-'对折合传票做平衡性检查':{
+							'借贷方扎差——仅返回不平衡的数据'
+							nsql-GlExchange.selVoucherNotBalList-S-glb_exchange_voch-select-'inquiring imbalance data':{
+								SELECT
+										a.exchange_ccy_code as ccy_code, 
+										sum(case when a.debit_credit = 'D' then a.accounting_amt else 0.00 end ) as debit_amt, 
+										sum(case when a.debit_credit = 'C' then a.accounting_amt else 0.00 end ) as credit_amt, 
+										sum(case when a.debit_credit = 'D' then a.accounting_amt else 0 - a.accounting_amt end ) as accounting_amt 
+								FROM
+										glb_exchange_voch a 
+								WHERE
+										a.org_id = #org_id# AND a.trxn_date = #trxn_date# 
+										AND a.report_type = #report_type# And a.on_bal_sheet_ind = 'Y' 
+								GROUP BY
+										a.exchange_ccy_code 
+								HAVING
+										sum(case when a.debit_credit = 'D' then a.accounting_amt else 0 - a.accounting_amt end ) <> 0.00 
+							}
+						},
+						'先删除（支持重复处理）'
+						nsql-GlExchange.delExchangeGL-D-gla_exchange_gl-delete-'deleting exchange data '
+					},
+					method-ApOrg.getReferenceOrgId-'null':{
+						method-BizUtil.getTrxRunEnvs-'null',
+						method-BizUtil.isOrgRelated-'null',
+						table-app_parameter_reference-select-'参数引用定义',
+						table-app_parameter_reference-select-'参数引用定义',
+						method-BizUtil.isParmTable-'null',
+						method-ApOrg.getOrgInfo-'null':{
+							table-app_organization-select-'法人信息'
+						},
+						method-ApOrg.getOrgInfo-'null':{
+							table-app_organization-select-'法人信息'
+						}
+					},
+					nsql-ApBranch.selBranchList-S-apb_branch-select-'查询机构所有信息列表'
+			},
+			process:{
+					method-ApOrg.getReferenceOrgId-'null':{
+						method-BizUtil.getTrxRunEnvs-'null',
+						method-BizUtil.isOrgRelated-'null',
+						table-app_parameter_reference-select-'参数引用定义',
+						table-app_parameter_reference-select-'参数引用定义',
+						method-BizUtil.isParmTable-'null',
+						method-ApOrg.getOrgInfo-'null':{
+							table-app_organization-select-'法人信息'
+						},
+						method-ApOrg.getOrgInfo-'null':{
+							table-app_organization-select-'法人信息'
+						}
+					},
+					method-BizUtil.getTrxRunEnvs-'null',
+					method-BizUtil.isLastDay-'null':{
+						return method-BizUtil.lastDay-'null'
+					},
+					method-GlExchange.genExchangeGl-'null':{
+						method-BizUtil.getTrxRunEnvs-'null',
+						nsql-GlExchange.selGlTranData-S-glb_exchange_voch-select-'inquiring occurance data',
+						table-fap_accounting_subject-select-'accounting subject define',
+						table-gla_exchange_gl-select-'折币总账',
+						method-GlBranch.calSubjectBal-'null',
+						table-gla_exchange_gl-insert-'折币总账',
+						table-gla_exchange_gl-update-'折币总账',
+						method-GlExchange.chkExchangeGlBal-'null':{
+							nsql-GlExchange.selErrorBalData-S-gla_exchange_gl-select-'getting imbalance data '
+						}
+					}
+			},
+		},
+		

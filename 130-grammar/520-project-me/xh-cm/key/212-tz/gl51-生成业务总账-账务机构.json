@@ -1,0 +1,293 @@
+		gl51-'生成业务总账-账务机构':{
+			getBatchDataWalker:{
+					method-ApOrg.getReferenceOrgId-'null':{
+						method-BizUtil.getTrxRunEnvs-'null',
+						method-BizUtil.isOrgRelated-'null',
+						table-app_parameter_reference-select-'参数引用定义',
+						table-app_parameter_reference-select-'参数引用定义',
+						method-BizUtil.isParmTable-'null',
+						method-ApOrg.getOrgInfo-'null':{
+							table-app_organization-select-'法人信息'
+						},
+						method-ApOrg.getOrgInfo-'null':{
+							table-app_organization-select-'法人信息'
+						}
+					},
+					nsql-ApBranch.selBranchList-S-apb_branch-select-'查询机构所有信息列表'
+			},
+			process:{
+					method-ApOrg.getReferenceOrgId-'null':{
+						method-BizUtil.getTrxRunEnvs-'null',
+						method-BizUtil.isOrgRelated-'null',
+						table-app_parameter_reference-select-'参数引用定义',
+						table-app_parameter_reference-select-'参数引用定义',
+						method-BizUtil.isParmTable-'null',
+						method-ApOrg.getOrgInfo-'null':{
+							table-app_organization-select-'法人信息'
+						},
+						method-ApOrg.getOrgInfo-'null':{
+							table-app_organization-select-'法人信息'
+						}
+					},
+					method-BizUtil.getTrxRunEnvs-'null',
+					method-BizUtil.isLastDay-'null':{
+						return method-BizUtil.lastDay-'null'
+					},
+					method-GlGeneralLedger.genBusiGL-'null':{
+						method-GlGeneralLedger.genReport-'null':{
+							method-GlGeneralLedger.loadBuisGlInit-'null':{
+								method-BizUtil.getTrxRunEnvs-'null',
+								method-BizUtil.firstDay-'null',
+								method-BizUtil.dateAdd-'null',
+								method-BizUtil.firstDay-'null',
+								method-BizUtil.dateAdd-'null',
+								method-BizUtil.firstDay-'null',
+								method-BizUtil.dateAdd-'null',
+								method-BizUtil.firstDay-'null',
+								method-BizUtil.dateAdd-'null'
+							},
+							'发生数据'
+							lstTD = getTranData(orgId, trxnDate, branchId, dateInterval, report_type);:{	
+							method-GlGeneralLedger.getTranData(String, String, String, E_GLDATEINTERVAL dateInterval, E_REPORTTYPE)-'null'
+								dateInterval=1-'日总账'-'E_GLDATEINTERVAL.DAILY':{
+									nsql-GlGeneralLedger.selTranData-S-gla_branch_gl-select-'inquiring transaction data':{
+										select
+												a.ccy_code, a.gl_code, sum(a.current_debit_amt) as debit_amt, sum(a.current_credit_amt ) as credit_amt 
+										from
+												gla_branch_gl a 
+										where
+												a.trxn_date = #trxn_date# and a.org_id = #org_id# 
+												and a.branch_id = #branch_id# and a.report_type = #report_type# 
+										group by
+												a.ccy_code, a.gl_code 
+										UNION
+										ALL select
+												a.exchange_ccy_code as ccy_code,
+												a.gl_code, sum(a.current_debit_amt) as debit_amt, sum(a.current_credit_amt ) as credit_amt 
+										from
+												gla_exchange_gl a 
+										where
+												a.trxn_date = #trxn_date# 
+												and a.org_id = #org_id# and a.branch_id = #branch_id# 
+												and a.report_type = #report_type# 
+										group by
+												a.exchange_ccy_code, a.gl_code 
+									},
+								}else{
+									method-BizUtil.getTrxRunEnvs-'null',
+									nsql-GlGeneralLedger.selTranDataBySelf-S-glb_gl_report-select-'getting transaction data',
+									nsql-GlGeneralLedger.selTranDataBySelf-S-glb_gl_report-select-'getting transaction data',
+									nsql-GlGeneralLedger.selTranDataBySelf-S-glb_gl_report-select-'getting transaction data',
+									nsql-GlGeneralLedger.selTranDataBySelf-S-glb_gl_report-select-'getting transaction data',
+									nsql-GlGeneralLedger.selTranDataBySelf-S-glb_gl_report-select-'getting transaction data'
+								}
+							},
+							for(GlTranData cplTran : lstTD)-'将发生数据更新到总账'{
+								table-fap_accounting_subject-select-'accounting subject define',
+								tabGL = Glb_gl_reportDao.selectOne_odb1(report_type, trxnDate, branchId, dateInterval, cplTran.getCcy_code(), cplTran.getGl_code(), true);
+									table-glb_gl_report-select-'general ledger report',
+								'发生额处理'
+								tabGL.setCurrent_debit_amt(tabGL.getCurrent_debit_amt().add(cplTran.getDebit_amt()));
+								method-GlBranch.calSubjectBal-'null',
+								table-glb_gl_report-insert-'general ledger report',
+								table-glb_gl_report-update-'general ledger report',
+							},
+							method-GlGeneralLedger.chkBusiGlBal-'null':{
+								nsql-GlGeneralLedger.selErrorBalData-S-glb_gl_report-select-'getting imbalance data from appoined branch'
+							},
+							method-GlGeneralLedger.prcSummary-'null':{
+								nsql-GlGeneralLedger.selItemMaxLevel-S-glb_gl_report-select-'getting the max gl code level',
+								method-ApSystemParm.getValue-'null':{
+									table-app_system_parameter-select-'系统杂项参数'
+								},
+								method-ApSystemParm.getValue-'null':{
+									table-app_system_parameter-select-'系统杂项参数'
+								},
+								nsql-GlGeneralLedger.selUpBalance-S-(-select-'getting total amount',
+								method-GlGeneralLedger.insGLByItemSummary-'null':{
+									table-fap_accounting_subject-select-'accounting subject define',
+									table-glb_gl_report-insert-'general ledger report'
+								}
+							}
+						},
+						method-GlGeneralLedger.genInterval-'null':{
+							method-GlGeneralLedger.genReport-'null':{
+								method-GlGeneralLedger.loadBuisGlInit-'null':{
+									method-BizUtil.getTrxRunEnvs-'null',
+									method-BizUtil.firstDay-'null',
+									method-BizUtil.dateAdd-'null',
+									method-BizUtil.firstDay-'null',
+									method-BizUtil.dateAdd-'null',
+									method-BizUtil.firstDay-'null',
+									method-BizUtil.dateAdd-'null',
+									method-BizUtil.firstDay-'null',
+									method-BizUtil.dateAdd-'null'
+								},
+								method-GlGeneralLedger.getTranData-'null':{
+									nsql-GlGeneralLedger.selTranData-S-gla_branch_gl-select-'inquiring transaction data',
+									method-BizUtil.getTrxRunEnvs-'null',
+									nsql-GlGeneralLedger.selTranDataBySelf-S-glb_gl_report-select-'getting transaction data',
+									nsql-GlGeneralLedger.selTranDataBySelf-S-glb_gl_report-select-'getting transaction data',
+									nsql-GlGeneralLedger.selTranDataBySelf-S-glb_gl_report-select-'getting transaction data',
+									nsql-GlGeneralLedger.selTranDataBySelf-S-glb_gl_report-select-'getting transaction data',
+									nsql-GlGeneralLedger.selTranDataBySelf-S-glb_gl_report-select-'getting transaction data'
+								},
+								table-fap_accounting_subject-select-'accounting subject define',
+								table-glb_gl_report-select-'general ledger report',
+								method-GlBranch.calSubjectBal-'null',
+								table-glb_gl_report-insert-'general ledger report',
+								table-glb_gl_report-update-'general ledger report',
+								method-GlGeneralLedger.chkBusiGlBal-'null':{
+									nsql-GlGeneralLedger.selErrorBalData-S-glb_gl_report-select-'getting imbalance data from appoined branch'
+								},
+								method-GlGeneralLedger.prcSummary-'null':{
+									nsql-GlGeneralLedger.selItemMaxLevel-S-glb_gl_report-select-'getting the max gl code level',
+									method-ApSystemParm.getValue-'null':{
+										table-app_system_parameter-select-'系统杂项参数'
+									},
+									method-ApSystemParm.getValue-'null':{
+										table-app_system_parameter-select-'系统杂项参数'
+									},
+									nsql-GlGeneralLedger.selUpBalance-S-(-select-'getting total amount',
+									method-GlGeneralLedger.insGLByItemSummary-'null':{
+										table-fap_accounting_subject-select-'accounting subject define',
+										table-glb_gl_report-insert-'general ledger report'
+									}
+								}
+							},
+							method-GlGeneralLedger.genReport-'null':{
+								method-GlGeneralLedger.loadBuisGlInit-'null':{
+									method-BizUtil.getTrxRunEnvs-'null',
+									method-BizUtil.firstDay-'null',
+									method-BizUtil.dateAdd-'null',
+									method-BizUtil.firstDay-'null',
+									method-BizUtil.dateAdd-'null',
+									method-BizUtil.firstDay-'null',
+									method-BizUtil.dateAdd-'null',
+									method-BizUtil.firstDay-'null',
+									method-BizUtil.dateAdd-'null'
+								},
+								method-GlGeneralLedger.getTranData-'null':{
+									nsql-GlGeneralLedger.selTranData-S-gla_branch_gl-select-'inquiring transaction data',
+									method-BizUtil.getTrxRunEnvs-'null',
+									nsql-GlGeneralLedger.selTranDataBySelf-S-glb_gl_report-select-'getting transaction data',
+									nsql-GlGeneralLedger.selTranDataBySelf-S-glb_gl_report-select-'getting transaction data',
+									nsql-GlGeneralLedger.selTranDataBySelf-S-glb_gl_report-select-'getting transaction data',
+									nsql-GlGeneralLedger.selTranDataBySelf-S-glb_gl_report-select-'getting transaction data',
+									nsql-GlGeneralLedger.selTranDataBySelf-S-glb_gl_report-select-'getting transaction data'
+								},
+								table-fap_accounting_subject-select-'accounting subject define',
+								table-glb_gl_report-select-'general ledger report',
+								method-GlBranch.calSubjectBal-'null',
+								table-glb_gl_report-insert-'general ledger report',
+								table-glb_gl_report-update-'general ledger report',
+								method-GlGeneralLedger.chkBusiGlBal-'null':{
+									nsql-GlGeneralLedger.selErrorBalData-S-glb_gl_report-select-'getting imbalance data from appoined branch'
+								},
+								method-GlGeneralLedger.prcSummary-'null':{
+									nsql-GlGeneralLedger.selItemMaxLevel-S-glb_gl_report-select-'getting the max gl code level',
+									method-ApSystemParm.getValue-'null':{
+										table-app_system_parameter-select-'系统杂项参数'
+									},
+									method-ApSystemParm.getValue-'null':{
+										table-app_system_parameter-select-'系统杂项参数'
+									},
+									nsql-GlGeneralLedger.selUpBalance-S-(-select-'getting total amount',
+									method-GlGeneralLedger.insGLByItemSummary-'null':{
+										table-fap_accounting_subject-select-'accounting subject define',
+										table-glb_gl_report-insert-'general ledger report'
+									}
+								}
+							},
+							method-GlGeneralLedger.genReport-'null':{
+								method-GlGeneralLedger.loadBuisGlInit-'null':{
+									method-BizUtil.getTrxRunEnvs-'null',
+									method-BizUtil.firstDay-'null',
+									method-BizUtil.dateAdd-'null',
+									method-BizUtil.firstDay-'null',
+									method-BizUtil.dateAdd-'null',
+									method-BizUtil.firstDay-'null',
+									method-BizUtil.dateAdd-'null',
+									method-BizUtil.firstDay-'null',
+									method-BizUtil.dateAdd-'null'
+								},
+								method-GlGeneralLedger.getTranData-'null':{
+									nsql-GlGeneralLedger.selTranData-S-gla_branch_gl-select-'inquiring transaction data',
+									method-BizUtil.getTrxRunEnvs-'null',
+									nsql-GlGeneralLedger.selTranDataBySelf-S-glb_gl_report-select-'getting transaction data',
+									nsql-GlGeneralLedger.selTranDataBySelf-S-glb_gl_report-select-'getting transaction data',
+									nsql-GlGeneralLedger.selTranDataBySelf-S-glb_gl_report-select-'getting transaction data',
+									nsql-GlGeneralLedger.selTranDataBySelf-S-glb_gl_report-select-'getting transaction data',
+									nsql-GlGeneralLedger.selTranDataBySelf-S-glb_gl_report-select-'getting transaction data'
+								},
+								table-fap_accounting_subject-select-'accounting subject define',
+								table-glb_gl_report-select-'general ledger report',
+								method-GlBranch.calSubjectBal-'null',
+								table-glb_gl_report-insert-'general ledger report',
+								table-glb_gl_report-update-'general ledger report',
+								method-GlGeneralLedger.chkBusiGlBal-'null':{
+									nsql-GlGeneralLedger.selErrorBalData-S-glb_gl_report-select-'getting imbalance data from appoined branch'
+								},
+								method-GlGeneralLedger.prcSummary-'null':{
+									nsql-GlGeneralLedger.selItemMaxLevel-S-glb_gl_report-select-'getting the max gl code level',
+									method-ApSystemParm.getValue-'null':{
+										table-app_system_parameter-select-'系统杂项参数'
+									},
+									method-ApSystemParm.getValue-'null':{
+										table-app_system_parameter-select-'系统杂项参数'
+									},
+									nsql-GlGeneralLedger.selUpBalance-S-(-select-'getting total amount',
+									method-GlGeneralLedger.insGLByItemSummary-'null':{
+										table-fap_accounting_subject-select-'accounting subject define',
+										table-glb_gl_report-insert-'general ledger report'
+									}
+								}
+							},
+							method-GlGeneralLedger.genReport-'null':{
+								method-GlGeneralLedger.loadBuisGlInit-'null':{
+									method-BizUtil.getTrxRunEnvs-'null',
+									method-BizUtil.firstDay-'null',
+									method-BizUtil.dateAdd-'null',
+									method-BizUtil.firstDay-'null',
+									method-BizUtil.dateAdd-'null',
+									method-BizUtil.firstDay-'null',
+									method-BizUtil.dateAdd-'null',
+									method-BizUtil.firstDay-'null',
+									method-BizUtil.dateAdd-'null'
+								},
+								method-GlGeneralLedger.getTranData-'null':{
+									nsql-GlGeneralLedger.selTranData-S-gla_branch_gl-select-'inquiring transaction data',
+									method-BizUtil.getTrxRunEnvs-'null',
+									nsql-GlGeneralLedger.selTranDataBySelf-S-glb_gl_report-select-'getting transaction data',
+									nsql-GlGeneralLedger.selTranDataBySelf-S-glb_gl_report-select-'getting transaction data',
+									nsql-GlGeneralLedger.selTranDataBySelf-S-glb_gl_report-select-'getting transaction data',
+									nsql-GlGeneralLedger.selTranDataBySelf-S-glb_gl_report-select-'getting transaction data',
+									nsql-GlGeneralLedger.selTranDataBySelf-S-glb_gl_report-select-'getting transaction data'
+								},
+								table-fap_accounting_subject-select-'accounting subject define',
+								table-glb_gl_report-select-'general ledger report',
+								method-GlBranch.calSubjectBal-'null',
+								table-glb_gl_report-insert-'general ledger report',
+								table-glb_gl_report-update-'general ledger report',
+								method-GlGeneralLedger.chkBusiGlBal-'null':{
+									nsql-GlGeneralLedger.selErrorBalData-S-glb_gl_report-select-'getting imbalance data from appoined branch'
+								},
+								method-GlGeneralLedger.prcSummary-'null':{
+									nsql-GlGeneralLedger.selItemMaxLevel-S-glb_gl_report-select-'getting the max gl code level',
+									method-ApSystemParm.getValue-'null':{
+										table-app_system_parameter-select-'系统杂项参数'
+									},
+									method-ApSystemParm.getValue-'null':{
+										table-app_system_parameter-select-'系统杂项参数'
+									},
+									nsql-GlGeneralLedger.selUpBalance-S-(-select-'getting total amount',
+									method-GlGeneralLedger.insGLByItemSummary-'null':{
+										table-fap_accounting_subject-select-'accounting subject define',
+										table-glb_gl_report-insert-'general ledger report'
+									}
+								}
+							}
+						}
+					}
+			},
+		},

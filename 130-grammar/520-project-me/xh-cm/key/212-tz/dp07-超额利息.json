@@ -1,7 +1,9 @@
 dp07-'Overdraft interest settlement':{
 			getBatchDataWalker:{
 					method-BizUtil.getTrxRunEnvs-'null',
-					nsql-DpDayEnd.selGroupIdForBatch-S-dpa_sub_account-select-'Get the account hash value'
+					nsql-DpDayEnd.selGroupIdForBatch-S-dpa_sub_account-select-'Get the account hash value':{
+						select distinct hash_value from dpa_sub_account where org_id = '99'
+					}
 			},
 			getJobBatchDataWalker:{
 					method-BizUtil.getTrxRunEnvs-'null',
@@ -15,334 +17,378 @@ dp07-'Overdraft interest settlement':{
 					},
 					method-BizUtil.getTrxRunEnvs-'null',
 					method-BizUtil.getTrxRunEnvs-'null',
-					nsql-DpDayEnd.selOverdraftInterestData-S-dpa_sub_account-select,dpb_overdraft-select-'Get overdraft interest rate processing data set'
+					nsql-DpDayEnd.selOverdraftInterestData-S-dpa_sub_account-select,dpb_overdraft-select-'Get overdraft interest rate processing data set':{
+						
+						SELECT distinct a.sub_acct_no, a.dd_td_ind
+						   FROM dpa_sub_account a
+						   join dpb_overdraft b
+							 on a.org_id = b.org_id
+							and a.acct_no = b.acct_no
+							and a.ccy_code = b.ccy_code
+						  WHERE a.overdraft_allow_ind = 'Y'
+							and a.org_id = '99'
+							and b.next_pay_inst_date <= #trxn_date#
+							and a.sub_acct_status = '1' 
+					}
 			},
 			process:{
 					table-dpa_sub_account-select-'Deposit sub-account table'-'带锁查询子账户信息',
 					method-BizUtil.getTrxRunEnvs-'null',
-					method-DpOverDraftDayEnd.settleOdInterest-'透支结息':{
+					method-DpOverDraftDayEnd.settleOdInterest(dpa_sub_account subAcct)-'透支结息':{			'透支利息利率处理: 计提、结息、利率重定价'-'zhoumy'
 						method-BizUtil.getTrxRunEnvs-'null',
-						table-dpb_overdraft-select-'Account overdraft agreement',
+						'查询账户下透支协议'
+						table-dpb_overdraft-select-'Account overdraft agreement':{
+							List<dpb_overdraft> listODAgree = Dpb_overdraftDao.selectAll_odb5(subAcct.getAcct_no(), subAcct.getCcy_code(), false);
+						},
 						method-BizUtil.getTrxRunEnvs-'null',
-						table-dpb_overdraft_fiche-select-'Account overdraft fiche',
-						method-DpOverDraftDayEnd.overDraftSettlementInst-'null':{
-							method-BizUtil.getTrxRunEnvs-'null',
-							table-dpa_fiche_interest-select-'Fiche interest table',
-							method-ApCurrency.roundAmount-'null':{
-								method-ApCurrency.getItem-'null':{
-									table-app_currency-select-'currency define',
-									return method-ApCurrency.getCurrencyInfo-'null'
-								},
-								return method-ApCurrency.round-'null'
+						'循环处理账户下透支协议'
+						for(dpb_overdraft ODAgree : listODAgree){
+							table-dpb_overdraft_fiche-select-'Account overdraft fiche':{
+								List<dpb_overdraft_fiche> listODFiche = Dpb_overdraft_ficheDao.selectAll_odb3(ODAgree.getAgree_no(), true);
 							},
-							method-DpPublic.calcDateByReference-'null':{
-								method-BizUtil.dateDiffByCycle-'null':{
-									method-BizUtil.compare-'null':{
-										method-BizUtil.MyCompare-'null'
-									},
-									method-BizUtil.dateDiff-'null',
-									method-BizUtil.calcDateByCycle-'null':{
-										method-BizUtil.dateAdd-'null',
-										method-BizUtil.isLastDay-'null':{
-											return method-BizUtil.lastDay-'null'
+							method-DpOverDraftDayEnd.overDraftSettlementInst(dpa_sub_account, dpb_overdraft, List<dpb_overdraft_fiche> listODFiche)
+								-'单个透支协议结息: 一定是周期性结息':{	'透支账户还息账务处理'-'zhoumy'
+								method-BizUtil.getTrxRunEnvs-'null',
+								for (dpb_overdraft_fiche ODFiche : listODFiche) {
+									table-dpa_fiche_interest-select-'Fiche interest table',
+									method-ApCurrency.roundAmount-'null':{
+										method-ApCurrency.getItem-'null':{
+											table-app_currency-select-'currency define',
+											return method-ApCurrency.getCurrencyInfo-'null'
 										},
-										method-BizUtil.lastDay-'null'
+										return method-ApCurrency.round-'null'
 									},
-									method-BizUtil.compare-'null':{
-										method-BizUtil.MyCompare-'null'
-									},
-									method-BizUtil.calcDateByCycle-'null':{
-										method-BizUtil.dateAdd-'null',
-										method-BizUtil.isLastDay-'null':{
-											return method-BizUtil.lastDay-'null'
-										},
-										method-BizUtil.lastDay-'null'
-									}
 								},
-								method-BizUtil.calcDateByCycle-'null':{
-									method-BizUtil.dateAdd-'null',
-									method-BizUtil.isLastDay-'null':{
-										return method-BizUtil.lastDay-'null'
-									},
-									method-BizUtil.lastDay-'null'
-								}
-							},
-							table-dpb_overdraft-update-'Account overdraft agreement',
-							method-DpOverDraftDayEnd.incomeODInst-'null':{
-								method-BizUtil.getTrxRunEnvs-'null',
-								error-SrvIoClLimitQry.queryLimitInfo-'null',
-								method-DpPublic.getBalance-'null':{
-									table-dpa_sub_account-select-'Deposit sub-account table',
-									method-DpPublic.CalcSubAcctFrozeAmountInfo-'null':{
-										method-DpPublic.getCardNoByAcctNo-'null':{
-											table-dpa_account-select-'Deposit account table',
-											table-dpa_card_account-select-'Card and account relationship comparison table',
-											table-dpa_card-select-'Card information',
-											method-ApBusinessParm.getValue-'null'
+								'无透支利息则退出'
+								if (instValue <= 0) {
+									method-DpPublic.calcDateByReference-'null':{
+										method-BizUtil.dateDiffByCycle-'null':{
+											method-BizUtil.compare-'null':{
+												method-BizUtil.MyCompare-'null'
+											},
+											method-BizUtil.dateDiff-'null',
+											method-BizUtil.calcDateByCycle-'null':{
+												method-BizUtil.dateAdd-'null',
+												method-BizUtil.isLastDay-'null':{
+													return method-BizUtil.lastDay-'null'
+												},
+												method-BizUtil.lastDay-'null'
+											},
+											method-BizUtil.compare-'null':{
+												method-BizUtil.MyCompare-'null'
+											},
+											method-BizUtil.calcDateByCycle-'null':{
+												method-BizUtil.dateAdd-'null',
+												method-BizUtil.isLastDay-'null':{
+													return method-BizUtil.lastDay-'null'
+												},
+												method-BizUtil.lastDay-'null'
+											}
 										},
-										method-DpPublic.getCardInfor-'null':{
-											table-dpa_card-select-'Card information',
-											table-dpa_card_new-select-'new card and old card register',
-											table-dpa_card-select-'Card information'
-										},
-										method-DpPublic.getCardInfor-'null':{
-											table-dpa_card-select-'Card information',
-											table-dpa_card_new-select-'new card and old card register',
-											table-dpa_card-select-'Card information'
-										},
-										nsql-DpFroze.selWholeBalFrozeSource-S-dpb_froze-select-'get the category of all frozen sources',
-										nsql-DpFroze.selSubAcctAmoutFrozeInfo-S-dpb_froze-select-'gets the unfrozen amount of the child account and freezes the information',
-										method-DpParameter.getFrozeTypeInfo-'null':{
-											table-dpp_froze_type-select-'Freeze type definition table'
-										}
-									},
-									method-DpPublic.CalcFactUnfrozeAmount-'null':{
-										table-dpb_froze-select-'Frozen and unFroze register',
-										method-DpPublic.getCardNoByAcctNo-'null':{
-											table-dpa_account-select-'Deposit account table',
-											table-dpa_card_account-select-'Card and account relationship comparison table',
-											table-dpa_card-select-'Card information',
-											method-ApBusinessParm.getValue-'null'
-										},
-										method-DpPublic.getCardNoByAcctNo-'null':{
-											table-dpa_account-select-'Deposit account table',
-											table-dpa_card_account-select-'Card and account relationship comparison table',
-											table-dpa_card-select-'Card information',
-											method-ApBusinessParm.getValue-'null'
-										},
-										method-DpPublic.getCardInfor-'null':{
-											table-dpa_card-select-'Card information',
-											table-dpa_card_new-select-'new card and old card register',
-											table-dpa_card-select-'Card information'
-										},
-										method-DpPublic.getCardInfor-'null':{
-											table-dpa_card-select-'Card information',
-											table-dpa_card_new-select-'new card and old card register',
-											table-dpa_card-select-'Card information'
-										},
-										table-dpb_froze-select-'Frozen and unFroze register',
-										method-DpPublic.getFrozeTypeAfterUnfroze-'null':{
-											method-BizUtil.getTrxRunEnvs-'null',
-											nsql-DpFroze.selVaildFrozeTypeForObject-S-dpb_froze-select,dpb_froze-select-'gets the frozen type affected by the freeze object in addition to the freeze number',
-											method-DpPublic.getCardNoByAcctNo-'null',
-											method-DpPublic.getCardInfor-'null',
-											method-DpPublic.getCardInfor-'null'
-										},
-										nsql-DpFroze.selHighTotalAmountFrozeBalance-S-dpb_froze-select-'gets a higher sum of frozen total balances than the specified freeze record priority'
-									},
-									method-DpPool.getBanlance-'null':{
-										method-DpOverDraw.getLimtInfo-'null':{
-											method-DpOverDraw.getODAgreeUsableInfo-'null'
-										},
-										method-DpWithdrawlProtect.getProtectAmount-'null':{
-											table-dpb_withdrawl_protect-select-'Withdraw protection agreement',
-											method-DpPublic.locateSingleSubAcct-'null',
-											table-dpa_sub_account-select-'Deposit sub-account table',
-											method-DpPublic.getBalance-'null',
-											localSer-SrvIoFxExchange.getCashExchPriceFlag-'null',
-											localSer-SrvIoCmExch.getExchDealBuySell-'null'
-										}
-									}
-								},
-								method-BizUtil.getTrxRunEnvs-'null',
-								method-BizUtil.getTrxRunEnvs-'null',
-								method-BizUtil.getTrxRunEnvs-'null',
-								method-ApSystemParm.getValue-'null':{
-									table-app_system_parameter-select-'system parameter'
-								},
-								localSer-SrvDpDemandAccounting.demandDrawCheck-'null':{
-									return method-DpDemandDrawCheck.checkMain-'null':{
-										method-DpPublic.locateSingleAccount-'null':{
-											table-dpa_account-select-'Deposit account table',
-											table-dpa_account-select-'Deposit account table',
-											method-ApBusinessParm.getValue-'null',
-											method-BizUtil.getTrxRunEnvs-'null',
-											table-dpa_card-select-'Card information',
-											table-dpa_card_new-select-'new card and old card register',
-											table-dpa_card-select-'Card information',
-											table-dpa_account-select-'Deposit account table',
-											table-dpa_account-select-'Deposit account table',
-											method-BizUtil.getTrxRunEnvs-'null',
-											nsql-DpCardAcctRelate.locateAcctByCard-S-dpa_card_account-select,dpa_account-select-'Locate the account by card number',
-											table-dpa_account-select-'Deposit account table'
-										},
-										method-DpPublic.locateSingleSubAcct-'null':{
-											method-DpPublic.locateSingleAccount-'null',
-											method-BizUtil.getTrxRunEnvs-'null',
-											nsql-DpCommon.locateSubAcct-S-dpa_account_relate-select-'Locate sub-account',
-											method-DpPublic.saveAutoOpenAcctCheck-'null'
-										},
-										table-dpa_sub_account-select-'Deposit sub-account table',
-										method-DpBuffer.refreshAttrValue-'null':{
-											table-dpa_sub_account-update-'Deposit sub-account table',
-											table-dpa_account-update-'Deposit account table',
-											method-ApBuffer.addData-'null',
-											localSer-SrvIoCfCustomer.mntCustBriefInfo-'null',
-											method-ApBuffer.addData-'null',
-											table-dpa_card-update-'Card information'
-										},
-										method-DpDemandDrawCheck.checkMainMethod-'null':{
-											method-DpDemandDrawCheck.defaultValue-'null',
-											method-DpDemandDrawCheck.addDataToBuffer-'null',
-											method-DpDemandDrawCheck.validInputData-'null',
-											method-DpPublicCheck.checkPassWord-'null',
-											method-ApRule.checkTrxnControl-'交易控制检查',
-											method-DpPublicCheck.checkSubAcctTrxnLimit-'null',
-											method-DpSettleVoucherTrxn.checkSettleVochVerifyCancellation-'null',
-											table-dpb_settle_voucher-select-'Account Settle Voucher Register Book',
-											method-DpDemandDrawCheck.checkBalance-'null',
-											method-DpDrawPublic.checkDrawCtrl-'null',
-											method-DpPublicCheck.checkOpenVochStatus-'null',
-											method-DpDemandDrawCheck.checkUnFroze-'null',
-											method-ApBranch.getItem-'null'
-										}
-									}
-								},
-								method-BizUtil.getTrxRunEnvs-'null',
-								localSer-SrvIoDpDemandAccounting.demandDrawWithCheck-'null':{
-									method-DpDemandDraw.doMain-'null':{
-										method-DpPublic.locateSingleAccount-'null':{
-											table-dpa_account-select-'Deposit account table',
-											table-dpa_account-select-'Deposit account table',
-											method-ApBusinessParm.getValue-'null',
-											method-BizUtil.getTrxRunEnvs-'null',
-											table-dpa_card-select-'Card information',
-											table-dpa_card_new-select-'new card and old card register',
-											table-dpa_card-select-'Card information',
-											table-dpa_account-select-'Deposit account table',
-											table-dpa_account-select-'Deposit account table',
-											method-BizUtil.getTrxRunEnvs-'null',
-											nsql-DpCardAcctRelate.locateAcctByCard-S-dpa_card_account-select,dpa_account-select-'Locate the account by card number',
-											table-dpa_account-select-'Deposit account table'
-										},
-										method-DpPublic.locateSingleSubAcct-'null':{
-											method-DpPublic.locateSingleAccount-'null',
-											method-BizUtil.getTrxRunEnvs-'null',
-											nsql-DpCommon.locateSubAcct-S-dpa_account_relate-select-'Locate sub-account',
-											method-DpPublic.saveAutoOpenAcctCheck-'null'
-										},
-										table-dpa_sub_account-select-'Deposit sub-account table',
-										method-DpBuffer.refreshAttrValue-'null':{
-											table-dpa_sub_account-update-'Deposit sub-account table',
-											table-dpa_account-update-'Deposit account table',
-											method-ApBuffer.addData-'null',
-											localSer-SrvIoCfCustomer.mntCustBriefInfo-'null',
-											method-ApBuffer.addData-'null',
-											table-dpa_card-update-'Card information'
-										},
-										method-DpDemandDrawCheck.checkMainMethod-'null':{
-											method-DpDemandDrawCheck.defaultValue-'null',
-											method-DpDemandDrawCheck.addDataToBuffer-'null',
-											method-DpDemandDrawCheck.validInputData-'null',
-											method-DpPublicCheck.checkPassWord-'null',
-											method-ApRule.checkTrxnControl-'交易控制检查',
-											method-DpPublicCheck.checkSubAcctTrxnLimit-'null',
-											method-DpSettleVoucherTrxn.checkSettleVochVerifyCancellation-'null',
-											table-dpb_settle_voucher-select-'Account Settle Voucher Register Book',
-											method-DpDemandDrawCheck.checkBalance-'null',
-											method-DpDrawPublic.checkDrawCtrl-'null',
-											method-DpPublicCheck.checkOpenVochStatus-'null',
-											method-DpDemandDrawCheck.checkUnFroze-'null',
-											method-ApBranch.getItem-'null'
-										},
-										method-DpDemandDraw.doMainMethod-'null':{
-											method-DpDemandDraw.cancleFroze-'null',
-											method-BizUtil.getTrxRunEnvs-'null',
-											method-DpSettleVoucherTrxn.settleVochVerifyCancellation-'null',
-											method-DpDemandDraw.cancleFroze-'null',
-											method-DpDrawPublic.modifyDrawCtrl-'null',
+										method-BizUtil.calcDateByCycle-'null':{
 											method-BizUtil.dateAdd-'null',
-											method-DpInterestAdjust.adjustInstForBackvalue-'null',
-											method-DpDemandDraw.accountingTally-'null',
-											localSer-SrvIoFxExchange.getCashExchPriceFlag-'null',
-											method-ApLimit.process-'null',
-											method-ApLimit.process-'null',
-											method-ApSummary.getText-'null',
-											localSer-SrvIoCfCustomer.regAgentInfo-'null'
-										},
-										method-ApBranch.getItem-'null':{
-											table-apb_branch-select-'branch infomation'
+											method-BizUtil.isLastDay-'null':{
+												return method-BizUtil.lastDay-'null'
+											},
+											method-BizUtil.lastDay-'null'
 										}
-									}
+									},
+									table-dpb_overdraft-update-'Account overdraft agreement',
 								},
-								method-DpInterestAccounting.receivableInterestAccounting-'null':{
-									method-DpInterestAccounting.interestAccounting-'null':{
-										localSer-SrvIoTaAccounting.regAccountingEvent-'null':{
-											method-TaAccounting.regAccountingEvent-'null'
+								method-DpOverDraftDayEnd.incomeODInst-'透支利息收息处理':{
+									method-BizUtil.getTrxRunEnvs-'null',
+									server-SrvIoClLimitQry.queryLimitInfo-'查询额度信息',
+									'额度已到期，账户本身余额足够则结息，不使用其他透支协议的额度来结息，关联保护可用用',
+									'新需求，可使用其余正生效协议结清'
+									method-DpPublic.getBalance-'查询余额信息':{
+										table-dpa_sub_account-select-'Deposit sub-account table',
+										method-DpPublic.CalcSubAcctFrozeAmountInfo-'null':{
+											method-DpPublic.getCardNoByAcctNo-'null':{
+												table-dpa_account-select-'Deposit account table',
+												table-dpa_card_account-select-'Card and account relationship comparison table',
+												table-dpa_card-select-'Card information',
+												method-ApBusinessParm.getValue-'null'
+											},
+											method-DpPublic.getCardInfor-'null':{
+												table-dpa_card-select-'Card information',
+												table-dpa_card_new-select-'new card and old card register',
+												table-dpa_card-select-'Card information'
+											},
+											method-DpPublic.getCardInfor-'null':{
+												table-dpa_card-select-'Card information',
+												table-dpa_card_new-select-'new card and old card register',
+												table-dpa_card-select-'Card information'
+											},
+											nsql-DpFroze.selWholeBalFrozeSource-S-dpb_froze-select-'get the category of all frozen sources',
+											nsql-DpFroze.selSubAcctAmoutFrozeInfo-S-dpb_froze-select-'gets the unfrozen amount of the child account and freezes the information',
+											method-DpParameter.getFrozeTypeInfo-'null':{
+												table-dpp_froze_type-select-'Freeze type definition table'
+											}
+										},
+										method-DpPublic.CalcFactUnfrozeAmount-'null':{
+											table-dpb_froze-select-'Frozen and unFroze register',
+											method-DpPublic.getCardNoByAcctNo-'null':{
+												table-dpa_account-select-'Deposit account table',
+												table-dpa_card_account-select-'Card and account relationship comparison table',
+												table-dpa_card-select-'Card information',
+												method-ApBusinessParm.getValue-'null'
+											},
+											method-DpPublic.getCardNoByAcctNo-'null':{
+												table-dpa_account-select-'Deposit account table',
+												table-dpa_card_account-select-'Card and account relationship comparison table',
+												table-dpa_card-select-'Card information',
+												method-ApBusinessParm.getValue-'null'
+											},
+											method-DpPublic.getCardInfor-'null':{
+												table-dpa_card-select-'Card information',
+												table-dpa_card_new-select-'new card and old card register',
+												table-dpa_card-select-'Card information'
+											},
+											method-DpPublic.getCardInfor-'null':{
+												table-dpa_card-select-'Card information',
+												table-dpa_card_new-select-'new card and old card register',
+												table-dpa_card-select-'Card information'
+											},
+											table-dpb_froze-select-'Frozen and unFroze register',
+											method-DpPublic.getFrozeTypeAfterUnfroze-'null':{
+												method-BizUtil.getTrxRunEnvs-'null',
+												nsql-DpFroze.selVaildFrozeTypeForObject-S-dpb_froze-select,dpb_froze-select-'gets the frozen type affected by the freeze object in addition to the freeze number',
+												method-DpPublic.getCardNoByAcctNo-'null',
+												method-DpPublic.getCardInfor-'null',
+												method-DpPublic.getCardInfor-'null'
+											},
+											nsql-DpFroze.selHighTotalAmountFrozeBalance-S-dpb_froze-select-'gets a higher sum of frozen total balances than the specified freeze record priority'
+										},
+										method-DpPool.getBanlance-'null':{
+											method-DpOverDraw.getLimtInfo-'null':{
+												method-DpOverDraw.getODAgreeUsableInfo-'null'
+											},
+											method-DpWithdrawlProtect.getProtectAmount-'null':{
+												table-dpb_withdrawl_protect-select-'Withdraw protection agreement',
+												method-DpPublic.locateSingleSubAcct-'null',
+												table-dpa_sub_account-select-'Deposit sub-account table',
+												method-DpPublic.getBalance-'null',
+												localSer-SrvIoFxExchange.getCashExchPriceFlag-'null',
+												localSer-SrvIoCmExch.getExchDealBuySell-'null'
+											}
 										}
-									}
+									},
+									method-BizUtil.getTrxRunEnvs-'null',
+									method-BizUtil.getTrxRunEnvs-'null',
+									method-BizUtil.getTrxRunEnvs-'null',
+									method-ApSystemParm.getValue-'null':{
+										table-app_system_parameter-select-'system parameter'
+									},
+									localSer-SrvDpDemandAccounting.demandDrawCheck-'活期支取检查，无数据库操作，不能回滚':{	'活期支取服务检查'
+										return method-DpDemandDrawCheck.checkMain-'null':{	'活期支取主检查程序'
+											method-DpPublic.locateSingleAccount-'获取账户信息，带锁防止并发解冻':{	'账户定位'
+												'先尝试查询账户信息，若未查询到则认为账号字段是卡号'
+												table-dpa_account-select-'Deposit account table',
+												table-dpa_account-select-'Deposit account table',
+												method-ApBusinessParm.getValue-'null',
+												method-BizUtil.getTrxRunEnvs-'null',
+												table-dpa_card-select-'Card information',
+												table-dpa_card_new-select-'new card and old card register',
+												table-dpa_card-select-'Card information',
+												table-dpa_account-select-'Deposit account table',
+												table-dpa_account-select-'Deposit account table',
+												method-BizUtil.getTrxRunEnvs-'null',
+												nsql-DpCardAcctRelate.locateAcctByCard-S-dpa_card_account-select,dpa_account-select-'Locate the account by card number',
+												table-dpa_account-select-'Deposit account table'
+											},
+											'获取存款子账户信息'
+											method-DpPublic.locateSingleSubAcct-'null':{
+												method-DpPublic.locateSingleAccount-'定位账户信息',
+												method-BizUtil.getTrxRunEnvs-'null',
+												'定位子账户信息'
+												nsql-DpCommon.locateSubAcct-S-dpa_account_relate-select-'Locate sub-account',
+												method-DpPublic.saveAutoOpenAcctCheck-'null'
+											},
+											table-dpa_sub_account-select-'Deposit sub-account table',
+											method-DpBuffer.refreshAttrValue-'属性到期自动刷新: 不提交数据库':{	'更新各数据域最新属性值'
+												DpBuffer.getNewestAttrValue:{	'获取各数据域最新属性值'
+													ApAttribute.getNewestAttrValue:{	'获取刷新后的属性值'
+														ApAttribute.builderData-'将原始形态转换为外部形态':{
+															ApAttribute.getOwnerDueDate-'获取属性位到期数据':{
+																table-app_attribute_due-select,
+															},
+															ApAttribute.getAttrDefine-'取属性位定义表':{
+																table-app_attribute-select,
+															}
+														}
+													},
+													'3.1 加载客户数据集'
+													DpBuffer.addDataToCustBuffer(custNo,custType);:{	'加载客户信息数据'-'HongBiao'
+														custType:{
+															2-CORPORATE:{
+																SrvIoCfCustomerImpl.qryCorporCustInfo(IoCfPersonBaseIn):{
+																	CfCustInfoQuery.qryCorporCustInfo(IoCfPersonBaseIn);:{
+																		CfCustInfoQuery.qryOtherCustTable(String, E_CUSTOMERTYPE):{
+																			
+																		}
+																	}
+																}
+															}
+														},
+														ApAttribute.getNewestAttrValue:{}
+													},
+													'3.2 获取客户最新账户属性值'
+													ApAttribute.getNewestAttrValue:{}
+												}
+												table-dpa_sub_account-update-'Deposit sub-account table',
+												table-dpa_account-update-'Deposit account table',
+												method-ApBuffer.addData-'null',
+												localSer-SrvIoCfCustomer.mntCustBriefInfo-'null',
+												method-ApBuffer.addData-'null',
+												table-dpa_card-update-'Card information'
+											},
+											method-DpDemandDrawCheck.checkMainMethod-'活期支取主调检查':{
+												method-DpDemandDrawCheck.defaultValue-'null',
+												method-DpDemandDrawCheck.addDataToBuffer-'null',
+												method-DpDemandDrawCheck.validInputData-'null',
+												method-DpPublicCheck.checkPassWord-'null',
+												method-ApRule.checkTrxnControl-'交易控制检查',
+												method-DpPublicCheck.checkSubAcctTrxnLimit-'null',
+												method-DpSettleVoucherTrxn.checkSettleVochVerifyCancellation-'null',
+												table-dpb_settle_voucher-select-'Account Settle Voucher Register Book',
+												method-DpDemandDrawCheck.checkBalance-'null',
+												method-DpDrawPublic.checkDrawCtrl-'null',
+												method-DpPublicCheck.checkOpenVochStatus-'null',
+												method-DpDemandDrawCheck.checkUnFroze-'null',
+												method-ApBranch.getItem-'null'
+											}
+										}
+									},
+									method-BizUtil.getTrxRunEnvs-'null',
+									localSer-SrvIoDpDemandAccounting.demandDrawWithCheck-'null':{
+										method-DpDemandDraw.doMain-'null':{
+											method-DpPublic.locateSingleAccount-'null':{
+												table-dpa_account-select-'Deposit account table',
+												table-dpa_account-select-'Deposit account table',
+												method-ApBusinessParm.getValue-'null',
+												method-BizUtil.getTrxRunEnvs-'null',
+												table-dpa_card-select-'Card information',
+												table-dpa_card_new-select-'new card and old card register',
+												table-dpa_card-select-'Card information',
+												table-dpa_account-select-'Deposit account table',
+												table-dpa_account-select-'Deposit account table',
+												method-BizUtil.getTrxRunEnvs-'null',
+												nsql-DpCardAcctRelate.locateAcctByCard-S-dpa_card_account-select,dpa_account-select-'Locate the account by card number',
+												table-dpa_account-select-'Deposit account table'
+											},
+											method-DpPublic.locateSingleSubAcct-'null':{
+												method-DpPublic.locateSingleAccount-'null',
+												method-BizUtil.getTrxRunEnvs-'null',
+												nsql-DpCommon.locateSubAcct-S-dpa_account_relate-select-'Locate sub-account',
+												method-DpPublic.saveAutoOpenAcctCheck-'null'
+											},
+											table-dpa_sub_account-select-'Deposit sub-account table',
+											method-DpBuffer.refreshAttrValue-'null':{
+												table-dpa_sub_account-update-'Deposit sub-account table',
+												table-dpa_account-update-'Deposit account table',
+												method-ApBuffer.addData-'null',
+												localSer-SrvIoCfCustomer.mntCustBriefInfo-'null',
+												method-ApBuffer.addData-'null',
+												table-dpa_card-update-'Card information'
+											},
+											method-DpDemandDrawCheck.checkMainMethod-'活期支取主调检查':{	'活期支取主调方法,并返回输出信息'
+												method-DpDemandDrawCheck.defaultValue-'null',
+												method-DpDemandDrawCheck.addDataToBuffer-'null',
+												method-DpDemandDrawCheck.validInputData-'null',
+												method-DpPublicCheck.checkPassWord-'null',
+												method-ApRule.checkTrxnControl-'交易控制检查',
+												method-DpPublicCheck.checkSubAcctTrxnLimit-'null',
+												method-DpSettleVoucherTrxn.checkSettleVochVerifyCancellation-'null',
+												table-dpb_settle_voucher-select-'Account Settle Voucher Register Book',
+												method-DpDemandDrawCheck.checkBalance-'null',
+												method-DpDrawPublic.checkDrawCtrl-'null',
+												method-DpPublicCheck.checkOpenVochStatus-'开户凭证状态检查':{	'凭证状态检查'-'HongBiao'
+													SrvIoCmVoucher.qryCustVoucherInfo:{	'查询客户凭证信息'
+														nsql-CmVoucher.selCustVoucherInfo
+													}
+												},
+												method-DpDemandDrawCheck.checkUnFroze-'null',
+												method-ApBranch.getItem-'null'
+											},
+											method-DpDemandDraw.doMainMethod-'null':{	'活期支取主处理程序'-'HongBiao'
+												method-DpDemandDraw.cancleFroze-'null',
+												method-BizUtil.getTrxRunEnvs-'null',
+												method-DpSettleVoucherTrxn.settleVochVerifyCancellation-'null',
+												method-DpDemandDraw.cancleFroze-'null',
+												method-DpDrawPublic.modifyDrawCtrl-'null',
+												method-BizUtil.dateAdd-'null',
+												method-DpInterestAdjust.adjustInstForBackvalue-'null',
+												method-DpDemandDraw.accountingTally-'记账处理':{
+													DpAccounting.online(DpUpdAccBalIn):{
+														DpAccounting.prcMain(DpUpdAccBalIn, boolean);:{
+															DpAccounting.updAccBal(DpUpdAccBalIn, boolean);:{
+																DpOverDraw.overdraftDeal(dpa_sub_account, BigDecimal, BigDecimal, E_DEBITCREDIT):{
+																	DpOverDraw.overdraftUse(dpa_sub_account subAccount, BigDecimal beforeBl, BigDecimal trxn_amt):{	
+																		'透支额度占用'-'yangdl'-'modify by zhoumy: 按透支协议的利率高低计算使用顺序'
+																	}
+																}
+															}
+														}
+													}
+												},
+												localSer-SrvIoFxExchange.getCashExchPriceFlag-'null',
+												method-ApLimit.process-'null',
+												method-ApLimit.process-'null',
+												method-ApSummary.getText-'null',
+												localSer-SrvIoCfCustomer.regAgentInfo-'null'
+											},
+											method-ApBranch.getItem-'null':{
+												table-apb_branch-select-'branch infomation'
+											}
+										}
+									},
+									'贷： 应收利息'
+									method-DpInterestAccounting.receivableInterestAccounting-'null':{
+										method-DpInterestAccounting.interestAccounting-'应收利息类处理：主要用于透支卡片计息，兼容资产类账户结息':{
+											localSer-SrvIoTaAccounting.regAccountingEvent-'null':{
+												method-TaAccounting.regAccountingEvent-'null'
+											}
+										}
+									},
+									method-BizUtil.getTrxRunEnvs-'null'
 								},
-								method-BizUtil.getTrxRunEnvs-'null'
-							},
-							method-DpPublic.calcDateByReference-'null':{
-								method-BizUtil.dateDiffByCycle-'null':{
-									method-BizUtil.compare-'null':{
-										method-BizUtil.MyCompare-'null'
-									},
-									method-BizUtil.dateDiff-'null',
-									method-BizUtil.calcDateByCycle-'null':{
-										method-BizUtil.dateAdd-'null',
-										method-BizUtil.isLastDay-'null':{
-											return method-BizUtil.lastDay-'null'
+								if(cplODInstInfo.getInterest()<0){	''
+									'更新下次付息日'
+									method-DpPublic.calcDateByReference-'null':{
+										method-BizUtil.dateDiffByCycle-'null':{
+											method-BizUtil.compare-'null':{
+												method-BizUtil.MyCompare-'null'
+											},
+											method-BizUtil.dateDiff-'null',
+											method-BizUtil.calcDateByCycle-'null':{
+												method-BizUtil.dateAdd-'null',
+												method-BizUtil.isLastDay-'null':{
+													return method-BizUtil.lastDay-'null'
+												},
+												method-BizUtil.lastDay-'null'
+											},
+											method-BizUtil.compare-'null':{
+												method-BizUtil.MyCompare-'null'
+											},
+											method-BizUtil.calcDateByCycle-'null':{
+												method-BizUtil.dateAdd-'null',
+												method-BizUtil.isLastDay-'null':{
+													return method-BizUtil.lastDay-'null'
+												},
+												method-BizUtil.lastDay-'null'
+											}
 										},
-										method-BizUtil.lastDay-'null'
+										method-BizUtil.calcDateByCycle-'null':{
+											method-BizUtil.dateAdd-'null',
+											method-BizUtil.isLastDay-'null':{
+												return method-BizUtil.lastDay-'null'
+											},
+											method-BizUtil.lastDay-'null'
+										}
 									},
-									method-BizUtil.compare-'null':{
-										method-BizUtil.MyCompare-'null'
-									},
-									method-BizUtil.calcDateByCycle-'null':{
-										method-BizUtil.dateAdd-'null',
-										method-BizUtil.isLastDay-'null':{
-											return method-BizUtil.lastDay-'null'
-										},
-										method-BizUtil.lastDay-'null'
-									}
+									table-dpb_overdraft-update-'Account overdraft agreement',
 								},
-								method-BizUtil.calcDateByCycle-'null':{
-									method-BizUtil.dateAdd-'null',
-									method-BizUtil.isLastDay-'null':{
-										return method-BizUtil.lastDay-'null'
-									},
-									method-BizUtil.lastDay-'null'
-								}
-							},
-							table-dpb_overdraft-update-'Account overdraft agreement',
-							method-DpPublic.calcDateByReference-'null':{
-								method-BizUtil.dateDiffByCycle-'null':{
-									method-BizUtil.compare-'null':{
-										method-BizUtil.MyCompare-'null'
-									},
-									method-BizUtil.dateDiff-'null',
-									method-BizUtil.calcDateByCycle-'null':{
-										method-BizUtil.dateAdd-'null',
-										method-BizUtil.isLastDay-'null':{
-											return method-BizUtil.lastDay-'null'
-										},
-										method-BizUtil.lastDay-'null'
-									},
-									method-BizUtil.compare-'null':{
-										method-BizUtil.MyCompare-'null'
-									},
-									method-BizUtil.calcDateByCycle-'null':{
-										method-BizUtil.dateAdd-'null',
-										method-BizUtil.isLastDay-'null':{
-											return method-BizUtil.lastDay-'null'
-										},
-										method-BizUtil.lastDay-'null'
-									}
-								},
-								method-BizUtil.calcDateByCycle-'null':{
-									method-BizUtil.dateAdd-'null',
-									method-BizUtil.isLastDay-'null':{
-										return method-BizUtil.lastDay-'null'
-									},
-									method-BizUtil.lastDay-'null'
-								}
-							},
-							table-dpb_overdraft-update-'Account overdraft agreement',
-							table-dpa_fiche_interest-select-'Fiche interest table',
-							method-DpFicheInterestSettlement.dealFicheInterestForDayEnd-'null':{
-								method-BizUtil.getTrxRunEnvs-'null',
+								'更新下次付息日'
 								method-DpPublic.calcDateByReference-'null':{
 									method-BizUtil.dateDiffByCycle-'null':{
 										method-BizUtil.compare-'null':{
@@ -351,7 +397,9 @@ dp07-'Overdraft interest settlement':{
 										method-BizUtil.dateDiff-'null',
 										method-BizUtil.calcDateByCycle-'null':{
 											method-BizUtil.dateAdd-'null',
-											method-BizUtil.isLastDay-'null',
+											method-BizUtil.isLastDay-'null':{
+												return method-BizUtil.lastDay-'null'
+											},
 											method-BizUtil.lastDay-'null'
 										},
 										method-BizUtil.compare-'null':{
@@ -359,7 +407,9 @@ dp07-'Overdraft interest settlement':{
 										},
 										method-BizUtil.calcDateByCycle-'null':{
 											method-BizUtil.dateAdd-'null',
-											method-BizUtil.isLastDay-'null',
+											method-BizUtil.isLastDay-'null':{
+												return method-BizUtil.lastDay-'null'
+											},
 											method-BizUtil.lastDay-'null'
 										}
 									},
@@ -371,44 +421,84 @@ dp07-'Overdraft interest settlement':{
 										method-BizUtil.lastDay-'null'
 									}
 								},
-								method-ApCurrency.roundAmount-'null':{
-									method-ApCurrency.getItem-'null':{
-										table-app_currency-select-'currency define',
-										return method-ApCurrency.getCurrencyInfo-'null'
+								table-dpb_overdraft-update-'Account overdraft agreement',
+								'TODO:暂不用考虑余额不足部分结息的情况'
+								for (dpb_overdraft_fiche ODFiche : listODFiche) {
+									table-dpa_fiche_interest-select-'Fiche interest table',
+									method-DpFicheInterestSettlement.dealFicheInterestForDayEnd-'null':{
+										method-BizUtil.getTrxRunEnvs-'null',
+										method-DpPublic.calcDateByReference-'null':{
+											method-BizUtil.dateDiffByCycle-'null':{
+												method-BizUtil.compare-'null':{
+													method-BizUtil.MyCompare-'null'
+												},
+												method-BizUtil.dateDiff-'null',
+												method-BizUtil.calcDateByCycle-'null':{
+													method-BizUtil.dateAdd-'null',
+													method-BizUtil.isLastDay-'null',
+													method-BizUtil.lastDay-'null'
+												},
+												method-BizUtil.compare-'null':{
+													method-BizUtil.MyCompare-'null'
+												},
+												method-BizUtil.calcDateByCycle-'null':{
+													method-BizUtil.dateAdd-'null',
+													method-BizUtil.isLastDay-'null',
+													method-BizUtil.lastDay-'null'
+												}
+											},
+											method-BizUtil.calcDateByCycle-'null':{
+												method-BizUtil.dateAdd-'null',
+												method-BizUtil.isLastDay-'null':{
+													return method-BizUtil.lastDay-'null'
+												},
+												method-BizUtil.lastDay-'null'
+											}
+										},
+										method-ApCurrency.roundAmount-'null':{
+											method-ApCurrency.getItem-'null':{
+												table-app_currency-select-'currency define',
+												return method-ApCurrency.getCurrencyInfo-'null'
+											},
+											return method-ApCurrency.round-'null'
+										},
+										method-ApCurrency.roundAmount-'null':{
+											method-ApCurrency.getItem-'null':{
+												table-app_currency-select-'currency define',
+												return method-ApCurrency.getCurrencyInfo-'null'
+											},
+											return method-ApCurrency.round-'null'
+										},
+										method-ApCurrency.roundAmount-'null':{
+											method-ApCurrency.getItem-'null':{
+												table-app_currency-select-'currency define',
+												return method-ApCurrency.getCurrencyInfo-'null'
+											},
+											return method-ApCurrency.round-'null'
+										},
+										method-DpFicheInstDetail.ficheInstDetailRemove-'null':{
+											table-dps_fiche_accrued-select-'Fiche accrued interest details',
+											method-BizUtil.getTrxRunEnvs-'null',
+											method-BizUtil.getTrxRunEnvs-'null',
+											method-BizUtil.getTrxRunEnvs-'null',
+											method-BizUtil.getTrxRunEnvs-'null',
+											method-BizUtil.getTrxRunEnvs-'null',
+											table-dps_fiche_payed_interestDao-batchInsert,
+											table-dps_fiche_accrued-delete-'Fiche accrued interest details'
+										},
+										method-DpFicheInterestSettlement.clearFicheInstDefine-'null':{
+											method-BizUtil.getTrxRunEnvs-'null'
+										}
 									},
-									return method-ApCurrency.round-'null'
-								},
-								method-ApCurrency.roundAmount-'null':{
-									method-ApCurrency.getItem-'null':{
-										table-app_currency-select-'currency define',
-										return method-ApCurrency.getCurrencyInfo-'null'
-									},
-									return method-ApCurrency.round-'null'
-								},
-								method-ApCurrency.roundAmount-'null':{
-									method-ApCurrency.getItem-'null':{
-										table-app_currency-select-'currency define',
-										return method-ApCurrency.getCurrencyInfo-'null'
-									},
-									return method-ApCurrency.round-'null'
-								},
-								method-DpFicheInstDetail.ficheInstDetailRemove-'null':{
-									table-dps_fiche_accrued-select-'Fiche accrued interest details',
-									method-BizUtil.getTrxRunEnvs-'null',
-									method-BizUtil.getTrxRunEnvs-'null',
-									method-BizUtil.getTrxRunEnvs-'null',
-									method-BizUtil.getTrxRunEnvs-'null',
-									method-BizUtil.getTrxRunEnvs-'null',
-									table-dps_fiche_payed_interestDao-batchInsert,
-									table-dps_fiche_accrued-delete-'Fiche accrued interest details'
-								},
-								method-DpFicheInterestSettlement.clearFicheInstDefine-'null':{
-									method-BizUtil.getTrxRunEnvs-'null'
+									'更新卡片信息'
+									table-dpa_fiche_interest-update-'Fiche interest table',
+									'查询最新的透支卡片'
+									table-dpb_overdraft_fiche-select-'Account overdraft fiche',
+									if(newODFiche.getOverdue_interest()>0){
+										table-dpb_overdraft_fiche-update-'Account overdraft fiche'
+									}
 								}
-							},
-							table-dpa_fiche_interest-update-'Fiche interest table',
-							table-dpb_overdraft_fiche-select-'Account overdraft fiche',
-							table-dpb_overdraft_fiche-update-'Account overdraft fiche'
+							}
 						}
 					},
 					method-DpOverDraftDayEnd.afreshOverDraftRate-'透支利率重定价':{

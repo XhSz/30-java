@@ -1,0 +1,105 @@
+
+		gl46-'年终决算折算损益科目结转上划':{
+			process:{
+					method-ApOrg.getReferenceOrgId-'null':{
+						method-BizUtil.getTrxRunEnvs-'null',
+						method-BizUtil.isOrgRelated-'null',
+						table-app_parameter_reference-select-'参数引用定义',
+						table-app_parameter_reference-select-'参数引用定义',
+						method-BizUtil.isParmTable-'null',
+						method-ApOrg.getOrgInfo-'null':{
+							table-app_organization-select-'法人信息'
+						},
+						method-ApOrg.getOrgInfo-'null':{
+							table-app_organization-select-'法人信息'
+						}
+					},
+					method-BizUtil.getTrxRunEnvs-'null',
+					method-BizUtil.isLastDay-'null':{
+						return method-BizUtil.lastDay-'null'
+					},
+					if(BizUtil.isLastDay("Y", trxnDate)):{
+						method-GlExchange.prcExchangeIncomeToZero-'损益结转':{
+							nsql-ApBranch.selBranchList-S-apb_branch-select-'查询机构所有信息列表',
+							method-GlExchange.prcExchangeIncomeToZeroByBranch-'null':{
+								nsql-GlExchange.selYearEndIncome-S-gla_exchange_gl-select-'getting exchange gl data which have not be cleared in branch',
+								method-ApSystemParm.getValue-'null':{
+									table-app_system_parameter-select-'系统杂项参数'
+								},
+								table-gla_exchange_gl-select-'折币总账',
+								nsql-GlExchange.selExchangeVochMaxRegNo-S-glb_exchange_voch-select-'inquiring the max number',
+								table-gla_exchange_gl-update-'折币总账',
+								table-glb_exchange_voch-insert-'折币种凭证',
+								table-fap_accounting_subject-select-'accounting subject define',
+								table-gla_exchange_gl-select-'折币总账',
+								method-GlBranch.calSubjectBal-'null',
+								table-gla_exchange_gl-insert-'折币总账',
+								table-gla_exchange_gl-update-'折币总账',
+								nsql-GlExchange.selExchangeVochMaxRegNo-S-glb_exchange_voch-select-'inquiring the max number',
+								table-glb_exchange_voch-insert-'折币种凭证',
+								method-GlExchange.chkExchangeGlBal-'null':{
+									nsql-GlExchange.selErrorBalData-S-gla_exchange_gl-select-'getting imbalance data '
+								}
+							}
+						},
+						method-GlExchange.prcExchangeProfitUp-'利润上划':{
+						method-ApSystemParm.getValue-'null':{
+							table-app_system_parameter-select-'系统杂项参数'
+						},
+						table-app_branch_relation-select-'机构关系声明',
+						method-ApCurrency.getBankBase-'null':{
+							return method-ApBusinessParm.getValue-'null':{
+								table-app_business_parameter-select-'业务杂项参数'
+							}
+						},
+						method-ApBranch.getRoot-'null':{
+							return method-BizUtil.getTrxRunEnvs-'null',
+							nsql-ApBranch.selBranchRoot-S-apb_branch_relation-select-'查询根机构'
+						},
+						nsql-ApBranch.selBranchMaxLevel-S-apb_branch_junior-select-'用某机构的某种机构关系下最大级数',
+						nsql-ApBranch.selBranchListByLevel-S-apb_branch_junior-select,apb_branch_relation-select-'根据机构关系代码及级数获取机构清单',
+						method-GlExchange.prcExchangeProfitUpByBranch-'null':{
+							method-ApSystemParm.getValue-'null':{
+								table-app_system_parameter-select-'系统杂项参数'
+							},
+							nsql-GlExchange.selYearEndProfit-S-gla_exchange_gl-select-'getting yearly profit exchange data  ',
+							table-gla_exchange_gl-select-'折币总账',
+							table-gla_exchange_gl-update-'折币总账',
+							nsql-GlExchange.selExchangeVochMaxRegNo-S-glb_exchange_voch-select-'inquiring the max number',
+							table-glb_exchange_voch-insert-'折币种凭证',
+							table-fap_accounting_subject-select-'accounting subject define',
+							table-gla_exchange_gl-select-'折币总账',
+							method-GlBranch.calSubjectBal-'null',
+							table-gla_exchange_gl-insert-'折币总账',
+							table-gla_exchange_gl-update-'折币总账',
+							table-glb_exchange_voch-insert-'折币种凭证',
+							method-GlExchange.prcExchangeProfitUpSettle-'null':{
+								method-ApSystemParm.getValue-'null':{
+									table-app_system_parameter-select-'系统杂项参数'
+								},
+								nsql-FaParm.selSettlementByBranch-S-fap_branch_settlement-select-'getting accounting settlement relation branch',
+								table-fap_accounting_subject-select-'accounting subject define',
+								table-gla_exchange_gl-select-'折币总账',
+								method-GlBranch.calSubjectBal-'null',
+								table-gla_exchange_gl-insert-'折币总账',
+								table-gla_exchange_gl-update-'折币总账',
+								table-glb_exchange_voch-insert-'折币种凭证',
+								table-fap_accounting_subject-select-'accounting subject define',
+								table-gla_exchange_gl-select-'折币总账',
+								method-GlBranch.calSubjectBal-'null',
+								table-gla_exchange_gl-insert-'折币总账',
+								table-gla_exchange_gl-update-'折币总账',
+								table-glb_exchange_voch-insert-'折币种凭证'
+							},
+							method-GlExchange.chkExchangeGlBal-'null':{
+								nsql-GlExchange.selErrorBalData-S-gla_exchange_gl-select-'getting imbalance data '
+							},
+							method-GlExchange.chkExchangeGlBal-'null':{
+								nsql-GlExchange.selErrorBalData-S-gla_exchange_gl-select-'getting imbalance data '
+							}
+						}
+					}
+					}
+			},
+		},
+		

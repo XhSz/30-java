@@ -41,6 +41,248 @@ exchange:{
 	}
 },
 edsp:{
+	pom:{
+		cn.sunline.edsp.edsp-parent-'EDSP公共父项目':{
+			1.2.22-RELEASE:{
+				<properties>
+					<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+					<dist.env>default</dist.env>
+					<ltts.maven.version>2.4.3</ltts.maven.version>
+					<jdk.compiler.version>1.7</jdk.compiler.version>
+					<ltts.maven.doc.version>2.3.7</ltts.maven.doc.version>
+					<freemarker.version>2.3.20</freemarker.version>
+					<ojdbc6.version>11.2.0.4.0</ojdbc6.version>
+					<mariadb-java-client.version>1.1.8</mariadb-java-client.version>
+					<cglib-nodep.version>2.2.2</cglib-nodep.version>
+					<commons-lang3.version>3.1</commons-lang3.version>
+					<commons-beanutils-core.version> 1.8.3</commons-beanutils-core.version>
+					<commons-io.version>2.0.1</commons-io.version>
+					<commons-pool.version>1.5.4</commons-pool.version>
+					<log4j-core.version>2.8.1</log4j-core.version>
+					<log4j-api.version>2.8.1</log4j-api.version>
+					<disruptor.version>3.3.6</disruptor.version>
+					<ognl.version>2.7.3</ognl.version>
+					<hsqldb.version>2.2.8</hsqldb.version>
+					<junit.version>4.10</junit.version>
+					<bonecp.version>0.7.1.RELEASE</bonecp.version>
+					<commons-dbcp.version> 1.4</commons-dbcp.version>
+					<nutzdoc.version>1.16</nutzdoc.version>
+					<commons-net.version>3.2</commons-net.version>
+					<mybatis.version>3.2.2</mybatis.version>
+					<jxl.version>2.6.12</jxl.version>
+					<log4j-jcl.version>2.2</log4j-jcl.version>
+					<log4j-1.2-api.version> 2.2</log4j-1.2-api.version>
+					<log4j-slf4j-impl.version>2.2</log4j-slf4j-impl.version>
+					<fastjson.version>1.2.29</fastjson.version>
+					<mvel2.version> 2.0.19</mvel2.version>
+					<ganymed-ssh2.version>build210</ganymed-ssh2.version>
+					<slf4j-api.version>1.7.1</slf4j-api.version>
+					<mysql-connector-java.version>5.1.31</mysql-connector-java.version>
+					<commons-collections.version>3.2.2</commons-collections.version>
+					<guava.version>20.0</guava.version>
+					<netty.version>4.1.6.Final</netty.version>
+					<!-- test -->
+					<skipTests>true</skipTests>
+					<!-- plugin config -->
+					<testReportDirectory>testReportDirectory</testReportDirectory>
+					
+					<!-- dist configure -->
+					<edsp-maven-genshell-version>1.0</edsp-maven-genshell-version>
+					<shell.vmOpts>-server -Xms1024m -Xmx1024m -XX:PermSize=256m -XX:MaxPermSize=512m</shell.vmOpts>
+					<url.assembly>http://proxy.yfb.sunline.cn/repos/offline/assembly.xml</url.assembly>
+					
+					<!-- proguard -->
+					<proguard.skip>true</proguard.skip>
+					<proguard.conf>${basedir}/proguard.conf</proguard.conf>
+				</properties>
+
+				<dependencyManagement>
+					<dependencies>
+						<dependency>
+							<groupId>io.netty</groupId>
+							<artifactId>netty-all</artifactId>
+							<version>${netty.version}</version>
+						</dependency>
+						<dependency>
+							<artifactId>guava</artifactId>
+							<groupId>com.google.guava</groupId>
+							<version>${guava.version}</version>
+						</dependency>
+						<dependency>
+							<artifactId>commons-collections</artifactId>
+							<groupId>commons-collections</groupId>
+							<version>${commons-collections.version}</version>
+						</dependency>
+						<dependency>
+							<groupId>org.freemarker</groupId>
+							<artifactId>freemarker</artifactId>
+							<version>${freemarker.version}</version>
+							<scope>compile</scope>
+						</dependency>
+						<dependency>
+							<groupId>com.oracle</groupId>
+							<artifactId>ojdbc6</artifactId>
+							<version>${ojdbc6.version}</version>
+							<scope>compile</scope>
+						</dependency>
+						<dependency>
+							<groupId>org.mariadb.jdbc</groupId>
+							<artifactId>mariadb-java-client</artifactId>
+							<version>${mariadb-java-client.version}</version>
+						</dependency>
+						<dependency>
+							<groupId>cglib</groupId>
+							<artifactId>cglib-nodep</artifactId>
+							<version>${cglib-nodep.version}</version>
+							<scope>compile</scope>
+						</dependency>
+						<dependency>
+							<groupId>org.apache.commons</groupId>
+							<artifactId>commons-lang3</artifactId>
+							<version>${commons-lang3.version}</version>
+							<scope>compile</scope>
+						</dependency>
+						<dependency>
+							<groupId>commons-beanutils</groupId>
+							<artifactId>commons-beanutils-core</artifactId>
+							<version>${commons-beanutils-core.version}</version>
+							<scope>compile</scope>
+						</dependency>
+						<dependency>
+							<groupId>commons-io</groupId>
+							<artifactId>commons-io</artifactId>
+							<version>${commons-io.version}</version>
+							<scope>compile</scope>
+						</dependency>
+						<dependency>
+							<groupId>org.apache.logging.log4j</groupId>
+							<artifactId>log4j-core</artifactId>
+							<version>${log4j-core.version}</version>
+							<scope>compile</scope>
+						</dependency>
+						<dependency>
+							<groupId>org.apache.logging.log4j</groupId>
+							<artifactId>log4j-api</artifactId>
+							<version>${log4j-api.version}</version>
+						</dependency>
+						<dependency>
+							<groupId>com.lmax</groupId>
+							<artifactId>disruptor</artifactId>
+							<version>${disruptor.version}</version>
+						</dependency>
+						<dependency>
+							<groupId>ognl</groupId>
+							<artifactId>ognl</artifactId>
+							<version>${ognl.version}</version>
+							<scope>compile</scope>
+						</dependency>
+						<dependency>
+							<groupId>org.hsqldb</groupId>
+							<artifactId>hsqldb</artifactId>
+							<version>${hsqldb.version}</version>
+							<scope>compile</scope>
+						</dependency>
+						<dependency>
+							<groupId>junit</groupId>
+							<artifactId>junit</artifactId>
+							<version>${junit.version}</version>
+							<scope>test</scope>
+						</dependency>
+						<dependency>
+							<groupId>com.jolbox</groupId>
+							<artifactId>bonecp</artifactId>
+							<version>${bonecp.version}</version>
+						</dependency>
+						<dependency>
+							<groupId>commons-dbcp</groupId>
+							<artifactId>commons-dbcp</artifactId>
+							<version>${commons-dbcp.version}</version>
+						</dependency>
+						<dependency>
+							<groupId>org.nutz</groupId>
+							<artifactId>nutzdoc</artifactId>
+							<version>${nutzdoc.version}</version>
+						</dependency>
+						<dependency>
+							<groupId>commons-net</groupId>
+							<artifactId>commons-net</artifactId>
+							<version>${commons-net.version}</version>
+						</dependency>
+						<dependency>
+							<groupId>org.mybatis</groupId>
+							<artifactId>mybatis</artifactId>
+							<version>${mybatis.version}</version>
+						</dependency>
+						<dependency>
+							<groupId>net.sourceforge.jexcelapi</groupId>
+							<artifactId>jxl</artifactId>
+							<version>${jxl.version}</version>
+							<exclusions>
+								<exclusion>
+									<artifactId>log4j</artifactId>
+									<groupId>log4j</groupId>
+								</exclusion>
+							</exclusions>
+						</dependency>
+						<dependency>
+							<groupId>org.apache.logging.log4j</groupId>
+							<artifactId>log4j-jcl</artifactId>
+							<version>${log4j-jcl.version}</version>
+						</dependency>
+						<dependency>
+							<groupId>org.apache.logging.log4j</groupId>
+							<artifactId>log4j-1.2-api</artifactId>
+							<version>${log4j-1.2-api.version}</version>
+						</dependency>
+						<dependency>
+							<groupId>org.apache.logging.log4j</groupId>
+							<artifactId>log4j-slf4j-impl</artifactId>
+							<version>${log4j-slf4j-impl.version}</version>
+						</dependency>
+						<dependency>
+							<groupId>com.alibaba</groupId>
+							<artifactId>fastjson</artifactId>
+							<version>${fastjson.version}</version>
+						</dependency>
+						<dependency>
+							<groupId>org.mvel</groupId>
+							<artifactId>mvel2</artifactId>
+							<version>${mvel2.version}</version>
+						</dependency>
+						<dependency>
+							<groupId>ch.ethz.ganymed</groupId>
+							<artifactId>ganymed-ssh2</artifactId>
+							<version>${ganymed-ssh2.version}</version>
+						</dependency>
+						<dependency>
+							<groupId>org.slf4j</groupId>
+							<artifactId>slf4j-api</artifactId>
+							<version>${slf4j-api.version}</version>
+						</dependency>
+						<dependency>
+							<groupId>mysql</groupId>
+							<artifactId>mysql-connector-java</artifactId>
+							<version>${mysql-connector-java.version}</version>
+						</dependency>
+						<dependency>
+							<groupId>commons-pool</groupId>
+							<artifactId>commons-pool</artifactId>
+							<version>${commons-pool.version}</version>
+						</dependency>
+					</dependencies>
+				</dependencyManagement>
+			}
+			children:{
+				cn.sunline.edsp.edsp-solution-'edsp dev platform':{
+					cn.sunline.edsp.solution.edsp-solution-parent:{
+						cn.sunline.ltts.cbs.cbs-parent-'OverSea R&amp;D CBS Basic':{
+							cn.sunline.ltts.cbs.cbs-aplt
+						}
+					}
+				}
+			}
+		}
+	},
 	11-ksys_rwzhxy-'批量任务执行域':{
 					jyzxybzh								fenbsjql		kezxlclb		kezxjyzl	zhixyzht	zxtongbh
 				批量交易执行域标识	分布式环境下,worker集群列表,格式ip1:port1;ip2:port2	可执行批量交易组列表
@@ -264,6 +506,44 @@ ap:{
 	}
 },
 tables:{
+	relation:{
+		dpa_account.acct_no-'账号'-n:{
+			1-dpb_overdraft.agree_no-'透支协议',cla_account.limit_code-'额度';-n:{
+				1-dpb_overdraft_fiche.fiche_no-'卡片',dpb_overdraft_fiche.overdraft_inst_type-N-'常规透支',
+				1-dpb_overdraft_fiche.fiche_no-'卡片',dpb_overdraft_fiche.overdraft_inst_type-O-'超额透支',
+			}
+		},
+		cla_account.limit_code-'额度'-n:{
+			1-cla_account:;
+			1-cls_txn-'额度交易'
+		}
+		
+										dpb_overdraft{agree_no}_____ 1-n______dpb_overdraft_fiche{fiche_no}
+		dpa_account{acct_no}		_______________n-n________________		cla_account{limit_code}
+				|
+				|	1-n
+				|
+		dps_fiche_trxn{fiche_no,serial_no}
+	},
+	cf:{
+		cfb_cust_auxiliary:{
+			select:{
+				selectAll_odb1:{
+					CfCustInfoQuery.qryOtherCustTable(String, E_CUSTOMERTYPE):-3{
+						CfCustInfoQuery.qryPersonInfo(IoCfPersonBaseIn);
+						CfCustInfoQuery.qryCorporCustInfo(IoCfPersonBaseIn);-1:{
+							SrvIoCfCustomerImpl.qryCorporCustInfo(IoCfPersonBaseIn)-6:{
+								DpBuffer.addDataToCustBuffer(String, E_CUSTOMERTYPE);-24:{
+									DpBuffer.getNewestAttrValue(dpa_sub_account, dpa_account, String, String, E_CUSTOMERTYPE)
+								}
+							}
+						}
+						CfCustInfoQuery.qryFiCustInfo(IoCfPersonBaseIn);
+					}
+				}
+			}
+		}
+	},
 	dp:{
 		dps_bill:{
 			col:{
@@ -274,15 +554,25 @@ tables:{
 			}
 		},
 		dpb_overdraft-'账户透支协议':{
-			
+			insert-1:{
+				DpOverdraftAgree.regOverdraftAgree(DpOverdraftSignIn):{	'登记账户透支协议'
+					DpOverdraftAgree.overdraftSign(DpOverdraftSignIn):{		'透支协议签约'
+						SrvDpInstruct.overdraftSign(DpOverdraftSignIn);-1:{
+							dp4235-'overdraft signed'-40803	dp4821In	2701	透支协议签约
+						}
+					}
+				}
+			}
 		},
 		dpb_overdraft_fiche:{
 			insert-1-'登记账户透支卡片':{
 				'登记账户透支卡片'
 				DpOverdraftAgree.regoverdraftFiche(DpOverdraftSignIn, dpb_overdraft, dpa_sub_account, E_OVERDRAFTINSTTYPE):{
 					'透支协议签约'		1912200000002
-					overdraftSign(DpOverdraftSignIn);:{	'透支协议签约'
-						
+					DpOverdraftAgree.overdraftSign(DpOverdraftSignIn);-1:{	'透支协议签约'
+						SrvDpInstruct.overdraftSign(DpOverdraftSignIn);-1:{
+							dp4235
+						}
 					}
 				}
 			},
@@ -300,18 +590,74 @@ tables:{
 					dp07-'Overdraft interest settlement'-362640,363441-5:{363074,363336,363358,363397,363419},
 					372086-dp13-'Overdraft occupancy adjustment',
 				},
-				DpOverDraftDayEnd.overDraftSettlementInst(dpa_sub_account, dpb_overdraft, List<dpb_overdraft_fiche> listODFiche):{	'透支账户还息账务处理'
+				call-7:{
+					DpOverDraftDayEnd.overDraftSettlementInst(dpa_sub_account, dpb_overdraft, List<dpb_overdraft_fiche> listODFiche):{	'透支账户还息账务处理'
+						
+					},
+					DpOverDraftDayEnd.overdueAddInst(dpb_overdraft, List<dpb_overdraft_fiche>):{	'单个协议额度逾期加息处理,方法外判断是否逾期'
+						
+					},
+					DpOverDraftSettle.clearOdAgree(List<DpOverDraftSettleAmount>):{		'透支卡片清零及协议信息关闭'
+						
+					},
+					DpOverDraftSettle.clearSingleOdAgree(String, E_YESORNO):{	'透支卡片清零及协议信息关闭'
+						
+					},
+					DpOverDraw.overdraftUse(dpa_sub_account, BigDecimal, BigDecimal):{	'按透支协议的利率高低计算使用顺序'
 					
+					},
+				*	DpOverDraw.mdyOdAgreeFiche(String ficheNo, BigDecimal AdjustAmt, E_ADDSUBTRACT addOrSubs)-'更新透支卡片占用金额':{		' 更新透支卡片占用金额'		*
+						code:{
+							dpb_overdraft_fiche OdFiche = Dpb_overdraft_ficheDao.selectOne_odb2(ficheNo, true);:{
+								select * from dpb_overdraft_fiche where fiche_no='ficheNo';
+							},
+							if(addOrSubs== E_ADDSUBTRACT.SUBTRACT-'B')
+								OdFiche.setOccupied_amt(OdFiche.getOccupied_amt().subtract(AdjustAmt));
+							else
+								OdFiche.setOccupied_amt(OdFiche.getOccupied_amt().add(AdjustAmt));
+							'更新卡片占用金额'
+							Dpb_overdraft_ficheDao.updateOne_odb1(OdFiche);
+						},
+						call-6:{
+							DpOverDraw.overdraftUse(dpa_sub_account, BigDecimal, BigDecimal):{	'按透支协议的利率高低计算使用顺序'
+							
+							},
+						}
+					},
+					DpFicheReversal.ficheTrxnReversalIn(DpFicheTrxnReversalIn):{	'卡片交易冲账'
+						occupied_amt
+					}
+				}
+			}
+			select-28:{
+				selectByIndexWithLock_odb1:{
+				
 				},
-				DpOverDraftDayEnd.overdueAddInst(dpb_overdraft, List<dpb_overdraft_fiche>):{	'单个协议额度逾期加息处理,方法外判断是否逾期'
-					
-				},
-				DpOverDraftSettle.clearOdAgree(List<DpOverDraftSettleAmount>):{		'透支卡片清零及协议信息关闭'
-					
-				},
-				DpOverDraftSettle.clearSingleOdAgree(String, E_YESORNO):{	'透支卡片清零及协议信息关闭'
+				selectOne_odb1-8:{
 					
 				}
+			}
+		},
+		dps_fiche_trxn:{
+			insert-2:{
+				DpFicheInterestDefine.regFicheTrxnDetail(dpa_fiche_interest, E_SAVEORDRAW, BigDecimal)-9:{		'登记卡片交易明细'-'zhoumy'
+					DpTimeDraw.ficheAccounting(IoDpTimeDrawIn, dpa_sub_account):{'定期卡片记账'-'zhoumy'},
+					DpTimeSave.regFicheInfo(IoDpTimeSaveIn, dpa_sub_account):{'登记卡片信息'-'HongBiao'},
+					2-DpOverDraw.overdraftUse(dpa_sub_account, BigDecimal, BigDecimal)-1:{'透支额度占用'-'yangdl'-'modify by zhoumy: 按透支协议的利率高低计算使用顺序'
+						DpOverDraw.overdraftDeal(dpa_sub_account, BigDecimal, BigDecimal, E_DEBITCREDIT)-1:{
+							DpAccounting.updAccBal(DpUpdAccBalIn, boolean)-1:{	'更新账户余额:外围要确保已经Lock子账户信息表'
+								DpAccounting.prcMain(DpUpdAccBalIn, boolean):{	'负债本金记账处理'
+									
+								}
+							}
+						}
+					},
+					DpOverDraw.overdraftRepayment(dpa_sub_account, BigDecimal, BigDecimal):{'透支归还'-'yangdl'-'按透支协议的利率高低计算归还顺序'},
+					DpOverDraw.lowRateLimitUse(DpUsedOverDraftInfo, dpa_sub_account, List<DpOverDraftUsableInfo>):{'新低价协议透支额度占用'-'zhoumy'-'注意占用金额和卡片余额是两回事'},
+					DpOverDraw.highRateLimitRelease(DpUsedOverDraftInfo, dpa_sub_account, BigDecimal):{'额度重新分布时旧透支额度释放'-'zhoumy'},
+					2-dp13,
+				}
+				
 			}
 		}
 		fiche_no-'卡片号':{
@@ -323,6 +669,105 @@ tables:{
 			dpb_fiche_balance_hist-'卡片历史余额登记簿'-'Fiche History Balance Register Book',
 			dps_fiche_trxn-'卡片交易明细流水'-'Fiche trxn detail table',
 			dpb_overdraft_fiche-'账户透支卡片'-'Account overdraft fiche',
+		},
+		DpOverDraw.overdraftUse(dpa_sub_account subAccount, BigDecimal beforeBl, BigDecimal trxn_amt):{	'透支额度占用'-'yangdl'-'modify by zhoumy: 按透支协议的利率高低计算使用顺序'
+			code:{
+				'查询账户信息'
+				dpa_account account = Dpa_accountDao.selectOne_odb1(subAccount.getAcct_no(), false);
+				'查询透支协议'
+				List<dpb_overdraft> listODAgree = DpFundPoolDao.selOverdraftAgreeByAcct(subAccount.getAcct_no(), subAccount.getCcy_code(), E_STATUS.VALID, BizUtil.getTrxRunEnvs()
+					.getTrxn_date(), BizUtil.getTrxRunEnvs().getBusi_org_id(), false);
+				'获取可使用额度信息: 已按利率升序排列'
+				List<DpOverDraftUsableInfo> listODAgreeLimit = getODAgreeUsableInfo(subAccount, listODAgree);:{	'获取可使用透支额度信息'-'zhoumy'
+					method-BizUtil.getTrxRunEnvs-'null',
+					nsql-DpFundPool.selOverdraftAgreeByAcct-S-dpb_overdraft-select-'query vaild overdraft agree by account number',
+					error-SrvIoClLimitMgt.limitBalTrial-'null',
+					table-dpb_overdraft_fiche-select-'Account overdraft fiche',
+					table-dpa_fiche_interest-select-'Fiche interest table',
+					table-dpa_fiche_interest_rate-select-'Fiche interest rate definition table'
+				}
+			},
+			call-1:{
+				DpOverDraw.overdraftDeal(dpa_sub_account, BigDecimal, BigDecimal, E_DEBITCREDIT)-1:{
+					DpAccounting.updAccBal(DpUpdAccBalIn, boolean);-1:{
+						DpAccounting.prcMain(DpUpdAccBalIn, boolean);-2:{
+							DpAccounting.online(DpUpdAccBalIn)-14:{
+								DpDemandDraw.accountingTally(IoDpDemandDrawIn, String):{
+									DpDemandDraw.doMainMethod(IoDpDemandDrawIn, dpa_account, dpa_sub_account)
+								}
+							}
+						}
+					}
+				}
+			}			
+		},
+		DpOverDraw.lowRateLimitUse(DpUsedOverDraftInfo, dpa_sub_account, List);:{
+			call-1:{
+				DpOverDraw.ODLimitAfreshLayout(List, dpa_sub_account):-4{
+					DpOverDraftDayEnd.ODLimitAfreshLayout(dpa_sub_account, List)-1:{
+						DpOverDraftDayEnd.accruedOdInterest(dpa_sub_account);-1:{
+							DpPublic.getBalance(DpBalanceCalculateIn):{
+								
+							}
+						}
+					}
+				}
+			}
+		},
+		nsql-DpFroze.selWholeBalFrozeSource-1:{
+			DpPublic.CalcSubAcctFrozeAmountInfo(dpa_sub_account, DpBalanceCalculateIn, DpBalanceCalculateOut);-1:{
+				DpPublic.getBalance(DpBalanceCalculateIn):{
+					
+				}
+			}
+		},
+		nsql-DpFundPool.selOverdraftAgreeByAcct:{
+				DpPublic.getBalance(DpBalanceCalculateIn):{
+					
+				}
+		}
+	}
+	cl:{
+		clb_ocpbook:{
+			insert-2:{
+				ClLimitOcpManager.registBusibodyOccupyAmt(String, String, String, BigDecimal);-1:{
+					ClLimitTransManager.leafProcessOnOccupy(cla_account, IoClAmtOperationIn)-1:{
+						ClLimitTransManager.checkLimitOnBusi(IoClAmtOperationIn);-1:{
+							ClLimitTransManager.updateClOnUse(IoClUseIn, E_LIMITOPERATIONTYPE)-2:{
+								ClLimitTransManager.updateClOnOccupy(IoClUseIn)-1:{
+									SrvClLimitMgt.limitOccupy(IoClUseIn);-9:{
+										1-IoClient4CreditLimit.ioOccupyLimit(LimitOccupyIn);-1:{
+											LnLoanDrawdown.occupyLimit(IoLnLoanDrawdownIn);
+										},
+										3-dp:{
+											2-DpOverDraw.overdraftUse(dpa_sub_account, BigDecimal, BigDecimal);
+											1-DpOverDraw.lowRateLimitUse(DpUsedOverDraftInfo, dpa_sub_account, List);
+										},
+										5-ts,
+									}
+								},
+								ClLimitTransManager.updateClOnRelease(IoClUseIn)
+							}
+						}
+					}
+				}
+				ClLimitOcpManager.calcAndRegistOccupyAmt(cla_account, cla_account, IoClAmtOperationIn);
+			},
+			select:{
+				selectOneWithLock_odb1-2:{
+					ClLimitInfoBuilder.createLimitInfo(IoClBasicInfoForBuildLimit);
+					ClLimitCommUtil.getClaAccountWithLock(String);-23
+				}
+			}	
+		},
+		cls_txn:{
+			insert-5:{
+				ClLimitInfoBuilder.regClsBillOnCreate(ClLimitOprtUnit, IoClBasicInfoForBuildLimit, String);-1:{
+					saveClaLimits(Deque, IoClBasicInfoForBuildLimit, String, boolean)-1:{
+						ClLimitInfoBuilder.buildLimit(IoClBasicInfoForBuildLimit, boolean)
+					}
+				}
+			}
 		}
 	}
 }
