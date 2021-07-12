@@ -1,0 +1,175 @@
+
+		gl06-'对账文件导入及检查':{
+			process:{
+					method-GlFile.doCheckAccountingFile-'null':{
+						method-BizUtil.getTrxRunEnvs-'null',
+						method-ApSystemParm.getIntValue-'null':{
+							method-ApSystemParm.getValue-'null':{
+								table-app_system_parameter-select-'系统杂项参数'
+							}
+						},
+						method-ApOrg.getReferenceOrgId-'null':{
+							method-BizUtil.getTrxRunEnvs-'null',
+							method-BizUtil.isOrgRelated-'null',
+							table-app_parameter_reference-select-'参数引用定义',
+							table-app_parameter_reference-select-'参数引用定义',
+							method-BizUtil.isParmTable-'null',
+							method-ApOrg.getOrgInfo-'null':{
+								table-app_organization-select-'法人信息'
+							},
+							method-ApOrg.getOrgInfo-'null':{
+								table-app_organization-select-'法人信息'
+							}
+						},
+						'从平台登记的表中取出已下载文件的信息'
+						nsql-GlFile.selFileLoanDown-S-apb_batch_request-select,apb_batch_receive-select-'file download':{
+							select
+									a.busi_batch_code, b.file_id ,b.file_name ,b.file_local_path 
+							from
+									apb_batch_request a 
+							join
+									apb_batch_receive b 
+							on      a.request_file_id = b.file_id
+							where
+									a.org_id = '99' 
+									and a.busi_batch_type = 'J' 
+									and a.file_handling_status = 'A'
+									and b.receive_ind = 'Y' 
+						},
+						table-apb_batch_request-select-'文件批量请求薄',
+						method-ApFile.getFileFullPath-'null':{
+							method-ApFile.getFullPath-'null':{
+								method-ApFile.exists-'null':{
+									method-ApDropList.exists-'null':{
+										method-ApDropList.getItem-'null':{
+											table-app_drop-select-'字典声明表',
+											method-ApOrg.getDefaultOrgId-'null',
+											table-app_drop_list-select-'下拉字典参数',
+											method-ApOrg.getReferenceOrgId-'null',
+											table-app_drop_list-select-'下拉字典参数',
+											method-ApOrg.getDefaultOrgId-'null',
+											table-app_drop_list-select-'下拉字典参数'
+										}
+									},
+									table-app_directory-select-'文件目录配置'
+								},
+								method-ApFile.genFileName-'null':{
+									table-app_directory-select-'文件目录配置',
+									method-BizUtil.getTrxRunEnvsValue-'null':{
+										method-BizUtil.getTrxRunEnvs-'null',
+										method-BizUtil.getTrxRunEnvs-'null',
+										method-BizUtil.invoke-'null':{
+											table-app_service-select-'内部服务控制定义',
+											return method-BizUtil.callServiceDirect-'null',
+											return method-BizUtil.callService-'null'
+										}
+									}
+								}
+							}
+						},
+						method-ApFile.getFileFullPath-'null':{
+							method-ApFile.getFullPath-'null':{
+								method-ApFile.exists-'null':{
+									method-ApDropList.exists-'null':{
+										method-ApDropList.getItem-'null':{
+											table-app_drop-select-'字典声明表',
+											method-ApOrg.getDefaultOrgId-'null',
+											table-app_drop_list-select-'下拉字典参数',
+											method-ApOrg.getReferenceOrgId-'null',
+											table-app_drop_list-select-'下拉字典参数',
+											method-ApOrg.getDefaultOrgId-'null',
+											table-app_drop_list-select-'下拉字典参数'
+										}
+									},
+									table-app_directory-select-'文件目录配置'
+								},
+								method-ApFile.genFileName-'null':{
+									table-app_directory-select-'文件目录配置',
+									method-BizUtil.getTrxRunEnvsValue-'null':{
+										method-BizUtil.getTrxRunEnvs-'null',
+										method-BizUtil.getTrxRunEnvs-'null',
+										method-BizUtil.invoke-'null':{
+											table-app_service-select-'内部服务控制定义',
+											return method-BizUtil.callServiceDirect-'null',
+											return method-BizUtil.callService-'null'
+										}
+									}
+								}
+							}
+						},
+						method-ApFile.getLocalHome-'null':{
+							return method-BizUtil.convertParmString-'null',
+							return method-ApSystemParm.getValue-'null':{
+								table-app_system_parameter-select-'系统杂项参数'
+							}
+						},
+						method-ApFile.readFile-'null',
+						method-ApSystemParm.getIntValue-'null':{
+							method-ApSystemParm.getValue-'null':{
+								table-app_system_parameter-select-'系统杂项参数'
+							}
+						},
+						method-ApOrg.getReferenceOrgId-'null':{
+							method-BizUtil.getTrxRunEnvs-'null',
+							method-BizUtil.isOrgRelated-'null',
+							table-app_parameter_reference-select-'参数引用定义',
+							table-app_parameter_reference-select-'参数引用定义',
+							method-BizUtil.isParmTable-'null',
+							method-ApOrg.getOrgInfo-'null':{
+								table-app_organization-select-'法人信息'
+							},
+							method-ApOrg.getOrgInfo-'null':{
+								table-app_organization-select-'法人信息'
+							}
+						},
+						'会计事件的落地数据'
+						nsql-GlFile.selCheckDataFromAccountingSeq-S-fab_accounting_seq-select-'calculating accounting event data':{
+							select
+									nvl(sum(a.trxn_amt), 0.00) as total_amt, count(1) as record_number, a.trxn_date,
+									'C' as file_type, a.accounting_subject 
+							from
+									fab_accounting_seq a 
+							where
+									a.org_id = '99' and a.trxn_date = '20210706' 
+									and a.sys_no='800' 
+							group by
+									a.accounting_subject , a.trxn_date 
+						},
+						method-ApOrg.getReferenceOrgId-'null':{
+							method-BizUtil.getTrxRunEnvs-'null',
+							method-BizUtil.isOrgRelated-'null',
+							table-app_parameter_reference-select-'参数引用定义',
+							table-app_parameter_reference-select-'参数引用定义',
+							method-BizUtil.isParmTable-'null',
+							method-ApOrg.getOrgInfo-'null':{
+								table-app_organization-select-'法人信息'
+							},
+							method-ApOrg.getOrgInfo-'null':{
+								table-app_organization-select-'法人信息'
+							}
+						},
+						nsql-GlFile.selCheckDataFromAccure-S-fab_accrue-select-'inquiring checking data from accrued table',
+						method-ApOrg.getReferenceOrgId-'null':{
+							method-BizUtil.getTrxRunEnvs-'null',
+							method-BizUtil.isOrgRelated-'null',
+							table-app_parameter_reference-select-'参数引用定义',
+							table-app_parameter_reference-select-'参数引用定义',
+							method-BizUtil.isParmTable-'null',
+							method-ApOrg.getOrgInfo-'null':{
+								table-app_organization-select-'法人信息'
+							},
+							method-ApOrg.getOrgInfo-'null':{
+								table-app_organization-select-'法人信息'
+							}
+						},
+						nsql-GlFile.selCheckDataFromLeger-S-fab_ledger_check_seq-select-'inquiring checking data from ledger balance table',
+						method-ApBatch.setbatchReqStatus-'null':{
+							table-apb_batch_request-select-'文件批量请求薄',
+							table-apb_batch_request-update-'文件批量请求薄'
+						},
+						table-fap_sys_define-select-'system definition',
+						method-BizUtil.getTrxRunEnvs-'null'
+					}
+			},
+		},
+		

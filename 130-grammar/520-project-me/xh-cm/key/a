@@ -491,6 +491,10 @@ ap:{
 		select * from app_business_parameter where main_key='' and sub_key='*';
 		select * from app_business_parameter where main_key='' and sub_key='';
 	},
+	ApCurrency.getChargeUpBase()-'收费入账币种':{	'获取费用入账基础货币'
+		return ApBusinessParm.getValue("CHARGE_UP_CCY");
+			select * from app_business_parameter where main_key='CHARGE_UP_CCY' and sub_key='*';	"TZS"
+	},
 	ApFile.getFullPath：{
 		select * from app_directory;
 	},
@@ -503,8 +507,131 @@ ap:{
 		new FileClientImpl("AbstractComponent.SFTPFileTransfer");:{
 			SysUtil.getInstance(cn/sunline/ltts/aplt/component/ApBaseComp$FileTransfer, "AbstractComponent.SFTPFileTransfer")；
 		}
+	},
+	ApRule.getFirstResultByScene:{	'按规则场景代码扫描并返回首个命中回执，无命中返回null'
+			from app_rule where rule_scene_code=#rule_scene_code# and org_id=#org_id# order by rule_sort
+		code:{
+			List<String> rule = getAllResult(sceneCode, true);:{
+				List<app_rule> rulesList = App_ruleDao.selectAll_odb1(sceneCode, false);
+				for (app_rule rules : rulesList) {
+					if (mapping(rules.getRule_id())) {
+						rulesResult.add(rules.getMapping_result());
+					}
+					else {
+						continue;
+					}
+					if (firstFlag)
+						break;
+				}
+				return rulesResult;
+			}
+			return (rule.size() > 0) ? rule.get(0) : null;
+		}
+			'LN_CLASSIFICATION'
+	}
+	ApRule.mapping(String):{	'判断规则是否成立'
+	 *         <li>如果数据集不是公共运行变量，需要调用addDataToBuffer方法添加数据</li>
+	 *         <li>1):如果存在例外规则，则一个一个校验，如果有一个成立，则返回false<br/>
+	 *         2):如果没有例外规则，或者例外规则都不成立，则校验输入的规则，校验成功返回true,失败false<br/>
+	 *         3):一个规则可以有多个组，一个组可以有多个序号，组之间是'或'的关系，序号之间是'与'的关系<br/>
+	 *         一个组内所有的序号都true，则该组才为true<br/>
+	 *         只要有一个组是true，则直接返回true<br/>
+		code:{
+			
+		}
+	},
+	ApRule.checkRule(String):{
+		
+	},
+	ApRule.checkRuleSingle(rule, ruleBuffer);:{		'单条记录的检查'
+		paramTemplate(Map<String, Object>, String, String):{	
+			'参数按照模板替换 ${RUN_ENV.trx_date}、${INPUT.acct_no}或 ${trx_date}取默认的dataMart'
+			
+		}
 	}
 },
+cm:{
+	CmChrgAccounting.chrgDebit(CmChrgDeAccounting, BigDecimal, Boolean);:{
+		code:{
+			'收费入账币种'
+			chargeUpCcy = ApCurrency.getChargeUpBase();
+			'2、 计费币种和入账币种(税是本地币种)不一致，则做结售汇处理'
+		}
+	},
+	CmChrgAccounting.chrgCreditccounting(cmb_chrg_acct, CmChrgCrAccounting):{'费用贷方记账'},
+	CmChrgAccounting.regBranchChrgAccounting(BigDecimal, cmb_chrg_acct, String, CmChrgCrAccounting, boolean):{'会记及摊销计划登记'},
+},
+dp:{
+	nsql-DpDayEnd.selOverdraftAccrualSubAcct-1:{
+		DpOverDraftDayEnd.regAccrualExtract(String)-1:{
+			dp04
+		}
+	}
+}
+ln:{
+	method-LnTransfer.getOverdueNum-'null':{	'获取逾期月数或天数'
+		code:{
+			table-lna_loan-select-'Loan table',
+			method-LnLoan.getLnaAccrual-'null':{	'取借据计息属性表信息'
+				table-lna_accrual-select-'Loan interest accrual property table'
+			},
+			method-ApBusinessParm.getYesOrNoValue-'null':{
+				method-ApBusinessParm.getValue-'null':{
+					table-app_business_parameter-select-'system parameter'
+						select * from app_business_parameter WHERE MAIN_KEY ='LN_CLASSIFICATION' AND SUB_KEY ='OVERDUE_IND';
+						'借据级别逾期认定方式','借据级别认定中逾期是指借据逾期还是期供逾期Y:借据逾期 N:期供逾期'
+				}
+			},
+			if(Y)-'借据逾期':{
+				method-ApBusinessParm.getYesOrNoValue-'null':{
+					method-ApBusinessParm.getValue-'null':{
+						table-app_business_parameter-select-'system parameter'
+					}
+				},
+				table-lna_repayment_schedule-select-'Loan repayment schedule table',
+			}else{	'期供逾期'
+				method-ApBusinessParm.getYesOrNoValue-'null':{
+					method-ApBusinessParm.getValue-'null':{
+						table-app_business_parameter-select-'system parameter'
+					}
+				},
+				table-lna_repayment_schedule-select-'Loan repayment schedule table',
+					select * from lna_repayment_schedule where loan_no='' and sub_period_no='1000' and org_id='99' order by period_no;
+				method-ApBusinessParm.getYesOrNoValue-'null':{
+					method-ApBusinessParm.getValue-'null':{
+						table-app_business_parameter-select-'system parameter'
+					}
+				},
+			}
+			return method-LnTransfer.getOverdueNumSub-'null':{		'获取逾期月数或天数'
+			method-ApBusinessParm.getValue-'null':{
+				table-app_business_parameter-select-'system parameter'
+			},
+			return method-LnUtil.calMonths-'null':{
+				method-BizUtil.dateDiff-'null',
+				method-BizUtil.datePart-'null',
+				method-BizUtil.datePart-'null'
+			},
+			return method-LnDate.calMaxDiffMonths-'null':{
+				method-BizUtil.checkEffectDate-'null':{
+					method-BizUtil.dateDiff-'null'
+				}
+			},
+			return method-BizUtil.dateDiff-'null'
+		}
+		},
+		call-2:{
+			LnTransfer.autoTransfer(IoLnTransferIn)-5:{	'自动形态转移'
+				LnExtend.processExtend(IoLnExtendIn);:{'贷款展期处理'},
+				LnMaturityDateChange.transfer(IoLnMaturityDateChange),
+				LnRepayment.transfer(LnLoanRepayIn):{'形态转移'},
+				LnTransfer.transfer(IoLnTransferIn):{'贷款形态转移'}
+			},
+			manualTransferCheck(IoLnTransferIn, lna_loan):{		'手动形态转移检查'	}
+		}
+	},
+	ln08-'loan transfer'-'贷款形态转移':{},
+}
 tables:{
 	relation:{
 		dpa_account.acct_no-'账号'-n:{
@@ -524,6 +651,21 @@ tables:{
 				|	1-n
 				|
 		dps_fiche_trxn{fiche_no,serial_no}
+	},
+	ap:{
+		app_business_parameter:{
+			value:{
+			ORG_ID	MAIN_KEY	SUB_KEY			PARM_DESC					PARM_VALUE			PARM_REMARK	MODULE	DATA_CREATE_USER	DATA_CREATE_TIME	DATA_UPDATE_USER	DATA_UPDATE_TIME	DATA_VERSION
+				99	CCY_EXCH_ALIAS	*	current ccy accounting alias	FCY_EXCHANGE_CUST	货币汇兑核算别名	AP	S####	20991231	S####	20991231	1
+			},
+			call:{
+				CCY_EXCH_ALIAS-8:{
+					1-CmChrgAccounting.chrgDebit(CmChrgDeAccounting, BigDecimal, Boolean);
+					2-CmChrgAccounting.chrgCreditccounting(cmb_chrg_acct, CmChrgCrAccounting):{'费用贷方记账'},
+					1-CmChrgAccounting.regBranchChrgAccounting(BigDecimal, cmb_chrg_acct, String, CmChrgCrAccounting, boolean):{'会记及摊销计划登记'},
+				}
+			}
+		}
 	},
 	cf:{
 		cfb_cust_auxiliary:{

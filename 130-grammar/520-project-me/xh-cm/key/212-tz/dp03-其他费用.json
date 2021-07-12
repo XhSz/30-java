@@ -1,0 +1,894 @@
+
+		dp03-'Batch unclaimed charge'-'无人认领费用批量':{
+			getBatchDataWalker:{
+					method-BizUtil.getTrxRunEnvs-'null',
+					nsql-DpDayEnd.selGroupIdForBatch-S-dpa_sub_account-select-'Get the account hash value':{
+						select distinct hash_value from dpa_sub_account where org_id = #org_id#
+					}
+			},
+			getJobBatchDataWalker:{
+					method-BizUtil.getTrxRunEnvs-'null',
+					nsql-DpDayEnd.selAcctFeeInfo-S-dpa_sub_account-select-'Check the account that needs to be charged':{
+						select * from
+								dpa_sub_account a 
+						where  a.sub_acct_status = '1'		-- 'E_ACCTSTATUS.NORMAL'
+						and a.hash_value = #hash_value# 
+								and a.org_id = #org_id# 
+					}
+			},
+			process:{
+					method-BizUtil.getTrxRunEnvs-'null',
+					method-BizUtil.getTrxRunEnvs-'null',
+					'获取产品批量收费定义根据优先级排序'
+					List<dpf_batch_fee> listBatchFee = 
+						nsql-DpDayEnd.selBatchFeeByProdId-S-dpf_batch_fee-select-'query batch charge definition  by product id':{
+							select
+									* 
+							from
+									dpf_batch_fee 
+							where
+									prod_id = #prod_id# and org_id = #org_id# 
+									and effect_date <= #trxn_date# and expiry_date >=#trxn_date# 
+							order by
+									prior_level 
+						},
+					for (dpf_batch_fee batchFee : listBatchFee) {
+						'查询账户批量收费定义'
+						dpb_batch_fee acctFee =
+							table-dpb_batch_fee-select-'batch charge register',
+						method-DpAddSubAccount.regSingleBatchFee-'null':{
+							method-BizUtil.getTrxRunEnvs-'null',
+							method-BizUtil.calcDateByReference-'null':{
+								method-BizUtil.calcDateByCycle-'null':{
+									method-BizUtil.dateAdd-'null',
+									method-BizUtil.isLastDay-'null':{
+										return method-BizUtil.lastDay-'null'
+									},
+									method-BizUtil.lastDay-'null'
+								},
+								method-BizUtil.calcNextDate-'null':{
+									method-BizUtil.firstDay-'null',
+									method-BizUtil.datePart-'null',
+									method-BizUtil.calcDateByCycle-'null':{
+										method-BizUtil.dateAdd-'null',
+										method-BizUtil.isLastDay-'null':{
+											return method-BizUtil.lastDay-'null'
+										},
+										method-BizUtil.lastDay-'null'
+									},
+									method-BizUtil.calcDateByCycle-'null':{
+										method-BizUtil.dateAdd-'null',
+										method-BizUtil.isLastDay-'null':{
+											return method-BizUtil.lastDay-'null'
+										},
+										method-BizUtil.lastDay-'null'
+									},
+									method-BizUtil.isLastDay-'null':{
+										return method-BizUtil.lastDay-'null'
+									},
+									method-BizUtil.lastDay-'null',
+									method-BizUtil.toDate-'null',
+									method-BizUtil.lastDay-'null',
+									method-BizUtil.compare-'null':{
+										method-BizUtil.MyCompare-'null'
+									},
+									method-BizUtil.calcDateByCycle-'null':{
+										method-BizUtil.dateAdd-'null',
+										method-BizUtil.isLastDay-'null':{
+											return method-BizUtil.lastDay-'null'
+										},
+										method-BizUtil.lastDay-'null'
+									},
+									method-BizUtil.calcDateByCycle-'null':{
+										method-BizUtil.dateAdd-'null',
+										method-BizUtil.isLastDay-'null':{
+											return method-BizUtil.lastDay-'null'
+										},
+										method-BizUtil.lastDay-'null'
+									},
+									method-BizUtil.isLastDay-'null':{
+										return method-BizUtil.lastDay-'null'
+									},
+									method-BizUtil.lastDay-'null',
+									method-BizUtil.isDateString-'null':{
+										method-BizUtil.toDate-'null'
+									}
+								}
+							},
+							method-BizUtil.calcDateByReference-'null':{
+								method-BizUtil.calcDateByCycle-'null':{
+									method-BizUtil.dateAdd-'null',
+									method-BizUtil.isLastDay-'null':{
+										return method-BizUtil.lastDay-'null'
+									},
+									method-BizUtil.lastDay-'null'
+								},
+								method-BizUtil.calcNextDate-'null':{
+									method-BizUtil.firstDay-'null',
+									method-BizUtil.datePart-'null',
+									method-BizUtil.calcDateByCycle-'null':{
+										method-BizUtil.dateAdd-'null',
+										method-BizUtil.isLastDay-'null':{
+											return method-BizUtil.lastDay-'null'
+										},
+										method-BizUtil.lastDay-'null'
+									},
+									method-BizUtil.calcDateByCycle-'null':{
+										method-BizUtil.dateAdd-'null',
+										method-BizUtil.isLastDay-'null':{
+											return method-BizUtil.lastDay-'null'
+										},
+										method-BizUtil.lastDay-'null'
+									},
+									method-BizUtil.isLastDay-'null':{
+										return method-BizUtil.lastDay-'null'
+									},
+									method-BizUtil.lastDay-'null',
+									method-BizUtil.toDate-'null',
+									method-BizUtil.lastDay-'null',
+									method-BizUtil.compare-'null':{
+										method-BizUtil.MyCompare-'null'
+									},
+									method-BizUtil.calcDateByCycle-'null':{
+										method-BizUtil.dateAdd-'null',
+										method-BizUtil.isLastDay-'null':{
+											return method-BizUtil.lastDay-'null'
+										},
+										method-BizUtil.lastDay-'null'
+									},
+									method-BizUtil.calcDateByCycle-'null':{
+										method-BizUtil.dateAdd-'null',
+										method-BizUtil.isLastDay-'null':{
+											return method-BizUtil.lastDay-'null'
+										},
+										method-BizUtil.lastDay-'null'
+									},
+									method-BizUtil.isLastDay-'null':{
+										return method-BizUtil.lastDay-'null'
+									},
+									method-BizUtil.lastDay-'null',
+									method-BizUtil.isDateString-'null':{
+										method-BizUtil.toDate-'null'
+									}
+								}
+							},
+							table-dpb_batch_fee-insert-'batch charge register'
+						},
+						table-dpb_batch_fee-select-'batch charge register',
+						method-BizUtil.calcDateByReference-'null':{
+							method-BizUtil.calcDateByCycle-'null':{
+								method-BizUtil.dateAdd-'null',
+								method-BizUtil.isLastDay-'null':{
+									return method-BizUtil.lastDay-'null'
+								},
+								method-BizUtil.lastDay-'null'
+							},
+							method-BizUtil.calcNextDate-'null':{
+								method-BizUtil.firstDay-'null',
+								method-BizUtil.datePart-'null',
+								method-BizUtil.calcDateByCycle-'null':{
+									method-BizUtil.dateAdd-'null',
+									method-BizUtil.isLastDay-'null':{
+										return method-BizUtil.lastDay-'null'
+									},
+									method-BizUtil.lastDay-'null'
+								},
+								method-BizUtil.calcDateByCycle-'null':{
+									method-BizUtil.dateAdd-'null',
+									method-BizUtil.isLastDay-'null':{
+										return method-BizUtil.lastDay-'null'
+									},
+									method-BizUtil.lastDay-'null'
+								},
+								method-BizUtil.isLastDay-'null':{
+									return method-BizUtil.lastDay-'null'
+								},
+								method-BizUtil.lastDay-'null',
+								method-BizUtil.toDate-'null',
+								method-BizUtil.lastDay-'null',
+								method-BizUtil.compare-'null':{
+									method-BizUtil.MyCompare-'null'
+								},
+								method-BizUtil.calcDateByCycle-'null':{
+									method-BizUtil.dateAdd-'null',
+									method-BizUtil.isLastDay-'null':{
+										return method-BizUtil.lastDay-'null'
+									},
+									method-BizUtil.lastDay-'null'
+								},
+								method-BizUtil.calcDateByCycle-'null':{
+									method-BizUtil.dateAdd-'null',
+									method-BizUtil.isLastDay-'null':{
+										return method-BizUtil.lastDay-'null'
+									},
+									method-BizUtil.lastDay-'null'
+								},
+								method-BizUtil.isLastDay-'null':{
+									return method-BizUtil.lastDay-'null'
+								},
+								method-BizUtil.lastDay-'null',
+								method-BizUtil.isDateString-'null':{
+									method-BizUtil.toDate-'null'
+								}
+							}
+						},
+						method-BizUtil.calcDateByReference-'null':{
+							method-BizUtil.calcDateByCycle-'null':{
+								method-BizUtil.dateAdd-'null',
+								method-BizUtil.isLastDay-'null':{
+									return method-BizUtil.lastDay-'null'
+								},
+								method-BizUtil.lastDay-'null'
+							},
+							method-BizUtil.calcNextDate-'null':{
+								method-BizUtil.firstDay-'null',
+								method-BizUtil.datePart-'null',
+								method-BizUtil.calcDateByCycle-'null':{
+									method-BizUtil.dateAdd-'null',
+									method-BizUtil.isLastDay-'null':{
+										return method-BizUtil.lastDay-'null'
+									},
+									method-BizUtil.lastDay-'null'
+								},
+								method-BizUtil.calcDateByCycle-'null':{
+									method-BizUtil.dateAdd-'null',
+									method-BizUtil.isLastDay-'null':{
+										return method-BizUtil.lastDay-'null'
+									},
+									method-BizUtil.lastDay-'null'
+								},
+								method-BizUtil.isLastDay-'null':{
+									return method-BizUtil.lastDay-'null'
+								},
+								method-BizUtil.lastDay-'null',
+								method-BizUtil.toDate-'null',
+								method-BizUtil.lastDay-'null',
+								method-BizUtil.compare-'null':{
+									method-BizUtil.MyCompare-'null'
+								},
+								method-BizUtil.calcDateByCycle-'null':{
+									method-BizUtil.dateAdd-'null',
+									method-BizUtil.isLastDay-'null':{
+										return method-BizUtil.lastDay-'null'
+									},
+									method-BizUtil.lastDay-'null'
+								},
+								method-BizUtil.calcDateByCycle-'null':{
+									method-BizUtil.dateAdd-'null',
+									method-BizUtil.isLastDay-'null':{
+										return method-BizUtil.lastDay-'null'
+									},
+									method-BizUtil.lastDay-'null'
+								},
+								method-BizUtil.isLastDay-'null':{
+									return method-BizUtil.lastDay-'null'
+								},
+								method-BizUtil.lastDay-'null',
+								method-BizUtil.isDateString-'null':{
+									method-BizUtil.toDate-'null'
+								}
+							}
+						},
+						method-dp03DataProcessor.calcAverageBalance-'平均余额计算':{
+							method-BizUtil.dateAdd-'null',
+							method-BizUtil.dateAdd-'null',
+							method-BizUtil.dateAdd-'null',
+							method-BizUtil.firstDay-'null',
+							method-BizUtil.lastDay-'null',
+							method-BizUtil.lastDay-'null',
+							method-BizUtil.firstDay-'null',
+							method-BizUtil.lastDay-'null',
+							method-DpHistBalance.calcAverageBalance-'null':{
+								method-BizUtil.fieldNotNull-'null',
+								method-BizUtil.fieldNotNull-'null',
+								method-BizUtil.fieldNotNull-'null',
+								method-BizUtil.fieldNotNull-'null',
+								method-BizUtil.fieldNotNull-'null',
+								method-BizUtil.getTrxRunEnvs-'null',
+								32,selHistoryBalanceList
+								nsql-DpInterest.selHistoryBalanceList-S-dpb_balance_hist-select-'gets the historical balance information of an account specified for a particular date',
+								method-BizUtil.dateDiff-'null',
+								method-BizUtil.dateDiff-'null',
+								method-ApCurrency.roundAmount-'null':{
+									method-ApCurrency.getItem-'null':{
+										table-app_currency-select-'currency define',
+										return method-ApCurrency.getCurrencyInfo-'null'
+									},
+									return method-ApCurrency.round-'null'
+								}
+							},
+							method-BizUtil.dateAdd-'null',
+							method-BizUtil.dateAdd-'null',
+							method-BizUtil.dateAdd-'null',
+							method-BizUtil.firstDay-'null',
+							method-BizUtil.lastDay-'null',
+							method-DpHistBalance.calcAverageBalance-'平均余额计算':{	'上年，上月平均余额计算并加入缓存区'
+								method-BizUtil.fieldNotNull-'null',
+								method-BizUtil.fieldNotNull-'null',
+								method-BizUtil.fieldNotNull-'null',
+								method-BizUtil.fieldNotNull-'null',
+								method-BizUtil.fieldNotNull-'null',
+								method-BizUtil.getTrxRunEnvs-'null',
+								32,selHistoryBalanceList,
+								nsql-DpInterest.selHistoryBalanceList-S-dpb_balance_hist-select-'gets the historical balance information of an account specified for a particular date',
+								method-BizUtil.dateDiff-'null',
+								method-BizUtil.dateDiff-'null',
+								method-ApCurrency.roundAmount-'null':{
+									method-ApCurrency.getItem-'null':{
+										table-app_currency-select-'currency define',
+										return method-ApCurrency.getCurrencyInfo-'null'
+									},
+									return method-ApCurrency.round-'null'
+								}
+							}
+						},
+						'添加输入数据集： 个性化数据集'
+						'每次都添加,因为重置交易流水会清空所有缓冲区数据,如果不加载会导致规则匹配失效'
+						method-dp03DataProcessor.addInputDataBuff-'null':{		'增加输入区数据缓存区'
+							method-ApBuffer.addData-'null':{
+								method-ApDropList.exists-'null':{
+									method-ApDropList.getItem-'null':{
+										table-app_drop-select-'drop list define',
+										method-ApOrg.getDefaultOrgId-'null':{
+											table-app_organization-select-'organization infomation'
+										},
+										table-app_drop_list-select-'drop list parameter',
+										method-ApOrg.getReferenceOrgId-'null':{
+											method-BizUtil.getTrxRunEnvs-'null',
+											method-BizUtil.isOrgRelated-'null',
+											table-app_parameter_reference-select-'parameter reference define',
+											table-app_parameter_reference-select-'parameter reference define',
+											method-BizUtil.isParmTable-'null',
+											method-ApOrg.getOrgInfo-'null':{
+												table-app_organization-select-'organization infomation'
+											},
+											method-ApOrg.getOrgInfo-'null':{
+												table-app_organization-select-'organization infomation'
+											}
+										},
+										table-app_drop_list-select-'drop list parameter',
+										method-ApOrg.getDefaultOrgId-'null':{
+											table-app_organization-select-'organization infomation'
+										},
+										table-app_drop_list-select-'drop list parameter'
+									}
+								},
+								method-BizUtil.getTrxRunEnvs-'null'
+							},
+							33,427,dpa_account
+							table-dpa_account-select-'Deposit account table',
+							method-ApBuffer.addData-'null':{
+								method-ApDropList.exists-'null':{
+									method-ApDropList.getItem-'null':{
+										table-app_drop-select-'drop list define',
+										method-ApOrg.getDefaultOrgId-'null':{
+											table-app_organization-select-'organization infomation'
+										},
+										table-app_drop_list-select-'drop list parameter',
+										method-ApOrg.getReferenceOrgId-'null':{
+											method-BizUtil.getTrxRunEnvs-'null',
+											method-BizUtil.isOrgRelated-'null',
+											table-app_parameter_reference-select-'parameter reference define',
+											table-app_parameter_reference-select-'parameter reference define',
+											method-BizUtil.isParmTable-'null',
+											method-ApOrg.getOrgInfo-'null':{
+												table-app_organization-select-'organization infomation'
+											},
+											method-ApOrg.getOrgInfo-'null':{
+												table-app_organization-select-'organization infomation'
+											}
+										},
+										table-app_drop_list-select-'drop list parameter',
+										method-ApOrg.getDefaultOrgId-'null':{
+											table-app_organization-select-'organization infomation'
+										},
+										table-app_drop_list-select-'drop list parameter'
+									}
+								},
+								method-BizUtil.getTrxRunEnvs-'null'
+							},
+							method-ApCurrency.getItem-'null':{
+								table-app_currency-select-'currency define',
+								return method-ApCurrency.getCurrencyInfo-'null'
+							},
+							method-DpBuffer.addDataToCustBuffer-'添加客户数据集':{		'加载客户信息数据'
+								localSer-SrvIoCfCustomer.qryCorporCustInfo-'null':{
+									return method-CfCustInfoQuery.qryCorporCustInfo-'null':{	'公司客户信息查询'
+										method-BizUtil.getTrxRunEnvs-'null',
+										method-ApOrg.getReferenceOrgId-'null':{
+											method-BizUtil.getTrxRunEnvs-'null',
+											method-BizUtil.isOrgRelated-'null',
+											table-app_parameter_reference-select-'parameter reference define',
+											table-app_parameter_reference-select-'parameter reference define',
+											method-BizUtil.isParmTable-'null',
+											method-ApOrg.getOrgInfo-'null':{
+												table-app_organization-select-'organization infomation'
+											},
+											method-ApOrg.getOrgInfo-'null':{
+												table-app_organization-select-'organization infomation'
+											}
+										},
+										null,selCorporCustByDoc,
+										nsql-CfCustomerBase.selCorporCustByDoc-S-cfb_corpor_doc-select-'select  copor customer info by document no',
+										table-cfb_corpor_base-select-'corporation customer basic information',
+										table-cfb_corpor_doc-select-'corporation customer document information',
+										table-cfb_siger_agent-select-'cfb siger agent list',
+										table-cfb_siger_agent-select-'cfb siger agent list',
+										table-cfb_corpor_address-select-'corporation customer address information',
+										447,cfb_corpor_contact,
+										table-cfb_corpor_contact-select-'corporation customer contact information',
+										method-CfCustInfoQuery.qryOtherCustTable-'查询客户其他信息':{	'客户其他信息查询'
+											method-CfCustInfoQuery.qryCustRelationList-'查询客户关联关系信息列表':{
+												method-CfCustInfoQuery.qryCfCustInfo-'null',
+												nsql-CfCustomerBase.selCustRelationList-S-cfb_cust_relation-select-'customer relation association info inquiry',
+												table-cfp_cust_relation_type-select-'customer relation type define',
+												nsql-CfCustomerBase.selCustRelationList-S-cfb_cust_relation-select-'customer relation association info inquiry',
+												method-CfCustInfoQuery.qryCfCustInfo-'null',
+												table-cfp_cust_relation_type-select-'customer relation type define'
+											},
+											table-cfb_cust_overseas_tax-select-'customer overseas tax information',
+											table-cfb_cust_auxiliary-select-'customer auxiliary information',
+											table-cfb_cust_manager-select-'customer manager information'
+										},
+										method-CfCustInfoCommon.qryCustAttrList-'属性查询':{
+											method-ApAttribute.setData-'null':{
+												method-ApAttribute.setAttrPosition-'null',
+												method-ApAttribute.merge-'null',
+												method-ApAttribute.getAttrDefine-'null',
+												method-ApDropList.getText-'null',
+												method-ApAttribute.checkExclusion-'null'
+											}
+										},
+										416,update taa_account,
+										469,selCustStatement,66
+										nsql-CfCustomerBase.selCustStatement-S-cfb_cust_statement-select-'select cust information'
+									}
+								},
+								method-ApAttribute.getNewestAttrValue-'获取客户最新账户属性值':{
+									method-BizUtil.getTrxRunEnvs-'null',
+									method-ApAttribute.builderData-'null':{
+										method-ApAttribute.getOwnerDueDate-'null':{
+											table-app_attribute_due-select-'attribute due date define'
+										},
+										method-ApAttribute.getAttrDefine-'null':{
+											table-app_attribute-select-'attribute define',
+											table-app_attribute-select-'attribute define'
+										},
+										method-ApAttribute.getIndexByAttrDate-'null'
+									}
+								},
+								method-ApBuffer.addData-'null':{
+									method-ApDropList.exists-'null':{
+										method-ApDropList.getItem-'null':{
+											table-app_drop-select-'drop list define',
+											method-ApOrg.getDefaultOrgId-'null':{
+												table-app_organization-select-'organization infomation'
+											},
+											table-app_drop_list-select-'drop list parameter',
+											method-ApOrg.getReferenceOrgId-'null':{
+												method-BizUtil.getTrxRunEnvs-'null',
+												method-BizUtil.isOrgRelated-'null',
+												table-app_parameter_reference-select-'parameter reference define',
+												table-app_parameter_reference-select-'parameter reference define',
+												method-BizUtil.isParmTable-'null',
+												method-ApOrg.getOrgInfo-'null',
+												method-ApOrg.getOrgInfo-'null'
+											},
+											table-app_drop_list-select-'drop list parameter',
+											method-ApOrg.getDefaultOrgId-'null':{
+												table-app_organization-select-'organization infomation'
+											},
+											table-app_drop_list-select-'drop list parameter'
+										}
+									},
+									method-BizUtil.getTrxRunEnvs-'null'
+								}
+							},
+							method-ApBuffer.addData-'null':{
+								method-ApDropList.exists-'null':{
+									method-ApDropList.getItem-'null':{
+										table-app_drop-select-'drop list define',
+										method-ApOrg.getDefaultOrgId-'null':{
+											table-app_organization-select-'organization infomation'
+										},
+										table-app_drop_list-select-'drop list parameter',
+										method-ApOrg.getReferenceOrgId-'null':{
+											method-BizUtil.getTrxRunEnvs-'null',
+											method-BizUtil.isOrgRelated-'null',
+											table-app_parameter_reference-select-'parameter reference define',
+											table-app_parameter_reference-select-'parameter reference define',
+											method-BizUtil.isParmTable-'null',
+											method-ApOrg.getOrgInfo-'null':{
+												table-app_organization-select-'organization infomation'
+											},
+											method-ApOrg.getOrgInfo-'null':{
+												table-app_organization-select-'organization infomation'
+											}
+										},
+										table-app_drop_list-select-'drop list parameter',
+										method-ApOrg.getDefaultOrgId-'null':{
+											table-app_organization-select-'organization infomation'
+										},
+										table-app_drop_list-select-'drop list parameter'
+									}
+								},
+								method-BizUtil.getTrxRunEnvs-'null'
+							},
+							table-dpa_card-select-'Card information',
+							method-ApBuffer.addData-'null':{
+								method-ApDropList.exists-'null':{
+									method-ApDropList.getItem-'null':{
+										table-app_drop-select-'drop list define',
+										method-ApOrg.getDefaultOrgId-'null':{
+											table-app_organization-select-'organization infomation'
+										},
+										table-app_drop_list-select-'drop list parameter',
+										method-ApOrg.getReferenceOrgId-'null':{
+											method-BizUtil.getTrxRunEnvs-'null',
+											method-BizUtil.isOrgRelated-'null',
+											table-app_parameter_reference-select-'parameter reference define',
+											table-app_parameter_reference-select-'parameter reference define',
+											method-BizUtil.isParmTable-'null',
+											method-ApOrg.getOrgInfo-'null':{
+												table-app_organization-select-'organization infomation'
+											},
+											method-ApOrg.getOrgInfo-'null':{
+												table-app_organization-select-'organization infomation'
+											}
+										},
+										table-app_drop_list-select-'drop list parameter',
+										method-ApOrg.getDefaultOrgId-'null':{
+											table-app_organization-select-'organization infomation'
+										},
+										table-app_drop_list-select-'drop list parameter'
+									}
+								},
+								method-BizUtil.getTrxRunEnvs-'null'
+							},
+							method-BizUtil.calcDateByCycle-'null':{
+								method-BizUtil.dateAdd-'null',
+								method-BizUtil.isLastDay-'null':{
+									return method-BizUtil.lastDay-'null'
+								},
+								method-BizUtil.lastDay-'null'
+							},
+							method-BizUtil.getTrxRunEnvs-'null',
+							method-ApBuffer.addData-'null':{
+								method-ApDropList.exists-'null':{
+									method-ApDropList.getItem-'null':{
+										table-app_drop-select-'drop list define',
+										method-ApOrg.getDefaultOrgId-'null':{
+											table-app_organization-select-'organization infomation'
+										},
+										table-app_drop_list-select-'drop list parameter',
+										method-ApOrg.getReferenceOrgId-'null':{
+											method-BizUtil.getTrxRunEnvs-'null',
+											method-BizUtil.isOrgRelated-'null',
+											table-app_parameter_reference-select-'parameter reference define',
+											table-app_parameter_reference-select-'parameter reference define',
+											method-BizUtil.isParmTable-'null',
+											method-ApOrg.getOrgInfo-'null':{
+												table-app_organization-select-'organization infomation'
+											},
+											method-ApOrg.getOrgInfo-'null':{
+												table-app_organization-select-'organization infomation'
+											}
+										},
+										table-app_drop_list-select-'drop list parameter',
+										method-ApOrg.getDefaultOrgId-'null':{
+											table-app_organization-select-'organization infomation'
+										},
+										table-app_drop_list-select-'drop list parameter'
+									}
+								},
+								method-BizUtil.getTrxRunEnvs-'null'
+							}
+						},
+						method-dp03DataProcessor.sigleCharge(dpa_sub_account dataItem, DpAvgBalInfo avgBalInfo, dpb_batch_fee acctFee)-'调用公共收费':{	'单条收费'
+							localSer-SrvIoCmChrg.calcManualChrg-'null':{
+								return method-CmChrgMain.calcManualChrg-'null':{	'手工收费试算'
+									method-CmChrgCheck.chkManualChrgCalc-'null':{
+										method-BizUtil.fieldNotNull-'null',
+										method-BizUtil.fieldNotNull-'null'
+									},
+									method-CmChrgQuery.getChrgCodeDef-'null':{
+										table-cmp_chrg_code-select-'Charge Code Definition'
+									},
+									method-CmChrgMain.calcChrg-'null':{
+										method-CmChrgCheck.chkChrgCalc-'1.收费试算检查 ':{
+											method-BizUtil.fieldNotNull-'null'
+										},
+										method-CmChrgQuery.getEffeChrgCodeList-'2.获取有效的收费解析信息':{
+											method-CmChrgQuery.addChrgDataMart-'null':{
+												method-ApBuffer.addData-'null',
+												method-ApBuffer.getFieldValue-'null',
+												localSer-SrvIoDpQueryAcct.querySubAcctInfo-'null',
+												method-ApBuffer.addData-'null',
+												localSer-SrvIoCfCustomer.qryCfCustInfo-'null',
+												method-ApBuffer.addData-'null'
+											},
+											method-CmChrgQuery.exchChrgCcy-'null':{
+												localSer-SrvIoCmExch.calcForexAmount-'null'
+											},
+											method-CmChrgQuery.exchChrgCcy-'null':{
+												localSer-SrvIoCmExch.calcForexAmount-'null'
+											},
+											method-ApBuffer.appendData-'null':{
+												method-ApBuffer.addData-'null'
+											},
+											method-CmChrgQuery.addChrgDataMart-'null':{
+												method-ApBuffer.addData-'null',
+												method-ApBuffer.getFieldValue-'null',
+												localSer-SrvIoDpQueryAcct.querySubAcctInfo-'null',
+												method-ApBuffer.addData-'null',
+												localSer-SrvIoCfCustomer.qryCfCustInfo-'null',
+												method-ApBuffer.addData-'null'
+											},
+											method-ApOrg.getReferenceOrgId-'null':{
+												method-BizUtil.getTrxRunEnvs-'null',
+												method-BizUtil.isOrgRelated-'null',
+												table-app_parameter_reference-select-'parameter reference define',
+												table-app_parameter_reference-select-'parameter reference define',
+												method-BizUtil.isParmTable-'null',
+												method-ApOrg.getOrgInfo-'null',
+												method-ApOrg.getOrgInfo-'null'
+											},
+											nsql-CmChrg.selEffeChrgCodeList-S-cmp_chrg_code-select-'select effect charge code list',
+											method-CmChrgQuery.getEffeFormByChrgCode-'null':{
+												method-ApOrg.getReferenceOrgId-'null',
+												method-BizUtil.getTrxRunEnvs-'null',
+												nsql-CmChrg.selEffeFormByChrgCode-S-cmp_chrg_code_form-select-'query effect formula by charge code',
+												method-ApRule.mapping-'null'
+											}
+										},
+										method-CmChrgQuery.getChrgCodeDef-'查询费用编号定义':{
+											table-cmp_chrg_code-select-'Charge Code Definition'
+										},
+										method-CmChrgQuery.getCalcChrgCcy-'3.1确定计费币种':{
+											table-cmp_chrg_form_details-select-'Charge formula details',
+											table-cmp_chrg_code-select-'Charge Code Definition'
+										},
+										method-CmChrgCalc.calcChrgAmt-'3.2计算费用金额 ':{	'费用金额计算'
+											table-cmp_chrg_code-select-'Charge Code Definition',
+											method-CmChrgAccounting.analyExquotType-'null',
+											method-CmChrgQuery.exchChrgCcy-'null':{
+												localSer-SrvIoCmExch.calcForexAmount-'null'
+											},
+											method-CmChrgCalc.calcBaseChrgAmt-'null':{
+												method-CmChrgQuery.getChrgFormDef-'null',
+												table-cmp_chrg_form_details-select-'Charge formula details',
+												method-CmChrgCalc.calcChrgAmtByCalcWay-'null',
+												method-CmChrgCalc.getTierValue-'null',
+												method-ApOrg.getReferenceOrgId-'null',
+												nsql-CmChrg.selChrgFormDetailFullByBandCount-S-cmp_chrg_form_details-select-'select full progression fomula details by band count',
+												method-ApOrg.getReferenceOrgId-'null',
+												nsql-CmChrg.selChrgFormDetailFullByBandAmount-S-cmp_chrg_form_details-select-'select full progression fomula details by band Amount',
+												method-ApOrg.getReferenceOrgId-'null',
+												nsql-CmChrg.selChrgFormDetailFullByBandCountAndAmount-S-cmp_chrg_form_details-select-'select full progression fomula details by band Amount',
+												method-CmChrgCalc.calcChrgAmtByCalcWay-'null',
+												method-ApOrg.getReferenceOrgId-'null',
+												nsql-CmChrg.selChrgFromDetailExcessByBandAmount-S-cmp_chrg_form_details-select-'select excess progression fomula details by band Amount',
+												method-ApOrg.getReferenceOrgId-'null',
+												nsql-CmChrg.selChrgFormDetailMaxBandCount-S-cmp_chrg_form_details-select-'select full progression fomula details max band count',
+												method-ApOrg.getReferenceOrgId-'null',
+												nsql-CmChrg.selChrgFromDetailExcessByBandAmount-S-cmp_chrg_form_details-select-'select excess progression fomula details by band Amount',
+												method-CmChrgCalc.calcChrgAmtByCalcWay-'null'
+											},
+											method-CmChrgCalc.calcChrgFloatAmt-'null':{
+												method-BizUtil.getTrxRunEnvs-'null',
+												method-ApOrg.getReferenceOrgId-'null',
+												nsql-CmChrg.selEffectChrgFloat-S-cmp_chrg_float-select-'select effective charge float info'
+											},
+											method-CmChrgCalc.calcChrgCheapAmt-'null':{
+												method-BizUtil.getTrxRunEnvs-'null',
+												method-ApOrg.getReferenceOrgId-'null',
+												nsql-CmChrg.selChrgPromoList-S-cmp_chrg_promo-select-'select promotion info',
+												table-cmp_chrg_code-select-'Charge Code Definition',
+												method-CmChrgQuery.getChrgFormDef-'null',
+												method-CmChrgCalc.calcBaseChrgAmt-'null'
+											},
+											method-ApCurrency.roundAmount-'null':{
+												method-ApCurrency.getItem-'null',
+												return method-ApCurrency.round-'null'
+											},
+											method-CmChrgAccounting.analyExquotType-'null',
+											method-CmChrgQuery.exchChrgCcy-'null':{
+												localSer-SrvIoCmExch.calcForexAmount-'null'
+											},
+											table-cmp_vat_code-select-'value-added tax code',
+											table-cmp_vat_code-select-'value-added tax code',
+											method-CmVatCalc.calcVatTaxRate-'null':{
+												method-BizUtil.fieldNotNull-'null',
+												method-BizUtil.fieldNotNull-'null',
+												method-CmVatCalc.assembleTaxRateOut-'null',
+												method-ApCurrency.roundAmount-'null',
+												method-ApCurrency.roundAmount-'null',
+												method-ApCurrency.roundAmount-'null',
+												method-ApCurrency.roundAmount-'null',
+												method-ApCurrency.roundAmount-'null',
+												method-ApCurrency.roundAmount-'null',
+												method-ApCurrency.roundAmount-'null',
+												method-ApCurrency.roundAmount-'null',
+												method-ApCurrency.roundAmount-'null',
+												method-ApCurrency.roundAmount-'null',
+												method-ApCurrency.roundAmount-'null',
+												method-ApCurrency.roundAmount-'null',
+												method-ApCurrency.roundAmount-'null',
+												method-ApCurrency.roundAmount-'null',
+												method-ApCurrency.roundAmount-'null',
+												method-ApCurrency.roundAmount-'null',
+												method-ApCurrency.roundAmount-'null',
+												method-ApCurrency.roundAmount-'null',
+												method-ApCurrency.roundAmount-'null',
+												method-ApCurrency.roundAmount-'null'
+											},
+											method-ApCurrency.roundAmount-'null':{
+												method-ApCurrency.getItem-'null',
+												return method-ApCurrency.round-'null'
+											},
+											method-ApCurrency.roundAmount-'null':{
+												method-ApCurrency.getItem-'null',
+												return method-ApCurrency.round-'null'
+											},
+											method-ApCurrency.roundAmount-'null':{
+												method-ApCurrency.getItem-'null',
+												return method-ApCurrency.round-'null'
+											}
+										}
+									}
+								}
+							},
+							localSer-SrvIoCmChrg.qryChrgCodeDefList-'null':{
+								return method-CmChrgQuery.qryChrgCodeDefList-'null':{	'查询费用编号列表信息'
+									method-BizUtil.getTrxRunEnvs-'null',
+									method-ApOrg.getReferenceOrgId-'null':{
+										method-BizUtil.getTrxRunEnvs-'null',
+										method-BizUtil.isOrgRelated-'null',
+										table-app_parameter_reference-select-'parameter reference define',
+										table-app_parameter_reference-select-'parameter reference define',
+										method-BizUtil.isParmTable-'null',
+										method-ApOrg.getOrgInfo-'null':{
+											table-app_organization-select-'organization infomation'
+										},
+										method-ApOrg.getOrgInfo-'null':{
+											table-app_organization-select-'organization infomation'
+										}
+									},
+									nsql-CmChrg.selChrgCodeDefList-S-cmp_chrg_code-select-'select charge code define list',
+									method-BizUtil.getTrxRunEnvs-'null',
+									method-BizUtil.getTrxRunEnvs-'null',
+									method-BizUtil.getTrxRunEnvs-'null',
+									method-ApOrg.getReferenceOrgId-'null':{
+										method-BizUtil.getTrxRunEnvs-'null',
+										method-BizUtil.isOrgRelated-'null',
+										table-app_parameter_reference-select-'parameter reference define',
+										table-app_parameter_reference-select-'parameter reference define',
+										method-BizUtil.isParmTable-'null',
+										method-ApOrg.getOrgInfo-'null':{
+											table-app_organization-select-'organization infomation'
+										},
+										method-ApOrg.getOrgInfo-'null':{
+											table-app_organization-select-'organization infomation'
+										}
+									},
+									nsql-CmChrg.selChrgCodeDefListBatch-S-cmp_chrg_code-select-'selChrgCodeDefListBatch',
+									method-ApOrg.getReferenceOrgId-'null':{
+										method-BizUtil.getTrxRunEnvs-'null',
+										method-BizUtil.isOrgRelated-'null',
+										table-app_parameter_reference-select-'parameter reference define',
+										table-app_parameter_reference-select-'parameter reference define',
+										method-BizUtil.isParmTable-'null',
+										method-ApOrg.getOrgInfo-'null':{
+											table-app_organization-select-'organization infomation'
+										},
+										method-ApOrg.getOrgInfo-'null':{
+											table-app_organization-select-'organization infomation'
+										}
+									},
+									method-BizUtil.getTrxRunEnvs-'null',
+									nsql-CmChrg.selEffeFormByChrgCode-S-cmp_chrg_code_form-select-'query effect formula by charge code',
+									method-CmChrgQuery.qryChrgFormInfo-'null':{
+										method-CmChrgQuery.getChrgFormDef-'null':{
+											table-cmp_chrg_form-select-'Charge Formula Definition'
+										},
+										table-cmp_chrg_form_details-select-'Charge formula details',
+										method-ApCurrency.getItem-'null':{
+											table-app_currency-select-'currency define',
+											return method-ApCurrency.getCurrencyInfo-'null'
+										}
+									},
+									table-cmp_chrg_category_event-select-'tax category event'
+								}
+							},
+							method-ApSystemParm.getValue-'null':{
+								table-app_system_parameter-select-'system parameter'
+							}
+						},
+						method-BizUtil.resetTrxnSequence-'null':{
+							method-BizUtil.getTrxRunEnvs-'null',
+							method-BizUtil.genTrxnSequence-'null':{
+								table-app_system-select-'system define',
+								method-ApBuffer.addData-'null':{
+									method-ApDropList.exists-'null':{
+										method-ApDropList.getItem-'null':{
+											table-app_drop-select-'drop list define',
+											method-ApOrg.getDefaultOrgId-'null':{
+												table-app_organization-select-'organization infomation'
+											},
+											table-app_drop_list-select-'drop list parameter',
+											method-ApOrg.getReferenceOrgId-'null':{
+												method-BizUtil.getTrxRunEnvs-'null',
+												method-BizUtil.isOrgRelated-'null',
+												table-app_parameter_reference-select-'parameter reference define',
+												table-app_parameter_reference-select-'parameter reference define',
+												method-BizUtil.isParmTable-'null',
+												method-ApOrg.getOrgInfo-'null',
+												method-ApOrg.getOrgInfo-'null'
+											},
+											table-app_drop_list-select-'drop list parameter',
+											method-ApOrg.getDefaultOrgId-'null':{
+												table-app_organization-select-'organization infomation'
+											},
+											table-app_drop_list-select-'drop list parameter'
+										}
+									},
+									method-BizUtil.getTrxRunEnvs-'null'
+								},
+								return method-ApSeq.genSeq-'null':{
+									method-ApSeq.getAppSequence-'null':{
+										method-BizUtil.getTrxRunEnvs-'null',
+										table-app_sequence_reference-select-'sequence reference define',
+										table-app_sequence_reference-select-'sequence reference define',
+										table-app_sequence-select-'sequence no define',
+										table-app_sequence-select-'sequence no define'
+									},
+									method-ApSeq.getAppSequence-'null':{
+										method-BizUtil.getTrxRunEnvs-'null',
+										table-app_sequence_reference-select-'sequence reference define',
+										table-app_sequence_reference-select-'sequence reference define',
+										table-app_sequence-select-'sequence no define',
+										table-app_sequence-select-'sequence no define'
+									},
+									method-ApSeq.getSequence-'null':{
+										table-app_sequence-select-'sequence no define'
+									},
+									table-app_sequence_builder-select-'sequence build define',
+									method-ApSeq.buildRecogintion-'null':{
+										method-BizUtil.getTrxRunEnvsValue-'null':{
+											method-BizUtil.getTrxRunEnvs-'null',
+											method-BizUtil.getTrxRunEnvs-'null',
+											method-BizUtil.invoke-'null':{
+												table-app_service-select-'service Define',
+												return method-BizUtil.callServiceDirect-'null',
+												return method-BizUtil.callService-'null'
+											}
+										},
+										method-BizUtil.formatDate-'null'
+									},
+									method-ApSeq.padding-'null',
+									method-ApSeq.padding-'null',
+									method-ApSeq.getSequence-'null':{
+										table-app_sequence-select-'sequence no define'
+									},
+									method-ApSeq.padding-'null',
+									method-BizUtil.genCustnoCheckBit-'null',
+									method-BizUtil.genCardnoCheckBit-'null':{
+										method-BizUtil.fieldNotNull-'null'
+									},
+									method-ApSeq.padding-'null'
+								}
+							},
+							method-BizUtil.getComputerDate-'null',
+							method-BizUtil.getComputerDate-'null',
+							method-BizUtil.getComputerTime-'null',
+							method-BizUtil.getComputerTime-'null',
+							method-BizUtil.Object>-'null':{
+								method-BizUtil.getSrvFullId-'null',
+								method-BizUtil.getSrvFullId-'null'
+							}
+						},
+						table-dpb_batch_fee-update-'batch charge register'
+					}
+			},
+		},
+		

@@ -1,0 +1,62 @@
+tab5-'check the balance':{
+			process:{
+					method-ApBusinessParm.getValue-'null':{
+						table-app_business_parameter-select-'system parameter'
+					},
+					method-BizUtil.getTrxRunEnvs-'null',
+					List<tap_accountingevent_ctrl> accountingParms = Tap_accountingevent_ctrlDao.selectAll_odb2(E_YESORNO.YES, false);
+						table-tap_accountingevent_ctrl-select-'contrl accounting event':{
+							from tap_accountingevent_ctrl where ledger_check_ind='Y'
+						},
+					for (tap_accountingevent_ctrl accountingParm : accountingParms) {
+						method-ApOrg.getReferenceOrgId-'null':{
+							method-BizUtil.getTrxRunEnvs-'null',
+							method-BizUtil.isOrgRelated-'null',
+							table-app_parameter_reference-select-'parameter reference define',
+							table-app_parameter_reference-select-'parameter reference define',
+							method-BizUtil.isParmTable-'null',
+							method-ApOrg.getOrgInfo-'null':{
+								table-app_organization-select-'organization infomation'
+							},
+							method-ApOrg.getOrgInfo-'null':{
+								table-app_organization-select-'organization infomation'
+							}
+						},
+						List<TaEventBal> accountingEvents = TaAccountingDao.selAccountingEventBal(ApOrg.getReferenceOrgId(tap_accountingevent_ctrl.class), lastDate,
+					accountingParm.getAccounting_alias(), accountingParm.getBal_attributes(), false);
+							nsql-TaAccounting.selAccountingEventBal-S-(select-select-'select amount from accounting event':{
+								select b.trxn_ccy,b.acct_branch,
+								   case
+									 when b.amt >= 0.00 THEN
+									  'D'
+									 ELSE
+									  'C'
+								   END as bal_type,
+								   case
+									 when b.amt >= 0.00 THEN
+									  b.amt
+									 ELSE
+									  0.00 - b.amt
+								   END as trxn_amt
+							  from (select a.trxn_ccy,a.acct_branch,
+										   sum(case
+												 when a.debit_credit = 'D' then
+												  a.trxn_amt
+												 else
+												  0.00 - a.trxn_amt
+											   end) as amt
+									  from tas_accounting_event a
+									 where a.org_id =#org_id#
+									   and a.trxn_date = #trxn_date#
+									   and  a.accounting_alias = #accounting_alias#
+									   and  a.bal_attributes= #bal_attributes#
+									 group by a.trxn_ccy,
+									 a.acct_branch
+									 ) b
+							},
+						table-tas_ledger_bal-select-' the balance of ledger account',
+						table-tas_ledger_bal-select-' the balance of ledger account'
+					}
+			},
+		},
+		

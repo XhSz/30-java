@@ -1,0 +1,450 @@
+
+		tab7-'核心对账文件写入':{
+			process:{
+					method-TaFile.writeCheckRecord-'null':{			'写入核心对账文件'
+						method-BizUtil.getTrxRunEnvs-'null',
+						method-ApSystemParm.getIntValue-'null':{
+							method-ApSystemParm.getValue-'null':{
+								table-app_system_parameter-select-'system parameter'
+							}
+						},
+						method-ApOrg.getReferenceOrgId-'null':{
+							method-BizUtil.getTrxRunEnvs-'null',
+							method-BizUtil.isOrgRelated-'null',
+							table-app_parameter_reference-select-'parameter reference define',
+							table-app_parameter_reference-select-'parameter reference define',
+							method-BizUtil.isParmTable-'null',
+							method-ApOrg.getOrgInfo-'null':{
+								table-app_organization-select-'organization infomation'
+							},
+							method-ApOrg.getOrgInfo-'null':{
+								table-app_organization-select-'organization infomation'
+							}
+						},
+						'查询是否还有未写入的文件'
+						nsql-TaFile.selNoWriteCount-S-tas_accounting_event-select-'会计事件表里是否有未写入的数据':{
+							select
+									count(1) 
+							from
+									tas_accounting_event a 
+							where
+									a.org_id='99' and a.trxn_date='20210706' and a.data_sync_ind='N'
+						},
+						method-ApOrg.getReferenceOrgId-'null':{
+							method-BizUtil.getTrxRunEnvs-'null',
+							method-BizUtil.isOrgRelated-'null',
+							table-app_parameter_reference-select-'parameter reference define',
+							table-app_parameter_reference-select-'parameter reference define',
+							method-BizUtil.isParmTable-'null',
+							method-ApOrg.getOrgInfo-'null':{
+								table-app_organization-select-'organization infomation'
+							},
+							method-ApOrg.getOrgInfo-'null':{
+								table-app_organization-select-'organization infomation'
+							}
+						},
+						'取文件id'
+						nsql-TaFile.selFileIdFromAccountingEnvent-S-tas_accounting_event-select-'获取上日已同步数据的文件ID':{
+							select
+									distinct(a.data_sync_file_id) 
+							from
+									tas_accounting_event a 
+							where
+									a.org_id='99' and a.trxn_date = '20210706'
+									and a.data_sync_ind='Y'
+						},
+						method-ApFileSend.getFileInfo-'null':{	'获取文件发送薄信息'
+							method-BizUtil.fieldNotNull-'null',
+							table-apb_batch_send-select-'batch request  book'
+						},
+						method-ApFile.getFullPath-'null':{
+							method-ApFile.exists-'null':{
+								method-ApDropList.exists-'null':{
+									method-ApDropList.getItem-'null':{
+										table-app_drop-select-'drop list define',
+										method-ApOrg.getDefaultOrgId-'null':{
+											table-app_organization-select-'organization infomation'
+										},
+										table-app_drop_list-select-'drop list parameter',
+										method-ApOrg.getReferenceOrgId-'null':{
+											method-BizUtil.getTrxRunEnvs-'null',
+											method-BizUtil.isOrgRelated-'null',
+											table-app_parameter_reference-select-'parameter reference define',
+											table-app_parameter_reference-select-'parameter reference define',
+											method-BizUtil.isParmTable-'null',
+											method-ApOrg.getOrgInfo-'null',
+											method-ApOrg.getOrgInfo-'null'
+										},
+										table-app_drop_list-select-'drop list parameter',
+										method-ApOrg.getDefaultOrgId-'null':{
+											table-app_organization-select-'organization infomation'
+										},
+										table-app_drop_list-select-'drop list parameter'
+									}
+								},
+								table-app_directory-select-'file directory'
+							},
+							method-ApFile.genFileName-'null':{
+								table-app_directory-select-'file directory',
+								method-BizUtil.getTrxRunEnvsValue-'null':{
+									method-BizUtil.getTrxRunEnvs-'null',
+									method-BizUtil.getTrxRunEnvs-'null',
+									method-BizUtil.invoke-'null':{
+										table-app_service-select-'service Define',
+										return method-BizUtil.callServiceDirect-'null':{
+											method-BizUtil.invoke-'null',
+											method-BizUtil.getExceptionCause-'null'
+										},
+										return method-BizUtil.callService-'null':{
+											method-BizUtil.getSrvFullId-'null'
+										}
+									}
+								}
+							}
+						},
+						method-TaFile.accountingDataWrited-'null':{		'统计已同步会计事件'
+							method-ApOrg.getReferenceOrgId-'null':{
+								method-BizUtil.getTrxRunEnvs-'null',
+								method-BizUtil.isOrgRelated-'null',
+								table-app_parameter_reference-select-'parameter reference define',
+								table-app_parameter_reference-select-'parameter reference define',
+								method-BizUtil.isParmTable-'null',
+								method-ApOrg.getOrgInfo-'null':{
+									table-app_organization-select-'organization infomation'
+								},
+								method-ApOrg.getOrgInfo-'null':{
+									table-app_organization-select-'organization infomation'
+								}
+							},
+							nsql-TaFile.selCheckRecordFromAccounting-S-tas_accounting_event-select-'计算会计事件的对账文件':{
+								select
+								  nvl(sum(a.trxn_amt), 0.00) as total_amt, count(1) as record_number, a.trxn_date 
+								from
+										tas_accounting_event a 
+								where
+										a.org_id = '99' and a.trxn_date = #last_date# and accounting_subject=#accounting_subject#
+								group by 
+										a.trxn_date
+							}
+						},
+						method-BizUtil.toJson-'null',
+						method-TaFile.accureDataWrited-'null':{
+							method-ApOrg.getReferenceOrgId-'null':{
+								method-BizUtil.getTrxRunEnvs-'null',
+								method-BizUtil.isOrgRelated-'null',
+								table-app_parameter_reference-select-'parameter reference define',
+								table-app_parameter_reference-select-'parameter reference define',
+								method-BizUtil.isParmTable-'null',
+								method-ApOrg.getOrgInfo-'null':{
+									table-app_organization-select-'organization infomation'
+								},
+								method-ApOrg.getOrgInfo-'null':{
+									table-app_organization-select-'organization infomation'
+								}
+							},
+							nsql-TaFile.selCheckRecordFromAccure-S-tas_accrue_record-select-'取计提数据'
+						},
+						method-BizUtil.toJson-'null',
+						method-BizUtil.getTrxRunEnvs-'null',
+						method-BizUtil.toJson-'null',
+						method-TaFile.ledgerBalDataWrited-'null':{
+							method-ApOrg.getReferenceOrgId-'null':{
+								method-BizUtil.getTrxRunEnvs-'null',
+								method-BizUtil.isOrgRelated-'null',
+								table-app_parameter_reference-select-'parameter reference define',
+								table-app_parameter_reference-select-'parameter reference define',
+								method-BizUtil.isParmTable-'null',
+								method-ApOrg.getOrgInfo-'null':{
+									table-app_organization-select-'organization infomation'
+								},
+								method-ApOrg.getOrgInfo-'null':{
+									table-app_organization-select-'organization infomation'
+								}
+							},
+							nsql-TaFile.selCheckRecordFromLedferBal-S-tas_ledger_bal-select-'取分户账余额表'
+						},
+						method-BizUtil.toJson-'null',
+						method-BizUtil.getTrxRunEnvs-'null',
+						method-BizUtil.toJson-'null',
+						method-ApFileSend.register-'null':{
+							method-ApFile.getFullPath-'null':{
+								method-ApFile.exists-'null':{
+									method-ApDropList.exists-'null':{
+										method-ApDropList.getItem-'null':{
+											table-app_drop-select-'drop list define',
+											method-ApOrg.getDefaultOrgId-'null',
+											table-app_drop_list-select-'drop list parameter',
+											method-ApOrg.getReferenceOrgId-'null',
+											table-app_drop_list-select-'drop list parameter',
+											method-ApOrg.getDefaultOrgId-'null',
+											table-app_drop_list-select-'drop list parameter'
+										}
+									},
+									table-app_directory-select-'file directory'
+								},
+								method-ApFile.genFileName-'null':{
+									table-app_directory-select-'file directory',
+									method-BizUtil.getTrxRunEnvsValue-'null':{
+										method-BizUtil.getTrxRunEnvs-'null',
+										method-BizUtil.getTrxRunEnvs-'null',
+										method-BizUtil.invoke-'null':{
+											table-app_service-select-'service Define',
+											return method-BizUtil.callServiceDirect-'null',
+											return method-BizUtil.callService-'null'
+										}
+									}
+								}
+							},
+							method-ApSeq.genSeq-'null':{
+								method-ApSeq.getAppSequence-'null':{
+									method-BizUtil.getTrxRunEnvs-'null',
+									table-app_sequence_reference-select-'sequence reference define',
+									table-app_sequence_reference-select-'sequence reference define',
+									table-app_sequence-select-'sequence no define',
+									table-app_sequence-select-'sequence no define'
+								},
+								method-ApSeq.getAppSequence-'null':{
+									method-BizUtil.getTrxRunEnvs-'null',
+									table-app_sequence_reference-select-'sequence reference define',
+									table-app_sequence_reference-select-'sequence reference define',
+									table-app_sequence-select-'sequence no define',
+									table-app_sequence-select-'sequence no define'
+								},
+								method-ApSeq.getSequence-'null':{
+									table-app_sequence-select-'sequence no define'
+								},
+								table-app_sequence_builder-select-'sequence build define',
+								method-ApSeq.buildRecogintion-'null':{
+									method-BizUtil.getTrxRunEnvsValue-'null':{
+										method-BizUtil.getTrxRunEnvs-'null',
+										method-BizUtil.getTrxRunEnvs-'null',
+										method-BizUtil.invoke-'null':{
+											table-app_service-select-'service Define',
+											return method-BizUtil.callServiceDirect-'null',
+											return method-BizUtil.callService-'null'
+										}
+									},
+									method-BizUtil.formatDate-'null'
+								},
+								method-ApSeq.padding-'null',
+								method-ApSeq.padding-'null',
+								method-ApSeq.getSequence-'null':{
+									table-app_sequence-select-'sequence no define'
+								},
+								method-ApSeq.padding-'null',
+								method-BizUtil.genCustnoCheckBit-'null',
+								method-BizUtil.genCardnoCheckBit-'null':{
+									method-BizUtil.fieldNotNull-'null'
+								},
+								method-ApSeq.padding-'null'
+							},
+							method-ApFile.getFullPath-'null':{
+								method-ApFile.exists-'null':{
+									method-ApDropList.exists-'null':{
+										method-ApDropList.getItem-'null':{
+											table-app_drop-select-'drop list define',
+											method-ApOrg.getDefaultOrgId-'null',
+											table-app_drop_list-select-'drop list parameter',
+											method-ApOrg.getReferenceOrgId-'null',
+											table-app_drop_list-select-'drop list parameter',
+											method-ApOrg.getDefaultOrgId-'null',
+											table-app_drop_list-select-'drop list parameter'
+										}
+									},
+									table-app_directory-select-'file directory'
+								},
+								method-ApFile.genFileName-'null':{
+									table-app_directory-select-'file directory',
+									method-BizUtil.getTrxRunEnvsValue-'null':{
+										method-BizUtil.getTrxRunEnvs-'null',
+										method-BizUtil.getTrxRunEnvs-'null',
+										method-BizUtil.invoke-'null':{
+											table-app_service-select-'service Define',
+											return method-BizUtil.callServiceDirect-'null',
+											return method-BizUtil.callService-'null'
+										}
+									}
+								}
+							},
+							method-BizUtil.getGroupHashValue-'null':{
+								method-ApBusinessParm.getIntValue-'null':{
+									method-ApBusinessParm.getValue-'null':{
+										table-app_business_parameter-select-'system parameter'
+									}
+								}
+							},
+							table-apb_batch_send-insert-'batch request  book'
+						},
+						method-ApFileSend.sendProcess-'null':{
+							method-ApFileSend.register-'null':{
+								method-ApFile.getFullPath-'null':{
+									method-ApFile.exists-'null':{
+										method-ApDropList.exists-'null':{
+											method-ApDropList.getItem-'null'
+										},
+										table-app_directory-select-'file directory'
+									},
+									method-ApFile.genFileName-'null':{
+										table-app_directory-select-'file directory',
+										method-BizUtil.getTrxRunEnvsValue-'null':{
+											method-BizUtil.getTrxRunEnvs-'null',
+											method-BizUtil.getTrxRunEnvs-'null',
+											method-BizUtil.invoke-'null'
+										}
+									}
+								},
+								method-ApSeq.genSeq-'null':{
+									method-ApSeq.getAppSequence-'null':{
+										method-BizUtil.getTrxRunEnvs-'null',
+										table-app_sequence_reference-select-'sequence reference define',
+										table-app_sequence_reference-select-'sequence reference define',
+										table-app_sequence-select-'sequence no define',
+										table-app_sequence-select-'sequence no define'
+									},
+									method-ApSeq.getAppSequence-'null':{
+										method-BizUtil.getTrxRunEnvs-'null',
+										table-app_sequence_reference-select-'sequence reference define',
+										table-app_sequence_reference-select-'sequence reference define',
+										table-app_sequence-select-'sequence no define',
+										table-app_sequence-select-'sequence no define'
+									},
+									method-ApSeq.getSequence-'null':{
+										table-app_sequence-select-'sequence no define'
+									},
+									table-app_sequence_builder-select-'sequence build define',
+									method-ApSeq.buildRecogintion-'null':{
+										method-BizUtil.getTrxRunEnvsValue-'null':{
+											method-BizUtil.getTrxRunEnvs-'null',
+											method-BizUtil.getTrxRunEnvs-'null',
+											method-BizUtil.invoke-'null'
+										},
+										method-BizUtil.formatDate-'null'
+									},
+									method-ApSeq.padding-'null',
+									method-ApSeq.padding-'null',
+									method-ApSeq.getSequence-'null':{
+										table-app_sequence-select-'sequence no define'
+									},
+									method-ApSeq.padding-'null',
+									method-BizUtil.genCustnoCheckBit-'null',
+									method-BizUtil.genCardnoCheckBit-'null':{
+										method-BizUtil.fieldNotNull-'null'
+									},
+									method-ApSeq.padding-'null'
+								},
+								method-ApFile.getFullPath-'null':{
+									method-ApFile.exists-'null':{
+										method-ApDropList.exists-'null':{
+											method-ApDropList.getItem-'null'
+										},
+										table-app_directory-select-'file directory'
+									},
+									method-ApFile.genFileName-'null':{
+										table-app_directory-select-'file directory',
+										method-BizUtil.getTrxRunEnvsValue-'null':{
+											method-BizUtil.getTrxRunEnvs-'null',
+											method-BizUtil.getTrxRunEnvs-'null',
+											method-BizUtil.invoke-'null'
+										}
+									}
+								},
+								method-BizUtil.getGroupHashValue-'null':{
+									method-ApBusinessParm.getIntValue-'null':{
+										method-ApBusinessParm.getValue-'null':{
+											table-app_business_parameter-select-'system parameter'
+										}
+									}
+								},
+								table-apb_batch_send-insert-'batch request  book'
+							},
+							method-ApSeq.genSeq-'null':{
+								method-ApSeq.getAppSequence-'null':{
+									method-BizUtil.getTrxRunEnvs-'null',
+									table-app_sequence_reference-select-'sequence reference define',
+									table-app_sequence_reference-select-'sequence reference define',
+									table-app_sequence-select-'sequence no define',
+									table-app_sequence-select-'sequence no define'
+								},
+								method-ApSeq.getAppSequence-'null':{
+									method-BizUtil.getTrxRunEnvs-'null',
+									table-app_sequence_reference-select-'sequence reference define',
+									table-app_sequence_reference-select-'sequence reference define',
+									table-app_sequence-select-'sequence no define',
+									table-app_sequence-select-'sequence no define'
+								},
+								method-ApSeq.getSequence-'null':{
+									table-app_sequence-select-'sequence no define'
+								},
+								table-app_sequence_builder-select-'sequence build define',
+								method-ApSeq.buildRecogintion-'null':{
+									method-BizUtil.getTrxRunEnvsValue-'null':{
+										method-BizUtil.getTrxRunEnvs-'null',
+										method-BizUtil.getTrxRunEnvs-'null',
+										method-BizUtil.invoke-'null':{
+											table-app_service-select-'service Define',
+											return method-BizUtil.callServiceDirect-'null',
+											return method-BizUtil.callService-'null'
+										}
+									},
+									method-BizUtil.formatDate-'null'
+								},
+								method-ApSeq.padding-'null',
+								method-ApSeq.padding-'null',
+								method-ApSeq.getSequence-'null':{
+									table-app_sequence-select-'sequence no define'
+								},
+								method-ApSeq.padding-'null',
+								method-BizUtil.genCustnoCheckBit-'null',
+								method-BizUtil.genCardnoCheckBit-'null':{
+									method-BizUtil.fieldNotNull-'null'
+								},
+								method-ApSeq.padding-'null'
+							},
+							table-apb_batch_send-select-'batch request  book',
+							method-ApFileSend.upload-'null':{
+								method-ApFile.getFileFullPath-'null':{
+									method-ApFile.getFullPath-'null':{
+										method-ApFile.exists-'null':{
+											method-ApDropList.exists-'null',
+											table-app_directory-select-'file directory'
+										},
+										method-ApFile.genFileName-'null':{
+											table-app_directory-select-'file directory',
+											method-BizUtil.getTrxRunEnvsValue-'null'
+										}
+									}
+								},
+								method-ApFile.getFileFullPath-'null':{
+									method-ApFile.getFullPath-'null':{
+										method-ApFile.exists-'null':{
+											method-ApDropList.exists-'null',
+											table-app_directory-select-'file directory'
+										},
+										method-ApFile.genFileName-'null':{
+											table-app_directory-select-'file directory',
+											method-BizUtil.getTrxRunEnvsValue-'null'
+										}
+									}
+								},
+								method-ApFile.createClient-'null':{
+									table-app_root_directory-select-'file root directory define'
+								},
+								method-ApFile.createClient-'null':{
+									table-app_root_directory-select-'file root directory define'
+								}
+							},
+							method-ApFileSend.modify-'null':{
+								method-BizUtil.fieldNotNull-'null',
+								table-apb_batch_send-select-'batch request  book',
+								table-apb_batch_send-update-'batch request  book'
+							},
+							method-ApFileSend.modify-'null':{
+								method-BizUtil.fieldNotNull-'null',
+								table-apb_batch_send-select-'batch request  book',
+								table-apb_batch_send-update-'batch request  book'
+							}
+						}
+					}
+			},
+		},
+		

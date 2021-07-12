@@ -230,7 +230,10 @@ out:{
 			24.7w
 		}
 	}
-},
+
+		792 $		608$		1,8000,
+		1400 $
+	},
 email:{
 	yus@sunline.cn,
 	chuatecksing@sunline.cn,
@@ -355,6 +358,10 @@ server:{
 			cdbsslvpn01/cdb@1234*
 			cdb_sn01/Cdb@2021*$
 			cdb_sn02/Cdb@2021*1
+			
+			cdb_sn01/Dash@2021*
+			cdb_sn02/Dash@2021*
+			-
 		},
 		core:{
 			user:{
@@ -535,440 +542,11 @@ BI Statement:{
  明易哥，松哥，昨天这个超额额度问题目前主要有三个方向来进展，一是昨天说的纯粹通过代码阅读来看出问题；二通过在UAT上把涉及dpb_overdraft_fiche.occupied_amt的联机跑批交易都做下，看uat能否复现出问题, 更多是一二的结合；其实还有第三个方案,就是行方是有把重要历史节点的生产库数据全量备份的，备份数据还原到uat变成可查看状态一般只耗时半小时，可以挑历史节点数据还原看看到底什么时候occupied_amt就已经不一致了，缩小时间范围; 对吧？ 
 如果靠一二方案，最坏的结果是再花一两天，可能就算把数据流理清楚了，也未必能看出问题，而且这边的工作都需要往后延。而且这个工作对我这边其他的工作都无直接关联。没有出错时间范围，具体出错交易也不确定（涉及7个联机3个跑批，而且dp每个交易都很长，甚至可能不是这个表更新数据的问题，可能它取数据之前就是错的）哪个环节出错都不清楚，没有真实出错数据借鉴（那个数据没有历史记录，生产日志也只有5月后的，就它自己加加减减，最多看每次加减有无问题，金额是否正确），单纯依靠代码阅读这种方式看出问题我觉得很难。有些深层次的涉及复杂业务场景的bug哪怕程序设计者也未必能考虑到的问题（通过后期测试才发现的部分问题），通过后期新的coder去阅读代码就能看出问题，那真很考验综合业务及代码实现还原度的水平，我觉得很难。我是希望行方能配合我们用第三个方案来解决问题，而且只要时间范围足够小，就能查出问题。但是昨天跟行方有提过，他们不同意，他们觉得应该公司层面就能出解决方案，不需要他还原来还原去。。松哥，明易哥，你们的意思呢？是继续花时间用一二方案尝试排查，还是找行方沟通，让他们配合第三方案？
 plog:{
-	051-sql-start:{
-		14.24,2.31 MB,548:{
-			start-82:{
-				ksys_tabctl,
-				ksys_csbbxx,
-				clp_product,
-				app_organization,
-				app_parameter_reference,
-				app_system_parameter,
-				app_transaction,
-				app_channel,
-				app_data_clean,
-				app_system,
-				app_service,
-				app_attribute,
-				app_attribute_mutex,
-				app_limit,
-				app_limit_drive,
-				app_mail_template,
-				app_business_parameter,
-				app_drop,
-				app_drop_list,
-				app_sequence_reference,
-				app_sequence,
-				app_sequence_builder,
-				app_identity,
-				app_currency,
-				app_summary,
-				app_reversal_event,
-				app_holiday,
-				app_rule,
-				app_rule_data,
-				app_trxn_control,
-				app_scene_auth,
-				app_sms_template,
-				app_sms_element,
-				app_sms_send,
-				app_sms_language,
-				app_branch_relation,
-				tap_business,
-				tap_currency,
-				tap_account_set,
-				cmp_chrg_code,
-				cmp_chrg_form,
-				cmp_chrg_form_details,
-				cmp_chrg_float,
-				cmp_chrg_promo,
-				cmp_chrg_return,
-				cmp_chrg_code_form,
-				cmp_inrt_promo,
-				cmp_role_inrt_float,
-				cmp_exchge_ccy_pair,
-				cmp_exch_promo,
-				cmp_voch_type,
-				cmp_voch_no_rule,
-				lnp_repayment_order,
-				lnp_classification,
-				lnp_bal_attributes,
-				lnf_basic,
-				lnf_drawdown,
-				lnf_repayment,
-				lnf_maturity,
-				lnf_accrual,
-				lnf_field_control,
-				lnf_fee,
-				dpp_account_type,
-				dpp_account_prod,
-				dpp_account_condition,
-				dpp_account_voucher,
-				dpp_subacct_voucher,
-				dpp_froze_type,
-				dpp_froze_mutex,
-				dpp_froze_channel,
-				dpf_base,
-				dpf_open,
-				dpf_save,
-				dpf_draw,
-				dpf_interest,
-				dpf_form_move,
-				dpp_condition_feature,
-				ksys_named_svc,
-				ksys_jyzkzq,
-				ksys_pllcdy,
-				ksys_pllcbz,
-				ksys_rwzhxy,
-				ksys_fwcjxx,
-			}
-		};
-	},
-	111-价值重估:{	'两个需求签约,下周三'
-		pro.code:{
-			gl-gltran-1.3.2.19-RELEASE.jar:{
-				\cn\sunline\ltts\busi\gltran\batchtran	\gl50DataProcessor.class
-			},
-			gl-gl-1.3.2.19-RELEASE.jar:{	svn-dit-gl-210625\busi\gl\target\classes
-				\namedsql							\GlExchangeRate.nsql.xml
-				\cn\sunline\ltts\busi\gl\namedsql	
-				\cn\sunline\ltts\busi\gl\item		\
-			}
-		},
-		pro.sql:{
-			cbs-db:{
-				update fxp_account set gl_ref_code='FCY_EXCHANGE_MARK' where forex_trxn_type in('11','21','31');
-				update taa_account set gl_ref_code='FCY_EXCHANGE_MARK' where gl_ref_code='FCY_EXCHANGE_CUST';
-				update TAA_ACCOUNT set DOUBLE_ENTRY_IND ='N' where GL_REF_CODE = 'Market Exchange Profit';
-				UPDATE TAP_BUSINESS SET DOUBLE_ENTRY_IND = 'N' WHERE IDENTIFIER_CODE = 'IN6030403';
-				-- 'IN6030403'
-				-- INSERT INTO APP_BUSINESS_PARAMETER("ORG_ID", "MAIN_KEY", "SUB_KEY", "PARM_DESC", "PARM_VALUE", "PARM_REMARK", "MODULE", "DATA_CREATE_USER", "DATA_CREATE_TIME", "DATA_UPDATE_USER", "DATA_UPDATE_TIME", "DATA_VERSION") VALUES ('99', 'GL_CODE', 'EXCHANGE_PROFIT', '外汇买卖收益总账科目', 'IN6030403', '外汇买卖收益总账科目', 'LT', 'S####', '20210525', 'S####', '20210525', '1');
-				INSERT INTO APP_BUSINESS_PARAMETER("ORG_ID", "MAIN_KEY", "SUB_KEY", "PARM_DESC", "PARM_VALUE", "PARM_REMARK", "MODULE", "DATA_CREATE_USER", "DATA_CREATE_TIME", "DATA_UPDATE_USER", "DATA_UPDATE_TIME", "DATA_VERSION") VALUES ('99', 'GL_CODE', 'EXCHANGE_PROFIT', '外汇买卖收益总账科目', 'Customer Exchange Profit', '外汇买卖收益总账科目', 'LT', 'S####', '20210525', 'S####', '20210525', '1');
-				INSERT INTO APP_BUSINESS_PARAMETER("ORG_ID", "MAIN_KEY", "SUB_KEY", "PARM_DESC", "PARM_VALUE", "PARM_REMARK", "MODULE", "DATA_CREATE_USER", "DATA_CREATE_TIME", "DATA_UPDATE_USER", "DATA_UPDATE_TIME", "DATA_VERSION") VALUES ('*', 'GL_CODE', 'EXCHANGE_PROFIT', '外汇买卖收益总账科目', 'Customer Exchange Profit', '外汇买卖收益总账科目', 'LT', 'S####', '20210525', 'S####', '20210525', '1');
-				COMMIT;
-			},
-			gl-db:{
-				update faa_account set acct_name='Foreign Exchange-Bank Self' where gl_code = 'FX30101';
-				update faa_account set acct_name='Other Income - Exchange - Customer Exchange Profit' where gl_code = 'IN6030403';
-				update fap_accounting_subject set gl_code_desc='Foreign Exchange-Bank Self' where gl_code = 'FX30101';
-				update fap_accounting_subject set gl_code_desc='Foreign Exchange-Customer' where gl_code = 'FX30102';
-				-- update fap_accounting_event_parm set accounting_alias='FCY_EXCHANGE_MARK',remark='Foreign Exchange(Market)' where gl_code='FX30101';
-				-- update fap_accounting_event_parm set accounting_alias='FCY_EXCHANGE_CUST',remark='Foreign Exchange(Customer)' where gl_code='FX30102';
-				delete from fap_accounting_event_parm where gl_code in ('FX30101','FX30102');
-				INSERT INTO FAP_ACCOUNTING_EVENT_PARM("ORG_ID", "SYS_NO", "ACCOUNTING_SUBJECT", "ACCOUNTING_ALIAS", "REMARK", "BAL_ATTRIBUTES", "GL_CODE", "OFFSET_GL_CODE", "DATA_CREATE_USER", "DATA_CREATE_TIME", "DATA_UPDATE_USER", "DATA_UPDATE_TIME", "DATA_VERSION") VALUES ('99', '800', '6', 'FCY_EXCHANGE_MARK', 'Foreign Exchange(Market)', 'TA01', 'FX30101', NULL, 'S####', '0', 'S####', '0', '1');
-				INSERT INTO FAP_ACCOUNTING_EVENT_PARM("ORG_ID", "SYS_NO", "ACCOUNTING_SUBJECT", "ACCOUNTING_ALIAS", "REMARK", "BAL_ATTRIBUTES", "GL_CODE", "OFFSET_GL_CODE", "DATA_CREATE_USER", "DATA_CREATE_TIME", "DATA_UPDATE_USER", "DATA_UPDATE_TIME", "DATA_VERSION") VALUES ('99', '800', '6', 'FCY_EXCHANGE_CUST', 'Foreign Exchange(Customer)', 'TA01', 'FX30102', NULL, 'S####', '0', 'S####', '0', '1');
-				INSERT INTO APP_BUSINESS_PARAMETER("ORG_ID", "MAIN_KEY", "SUB_KEY", "PARM_DESC", "PARM_VALUE", "PARM_REMARK", "MODULE", "DATA_CREATE_USER", "DATA_CREATE_TIME", "DATA_UPDATE_USER", "DATA_UPDATE_TIME", "DATA_VERSION") VALUES ('99', 'GL_CODE', 'EXCHANGE_REVALUATION_PROFIT', '外币价值重估收益总账科目', 'IN6030401', '外币价值重估收益总账科目', 'LT', 'S####', '20210630', 'S####', '20210630', '1');
-				INSERT INTO APP_BUSINESS_PARAMETER("ORG_ID", "MAIN_KEY", "SUB_KEY", "PARM_DESC", "PARM_VALUE", "PARM_REMARK", "MODULE", "DATA_CREATE_USER", "DATA_CREATE_TIME", "DATA_UPDATE_USER", "DATA_UPDATE_TIME", "DATA_VERSION") VALUES ('*', 'GL_CODE', 'EXCHANGE_REVALUATION_PROFIT', '外币价值重估收益总账科目', 'IN6030401', '外币价值重估收益总账科目', 'LT', 'S####', '20210630', 'S####', '20210630', '1');
-				INSERT INTO APP_BUSINESS_PARAMETER("ORG_ID", "MAIN_KEY", "SUB_KEY", "PARM_DESC", "PARM_VALUE", "PARM_REMARK", "MODULE", "DATA_CREATE_USER", "DATA_CREATE_TIME", "DATA_UPDATE_USER", "DATA_UPDATE_TIME", "DATA_VERSION") VALUES ('99', 'GL_CODE', 'EXCHANGE_REVALUATION_PROFIT_CCY', '外币价值重估收益计算币种', 'TZS', '外币价值重估收益计算币种', 'LT', 'S####', '20210630', 'S####', '20210630', '1');
-				INSERT INTO APP_BUSINESS_PARAMETER("ORG_ID", "MAIN_KEY", "SUB_KEY", "PARM_DESC", "PARM_VALUE", "PARM_REMARK", "MODULE", "DATA_CREATE_USER", "DATA_CREATE_TIME", "DATA_UPDATE_USER", "DATA_UPDATE_TIME", "DATA_VERSION") VALUES ('*', 'GL_CODE', 'EXCHANGE_REVALUATION_PROFIT_CCY', '外币价值重估收益计算币种', 'TZS', '外币价值重估收益计算币种', 'LT', 'S####', '20210630', 'S####', '20210630', '1');
-				INSERT INTO GLB_GL_REPORT (ORG_ID,REPORT_TYPE,TRXN_DATE,BRANCH_ID,GL_DATE_INTERVAL,CCY_CODE,GL_CODE,ON_BAL_SHEET_IND,GL_CODE_LEVEL,GL_CODE_DESC,END_GL_CODE_IND,SIMPLE_LIST_DISPLAY_IND,PREV_DEBIT_BAL,PREV_CREDIT_BAL,CURRENT_DEBIT_AMT,CURRENT_CREDIT_AMT,CURRENT_DEBIT_BAL,CURRENT_CREDIT_BAL,DATA_CREATE_USER,DATA_CREATE_TIME,DATA_UPDATE_USER,DATA_UPDATE_TIME,DATA_VERSION) VALUES 
-				('99','1','20210212','200','1','TZS','IN6030401','Y',3,'Other Income - Exchange - Exchange Revaluation','Y','Y',300.00,600.00,0,0,300.00,600.00,NULL,NULL,NULL,NULL,1)
-				;
-				INSERT INTO gla_branch_gl (ORG_ID,REPORT_TYPE,TRXN_DATE,BRANCH_ID,CCY_CODE,GL_CODE,ON_BAL_SHEET_IND,PREV_DEBIT_BAL,PREV_CREDIT_BAL,CURRENT_DEBIT_AMT,CURRENT_CREDIT_AMT,CURRENT_DEBIT_BAL,CURRENT_CREDIT_BAL,DATA_CREATE_USER,DATA_CREATE_TIME,DATA_UPDATE_USER,DATA_UPDATE_TIME,DATA_VERSION) VALUES 
-				('99','1','20210213','200','TZS','IN6030401','Y',300,600,0,0,300,600,'2101','20210630 01:06:07','2101','20210630 13:19:04 869',1)
-				;
-				COMMIT;
-			},
-			cbs-db-bk:{
-				update fxp_account set gl_ref_code='FCY_EXCHANGE_CUST' where forex_trxn_type in('11','21','31');
-				update taa_account set gl_ref_code='FCY_EXCHANGE_CUST' where gl_ref_code='FCY_EXCHANGE_MARK';
-				UPDATE TAP_BUSINESS SET DOUBLE_ENTRY_IND = 'Y' WHERE IDENTIFIER_CODE = 'IN6030403';
-				DELETE FROM APP_BUSINESS_PARAMETER WHERE MAIN_KEY='GL_CODE' AND SUB_KEY='EXCHANGE_PROFIT';
-				COMMIT;
-			},
-			gl-db-bk:{
-				update faa_account set acct_name='Foreign Exchange-Customer' where gl_code = 'FX30102';
-				update faa_account set acct_name='Other Income - Exchange - Market Exchange Profit' where gl_code = 'IN6030403';
-				update fap_accounting_subject set gl_code_desc='Foreign Exchange-Customer' where gl_code = 'FX30101';
-				update fap_accounting_subject set gl_code_desc='Foreign Exchange-Bank Self' where gl_code = 'FX30102';
-				delete from fap_accounting_event_parm where gl_code in ('FX30101','FX30102');
-				INSERT INTO FAP_ACCOUNTING_EVENT_PARM("ORG_ID", "SYS_NO", "ACCOUNTING_SUBJECT", "ACCOUNTING_ALIAS", "REMARK", "BAL_ATTRIBUTES", "GL_CODE", "OFFSET_GL_CODE", "DATA_CREATE_USER", "DATA_CREATE_TIME", "DATA_UPDATE_USER", "DATA_UPDATE_TIME", "DATA_VERSION") VALUES ('99', '800', '6', 'FCY_EXCHANGE_CUST', 'Foreign Exchange(Customer)', 'TA01', 'FX30101', NULL, 'S####', '0', 'S####', '0', '1');
-				INSERT INTO FAP_ACCOUNTING_EVENT_PARM("ORG_ID", "SYS_NO", "ACCOUNTING_SUBJECT", "ACCOUNTING_ALIAS", "REMARK", "BAL_ATTRIBUTES", "GL_CODE", "OFFSET_GL_CODE", "DATA_CREATE_USER", "DATA_CREATE_TIME", "DATA_UPDATE_USER", "DATA_UPDATE_TIME", "DATA_VERSION") VALUES ('99', '800', '6', 'FCY_EXCHANGE_MARK', 'Foreign Exchange(Market)', 'TA01', 'FX30102', NULL, 'S####', '0', 'S####', '0', '1');
-				COMMIT;
-			},
-		}
-		FCY_EXCHANGE_CUST
-		log-uat:{
-			process-data:{
-				idl.<-	icl.gl_bal_sum	<-	iol.GLS_GLB_GL_REPORT	<-	itl.gls_glb_gl_report	<-	
-					gls_glb_gl_report_dr as 	<-	'/data/input/${batch_date}/gls/';
-			},
-			0401:{
-			PARENT_GL	GL_CODE			DESCR				CCY	'OPEN DEBIT BALANCE'	'OPEN CREDIT BALANCE'	'DEBIT MOVEMENT'	'CREDIT MOVEMENT'	'DEBIT BALANCE'		'CREDTI BALANCE'
-
-						FX301	Foreign Exchange			FCY		14650157644.69			18312959607.71		490621156.60		18127400.00			15122651401.29		18312959607.71
-						FX301	Foreign Exchange			LCY		17654170536.43			14002257971.49		18024400.00			489456100.00		17654170536.43		14473689671.49
-				FX301	FX30101	Foreign Exchange-Bank Self	FCY		14650157644.69			18312959607.71		490621156.60		18127400.00			15122651401.29		18312959607.71
-				FX301	FX30101	Foreign Exchange-Bank Self	LCY		17654170536.43			14002257971.49		18024400.00			489456100.00		17654170536.43		14473689671.49
-				FX301	FX30102	Foreign Exchange-Customer	FCY		0.00	0.00			0.00	0.00		0.00	0.00
-				FX301	FX30102	Foreign Exchange-Customer	LCY		0.00	0.00			0.00	0.00		0.00	0.00
-
-			}
-		}
-	},
-	112-报表:{		EV"."APB_BATCH_RECEIVE_IDX2
-		2.1-'6个科目,3个科目':{
-			RPT_LOAN_LIST,
-			RPT_AC_BAL_LCY_FCY-AS1130701:{
-				t2.term_begin_debit_bal AS OPEN_DEBIT_BAL           -- 期初借方余额
-				gl_bal_sum t2 sum(term_begin_debit_bal)
-				AS1130701:{
-					faa_acctoun
-				}
-			}
-			prd.code:{
-				/sunline/etl/app/etlscript/autocode/dml/idl/idl_rpt_loan_list.sql
-				
-			},
-			prd.sql:{
-				odsdb:{
-					alter table rpt_loan_list add (rece_intere number(21,2));
-					alter table rpt_loan_list add (rece_penal number(21,2));
-					alter table rpt_loan_list add (rece_compo number(21,2));
-					alter table rpt_loan_list add (intere_accru number(21,2));
-				}
-			}
-		},
-		2.2-AS1131001:{
-			4410	40610	dp4610In	2602	活期交易明细查询			dp4410/40610
-			2000001004,
-		},
-		2.5-'行业'-indus:{
-			1201,:{
-				<iframe id="coreWindow" width="100%" height="100%" src="/window/core/rdpdocoretran.html"></iframe>
-				/tran/cf3020In/cf3020In.html
-				data-listid="E_INDUSTYPE"
-				app_system_parameter.DYNAMIC_DROP_LIST 动态SQL下拉
-				
-				plat-play.js:{
-					       LIST_RESOURCE_DATA[listid]
-					w.PAGE_LIST_RESOURCE_DATA[listid];
-				},
-				'INDUS_CODE':{
-					base: "string"
-					dataparams: "{'drop_list_type':'INDUS_CODE'}"
-					displayfield: ""
-					id: "E_D_INDUS_CODE"
-					items: []
-					name: "行业代码"
-					nullflag: "1"
-					sql: ""
-					sqlid: "AP0006"
-					type: "D"
-					valuedisplayflag: "1"
-					valuefield: ""
-				},
-				'E_INDUSTYPE':{
-					{id: "E_INDUSTYPE", type: "C", name: "行业类别", base: "string", nullflag: "1", …}
-					base: "string"
-					displayfield: ""
-					id: "E_INDUSTYPE"
-					items: (14) [{…}, {…}, {…}, {…}, {…}, {…}, {…}, {…}, {…}, {…}, {…}, {…}, {…}, {…}]
-					name: "行业类别"
-					nullflag: "1"
-					sql: ""
-					type: "C"
-					valuedisplayflag: "1"
-					valuefield: ""
-				}
-			},
-			prd.code:{
-				rdp:{
-					/sunline/rdpbase/apps/cbs/webapps/ROOT/tran/cf3020In/cf3020In.html
-					/sunline/rdpbase/apps/cbs/webapps/ROOT/tran/cf3022In/cf3022In.html
-					/sunline/rdpbase/apps/cbs/webapps/ROOT/business/resources/commonlist.cn.js
-					/sunline/rdpbase/apps/cbs/webapps/ROOT/business/resources/commonlist.en.js
-					/sunline/rdpbase/apps/cbs/webapps/ROOT/business/resources/commonlist.zh-tw.js
-				}
-			},
-			prd.sql:{
-				cbs-db:{
-					DELETE FROM APP_DROP_LIST WHERE DROP_LIST_TYPE = 'INDUS_TYPE';
-					INSERT INTO APP_DROP_LIST("DICT_ORG_ID", "DROP_LIST_TYPE", "DROP_LIST_VALUE", "DROP_LIST_DESC", "DATA_SORT", "DATA_CREATE_USER", "DATA_CREATE_TIME", "DATA_UPDATE_USER", "DATA_UPDATE_TIME", "DATA_VERSION") VALUES ('99', 'INDUS_TYPE',  '1', 'Agriculture'                , '1', 'S####', '20210609', 'S####', '20210609', '1');
-					INSERT INTO APP_DROP_LIST("DICT_ORG_ID", "DROP_LIST_TYPE", "DROP_LIST_VALUE", "DROP_LIST_DESC", "DATA_SORT", "DATA_CREATE_USER", "DATA_CREATE_TIME", "DATA_UPDATE_USER", "DATA_UPDATE_TIME", "DATA_VERSION") VALUES ('99', 'INDUS_TYPE',  '2', 'Fishing'                    , '2', 'S####', '20210609', 'S####', '20210609', '1');
-					INSERT INTO APP_DROP_LIST("DICT_ORG_ID", "DROP_LIST_TYPE", "DROP_LIST_VALUE", "DROP_LIST_DESC", "DATA_SORT", "DATA_CREATE_USER", "DATA_CREATE_TIME", "DATA_UPDATE_USER", "DATA_UPDATE_TIME", "DATA_VERSION") VALUES ('99', 'INDUS_TYPE',  '3', 'Forest'                     , '3', 'S####', '20210609', 'S####', '20210609', '1');
-					INSERT INTO APP_DROP_LIST("DICT_ORG_ID", "DROP_LIST_TYPE", "DROP_LIST_VALUE", "DROP_LIST_DESC", "DATA_SORT", "DATA_CREATE_USER", "DATA_CREATE_TIME", "DATA_UPDATE_USER", "DATA_UPDATE_TIME", "DATA_VERSION") VALUES ('99', 'INDUS_TYPE',  '4', 'Hunting'                    , '4', 'S####', '20210609', 'S####', '20210609', '1');
-					INSERT INTO APP_DROP_LIST("DICT_ORG_ID", "DROP_LIST_TYPE", "DROP_LIST_VALUE", "DROP_LIST_DESC", "DATA_SORT", "DATA_CREATE_USER", "DATA_CREATE_TIME", "DATA_UPDATE_USER", "DATA_UPDATE_TIME", "DATA_VERSION") VALUES ('99', 'INDUS_TYPE',  '5', 'Financial Intermediaries'   , '5', 'S####', '20210609', 'S####', '20210609', '1');
-					INSERT INTO APP_DROP_LIST("DICT_ORG_ID", "DROP_LIST_TYPE", "DROP_LIST_VALUE", "DROP_LIST_DESC", "DATA_SORT", "DATA_CREATE_USER", "DATA_CREATE_TIME", "DATA_UPDATE_USER", "DATA_UPDATE_TIME", "DATA_VERSION") VALUES ('99', 'INDUS_TYPE',  '6', 'Mining and quarrying'       , '6', 'S####', '20210609', 'S####', '20210609', '1');
-					INSERT INTO APP_DROP_LIST("DICT_ORG_ID", "DROP_LIST_TYPE", "DROP_LIST_VALUE", "DROP_LIST_DESC", "DATA_SORT", "DATA_CREATE_USER", "DATA_CREATE_TIME", "DATA_UPDATE_USER", "DATA_UPDATE_TIME", "DATA_VERSION") VALUES ('99', 'INDUS_TYPE',  '7', 'Manufacturing'              , '7', 'S####', '20210609', 'S####', '20210609', '1');
-					INSERT INTO APP_DROP_LIST("DICT_ORG_ID", "DROP_LIST_TYPE", "DROP_LIST_VALUE", "DROP_LIST_DESC", "DATA_SORT", "DATA_CREATE_USER", "DATA_CREATE_TIME", "DATA_UPDATE_USER", "DATA_UPDATE_TIME", "DATA_VERSION") VALUES ('99', 'INDUS_TYPE',  '8', 'Building & construction'    , '8', 'S####', '20210609', 'S####', '20210609', '1');
-					INSERT INTO APP_DROP_LIST("DICT_ORG_ID", "DROP_LIST_TYPE", "DROP_LIST_VALUE", "DROP_LIST_DESC", "DATA_SORT", "DATA_CREATE_USER", "DATA_CREATE_TIME", "DATA_UPDATE_USER", "DATA_UPDATE_TIME", "DATA_VERSION") VALUES ('99', 'INDUS_TYPE',  '9', 'Real Estate'                , '9', 'S####', '20210609', 'S####', '20210609', '1');
-					INSERT INTO APP_DROP_LIST("DICT_ORG_ID", "DROP_LIST_TYPE", "DROP_LIST_VALUE", "DROP_LIST_DESC", "DATA_SORT", "DATA_CREATE_USER", "DATA_CREATE_TIME", "DATA_UPDATE_USER", "DATA_UPDATE_TIME", "DATA_VERSION") VALUES ('99', 'INDUS_TYPE', '10', 'Mortgage'                   ,'10', 'S####', '20210609', 'S####', '20210609', '1');
-					INSERT INTO APP_DROP_LIST("DICT_ORG_ID", "DROP_LIST_TYPE", "DROP_LIST_VALUE", "DROP_LIST_DESC", "DATA_SORT", "DATA_CREATE_USER", "DATA_CREATE_TIME", "DATA_UPDATE_USER", "DATA_UPDATE_TIME", "DATA_VERSION") VALUES ('99', 'INDUS_TYPE', '11', 'Leasing'                    ,'11', 'S####', '20210609', 'S####', '20210609', '1');
-					INSERT INTO APP_DROP_LIST("DICT_ORG_ID", "DROP_LIST_TYPE", "DROP_LIST_VALUE", "DROP_LIST_DESC", "DATA_SORT", "DATA_CREATE_USER", "DATA_CREATE_TIME", "DATA_UPDATE_USER", "DATA_UPDATE_TIME", "DATA_VERSION") VALUES ('99', 'INDUS_TYPE', '12', 'Transport and communication','12', 'S####', '20210609', 'S####', '20210609', '1');
-					INSERT INTO APP_DROP_LIST("DICT_ORG_ID", "DROP_LIST_TYPE", "DROP_LIST_VALUE", "DROP_LIST_DESC", "DATA_SORT", "DATA_CREATE_USER", "DATA_CREATE_TIME", "DATA_UPDATE_USER", "DATA_UPDATE_TIME", "DATA_VERSION") VALUES ('99', 'INDUS_TYPE', '13', 'Trade'                      ,'13', 'S####', '20210609', 'S####', '20210609', '1');
-					INSERT INTO APP_DROP_LIST("DICT_ORG_ID", "DROP_LIST_TYPE", "DROP_LIST_VALUE", "DROP_LIST_DESC", "DATA_SORT", "DATA_CREATE_USER", "DATA_CREATE_TIME", "DATA_UPDATE_USER", "DATA_UPDATE_TIME", "DATA_VERSION") VALUES ('99', 'INDUS_TYPE', '14', 'Tourism'                    ,'14', 'S####', '20210609', 'S####', '20210609', '1');
-					INSERT INTO APP_DROP_LIST("DICT_ORG_ID", "DROP_LIST_TYPE", "DROP_LIST_VALUE", "DROP_LIST_DESC", "DATA_SORT", "DATA_CREATE_USER", "DATA_CREATE_TIME", "DATA_UPDATE_USER", "DATA_UPDATE_TIME", "DATA_VERSION") VALUES ('99', 'INDUS_TYPE', '15', 'Hotels and Restaurants'     ,'15', 'S####', '20210609', 'S####', '20210609', '1');
-					INSERT INTO APP_DROP_LIST("DICT_ORG_ID", "DROP_LIST_TYPE", "DROP_LIST_VALUE", "DROP_LIST_DESC", "DATA_SORT", "DATA_CREATE_USER", "DATA_CREATE_TIME", "DATA_UPDATE_USER", "DATA_UPDATE_TIME", "DATA_VERSION") VALUES ('99', 'INDUS_TYPE', '16', 'Warehousing and Storage'    ,'16', 'S####', '20210609', 'S####', '20210609', '1');
-					INSERT INTO APP_DROP_LIST("DICT_ORG_ID", "DROP_LIST_TYPE", "DROP_LIST_VALUE", "DROP_LIST_DESC", "DATA_SORT", "DATA_CREATE_USER", "DATA_CREATE_TIME", "DATA_UPDATE_USER", "DATA_UPDATE_TIME", "DATA_VERSION") VALUES ('99', 'INDUS_TYPE', '17', 'Electicity'                 ,'17', 'S####', '20210609', 'S####', '20210609', '1');
-					INSERT INTO APP_DROP_LIST("DICT_ORG_ID", "DROP_LIST_TYPE", "DROP_LIST_VALUE", "DROP_LIST_DESC", "DATA_SORT", "DATA_CREATE_USER", "DATA_CREATE_TIME", "DATA_UPDATE_USER", "DATA_UPDATE_TIME", "DATA_VERSION") VALUES ('99', 'INDUS_TYPE', '18', 'Gas'                        ,'18', 'S####', '20210609', 'S####', '20210609', '1');
-					INSERT INTO APP_DROP_LIST("DICT_ORG_ID", "DROP_LIST_TYPE", "DROP_LIST_VALUE", "DROP_LIST_DESC", "DATA_SORT", "DATA_CREATE_USER", "DATA_CREATE_TIME", "DATA_UPDATE_USER", "DATA_UPDATE_TIME", "DATA_VERSION") VALUES ('99', 'INDUS_TYPE', '19', 'Water'                      ,'19', 'S####', '20210609', 'S####', '20210609', '1');
-					INSERT INTO APP_DROP_LIST("DICT_ORG_ID", "DROP_LIST_TYPE", "DROP_LIST_VALUE", "DROP_LIST_DESC", "DATA_SORT", "DATA_CREATE_USER", "DATA_CREATE_TIME", "DATA_UPDATE_USER", "DATA_UPDATE_TIME", "DATA_VERSION") VALUES ('99', 'INDUS_TYPE', '20', 'Education'                  ,'20', 'S####', '20210609', 'S####', '20210609', '1');
-					INSERT INTO APP_DROP_LIST("DICT_ORG_ID", "DROP_LIST_TYPE", "DROP_LIST_VALUE", "DROP_LIST_DESC", "DATA_SORT", "DATA_CREATE_USER", "DATA_CREATE_TIME", "DATA_UPDATE_USER", "DATA_UPDATE_TIME", "DATA_VERSION") VALUES ('99', 'INDUS_TYPE', '21', 'Health'                     ,'21', 'S####', '20210609', 'S####', '20210609', '1');
-					INSERT INTO APP_DROP_LIST("DICT_ORG_ID", "DROP_LIST_TYPE", "DROP_LIST_VALUE", "DROP_LIST_DESC", "DATA_SORT", "DATA_CREATE_USER", "DATA_CREATE_TIME", "DATA_UPDATE_USER", "DATA_UPDATE_TIME", "DATA_VERSION") VALUES ('99', 'INDUS_TYPE', '22', 'Other Services'             ,'22', 'S####', '20210609', 'S####', '20210609', '1');
-					INSERT INTO APP_DROP_LIST("DICT_ORG_ID", "DROP_LIST_TYPE", "DROP_LIST_VALUE", "DROP_LIST_DESC", "DATA_SORT", "DATA_CREATE_USER", "DATA_CREATE_TIME", "DATA_UPDATE_USER", "DATA_UPDATE_TIME", "DATA_VERSION") VALUES ('99', 'INDUS_TYPE', '23', 'Personal (Private)'         ,'23', 'S####', '20210609', 'S####', '20210609', '1');
-					UPDATE cfb_corpor_base SET indus_type = (CASE indus_type 
-						WHEN 'A' THEN '1' 
-						WHEN 'B' THEN '6' 
-						WHEN 'C' THEN '7' 
-						WHEN 'D' THEN '17' 
-						WHEN 'E' THEN '8' 
-						WHEN 'F' THEN '13' 
-						WHEN 'G' THEN '15' 
-						WHEN 'H' THEN '12' 
-						WHEN 'I' THEN '5' 
-						WHEN 'J' THEN '22' 
-						WHEN 'K' THEN '22' 
-						WHEN 'L' THEN '20' 
-						WHEN 'M' THEN '22' 
-						WHEN 'Z' THEN '22' 
-						ELSE 		  '22' END 
-					);
-					COMMIT;
-				},
-				gl-db:{},
-				cbs-db-bk:{
-					DELETE FROM APP_DROP_LIST WHERE DROP_LIST_TYPE = 'INDUS_TYPE';
-					INSERT INTO APP_DROP_LIST("DICT_ORG_ID", "DROP_LIST_TYPE", "DROP_LIST_VALUE", "DROP_LIST_DESC", "DATA_SORT", "DATA_CREATE_USER", "DATA_CREATE_TIME", "DATA_UPDATE_USER", "DATA_UPDATE_TIME", "DATA_VERSION") VALUES ('99', 'INDUS_TYPE', 'A', 'Agriculture/Fishing/Forestry/Animal Husbandry', '1', 'S####', '20991231', 'S####', '20991231', '1');
-					INSERT INTO APP_DROP_LIST("DICT_ORG_ID", "DROP_LIST_TYPE", "DROP_LIST_VALUE", "DROP_LIST_DESC", "DATA_SORT", "DATA_CREATE_USER", "DATA_CREATE_TIME", "DATA_UPDATE_USER", "DATA_UPDATE_TIME", "DATA_VERSION") VALUES ('99', 'INDUS_TYPE', 'B', 'Mining Industry', '2', 'S####', '20991231', 'S####', '20991231', '1');
-					INSERT INTO APP_DROP_LIST("DICT_ORG_ID", "DROP_LIST_TYPE", "DROP_LIST_VALUE", "DROP_LIST_DESC", "DATA_SORT", "DATA_CREATE_USER", "DATA_CREATE_TIME", "DATA_UPDATE_USER", "DATA_UPDATE_TIME", "DATA_VERSION") VALUES ('99', 'INDUS_TYPE', 'C', 'Manufacturing Industry', '3', 'S####', '20991231', 'S####', '20991231', '1');
-					INSERT INTO APP_DROP_LIST("DICT_ORG_ID", "DROP_LIST_TYPE", "DROP_LIST_VALUE", "DROP_LIST_DESC", "DATA_SORT", "DATA_CREATE_USER", "DATA_CREATE_TIME", "DATA_UPDATE_USER", "DATA_UPDATE_TIME", "DATA_VERSION") VALUES ('99', 'INDUS_TYPE', 'D', 'Production and Supply of Electricity, Gas and Water', '4', 'S####', '20991231', 'S####', '20991231', '1');
-					INSERT INTO APP_DROP_LIST("DICT_ORG_ID", "DROP_LIST_TYPE", "DROP_LIST_VALUE", "DROP_LIST_DESC", "DATA_SORT", "DATA_CREATE_USER", "DATA_CREATE_TIME", "DATA_UPDATE_USER", "DATA_UPDATE_TIME", "DATA_VERSION") VALUES ('99', 'INDUS_TYPE', 'E', 'Construction and Public Works', '5', 'S####', '20991231', 'S####', '20991231', '1');
-					INSERT INTO APP_DROP_LIST("DICT_ORG_ID", "DROP_LIST_TYPE", "DROP_LIST_VALUE", "DROP_LIST_DESC", "DATA_SORT", "DATA_CREATE_USER", "DATA_CREATE_TIME", "DATA_UPDATE_USER", "DATA_UPDATE_TIME", "DATA_VERSION") VALUES ('99', 'INDUS_TYPE', 'F', 'Wholesale and Retail Trade', '6', 'S####', '20991231', 'S####', '20991231', '1');
-					INSERT INTO APP_DROP_LIST("DICT_ORG_ID", "DROP_LIST_TYPE", "DROP_LIST_VALUE", "DROP_LIST_DESC", "DATA_SORT", "DATA_CREATE_USER", "DATA_CREATE_TIME", "DATA_UPDATE_USER", "DATA_UPDATE_TIME", "DATA_VERSION") VALUES ('99', 'INDUS_TYPE', 'G', 'Restaurants and Hotels and Related Industries', '7', 'S####', '20991231', 'S####', '20991231', '1');
-					INSERT INTO APP_DROP_LIST("DICT_ORG_ID", "DROP_LIST_TYPE", "DROP_LIST_VALUE", "DROP_LIST_DESC", "DATA_SORT", "DATA_CREATE_USER", "DATA_CREATE_TIME", "DATA_UPDATE_USER", "DATA_UPDATE_TIME", "DATA_VERSION") VALUES ('99', 'INDUS_TYPE', 'H', 'Transportation, Warehouse and Communications', '8', 'S####', '20991231', 'S####', '20991231', '1');
-					INSERT INTO APP_DROP_LIST("DICT_ORG_ID", "DROP_LIST_TYPE", "DROP_LIST_VALUE", "DROP_LIST_DESC", "DATA_SORT", "DATA_CREATE_USER", "DATA_CREATE_TIME", "DATA_UPDATE_USER", "DATA_UPDATE_TIME", "DATA_VERSION") VALUES ('99', 'INDUS_TYPE', 'I', 'Non-monetary Financial Institutions', '9', 'S####', '20991231', 'S####', '20991231', '1');
-					INSERT INTO APP_DROP_LIST("DICT_ORG_ID", "DROP_LIST_TYPE", "DROP_LIST_VALUE", "DROP_LIST_DESC", "DATA_SORT", "DATA_CREATE_USER", "DATA_CREATE_TIME", "DATA_UPDATE_USER", "DATA_UPDATE_TIME", "DATA_VERSION") VALUES ('99', 'INDUS_TYPE', 'Z', 'Others', '10', 'S####', '20991231', 'S####', '20991231', '1');
-					INSERT INTO APP_DROP_LIST("DICT_ORG_ID", "DROP_LIST_TYPE", "DROP_LIST_VALUE", "DROP_LIST_DESC", "DATA_SORT", "DATA_CREATE_USER", "DATA_CREATE_TIME", "DATA_UPDATE_USER", "DATA_UPDATE_TIME", "DATA_VERSION") VALUES ('99', 'INDUS_TYPE', 'L', 'Education', '11', 'S####', '20991231', 'S####', '20991231', '1');
-					INSERT INTO APP_DROP_LIST("DICT_ORG_ID", "DROP_LIST_TYPE", "DROP_LIST_VALUE", "DROP_LIST_DESC", "DATA_SORT", "DATA_CREATE_USER", "DATA_CREATE_TIME", "DATA_UPDATE_USER", "DATA_UPDATE_TIME", "DATA_VERSION") VALUES ('99', 'INDUS_TYPE', 'K', 'Convention and Exhibition', '12', 'S####', '20991231', 'S####', '20991231', '1');
-					INSERT INTO APP_DROP_LIST("DICT_ORG_ID", "DROP_LIST_TYPE", "DROP_LIST_VALUE", "DROP_LIST_DESC", "DATA_SORT", "DATA_CREATE_USER", "DATA_CREATE_TIME", "DATA_UPDATE_USER", "DATA_UPDATE_TIME", "DATA_VERSION") VALUES ('99', 'INDUS_TYPE', 'J', 'Gambling', '13', 'S####', '20991231', 'S####', '20991231', '1');
-					INSERT INTO APP_DROP_LIST("DICT_ORG_ID", "DROP_LIST_TYPE", "DROP_LIST_VALUE", "DROP_LIST_DESC", "DATA_SORT", "DATA_CREATE_USER", "DATA_CREATE_TIME", "DATA_UPDATE_USER", "DATA_UPDATE_TIME", "DATA_VERSION") VALUES ('99', 'INDUS_TYPE', 'M', 'Information Technology', '14', 'S####', '20991231', 'S####', '20991231', '1');
-					
-					
-					INSERT INTO APP_DROP_LIST("DICT_ORG_ID", "DROP_LIST_TYPE", "DROP_LIST_VALUE", "DROP_LIST_DESC", "DATA_SORT", "DATA_CREATE_USER", "DATA_CREATE_TIME", "DATA_UPDATE_USER", "DATA_UPDATE_TIME", "DATA_VERSION") VALUES ('99', 'INDUS_CODE', 'C04', 'Leather Articles22', '4', 'S####', '20991231', 'S####', '20991231', '1');
-					INSERT INTO APP_DROP_LIST("DICT_ORG_ID", "DROP_LIST_TYPE", "DROP_LIST_VALUE", "DROP_LIST_DESC", "DATA_SORT", "DATA_CREATE_USER", "DATA_CREATE_TIME", "DATA_UPDATE_USER", "DATA_UPDATE_TIME", "DATA_VERSION") VALUES ('99', 'INDUS_CODE', 'C05', 'Wood and Furniture', '5', 'S####', '20991231', 'S####', '20991231', '1');
-					INSERT INTO APP_DROP_LIST("DICT_ORG_ID", "DROP_LIST_TYPE", "DROP_LIST_VALUE", "DROP_LIST_DESC", "DATA_SORT", "DATA_CREATE_USER", "DATA_CREATE_TIME", "DATA_UPDATE_USER", "DATA_UPDATE_TIME", "DATA_VERSION") VALUES ('99', 'INDUS_CODE', 'C06', 'Ceramics', '6', 'S####', '20991231', 'S####', '20991231', '1');
-					INSERT INTO APP_DROP_LIST("DICT_ORG_ID", "DROP_LIST_TYPE", "DROP_LIST_VALUE", "DROP_LIST_DESC", "DATA_SORT", "DATA_CREATE_USER", "DATA_CREATE_TIME", "DATA_UPDATE_USER", "DATA_UPDATE_TIME", "DATA_VERSION") VALUES ('99', 'INDUS_CODE', 'C07', 'Paper, Printing and Publishing', '7', 'S####', '20991231', 'S####', '20991231', '1');
-					INSERT INTO APP_DROP_LIST("DICT_ORG_ID", "DROP_LIST_TYPE", "DROP_LIST_VALUE", "DROP_LIST_DESC", "DATA_SORT", "DATA_CREATE_USER", "DATA_CREATE_TIME", "DATA_UPDATE_USER", "DATA_UPDATE_TIME", "DATA_VERSION") VALUES ('99', 'INDUS_CODE', 'C08', 'Machinery and Other Electrical and Electronic Goods', '8', 'S####', '20991231', 'S####', '20991231', '1');
-					INSERT INTO APP_DROP_LIST("DICT_ORG_ID", "DROP_LIST_TYPE", "DROP_LIST_VALUE", "DROP_LIST_DESC", "DATA_SORT", "DATA_CREATE_USER", "DATA_CREATE_TIME", "DATA_UPDATE_USER", "DATA_UPDATE_TIME", "DATA_VERSION") VALUES ('99', 'INDUS_CODE', 'C09', 'Artificial Flowers', '9', 'S####', '20991231', 'S####', '20991231', '1');
-					INSERT INTO APP_DROP_LIST("DICT_ORG_ID", "DROP_LIST_TYPE", "DROP_LIST_VALUE", "DROP_LIST_DESC", "DATA_SORT", "DATA_CREATE_USER", "DATA_CREATE_TIME", "DATA_UPDATE_USER", "DATA_UPDATE_TIME", "DATA_VERSION") VALUES ('99', 'INDUS_CODE', 'C10', 'Toys', '9', 'S####', '20991231', 'S####', '20991231', '1');
-					INSERT INTO APP_DROP_LIST("DICT_ORG_ID", "DROP_LIST_TYPE", "DROP_LIST_VALUE", "DROP_LIST_DESC", "DATA_SORT", "DATA_CREATE_USER", "DATA_CREATE_TIME", "DATA_UPDATE_USER", "DATA_UPDATE_TIME", "DATA_VERSION") VALUES ('99', 'INDUS_CODE', 'C99', 'Other Manufacturing Industries (Not Mentioned Above)', '10', 'S####', '20991231', 'S####', '20991231', '1');
-					INSERT INTO APP_DROP_LIST("DICT_ORG_ID", "DROP_LIST_TYPE", "DROP_LIST_VALUE", "DROP_LIST_DESC", "DATA_SORT", "DATA_CREATE_USER", "DATA_CREATE_TIME", "DATA_UPDATE_USER", "DATA_UPDATE_TIME", "DATA_VERSION") VALUES ('99', 'INDUS_CODE', 'E01', 'Private Construction', '11', 'S####', '20991231', 'S####', '20991231', '1');
-					INSERT INTO APP_DROP_LIST("DICT_ORG_ID", "DROP_LIST_TYPE", "DROP_LIST_VALUE", "DROP_LIST_DESC", "DATA_SORT", "DATA_CREATE_USER", "DATA_CREATE_TIME", "DATA_UPDATE_USER", "DATA_UPDATE_TIME", "DATA_VERSION") VALUES ('99', 'INDUS_CODE', 'C01', 'Foodstuffs and Beverages', '1', 'S####', '20991231', 'S####', '20991231', '1');
-					INSERT INTO APP_DROP_LIST("DICT_ORG_ID", "DROP_LIST_TYPE", "DROP_LIST_VALUE", "DROP_LIST_DESC", "DATA_SORT", "DATA_CREATE_USER", "DATA_CREATE_TIME", "DATA_UPDATE_USER", "DATA_UPDATE_TIME", "DATA_VERSION") VALUES ('99', 'INDUS_CODE', 'C02', 'Clothing', '2', 'S####', '20991231', 'S####', '20991231', '1');
-					INSERT INTO APP_DROP_LIST("DICT_ORG_ID", "DROP_LIST_TYPE", "DROP_LIST_VALUE", "DROP_LIST_DESC", "DATA_SORT", "DATA_CREATE_USER", "DATA_CREATE_TIME", "DATA_UPDATE_USER", "DATA_UPDATE_TIME", "DATA_VERSION") VALUES ('99', 'INDUS_CODE', 'C03', 'Other Textile Production', '3', 'S####', '20991231', 'S####', '20991231', '1');
-					INSERT INTO APP_DROP_LIST("DICT_ORG_ID", "DROP_LIST_TYPE", "DROP_LIST_VALUE", "DROP_LIST_DESC", "DATA_SORT", "DATA_CREATE_USER", "DATA_CREATE_TIME", "DATA_UPDATE_USER", "DATA_UPDATE_TIME", "DATA_VERSION") VALUES ('99', 'INDUS_CODE', 'E02', 'Public Construction', '12', 'S####', '20991231', 'S####', '20991231', '1');
-					INSERT INTO APP_DROP_LIST("DICT_ORG_ID", "DROP_LIST_TYPE", "DROP_LIST_VALUE", "DROP_LIST_DESC", "DATA_SORT", "DATA_CREATE_USER", "DATA_CREATE_TIME", "DATA_UPDATE_USER", "DATA_UPDATE_TIME", "DATA_VERSION") VALUES ('99', 'INDUS_CODE', 'F01', 'Sale, Maintenance and Repair of Motor Vehicles and Motorcycles; Retail Sale of Automotive Fuel', '13', 'S####', '20991231', 'S####', '20991231', '1');
-					INSERT INTO APP_DROP_LIST("DICT_ORG_ID", "DROP_LIST_TYPE", "DROP_LIST_VALUE", "DROP_LIST_DESC", "DATA_SORT", "DATA_CREATE_USER", "DATA_CREATE_TIME", "DATA_UPDATE_USER", "DATA_UPDATE_TIME", "DATA_VERSION") VALUES ('99', 'INDUS_CODE', 'F02', 'Wholesale Trade (Except for Motor Vehicles) and Agency', '14', 'S####', '20991231', 'S####', '20991231', '1');
-					INSERT INTO APP_DROP_LIST("DICT_ORG_ID", "DROP_LIST_TYPE", "DROP_LIST_VALUE", "DROP_LIST_DESC", "DATA_SORT", "DATA_CREATE_USER", "DATA_CREATE_TIME", "DATA_UPDATE_USER", "DATA_UPDATE_TIME", "DATA_VERSION") VALUES ('99', 'INDUS_CODE', 'F03', 'Retail Trade (Except for Motor Vehicles and Motorcycles); Repair of Personal', '15', 'S####', '20991231', 'S####', '20991231', '1');
-					INSERT INTO APP_DROP_LIST("DICT_ORG_ID", "DROP_LIST_TYPE", "DROP_LIST_VALUE", "DROP_LIST_DESC", "DATA_SORT", "DATA_CREATE_USER", "DATA_CREATE_TIME", "DATA_UPDATE_USER", "DATA_UPDATE_TIME", "DATA_VERSION") VALUES ('99', 'INDUS_CODE', 'G01', 'Hotels and Other Provisions of Short-Stay Accommodation', '16', 'S####', '20991231', 'S####', '20991231', '1');
-					INSERT INTO APP_DROP_LIST("DICT_ORG_ID", "DROP_LIST_TYPE", "DROP_LIST_VALUE", "DROP_LIST_DESC", "DATA_SORT", "DATA_CREATE_USER", "DATA_CREATE_TIME", "DATA_UPDATE_USER", "DATA_UPDATE_TIME", "DATA_VERSION") VALUES ('99', 'INDUS_CODE', 'G02', 'Restaurants, Bars, Canteens and Similar Activities', '17', 'S####', '20991231', 'S####', '20991231', '1');
-					INSERT INTO APP_DROP_LIST("DICT_ORG_ID", "DROP_LIST_TYPE", "DROP_LIST_VALUE", "DROP_LIST_DESC", "DATA_SORT", "DATA_CREATE_USER", "DATA_CREATE_TIME", "DATA_UPDATE_USER", "DATA_UPDATE_TIME", "DATA_VERSION") VALUES ('99', 'INDUS_CODE', 'H01', 'Transport, Warehousing and Related Activities', '18', 'S####', '20991231', 'S####', '20991231', '1');
-					INSERT INTO APP_DROP_LIST("DICT_ORG_ID", "DROP_LIST_TYPE", "DROP_LIST_VALUE", "DROP_LIST_DESC", "DATA_SORT", "DATA_CREATE_USER", "DATA_CREATE_TIME", "DATA_UPDATE_USER", "DATA_UPDATE_TIME", "DATA_VERSION") VALUES ('99', 'INDUS_CODE', 'H02', 'Postal and Telecommunications', '19', 'S####', '20991231', 'S####', '20991231', '1');
-					INSERT INTO APP_DROP_LIST("DICT_ORG_ID", "DROP_LIST_TYPE", "DROP_LIST_VALUE", "DROP_LIST_DESC", "DATA_SORT", "DATA_CREATE_USER", "DATA_CREATE_TIME", "DATA_UPDATE_USER", "DATA_UPDATE_TIME", "DATA_VERSION") VALUES ('99', 'INDUS_CODE', 'Z05', 'Medicine and Medical Products', '24', 'S####', '20991231', 'S####', '20991231', '1');
-					INSERT INTO APP_DROP_LIST("DICT_ORG_ID", "DROP_LIST_TYPE", "DROP_LIST_VALUE", "DROP_LIST_DESC", "DATA_SORT", "DATA_CREATE_USER", "DATA_CREATE_TIME", "DATA_UPDATE_USER", "DATA_UPDATE_TIME", "DATA_VERSION") VALUES ('99', 'INDUS_CODE', 'Z06', 'plastic Products Industry', '25', 'S####', '20991231', 'S####', '20991231', '1');
-					INSERT INTO APP_DROP_LIST("DICT_ORG_ID", "DROP_LIST_TYPE", "DROP_LIST_VALUE", "DROP_LIST_DESC", "DATA_SORT", "DATA_CREATE_USER", "DATA_CREATE_TIME", "DATA_UPDATE_USER", "DATA_UPDATE_TIME", "DATA_VERSION") VALUES ('99', 'INDUS_CODE', 'Z07', 'Metal Products', '26', 'S####', '20991231', 'S####', '20991231', '1');
-					INSERT INTO APP_DROP_LIST("DICT_ORG_ID", "DROP_LIST_TYPE", "DROP_LIST_VALUE", "DROP_LIST_DESC", "DATA_SORT", "DATA_CREATE_USER", "DATA_CREATE_TIME", "DATA_UPDATE_USER", "DATA_UPDATE_TIME", "DATA_VERSION") VALUES ('99', 'INDUS_CODE', 'Z08', 'Communication Equipment, Computer and Electronic Equipment Manufacturing Industry', '27', 'S####', '20991231', 'S####', '20991231', '1');
-					INSERT INTO APP_DROP_LIST("DICT_ORG_ID", "DROP_LIST_TYPE", "DROP_LIST_VALUE", "DROP_LIST_DESC", "DATA_SORT", "DATA_CREATE_USER", "DATA_CREATE_TIME", "DATA_UPDATE_USER", "DATA_UPDATE_TIME", "DATA_VERSION") VALUES ('99', 'INDUS_CODE', 'Z09', 'Real Estate Development', '28', 'S####', '20991231', 'S####', '20991231', '1');
-					INSERT INTO APP_DROP_LIST("DICT_ORG_ID", "DROP_LIST_TYPE", "DROP_LIST_VALUE", "DROP_LIST_DESC", "DATA_SORT", "DATA_CREATE_USER", "DATA_CREATE_TIME", "DATA_UPDATE_USER", "DATA_UPDATE_TIME", "DATA_VERSION") VALUES ('99', 'INDUS_CODE', 'Z10', 'Real Estate Agency', '29', 'S####', '20991231', 'S####', '20991231', '1');
-					INSERT INTO APP_DROP_LIST("DICT_ORG_ID", "DROP_LIST_TYPE", "DROP_LIST_VALUE", "DROP_LIST_DESC", "DATA_SORT", "DATA_CREATE_USER", "DATA_CREATE_TIME", "DATA_UPDATE_USER", "DATA_UPDATE_TIME", "DATA_VERSION") VALUES ('99', 'INDUS_CODE', 'Z11', 'Resident Services and Other Services', '30', 'S####', '20991231', 'S####', '20991231', '1');
-					INSERT INTO APP_DROP_LIST("DICT_ORG_ID", "DROP_LIST_TYPE", "DROP_LIST_VALUE", "DROP_LIST_DESC", "DATA_SORT", "DATA_CREATE_USER", "DATA_CREATE_TIME", "DATA_UPDATE_USER", "DATA_UPDATE_TIME", "DATA_VERSION") VALUES ('99', 'INDUS_CODE', 'Z12', 'Public Administration and Social Organization', '31', 'S####', '20991231', 'S####', '20991231', '1');
-					INSERT INTO APP_DROP_LIST("DICT_ORG_ID", "DROP_LIST_TYPE", "DROP_LIST_VALUE", "DROP_LIST_DESC", "DATA_SORT", "DATA_CREATE_USER", "DATA_CREATE_TIME", "DATA_UPDATE_USER", "DATA_UPDATE_TIME", "DATA_VERSION") VALUES ('99', 'INDUS_CODE', 'Z13', 'Tourism', '32', 'S####', '20991231', 'S####', '20991231', '1');
-					INSERT INTO APP_DROP_LIST("DICT_ORG_ID", "DROP_LIST_TYPE", "DROP_LIST_VALUE", "DROP_LIST_DESC", "DATA_SORT", "DATA_CREATE_USER", "DATA_CREATE_TIME", "DATA_UPDATE_USER", "DATA_UPDATE_TIME", "DATA_VERSION") VALUES ('99', 'INDUS_CODE', 'Z14', 'Gambling', '33', 'S####', '20991231', 'S####', '20991231', '1');
-					INSERT INTO APP_DROP_LIST("DICT_ORG_ID", "DROP_LIST_TYPE", "DROP_LIST_VALUE", "DROP_LIST_DESC", "DATA_SORT", "DATA_CREATE_USER", "DATA_CREATE_TIME", "DATA_UPDATE_USER", "DATA_UPDATE_TIME", "DATA_VERSION") VALUES ('99', 'INDUS_CODE', 'Z15', 'Sauna', '34', 'S####', '20991231', 'S####', '20991231', '1');
-					INSERT INTO APP_DROP_LIST("DICT_ORG_ID", "DROP_LIST_TYPE", "DROP_LIST_VALUE", "DROP_LIST_DESC", "DATA_SORT", "DATA_CREATE_USER", "DATA_CREATE_TIME", "DATA_UPDATE_USER", "DATA_UPDATE_TIME", "DATA_VERSION") VALUES ('99', 'INDUS_CODE', 'Z16', 'Exchange Shop', '35', 'S####', '20991231', 'S####', '20991231', '1');
-					INSERT INTO APP_DROP_LIST("DICT_ORG_ID", "DROP_LIST_TYPE", "DROP_LIST_VALUE", "DROP_LIST_DESC", "DATA_SORT", "DATA_CREATE_USER", "DATA_CREATE_TIME", "DATA_UPDATE_USER", "DATA_UPDATE_TIME", "DATA_VERSION") VALUES ('99', 'INDUS_CODE', 'Z17', 'Car Dealer', '36', 'S####', '20991231', 'S####', '20991231', '1');
-					INSERT INTO APP_DROP_LIST("DICT_ORG_ID", "DROP_LIST_TYPE", "DROP_LIST_VALUE", "DROP_LIST_DESC", "DATA_SORT", "DATA_CREATE_USER", "DATA_CREATE_TIME", "DATA_UPDATE_USER", "DATA_UPDATE_TIME", "DATA_VERSION") VALUES ('99', 'INDUS_CODE', 'Z18', 'Jewelry', '37', 'S####', '20991231', 'S####', '20991231', '1');
-					INSERT INTO APP_DROP_LIST("DICT_ORG_ID", "DROP_LIST_TYPE", "DROP_LIST_VALUE", "DROP_LIST_DESC", "DATA_SORT", "DATA_CREATE_USER", "DATA_CREATE_TIME", "DATA_UPDATE_USER", "DATA_UPDATE_TIME", "DATA_VERSION") VALUES ('99', 'INDUS_CODE', 'Z19', 'Antique and Precious Metal Dealers', '38', 'S####', '20991231', 'S####', '20991231', '1');
-					INSERT INTO APP_DROP_LIST("DICT_ORG_ID", "DROP_LIST_TYPE", "DROP_LIST_VALUE", "DROP_LIST_DESC", "DATA_SORT", "DATA_CREATE_USER", "DATA_CREATE_TIME", "DATA_UPDATE_USER", "DATA_UPDATE_TIME", "DATA_VERSION") VALUES ('99', 'INDUS_CODE', 'Z20', 'Pawn', '39', 'S####', '20991231', 'S####', '20991231', '1');
-					INSERT INTO APP_DROP_LIST("DICT_ORG_ID", "DROP_LIST_TYPE", "DROP_LIST_VALUE", "DROP_LIST_DESC", "DATA_SORT", "DATA_CREATE_USER", "DATA_CREATE_TIME", "DATA_UPDATE_USER", "DATA_UPDATE_TIME", "DATA_VERSION") VALUES ('99', 'INDUS_CODE', 'Z21', 'Auction House', '40', 'S####', '20991231', 'S####', '20991231', '1');
-					INSERT INTO APP_DROP_LIST("DICT_ORG_ID", "DROP_LIST_TYPE", "DROP_LIST_VALUE", "DROP_LIST_DESC", "DATA_SORT", "DATA_CREATE_USER", "DATA_CREATE_TIME", "DATA_UPDATE_USER", "DATA_UPDATE_TIME", "DATA_VERSION") VALUES ('99', 'INDUS_CODE', 'Z22', 'Import and Export Company', '41', 'S####', '20991231', 'S####', '20991231', '1');
-					INSERT INTO APP_DROP_LIST("DICT_ORG_ID", "DROP_LIST_TYPE", "DROP_LIST_VALUE", "DROP_LIST_DESC", "DATA_SORT", "DATA_CREATE_USER", "DATA_CREATE_TIME", "DATA_UPDATE_USER", "DATA_UPDATE_TIME", "DATA_VERSION") VALUES ('99', 'INDUS_CODE', 'Z23', 'Other', '42', 'S####', '20991231', 'S####', '20991231', '1');
-					UPDATE CFB_CORPOR_BASE SET INDUS_TYPE='22' WHERE  CUST_NO='9600000055' ;
-					UPDATE CFB_CORPOR_BASE SET INDUS_TYPE='7' WHERE   CUST_NO='9600000043';
-					UPDATE CFB_CORPOR_BASE SET INDUS_TYPE='8' WHERE   CUST_NO='9600000049';
-					UPDATE CFB_CORPOR_BASE SET INDUS_TYPE='13' WHERE  CUST_NO='9600000053' ;
-					UPDATE CFB_CORPOR_BASE SET INDUS_TYPE='7' WHERE   CUST_NO='9600000039';
-					UPDATE CFB_CORPOR_BASE SET INDUS_TYPE='22' WHERE  CUST_NO='9600000042' ;
-					UPDATE CFB_CORPOR_BASE SET INDUS_TYPE='12' WHERE  CUST_NO='9600000041' ;
-					UPDATE CFB_CORPOR_BASE SET INDUS_TYPE='22' WHERE  CUST_NO='9600000010' ;
-					UPDATE CFB_CORPOR_BASE SET INDUS_TYPE='22' WHERE  CUST_NO='9600000011' ;
-					UPDATE CFB_CORPOR_BASE SET INDUS_TYPE='8' WHERE   CUST_NO='9600000006';
-					UPDATE CFB_CORPOR_BASE SET INDUS_TYPE='8' WHERE   CUST_NO='9600000007';
-					UPDATE CFB_CORPOR_BASE SET INDUS_TYPE='8' WHERE   CUST_NO='9600000008';
-					UPDATE CFB_CORPOR_BASE SET INDUS_TYPE='7' WHERE   CUST_NO='9600000009';
-					UPDATE CFB_CORPOR_BASE SET INDUS_TYPE='13' WHERE  CUST_NO='9600000003' ;
-					UPDATE CFB_CORPOR_BASE SET INDUS_TYPE='22' WHERE  CUST_NO='9600000005' ;
-					UPDATE CFB_CORPOR_BASE SET INDUS_TYPE='12' WHERE  CUST_NO='9600000014' ;
-					UPDATE CFB_CORPOR_BASE SET INDUS_TYPE='12' WHERE  CUST_NO='9600000019' ;
-					UPDATE CFB_CORPOR_BASE SET INDUS_TYPE='12' WHERE  CUST_NO='9600000013' ;
-					UPDATE CFB_CORPOR_BASE SET INDUS_TYPE='22' WHERE  CUST_NO='9600000016' ;
-					UPDATE CFB_CORPOR_BASE SET INDUS_TYPE='12' WHERE  CUST_NO='9600000017' ;
-					UPDATE CFB_CORPOR_BASE SET INDUS_TYPE='7' WHERE   CUST_NO='9600000018';
-					UPDATE CFB_CORPOR_BASE SET INDUS_TYPE='13' WHERE  CUST_NO='9600000020' ;
-					UPDATE CFB_CORPOR_BASE SET INDUS_TYPE='1' WHERE   CUST_NO='9600000021';
-					UPDATE CFB_CORPOR_BASE SET INDUS_TYPE='7' WHERE   CUST_NO='9600000012';
-					UPDATE CFB_CORPOR_BASE SET INDUS_TYPE='1' WHERE   CUST_NO='9600000015';
-					UPDATE CFB_CORPOR_BASE SET INDUS_TYPE='7' WHERE   CUST_NO='9600000022';
-					UPDATE CFB_CORPOR_BASE SET INDUS_TYPE='22' WHERE  CUST_NO='9600000024' ;
-					UPDATE CFB_CORPOR_BASE SET INDUS_TYPE='22' WHERE  CUST_NO='9600000025' ;
-					UPDATE CFB_CORPOR_BASE SET INDUS_TYPE='1' WHERE   CUST_NO='9600000023';
-					UPDATE CFB_CORPOR_BASE SET INDUS_TYPE='7' WHERE   CUST_NO='9600000026';
-					UPDATE CFB_CORPOR_BASE SET INDUS_TYPE='6' WHERE   CUST_NO='9600000027';
-					UPDATE CFB_CORPOR_BASE SET INDUS_TYPE='22' WHERE  CUST_NO='9600000030' ;
-					UPDATE CFB_CORPOR_BASE SET INDUS_TYPE='22' WHERE  CUST_NO='9600000031' ;
-					UPDATE CFB_CORPOR_BASE SET INDUS_TYPE='13' WHERE  CUST_NO='9600000028' ;
-					UPDATE CFB_CORPOR_BASE SET INDUS_TYPE='22' WHERE  CUST_NO='9600000029' ;
-					UPDATE CFB_CORPOR_BASE SET INDUS_TYPE='8' WHERE   CUST_NO='9600000032';
-					UPDATE CFB_CORPOR_BASE SET INDUS_TYPE='22' WHERE  CUST_NO='9600000033' ;
-					UPDATE CFB_CORPOR_BASE SET INDUS_TYPE='13' WHERE  CUST_NO='9600000034' ;
-					UPDATE CFB_CORPOR_BASE SET INDUS_TYPE='22' WHERE  CUST_NO='9600000035' ;
-					UPDATE CFB_CORPOR_BASE SET INDUS_TYPE='13' WHERE  CUST_NO='9600000036' ;
-					UPDATE CFB_CORPOR_BASE SET INDUS_TYPE='7' WHERE   CUST_NO='9600000037';
-					UPDATE CFB_CORPOR_BASE SET INDUS_TYPE='7' WHERE   CUST_NO='9600000038';
-					UPDATE CFB_CORPOR_BASE SET INDUS_TYPE='8' WHERE   CUST_NO='9600000040';
-					UPDATE CFB_CORPOR_BASE SET INDUS_TYPE='22' WHERE  CUST_NO='9600000044' ;
-					UPDATE CFB_CORPOR_BASE SET INDUS_TYPE='6' WHERE   CUST_NO='9600000045';
-					UPDATE CFB_CORPOR_BASE SET INDUS_TYPE='6' WHERE   CUST_NO='9600000046';
-					UPDATE CFB_CORPOR_BASE SET INDUS_TYPE='7' WHERE   CUST_NO='9600000048';
-					UPDATE CFB_CORPOR_BASE SET INDUS_TYPE='8' WHERE   CUST_NO='9600000050';
-					UPDATE CFB_CORPOR_BASE SET INDUS_TYPE='7' WHERE   CUST_NO='9600000051';
-					UPDATE CFB_CORPOR_BASE SET INDUS_TYPE='13' WHERE  CUST_NO='9600000052' ;
-					UPDATE CFB_CORPOR_BASE SET INDUS_TYPE='15' WHERE  CUST_NO='9600000047' ;
-					UPDATE CFB_CORPOR_BASE SET INDUS_TYPE='22' WHERE  CUST_NO='9600000054' ;
-					COMMIT;
-				},
-				gl-db-bk:{},
-			}
-		},
-		2.7-'loan_amt':{
-			prd.sql:{
-				ods-db:{
-					ALTER TABLE RPT_LOAN_LIST ADD (LOAN_AMT NUMBER(21,2));
-				},
-				gl-db:{},
-				cbs-db-bk:{
-				},
-				gl-db-bk:{},
-			}
-		},
-		2.10-UAT:{
-			172.30.2.11:9052
-			RPT_LOANS_EX_OVERDRAFT:{
-				Loan Balance:{
-					cbs_lna_balance.balance_amount,bal_attributes = 'PRCP1',只记录正常状态的本金
-				},
-				Outstanding Balance:{
-					cbs_lna_loan.outstanding_prcp(未发放的本金)
-				}
-			}
-		}
-	},
 	000-pro-bug:{
 		002-xml-bug-tradeName->customer:{
 			行方 说今天想投产一个ln25生成 xml的，UAT已经改好验证成功了，只需要投产一个class，但是反编译生成这个class..
 		},
-		003:{
+		003-'随心贷贷款利率调整':{
 			data:{
 				-- 2000001004,1000002604,1000000203,
 				dpa_sub_account where sub_acct_no='1000002604' and acct_no='2000001004', -- sub,'1,5个0,2604', acct,'2,5个0,1004'
@@ -1260,8 +838,8 @@ plog:{
 					dpa_fiche_interest.selectByIndexWithLock_odb1,
 					dpa_fiche_interest.updateByIndex_odb1,
 					ERROR*2:{
-						.DpOverDraftDayEnd:447][overDraftSettlementInst.clear overdue_interest ODFiche==[dpb
-						.DpOverDraftDayEnd:449][overDraftSettlementInst.clear overdue_interest newODFiche==[
+						.DpOverDraftDayEnd:447][overDraftSettlementInst.clear overdue_interest ODFiche==
+						.DpOverDraftDayEnd:449][overDraftSettlementInst.clear overdue_interest newODFiche=
 					},
 					dpb_overdraft_fiche.selectByIndexWithLock_odb1,
 					'dpb_overdraft_fiche.updateByIndex_odb1,'
@@ -1273,7 +851,594 @@ plog:{
 				}
 			}
 		}
+		011-210707:{
+			1)-'董事信息':{
+				姓名,手机号
+				Shareholder Name (textbox)
+				Phone No. (textbox)
+				Residence/Citizenship (Drop-down):{
+					Y/N
+				}
+				Address (textbox)/居住地址
+				prd.code:{
+					rdp:{
+						/sunline/rdpbase/apps/cbs/webapps/ROOT/tran/:{
+							cf3020In:{
+								cf3020In.html
+								RdpPage_cf3020In.js
+								RdpPage_cf3020In_list13.js
+							},
+							cf3022In/:{
+								cf3022In.html
+								RdpPage_cf3022In.js
+								RdpPage_cf3022In_list13.js
+							},
+							cf3116In,cf3116Out,
+							cf3095In/:{
+								cf3095In.html
+								RdpPage_cf3095In.js
+								RdpPage_cf3095In_list13.js
+							},
+						},
+						/sunline/rdpbase/apps/cbs/webapps/ROOT/language/en/:{
+							cf3095In.en.lang
+							cf3116In.en.lang
+							cf3020In.en.lang
+							cf3022In.en.lang
+						},
+						/sunline/rdpbase/apps/cbs/webapps/ROOT/business/resources/:{
+							commonlist.cn.js
+							commonlist.en.js
+						}
+					}
+				},
+				prd.sql:{
+					cbs:{
+						INSERT INTO ctp_page_trxn_code (ORG_ID,PAGE_ID,PAGE_DISPLAY_SCENE,PAGE_CONTROL_SEQ,MAIN_TRXN_CODE_IND,CONTROLS_ID,CONTROLS_NAME,CT_TRXN_CODE,DATA_CREATE_USER,DATA_CREATE_TIME,DATA_UPDATE_USER,DATA_UPDATE_TIME,DATA_VERSION) VALUES 
+						('99','cf3116In','INPUT',1,'Y','btnConfirm','确定','0','S####','30160101','S####','30160101',1)
+						;
+						INSERT INTO ctp_language_packet (LANGUAGE_RESOURCE_TYPE,LANGUAGE_RESOURCE_KEY,UI_LANGUAGE,LANGUAGE_RESOURCE_VALUE,DATA_CREATE_USER,DATA_CREATE_TIME,DATA_UPDATE_USER,DATA_UPDATE_TIME,DATA_VERSION) VALUES 
+						('P','cf3116In','zh_CN','董事信息','S####','30160101','S####','30160101',1);
+						INSERT INTO ctp_language_packet (LANGUAGE_RESOURCE_TYPE,LANGUAGE_RESOURCE_KEY,UI_LANGUAGE,LANGUAGE_RESOURCE_VALUE,DATA_CREATE_USER,DATA_CREATE_TIME,DATA_UPDATE_USER,DATA_UPDATE_TIME,DATA_VERSION) VALUES 
+						('P','cf3116In','en','Shareholder Information','S####','30160101','S####','30160101',1);
+						;
+						-- drop table cfb_cust_shareholder;
+						create table cfb_cust_shareholder (
+						  org_id varchar2(10) not null ,--organization id               
+						  cust_no varchar2(16) ,--customer number 客户号               
+						  shareholder_name varchar2(100) not null ,--shareholder number 董事姓名               
+						  shareholder_phone_no varchar2(32) ,--shareholder phone no 董事手机号码               
+						  shareholder_residence_status varchar2(2) ,--shareholder residence status 董事居民属性               
+						  shareholder_address varchar2(500) ,--shareholder address 董事居住地址               
+						  shareholder_relation_type varchar2(1) ,--shareholder relation type 董事关系类型               
+						  shareholder_percent number(21,2) ,--shareholding percentage 持有股份(%)               
+						  shareholder_doc_type varchar2(2) ,--shareholder doc type 董事证件类型               
+						  shareholder_doc_no varchar2(32) ,--shareholder doc no 董事证件号               
+						  shareholder_email varchar2(80) ,--shareholder email 董事邮箱               
+						  data_create_user varchar2(32) ,--data create user               
+						  data_create_time varchar2(23) ,--data create time               
+						  data_update_user varchar2(32) ,--data update user               
+						  data_update_time varchar2(23) ,--data update time               
+						  data_version number(19) default '1' --data version               
+						);
+						alter table cfb_cust_shareholder add constraint cfb_cust_shareholder_idx1 primary key (org_id,cust_no,shareholder_doc_type,shareholder_doc_no)
+						using index ;	
+						comment on table cfb_cust_shareholder is 'customer shareholder information'; 
+						comment on column cfb_cust_shareholder.org_id is 'organization id';
+						comment on column cfb_cust_shareholder.cust_no is 'customer number';
+						comment on column cfb_cust_shareholder.shareholder_name is 'shareholder number';
+						comment on column cfb_cust_shareholder.shareholder_phone_no is 'shareholder phone no';
+						comment on column cfb_cust_shareholder.shareholder_residence_status is 'shareholder residence status';
+						comment on column cfb_cust_shareholder.shareholder_address is 'shareholder address';
+						comment on column cfb_cust_shareholder.shareholder_relation_type is 'shareholder relation type';
+						comment on column cfb_cust_shareholder.shareholder_percent is 'shareholding percentage';
+						comment on column cfb_cust_shareholder.shareholder_doc_type is 'shareholder doc type';
+						comment on column cfb_cust_shareholder.shareholder_doc_no is 'shareholder doc no';
+						comment on column cfb_cust_shareholder.shareholder_email is 'shareholder email';
+						comment on column cfb_cust_shareholder.data_create_user is 'data create user';
+						comment on column cfb_cust_shareholder.data_create_time is 'data create time';
+						comment on column cfb_cust_shareholder.data_update_user is 'data update user';
+						comment on column cfb_cust_shareholder.data_update_time is 'data update time';
+						comment on column cfb_cust_shareholder.data_version is 'data version';
+						INSERT INTO APP_DROP_LIST (DICT_ORG_ID,DROP_LIST_TYPE,DROP_LIST_VALUE,DROP_LIST_DESC,DATA_SORT,DATA_CREATE_USER,DATA_CREATE_TIME,DATA_UPDATE_USER,DATA_UPDATE_TIME,DATA_VERSION) VALUES 
+						('99','SHAREHOLDER_RELATION_TYPE','D','Director',1,'S####','20210708','S####','20210708',1);
+						INSERT INTO APP_DROP_LIST (DICT_ORG_ID,DROP_LIST_TYPE,DROP_LIST_VALUE,DROP_LIST_DESC,DATA_SORT,DATA_CREATE_USER,DATA_CREATE_TIME,DATA_UPDATE_USER,DATA_UPDATE_TIME,DATA_VERSION) VALUES 
+						('99','SHAREHOLDER_RELATION_TYPE','S','Shareholder',2,'S####','20210708','S####','20210708',1);
+						INSERT INTO APP_DROP_LIST (DICT_ORG_ID,DROP_LIST_TYPE,DROP_LIST_VALUE,DROP_LIST_DESC,DATA_SORT,DATA_CREATE_USER,DATA_CREATE_TIME,DATA_UPDATE_USER,DATA_UPDATE_TIME,DATA_VERSION) VALUES 
+						('99','SHAREHOLDER_RELATION_TYPE','B','Shareholder&Director',3,'S####','20210708','S####','20210708',1);
+					}
+				},
+				prd.sql-roll:{
+					cbs:{
+						DELETE FROM ctp_language_packet WHERE LANGUAGE_RESOURCE_KEY='cf3116In';
+						DELETE FROM APP_DROP_LIST where drop_list_type = 'SHAREHOLDER_RELATION_TYPE';
+					}
+				}
+			},
+			2):{
+				天数/分类
+				prd.code:{
+					etlscript/autocode/dml/
+						idl/idl_rpt_past_due_outsd_rt.sql,
+						iol/iol_cbs_lna_loan.sql,
+						itl/itl_cbs_lna_loan.sql,
+					/sunline/etl/app/etlscript/autocode/ext/xml/
+						cbs_lna_loan.xml
+				},
+				prd.sql:{
+					cbsbase:
+						alter table cbsbase.lna_loan add (overdue_days NUMBER(6,0));
+					ods-itl:
+						alter table itl.cbs_lna_loan add (overdue_days NUMBER(6,0));
+					ods-iol:
+						alter table iol.cbs_lna_loan add (overdue_days NUMBER(6,0));
+						
+				}
+			}			
+		}
 	},
+	011-sql-template:{
+		prd.sql:{
+			cbs-db:{
+			},
+			gl-db:{},
+			cbs-db-bk:{
+			},
+			gl-db-bk:{},
+		}
+	},
+	051-sql-start:{
+		14.24,2.31 MB,548:{
+			start-82:{
+				ksys_tabctl,
+				ksys_csbbxx,
+				clp_product,
+				app_organization,
+				app_parameter_reference,
+				app_system_parameter,
+				app_transaction,
+				app_channel,
+				app_data_clean,
+				app_system,
+				app_service,
+				app_attribute,
+				app_attribute_mutex,
+				app_limit,
+				app_limit_drive,
+				app_mail_template,
+				app_business_parameter,
+				app_drop,
+				app_drop_list,
+				app_sequence_reference,
+				app_sequence,
+				app_sequence_builder,
+				app_identity,
+				app_currency,
+				app_summary,
+				app_reversal_event,
+				app_holiday,
+				app_rule,
+				app_rule_data,
+				app_trxn_control,
+				app_scene_auth,
+				app_sms_template,
+				app_sms_element,
+				app_sms_send,
+				app_sms_language,
+				app_branch_relation,
+				tap_business,
+				tap_currency,
+				tap_account_set,
+				cmp_chrg_code,
+				cmp_chrg_form,
+				cmp_chrg_form_details,
+				cmp_chrg_float,
+				cmp_chrg_promo,
+				cmp_chrg_return,
+				cmp_chrg_code_form,
+				cmp_inrt_promo,
+				cmp_role_inrt_float,
+				cmp_exchge_ccy_pair,
+				cmp_exch_promo,
+				cmp_voch_type,
+				cmp_voch_no_rule,
+				lnp_repayment_order,
+				lnp_classification,
+				lnp_bal_attributes,
+				lnf_basic,
+				lnf_drawdown,
+				lnf_repayment,
+				lnf_maturity,
+				lnf_accrual,
+				lnf_field_control,
+				lnf_fee,
+				dpp_account_type,
+				dpp_account_prod,
+				dpp_account_condition,
+				dpp_account_voucher,
+				dpp_subacct_voucher,
+				dpp_froze_type,
+				dpp_froze_mutex,
+				dpp_froze_channel,
+				dpf_base,
+				dpf_open,
+				dpf_save,
+				dpf_draw,
+				dpf_interest,
+				dpf_form_move,
+				dpp_condition_feature,
+				ksys_named_svc,
+				ksys_jyzkzq,
+				ksys_pllcdy,
+				ksys_pllcbz,
+				ksys_rwzhxy,
+				ksys_fwcjxx,
+			}
+		};
+	},
+	111-价值重估:{	'两个需求签约,下周三'
+		pro.code:{
+			gl-gltran-1.3.2.19-RELEASE.jar:{
+				\cn\sunline\ltts\busi\gltran\batchtran	\gl50DataProcessor.class
+			},
+			gl-gl-1.3.2.19-RELEASE.jar:{	svn-dit-gl-210625\busi\gl\target\classes
+				\namedsql							\GlExchangeRate.nsql.xml
+				\cn\sunline\ltts\busi\gl\namedsql	
+				\cn\sunline\ltts\busi\gl\item		\
+			}
+		},
+		pro.sql:{
+			cbs-db:{
+				update fxp_account set gl_ref_code='FCY_EXCHANGE_MARK' where forex_trxn_type in('11','21','31');
+				update taa_account set gl_ref_code='FCY_EXCHANGE_MARK' where gl_ref_code='FCY_EXCHANGE_CUST';
+				-- 'IN6030403':{
+					update TAA_ACCOUNT set DOUBLE_ENTRY_IND ='N' where GL_REF_CODE = 'Market Exchange Profit';
+					UPDATE TAP_BUSINESS SET DOUBLE_ENTRY_IND = 'N' WHERE IDENTIFIER_CODE = 'IN6030403';
+					-- INSERT INTO APP_BUSINESS_PARAMETER("ORG_ID", "MAIN_KEY", "SUB_KEY", "PARM_DESC", "PARM_VALUE", "PARM_REMARK", "MODULE", "DATA_CREATE_USER", "DATA_CREATE_TIME", "DATA_UPDATE_USER", "DATA_UPDATE_TIME", "DATA_VERSION") VALUES ('99', 'GL_CODE', 'EXCHANGE_PROFIT', '外汇买卖收益总账科目', 'IN6030403', '外汇买卖收益总账科目', 'LT', 'S####', '20210525', 'S####', '20210525', '1');
+					INSERT INTO APP_BUSINESS_PARAMETER("ORG_ID", "MAIN_KEY", "SUB_KEY", "PARM_DESC", "PARM_VALUE", "PARM_REMARK", "MODULE", "DATA_CREATE_USER", "DATA_CREATE_TIME", "DATA_UPDATE_USER", "DATA_UPDATE_TIME", "DATA_VERSION") VALUES ('99', 'GL_CODE', 'EXCHANGE_PROFIT', '外汇买卖收益总账科目', 'Customer Exchange Profit', '外汇买卖收益总账科目', 'LT', 'S####', '20210525', 'S####', '20210525', '1');
+					INSERT INTO APP_BUSINESS_PARAMETER("ORG_ID", "MAIN_KEY", "SUB_KEY", "PARM_DESC", "PARM_VALUE", "PARM_REMARK", "MODULE", "DATA_CREATE_USER", "DATA_CREATE_TIME", "DATA_UPDATE_USER", "DATA_UPDATE_TIME", "DATA_VERSION") VALUES ('*', 'GL_CODE', 'EXCHANGE_PROFIT', '外汇买卖收益总账科目', 'Customer Exchange Profit', '外汇买卖收益总账科目', 'LT', 'S####', '20210525', 'S####', '20210525', '1');
+					INSERT INTO tap_business (GL_REF_CODE,GL_REF_DESC,IDENTIFIER_CODE,DOUBLE_ENTRY_IND,INTERNAL_ACCT_TYPE,MULTI_INSTANCE_IND,BAL_TYPE,BAL_UPDDATE_MODE,BAL_CHECK_IND,YEAR_END_CLEAN_IND,CASH_ALLOW_IND,DATA_CREATE_USER,DATA_CREATE_TIME,DATA_UPDATE_USER,DATA_UPDATE_TIME,DATA_VERSION) VALUES 
+					('Customer Exchange Profit','Customer Exchange Profit','IN6030403','Y','A','Y','D','1','N','Y','4','300024','20181213 16:36:20 923',NULL,NULL,1)
+					;
+					INSERT INTO tap_accountingevent_ctrl (ORG_ID,ACCOUNTING_ALIAS,BAL_ATTRIBUTES,REMARK,LEDGER_CHECK_IND,DATA_CREATE_USER,DATA_CREATE_TIME,DATA_UPDATE_USER,DATA_UPDATE_TIME,DATA_VERSION) VALUES 
+					('99','Customer Exchange Profit','TA01','客户外汇交易收益','N','S####','0','S####','0',0);
+				}
+				COMMIT;
+			},
+			gl-db:{
+				update faa_account set acct_name='Foreign Exchange-Bank Self' where gl_code = 'FX30101';
+				update fap_accounting_subject set gl_code_desc='Foreign Exchange-Bank Self' where gl_code = 'FX30101';
+				update fap_accounting_subject set gl_code_desc='Foreign Exchange-Customer' where gl_code = 'FX30102';
+				-- update fap_accounting_event_parm set accounting_alias='FCY_EXCHANGE_MARK',remark='Foreign Exchange(Market)' where gl_code='FX30101';
+				-- update fap_accounting_event_parm set accounting_alias='FCY_EXCHANGE_CUST',remark='Foreign Exchange(Customer)' where gl_code='FX30102';
+				delete from fap_accounting_event_parm where gl_code in ('FX30101','FX30102');
+				INSERT INTO FAP_ACCOUNTING_EVENT_PARM("ORG_ID", "SYS_NO", "ACCOUNTING_SUBJECT", "ACCOUNTING_ALIAS", "REMARK", "BAL_ATTRIBUTES", "GL_CODE", "OFFSET_GL_CODE", "DATA_CREATE_USER", "DATA_CREATE_TIME", "DATA_UPDATE_USER", "DATA_UPDATE_TIME", "DATA_VERSION") VALUES ('99', '800', '6', 'FCY_EXCHANGE_MARK', 'Foreign Exchange(Market)', 'TA01', 'FX30101', NULL, 'S####', '0', 'S####', '0', '1');
+				INSERT INTO FAP_ACCOUNTING_EVENT_PARM("ORG_ID", "SYS_NO", "ACCOUNTING_SUBJECT", "ACCOUNTING_ALIAS", "REMARK", "BAL_ATTRIBUTES", "GL_CODE", "OFFSET_GL_CODE", "DATA_CREATE_USER", "DATA_CREATE_TIME", "DATA_UPDATE_USER", "DATA_UPDATE_TIME", "DATA_VERSION") VALUES ('99', '800', '6', 'FCY_EXCHANGE_CUST', 'Foreign Exchange(Customer)', 'TA01', 'FX30102', NULL, 'S####', '0', 'S####', '0', '1');
+				-- 'IN6030401'-'价值重估'
+				INSERT INTO APP_BUSINESS_PARAMETER("ORG_ID", "MAIN_KEY", "SUB_KEY", "PARM_DESC", "PARM_VALUE", "PARM_REMARK", "MODULE", "DATA_CREATE_USER", "DATA_CREATE_TIME", "DATA_UPDATE_USER", "DATA_UPDATE_TIME", "DATA_VERSION") VALUES ('99', 'GL_CODE', 'EXCHANGE_REVALUATION_PROFIT', '外币价值重估收益总账科目', 'IN6030401', '外币价值重估收益总账科目', 'LT', 'S####', '20210630', 'S####', '20210630', '1');
+				INSERT INTO APP_BUSINESS_PARAMETER("ORG_ID", "MAIN_KEY", "SUB_KEY", "PARM_DESC", "PARM_VALUE", "PARM_REMARK", "MODULE", "DATA_CREATE_USER", "DATA_CREATE_TIME", "DATA_UPDATE_USER", "DATA_UPDATE_TIME", "DATA_VERSION") VALUES ('*', 'GL_CODE', 'EXCHANGE_REVALUATION_PROFIT', '外币价值重估收益总账科目', 'IN6030401', '外币价值重估收益总账科目', 'LT', 'S####', '20210630', 'S####', '20210630', '1');
+				INSERT INTO APP_BUSINESS_PARAMETER("ORG_ID", "MAIN_KEY", "SUB_KEY", "PARM_DESC", "PARM_VALUE", "PARM_REMARK", "MODULE", "DATA_CREATE_USER", "DATA_CREATE_TIME", "DATA_UPDATE_USER", "DATA_UPDATE_TIME", "DATA_VERSION") VALUES ('99', 'GL_CODE', 'EXCHANGE_REVALUATION_PROFIT_CCY', '外币价值重估收益计算币种', 'TZS', '外币价值重估收益计算币种', 'LT', 'S####', '20210630', 'S####', '20210630', '1');
+				INSERT INTO APP_BUSINESS_PARAMETER("ORG_ID", "MAIN_KEY", "SUB_KEY", "PARM_DESC", "PARM_VALUE", "PARM_REMARK", "MODULE", "DATA_CREATE_USER", "DATA_CREATE_TIME", "DATA_UPDATE_USER", "DATA_UPDATE_TIME", "DATA_VERSION") VALUES ('*', 'GL_CODE', 'EXCHANGE_REVALUATION_PROFIT_CCY', '外币价值重估收益计算币种', 'TZS', '外币价值重估收益计算币种', 'LT', 'S####', '20210630', 'S####', '20210630', '1');
+				INSERT INTO GLB_GL_REPORT (ORG_ID,REPORT_TYPE,TRXN_DATE,BRANCH_ID,GL_DATE_INTERVAL,CCY_CODE,GL_CODE,ON_BAL_SHEET_IND,GL_CODE_LEVEL,GL_CODE_DESC,END_GL_CODE_IND,SIMPLE_LIST_DISPLAY_IND,PREV_DEBIT_BAL,PREV_CREDIT_BAL,CURRENT_DEBIT_AMT,CURRENT_CREDIT_AMT,CURRENT_DEBIT_BAL,CURRENT_CREDIT_BAL,DATA_CREATE_USER,DATA_CREATE_TIME,DATA_UPDATE_USER,DATA_UPDATE_TIME,DATA_VERSION) VALUES 
+				('99','1','20210212','200','1','TZS','IN6030401','Y',3,'Other Income - Exchange - Exchange Revaluation','Y','Y',300.00,600.00,0,0,300.00,600.00,NULL,NULL,NULL,NULL,1)
+				;
+				INSERT INTO gla_branch_gl (ORG_ID,REPORT_TYPE,TRXN_DATE,BRANCH_ID,CCY_CODE,GL_CODE,ON_BAL_SHEET_IND,PREV_DEBIT_BAL,PREV_CREDIT_BAL,CURRENT_DEBIT_AMT,CURRENT_CREDIT_AMT,CURRENT_DEBIT_BAL,CURRENT_CREDIT_BAL,DATA_CREATE_USER,DATA_CREATE_TIME,DATA_UPDATE_USER,DATA_UPDATE_TIME,DATA_VERSION) VALUES 
+				('99','1','20210213','200','TZS','IN6030401','Y',300,600,0,0,300,600,'2101','20210630 01:06:07','2101','20210630 13:19:04 869',1)
+				;
+				-- 'IN6030403'-'外汇收益':{
+					INSERT INTO fap_accounting_event_parm (ORG_ID,SYS_NO,ACCOUNTING_SUBJECT,ACCOUNTING_ALIAS,REMARK,BAL_ATTRIBUTES,GL_CODE,OFFSET_GL_CODE,DATA_CREATE_USER,DATA_CREATE_TIME,DATA_UPDATE_USER,DATA_UPDATE_TIME,DATA_VERSION) VALUES 
+					('99','800','2','Customer Exchange Profit','Customer Exchange Profit','TA01','IN6030403',null,'S####','0','S####','0',1);
+					update faa_account set acct_name='Other Income - Exchange - Customer Exchange Profit' where gl_code = 'IN6030403';
+				}
+				COMMIT;
+			},
+			cbs-db-bk:{
+				update fxp_account set gl_ref_code='FCY_EXCHANGE_CUST' where forex_trxn_type in('11','21','31');
+				update taa_account set gl_ref_code='FCY_EXCHANGE_CUST' where gl_ref_code='FCY_EXCHANGE_MARK';
+				UPDATE TAP_BUSINESS SET DOUBLE_ENTRY_IND = 'Y' WHERE IDENTIFIER_CODE = 'IN6030403';
+				DELETE FROM APP_BUSINESS_PARAMETER WHERE MAIN_KEY='GL_CODE' AND SUB_KEY='EXCHANGE_PROFIT';
+				DELETE FROM tap_accountingevent_ctrl WHERE ACCOUNTING_ALIAS='Customer Exchange Profit' AND BAL_ATTRIBUTES='TA01';
+				COMMIT;
+			},
+			gl-db-bk:{
+				update faa_account set acct_name='Foreign Exchange-Customer' where gl_code = 'FX30102';
+				update faa_account set acct_name='Other Income - Exchange - Market Exchange Profit' where gl_code = 'IN6030403';
+				update fap_accounting_subject set gl_code_desc='Foreign Exchange-Customer' where gl_code = 'FX30101';
+				update fap_accounting_subject set gl_code_desc='Foreign Exchange-Bank Self' where gl_code = 'FX30102';
+				delete from fap_accounting_event_parm where gl_code in ('FX30101','FX30102');
+				INSERT INTO FAP_ACCOUNTING_EVENT_PARM("ORG_ID", "SYS_NO", "ACCOUNTING_SUBJECT", "ACCOUNTING_ALIAS", "REMARK", "BAL_ATTRIBUTES", "GL_CODE", "OFFSET_GL_CODE", "DATA_CREATE_USER", "DATA_CREATE_TIME", "DATA_UPDATE_USER", "DATA_UPDATE_TIME", "DATA_VERSION") VALUES ('99', '800', '6', 'FCY_EXCHANGE_CUST', 'Foreign Exchange(Customer)', 'TA01', 'FX30101', NULL, 'S####', '0', 'S####', '0', '1');
+				INSERT INTO FAP_ACCOUNTING_EVENT_PARM("ORG_ID", "SYS_NO", "ACCOUNTING_SUBJECT", "ACCOUNTING_ALIAS", "REMARK", "BAL_ATTRIBUTES", "GL_CODE", "OFFSET_GL_CODE", "DATA_CREATE_USER", "DATA_CREATE_TIME", "DATA_UPDATE_USER", "DATA_UPDATE_TIME", "DATA_VERSION") VALUES ('99', '800', '6', 'FCY_EXCHANGE_MARK', 'Foreign Exchange(Market)', 'TA01', 'FX30102', NULL, 'S####', '0', 'S####', '0', '1');
+				COMMIT;
+			},
+		}
+		FCY_EXCHANGE_CUST
+		log-uat:{
+			process-data:{
+				idl.<-	icl.gl_bal_sum	<-	iol.GLS_GLB_GL_REPORT	<-	itl.gls_glb_gl_report	<-	
+					gls_glb_gl_report_dr as 	<-	'/data/input/${batch_date}/gls/';
+			},
+			0401:{
+			PARENT_GL	GL_CODE			DESCR				CCY	'OPEN DEBIT BALANCE'	'OPEN CREDIT BALANCE'	'DEBIT MOVEMENT'	'CREDIT MOVEMENT'	'DEBIT BALANCE'		'CREDTI BALANCE'
+
+						FX301	Foreign Exchange			FCY		14650157644.69			18312959607.71		490621156.60		18127400.00			15122651401.29		18312959607.71
+						FX301	Foreign Exchange			LCY		17654170536.43			14002257971.49		18024400.00			489456100.00		17654170536.43		14473689671.49
+				FX301	FX30101	Foreign Exchange-Bank Self	FCY		14650157644.69			18312959607.71		490621156.60		18127400.00			15122651401.29		18312959607.71
+				FX301	FX30101	Foreign Exchange-Bank Self	LCY		17654170536.43			14002257971.49		18024400.00			489456100.00		17654170536.43		14473689671.49
+				FX301	FX30102	Foreign Exchange-Customer	FCY		0.00	0.00			0.00	0.00		0.00	0.00
+				FX301	FX30102	Foreign Exchange-Customer	LCY		0.00	0.00			0.00	0.00		0.00	0.00
+
+			}
+			210204:{
+				15787965612.69
+				17165967378.38
+			},
+			210205:{
+				15787965612.69
+				17165967378.38
+			}
+		}
+	},
+	112-报表:{		EV"."APB_BATCH_RECEIVE_IDX2
+		2.1-'6个科目,3个科目':{
+			RPT_LOAN_LIST,
+			RPT_AC_BAL_LCY_FCY-AS1130701:{
+				t2.term_begin_debit_bal AS OPEN_DEBIT_BAL           -- 期初借方余额
+				gl_bal_sum t2 sum(term_begin_debit_bal)
+				AS1130701:{
+					faa_acctoun
+				}
+			}
+			prd.code:{
+				/sunline/etl/app/etlscript/autocode/dml/idl/idl_rpt_loan_list.sql
+				
+			},
+			prd.sql:{
+				odsdb:{
+					alter table rpt_loan_list add (rece_intere number(21,2));
+					alter table rpt_loan_list add (rece_penal number(21,2));
+					alter table rpt_loan_list add (rece_compo number(21,2));
+					alter table rpt_loan_list add (intere_accru number(21,2));
+				}
+			}
+		},
+		2.2-AS1131001:{
+			4410	40610	dp4610In	2602	活期交易明细查询			dp4410/40610
+			2000001004,
+			prd.sql:{
+				ods-iol:{
+					alter table itl.cbs_dpb_overdraft_fiche add (Last_prov_overdue_inst NUMBER(21,7));
+				}
+			}
+		},
+		2.5-'行业'-indus-prd.finished:{
+			1201,:{
+				<iframe id="coreWindow" width="100%" height="100%" src="/window/core/rdpdocoretran.html"></iframe>
+				/tran/cf3020In/cf3020In.html
+				data-listid="E_INDUSTYPE"
+				app_system_parameter.DYNAMIC_DROP_LIST 动态SQL下拉
+				
+				plat-play.js:{
+					       LIST_RESOURCE_DATA[listid]
+					w.PAGE_LIST_RESOURCE_DATA[listid];
+				},
+				'INDUS_CODE':{
+					base: "string"
+					dataparams: "{'drop_list_type':'INDUS_CODE'}"
+					displayfield: ""
+					id: "E_D_INDUS_CODE"
+					items: []
+					name: "行业代码"
+					nullflag: "1"
+					sql: ""
+					sqlid: "AP0006"
+					type: "D"
+					valuedisplayflag: "1"
+					valuefield: ""
+				},
+				'E_INDUSTYPE':{
+					{id: "E_INDUSTYPE", type: "C", name: "行业类别", base: "string", nullflag: "1", …}
+					base: "string"
+					displayfield: ""
+					id: "E_INDUSTYPE"
+					items: (14) [{…}, {…}, {…}, {…}, {…}, {…}, {…}, {…}, {…}, {…}, {…}, {…}, {…}, {…}]
+					name: "行业类别"
+					nullflag: "1"
+					sql: ""
+					type: "C"
+					valuedisplayflag: "1"
+					valuefield: ""
+				}
+			},
+			prd.code:{
+				rdp:{
+					/sunline/rdpbase/apps/cbs/webapps/ROOT/tran/cf3020In/cf3020In.html
+					/sunline/rdpbase/apps/cbs/webapps/ROOT/tran/cf3022In/cf3022In.html
+					/sunline/rdpbase/apps/cbs/webapps/ROOT/business/resources/commonlist.cn.js
+					/sunline/rdpbase/apps/cbs/webapps/ROOT/business/resources/commonlist.en.js
+					/sunline/rdpbase/apps/cbs/webapps/ROOT/business/resources/commonlist.zh-tw.js
+				}
+			},
+			prd.sql:{
+				cbs-db:{
+					DELETE FROM APP_DROP_LIST WHERE DROP_LIST_TYPE = 'INDUS_TYPE';
+					INSERT INTO APP_DROP_LIST("DICT_ORG_ID", "DROP_LIST_TYPE", "DROP_LIST_VALUE", "DROP_LIST_DESC", "DATA_SORT", "DATA_CREATE_USER", "DATA_CREATE_TIME", "DATA_UPDATE_USER", "DATA_UPDATE_TIME", "DATA_VERSION") VALUES ('99', 'INDUS_TYPE',  '1', 'Agriculture'                , '1', 'S####', '20210609', 'S####', '20210609', '1');
+					INSERT INTO APP_DROP_LIST("DICT_ORG_ID", "DROP_LIST_TYPE", "DROP_LIST_VALUE", "DROP_LIST_DESC", "DATA_SORT", "DATA_CREATE_USER", "DATA_CREATE_TIME", "DATA_UPDATE_USER", "DATA_UPDATE_TIME", "DATA_VERSION") VALUES ('99', 'INDUS_TYPE',  '2', 'Fishing'                    , '2', 'S####', '20210609', 'S####', '20210609', '1');
+					INSERT INTO APP_DROP_LIST("DICT_ORG_ID", "DROP_LIST_TYPE", "DROP_LIST_VALUE", "DROP_LIST_DESC", "DATA_SORT", "DATA_CREATE_USER", "DATA_CREATE_TIME", "DATA_UPDATE_USER", "DATA_UPDATE_TIME", "DATA_VERSION") VALUES ('99', 'INDUS_TYPE',  '3', 'Forest'                     , '3', 'S####', '20210609', 'S####', '20210609', '1');
+					INSERT INTO APP_DROP_LIST("DICT_ORG_ID", "DROP_LIST_TYPE", "DROP_LIST_VALUE", "DROP_LIST_DESC", "DATA_SORT", "DATA_CREATE_USER", "DATA_CREATE_TIME", "DATA_UPDATE_USER", "DATA_UPDATE_TIME", "DATA_VERSION") VALUES ('99', 'INDUS_TYPE',  '4', 'Hunting'                    , '4', 'S####', '20210609', 'S####', '20210609', '1');
+					INSERT INTO APP_DROP_LIST("DICT_ORG_ID", "DROP_LIST_TYPE", "DROP_LIST_VALUE", "DROP_LIST_DESC", "DATA_SORT", "DATA_CREATE_USER", "DATA_CREATE_TIME", "DATA_UPDATE_USER", "DATA_UPDATE_TIME", "DATA_VERSION") VALUES ('99', 'INDUS_TYPE',  '5', 'Financial Intermediaries'   , '5', 'S####', '20210609', 'S####', '20210609', '1');
+					INSERT INTO APP_DROP_LIST("DICT_ORG_ID", "DROP_LIST_TYPE", "DROP_LIST_VALUE", "DROP_LIST_DESC", "DATA_SORT", "DATA_CREATE_USER", "DATA_CREATE_TIME", "DATA_UPDATE_USER", "DATA_UPDATE_TIME", "DATA_VERSION") VALUES ('99', 'INDUS_TYPE',  '6', 'Mining and quarrying'       , '6', 'S####', '20210609', 'S####', '20210609', '1');
+					INSERT INTO APP_DROP_LIST("DICT_ORG_ID", "DROP_LIST_TYPE", "DROP_LIST_VALUE", "DROP_LIST_DESC", "DATA_SORT", "DATA_CREATE_USER", "DATA_CREATE_TIME", "DATA_UPDATE_USER", "DATA_UPDATE_TIME", "DATA_VERSION") VALUES ('99', 'INDUS_TYPE',  '7', 'Manufacturing'              , '7', 'S####', '20210609', 'S####', '20210609', '1');
+					INSERT INTO APP_DROP_LIST("DICT_ORG_ID", "DROP_LIST_TYPE", "DROP_LIST_VALUE", "DROP_LIST_DESC", "DATA_SORT", "DATA_CREATE_USER", "DATA_CREATE_TIME", "DATA_UPDATE_USER", "DATA_UPDATE_TIME", "DATA_VERSION") VALUES ('99', 'INDUS_TYPE',  '8', 'Building & construction'    , '8', 'S####', '20210609', 'S####', '20210609', '1');
+					INSERT INTO APP_DROP_LIST("DICT_ORG_ID", "DROP_LIST_TYPE", "DROP_LIST_VALUE", "DROP_LIST_DESC", "DATA_SORT", "DATA_CREATE_USER", "DATA_CREATE_TIME", "DATA_UPDATE_USER", "DATA_UPDATE_TIME", "DATA_VERSION") VALUES ('99', 'INDUS_TYPE',  '9', 'Real Estate'                , '9', 'S####', '20210609', 'S####', '20210609', '1');
+					INSERT INTO APP_DROP_LIST("DICT_ORG_ID", "DROP_LIST_TYPE", "DROP_LIST_VALUE", "DROP_LIST_DESC", "DATA_SORT", "DATA_CREATE_USER", "DATA_CREATE_TIME", "DATA_UPDATE_USER", "DATA_UPDATE_TIME", "DATA_VERSION") VALUES ('99', 'INDUS_TYPE', '10', 'Mortgage'                   ,'10', 'S####', '20210609', 'S####', '20210609', '1');
+					INSERT INTO APP_DROP_LIST("DICT_ORG_ID", "DROP_LIST_TYPE", "DROP_LIST_VALUE", "DROP_LIST_DESC", "DATA_SORT", "DATA_CREATE_USER", "DATA_CREATE_TIME", "DATA_UPDATE_USER", "DATA_UPDATE_TIME", "DATA_VERSION") VALUES ('99', 'INDUS_TYPE', '11', 'Leasing'                    ,'11', 'S####', '20210609', 'S####', '20210609', '1');
+					INSERT INTO APP_DROP_LIST("DICT_ORG_ID", "DROP_LIST_TYPE", "DROP_LIST_VALUE", "DROP_LIST_DESC", "DATA_SORT", "DATA_CREATE_USER", "DATA_CREATE_TIME", "DATA_UPDATE_USER", "DATA_UPDATE_TIME", "DATA_VERSION") VALUES ('99', 'INDUS_TYPE', '12', 'Transport and communication','12', 'S####', '20210609', 'S####', '20210609', '1');
+					INSERT INTO APP_DROP_LIST("DICT_ORG_ID", "DROP_LIST_TYPE", "DROP_LIST_VALUE", "DROP_LIST_DESC", "DATA_SORT", "DATA_CREATE_USER", "DATA_CREATE_TIME", "DATA_UPDATE_USER", "DATA_UPDATE_TIME", "DATA_VERSION") VALUES ('99', 'INDUS_TYPE', '13', 'Trade'                      ,'13', 'S####', '20210609', 'S####', '20210609', '1');
+					INSERT INTO APP_DROP_LIST("DICT_ORG_ID", "DROP_LIST_TYPE", "DROP_LIST_VALUE", "DROP_LIST_DESC", "DATA_SORT", "DATA_CREATE_USER", "DATA_CREATE_TIME", "DATA_UPDATE_USER", "DATA_UPDATE_TIME", "DATA_VERSION") VALUES ('99', 'INDUS_TYPE', '14', 'Tourism'                    ,'14', 'S####', '20210609', 'S####', '20210609', '1');
+					INSERT INTO APP_DROP_LIST("DICT_ORG_ID", "DROP_LIST_TYPE", "DROP_LIST_VALUE", "DROP_LIST_DESC", "DATA_SORT", "DATA_CREATE_USER", "DATA_CREATE_TIME", "DATA_UPDATE_USER", "DATA_UPDATE_TIME", "DATA_VERSION") VALUES ('99', 'INDUS_TYPE', '15', 'Hotels and Restaurants'     ,'15', 'S####', '20210609', 'S####', '20210609', '1');
+					INSERT INTO APP_DROP_LIST("DICT_ORG_ID", "DROP_LIST_TYPE", "DROP_LIST_VALUE", "DROP_LIST_DESC", "DATA_SORT", "DATA_CREATE_USER", "DATA_CREATE_TIME", "DATA_UPDATE_USER", "DATA_UPDATE_TIME", "DATA_VERSION") VALUES ('99', 'INDUS_TYPE', '16', 'Warehousing and Storage'    ,'16', 'S####', '20210609', 'S####', '20210609', '1');
+					INSERT INTO APP_DROP_LIST("DICT_ORG_ID", "DROP_LIST_TYPE", "DROP_LIST_VALUE", "DROP_LIST_DESC", "DATA_SORT", "DATA_CREATE_USER", "DATA_CREATE_TIME", "DATA_UPDATE_USER", "DATA_UPDATE_TIME", "DATA_VERSION") VALUES ('99', 'INDUS_TYPE', '17', 'Electicity'                 ,'17', 'S####', '20210609', 'S####', '20210609', '1');
+					INSERT INTO APP_DROP_LIST("DICT_ORG_ID", "DROP_LIST_TYPE", "DROP_LIST_VALUE", "DROP_LIST_DESC", "DATA_SORT", "DATA_CREATE_USER", "DATA_CREATE_TIME", "DATA_UPDATE_USER", "DATA_UPDATE_TIME", "DATA_VERSION") VALUES ('99', 'INDUS_TYPE', '18', 'Gas'                        ,'18', 'S####', '20210609', 'S####', '20210609', '1');
+					INSERT INTO APP_DROP_LIST("DICT_ORG_ID", "DROP_LIST_TYPE", "DROP_LIST_VALUE", "DROP_LIST_DESC", "DATA_SORT", "DATA_CREATE_USER", "DATA_CREATE_TIME", "DATA_UPDATE_USER", "DATA_UPDATE_TIME", "DATA_VERSION") VALUES ('99', 'INDUS_TYPE', '19', 'Water'                      ,'19', 'S####', '20210609', 'S####', '20210609', '1');
+					INSERT INTO APP_DROP_LIST("DICT_ORG_ID", "DROP_LIST_TYPE", "DROP_LIST_VALUE", "DROP_LIST_DESC", "DATA_SORT", "DATA_CREATE_USER", "DATA_CREATE_TIME", "DATA_UPDATE_USER", "DATA_UPDATE_TIME", "DATA_VERSION") VALUES ('99', 'INDUS_TYPE', '20', 'Education'                  ,'20', 'S####', '20210609', 'S####', '20210609', '1');
+					INSERT INTO APP_DROP_LIST("DICT_ORG_ID", "DROP_LIST_TYPE", "DROP_LIST_VALUE", "DROP_LIST_DESC", "DATA_SORT", "DATA_CREATE_USER", "DATA_CREATE_TIME", "DATA_UPDATE_USER", "DATA_UPDATE_TIME", "DATA_VERSION") VALUES ('99', 'INDUS_TYPE', '21', 'Health'                     ,'21', 'S####', '20210609', 'S####', '20210609', '1');
+					INSERT INTO APP_DROP_LIST("DICT_ORG_ID", "DROP_LIST_TYPE", "DROP_LIST_VALUE", "DROP_LIST_DESC", "DATA_SORT", "DATA_CREATE_USER", "DATA_CREATE_TIME", "DATA_UPDATE_USER", "DATA_UPDATE_TIME", "DATA_VERSION") VALUES ('99', 'INDUS_TYPE', '22', 'Other Services'             ,'22', 'S####', '20210609', 'S####', '20210609', '1');
+					INSERT INTO APP_DROP_LIST("DICT_ORG_ID", "DROP_LIST_TYPE", "DROP_LIST_VALUE", "DROP_LIST_DESC", "DATA_SORT", "DATA_CREATE_USER", "DATA_CREATE_TIME", "DATA_UPDATE_USER", "DATA_UPDATE_TIME", "DATA_VERSION") VALUES ('99', 'INDUS_TYPE', '23', 'Personal (Private)'         ,'23', 'S####', '20210609', 'S####', '20210609', '1');
+					UPDATE cfb_corpor_base SET indus_type = (CASE indus_type 
+						WHEN 'A' THEN '1' 
+						WHEN 'B' THEN '6' 
+						WHEN 'C' THEN '7' 
+						WHEN 'D' THEN '17' 
+						WHEN 'E' THEN '8' 
+						WHEN 'F' THEN '13' 
+						WHEN 'G' THEN '15' 
+						WHEN 'H' THEN '12' 
+						WHEN 'I' THEN '5' 
+						WHEN 'J' THEN '22' 
+						WHEN 'K' THEN '22' 
+						WHEN 'L' THEN '20' 
+						WHEN 'M' THEN '22' 
+						WHEN 'Z' THEN '22' 
+						ELSE 		  '22' END 
+					);
+					COMMIT;
+				},
+				gl-db:{},
+				cbs-db-bk:{
+					DELETE FROM APP_DROP_LIST WHERE DROP_LIST_TYPE = 'INDUS_TYPE';
+					INSERT INTO APP_DROP_LIST("DICT_ORG_ID", "DROP_LIST_TYPE", "DROP_LIST_VALUE", "DROP_LIST_DESC", "DATA_SORT", "DATA_CREATE_USER", "DATA_CREATE_TIME", "DATA_UPDATE_USER", "DATA_UPDATE_TIME", "DATA_VERSION") VALUES ('99', 'INDUS_TYPE', 'A', 'Agriculture/Fishing/Forestry/Animal Husbandry', '1', 'S####', '20991231', 'S####', '20991231', '1');
+					INSERT INTO APP_DROP_LIST("DICT_ORG_ID", "DROP_LIST_TYPE", "DROP_LIST_VALUE", "DROP_LIST_DESC", "DATA_SORT", "DATA_CREATE_USER", "DATA_CREATE_TIME", "DATA_UPDATE_USER", "DATA_UPDATE_TIME", "DATA_VERSION") VALUES ('99', 'INDUS_TYPE', 'B', 'Mining Industry', '2', 'S####', '20991231', 'S####', '20991231', '1');
+					INSERT INTO APP_DROP_LIST("DICT_ORG_ID", "DROP_LIST_TYPE", "DROP_LIST_VALUE", "DROP_LIST_DESC", "DATA_SORT", "DATA_CREATE_USER", "DATA_CREATE_TIME", "DATA_UPDATE_USER", "DATA_UPDATE_TIME", "DATA_VERSION") VALUES ('99', 'INDUS_TYPE', 'C', 'Manufacturing Industry', '3', 'S####', '20991231', 'S####', '20991231', '1');
+					INSERT INTO APP_DROP_LIST("DICT_ORG_ID", "DROP_LIST_TYPE", "DROP_LIST_VALUE", "DROP_LIST_DESC", "DATA_SORT", "DATA_CREATE_USER", "DATA_CREATE_TIME", "DATA_UPDATE_USER", "DATA_UPDATE_TIME", "DATA_VERSION") VALUES ('99', 'INDUS_TYPE', 'D', 'Production and Supply of Electricity, Gas and Water', '4', 'S####', '20991231', 'S####', '20991231', '1');
+					INSERT INTO APP_DROP_LIST("DICT_ORG_ID", "DROP_LIST_TYPE", "DROP_LIST_VALUE", "DROP_LIST_DESC", "DATA_SORT", "DATA_CREATE_USER", "DATA_CREATE_TIME", "DATA_UPDATE_USER", "DATA_UPDATE_TIME", "DATA_VERSION") VALUES ('99', 'INDUS_TYPE', 'E', 'Construction and Public Works', '5', 'S####', '20991231', 'S####', '20991231', '1');
+					INSERT INTO APP_DROP_LIST("DICT_ORG_ID", "DROP_LIST_TYPE", "DROP_LIST_VALUE", "DROP_LIST_DESC", "DATA_SORT", "DATA_CREATE_USER", "DATA_CREATE_TIME", "DATA_UPDATE_USER", "DATA_UPDATE_TIME", "DATA_VERSION") VALUES ('99', 'INDUS_TYPE', 'F', 'Wholesale and Retail Trade', '6', 'S####', '20991231', 'S####', '20991231', '1');
+					INSERT INTO APP_DROP_LIST("DICT_ORG_ID", "DROP_LIST_TYPE", "DROP_LIST_VALUE", "DROP_LIST_DESC", "DATA_SORT", "DATA_CREATE_USER", "DATA_CREATE_TIME", "DATA_UPDATE_USER", "DATA_UPDATE_TIME", "DATA_VERSION") VALUES ('99', 'INDUS_TYPE', 'G', 'Restaurants and Hotels and Related Industries', '7', 'S####', '20991231', 'S####', '20991231', '1');
+					INSERT INTO APP_DROP_LIST("DICT_ORG_ID", "DROP_LIST_TYPE", "DROP_LIST_VALUE", "DROP_LIST_DESC", "DATA_SORT", "DATA_CREATE_USER", "DATA_CREATE_TIME", "DATA_UPDATE_USER", "DATA_UPDATE_TIME", "DATA_VERSION") VALUES ('99', 'INDUS_TYPE', 'H', 'Transportation, Warehouse and Communications', '8', 'S####', '20991231', 'S####', '20991231', '1');
+					INSERT INTO APP_DROP_LIST("DICT_ORG_ID", "DROP_LIST_TYPE", "DROP_LIST_VALUE", "DROP_LIST_DESC", "DATA_SORT", "DATA_CREATE_USER", "DATA_CREATE_TIME", "DATA_UPDATE_USER", "DATA_UPDATE_TIME", "DATA_VERSION") VALUES ('99', 'INDUS_TYPE', 'I', 'Non-monetary Financial Institutions', '9', 'S####', '20991231', 'S####', '20991231', '1');
+					INSERT INTO APP_DROP_LIST("DICT_ORG_ID", "DROP_LIST_TYPE", "DROP_LIST_VALUE", "DROP_LIST_DESC", "DATA_SORT", "DATA_CREATE_USER", "DATA_CREATE_TIME", "DATA_UPDATE_USER", "DATA_UPDATE_TIME", "DATA_VERSION") VALUES ('99', 'INDUS_TYPE', 'Z', 'Others', '10', 'S####', '20991231', 'S####', '20991231', '1');
+					INSERT INTO APP_DROP_LIST("DICT_ORG_ID", "DROP_LIST_TYPE", "DROP_LIST_VALUE", "DROP_LIST_DESC", "DATA_SORT", "DATA_CREATE_USER", "DATA_CREATE_TIME", "DATA_UPDATE_USER", "DATA_UPDATE_TIME", "DATA_VERSION") VALUES ('99', 'INDUS_TYPE', 'L', 'Education', '11', 'S####', '20991231', 'S####', '20991231', '1');
+					INSERT INTO APP_DROP_LIST("DICT_ORG_ID", "DROP_LIST_TYPE", "DROP_LIST_VALUE", "DROP_LIST_DESC", "DATA_SORT", "DATA_CREATE_USER", "DATA_CREATE_TIME", "DATA_UPDATE_USER", "DATA_UPDATE_TIME", "DATA_VERSION") VALUES ('99', 'INDUS_TYPE', 'K', 'Convention and Exhibition', '12', 'S####', '20991231', 'S####', '20991231', '1');
+					INSERT INTO APP_DROP_LIST("DICT_ORG_ID", "DROP_LIST_TYPE", "DROP_LIST_VALUE", "DROP_LIST_DESC", "DATA_SORT", "DATA_CREATE_USER", "DATA_CREATE_TIME", "DATA_UPDATE_USER", "DATA_UPDATE_TIME", "DATA_VERSION") VALUES ('99', 'INDUS_TYPE', 'J', 'Gambling', '13', 'S####', '20991231', 'S####', '20991231', '1');
+					INSERT INTO APP_DROP_LIST("DICT_ORG_ID", "DROP_LIST_TYPE", "DROP_LIST_VALUE", "DROP_LIST_DESC", "DATA_SORT", "DATA_CREATE_USER", "DATA_CREATE_TIME", "DATA_UPDATE_USER", "DATA_UPDATE_TIME", "DATA_VERSION") VALUES ('99', 'INDUS_TYPE', 'M', 'Information Technology', '14', 'S####', '20991231', 'S####', '20991231', '1');
+					
+					
+					INSERT INTO APP_DROP_LIST("DICT_ORG_ID", "DROP_LIST_TYPE", "DROP_LIST_VALUE", "DROP_LIST_DESC", "DATA_SORT", "DATA_CREATE_USER", "DATA_CREATE_TIME", "DATA_UPDATE_USER", "DATA_UPDATE_TIME", "DATA_VERSION") VALUES ('99', 'INDUS_CODE', 'C04', 'Leather Articles22', '4', 'S####', '20991231', 'S####', '20991231', '1');
+					INSERT INTO APP_DROP_LIST("DICT_ORG_ID", "DROP_LIST_TYPE", "DROP_LIST_VALUE", "DROP_LIST_DESC", "DATA_SORT", "DATA_CREATE_USER", "DATA_CREATE_TIME", "DATA_UPDATE_USER", "DATA_UPDATE_TIME", "DATA_VERSION") VALUES ('99', 'INDUS_CODE', 'C05', 'Wood and Furniture', '5', 'S####', '20991231', 'S####', '20991231', '1');
+					INSERT INTO APP_DROP_LIST("DICT_ORG_ID", "DROP_LIST_TYPE", "DROP_LIST_VALUE", "DROP_LIST_DESC", "DATA_SORT", "DATA_CREATE_USER", "DATA_CREATE_TIME", "DATA_UPDATE_USER", "DATA_UPDATE_TIME", "DATA_VERSION") VALUES ('99', 'INDUS_CODE', 'C06', 'Ceramics', '6', 'S####', '20991231', 'S####', '20991231', '1');
+					INSERT INTO APP_DROP_LIST("DICT_ORG_ID", "DROP_LIST_TYPE", "DROP_LIST_VALUE", "DROP_LIST_DESC", "DATA_SORT", "DATA_CREATE_USER", "DATA_CREATE_TIME", "DATA_UPDATE_USER", "DATA_UPDATE_TIME", "DATA_VERSION") VALUES ('99', 'INDUS_CODE', 'C07', 'Paper, Printing and Publishing', '7', 'S####', '20991231', 'S####', '20991231', '1');
+					INSERT INTO APP_DROP_LIST("DICT_ORG_ID", "DROP_LIST_TYPE", "DROP_LIST_VALUE", "DROP_LIST_DESC", "DATA_SORT", "DATA_CREATE_USER", "DATA_CREATE_TIME", "DATA_UPDATE_USER", "DATA_UPDATE_TIME", "DATA_VERSION") VALUES ('99', 'INDUS_CODE', 'C08', 'Machinery and Other Electrical and Electronic Goods', '8', 'S####', '20991231', 'S####', '20991231', '1');
+					INSERT INTO APP_DROP_LIST("DICT_ORG_ID", "DROP_LIST_TYPE", "DROP_LIST_VALUE", "DROP_LIST_DESC", "DATA_SORT", "DATA_CREATE_USER", "DATA_CREATE_TIME", "DATA_UPDATE_USER", "DATA_UPDATE_TIME", "DATA_VERSION") VALUES ('99', 'INDUS_CODE', 'C09', 'Artificial Flowers', '9', 'S####', '20991231', 'S####', '20991231', '1');
+					INSERT INTO APP_DROP_LIST("DICT_ORG_ID", "DROP_LIST_TYPE", "DROP_LIST_VALUE", "DROP_LIST_DESC", "DATA_SORT", "DATA_CREATE_USER", "DATA_CREATE_TIME", "DATA_UPDATE_USER", "DATA_UPDATE_TIME", "DATA_VERSION") VALUES ('99', 'INDUS_CODE', 'C10', 'Toys', '9', 'S####', '20991231', 'S####', '20991231', '1');
+					INSERT INTO APP_DROP_LIST("DICT_ORG_ID", "DROP_LIST_TYPE", "DROP_LIST_VALUE", "DROP_LIST_DESC", "DATA_SORT", "DATA_CREATE_USER", "DATA_CREATE_TIME", "DATA_UPDATE_USER", "DATA_UPDATE_TIME", "DATA_VERSION") VALUES ('99', 'INDUS_CODE', 'C99', 'Other Manufacturing Industries (Not Mentioned Above)', '10', 'S####', '20991231', 'S####', '20991231', '1');
+					INSERT INTO APP_DROP_LIST("DICT_ORG_ID", "DROP_LIST_TYPE", "DROP_LIST_VALUE", "DROP_LIST_DESC", "DATA_SORT", "DATA_CREATE_USER", "DATA_CREATE_TIME", "DATA_UPDATE_USER", "DATA_UPDATE_TIME", "DATA_VERSION") VALUES ('99', 'INDUS_CODE', 'E01', 'Private Construction', '11', 'S####', '20991231', 'S####', '20991231', '1');
+					INSERT INTO APP_DROP_LIST("DICT_ORG_ID", "DROP_LIST_TYPE", "DROP_LIST_VALUE", "DROP_LIST_DESC", "DATA_SORT", "DATA_CREATE_USER", "DATA_CREATE_TIME", "DATA_UPDATE_USER", "DATA_UPDATE_TIME", "DATA_VERSION") VALUES ('99', 'INDUS_CODE', 'C01', 'Foodstuffs and Beverages', '1', 'S####', '20991231', 'S####', '20991231', '1');
+					INSERT INTO APP_DROP_LIST("DICT_ORG_ID", "DROP_LIST_TYPE", "DROP_LIST_VALUE", "DROP_LIST_DESC", "DATA_SORT", "DATA_CREATE_USER", "DATA_CREATE_TIME", "DATA_UPDATE_USER", "DATA_UPDATE_TIME", "DATA_VERSION") VALUES ('99', 'INDUS_CODE', 'C02', 'Clothing', '2', 'S####', '20991231', 'S####', '20991231', '1');
+					INSERT INTO APP_DROP_LIST("DICT_ORG_ID", "DROP_LIST_TYPE", "DROP_LIST_VALUE", "DROP_LIST_DESC", "DATA_SORT", "DATA_CREATE_USER", "DATA_CREATE_TIME", "DATA_UPDATE_USER", "DATA_UPDATE_TIME", "DATA_VERSION") VALUES ('99', 'INDUS_CODE', 'C03', 'Other Textile Production', '3', 'S####', '20991231', 'S####', '20991231', '1');
+					INSERT INTO APP_DROP_LIST("DICT_ORG_ID", "DROP_LIST_TYPE", "DROP_LIST_VALUE", "DROP_LIST_DESC", "DATA_SORT", "DATA_CREATE_USER", "DATA_CREATE_TIME", "DATA_UPDATE_USER", "DATA_UPDATE_TIME", "DATA_VERSION") VALUES ('99', 'INDUS_CODE', 'E02', 'Public Construction', '12', 'S####', '20991231', 'S####', '20991231', '1');
+					INSERT INTO APP_DROP_LIST("DICT_ORG_ID", "DROP_LIST_TYPE", "DROP_LIST_VALUE", "DROP_LIST_DESC", "DATA_SORT", "DATA_CREATE_USER", "DATA_CREATE_TIME", "DATA_UPDATE_USER", "DATA_UPDATE_TIME", "DATA_VERSION") VALUES ('99', 'INDUS_CODE', 'F01', 'Sale, Maintenance and Repair of Motor Vehicles and Motorcycles; Retail Sale of Automotive Fuel', '13', 'S####', '20991231', 'S####', '20991231', '1');
+					INSERT INTO APP_DROP_LIST("DICT_ORG_ID", "DROP_LIST_TYPE", "DROP_LIST_VALUE", "DROP_LIST_DESC", "DATA_SORT", "DATA_CREATE_USER", "DATA_CREATE_TIME", "DATA_UPDATE_USER", "DATA_UPDATE_TIME", "DATA_VERSION") VALUES ('99', 'INDUS_CODE', 'F02', 'Wholesale Trade (Except for Motor Vehicles) and Agency', '14', 'S####', '20991231', 'S####', '20991231', '1');
+					INSERT INTO APP_DROP_LIST("DICT_ORG_ID", "DROP_LIST_TYPE", "DROP_LIST_VALUE", "DROP_LIST_DESC", "DATA_SORT", "DATA_CREATE_USER", "DATA_CREATE_TIME", "DATA_UPDATE_USER", "DATA_UPDATE_TIME", "DATA_VERSION") VALUES ('99', 'INDUS_CODE', 'F03', 'Retail Trade (Except for Motor Vehicles and Motorcycles); Repair of Personal', '15', 'S####', '20991231', 'S####', '20991231', '1');
+					INSERT INTO APP_DROP_LIST("DICT_ORG_ID", "DROP_LIST_TYPE", "DROP_LIST_VALUE", "DROP_LIST_DESC", "DATA_SORT", "DATA_CREATE_USER", "DATA_CREATE_TIME", "DATA_UPDATE_USER", "DATA_UPDATE_TIME", "DATA_VERSION") VALUES ('99', 'INDUS_CODE', 'G01', 'Hotels and Other Provisions of Short-Stay Accommodation', '16', 'S####', '20991231', 'S####', '20991231', '1');
+					INSERT INTO APP_DROP_LIST("DICT_ORG_ID", "DROP_LIST_TYPE", "DROP_LIST_VALUE", "DROP_LIST_DESC", "DATA_SORT", "DATA_CREATE_USER", "DATA_CREATE_TIME", "DATA_UPDATE_USER", "DATA_UPDATE_TIME", "DATA_VERSION") VALUES ('99', 'INDUS_CODE', 'G02', 'Restaurants, Bars, Canteens and Similar Activities', '17', 'S####', '20991231', 'S####', '20991231', '1');
+					INSERT INTO APP_DROP_LIST("DICT_ORG_ID", "DROP_LIST_TYPE", "DROP_LIST_VALUE", "DROP_LIST_DESC", "DATA_SORT", "DATA_CREATE_USER", "DATA_CREATE_TIME", "DATA_UPDATE_USER", "DATA_UPDATE_TIME", "DATA_VERSION") VALUES ('99', 'INDUS_CODE', 'H01', 'Transport, Warehousing and Related Activities', '18', 'S####', '20991231', 'S####', '20991231', '1');
+					INSERT INTO APP_DROP_LIST("DICT_ORG_ID", "DROP_LIST_TYPE", "DROP_LIST_VALUE", "DROP_LIST_DESC", "DATA_SORT", "DATA_CREATE_USER", "DATA_CREATE_TIME", "DATA_UPDATE_USER", "DATA_UPDATE_TIME", "DATA_VERSION") VALUES ('99', 'INDUS_CODE', 'H02', 'Postal and Telecommunications', '19', 'S####', '20991231', 'S####', '20991231', '1');
+					INSERT INTO APP_DROP_LIST("DICT_ORG_ID", "DROP_LIST_TYPE", "DROP_LIST_VALUE", "DROP_LIST_DESC", "DATA_SORT", "DATA_CREATE_USER", "DATA_CREATE_TIME", "DATA_UPDATE_USER", "DATA_UPDATE_TIME", "DATA_VERSION") VALUES ('99', 'INDUS_CODE', 'Z05', 'Medicine and Medical Products', '24', 'S####', '20991231', 'S####', '20991231', '1');
+					INSERT INTO APP_DROP_LIST("DICT_ORG_ID", "DROP_LIST_TYPE", "DROP_LIST_VALUE", "DROP_LIST_DESC", "DATA_SORT", "DATA_CREATE_USER", "DATA_CREATE_TIME", "DATA_UPDATE_USER", "DATA_UPDATE_TIME", "DATA_VERSION") VALUES ('99', 'INDUS_CODE', 'Z06', 'plastic Products Industry', '25', 'S####', '20991231', 'S####', '20991231', '1');
+					INSERT INTO APP_DROP_LIST("DICT_ORG_ID", "DROP_LIST_TYPE", "DROP_LIST_VALUE", "DROP_LIST_DESC", "DATA_SORT", "DATA_CREATE_USER", "DATA_CREATE_TIME", "DATA_UPDATE_USER", "DATA_UPDATE_TIME", "DATA_VERSION") VALUES ('99', 'INDUS_CODE', 'Z07', 'Metal Products', '26', 'S####', '20991231', 'S####', '20991231', '1');
+					INSERT INTO APP_DROP_LIST("DICT_ORG_ID", "DROP_LIST_TYPE", "DROP_LIST_VALUE", "DROP_LIST_DESC", "DATA_SORT", "DATA_CREATE_USER", "DATA_CREATE_TIME", "DATA_UPDATE_USER", "DATA_UPDATE_TIME", "DATA_VERSION") VALUES ('99', 'INDUS_CODE', 'Z08', 'Communication Equipment, Computer and Electronic Equipment Manufacturing Industry', '27', 'S####', '20991231', 'S####', '20991231', '1');
+					INSERT INTO APP_DROP_LIST("DICT_ORG_ID", "DROP_LIST_TYPE", "DROP_LIST_VALUE", "DROP_LIST_DESC", "DATA_SORT", "DATA_CREATE_USER", "DATA_CREATE_TIME", "DATA_UPDATE_USER", "DATA_UPDATE_TIME", "DATA_VERSION") VALUES ('99', 'INDUS_CODE', 'Z09', 'Real Estate Development', '28', 'S####', '20991231', 'S####', '20991231', '1');
+					INSERT INTO APP_DROP_LIST("DICT_ORG_ID", "DROP_LIST_TYPE", "DROP_LIST_VALUE", "DROP_LIST_DESC", "DATA_SORT", "DATA_CREATE_USER", "DATA_CREATE_TIME", "DATA_UPDATE_USER", "DATA_UPDATE_TIME", "DATA_VERSION") VALUES ('99', 'INDUS_CODE', 'Z10', 'Real Estate Agency', '29', 'S####', '20991231', 'S####', '20991231', '1');
+					INSERT INTO APP_DROP_LIST("DICT_ORG_ID", "DROP_LIST_TYPE", "DROP_LIST_VALUE", "DROP_LIST_DESC", "DATA_SORT", "DATA_CREATE_USER", "DATA_CREATE_TIME", "DATA_UPDATE_USER", "DATA_UPDATE_TIME", "DATA_VERSION") VALUES ('99', 'INDUS_CODE', 'Z11', 'Resident Services and Other Services', '30', 'S####', '20991231', 'S####', '20991231', '1');
+					INSERT INTO APP_DROP_LIST("DICT_ORG_ID", "DROP_LIST_TYPE", "DROP_LIST_VALUE", "DROP_LIST_DESC", "DATA_SORT", "DATA_CREATE_USER", "DATA_CREATE_TIME", "DATA_UPDATE_USER", "DATA_UPDATE_TIME", "DATA_VERSION") VALUES ('99', 'INDUS_CODE', 'Z12', 'Public Administration and Social Organization', '31', 'S####', '20991231', 'S####', '20991231', '1');
+					INSERT INTO APP_DROP_LIST("DICT_ORG_ID", "DROP_LIST_TYPE", "DROP_LIST_VALUE", "DROP_LIST_DESC", "DATA_SORT", "DATA_CREATE_USER", "DATA_CREATE_TIME", "DATA_UPDATE_USER", "DATA_UPDATE_TIME", "DATA_VERSION") VALUES ('99', 'INDUS_CODE', 'Z13', 'Tourism', '32', 'S####', '20991231', 'S####', '20991231', '1');
+					INSERT INTO APP_DROP_LIST("DICT_ORG_ID", "DROP_LIST_TYPE", "DROP_LIST_VALUE", "DROP_LIST_DESC", "DATA_SORT", "DATA_CREATE_USER", "DATA_CREATE_TIME", "DATA_UPDATE_USER", "DATA_UPDATE_TIME", "DATA_VERSION") VALUES ('99', 'INDUS_CODE', 'Z14', 'Gambling', '33', 'S####', '20991231', 'S####', '20991231', '1');
+					INSERT INTO APP_DROP_LIST("DICT_ORG_ID", "DROP_LIST_TYPE", "DROP_LIST_VALUE", "DROP_LIST_DESC", "DATA_SORT", "DATA_CREATE_USER", "DATA_CREATE_TIME", "DATA_UPDATE_USER", "DATA_UPDATE_TIME", "DATA_VERSION") VALUES ('99', 'INDUS_CODE', 'Z15', 'Sauna', '34', 'S####', '20991231', 'S####', '20991231', '1');
+					INSERT INTO APP_DROP_LIST("DICT_ORG_ID", "DROP_LIST_TYPE", "DROP_LIST_VALUE", "DROP_LIST_DESC", "DATA_SORT", "DATA_CREATE_USER", "DATA_CREATE_TIME", "DATA_UPDATE_USER", "DATA_UPDATE_TIME", "DATA_VERSION") VALUES ('99', 'INDUS_CODE', 'Z16', 'Exchange Shop', '35', 'S####', '20991231', 'S####', '20991231', '1');
+					INSERT INTO APP_DROP_LIST("DICT_ORG_ID", "DROP_LIST_TYPE", "DROP_LIST_VALUE", "DROP_LIST_DESC", "DATA_SORT", "DATA_CREATE_USER", "DATA_CREATE_TIME", "DATA_UPDATE_USER", "DATA_UPDATE_TIME", "DATA_VERSION") VALUES ('99', 'INDUS_CODE', 'Z17', 'Car Dealer', '36', 'S####', '20991231', 'S####', '20991231', '1');
+					INSERT INTO APP_DROP_LIST("DICT_ORG_ID", "DROP_LIST_TYPE", "DROP_LIST_VALUE", "DROP_LIST_DESC", "DATA_SORT", "DATA_CREATE_USER", "DATA_CREATE_TIME", "DATA_UPDATE_USER", "DATA_UPDATE_TIME", "DATA_VERSION") VALUES ('99', 'INDUS_CODE', 'Z18', 'Jewelry', '37', 'S####', '20991231', 'S####', '20991231', '1');
+					INSERT INTO APP_DROP_LIST("DICT_ORG_ID", "DROP_LIST_TYPE", "DROP_LIST_VALUE", "DROP_LIST_DESC", "DATA_SORT", "DATA_CREATE_USER", "DATA_CREATE_TIME", "DATA_UPDATE_USER", "DATA_UPDATE_TIME", "DATA_VERSION") VALUES ('99', 'INDUS_CODE', 'Z19', 'Antique and Precious Metal Dealers', '38', 'S####', '20991231', 'S####', '20991231', '1');
+					INSERT INTO APP_DROP_LIST("DICT_ORG_ID", "DROP_LIST_TYPE", "DROP_LIST_VALUE", "DROP_LIST_DESC", "DATA_SORT", "DATA_CREATE_USER", "DATA_CREATE_TIME", "DATA_UPDATE_USER", "DATA_UPDATE_TIME", "DATA_VERSION") VALUES ('99', 'INDUS_CODE', 'Z20', 'Pawn', '39', 'S####', '20991231', 'S####', '20991231', '1');
+					INSERT INTO APP_DROP_LIST("DICT_ORG_ID", "DROP_LIST_TYPE", "DROP_LIST_VALUE", "DROP_LIST_DESC", "DATA_SORT", "DATA_CREATE_USER", "DATA_CREATE_TIME", "DATA_UPDATE_USER", "DATA_UPDATE_TIME", "DATA_VERSION") VALUES ('99', 'INDUS_CODE', 'Z21', 'Auction House', '40', 'S####', '20991231', 'S####', '20991231', '1');
+					INSERT INTO APP_DROP_LIST("DICT_ORG_ID", "DROP_LIST_TYPE", "DROP_LIST_VALUE", "DROP_LIST_DESC", "DATA_SORT", "DATA_CREATE_USER", "DATA_CREATE_TIME", "DATA_UPDATE_USER", "DATA_UPDATE_TIME", "DATA_VERSION") VALUES ('99', 'INDUS_CODE', 'Z22', 'Import and Export Company', '41', 'S####', '20991231', 'S####', '20991231', '1');
+					INSERT INTO APP_DROP_LIST("DICT_ORG_ID", "DROP_LIST_TYPE", "DROP_LIST_VALUE", "DROP_LIST_DESC", "DATA_SORT", "DATA_CREATE_USER", "DATA_CREATE_TIME", "DATA_UPDATE_USER", "DATA_UPDATE_TIME", "DATA_VERSION") VALUES ('99', 'INDUS_CODE', 'Z23', 'Other', '42', 'S####', '20991231', 'S####', '20991231', '1');
+					UPDATE CFB_CORPOR_BASE SET INDUS_TYPE='22' WHERE  CUST_NO='9600000055' ;
+					UPDATE CFB_CORPOR_BASE SET INDUS_TYPE='7' WHERE   CUST_NO='9600000043';
+					UPDATE CFB_CORPOR_BASE SET INDUS_TYPE='8' WHERE   CUST_NO='9600000049';
+					UPDATE CFB_CORPOR_BASE SET INDUS_TYPE='13' WHERE  CUST_NO='9600000053' ;
+					UPDATE CFB_CORPOR_BASE SET INDUS_TYPE='7' WHERE   CUST_NO='9600000039';
+					UPDATE CFB_CORPOR_BASE SET INDUS_TYPE='22' WHERE  CUST_NO='9600000042' ;
+					UPDATE CFB_CORPOR_BASE SET INDUS_TYPE='12' WHERE  CUST_NO='9600000041' ;
+					UPDATE CFB_CORPOR_BASE SET INDUS_TYPE='22' WHERE  CUST_NO='9600000010' ;
+					UPDATE CFB_CORPOR_BASE SET INDUS_TYPE='22' WHERE  CUST_NO='9600000011' ;
+					UPDATE CFB_CORPOR_BASE SET INDUS_TYPE='8' WHERE   CUST_NO='9600000006';
+					UPDATE CFB_CORPOR_BASE SET INDUS_TYPE='8' WHERE   CUST_NO='9600000007';
+					UPDATE CFB_CORPOR_BASE SET INDUS_TYPE='8' WHERE   CUST_NO='9600000008';
+					UPDATE CFB_CORPOR_BASE SET INDUS_TYPE='7' WHERE   CUST_NO='9600000009';
+					UPDATE CFB_CORPOR_BASE SET INDUS_TYPE='13' WHERE  CUST_NO='9600000003' ;
+					UPDATE CFB_CORPOR_BASE SET INDUS_TYPE='22' WHERE  CUST_NO='9600000005' ;
+					UPDATE CFB_CORPOR_BASE SET INDUS_TYPE='12' WHERE  CUST_NO='9600000014' ;
+					UPDATE CFB_CORPOR_BASE SET INDUS_TYPE='12' WHERE  CUST_NO='9600000019' ;
+					UPDATE CFB_CORPOR_BASE SET INDUS_TYPE='12' WHERE  CUST_NO='9600000013' ;
+					UPDATE CFB_CORPOR_BASE SET INDUS_TYPE='22' WHERE  CUST_NO='9600000016' ;
+					UPDATE CFB_CORPOR_BASE SET INDUS_TYPE='12' WHERE  CUST_NO='9600000017' ;
+					UPDATE CFB_CORPOR_BASE SET INDUS_TYPE='7' WHERE   CUST_NO='9600000018';
+					UPDATE CFB_CORPOR_BASE SET INDUS_TYPE='13' WHERE  CUST_NO='9600000020' ;
+					UPDATE CFB_CORPOR_BASE SET INDUS_TYPE='1' WHERE   CUST_NO='9600000021';
+					UPDATE CFB_CORPOR_BASE SET INDUS_TYPE='7' WHERE   CUST_NO='9600000012';
+					UPDATE CFB_CORPOR_BASE SET INDUS_TYPE='1' WHERE   CUST_NO='9600000015';
+					UPDATE CFB_CORPOR_BASE SET INDUS_TYPE='7' WHERE   CUST_NO='9600000022';
+					UPDATE CFB_CORPOR_BASE SET INDUS_TYPE='22' WHERE  CUST_NO='9600000024' ;
+					UPDATE CFB_CORPOR_BASE SET INDUS_TYPE='22' WHERE  CUST_NO='9600000025' ;
+					UPDATE CFB_CORPOR_BASE SET INDUS_TYPE='1' WHERE   CUST_NO='9600000023';
+					UPDATE CFB_CORPOR_BASE SET INDUS_TYPE='7' WHERE   CUST_NO='9600000026';
+					UPDATE CFB_CORPOR_BASE SET INDUS_TYPE='6' WHERE   CUST_NO='9600000027';
+					UPDATE CFB_CORPOR_BASE SET INDUS_TYPE='22' WHERE  CUST_NO='9600000030' ;
+					UPDATE CFB_CORPOR_BASE SET INDUS_TYPE='22' WHERE  CUST_NO='9600000031' ;
+					UPDATE CFB_CORPOR_BASE SET INDUS_TYPE='13' WHERE  CUST_NO='9600000028' ;
+					UPDATE CFB_CORPOR_BASE SET INDUS_TYPE='22' WHERE  CUST_NO='9600000029' ;
+					UPDATE CFB_CORPOR_BASE SET INDUS_TYPE='8' WHERE   CUST_NO='9600000032';
+					UPDATE CFB_CORPOR_BASE SET INDUS_TYPE='22' WHERE  CUST_NO='9600000033' ;
+					UPDATE CFB_CORPOR_BASE SET INDUS_TYPE='13' WHERE  CUST_NO='9600000034' ;
+					UPDATE CFB_CORPOR_BASE SET INDUS_TYPE='22' WHERE  CUST_NO='9600000035' ;
+					UPDATE CFB_CORPOR_BASE SET INDUS_TYPE='13' WHERE  CUST_NO='9600000036' ;
+					UPDATE CFB_CORPOR_BASE SET INDUS_TYPE='7' WHERE   CUST_NO='9600000037';
+					UPDATE CFB_CORPOR_BASE SET INDUS_TYPE='7' WHERE   CUST_NO='9600000038';
+					UPDATE CFB_CORPOR_BASE SET INDUS_TYPE='8' WHERE   CUST_NO='9600000040';
+					UPDATE CFB_CORPOR_BASE SET INDUS_TYPE='22' WHERE  CUST_NO='9600000044' ;
+					UPDATE CFB_CORPOR_BASE SET INDUS_TYPE='6' WHERE   CUST_NO='9600000045';
+					UPDATE CFB_CORPOR_BASE SET INDUS_TYPE='6' WHERE   CUST_NO='9600000046';
+					UPDATE CFB_CORPOR_BASE SET INDUS_TYPE='7' WHERE   CUST_NO='9600000048';
+					UPDATE CFB_CORPOR_BASE SET INDUS_TYPE='8' WHERE   CUST_NO='9600000050';
+					UPDATE CFB_CORPOR_BASE SET INDUS_TYPE='7' WHERE   CUST_NO='9600000051';
+					UPDATE CFB_CORPOR_BASE SET INDUS_TYPE='13' WHERE  CUST_NO='9600000052' ;
+					UPDATE CFB_CORPOR_BASE SET INDUS_TYPE='15' WHERE  CUST_NO='9600000047' ;
+					UPDATE CFB_CORPOR_BASE SET INDUS_TYPE='22' WHERE  CUST_NO='9600000054' ;
+					COMMIT;
+				},
+				gl-db-bk:{},
+			}
+		},
+		2.7-'loan_amt':{
+			prd.sql:{
+				ods-db:{
+					ALTER TABLE RPT_LOAN_LIST ADD (LOAN_AMT NUMBER(21,2));
+				},
+				gl-db:{},
+				cbs-db-bk:{
+				},
+				gl-db-bk:{},
+			}
+		},
+		2.10-UAT:{
+			172.30.2.11:9052
+			RPT_LOANS_EX_OVERDRAFT:{
+				Loan Balance:{
+					cbs_lna_balance.balance_amount,bal_attributes = 'PRCP1',只记录正常状态的本金
+				},
+				Outstanding Balance:{
+					cbs_lna_loan.outstanding_prcp(未发放的本金)
+				}
+			}
 		}
 	},
 	121-wecodee:{
@@ -1338,50 +1503,101 @@ plog:{
 			},
 		}
 	},
-	011-sql-template:{
-		prd.sql:{
-			cbs-db:{
-			},
-			gl-db:{},
-			cbs-db-bk:{
-			},
-			gl-db-bk:{},
-		}
-	}
 	'其实是形同陌路的两个人,我非要让他们相交.'
 	now:{
-			价值重估,80%,待完成:重估收益记账;已验证:科目变更、客户外汇记账、外汇收益记账;
-			obiee(含ods),85%,待完成:2.1, 2.2;已验证:其余8项(行方已邮件确认);
+			价值重估,90%,待完成:重估收益记账数额核对;计划本周三日终前投产,如果数额核对来不及,则该项内容下次投;
+			obiee(含ods),90%,待完成:2.2 单行显示调整;计划本周三日终前投产;
 			George:{
-				Follow up and clarification on user inquiries on internet banking issues;
-				Remaining obiee report issue report followup, changes on obiee production environment for rpt_loans_ex_overdraft;
-				Liaise with credit and finance team for uat validation on obiee report issues, coordinate revaluation testing;
-				Assist on uat testing for obiee report, gathering feedback for further modification;
-				UAT validation for revaluation, perform transaction and running eod for validation purpose;
-				UAT2 environment esb service issue follow up;
+				Internal discussion on atm-visa scope, assist ib team to test on api request;
+				rpt_loan_list report validation with finance department, Revaluation details discussion and validation from obiee report;
+				Mobile dev team meeting for api clarification;
+				Assist to query on IB testing account;
+				Provide cheque request status inquiry and loan accoun info inquiry api for IB;
+				Follow up on obiee report and revaluation, fx business testing progress;
 			},
 			盛凯军:{
-				使用postman调用子系统该服务，可以正常插入数据到数据库表中；
-				使用postman调用子系统该服务，进行修改查询数据库表操作；
+				存款余额查询接口开发，学习不同报文格式参数传参规则，进度百分之五十;
 			},
 			刘炫君:{
-				完成vine开发工具一个小demo的开发;
-				学习项目相关开发文档;
-				尝试联合vine与mysql一起开发，学习数据库开发文档;
-				项目本为使用oracle数据库，尝试换成mysql进行开发，调试各种bug，有暂时无法解决的bug，可能放弃mysql进行开发;
-				尝试开发外调服务;
-				安装配置Oracle;
-				学习开发文档，进行数据库开发，外调接出开发;
+				数据库出现版本问题，重新配安装配置oracle ;
+				完成vine对数据库增删改查demo的开发;
+				学习进行外调开发;
+				学习使用visa test system;
 			},
 			Hardi:{
-				价值重估更改内容uat验证,调整;
-				obiee反馈问题修复;
-				uat2环境配置维护;
-			},
-			
-						
+				上周:
+					cdb报表中6个问题生产确认;
+					cdb外汇收益排查;
+					cdbuat0706环境维护;
+					cdbuat0706-0802跑批检查;
+					cdb0713需求董事信息增删改查;
+					cdb0713需求贷款报表逾期天数展示;
+					cdb0713需求投产支持;
+				本周:
+					php性能问题排查;
+					cdb每日透支额数据不一致排查;
+					cdb外汇收益排查,重估收益记账;
+					cdb预投产准备、投产支持;
+			},		
 	},
 	history:{
+		周报,210705-210711:{
+			价值重估,92%,待排查:0706预投产环境与期望收益值不一致;排查无问题后计划本周三日终前投产;
+			obiee(含ods),95%,待排查:0706预投产环境总透支额与期望值不一致;排查后(可能是脏数据导致)计划本周三日终前投产;已完成:6个问题已在生产问题投产,且行方邮件确认验证通过;
+			0713需求(董事信息+报表逾期天数):100%;上周六已投产且在生产环境验证;
+			George:{
+				overall implementation status update with ict deparment;
+				Overall testing progress follow up and coordination (Revaluation, obiee report);
+				Respond to email sent from bank ceo regarding cbs issue raised by bank of tanzania;
+				Requirement analysis on main issues raised by bank of tanzania;
+				Feedback requirement on these two issues to developer;
+				Assist on ib test cases and inquiries for API provided;
+			},
+			盛凯军:{
+				1.余额查询接口完成百分之70；2.vpn,数据库测试连接；3新员工月度答辩ppt准备
+			},
+			刘炫君:{
+				1.坦桑项目环境配置 2.学习适配器的各个参数定义及具体配置写法 3.学习esb代码;
+				1.阅读中国银联银行卡交换系统技术规范 第2部分 报文接口规范 2.尝试连接vpn，失败 3.学习流程平台详细设计说明书-通讯处理 4.继续阅读坦桑项目代码，进行外调开发
+				1.复习流程平台二期开发案例文档 2.学习流程平台详细设计说明书-报文处理 3.学习流程平台详细设计说明书-任务调度
+				1. 学习流程平台项目基本部署文档_2nd，根据当前环境配置数据库等开发环境 2.继续学习流程平台二期开发案例文档，尝试进行复杂的流程开发
+				1.学习项目的打包发布处理 2.根据所给demo进行报文头、报文体的解包，组包，流程调用的blp文件编写，老是报错，控制台的内容较难定位错误点
+			},
+			Hardi:{
+				报表中6个问题生产确认;
+				外汇收益排查;
+				uat0706环境维护;
+				uat0706-0802跑批检查;
+				0713需求董事信息增删改查;
+				0713需求贷款报表逾期天数展示;
+				0713需求投产支持;
+			}
+		},
+		周报,210628-210704:{
+			价值重估,90%,待完成:重估收益记账数额核对;计划本周三日终前投产,如果数额核对来不及,则该项内容下次投;
+			obiee(含ods),90%,待完成:2.2 单行显示调整;计划本周三日终前投产;
+			George:{
+				Internal discussion on atm-visa scope, assist ib team to test on api request;
+				rpt_loan_list report validation with finance department, Revaluation details discussion and validation from obiee report;
+				Mobile dev team meeting for api clarification;
+				Assist to query on IB testing account;
+				Provide cheque request status inquiry and loan accoun info inquiry api for IB;
+				Follow up on obiee report and revaluation, fx business testing progress;
+			},
+			盛凯军:{
+				存款余额查询接口开发，学习不同报文格式参数传参规则，进度百分之五十;
+			},
+			刘炫君:{
+				数据库出现版本问题，重新配安装配置oracle ;
+				完成vine对数据库增删改查demo的开发;
+				学习进行外调开发;
+				学习使用visa test system;
+			},
+			Hardi:{
+				报表问题跟进处理;
+				重估记账数额核对;
+			}
+		}，
 		项目周报,210621-210627:{
 			价值重估,80%,待完成:重估收益记账;已验证:科目变更、客户外汇记账、外汇收益记账;
 			obiee(含ods),85%,待完成:2.1, 2.2;已验证:其余8项(行方已邮件确认);
@@ -1456,7 +1672,6 @@ plog:{
 						准备价值重估跑批数据;
 				210620: 周末公休
 			}
-		},
 		},
 		大盛银行项目周报,210607-210613:{
 			总进度-价值重估,65%,代码和脚本已部署uat,验证失败;阻碍原因:需要打通uat跑批可逆测试环境,不然调整后再验证失败又需要重新刷数据;
@@ -1912,8 +2127,8 @@ vue:{
 		3012	30002	cf3012In	1102	个人客户信息维护
 		3016	30004	cf3016In	1103	个人客户信息查询
 		3020	30005	cf3020In	1201	公司客户信息建立	cf3020/30005
-		3022	30006	cf3022In	1202	公司客户信息维护
-		3026	30008	cf3026In	1203	公司客户信息查询	cf3026  
+		3022	30006	cf3022In	1202	公司客户信息维护	cf3022/30006
+		3026	30008	cf3026In	1203	公司客户信息查询	cf3026 				 
 		3030	30009	cf3030In	1301	同业客户信息建立	cf3030	cfb_fi_base,cfb_fi_doc,cfb_fi_address,cfb_fi_contact
 		3032	30010	cf3032In	1302	同业客户信息维护
 		3036	30012	cf3036In	1303	同业客户信息查询
@@ -1934,7 +2149,7 @@ vue:{
 	cm:{
 		2300	20301	cm2300In	8301	尾箱信息维护
 		2301	20302	cm2301In	8302	尾箱领用上缴
-		2302	20303	cm2302In	8303	尾箱列表信息查询
+		2302	20303	cm2302In	8303	尾箱列表信息查询	cm2302/					cma_till
 		2304	20315	cm2304In	8415	现金余额列表查询
 		2305	20316	cm2305In	8416	现金交易明细查询
 		2306	21000	cm2306In	8304	尾箱现金面额查询	cm2306/21000			cbb_cash_roll_manager
@@ -1955,7 +2170,7 @@ vue:{
 		2517	20999	cm2517In	A414	账户层浮动授权维护
 		2519	20519	cm2521In	B214	利率导入
 		2601	20312	cm2601In	A421	当前汇率查询
-		2602	20313	cm2602In	B221	汇率录入		cm2602/20313				cmp_exchge_rate
+		2602	20313	cm2602In	B221	汇率录入		cm2602/20313				cmp_exchge_rate			300004,300022
 		2603	20325	cm2603In	A423	货币对查询
 		2605	20321	cm2605In	A424	外币兑换试算
 		2610	20358	cm2614In	B222	汇率优惠查询
@@ -2116,12 +2331,12 @@ vue:{
 		6122	60045	ln6122In	4307	形态转移查询
 		6116	60101	ln6151In	4309	核销收回登记薄查询
 		6141	60102	ln6152In	4310	调整利息登记薄查询
-		6101	60018	ln6202In	4301	贷款查询
+		6101	60018	ln6202In	4301	贷款查询				ln6101/60018
 		6103	60019	ln6203In	4302	贷款账务查询
 		6106	60022	ln6206In	4303	利率变更查询
 		6113	60025	ln6209In	4305	核销登记薄查询
 		6006	60028	ln6210In	A302	贷款产品查询
-		6107	60033	ln6212In	4306	贷款还款计划表查询
+		6107	60033	ln6212In	4306	贷款还款计划表查询		ln6107/
 		6002	60036	ln6215In	A301	贷款还款顺序查询
 		6130	60057	ln6224In	4308	贷款放款计划查询
 		6132	60059	ln6225In	4304	展期登记薄查询

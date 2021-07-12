@@ -10,7 +10,7 @@ fat1-'读取及处理会计事件流水文件':{
 								apb_batch_receive b 
 						on      a.request_file_id = b.file_id
 						where
-							  a.org_id = #org_id#
+							  a.org_id = '99'
 						  and a.busi_batch_type = 'D' 
 						  and a.file_handling_status = 'A'
 						  and b.receive_ind = 'Y' 
@@ -18,7 +18,21 @@ fat1-'读取及处理会计事件流水文件':{
 			},
 			getJobBatchDataWalker:{
 					method-BizUtil.getTrxRunEnvs-'null',
-					nsql-FaFile.selFileDownInfo-S-apb_batch_request-select,apb_batch_receive-select-'selecting file download information'
+					nsql-FaFile.selFileDownInfo-S-apb_batch_request-select,apb_batch_receive-select-'selecting file download information':{
+						select
+									a.busi_batch_code, b.file_id ,b.file_name ,b.file_local_path 
+							from
+									apb_batch_request a 
+							join
+									apb_batch_receive b 
+							on      a.request_file_id = b.file_id
+							where
+									a.org_id = '99'
+									and a.hash_value = #hash_value# 
+									and a.busi_batch_type = 'D'
+									and a.file_handling_status = 'A'
+									and b.receive_ind = 'Y' 
+					}
 			},
 			process:{
 					method-FaFile.doAccountingEventFile-'null':{

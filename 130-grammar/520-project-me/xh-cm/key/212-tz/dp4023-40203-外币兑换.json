@@ -909,7 +909,7 @@ dp4023-'foreign currency cash exchange'{
 								},
 								method-FxExchange.dealAccounting(IoFxExchangeIn, IoCmExchAmtCalcOut, E_FOREXTRXNTYPE)-'自动结售汇处理记账'{	'结售汇中间服务账务处理'
 									cplAccountingIn.setForex_trxn_type(forexTrxnType);
-									method-FxExchange.fxExchAccounting-'结售汇中间服务账务处理'{
+									method-FxExchange.fxExchAccounting-'结售汇中间服务账务处理'{	'结售汇中间服务账务处理'
 										method-BizUtil.getTrxRunEnvs-'null',
 										forex_trxn_type-'forex trxn type'-"外汇交易类型":{	'BusinessType.E_FOREXTRXNTYPE'
 											enum:{

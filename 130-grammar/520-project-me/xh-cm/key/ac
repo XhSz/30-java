@@ -154,6 +154,30 @@ process-table-value:{
 			}
 		}
 	},
+	ap-value:{
+		app_business_parameter:{
+			value:{
+			ORG_ID	MAIN_KEY	SUB_KEY			PARM_DESC					PARM_VALUE			PARM_REMARK	MODULE	DATA_CREATE_USER	DATA_CREATE_TIME	DATA_UPDATE_USER	DATA_UPDATE_TIME	DATA_VERSION
+				99	CCY_EXCH_ALIAS	*	current ccy accounting alias	FCY_EXCHANGE_CUST	»õ±Ò»ã¶ÒºËËã±ðÃû	AP	S####	20991231	S####	20991231	1
+			}
+		}
+	},
+	cm-value:{
+		fxp_account:{
+			value:{
+			ORG_ID	FOREX_TRXN_TYPE	GL_REF_CODE	DATA_CREATE_USER	DATA_CREATE_TIME	DATA_UPDATE_USER	DATA_UPDATE_TIME	DATA_VERSION
+				99		10		FCY_EXCHANGE_CUST	S####	20170301 09:30:11 233			0
+				99		11		FCY_EXCHANGE_CUST	S####	20170301 09:30:11 233			0
+				99		20		FCY_EXCHANGE_CUST	S####	20170301 09:30:11 233			0
+				99		21		FCY_EXCHANGE_CUST	S####	20170301 09:30:11 233			0
+				99		30		FCY_EXCHANGE_CUST	S####	20170301 09:30:11 233			0
+				99		31		FCY_EXCHANGE_CUST	S####	20170301 09:30:11 233			0
+				99		40		FCY_EXCHANGE_CUST	S####	20170301 09:30:11 233			0
+				99		41		FCY_EXCHANGE_CUST	S####	20170301 09:30:11 233			0
+				99		42		FCY_EXCHANGE_CUST	S####	20170301 09:30:11 233			0
+			}
+		}
+	},
 	gl_code:{	'which defined in gl'
 		fap_accounting_subject:{	'select * from fap_accounting_subject where gl_code='AS1131001''
 			values:{
@@ -875,6 +899,31 @@ ta:{
 },
 gl:{
 	tables:{
+		DaoUtil:{
+			insert-26:{
+				gl-aplt:{
+					2-apl_parameter_audit_sub/apl_business_audit_sub
+					1-apb_branch_senior 
+					1-apb_branch_junior
+					test:{
+						4-app_organization,
+						2-app_parameter_reference,
+					},
+				}
+				gl-fa:{
+					2-fab_accounting_seq,
+					2-fab_original_voch,
+				},
+				gl-gl:{
+					4-fab_accrue,
+					2-fab_ledger_check_seq,
+					1-fab_org_sys_occurr,
+					2-fab_org_sys_bal,
+					2-glb_exchange_rate,
+					1-fab_original_voch,
+				}
+			}
+		}
 		apb_batch_request:{
 			isnert-1:{
 				ApBatch.fileBatchApply(ApFileIn);-2:{
@@ -927,6 +976,14 @@ gl:{
 				ExchangeRate.regTellerSeq(FaRegTellerSeq)-1:{
 					ExchangeRate.RegTeller(GlExchangeRate)
 				},
+			}
+		},
+		fab_accounting_seq:{
+			dao-0,
+			insert-dao-2:{
+				2-doAccountingEventFile(FaFileDown):{
+					fat1.process
+				}
 			}
 		},
 		fab_accounting_voch:{
@@ -1538,8 +1595,7 @@ obiee:{
 				   on t1.sub_acct_no = t10.sub_acct_no
 				  and t10.fiche_type = 'B'
 				  and t10.accrual_inst > 0
-		}
-		
+		}	
 	}
 }
 
